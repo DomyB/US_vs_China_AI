@@ -34,19 +34,19 @@ which the tests run on real data.
 
 | Source id | Module | Tables | Needs |
 |---|---|---|---|
-| wb_wdi, wb_wgi, wb_ids | `ingest/worldbank.py` | governance | — |
+| wb_wdi, wb_wgi, wb_ids | `ingest/worldbank.py` | governance | — (WGI: World Bank API, then the govindicators.org bulk dataset) |
 | usgs_mcs | `ingest/usgs_mcs.py` | production, price | — |
 | wb_pink_sheet | `ingest/pink_sheet.py` | price | — |
 | un_comtrade | `ingest/comtrade.py` | trade_flow (reported + US/China mirrors) | optional `COMTRADE_KEY` |
 | aiddata_gcdf | `ingest/aiddata.py` | finance_event | — |
 | aei_cgit | `ingest/aei_cgit.py` | deal_event | `CGIT_FILE_URL` (aei.org blocks automated clients with a Cloudflare challenge; the owner downloads the free XLSX by hand and provides its URL or path) |
 | dfc_projects | `ingest/dfc.py` | finance_event | — |
-| exim_authorizations | `ingest/exim.py` | finance_event | — |
+| exim_authorizations | `ingest/exim.py` | finance_event | optional `EXIM_FILE_URL` (the data.gov catalog API answered 404 on every path in October 2026; the adapter also scrapes the catalog's HTML pages for the CSV link) |
 | federal_register | `ingest/federal_register.py` | policy_document | — |
 | resourcecontracts | `ingest/resourcecontracts.py` | contract | — |
 | vdem | `ingest/vdem.py` | governance | — (RData from the vdemdata GitHub repository) |
 | unga_votes | `ingest/unga.py` | governance | — |
-| idb_dpi | `ingest/dpi.py` | governance | — |
+| idb_dpi | `ingest/dpi.py` | governance | optional `DPI_FILE_URL` (data.iadb.org file downloads answered 404 in October 2026) |
 | bgs_wms | `ingest/bgs.py` | production (cross-check) | — |
 | congress_gov | `ingest/tier2.py` | policy_document | `CONGRESS_GOV_KEY` |
 | us_census_trade | `ingest/tier2.py` | trade_flow (monthly HS10 mirror) | `CENSUS_KEY` |
@@ -54,7 +54,10 @@ which the tests run on real data.
 
 Adapters gated by a secret report `skipped` until the secret exists in the repository
 settings (Settings → Secrets and variables → Actions). No secret is ever written to the
-repository or to the site.
+repository or to the site. Recorded URLs are cleaned of credential-bearing query parameters
+(presigned storage links, API keys) before they reach a manifest, a fixture or the site:
+GitHub push protection rejects commits that contain such tokens (seen with Harvard
+Dataverse's presigned S3 redirects).
 
 ## Adding an adapter
 

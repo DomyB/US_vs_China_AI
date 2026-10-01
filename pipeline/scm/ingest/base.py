@@ -12,7 +12,7 @@ from pathlib import Path
 import pandas as pd
 
 from .. import schema
-from ..http import Snapshot
+from ..http import Snapshot, clean_url
 from ..paths import RAW_DIR, WAREHOUSE_DIR
 from ..registry import Source, source
 
@@ -59,6 +59,8 @@ class Adapter(ABC):
         for k, v in prov.items():
             if k not in df.columns:
                 df[k] = v
+        if "source_record_url" in df.columns and len(df):
+            df["source_record_url"] = df["source_record_url"].map(lambda u: clean_url(u) if isinstance(u, str) else u)
         return df
 
     @property
@@ -118,6 +120,9 @@ class Adapter(ABC):
             df = pd.concat([pd.read_parquet(path), df], ignore_index=True)
         schema.validate("ingest_run", df).to_parquet(path, index=False)
         return rec
+
+
+FINANCE_EVENT_COLUMNS = ["event_id", "country", "date", "year", "actor_from", "actor_from_origin", "actor_to", "type", "amount_usd", "currency", "sector", "mineral", "description", "value_type", "source_record_url"]
 
 
 def event_id(*parts: object) -> str:

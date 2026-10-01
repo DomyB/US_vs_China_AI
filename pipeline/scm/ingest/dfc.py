@@ -7,7 +7,7 @@ import pandas as pd
 
 from ..http import Snapshot
 from ..registry import IN_SCOPE, iso3_from_name
-from .base import Adapter, event_id, to_float
+from .base import FINANCE_EVENT_COLUMNS, Adapter, event_id, to_float
 from .util import col, sheet_names, tag_mineral
 
 PAGES = {"page.html": "https://www.dfc.gov/our-impact/transaction-data", "active.html": "https://www.dfc.gov/what-we-do/active-projects"}
@@ -86,4 +86,4 @@ class DFC(Adapter):
                 "description": ": ".join(bits[:2]) + (f" ({bits[2]})" if len(bits) > 2 else ""), "value_type": "reported",
                 "source_record_url": record_url,
             })
-        return {"finance_event": self.stamp(snap, pd.DataFrame(rows))}
+        return {"finance_event": self.stamp(snap, pd.DataFrame(rows, columns=FINANCE_EVENT_COLUMNS))}

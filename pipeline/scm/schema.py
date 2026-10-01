@@ -49,7 +49,7 @@ finance_event = DataFrameSchema(
         "event_id": Column(str, unique=True),
         "country": Column(str, Check.str_length(3, 3)),
         "date": Column(str, nullable=True),
-        "year": Column(int, Check.in_range(1990, 2100)),
+        "year": Column(int, Check.in_range(1900, 2100)),  # OPIC-era DFC records start in the 1960s
         "actor_from": Column(str, nullable=True),
         "actor_from_origin": Column(str, Check.isin(["US", "CN", "other", "unknown"])),
         "actor_to": Column(str, nullable=True),

@@ -19,10 +19,21 @@ media layers are still sample.
   `trade_discrepancy` flags ratios outside 0.5–2 as `large_discrepancy` rather than
   reconciling them.
 - **AidData GCDF 3.0** ends with 2021 commitments; **AEI CGIT** has a US$100m threshold and
-  is think-tank compiled; **DFC** data starts in FY2019 (OPIC legacy only partially);
+  is think-tank compiled; **DFC** combines DFC (FY2020 onward) and OPIC legacy records;
   **EXIM** records authorizations, not disbursements.
 - **USGS MCS** world tables mark the latest year as estimated (`value_type = estimated`);
-  reserves are a point estimate for the edition's data year.
+  reserves are a point estimate for the edition's data year. The 2026 data release is one
+  consolidated long-format file; the first live run parsed it as a wide table and produced
+  no rows (fixed; a re-run is needed).
+- **World Bank WGI**: the World Bank API (database 3) answered "Data not found" for every
+  request in October 2026; governance scores come from the govindicators.org bulk dataset
+  when that fallback succeeds, otherwise WGI is missing.
+- **EXIM** and **IDB DPI**: the data.gov catalog API (every CKAN path) and data.iadb.org file
+  downloads answered 404 in October 2026. Both adapters try the sites' HTML pages and accept
+  a hand-supplied file URL (`EXIM_FILE_URL`, `DPI_FILE_URL`); until one works, EXIM
+  authorizations and executive-ideology data are missing.
+- **DFC** data goes back to OPIC records from the 1960s (schema widened to 1900); the
+  project only analyses 2008 onward.
 - **Finance deduplication** is conservative (amount within 10 percent, same year and
   origin); the same loan reported with different amounts or years by two databases appears
   twice, with both sources visible.

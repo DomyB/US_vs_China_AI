@@ -9,10 +9,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import time
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -31,6 +33,24 @@ def make_session(retries: int = 4, backoff: float = 1.5) -> requests.Session:
     s.mount("http://", HTTPAdapter(max_retries=retry))
     s.headers.update({"User-Agent": USER_AGENT, "Accept": "*/*"})
     return s
+
+
+# Query parameters that carry credentials or signatures (presigned S3/Azure/GCS links, API keys).
+# They are stripped from every recorded URL so manifests and site JSON never contain a secret-looking
+# token; GitHub push protection rejects commits that do (observed with Harvard Dataverse's S3 redirects).
+_SECRET_PARAM = re.compile(r"(?i)^(x-amz-.*|awsaccesskeyid|signature|expires|sig|se|sv|sp|sr|st|token|access_token|"
+                           r"api[_-]?key|subscription-key|x-goog-.*|response-content-.*)$")
+
+
+def clean_url(url: str | None) -> str | None:
+    """Return `url` without credential-bearing query parameters."""
+    if not url:
+        return url
+    parts = urlsplit(url)
+    if not parts.query:
+        return url
+    kept = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True) if not _SECRET_PARAM.match(k)]
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(kept, doseq=True, safe=",:"), parts.fragment))
 
 
 def sha256_of(path: Path) -> str:
@@ -93,10 +113,12 @@ class Snapshot:
         times = [f["retrieved_at"] for f in self.files.values()]
         return max(times) if times else datetime.now(UTC).isoformat(timespec="seconds")
 
-    def record(self, name: str, url: str, params: dict | None = None, status: int | None = None, note: str | None = None) -> None:
+    def record(self, name: str, url: str, params: dict | None = None, status: int | None = None, note: str | None = None,
+               final_url: str | None = None) -> None:
         p = self.path(name)
         self.files[name] = {
-            "url": url, "params": params or {}, "status": status, "bytes": p.stat().st_size if p.exists() else 0,
+            "url": clean_url(url), "params": params or {}, "status": status, "bytes": p.stat().st_size if p.exists() else 0,
+            **({"final_url": clean_url(final_url)} if final_url and final_url != url else {}),
             "sha256": sha256_of(p) if p.exists() else None,
             "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"), "note": note,
         }
@@ -129,7 +151,11 @@ class Snapshot:
         with target.open("wb") as f:
             for chunk in resp.iter_content(1 << 16):
                 f.write(chunk)
-        self.record(name, resp.url, params=params, status=resp.status_code)
+        # Provenance keeps the URL we asked for (stable, citable); a redirect target (often a signed storage
+        # link) is kept separately with its signature removed.
+        requested = requests.Request("GET", url, params=params).prepare().url or url
+        self.record(name, requested if resp.history else resp.url, params=params, status=resp.status_code,
+                    final_url=resp.url if resp.history else None)
         return target
 
     def get_json(self, url: str, name: str, **kw) -> dict | list:

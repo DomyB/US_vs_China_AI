@@ -41,6 +41,9 @@ jobs:
       CONGRESS_GOV_KEY: ${{ secrets.CONGRESS_GOV_KEY }}
       CENSUS_KEY: ${{ secrets.CENSUS_KEY }}
       CODF_DOWNLOAD_URL: ${{ secrets.CODF_DOWNLOAD_URL }}
+      CGIT_FILE_URL: ${{ secrets.CGIT_FILE_URL }}
+      EXIM_FILE_URL: ${{ secrets.EXIM_FILE_URL }}
+      DPI_FILE_URL: ${{ secrets.DPI_FILE_URL }}
     steps:
       - uses: actions/checkout@v4
         with:

@@ -20,6 +20,25 @@ MAX_ROWS = 60
 MAX_FILES = 12  # per source; keep the first files in manifest order (page 1s, item lists, headers)
 
 
+def _trim_table(src: Path, target: Path) -> None:
+    """Keep the header and MAX_ROWS rows sampled evenly through the file (so a fixture of a long
+    file keeps rows from every section, e.g. several countries and statistics), falling back to
+    the first rows when the file cannot be parsed as a delimited table."""
+    try:
+        sep = "\t" if src.suffix.lower() in (".tab", ".tsv") or src.suffix.lower() == ".txt" and "\t" in src.open(encoding="utf-8", errors="ignore").readline() else ","
+        df = pd.read_csv(src, sep=sep, dtype=str, keep_default_na=False, encoding_errors="ignore", low_memory=False)
+        if len(df) > MAX_ROWS:
+            step = max(1, len(df) // MAX_ROWS)
+            df = df.iloc[::step].head(MAX_ROWS)
+        df.to_csv(target, sep=sep, index=False)
+    except Exception:  # noqa: BLE001 - not a clean table (Stata export, odd quoting): keep the first lines
+        with src.open("r", encoding="utf-8", errors="ignore") as f, target.open("w", encoding="utf-8") as g:
+            for i, line in enumerate(f):
+                if i > MAX_ROWS:
+                    break
+                g.write(line)
+
+
 def _trim_json(obj: object) -> object:
     if isinstance(obj, list):
         return [_trim_json(x) for x in obj[:MAX_ROWS]]
@@ -63,11 +82,7 @@ def record(ids: list[str] | None = None) -> dict:
                         target.write_text(raw[:4000], encoding="utf-8")
                         name = name[: -len(".json")] + ".invalid.txt"
                 elif low.endswith((".csv", ".tab", ".txt")):
-                    with src.open("r", encoding="utf-8", errors="ignore") as f, target.open("w", encoding="utf-8") as g:
-                        for i, line in enumerate(f):
-                            if i > MAX_ROWS:
-                                break
-                            g.write(line)
+                    _trim_table(src, target)
                 elif low.endswith(".xlsx"):
                     with pd.ExcelWriter(target) as w:
                         for sheet in pd.ExcelFile(src).sheet_names:

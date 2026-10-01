@@ -1,14 +1,19 @@
 """Export-Import Bank of the United States authorizations (data.gov CSV) -> finance_event."""
 from __future__ import annotations
 
+import os
+import re
+from urllib.parse import urljoin
+
 import pandas as pd
 
 from ..http import Snapshot
 from ..registry import IN_SCOPE, iso3_from_name
-from .base import Adapter, event_id, to_float
+from .base import FINANCE_EVENT_COLUMNS, Adapter, event_id, to_float
 from .util import col, tag_mineral
 
 # data.gov has served its CKAN API under both prefixes over time; try each.
+CATALOG = "https://catalog.data.gov"
 API_BASES = ["https://catalog.data.gov/api/3/action", "https://catalog.data.gov/api/action"]
 PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-12-31-2022", "authorizations-from-10-01-2006-thru-9-30-2025"]
 
@@ -18,6 +23,13 @@ class EXIM(Adapter):
     tables = ("finance_event",)
 
     def fetch(self, snap: Snapshot) -> None:
+        # 0) a file URL supplied by the project owner (EXIM_FILE_URL) wins: the catalog API has moved twice
+        manual = os.environ.get("EXIM_FILE_URL")
+        if manual:
+            snap.get(manual, "exim.csv", timeout=600)
+            snap.manifest["resource_used"] = {"url": manual, "via": "EXIM_FILE_URL"}
+            snap.save()
+            return
         resources: list[dict] = []
         for base in API_BASES:
             for pid in PACKAGE_IDS:
@@ -42,11 +54,28 @@ class EXIM(Adapter):
                     break
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": f"{base}/package_search", "error": str(e)[:200]})
-        snap.save()
-        csvs = [r for r in resources if str(r.get("format", "")).lower() == "csv" or str(r.get("url", "")).lower().endswith(".csv")]
+        csvs = [r.get("url") for r in resources if str(r.get("format", "")).lower() == "csv" or str(r.get("url", "")).lower().endswith(".csv")]
         if not csvs:
-            raise RuntimeError("no CSV resource found for EXIM authorizations on data.gov")
-        snap.get(csvs[0]["url"], "exim.csv")
+            # 2) the catalog's HTML pages: dataset pages for the known slugs, then the organisation's search page
+            pages = [f"{CATALOG}/dataset/{pid}" for pid in PACKAGE_IDS] + [f"{CATALOG}/dataset/?q=exim+authorizations&organization=exim-gov"]
+            for i, page in enumerate(pages):
+                try:
+                    html = snap.get(page, f"page_{i}.html", timeout=120).read_text(encoding="utf-8", errors="ignore")
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": page, "error": str(e)[:200]})
+                    continue
+                found = [urljoin(page, h) for h in re.findall(r'href="([^"]+\.csv(?:\?[^"]*)?)"', html, re.I)]
+                found.sort(key=lambda u: ("authoriz" not in u.lower(), u))
+                if found:
+                    csvs = found
+                    snap.manifest["csv_links"] = found[:10]
+                    break
+        snap.save()
+        if not csvs:
+            raise RuntimeError("no CSV resource found for EXIM authorizations on data.gov (API and HTML); set EXIM_FILE_URL to the current CSV")
+        snap.get(csvs[0], "exim.csv", timeout=600)
+        snap.manifest["resource_used"] = {"url": csvs[0]}
+        snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         df = pd.read_csv(snap.path("exim.csv"), low_memory=False, encoding_errors="ignore")
@@ -76,4 +105,4 @@ class EXIM(Adapter):
                 "description": f"EXIM authorization: {prod or 'product not stated'}" + (f"; exporter {r[c_exporter]}" if c_exporter and pd.notna(r[c_exporter]) else ""),
                 "value_type": "reported", "source_record_url": snap.files["exim.csv"]["url"],
             })
-        return {"finance_event": self.stamp(snap, pd.DataFrame(rows))}
+        return {"finance_event": self.stamp(snap, pd.DataFrame(rows, columns=FINANCE_EVENT_COLUMNS))}

@@ -189,7 +189,16 @@ def test_bgs(snap_factory):
 
 def test_usgs_mcs(snap_factory):
     # consolidated long-format file (MCS2026_Commodities_Data.csv shape: one row per statistic)
-    long_csv = "Commodity,Country,Year,Type,Value,Unit\nLithium,Chile,2024,Mine production,49000,metric tons\nLithium,Chile,2025,Mine production estimated,52000,metric tons\nLithium,Chile,2025,Reserves,9300000,metric tons\nLithium,United States,2024,Mine production,870,metric tons\n"
+    # real 2026 header, including the "Is critical mineral 2025" column that must not be read as a year column
+    long_csv = (
+        "MCS chapter,Section,Commodity,Country,Statistics,Statistics_detail,Unit,Year,Value,Notes,Is critical mineral 2025,Other notes\n"
+        'Lithium,World,Lithium,Chile,Production,Mine production,metric tons,2024,"49,000",,Yes,\n'
+        'Lithium,World,Lithium,Chile,Production,"Mine production, estimated",metric tons,2025,"52,000",,Yes,\n'
+        'Lithium,World,Lithium,Chile,Reserves,Reserves,metric tons,2025,"9,300,000",,Yes,\n'
+        'Lithium,World,Lithium,United States,Production,Mine production,metric tons,2024,870,,Yes,\n'
+        'Lithium,Salient,Lithium,United States,Price,"Price, lithium carbonate, dollars per metric ton",dollars per metric ton,2024,"12,000",,Yes,\n'
+        'Lithium,Salient,Lithium,United States,Import,Imports for consumption,metric tons,2024,"3,000",,Yes,\n'
+    )
     # wide-format fallback (per-commodity world tables)
     wide_csv = "Commodity,Country,Prod_t_2024,Prod_t_2025e,Reserves_t,Unit\nCopper,Chile,5300000,5500000,190000000,metric tons\n"
     snap = snap_factory("usgs_mcs", {"files/MCS2026_Commodities_Data.csv": long_csv, "files/mcs2026-coppe-world.csv": wide_csv, "item.json": {"files": []}})
@@ -202,6 +211,36 @@ def test_usgs_mcs(snap_factory):
     assert li[(li["year"] == 2025) & (li["measure"] == "production")].iloc[0]["value_type"] == "estimated"
     cu = df[df["mineral"] == "copper"]
     assert set(cu["measure"]) == {"production", "reserves"} and cu[cu["measure"] == "reserves"].iloc[0]["year"] == 2025
+    price = out["price"]
+    assert len(price) == 1 and price.iloc[0]["price"] == 12000 and price.iloc[0]["year"] == 2024
+
+
+def test_wgi_bulk_dataset_fallback(snap_factory):
+    # govindicators.org long format (2024+ release) when the World Bank API returns no rows
+    api_error = [{"message": [{"id": "120", "key": "Invalid value", "value": "The provided parameter value is not valid"}]}]
+    bulk = "countryname,code,year,indicator,estimate,stddev\nChile,CHL,2023,cc,1.02,0.1\nChile,CHL,2023,rl,0.9,0.1\nNowhere,ZZZ,2023,cc,0.1,0.1\nPeru,PER,2023,va,..,\n"
+    snap = snap_factory("wb_wgi", {"CC.EST.json": api_error, "wgidataset.csv": bulk})
+    out = _check(WGI(), snap, ["governance"])
+    df = out["governance"]
+    assert set(df["country"]) == {"CHL"} and set(df["indicator"]) == {"CC.EST", "RL.EST"}
+    assert df[df["indicator"] == "CC.EST"].iloc[0]["value"] == 1.02
+
+
+def test_clean_url_strips_signed_query_parameters():
+    from scm.http import clean_url
+
+    signed = "https://dvn-cloud.s3.amazonaws.com/10.7910/DVN/X/abc?response-content-type=text%2Fcsv&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAEXAMPLEKEY0000000%2F20261001&X-Amz-Signature=deadbeef"
+    assert clean_url(signed) == "https://dvn-cloud.s3.amazonaws.com/10.7910/DVN/X/abc"
+    assert clean_url("https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2008,2009") == "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2008,2009"
+    assert clean_url(None) is None
+
+
+def test_finance_event_parsers_return_schema_columns_when_empty(snap_factory):
+    # a trimmed DFC fixture may hold no South American rows; the frame must still carry every schema column
+    xlsx = "Fiscal Year,Project Number,Project Type,Region,Country,Project Name,Committed,Currency\n1986,1,DI,MENA,Syria,Legacy,100,USD\n"
+    snap = snap_factory("dfc_projects", {"dfc.csv": xlsx})
+    out = _check(DFC(), snap, ["finance_event"])
+    assert len(out["finance_event"]) == 0 and "event_id" in out["finance_event"].columns
 
 
 def test_tier2_parsers(snap_factory, monkeypatch):

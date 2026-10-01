@@ -45,7 +45,8 @@
     "Notes",
     "Is critical mineral 2025",
     "Other notes"
-   ]
+   ],
+   "format": "long"
   }
  }
 }

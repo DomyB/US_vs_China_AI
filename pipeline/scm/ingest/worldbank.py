@@ -2,14 +2,22 @@
 from __future__ import annotations
 
 import json
+import re
+import zipfile
+from urllib.parse import urljoin
 
 import pandas as pd
 
 from ..http import Snapshot
 from ..registry import IN_SCOPE
 from .base import Adapter
+from .util import col, read_any
 
 API = "https://api.worldbank.org/v2"
+WGI_SITE = "https://www.govindicators.org"
+WGI_BULK_CANDIDATES = [f"{WGI_SITE}/data/wgidataset.xlsx", f"{WGI_SITE}/data/wgidataset.csv",
+                       f"{WGI_SITE}/sites/default/files/wgidataset.xlsx", f"{WGI_SITE}/sites/default/files/wgidataset.csv"]
+WGI_BULK_CODES = {"cc": "CC.EST", "ge": "GE.EST", "pv": "PV.EST", "rl": "RL.EST", "rq": "RQ.EST", "va": "VA.EST"}
 COUNTRIES = ";".join(IN_SCOPE)
 
 WDI_INDICATORS = {
@@ -89,29 +97,44 @@ def parse_advanced(payload: object, indicator: str, name: str) -> list[dict]:
 
 
 class WGI(Adapter):
-    """Worldwide Governance Indicators (database 3). The simple indicator endpoint rejects a date
-    range for this database ("Invalid value"), so the advanced sources endpoint is used."""
+    """Worldwide Governance Indicators. The World Bank API (database 3) answered "Data not found"
+    for every request in the first live runs, so after the two API endpoints the adapter falls back
+    to the bulk dataset published on govindicators.org (link discovered on the site, then known paths)."""
 
     source_id = "wb_wgi"
     tables = ("governance",)
     indicators = WGI_INDICATORS
 
     def fetch(self, snap: Snapshot) -> None:
+        got = False
         for ind in self.indicators:
-            # 1) simple endpoint with the WGI database selected and no date filter
-            try:
-                payload = snap.get_json(f"{API}/country/{COUNTRIES}/indicator/{ind}", f"{ind}.json", params={"format": "json", "source": 3, "per_page": 20000})
-                if isinstance(payload, list) and len(payload) > 1 and payload[1]:
+            for suffix, url, params in (
+                ("json", f"{API}/country/{COUNTRIES}/indicator/{ind}", {"format": "json", "source": 3, "per_page": 20000}),
+                ("adv.json", f"{API}/sources/3/country/{COUNTRIES}/series/{ind}/time/all", {"format": "json", "per_page": 20000}),
+            ):
+                try:
+                    payload = snap.get_json(url, f"{ind}.{suffix}", params=params)
+                except Exception as e:  # noqa: BLE001 - try the next endpoint
+                    snap.manifest.setdefault("errors", []).append({"name": f"{ind}.{suffix}", "error": str(e)[:300]})
                     continue
-            except Exception as e:  # noqa: BLE001 - fall through to the advanced endpoint
-                snap.manifest.setdefault("errors", []).append({"name": f"{ind}.json", "error": str(e)[:300]})
-            snap.path(f"{ind}.json").unlink(missing_ok=True)
-            snap.files.pop(f"{ind}.json", None)
-            # 2) advanced endpoint
+                if _has_rows(payload):
+                    got = True
+                    break
+        if not got:
+            links: list[str] = []
             try:
-                snap.get(f"{API}/sources/3/country/{COUNTRIES}/series/{ind}/time/all", f"{ind}.adv.json", params={"format": "json", "per_page": 20000})
+                html = snap.get(WGI_SITE, "govindicators.html").read_text(encoding="utf-8", errors="ignore")
+                links = [urljoin(WGI_SITE, h) for h in re.findall(r'href="([^"]*wgidataset[^"]*\.(?:xlsx|csv|zip)[^"]*)"', html, re.I)]
+                snap.manifest["bulk_links"] = links
             except Exception as e:  # noqa: BLE001
-                snap.manifest.setdefault("errors", []).append({"name": f"{ind}.adv.json", "error": str(e)[:300]})
+                snap.manifest.setdefault("errors", []).append({"name": "govindicators.html", "error": str(e)[:300]})
+            for url in dict.fromkeys(links + WGI_BULK_CANDIDATES):
+                ext = url.split("?")[0].rsplit(".", 1)[-1].lower()
+                try:
+                    snap.get(url, f"wgidataset.{ext}", timeout=600)
+                    break
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": url, "error": str(e)[:300]})
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
@@ -126,9 +149,59 @@ class WGI(Adapter):
                     snap.manifest.setdefault("unparsed", []).append(fname)
                     continue
                 rows += _parse_v2(payload, ind, name) if isinstance(payload, list) else parse_advanced(payload, ind, name)
-        df = pd.DataFrame(rows, columns=["country", "year", "indicator", "indicator_name", "value"])
+        if not rows:
+            rows = self._parse_bulk(snap)
+        df = pd.DataFrame(rows, columns=["country", "year", "indicator", "indicator_name", "value", "source_record_url"])
         df["value_type"] = "reported"
         return {"governance": self.stamp(snap, df)}
+
+    def _parse_bulk(self, snap: Snapshot) -> list[dict]:
+        """govindicators.org wgidataset: long format (countryname, code, year, indicator, estimate, ...)
+        since the 2024 release; older releases are wide (one column per indicator and statistic)."""
+        name = next((n for n in snap.files if n.startswith("wgidataset.") and snap.has(n)), None)
+        if name is None:
+            return []
+        path = snap.path(name)
+        if name.endswith(".zip"):
+            with zipfile.ZipFile(path) as z:
+                inner = next((m for m in z.namelist() if m.lower().endswith((".xlsx", ".csv"))), None)
+                if inner is None:
+                    return []
+                extracted = snap.dir / ("wgidataset_inner." + inner.rsplit(".", 1)[-1].lower())
+                extracted.write_bytes(z.read(inner))
+                path = extracted
+        df = read_any(path)
+        df.columns = [str(c).strip().lower() for c in df.columns]
+        c_code = col(df, "code", "countrycode", "iso3", "wbcode")
+        c_year = col(df, "year")
+        url = snap.files[name]["url"]
+        rows: list[dict] = []
+        if "indicator" in df.columns and "estimate" in df.columns:
+            for _, r in df.iterrows():
+                iso = str(r[c_code]).upper()
+                ind = WGI_BULK_CODES.get(str(r["indicator"]).strip().lower())
+                if iso not in IN_SCOPE or ind is None or pd.isna(r["estimate"]) or str(r["estimate"]).strip() in ("", ".."):
+                    continue
+                rows.append({"country": iso, "year": int(float(r[c_year])), "indicator": ind, "indicator_name": self.indicators[ind], "value": float(r["estimate"]), "source_record_url": url})
+            return rows
+        for short, ind in WGI_BULK_CODES.items():
+            c = col(df, f"{short}.est", f"{short}_est", f"{short}est", required=False)
+            if c is None:
+                continue
+            for _, r in df.iterrows():
+                iso = str(r[c_code]).upper()
+                if iso not in IN_SCOPE or pd.isna(r[c]) or str(r[c]).strip() in ("", ".."):
+                    continue
+                rows.append({"country": iso, "year": int(float(r[c_year])), "indicator": ind, "indicator_name": self.indicators[ind], "value": float(r[c]), "source_record_url": url})
+        return rows
+
+
+def _has_rows(payload: object) -> bool:
+    if isinstance(payload, list):
+        return len(payload) > 1 and bool(payload[1])
+    if isinstance(payload, dict):
+        return bool(payload.get("source", {}).get("data")) if isinstance(payload.get("source"), dict) else False
+    return False
 
 
 class IDS(Adapter):

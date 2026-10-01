@@ -1,6 +1,10 @@
 """IDB Database of Political Institutions 2023 -> governance (executive ideology and related)."""
 from __future__ import annotations
 
+import os
+import re
+from urllib.parse import urljoin
+
 import pandas as pd
 
 from ..http import Snapshot
@@ -20,8 +24,16 @@ class DPI(Adapter):
     tables = ("governance",)
 
     def fetch(self, snap: Snapshot) -> None:
+        manual = os.environ.get("DPI_FILE_URL")
+        if manual:
+            ext = "csv" if manual.split("?")[0].lower().endswith(".csv") else "xlsx"
+            snap.get(manual, f"dpi.{ext}", timeout=300)
+            snap.manifest["resource_used"] = {"url": manual, "via": "DPI_FILE_URL"}
+            snap.save()
+            return
         pkg = snap.get_json(PACKAGE, "package.json", params={"id": PACKAGE_ID})
         resources = pkg.get("result", {}).get("resources", []) if isinstance(pkg, dict) else []
+
         def fmt(r):
             return str(r.get("format") or r.get("mimetype") or r.get("url", "").rsplit(".", 1)[-1]).lower()
 
@@ -31,9 +43,15 @@ class DPI(Adapter):
         errors = []
         for r in candidates:
             ext = "csv" if fmt(r) == "csv" else "xlsx"
-            for url in dict.fromkeys([r.get("url"), f"https://data.iadb.org/dataset/{PACKAGE_ID}/resource/{r.get('id')}/download"]):
-                if not url:
-                    continue
+            urls = [r.get("url"), r.get("download_url"), f"https://data.iadb.org/dataset/{PACKAGE_ID}/resource/{r.get('id')}/download"]
+            # the resource page may carry the current download link when the stored URL is stale
+            page = f"https://data.iadb.org/dataset/{PACKAGE_ID}/resource/{r.get('id')}"
+            try:
+                html = snap.get(page, f"resource_{ext}.html", timeout=120).read_text(encoding="utf-8", errors="ignore")
+                urls += [urljoin(page, h) for h in re.findall(r'href="([^"]*(?:download|\.csv|\.xlsx)[^"]*)"', html, re.I)]
+            except Exception as e:  # noqa: BLE001
+                errors.append(f"{page}: {str(e)[:120]}")
+            for url in dict.fromkeys(u for u in urls if u):
                 try:
                     snap.get(url, f"dpi.{ext}", timeout=300)
                     snap.manifest["resource_used"] = {"id": r.get("id"), "name": r.get("name"), "url": url}
@@ -41,7 +59,9 @@ class DPI(Adapter):
                     return
                 except Exception as e:  # noqa: BLE001
                     errors.append(f"{url}: {str(e)[:120]}")
-        raise RuntimeError("DPI: every resource download failed: " + " | ".join(errors))
+        snap.manifest["errors"] = errors
+        snap.save()
+        raise RuntimeError("DPI: every resource download failed (set DPI_FILE_URL to a working link): " + " | ".join(errors))
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         path = next(snap.path(n) for n in snap.files if n.startswith("dpi."))

@@ -2,29 +2,37 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
-## Phase 2a — International and US pipelines (2026-10-01, first live run pending)
+## Phase 2a — International and US pipelines (2026-10-01, eight live runs so far)
 
 **What runs**
 - `pipeline/scm/`: ingestion framework (dated raw snapshots with manifests, pure parsers, pandera-validated Parquet per source and table), DuckDB warehouse build with `trade_discrepancy` (reported vs mirror) and `finance_event_dedup` (conservative cross-database clustering keeping every source id), site exporter writing `web/public/data/real/`, liveness checker, fixture recorder, CLI (`python -m scm run|build|export|liveness|fixtures`).
-- 16 Tier 1 adapters (keyless): World Bank WDI, WGI, IDS; USGS Mineral Commodity Summaries; World Bank Pink Sheet; UN Comtrade annual HS6 with US and China mirrors; AidData GCDF 3.0; AEI China Global Investment Tracker; DFC; EXIM; Federal Register; ResourceContracts; V-Dem; UNGA voting; IDB DPI 2023; BGS.
-- 3 Tier 2 adapters gated by secrets: Congress.gov (`CONGRESS_GOV_KEY`), US Census monthly HS10 (`CENSUS_KEY`), BU CODF (`CODF_DOWNLOAD_URL`). They report `skipped` until the secret exists.
-- 27 pipeline tests (parsers on synthetic fixtures in each source's documented format, warehouse derivations, end-to-end export) and ruff pass; web lint, typecheck, 12 unit tests and build pass.
-- Workflows: `ingest-monthly.yml` (3rd of the month and on demand; adapters → fixtures → build → export → tests → commit site data → Parquet release → issue on failure), `ingest-annual.yml`, `liveness.yml` (Mondays).
-- Site: per-layer data resolution (facts real where covered, else sample), status banner stating what is real, "Real data" tags per block, mirror bars and discrepancy list on the trade chart, contracts and production blocks, governance facts on the Analysis tab, real mineral shares on the regional page. Verified in the browser against a synthetic export (not committed).
+- Live data on the site (committed under `web/public/data/real/`, all 12 countries covered) from: UN Comtrade annual HS6 reported flows 2008–2024 (keyless preview endpoint), AidData GCDF 3.0 finance events, Federal Register policy documents, V-Dem, World Bank WDI and IDS, World Bank Pink Sheet prices, BGS world mineral statistics, ResourceContracts contracts, UNGA ideal points and voting agreement.
+- 3 Tier 2 adapters gated by secrets (Congress.gov, Census, BU CODF) report `skipped` until the secret exists.
+- 43 pipeline tests (synthetic fixtures in each source's real format, recorded real fixtures, warehouse derivations, end-to-end export) and ruff pass; web lint, typecheck, unit tests and build pass.
+- Workflows: `ingest-monthly.yml` (3rd of the month and on demand; restores the last Parquet release, runs adapters → records fixtures → build → export → tests → commits site data → Parquet release → issue on failure), `ingest-annual.yml`, `liveness.yml` (Mondays; 187 URLs checked, result shown on the Sources page).
+- Site: per-layer data resolution (facts real where covered, else sample), status banner stating what is real, "Real data" tags per block, mirror bars and discrepancy list on the trade chart, contracts and production blocks, governance facts on the Analysis tab, real mineral shares on the regional page.
 
 **What is missing**
-- The first live run: the sandbox cannot reach the sources, so every adapter was written against documented formats. The first `ingest-monthly` run is the direct contact; expect some parsers to need column adjustments, which the logs and recorded fixtures will show.
+- Comtrade US/China mirror flows and some Uruguay/Venezuela years: the keyless endpoint's daily quota ran out after ~190 calls; the monthly run (or a manual `un_comtrade` dispatch on another day) completes them.
+- World Bank WGI (API answers "Data not found"; a govindicators.org bulk fallback is built but untested live), USGS MCS production and reserves (parser fixed for the 2026 consolidated file, re-run pending), DFC (schema widened to OPIC-era years, re-run pending), EXIM and IDB DPI (open endpoints answer 404; HTML fallbacks built, otherwise a hand-supplied file URL), AEI CGIT (Cloudflare 403; needs `CGIT_FILE_URL`).
 - Free registrations by the owner: Comtrade key (monthly data), Congress.gov key, Census key, BU CODF data-use agreement.
 - Vercel connection, so the real-data site has a public URL.
 
 **What broke and was fixed**
-- Finance clustering was order-dependent (chained on the previous row); rewritten to anchor on each cluster's first amount.
-- Regional mineral shares compared Comtrade partner codes against the wrong keys; fixed and covered by a test.
-- USGS data-release file names use five-letter commodity abbreviations; added a mapping.
+- The first run failed on packaging (multiple top-level packages) and `workflow_dispatch` answered 404 until the workflow file existed on the branch.
+- Workflow pushes raced each other and the development branch: pulls with rebase before every push; concurrency group per branch.
+- The keyless Comtrade quota was exhausted by one-year-per-call requests: calls now cover three years (reported) or six years (mirrors) each, with backoff and truncation fallback.
+- Mineral keyword tagging matched "Free" as rare earths and "El Oro" as gold: whole-word patterns; Spanish gold and silver require a mining phrase.
+- Finance clustering was order-dependent; rewritten to anchor on each cluster's first amount. Regional shares compared the wrong partner keys. USGS file names use five-letter abbreviations.
+- Real column names differed from documentation for DFC (`Committed`, `Project Profile URL`, `Originating Agency`), USGS (`Statistics`, `Statistics_detail`, `Value` with thousands separators, and a column named "Is critical mineral 2025" that fooled the year-column detection), and UNGA (Stata originals behind `.tab` names).
+- Harvard Dataverse redirects to presigned S3 URLs; their access-key id tripped GitHub push protection and blocked run 8's data commit. Every recorded URL is now stripped of credential-bearing parameters, and the stable request URL is kept as the citation.
+- A failed test blocked the commit of the recorded fixtures that were needed to fix it; tests now run with `continue-on-error` and the job fails at the end instead.
+- Run 5's outputs (BGS, contracts, UNGA) were lost because a failed run publishes no release and the next run restored the older one; re-run.
 
 **Recommendation**
-- Trigger `Ingest (monthly)` with `targets: tier1` on this branch, read the log and the issue it opens if adapters fail, then fix parsers against the recorded fixtures. Repeat until green.
-- Merge to `main` once the first run is green so the scheduled workflows run on the default branch.
+- Dispatch `Ingest (monthly)` with the fixed adapters (`wb_wgi usgs_mcs dfc_projects idb_dpi exim_authorizations`) plus the five whose run 8 commit was blocked; then a `un_comtrade` run on a fresh day for the mirrors.
+- Add the free keys and, for CGIT/EXIM/DPI if their sites stay broken, hand-downloaded file URLs as repository secrets.
+- Merge to `main` once a full run is green so the scheduled workflows run on the default branch.
 
 ## Phase 1 — Interface with sample data (2026-10-01)
 

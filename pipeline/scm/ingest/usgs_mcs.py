@@ -76,51 +76,64 @@ class USGSMCS(Adapter):
             c_country = find("country", "source")
             c_commodity = find("commodity", "mineral")
             c_year = find("year")
-            c_type = find("type", "statistic", "measure", "variable", "item")
-            c_value = find("value", "quantity", "amount")
+            c_type = find("type", "statistic", "measure", "variable", "item", exclude=("detail",))
+            c_detail = find("detail")
+            c_value = find("value", "quantity", "amount", exclude=("critical",))
             c_unit = find("unit")
             notes[name] = {"columns": list(map(str, df.columns))[:30]}
             if c_country is None or c_commodity is None:
                 notes[name]["skipped"] = "no country/commodity column"
                 continue
             file_mineral = mineral_from_filename(name)
-            year_cols = [(c, int(YEAR_RE.search(str(c)).group(1))) for c in df.columns if YEAR_RE.search(str(c))]
+            # Long format (MCS 2026 consolidated release): one row per commodity, country, statistic and year.
+            # Wide format (older per-commodity releases): year columns such as Prod_t_2024, Reserves.
+            long_format = c_year is not None and c_value is not None and str(c_year).strip().lower() == "year"
+            year_cols = [] if long_format else [(c, int(YEAR_RE.search(str(c)).group(1))) for c in df.columns
+                                                if YEAR_RE.search(str(c)) and not any(k in str(c).lower() for k in ("critical", "note"))]
+            notes[name]["format"] = "long" if long_format else "wide"
             for _, r in df.iterrows():
-                iso = iso3_from_name(r[c_country])
-                if iso not in IN_SCOPE:
-                    continue
+                country_name = str(r[c_country])
+                iso = iso3_from_name(country_name)
                 mineral = tag_mineral(r[c_commodity]) or file_mineral
                 if mineral is None:
                     continue
                 unit = str(r[c_unit]) if c_unit and pd.notna(r[c_unit]) else "see source table"
                 ttext = str(r[c_type]).lower() if c_type and pd.notna(r[c_type]) else ""
-                if c_year and c_value and not year_cols:
-                    # long format: one row per country, commodity, year, statistic
+                detail = str(r[c_detail]) if c_detail and pd.notna(r[c_detail]) else ""
+                if long_format:
                     ym = YEAR_RE.search(str(r[c_year]))
                     if not ym:
                         continue
-                    measure = "production" if "prod" in ttext else "reserves" if "reserv" in ttext else None
-                    if measure is None and "price" in ttext:
-                        price_rows.append({"mineral": mineral, "series": f"USGS MCS: {r[c_type]}", "date": f"{ym.group(1)}-01-01", "year": int(ym.group(1)), "month": pd.NA, "price": to_float(r[c_value]), "unit": unit, "value_type": "reported", "note": str(r[c_commodity]), "source_record_url": meta.get("url")})
+                    year = int(ym.group(1))
+                    if "price" in ttext:
+                        # price series are reported for the United States / world market, not per producing country
+                        if country_name.strip().lower() in ("united states", "world", "world total") or iso in IN_SCOPE:
+                            price_rows.append({"mineral": mineral, "series": f"USGS MCS: {detail or r[c_type]} ({country_name.strip()})", "date": f"{year}-01-01", "year": year, "month": pd.NA,
+                                               "price": to_float(r[c_value]), "unit": unit, "value_type": "reported", "note": str(r[c_commodity]), "source_record_url": meta.get("url")})
                         continue
+                    if iso not in IN_SCOPE:
+                        continue
+                    measure = "production" if "prod" in ttext else "reserves" if "reserv" in ttext else None
                     if measure is None:
-                        measure = "production"
-                    est = "estimat" in ttext or str(r[c_year]).lower().endswith("e")
-                    prod_rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": int(ym.group(1)), "qty": to_float(r[c_value]), "unit": unit,
-                                      "value_type": "estimated" if est else "reported", "note": f"USGS MCS {name.split('/')[-1]}: {r[c_commodity]} / {r[c_type] if c_type else ''}", "source_record_url": meta.get("url")})
-                else:
-                    # wide format: year columns named like Prod_t_2024 / Reserves
-                    for c, year in year_cols:
-                        low = str(c).lower()
-                        measure = "production" if "prod" in low else "reserves" if "reserv" in low else None
-                        if measure is None:
-                            continue
-                        prod_rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": year, "qty": to_float(r[c]), "unit": unit,
-                                          "value_type": "estimated" if low.endswith("e") else "reported", "note": f"USGS MCS {name.split('/')[-1]}, column {c}", "source_record_url": meta.get("url")})
-                    for c in df.columns:
-                        low = str(c).lower()
-                        if "reserv" in low and not YEAR_RE.search(low) and data_year:
-                            prod_rows.append({"country": iso, "mineral": mineral, "measure": "reserves", "year": data_year, "qty": to_float(r[c]), "unit": unit, "value_type": "reported", "note": f"USGS MCS {name.split('/')[-1]}, column {c}", "source_record_url": meta.get("url")})
+                        continue  # imports, exports, consumption, shipments, net import reliance: US-only statistics
+                    est = "estimat" in ttext or "estimat" in detail.lower() or str(r[c_year]).strip().lower().endswith("e")
+                    prod_rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": year, "qty": to_float(r[c_value]), "unit": unit,
+                                      "value_type": "estimated" if est else "reported",
+                                      "note": f"USGS MCS {name.split('/')[-1]}: {r[c_commodity]} / {detail or r[c_type]}", "source_record_url": meta.get("url")})
+                    continue
+                if iso not in IN_SCOPE:
+                    continue
+                for c, year in year_cols:
+                    low = str(c).lower()
+                    measure = "production" if "prod" in low else "reserves" if "reserv" in low else None
+                    if measure is None:
+                        continue
+                    prod_rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": year, "qty": to_float(r[c]), "unit": unit,
+                                      "value_type": "estimated" if low.endswith("e") else "reported", "note": f"USGS MCS {name.split('/')[-1]}, column {c}", "source_record_url": meta.get("url")})
+                for c in df.columns:
+                    low = str(c).lower()
+                    if "reserv" in low and not YEAR_RE.search(low) and data_year:
+                        prod_rows.append({"country": iso, "mineral": mineral, "measure": "reserves", "year": data_year, "qty": to_float(r[c]), "unit": unit, "value_type": "reported", "note": f"USGS MCS {name.split('/')[-1]}, column {c}", "source_record_url": meta.get("url")})
         snap.manifest["parse_notes"] = notes
         snap.save()
         prod = pd.DataFrame(prod_rows, columns=["country", "mineral", "measure", "year", "qty", "unit", "value_type", "note", "source_record_url"])
