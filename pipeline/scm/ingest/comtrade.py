@@ -23,7 +23,7 @@ KEYED = "https://comtradeapi.un.org/data/v1/get/C/A/HS"
 class Comtrade(Adapter):
     source_id = "un_comtrade"
     tables = ("trade_flow",)
-    min_interval = 1.5
+    min_interval = 2.5
 
     def __init__(self, years: list[int] | None = None) -> None:
         super().__init__()
@@ -32,35 +32,61 @@ class Comtrade(Adapter):
         self.codes = sorted(hs6_to_mineral())
         self.key = os.environ.get("COMTRADE_KEY")
 
-    def _call(self, snap: Snapshot, name: str, reporter: int, period: int, partners: list[int]) -> None:
+    def _call(self, snap: Snapshot, name: str, reporter: int, periods: list[int], partners: list[int]) -> dict | None:
+        """One preview/keyed call; returns the parsed payload (or None on failure). Backs off on 429/403."""
+        import json as _json
+        import time as _time
+
         params = {
-            "reporterCode": reporter, "period": period, "partnerCode": ",".join(map(str, partners)),
+            "reporterCode": reporter, "period": ",".join(map(str, periods)), "partnerCode": ",".join(map(str, partners)),
             "cmdCode": ",".join(self.codes), "flowCode": "X,M", "partner2Code": 0, "customsCode": "C00", "motCode": 0,
-            "includeDesc": "false",
+            "includeDesc": "false", "maxRecords": 500,
         }
         url = PREVIEW
         if self.key:
             url = KEYED
             params["subscription-key"] = self.key
             params["maxRecords"] = 250000
-        try:
-            snap.get(url, name, params=params, allow_statuses=(200,))
-        except FetchError as e:
-            # record the failure in the manifest and move on; the parser skips missing files
-            snap.manifest.setdefault("errors", []).append({"name": name, "error": str(e)[:300]})
-            snap.save()
+        for attempt in range(4):
+            try:
+                path = snap.get(url, name, params=params, allow_statuses=(200,))
+                return _json.loads(path.read_text(encoding="utf-8"))
+            except FetchError as e:
+                msg = str(e)
+                snap.manifest.setdefault("errors", []).append({"name": name, "attempt": attempt, "error": msg[:300]})
+                snap.save()
+                if "429" in msg or "403" in msg or "503" in msg:
+                    _time.sleep(65 * (attempt + 1))
+                    continue
+                return None
+        return None
+
+    def _fetch_chunked(self, snap: Snapshot, prefix: str, reporter: int, partners: list[int], years_per_call: int) -> None:
+        """Fetch several years per call; if a response is truncated at the record cap, refetch year by year."""
+        chunks = [self.years[i:i + years_per_call] for i in range(0, len(self.years), years_per_call)]
+        for chunk in chunks:
+            name = f"{prefix}_{chunk[0]}-{chunk[-1]}.json"
+            payload = self._call(snap, name, reporter, chunk, partners)
+            if payload is None:
+                continue
+            count = int(payload.get("count") or 0)
+            got = len(payload.get("data") or [])
+            if count > got or (not self.key and got >= 500):
+                snap.manifest.setdefault("truncated", []).append(name)
+                for y in chunk:
+                    self._call(snap, f"{prefix}_{y}.json", reporter, [y], partners)
+                snap.path(name).unlink(missing_ok=True)
+                snap.files.pop(name, None)
+                snap.save()
 
     def fetch(self, snap: Snapshot) -> None:
-        sa = [M49[c] for c in IN_SCOPE]
+        # reported: 12 reporters, partners China / US / World, 3 years per call (max observed 168 rows per year)
         for iso in IN_SCOPE:
-            for y in self.years:
-                self._call(snap, f"rep_{iso}_{y}.json", M49[iso], y, [M49["CHN"], M49["USA"], M49["WLD"]])
-        # mirrors: China and the US reporting their trade with each South American country
-        groups = [sa[i:i + 4] for i in range(0, len(sa), 4)]
+            self._fetch_chunked(snap, f"rep_{iso}", M49[iso], [M49["CHN"], M49["USA"], M49["WLD"]], years_per_call=3)
+        # mirrors: China and the US reporting their trade with each South American country, 6 years per call
         for mirror in ("CHN", "USA"):
-            for y in self.years:
-                for gi, g in enumerate(groups):
-                    self._call(snap, f"mirror_{mirror}_{y}_{gi}.json", M49[mirror], y, g)
+            for iso in IN_SCOPE:
+                self._fetch_chunked(snap, f"mirror_{mirror}_{iso}", M49[mirror], [M49[iso]], years_per_call=6)
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         mapping = hs6_to_mineral()

@@ -22,11 +22,13 @@ class DPI(Adapter):
     def fetch(self, snap: Snapshot) -> None:
         pkg = snap.get_json(PACKAGE, "package.json", params={"id": PACKAGE_ID})
         resources = pkg.get("result", {}).get("resources", []) if isinstance(pkg, dict) else []
-        pick = next((r for r in resources if str(r.get("url", "")).lower().endswith((".csv", ".xlsx"))), None)
+        def fmt(r):
+            return str(r.get("format") or r.get("mimetype") or r.get("url", "").rsplit(".", 1)[-1]).lower()
+
+        pick = next((r for r in resources if fmt(r) == "csv"), None) or next((r for r in resources if fmt(r) in ("xlsx", "xls")), None)
         if pick is None:
-            raise RuntimeError("no CSV/XLSX resource in the DPI package")
-        url = pick["url"]
-        snap.get(url, "dpi." + url.rsplit(".", 1)[-1].lower())
+            raise RuntimeError(f"no CSV/XLSX resource in the DPI package: {[fmt(r) for r in resources]}")
+        snap.get(pick["url"], "dpi." + ("csv" if fmt(pick) == "csv" else "xlsx"), timeout=300)
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         path = next(snap.path(n) for n in snap.files if n.startswith("dpi."))

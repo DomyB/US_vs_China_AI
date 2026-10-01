@@ -16,6 +16,22 @@ COW = {"ARG": 160, "BOL": 145, "BRA": 140, "CHL": 155, "COL": 100, "ECU": 130, "
 COW_TO_ISO = {v: k for k, v in COW.items()}
 
 
+def _read_table(path) -> pd.DataFrame | None:
+    """Dataverse serves `format=original`, so a .tab may really be Stata, CSV or TSV."""
+    head = path.read_bytes()[:200]
+    if head.startswith(b"<stata_dta>") or path.suffix.lower() == ".dta":
+        try:
+            return pd.read_stata(path)
+        except Exception:  # noqa: BLE001
+            return None
+    first = head.decode("utf-8", errors="ignore").splitlines()[0] if head else ""
+    sep = "\t" if first.count("\t") > first.count(",") else ","
+    try:
+        return pd.read_csv(path, sep=sep, low_memory=False)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 class UNGA(Adapter):
     source_id = "unga_votes"
     tables = ("governance",)
@@ -40,7 +56,10 @@ class UNGA(Adapter):
                 continue
             low = name.lower()
             path = snap.path(name)
-            df = pd.read_csv(path, sep="\t" if low.endswith(".tab") else ",", low_memory=False)
+            df = _read_table(path)
+            if df is None:
+                skipped.append(name)
+                continue
             c_sess = col(df, "session", required=False)
             c_year = col(df, "year", required=False)
 

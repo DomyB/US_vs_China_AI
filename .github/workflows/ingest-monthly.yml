@@ -53,6 +53,17 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -e ".[dev]"
+      - name: Restore the previous warehouse release
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh release list --limit 20 --json tagName --jq '[.[] | select(.tagName | startswith("data-v"))][0].tagName' 2>/dev/null || true)
+          if [ -n "$tag" ]; then
+            gh release download "$tag" --pattern 'warehouse-*.tar.gz' --dir /tmp/prev && mkdir -p data && tar xzf /tmp/prev/warehouse-*.tar.gz -C data && echo "restored $tag" && ls data/warehouse
+          else
+            echo "no previous data release"
+          fi
       - name: Run adapters
         id: run
         continue-on-error: true

@@ -19,17 +19,18 @@ class BGS(Adapter):
     min_interval = 1.0
 
     def fetch(self, snap: Snapshot) -> None:
-        offset = 0
-        page = 0
-        while page < 200:
-            payload = snap.get_json(ITEMS, f"items_{page}.json", params={"f": "json", "limit": 1000, "offset": offset})
-            feats = payload.get("features", []) if isinstance(payload, dict) else []
-            if not feats:
-                break
-            offset += len(feats)
-            page += 1
-            if payload.get("numberMatched") and offset >= int(payload["numberMatched"]):
-                break
+        for iso in IN_SCOPE:
+            offset, page = 0, 0
+            while page < 40:
+                payload = snap.get_json(ITEMS, f"items_{iso}_{page}.json", params={"f": "json", "limit": 1000, "offset": offset, "country_iso3_code": iso})
+                feats = payload.get("features", []) if isinstance(payload, dict) else []
+                if not feats:
+                    break
+                offset += len(feats)
+                page += 1
+                matched = payload.get("numberMatched")
+                if matched is not None and offset >= int(matched):
+                    break
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         rows: list[dict] = []
@@ -40,22 +41,23 @@ class BGS(Adapter):
             payload = json.loads(snap.path(name).read_text())
             for f in payload.get("features", []):
                 p = f.get("properties", {})
-                country = next((p[k] for k in p if "country" in k.lower()), None)
-                iso = iso3_from_name(country)
+                iso = p.get("country_iso3_code") or iso3_from_name(p.get("country_trans"))
                 if iso not in IN_SCOPE:
                     continue
-                commodity = next((p[k] for k in p if "commodity" in k.lower() or "mineral" in k.lower()), None)
-                mineral = tag_mineral(commodity)
-                year = next((p[k] for k in p if k.lower() in ("year", "yr", "date")), None)
-                qty = next((p[k] for k in p if "quantity" in k.lower() or "value" in k.lower() or "production" in k.lower()), None)
-                unit = next((p[k] for k in p if "unit" in k.lower()), "see source")
-                stat = str(next((p[k] for k in p if "statistic" in k.lower() or "type" in k.lower()), "production")).lower()
-                if mineral is None or year is None:
+                commodity = p.get("erml_commodity") or p.get("bgs_commodity_trans") or p.get("erml_group")
+                mineral = tag_mineral(f"{p.get('erml_group', '')} {commodity}")
+                year = str(p.get("year") or "")[:4]
+                stat = str(p.get("bgs_statistic_type_trans") or "production").lower()
+                if mineral is None or not year.isdigit() or int(year) < 2000:
                     unmapped += 1
                     continue
-                rows.append({"country": iso, "mineral": mineral, "measure": "production" if "prod" in stat else "reserves" if "reserv" in stat else "production",
-                             "year": int(str(year)[:4]), "qty": to_float(qty), "unit": str(unit), "value_type": "reported",
-                             "note": f"BGS {commodity} ({stat})", "source_record_url": meta.get("url")})
+                measure = "production" if "prod" in stat else "reserves" if "reserv" in stat else None
+                if measure is None:
+                    continue  # imports/exports statistics are covered by Comtrade
+                precision = p.get("data_precision_description")
+                rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": int(year), "qty": to_float(p.get("quantity")),
+                             "unit": str(p.get("units") or "see source"), "value_type": "estimated" if precision and "estimat" in str(precision).lower() else "reported",
+                             "note": f"BGS: {commodity}" + (f" ({precision})" if precision and precision != "Normal Value" else ""), "source_record_url": meta.get("url")})
         snap.manifest["unmapped_features"] = unmapped
         snap.save()
         df = pd.DataFrame(rows, columns=["country", "mineral", "measure", "year", "qty", "unit", "value_type", "note", "source_record_url"])

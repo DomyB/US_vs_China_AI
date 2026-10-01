@@ -53,10 +53,10 @@ def test_worldbank_wdi_and_wgi(snap_factory):
     out = _check(WDI(), snap, ["governance"])
     assert out["governance"].iloc[0]["country"] == "ARG"
     assert len(out["governance"]) == 1
-    wgi = [{"page": 1}, [{"indicator": {"id": "CC.EST"}, "countryiso3code": "CHL", "date": "2021", "value": 1.02}]]
+    wgi = {"source": {"data": [{"variable": [{"concept": "Country", "id": "CHL", "value": "Chile"}, {"concept": "Series", "id": "CC.EST"}, {"concept": "Time", "id": "YR2021", "value": "2021"}], "value": 1.02}]}}
     snap = snap_factory("wb_wgi", {"CC.EST.json": wgi})
     out = _check(WGI(), snap, ["governance"])
-    assert out["governance"].iloc[0]["indicator"] == "CC.EST"
+    assert out["governance"].iloc[0]["indicator"] == "CC.EST" and out["governance"].iloc[0]["year"] == 2021
 
 
 def test_worldbank_ids_advanced_api(snap_factory):
@@ -177,24 +177,31 @@ def test_dpi(snap_factory):
 
 
 def test_bgs(snap_factory):
-    payload = {"numberMatched": 2, "features": [
-        {"properties": {"country_name": "Peru", "commodity": "Copper (mine production)", "year": 2021, "quantity": 2300000, "unit": "tonnes (metal content)", "statistic_type": "Production"}},
-        {"properties": {"country_name": "Peru", "commodity": "Unobtainium", "year": 2021, "quantity": 1, "unit": "t", "statistic_type": "Production"}},
+    payload = {"numberMatched": 3, "features": [
+        {"properties": {"country_iso3_code": "PER", "country_trans": "Peru", "year": "2021-01-01T00:00:00", "bgs_statistic_type_trans": "Production", "erml_group": "Copper", "erml_commodity": "Copper (mine production, metal content)", "quantity": 2300000.0, "units": "tonnes (metal content)", "data_precision_description": "Normal Value"}},
+        {"properties": {"country_iso3_code": "PER", "country_trans": "Peru", "year": "2021-01-01T00:00:00", "bgs_statistic_type_trans": "Production", "erml_group": "Unobtainium", "erml_commodity": "Unobtainium", "quantity": 1.0, "units": "t", "data_precision_description": "Normal Value"}},
+        {"properties": {"country_iso3_code": "PER", "country_trans": "Peru", "year": "2021-01-01T00:00:00", "bgs_statistic_type_trans": "Exports", "erml_group": "Copper", "erml_commodity": "Copper ores", "quantity": 5.0, "units": "t", "data_precision_description": "Normal Value"}},
     ]}
-    snap = snap_factory("bgs_wms", {"items_0.json": payload})
+    snap = snap_factory("bgs_wms", {"items_PER_0.json": payload})
     out = _check(BGS(), snap, ["production"])
-    assert len(out["production"]) == 1 and out["production"].iloc[0]["mineral"] == "copper"
+    assert len(out["production"]) == 1 and out["production"].iloc[0]["mineral"] == "copper" and out["production"].iloc[0]["year"] == 2021
 
 
 def test_usgs_mcs(snap_factory):
-    csv = "Country,Prod_t_2024,Prod_t_2025e,Reserves_t,Unit\nChile,49000,52000,9300000,metric tons\nUnited States,870,900,1800000,metric tons\n"
-    snap = snap_factory("usgs_mcs", {"files/mcs2026-lithi-world.csv": csv, "item.json": {"files": []}})
+    # consolidated long-format file (MCS2026_Commodities_Data.csv shape: one row per statistic)
+    long_csv = "Commodity,Country,Year,Type,Value,Unit\nLithium,Chile,2024,Mine production,49000,metric tons\nLithium,Chile,2025,Mine production estimated,52000,metric tons\nLithium,Chile,2025,Reserves,9300000,metric tons\nLithium,United States,2024,Mine production,870,metric tons\n"
+    # wide-format fallback (per-commodity world tables)
+    wide_csv = "Commodity,Country,Prod_t_2024,Prod_t_2025e,Reserves_t,Unit\nCopper,Chile,5300000,5500000,190000000,metric tons\n"
+    snap = snap_factory("usgs_mcs", {"files/MCS2026_Commodities_Data.csv": long_csv, "files/mcs2026-coppe-world.csv": wide_csv, "item.json": {"files": []}})
     out = _check(USGSMCS(), snap, ["production", "price"])
     df = out["production"]
-    assert set(df["country"]) == {"CHL"} and set(df["measure"]) == {"production", "reserves"}
-    assert df[(df["year"] == 2024) & (df["measure"] == "production")].iloc[0]["qty"] == 49000
-    assert df[df["measure"] == "reserves"].iloc[0]["year"] == 2025
-    assert df[df["year"] == 2025].iloc[0]["value_type"] == "estimated"
+    assert set(df["country"]) == {"CHL"}
+    li = df[df["mineral"] == "lithium"]
+    assert li[(li["year"] == 2024) & (li["measure"] == "production")].iloc[0]["qty"] == 49000
+    assert li[li["measure"] == "reserves"].iloc[0]["year"] == 2025
+    assert li[(li["year"] == 2025) & (li["measure"] == "production")].iloc[0]["value_type"] == "estimated"
+    cu = df[df["mineral"] == "copper"]
+    assert set(cu["measure"]) == {"production", "reserves"} and cu[cu["measure"] == "reserves"].iloc[0]["year"] == 2025
 
 
 def test_tier2_parsers(snap_factory, monkeypatch):

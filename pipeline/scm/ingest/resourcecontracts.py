@@ -60,8 +60,9 @@ class ResourceContracts(Adapter):
                 cid = str(c.get("id") or c.get("open_contracting_id") or "")
                 if not cid:
                     continue
-                country = c.get("country") or {}
-                code = (country.get("code") if isinstance(country, dict) else country) or name.split("_")[0]
+                countries = c.get("countries") or c.get("country") or []
+                first = countries[0] if isinstance(countries, list) and countries else countries
+                code = (first.get("code") if isinstance(first, dict) else first) or name.split("_")[0]
                 iso3 = ISO2_TO_3.get(str(code).lower(), str(code).upper())
                 if iso3 not in IN_SCOPE:
                     continue
@@ -74,7 +75,7 @@ class ResourceContracts(Adapter):
                 rows[cid] = {
                     "contract_id": event_id("rc", cid), "country": iso3, "title": c.get("name") or c.get("title") or cid,
                     "resource": res_text or None, "mineral": tag_mineral(f"{res_text} {c.get('name', '')}"), "companies": comp_text or None,
-                    "signature_year": int(c["signature_year"]) if str(c.get("signature_year", "")).isdigit() else pd.NA,
+                    "signature_year": int(c["year_signed"]) if str(c.get("year_signed", "")).isdigit() else int(c["signature_year"]) if str(c.get("signature_year", "")).isdigit() else pd.NA,
                     "contract_type": ctype_text or None, "language": c.get("language"), "value_type": "reported",
                     "source_record_url": f"https://www.resourcecontracts.org/contract/{c.get('open_contracting_id') or cid}/view",
                 }

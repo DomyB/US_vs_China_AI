@@ -37,7 +37,8 @@ def record(ids: list[str] | None = None) -> dict:
         dest = FIXTURES / sid
         dest.mkdir(parents=True, exist_ok=True)
         kept: list[str] = []
-        manifest = {"source_id": sid, "files": {}, "fixture_of": str(snap.dir), "note": "trimmed copy of a real response; see scm/fixtures.py"}
+        manifest = {"source_id": sid, "files": {}, "fixture_of": str(snap.dir), "note": "trimmed copy of a real response; see scm/fixtures.py",
+                    **{k: v for k, v in snap.manifest.items() if k not in ("files", "source_id")}}
         # remove stale fixture files from a previous recording so the directory mirrors this snapshot
         for old in dest.rglob("*"):
             if old.is_file():

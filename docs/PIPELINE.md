@@ -77,7 +77,9 @@ repository or to the site.
 | `liveness.yml` | Mondays | HEAD/GET of every registry URL → `data/liveness.json`, regenerates SOURCES.md |
 | `ci.yml` | every push | lint, typecheck, unit tests, build (web and pipeline) |
 
-Data commits carry `[skip ci]`. Scheduled workflows are disabled by GitHub after 60 days
+Each ingestion run first restores the Parquet warehouse from the latest `data-v*` release, so
+running a subset of adapters (`targets: wb_wgi usgs_mcs`) refreshes only those tables and keeps
+the rest. Data commits carry `[skip ci]`. Scheduled workflows are disabled by GitHub after 60 days
 without repository activity; the monthly data commit keeps them alive.
 
 ## Rules enforced in code

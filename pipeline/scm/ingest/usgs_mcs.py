@@ -47,68 +47,84 @@ class USGSMCS(Adapter):
         snap.manifest["file_list"] = [f.get("name") for f in files]
         snap.save()
         for f in files:
-            name = f.get("name", "")
-            if name.lower().endswith((".csv", ".xlsx")) and ("world" in name.lower() or "salient" in name.lower() or any(k in name.lower() for k in ("lithi", "coppe", "rarees", "niobi", "graph", "nicke", "tin", "silve", "molyb"))):
-                snap.get(f["url"], f"files/{name}")
+            name = str(f.get("name", ""))
+            if name.lower().endswith(".csv"):
+                snap.get(f["url"], f"files/{name}", timeout=600)
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         prod_rows: list[dict] = []
         price_rows: list[dict] = []
-        unmapped: list[str] = []
+        notes: dict[str, object] = {}
         for name, meta in snap.files.items():
             if not name.startswith("files/") or not snap.has(name):
                 continue
-            mineral = mineral_from_filename(name)
             edition = EDITION_RE.search(name)
             data_year = int(edition.group(1)) - 1 if edition else None
-            path = snap.path(name)
             try:
-                df = pd.read_csv(path) if name.endswith(".csv") else pd.read_excel(path)
-            except Exception:  # noqa: BLE001
-                unmapped.append(name)
+                df = pd.read_csv(snap.path(name), low_memory=False, encoding_errors="ignore")
+            except Exception as e:  # noqa: BLE001
+                notes[name] = f"unreadable: {e}"[:200]
                 continue
-            cols = {c: str(c) for c in df.columns}
-            country_col = next((c for c in df.columns if "country" in str(c).lower() or "source" in str(c).lower()), None)
-            if country_col is None or mineral is None:
-                unmapped.append(name)
+            cols = {str(c).lower(): c for c in df.columns}
+
+            def find(*keys, exclude=(), cols=cols):
+                for k, c in cols.items():
+                    if any(key in k for key in keys) and not any(x in k for x in exclude):
+                        return c
+                return None
+
+            c_country = find("country", "source")
+            c_commodity = find("commodity", "mineral")
+            c_year = find("year")
+            c_type = find("type", "statistic", "measure", "variable", "item")
+            c_value = find("value", "quantity", "amount")
+            c_unit = find("unit")
+            notes[name] = {"columns": list(map(str, df.columns))[:30]}
+            if c_country is None or c_commodity is None:
+                notes[name]["skipped"] = "no country/commodity column"
                 continue
-            unit_col = next((c for c in df.columns if "unit" in str(c).lower()), None)
-            for c, cname in cols.items():
-                low = cname.lower()
-                measure = "production" if "prod" in low else "reserves" if "reserv" in low else None
-                if measure is None:
+            file_mineral = mineral_from_filename(name)
+            year_cols = [(c, int(YEAR_RE.search(str(c)).group(1))) for c in df.columns if YEAR_RE.search(str(c))]
+            for _, r in df.iterrows():
+                iso = iso3_from_name(r[c_country])
+                if iso not in IN_SCOPE:
                     continue
-                m = YEAR_RE.search(cname)
-                if m:
-                    year = int(m.group(1))
-                elif measure == "reserves" and data_year:
-                    year = data_year
+                mineral = tag_mineral(r[c_commodity]) or file_mineral
+                if mineral is None:
+                    continue
+                unit = str(r[c_unit]) if c_unit and pd.notna(r[c_unit]) else "see source table"
+                ttext = str(r[c_type]).lower() if c_type and pd.notna(r[c_type]) else ""
+                if c_year and c_value and not year_cols:
+                    # long format: one row per country, commodity, year, statistic
+                    ym = YEAR_RE.search(str(r[c_year]))
+                    if not ym:
+                        continue
+                    measure = "production" if "prod" in ttext else "reserves" if "reserv" in ttext else None
+                    if measure is None and "price" in ttext:
+                        price_rows.append({"mineral": mineral, "series": f"USGS MCS: {r[c_type]}", "date": f"{ym.group(1)}-01-01", "year": int(ym.group(1)), "month": pd.NA, "price": to_float(r[c_value]), "unit": unit, "value_type": "reported", "note": str(r[c_commodity]), "source_record_url": meta.get("url")})
+                        continue
+                    if measure is None:
+                        measure = "production"
+                    est = "estimat" in ttext or str(r[c_year]).lower().endswith("e")
+                    prod_rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": int(ym.group(1)), "qty": to_float(r[c_value]), "unit": unit,
+                                      "value_type": "estimated" if est else "reported", "note": f"USGS MCS {name.split('/')[-1]}: {r[c_commodity]} / {r[c_type] if c_type else ''}", "source_record_url": meta.get("url")})
                 else:
-                    continue
-                for _, r in df.iterrows():
-                    iso = iso3_from_name(r[country_col])
-                    if iso not in IN_SCOPE:
-                        continue
-                    prod_rows.append({
-                        "country": iso, "mineral": mineral, "measure": measure, "year": year, "qty": to_float(r[c]),
-                        "value_type": "estimated" if cname.lower().endswith("e") and measure == "production" else "reported",
-                        "unit": str(r[unit_col]) if unit_col else "see source table",
-                        "note": f"USGS MCS file {name.split('/')[-1]}, column '{cname}'", "source_record_url": meta.get("url"),
-                    })
-            # price rows: a 'Price' column with year columns in salient-statistics tables
-            price_col = next((c for c in df.columns if "price" in str(c).lower()), None)
-            if price_col is not None and country_col is not None:
-                for _, r in df.iterrows():
-                    if "price" not in str(r[country_col]).lower():
-                        continue
-                    for c, cname in cols.items():
-                        m = YEAR_RE.search(cname)
-                        if m:
-                            price_rows.append({"mineral": mineral, "series": f"USGS MCS annual average ({name.split('/')[-1]})", "date": f"{m.group(1)}-01-01", "year": int(m.group(1)), "month": pd.NA, "price": to_float(r[c]), "unit": "see source table", "value_type": "reported", "note": str(r[country_col]), "source_record_url": meta.get("url")})
-        if unmapped:
-            snap.manifest["unmapped_files"] = unmapped
-            snap.save()
+                    # wide format: year columns named like Prod_t_2024 / Reserves
+                    for c, year in year_cols:
+                        low = str(c).lower()
+                        measure = "production" if "prod" in low else "reserves" if "reserv" in low else None
+                        if measure is None:
+                            continue
+                        prod_rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": year, "qty": to_float(r[c]), "unit": unit,
+                                          "value_type": "estimated" if low.endswith("e") else "reported", "note": f"USGS MCS {name.split('/')[-1]}, column {c}", "source_record_url": meta.get("url")})
+                    for c in df.columns:
+                        low = str(c).lower()
+                        if "reserv" in low and not YEAR_RE.search(low) and data_year:
+                            prod_rows.append({"country": iso, "mineral": mineral, "measure": "reserves", "year": data_year, "qty": to_float(r[c]), "unit": unit, "value_type": "reported", "note": f"USGS MCS {name.split('/')[-1]}, column {c}", "source_record_url": meta.get("url")})
+        snap.manifest["parse_notes"] = notes
+        snap.save()
         prod = pd.DataFrame(prod_rows, columns=["country", "mineral", "measure", "year", "qty", "unit", "value_type", "note", "source_record_url"])
+        if not prod.empty:
+            prod = prod.drop_duplicates(subset=["country", "mineral", "measure", "year", "note"])
         price = pd.DataFrame(price_rows, columns=["mineral", "series", "date", "year", "month", "price", "unit", "value_type", "note", "source_record_url"])
         return {"production": self.stamp(snap, prod), "price": self.stamp(snap, price)}
-

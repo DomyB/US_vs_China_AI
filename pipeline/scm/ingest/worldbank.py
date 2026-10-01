@@ -1,6 +1,8 @@
 """World Bank adapters: WDI (macro context), WGI (governance), IDS (debt to China)."""
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 
 from ..http import Snapshot
@@ -57,7 +59,7 @@ class _WBBase(Adapter):
         rows: list[dict] = []
         for ind, name in self.indicators.items():
             if snap.has(f"{ind}.json"):
-                payload = pd.read_json(snap.path(f"{ind}.json"), typ="series") if False else __import__("json").loads(snap.path(f"{ind}.json").read_text())
+                payload = json.loads(snap.path(f"{ind}.json").read_text())
                 rows += _parse_v2(payload, ind, name)
         df = pd.DataFrame(rows, columns=["country", "year", "indicator", "indicator_name", "value"])
         df["value_type"] = "reported"
@@ -71,10 +73,43 @@ class WDI(_WBBase):
     date_range = "2000:2026"
 
 
-class WGI(_WBBase):
+def parse_advanced(payload: object, indicator: str, name: str) -> list[dict]:
+    """Rows from the /v2/sources/<n>/... endpoint: {"source": {"data": [{"variable": [...], "value": v}]}}."""
+    rows: list[dict] = []
+    data = payload.get("source", {}).get("data", []) if isinstance(payload, dict) else []
+    for d in data:
+        dims = {x.get("concept"): x for x in d.get("variable", [])}
+        iso = (dims.get("Country") or {}).get("id")
+        t = dims.get("Time") or {}
+        year = t.get("value") or str(t.get("id", "")).replace("YR", "")
+        if iso not in IN_SCOPE or not str(year)[:4].isdigit():
+            continue
+        rows.append({"country": iso, "year": int(str(year)[:4]), "indicator": indicator, "indicator_name": name, "value": d.get("value")})
+    return rows
+
+
+class WGI(Adapter):
+    """Worldwide Governance Indicators (database 3). The simple indicator endpoint rejects a date
+    range for this database ("Invalid value"), so the advanced sources endpoint is used."""
+
     source_id = "wb_wgi"
+    tables = ("governance",)
     indicators = WGI_INDICATORS
-    source_param = "3"
+
+    def fetch(self, snap: Snapshot) -> None:
+        for ind in self.indicators:
+            snap.get(f"{API}/sources/3/country/{COUNTRIES}/series/{ind}/time/all", f"{ind}.json", params={"format": "json", "per_page": 20000})
+
+    def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
+        import json
+
+        rows: list[dict] = []
+        for ind, name in self.indicators.items():
+            if snap.has(f"{ind}.json"):
+                rows += parse_advanced(json.loads(snap.path(f"{ind}.json").read_text()), ind, name)
+        df = pd.DataFrame(rows, columns=["country", "year", "indicator", "indicator_name", "value"])
+        df["value_type"] = "reported"
+        return {"governance": self.stamp(snap, df)}
 
 
 class IDS(Adapter):
@@ -102,16 +137,7 @@ class IDS(Adapter):
                 if not snap.has(name):
                     continue
                 payload = json.loads(snap.path(name).read_text())
-                data = payload.get("source", {}).get("data", []) if isinstance(payload, dict) else []
-                for d in data:
-                    v = d.get("value")
-                    dims = {x.get("concept"): x for x in d.get("variable", [])}
-                    iso = (dims.get("Country") or {}).get("id")
-                    year = (dims.get("Time") or {}).get("value") or (dims.get("Time") or {}).get("id", "").replace("YR", "")
-                    if iso not in IN_SCOPE or not year:
-                        continue
-                    rows.append({"country": iso, "year": int(str(year)[:4]), "indicator": f"{s}:{cp}",
-                                 "indicator_name": f"{sname} — creditor: {cpname}", "value": v})
+                rows += parse_advanced(payload, f"{s}:{cp}", f"{sname} — creditor: {cpname}")
         df = pd.DataFrame(rows, columns=["country", "year", "indicator", "indicator_name", "value"])
         df["value_type"] = "reported"
         return {"governance": self.stamp(snap, df)}

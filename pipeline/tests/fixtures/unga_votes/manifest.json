@@ -87,5 +87,8 @@
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/unga_votes/2026-10-01",
- "note": "trimmed copy of a real response; see scm/fixtures.py"
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "unparsed_files": [
+  "files/IdealpointsJuly2025.tab"
+ ]
 }

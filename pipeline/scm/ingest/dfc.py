@@ -10,8 +10,8 @@ from ..registry import IN_SCOPE, iso3_from_name
 from .base import Adapter, event_id, to_float
 from .util import col, sheet_names, tag_mineral
 
-PAGE = "https://www.dfc.gov/our-impact/transaction-data"
-LINK_RE = re.compile(r"https?://[^\"' ]+\.(?:xlsx|csv)", re.I)
+PAGES = {"page.html": "https://www.dfc.gov/our-impact/transaction-data", "active.html": "https://www.dfc.gov/what-we-do/active-projects"}
+LINK_RE = re.compile(r"href=[\"']([^\"']+\.(?:xlsx|xls|csv)(?:\?[^\"']*)?)[\"']", re.I)
 
 
 class DFC(Adapter):
@@ -19,12 +19,21 @@ class DFC(Adapter):
     tables = ("finance_event",)
 
     def fetch(self, snap: Snapshot) -> None:
-        html = snap.get(PAGE, "page.html").read_text(encoding="utf-8", errors="ignore")
-        links = [u for u in LINK_RE.findall(html) if "dfc.gov" in u or u.startswith("/")]
+        links: list[str] = []
+        for fname, url in PAGES.items():
+            html = snap.get(url, fname).read_text(encoding="utf-8", errors="ignore")
+            for u in LINK_RE.findall(html):
+                if u.startswith("/"):
+                    u = "https://www.dfc.gov" + u
+                if "dfc.gov" in u and u not in links:
+                    links.append(u)
+        snap.manifest["spreadsheet_links"] = links
+        snap.save()
         if not links:
-            raise RuntimeError("DFC transaction data file link not found")
+            raise RuntimeError("DFC: no spreadsheet link on the transaction-data or active-projects pages (see spreadsheet_links in the manifest)")
         url = links[0]
-        snap.get(url, "dfc." + url.rsplit(".", 1)[-1].lower())
+        ext = url.split("?")[0].rsplit(".", 1)[-1].lower()
+        snap.get(url, "dfc." + ("xlsx" if ext in ("xlsx", "xls") else "csv"), timeout=300)
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         path = next(snap.path(n) for n in snap.files if n.startswith("dfc."))
