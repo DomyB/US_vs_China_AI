@@ -11,7 +11,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T21:55:23+00:00",
+   "retrieved_at": "2026-10-01T21:57:28+00:00",
    "note": null,
    "trimmed": true
   },
@@ -24,7 +24,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T21:55:24+00:00",
+   "retrieved_at": "2026-10-01T21:57:29+00:00",
    "note": null,
    "trimmed": true
   },
@@ -38,7 +38,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T21:55:25+00:00",
+   "retrieved_at": "2026-10-01T21:57:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -51,7 +51,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T21:55:26+00:00",
+   "retrieved_at": "2026-10-01T21:57:31+00:00",
    "note": null,
    "trimmed": true
   },
@@ -65,7 +65,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T21:55:27+00:00",
+   "retrieved_at": "2026-10-01T21:57:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -78,7 +78,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T21:55:28+00:00",
+   "retrieved_at": "2026-10-01T21:57:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -92,7 +92,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T21:55:29+00:00",
+   "retrieved_at": "2026-10-01T21:57:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -105,7 +105,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T21:55:30+00:00",
+   "retrieved_at": "2026-10-01T21:57:35+00:00",
    "note": null,
    "trimmed": true
   },
@@ -119,7 +119,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T21:55:31+00:00",
+   "retrieved_at": "2026-10-01T21:57:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -132,7 +132,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T21:55:32+00:00",
+   "retrieved_at": "2026-10-01T21:57:37+00:00",
    "note": null,
    "trimmed": true
   },
@@ -146,7 +146,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T21:55:33+00:00",
+   "retrieved_at": "2026-10-01T21:57:38+00:00",
    "note": null,
    "trimmed": true
   },
@@ -159,7 +159,114 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T21:55:34+00:00",
+   "retrieved_at": "2026-10-01T21:57:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "govindicators.html": {
+   "url": "https://www.govindicators.org/",
+   "params": {},
+   "status": 200,
+   "bytes": 56301,
+   "final_url": "https://www.worldbank.org/en/publication/worldwide-governance-indicators",
+   "sha256": "5d8a5678f84ef3ea85e51e13f81d3c163a9a496c322a74090b9188c24e22a807",
+   "retrieved_at": "2026-10-01T21:57:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "d360_indicators.json": {
+   "url": "https://data360api.worldbank.org/data360/indicators?datasetId=WB_WGI",
+   "params": {
+    "datasetId": "WB_WGI"
+   },
+   "status": 200,
+   "bytes": 105,
+   "sha256": "3d9433086ddd9de452ef3b437688a9f1a0e0d73b5d76a94356ba72b6b1b53ab9",
+   "retrieved_at": "2026-10-01T21:57:46+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "d360_CC.EST_0.json": {
+   "url": "https://data360api.worldbank.org/data360/data?DATABASE_ID=WB_WGI&INDICATOR=WB_WGI_CC_EST&skip=0",
+   "params": {
+    "DATABASE_ID": "WB_WGI",
+    "INDICATOR": "WB_WGI_CC_EST",
+    "skip": 0
+   },
+   "status": 200,
+   "bytes": 34,
+   "sha256": "3026eb23993192ef8e773b751f4d12795286f040c882846f47c8d79156a6a2fd",
+   "retrieved_at": "2026-10-01T21:57:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "d360_GE.EST_0.json": {
+   "url": "https://data360api.worldbank.org/data360/data?DATABASE_ID=WB_WGI&INDICATOR=WB_WGI_GE_EST&skip=0",
+   "params": {
+    "DATABASE_ID": "WB_WGI",
+    "INDICATOR": "WB_WGI_GE_EST",
+    "skip": 0
+   },
+   "status": 200,
+   "bytes": 34,
+   "sha256": "3026eb23993192ef8e773b751f4d12795286f040c882846f47c8d79156a6a2fd",
+   "retrieved_at": "2026-10-01T21:57:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "d360_PV.EST_0.json": {
+   "url": "https://data360api.worldbank.org/data360/data?DATABASE_ID=WB_WGI&INDICATOR=WB_WGI_PV_EST&skip=0",
+   "params": {
+    "DATABASE_ID": "WB_WGI",
+    "INDICATOR": "WB_WGI_PV_EST",
+    "skip": 0
+   },
+   "status": 200,
+   "bytes": 34,
+   "sha256": "3026eb23993192ef8e773b751f4d12795286f040c882846f47c8d79156a6a2fd",
+   "retrieved_at": "2026-10-01T21:57:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "d360_RL.EST_0.json": {
+   "url": "https://data360api.worldbank.org/data360/data?DATABASE_ID=WB_WGI&INDICATOR=WB_WGI_RL_EST&skip=0",
+   "params": {
+    "DATABASE_ID": "WB_WGI",
+    "INDICATOR": "WB_WGI_RL_EST",
+    "skip": 0
+   },
+   "status": 200,
+   "bytes": 34,
+   "sha256": "3026eb23993192ef8e773b751f4d12795286f040c882846f47c8d79156a6a2fd",
+   "retrieved_at": "2026-10-01T21:57:50+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "d360_RQ.EST_0.json": {
+   "url": "https://data360api.worldbank.org/data360/data?DATABASE_ID=WB_WGI&INDICATOR=WB_WGI_RQ_EST&skip=0",
+   "params": {
+    "DATABASE_ID": "WB_WGI",
+    "INDICATOR": "WB_WGI_RQ_EST",
+    "skip": 0
+   },
+   "status": 200,
+   "bytes": 34,
+   "sha256": "3026eb23993192ef8e773b751f4d12795286f040c882846f47c8d79156a6a2fd",
+   "retrieved_at": "2026-10-01T21:57:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "d360_VA.EST_0.json": {
+   "url": "https://data360api.worldbank.org/data360/data?DATABASE_ID=WB_WGI&INDICATOR=WB_WGI_VA_EST&skip=0",
+   "params": {
+    "DATABASE_ID": "WB_WGI",
+    "INDICATOR": "WB_WGI_VA_EST",
+    "skip": 0
+   },
+   "status": 200,
+   "bytes": 34,
+   "sha256": "3026eb23993192ef8e773b751f4d12795286f040c882846f47c8d79156a6a2fd",
+   "retrieved_at": "2026-10-01T21:57:52+00:00",
    "note": null,
    "trimmed": true
   }
@@ -215,18 +322,9 @@
  "bulk_links": [
   "https://www.govindicators.org/content/dam/sites/govindicators/doc/wgidataset_with_sourcedata-2026.xlsx"
  ],
+ "data360_listing_sample": "[\"GOV_WGI_CC\", \"GOV_WGI_GE\"]",
  "data360_ids": {
   "none matched; listing size": 6
  },
- "data360_sample": "{\"count\": 0, \"value\": []}",
- "omitted": [
-  "govindicators.html",
-  "d360_indicators.json",
-  "d360_CC.EST_0.json",
-  "d360_GE.EST_0.json",
-  "d360_PV.EST_0.json",
-  "d360_RL.EST_0.json",
-  "d360_RQ.EST_0.json",
-  "d360_VA.EST_0.json"
- ]
+ "data360_sample": "{\"count\": 0, \"value\": []}"
 }
