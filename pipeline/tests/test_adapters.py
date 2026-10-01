@@ -227,11 +227,14 @@ def test_wgi_bulk_dataset_fallback(snap_factory):
 
 
 def test_wgi_data360_fallback(snap_factory):
-    payload = {"count": 2, "value": [{"REF_AREA": "PER", "TIME_PERIOD": "2022", "OBS_VALUE": "-0.35", "INDICATOR": "WB_WGI_CC_EST"},
-                                     {"REF_AREA": "PER", "TIME_PERIOD": "2023", "OBS_VALUE": "..", "INDICATOR": "WB_WGI_CC_EST"}]}
+    payload = {"count": 4, "value": [{"REF_AREA": "PER", "TIME_PERIOD": "2022", "OBS_VALUE": "-0.35", "INDICATOR": "GOV_WGI_CC", "COMP_BREAKDOWN_1": "WGI_SC_EST"},
+                                     {"REF_AREA": "PER", "TIME_PERIOD": "2023", "OBS_VALUE": "..", "INDICATOR": "GOV_WGI_CC", "COMP_BREAKDOWN_1": "WGI_SC_EST"},
+                                     {"REF_AREA": "PER", "TIME_PERIOD": "2022", "OBS_VALUE": "38.1", "INDICATOR": "GOV_WGI_CC", "COMP_BREAKDOWN_1": "WGI_SC_UB"},
+                                     {"REF_AREA": "PER", "TIME_PERIOD": "2022", "OBS_VALUE": "31.6", "INDICATOR": "GOV_WGI_CC", "COMP_BREAKDOWN_1": "WGI_SC_PR"}]}
     snap = snap_factory("wb_wgi", {"d360_CC.EST_0.json": payload})
     out = _check(WGI(), snap, ["governance"])
-    assert len(out["governance"]) == 1 and out["governance"].iloc[0]["value"] == -0.35 and out["governance"].iloc[0]["year"] == 2022
+    df = out["governance"].set_index("indicator")
+    assert len(df) == 2 and df.loc["CC.EST", "value"] == -0.35 and df.loc["CC.PER_RNK", "value"] == 31.6
 
 
 def test_wgi_data360_indicator_ids(snap_factory):

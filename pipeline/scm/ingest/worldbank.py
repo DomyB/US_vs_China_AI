@@ -159,6 +159,11 @@ class WGI(Adapter):
                         snap.manifest["data360_sample"] = json.dumps(payload, ensure_ascii=False)[:1500]
                     values = payload.get("value", []) if isinstance(payload, dict) else []
                     count = payload.get("count", 0) if isinstance(payload, dict) else 0
+                    tally = snap.manifest.setdefault("data360_breakdowns", {})
+                    for v in values:
+                        if isinstance(v, dict):
+                            key = str(v.get("COMP_BREAKDOWN_1"))
+                            tally[key] = tally.get(key, 0) + 1
                     pages += 1
                     skip += len(values)
                     if not values or skip >= count:
@@ -290,8 +295,18 @@ def _parse_data360_payload(payload: object, indicator: str, name: str, url: str 
         period = str(low.get("time_period") or low.get("time") or low.get("year") or "")[:4]
         if iso not in IN_SCOPE or v in (None, "", "..") or not period.isdigit():
             continue
+        # Data360 carries every WGI statistic as a breakdown of the same indicator (estimate, standard
+        # error, lower/upper bound, percentile rank, number of sources). Keep the estimate under our
+        # code (CC.EST) and the percentile rank under CC.PER_RNK; drop the rest.
+        bd = str(low.get("comp_breakdown_1") or "").upper()
+        if bd in ("", "_Z") or "EST" in bd:
+            ind, label = indicator, name
+        elif any(k in bd for k in ("_PR", "RANK", "PCT", "PERC")):
+            ind, label = indicator.replace(".EST", ".PER_RNK"), name.replace("Estimate", "Percentile rank")
+        else:
+            continue
         try:
-            rows.append({"country": iso, "year": int(period), "indicator": indicator, "indicator_name": name, "value": float(v), "source_record_url": url})
+            rows.append({"country": iso, "year": int(period), "indicator": ind, "indicator_name": label, "value": float(v), "source_record_url": url})
         except (TypeError, ValueError):
             continue
     return rows
