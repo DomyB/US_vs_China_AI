@@ -6,12 +6,36 @@
    "params": {},
    "status": 200,
    "bytes": 42414,
-   "sha256": "87855ea9a047ae85462ae8333a777b7850a70fb4a4a7abc5b5adda53cedb09eb",
-   "retrieved_at": "2026-10-01T20:24:14+00:00",
+   "sha256": "bf4fbb5cd9d06e6d6f2642ca56f53f064979662b5ba84bf28a0e9cd1d6a9e4f2",
+   "retrieved_at": "2026-10-01T20:46:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "active.html": {
+   "url": "https://www.dfc.gov/what-we-do/active-projects",
+   "params": {},
+   "status": 200,
+   "bytes": 37221,
+   "sha256": "d57d4d9c4370e3af0a7a1cf858b795a97765b6c20972205008a5c6cd1c3a43e6",
+   "retrieved_at": "2026-10-01T20:46:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "dfc.xlsx": {
+   "url": "https://www.dfc.gov/sites/default/files/media/documents/FY24%20DFC%20Annual%20Project%20Data_508.xlsx",
+   "params": {},
+   "status": 200,
+   "bytes": 339022,
+   "sha256": "191edce3b74ad72f49b48a8065af3dd1a16c189d0124399eede3689671ec0e7e",
+   "retrieved_at": "2026-10-01T20:46:28+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dfc_projects/2026-10-01",
- "note": "trimmed copy of a real response; see scm/fixtures.py"
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "spreadsheet_links": [
+  "https://www.dfc.gov/sites/default/files/media/documents/FY24%20DFC%20Annual%20Project%20Data_508.xlsx",
+  "https://www.dfc.gov/sites/default/files/media/documents/2025-03-13T15_27_24.9984474Z-83-FY2024%20DFC%20Annual%20Subproject%20Data_508.xlsx"
+ ]
 }

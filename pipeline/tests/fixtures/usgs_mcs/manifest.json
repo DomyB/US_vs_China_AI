@@ -9,12 +9,43 @@
    "status": 200,
    "bytes": 7275,
    "sha256": "1acf6e89cb12007345289f59fc67819400158e68691619e1fd008f3445151d84",
-   "retrieved_at": "2026-10-01T20:15:29+00:00",
+   "retrieved_at": "2026-10-01T20:46:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "files/MCS2026_Commodities_Data.csv": {
+   "url": "https://www.sciencebase.gov/catalog/file/get/69837e43b66b01367d7ec7c7?f=__disk__d3%2Fac%2F84%2Fd3ac8466552946c5e8caa2c2c6338d9e1aff655d",
+   "params": {},
+   "status": 200,
+   "bytes": 3189010,
+   "sha256": "582a0aa231aea53d8a97dc8d1cd3dfa5f885cf3760353e3d029d7f0ae4fbaaf5",
+   "retrieved_at": "2026-10-01T20:46:25+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/usgs_mcs/2026-10-01",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "parse_notes": {}
+ "file_list": [
+  "MCS2026_Commodities_Data.xml",
+  "MCS2026_Commodities_Data.csv"
+ ],
+ "parse_notes": {
+  "files/MCS2026_Commodities_Data.csv": {
+   "columns": [
+    "MCS chapter",
+    "Section",
+    "Commodity",
+    "Country",
+    "Statistics",
+    "Statistics_detail",
+    "Unit",
+    "Year",
+    "Value",
+    "Notes",
+    "Is critical mineral 2025",
+    "Other notes"
+   ]
+  }
+ }
 }

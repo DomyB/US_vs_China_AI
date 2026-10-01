@@ -1,0 +1,32 @@
+{
+ "source_id": "exim_authorizations",
+ "files": {},
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022",
+   "error": "exim_authorizations: GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025",
+   "error": "exim_authorizations: GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/api/3/action/package_search",
+   "error": "exim_authorizations: GET https://catalog.data.gov/api/3/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022",
+   "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025",
+   "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/api/action/package_search",
+   "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  }
+ ]
+}

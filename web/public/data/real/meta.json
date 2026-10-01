@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-01",
- "generated_at": "2026-10-01T20:44:33+00:00",
+ "generated_at": "2026-10-01T20:47:03+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "bgs_wms",
@@ -23,13 +23,6 @@
    "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
   },
   {
-   "source_id": "federal_register",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:44:29+00:00",
-   "rows": "{\"policy_document\": 444}",
-   "error": null
-  },
-  {
    "source_id": "un_comtrade",
    "status": "ok",
    "finished_at": "2026-10-01T20:23:59+00:00",
@@ -44,18 +37,18 @@
    "error": null
   },
   {
-   "source_id": "aiddata_gcdf",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:44:24+00:00",
-   "rows": "{\"finance_event\": 1615}",
-   "error": null
+   "source_id": "dfc_projects",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:46:28+00:00",
+   "rows": "{}",
+   "error": "SchemaErrors: {\n    \"DATA\": {\n        \"DATAFRAME_CHECK\": [\n            {\n                \"schema\": \"finance_event\",\n                \"column\": \"year\",\n                \"check\": \"in_range(1990, 2100)\",\n                \"error\": \"Column 'year' failed element-wise validator number 0: in_range(1990, 2100) failure cases: 1986, 1987, 1987, 1989\"\n            }\n        ]\n    }\n}"
   },
   {
-   "source_id": "exim_authorizations",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:24:14+00:00",
-   "rows": "{}",
-   "error": "FetchError: exim_authorizations: GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+   "source_id": "federal_register",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:44:29+00:00",
+   "rows": "{\"policy_document\": 444}",
+   "error": null
   },
   {
    "source_id": "unga_votes",
@@ -72,11 +65,18 @@
    "error": null
   },
   {
-   "source_id": "dfc_projects",
+   "source_id": "bgs_wms",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:33:34+00:00",
+   "rows": "{\"production\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "exim_authorizations",
    "status": "failed",
-   "finished_at": "2026-10-01T20:24:14+00:00",
+   "finished_at": "2026-10-01T20:47:00+00:00",
    "rows": "{}",
-   "error": "RuntimeError: DFC transaction data file link not found"
+   "error": "RuntimeError: no CSV resource found for EXIM authorizations on data.gov"
   },
   {
    "source_id": "resourcecontracts",
@@ -88,30 +88,30 @@
   {
    "source_id": "usgs_mcs",
    "status": "ok",
-   "finished_at": "2026-10-01T20:15:29+00:00",
+   "finished_at": "2026-10-01T20:46:26+00:00",
    "rows": "{\"production\": 0, \"price\": 0}",
    "error": null
   },
   {
-   "source_id": "wb_wdi",
+   "source_id": "wb_wgi",
    "status": "ok",
-   "finished_at": "2026-10-01T20:15:20+00:00",
-   "rows": "{\"governance\": 1872}",
+   "finished_at": "2026-10-01T20:46:24+00:00",
+   "rows": "{\"governance\": 0}",
    "error": null
   },
   {
-   "source_id": "bgs_wms",
+   "source_id": "aiddata_gcdf",
    "status": "ok",
-   "finished_at": "2026-10-01T20:33:34+00:00",
-   "rows": "{\"production\": 0}",
+   "finished_at": "2026-10-01T20:44:24+00:00",
+   "rows": "{\"finance_event\": 1615}",
    "error": null
   },
   {
    "source_id": "idb_dpi",
    "status": "failed",
-   "finished_at": "2026-10-01T20:25:12+00:00",
+   "finished_at": "2026-10-01T20:46:55+00:00",
    "rows": "{}",
-   "error": "RuntimeError: no CSV/XLSX resource in the DPI package"
+   "error": "RuntimeError: DPI: every resource download failed: https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 202  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-9"
   },
   {
    "source_id": "vdem",
@@ -121,10 +121,10 @@
    "error": null
   },
   {
-   "source_id": "wb_wgi",
+   "source_id": "wb_wdi",
    "status": "ok",
-   "finished_at": "2026-10-01T20:15:25+00:00",
-   "rows": "{\"governance\": 0}",
+   "finished_at": "2026-10-01T20:15:20+00:00",
+   "rows": "{\"governance\": 1872}",
    "error": null
   }
  ],
