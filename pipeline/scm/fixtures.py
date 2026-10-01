@@ -17,6 +17,7 @@ from .paths import PIPELINE_DIR
 
 FIXTURES = PIPELINE_DIR / "tests" / "fixtures"
 MAX_ROWS = 60
+MAX_FILES = 12  # per source; keep the first files in manifest order (page 1s, item lists, headers)
 
 
 def _trim_json(obj: object) -> object:
@@ -37,7 +38,14 @@ def record(ids: list[str] | None = None) -> dict:
         dest.mkdir(parents=True, exist_ok=True)
         kept: list[str] = []
         manifest = {"source_id": sid, "files": {}, "fixture_of": str(snap.dir), "note": "trimmed copy of a real response; see scm/fixtures.py"}
+        # remove stale fixture files from a previous recording so the directory mirrors this snapshot
+        for old in dest.rglob("*"):
+            if old.is_file():
+                old.unlink()
         for name, meta in snap.files.items():
+            if len(kept) >= MAX_FILES:
+                manifest.setdefault("omitted", []).append(name)
+                continue
             src = snap.path(name)
             if not src.exists() or src.stat().st_size == 0:
                 continue
