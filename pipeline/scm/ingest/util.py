@@ -58,38 +58,41 @@ def find_header_row(df: pd.DataFrame, must_contain: str, max_rows: int = 30) -> 
     raise ValueError(f"no header row containing '{must_contain}'")
 
 
+# Whole-word keywords (regex, case-insensitive). Word boundaries matter: "ree" must not match
+# "free", "tin" must not match "bulletin", "oro" must not match "Orinoco".
 _KEYWORDS: dict[str, list[str]] = {
-    "lithium": ["lithium", "litio", "lítio", "spodumene", "salar"],
-    "copper": ["copper", "cobre"],
-    "rare_earths": ["rare earth", "rare-earth", "tierras raras", "terras raras", "neodymium", "ree "],
-    "niobium": ["niobium", "niobio", "nióbio", "ferroniobium"],
-    "graphite": ["graphite", "grafito", "grafite"],
-    "nickel": ["nickel", "níquel", "niquel"],
-    "tin": ["tin ", "tin,", "estaño", "estanho", "cassiterite"],
-    "silver": ["silver", "plata", "prata"],
-    "molybdenum": ["molybdenum", "molibdeno", "molibdênio"],
-    "cobalt": ["cobalt", "cobalto"],
-    "manganese": ["manganese", "manganeso", "manganês"],
-    "bauxite_aluminum": ["bauxite", "bauxita", "alumina", "aluminum", "aluminium"],
-    "uranium": ["uranium", "uranio", "urânio"],
-    "tungsten": ["tungsten", "wolfram", "tungsteno"],
-    "zinc": ["zinc", "zinco"],
-    "gold": ["gold", " oro", "ouro"],
-    "phosphate_potash": ["phosphate", "fosfato", "potash", "potasio", "potássio"],
-    "iron_ore": ["iron ore", "mineral de hierro", "minério de ferro", "iron-ore"],
-    "titanium": ["titanium", "titanio", "titânio", "ilmenite"],
-    "gallium_germanium_antimony": ["gallium", "germanium", "antimony", "antimonio"],
+    "lithium": [r"lithium", r"litio", r"lítio", r"spodumene", r"salar(?:es)?"],
+    "copper": [r"copper", r"cobre"],
+    "rare_earths": [r"rare[- ]earths?", r"tierras raras", r"terras raras", r"neodymium", r"rees?"],
+    "niobium": [r"niobium", r"niobio", r"nióbio", r"ferroniobium"],
+    "graphite": [r"graphite", r"grafito", r"grafite"],
+    "nickel": [r"nickel", r"níquel", r"niquel"],
+    "tin": [r"tin", r"estaño", r"estanho", r"cassiterite"],
+    "silver": [r"silver", r"plata", r"prata"],
+    "molybdenum": [r"molybdenum", r"molibdeno", r"molibdênio"],
+    "cobalt": [r"cobalt", r"cobalto"],
+    "manganese": [r"manganese", r"manganeso", r"manganês"],
+    "bauxite_aluminum": [r"bauxite", r"bauxita", r"alumina", r"alumin(?:i)?um"],
+    "uranium": [r"uranium", r"uranio", r"urânio"],
+    "tungsten": [r"tungsten", r"wolfram", r"tungsteno"],
+    "zinc": [r"zinc", r"zinco"],
+    "gold": [r"gold", r"oro", r"ouro"],
+    "phosphate_potash": [r"phosphates?", r"fosfatos?", r"potash", r"potasio", r"potássio"],
+    "iron_ore": [r"iron[- ]ore", r"mineral de hierro", r"minério de ferro"],
+    "titanium": [r"titanium", r"titanio", r"titânio", r"ilmenite"],
+    "gallium_germanium_antimony": [r"gallium", r"germanium", r"antimony", r"antimonio"],
 }
+_PATTERNS: dict[str, re.Pattern] = {m: re.compile(r"\b(?:" + "|".join(ws) + r")\b", re.I) for m, ws in _KEYWORDS.items()}
 
 
 def tag_mineral(text: object) -> str | None:
-    """First mineral whose keyword appears in the text (lowercased). None if no match."""
+    """First mineral whose keyword appears as a whole word in the text. None if no match."""
     if text is None:
         return None
-    t = " " + str(text).lower() + " "
+    t = str(text)
     known = {m["id"] for m in minerals()}
-    for mineral, words in _KEYWORDS.items():
-        if mineral in known and any(w in t for w in words):
+    for mineral, pat in _PATTERNS.items():
+        if mineral in known and pat.search(t):
             return mineral
     return None
 

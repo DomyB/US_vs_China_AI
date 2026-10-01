@@ -134,12 +134,12 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
           </div>
           <p className="mb-1 text-xs text-ink-3">Inputs to the influence index: governance (World Bank WGI, V-Dem), executive ideology (IDB DPI), UN General Assembly alignment with the US and China, macro context.</p>
           <table className="w-full text-xs">
-            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 text-right">Value</th><th className="py-1">Source</th></tr></thead>
+            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 pr-4 text-right">Value</th><th className="py-1">Source</th></tr></thead>
             <tbody>
               {governance.map((g) => (
                 <tr key={g.indicator} className="border-t border-rule align-top">
                   <td className="py-1">{g.name}</td>
-                  <td className="py-1 text-right tabular-nums">{g.value == null ? "—" : Math.abs(g.value) >= 1e6 ? g.value.toLocaleString("en-GB", { maximumFractionDigits: 0 }) : g.value.toFixed(2)}</td>
+                  <td className="py-1 pr-4 text-right tabular-nums">{g.value == null ? "—" : Math.abs(g.value) >= 1e6 ? g.value.toLocaleString("en-GB", { maximumFractionDigits: 0 }) : g.value.toFixed(2)}</td>
                   <td className="py-1"><SourceLink source={g.source} compact /></td>
                 </tr>
               ))}

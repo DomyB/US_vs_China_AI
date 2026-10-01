@@ -113,7 +113,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
                     <span aria-hidden="true" className="inline-block h-2 w-2 rounded-full" style={{ background: sideColor[e.actor_side] }} />
                     {e.actor_side === "other" ? "Other actor" : e.actor_side === "US" ? "US-linked" : "China-linked"}
                   </span>
-                  <span className="text-xs text-ink-2">{prettyLabel(e.type)} · {prettyMineral(e.mineral)}</span>
+                  <span className="text-xs text-ink-2">{prettyLabel(e.type)}{e.mineral && e.mineral !== "none" ? ` · ${prettyMineral(e.mineral)}` : ""}</span>
                   {e.amount_musd !== null && <span className="ml-auto text-xs tabular-nums">{fmtMusd(e.amount_musd)}</span>}
                 </div>
                 <p className="mt-0.5 text-ink-2">{e.description}</p>

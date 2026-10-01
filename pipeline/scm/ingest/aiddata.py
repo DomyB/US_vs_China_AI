@@ -67,7 +67,7 @@ class AidData(Adapter):
                 "actor_from_origin": "CN", "actor_to": str(r[c_recv]) if c_recv and pd.notna(r[c_recv]) else None,
                 "type": str(r[c_flow]).lower() if c_flow and pd.notna(r[c_flow]) else "official finance",
                 "amount_usd": to_float(r[c_amt]), "currency": "USD", "sector": str(r[c_sector]), "mineral": tag_mineral(text),
-                "description": (title + (": " + desc[:400] if desc and desc != "nan" else "")),
+                "description": (title + (": " + desc[:400] + ("…" if len(desc) > 400 else "") if desc and desc != "nan" else "")),
                 "value_type": "reported", "source_record_url": (str(r[c_url]).split(";")[0].strip() if c_url and pd.notna(r[c_url]) else None),
                 "confidence": "documented" if (c_agg is None or str(r[c_agg]).lower().startswith("y")) else "strongly_indicated",
             })

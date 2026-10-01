@@ -64,3 +64,14 @@ def test_hs_codes_reference_known_minerals():
         assert (c["hs6"], c["mineral"]) not in seen, c
         seen.add((c["hs6"], c["mineral"]))
     assert {"283691", "260300", "720293", "261590"} <= {c["hs6"] for c in codes}
+
+
+def test_mineral_tagging_uses_whole_words():
+    from scm.ingest.util import tag_mineral
+
+    assert tag_mineral("Petroecuador loan via the Shanghai Free Trade Zone branch") is None
+    assert tag_mineral("Bulletin on the Orinoco mining arc") is None
+    assert tag_mineral("Cauchari-Olaroz lithium brine project") == "lithium"
+    assert tag_mineral("Minera de oro en Madre de Dios") == "gold"
+    assert tag_mineral("rare-earth separation plant") == "rare_earths"
+    assert tag_mineral("San Rafael tin mine (Minsur)") == "tin"
