@@ -11,7 +11,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T20:59:48+00:00",
+   "retrieved_at": "2026-10-01T21:06:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -24,7 +24,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:59:49+00:00",
+   "retrieved_at": "2026-10-01T21:06:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -38,7 +38,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T20:59:50+00:00",
+   "retrieved_at": "2026-10-01T21:06:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -51,7 +51,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:59:51+00:00",
+   "retrieved_at": "2026-10-01T21:06:35+00:00",
    "note": null,
    "trimmed": true
   },
@@ -65,7 +65,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T20:59:52+00:00",
+   "retrieved_at": "2026-10-01T21:06:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -78,7 +78,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:59:53+00:00",
+   "retrieved_at": "2026-10-01T21:06:37+00:00",
    "note": null,
    "trimmed": true
   },
@@ -92,7 +92,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T20:59:54+00:00",
+   "retrieved_at": "2026-10-01T21:06:38+00:00",
    "note": null,
    "trimmed": true
   },
@@ -105,7 +105,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:59:55+00:00",
+   "retrieved_at": "2026-10-01T21:06:39+00:00",
    "note": null,
    "trimmed": true
   },
@@ -119,7 +119,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T20:59:56+00:00",
+   "retrieved_at": "2026-10-01T21:06:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -132,7 +132,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:59:57+00:00",
+   "retrieved_at": "2026-10-01T21:06:41+00:00",
    "note": null,
    "trimmed": true
   },
@@ -146,7 +146,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T20:59:58+00:00",
+   "retrieved_at": "2026-10-01T21:06:42+00:00",
    "note": null,
    "trimmed": true
   },
@@ -159,7 +159,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:59:59+00:00",
+   "retrieved_at": "2026-10-01T21:06:43+00:00",
    "note": null,
    "trimmed": true
   }
@@ -190,6 +190,26 @@
   {
    "name": "VA.EST.adv.json",
    "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "wgidataset.xlsx",
+   "error": "https://www.govindicators.org/content/dam/sites/govindicators/doc/wgidataset_with_sourcedata-2026.xlsx: not a xlsx file; starts with b'<!DOCTYPE html>\\n\\n<html lang=\"en\">\\n    <head>\\n\\n        <script defer=\"defer\" type=\"text/javascript\" src=\"https://rum.hlx.'"
+  },
+  {
+   "name": "wgidataset.xlsx",
+   "error": "https://www.govindicators.org/data/wgidataset.xlsx: not a xlsx file; starts with b'<!DOCTYPE html>\\n\\n<html lang=\"en\">\\n    <head>\\n\\n        <script defer=\"defer\" type=\"text/javascript\" src=\"https://rum.hlx.'"
+  },
+  {
+   "name": "wgidataset.csv",
+   "error": "https://www.govindicators.org/data/wgidataset.csv: not a csv file; starts with b'<!DOCTYPE html>\\n\\n<html lang=\"en\">\\n    <head>\\n\\n        <script defer=\"defer\" type=\"text/javascript\" src=\"https://rum.hlx.'"
+  },
+  {
+   "name": "wgidataset.xlsx",
+   "error": "https://www.govindicators.org/sites/default/files/wgidataset.xlsx: not a xlsx file; starts with b'<!DOCTYPE html>\\n\\n<html lang=\"en\">\\n    <head>\\n\\n        <script defer=\"defer\" type=\"text/javascript\" src=\"https://rum.hlx.'"
+  },
+  {
+   "name": "wgidataset.csv",
+   "error": "https://www.govindicators.org/sites/default/files/wgidataset.csv: not a csv file; starts with b'<!DOCTYPE html>\\n\\n<html lang=\"en\">\\n    <head>\\n\\n        <script defer=\"defer\" type=\"text/javascript\" src=\"https://rum.hlx.'"
   }
  ],
  "bulk_links": [
@@ -197,6 +217,77 @@
  ],
  "omitted": [
   "govindicators.html",
-  "wgidataset.xlsx"
+  "d360_CC.EST_ARG.json",
+  "d360_CC.EST_BOL.json",
+  "d360_CC.EST_BRA.json",
+  "d360_CC.EST_CHL.json",
+  "d360_CC.EST_COL.json",
+  "d360_CC.EST_ECU.json",
+  "d360_CC.EST_GUY.json",
+  "d360_CC.EST_PRY.json",
+  "d360_CC.EST_PER.json",
+  "d360_CC.EST_SUR.json",
+  "d360_CC.EST_URY.json",
+  "d360_CC.EST_VEN.json",
+  "d360_GE.EST_ARG.json",
+  "d360_GE.EST_BOL.json",
+  "d360_GE.EST_BRA.json",
+  "d360_GE.EST_CHL.json",
+  "d360_GE.EST_COL.json",
+  "d360_GE.EST_ECU.json",
+  "d360_GE.EST_GUY.json",
+  "d360_GE.EST_PRY.json",
+  "d360_GE.EST_PER.json",
+  "d360_GE.EST_SUR.json",
+  "d360_GE.EST_URY.json",
+  "d360_GE.EST_VEN.json",
+  "d360_PV.EST_ARG.json",
+  "d360_PV.EST_BOL.json",
+  "d360_PV.EST_BRA.json",
+  "d360_PV.EST_CHL.json",
+  "d360_PV.EST_COL.json",
+  "d360_PV.EST_ECU.json",
+  "d360_PV.EST_GUY.json",
+  "d360_PV.EST_PRY.json",
+  "d360_PV.EST_PER.json",
+  "d360_PV.EST_SUR.json",
+  "d360_PV.EST_URY.json",
+  "d360_PV.EST_VEN.json",
+  "d360_RL.EST_ARG.json",
+  "d360_RL.EST_BOL.json",
+  "d360_RL.EST_BRA.json",
+  "d360_RL.EST_CHL.json",
+  "d360_RL.EST_COL.json",
+  "d360_RL.EST_ECU.json",
+  "d360_RL.EST_GUY.json",
+  "d360_RL.EST_PRY.json",
+  "d360_RL.EST_PER.json",
+  "d360_RL.EST_SUR.json",
+  "d360_RL.EST_URY.json",
+  "d360_RL.EST_VEN.json",
+  "d360_RQ.EST_ARG.json",
+  "d360_RQ.EST_BOL.json",
+  "d360_RQ.EST_BRA.json",
+  "d360_RQ.EST_CHL.json",
+  "d360_RQ.EST_COL.json",
+  "d360_RQ.EST_ECU.json",
+  "d360_RQ.EST_GUY.json",
+  "d360_RQ.EST_PRY.json",
+  "d360_RQ.EST_PER.json",
+  "d360_RQ.EST_SUR.json",
+  "d360_RQ.EST_URY.json",
+  "d360_RQ.EST_VEN.json",
+  "d360_VA.EST_ARG.json",
+  "d360_VA.EST_BOL.json",
+  "d360_VA.EST_BRA.json",
+  "d360_VA.EST_CHL.json",
+  "d360_VA.EST_COL.json",
+  "d360_VA.EST_ECU.json",
+  "d360_VA.EST_GUY.json",
+  "d360_VA.EST_PRY.json",
+  "d360_VA.EST_PER.json",
+  "d360_VA.EST_SUR.json",
+  "d360_VA.EST_URY.json",
+  "d360_VA.EST_VEN.json"
  ]
 }

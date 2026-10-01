@@ -5,10 +5,10 @@
    "url": "https://catalog.data.gov/dataset/?q=exim+authorizations&organization=exim-gov",
    "params": {},
    "status": 200,
-   "bytes": 215474,
+   "bytes": 215473,
    "final_url": "https://catalog.data.gov/",
-   "sha256": "8606bbabc3b030d0d096142fb48e3fa44da9ca331347022b24f46c2df0e74bec",
-   "retrieved_at": "2026-10-01T21:00:52+00:00",
+   "sha256": "1bce3bc9724adf63543850b2323d455112653303722df98baeff877e6f6566c2",
+   "retrieved_at": "2026-10-01T21:27:59+00:00",
    "note": null,
    "trimmed": true
   }
@@ -48,5 +48,6 @@
    "name": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-9-30-2025",
    "error": "exim_authorizations: GET https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-9-30-2025 -> 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <!-- datalayer injection -->\n  \n  \n  <!-- end d"
   }
- ]
+ ],
+ "dataset_links": []
 }
