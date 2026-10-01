@@ -1,0 +1,91 @@
+{
+ "source_id": "unga_votes",
+ "files": {
+  "dataset.json": {
+   "url": "https://dataverse.harvard.edu/api/datasets/:persistentId/?persistentId=doi%3A10.7910%2FDVN%2FLEJUQZ",
+   "params": {
+    "persistentId": "doi:10.7910/DVN/LEJUQZ"
+   },
+   "status": 200,
+   "bytes": 17276,
+   "sha256": "952fb873cd0543ea57304eee6477b9341061c7832d3c37d821f65dc8e81ea6df",
+   "retrieved_at": "2026-10-01T20:24:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "files/AgreementScoresAll_Jun2024.csv": {
+   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b283445-712460918705?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27AgreementScoresAll_Jun2024.csv&response-content-type=text%2Fcsv&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261001T202448Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20261001%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=a387a9745c12c79f7720b353c41f33354bb9c1c682e6f4b715df7589d6babece",
+   "params": {
+    "format": "original"
+   },
+   "status": 200,
+   "bytes": 142732102,
+   "sha256": "b009a2f6be5f408970ed177e56b553a1bc2e5a6f99e95c22b03af70a0296eb39",
+   "retrieved_at": "2026-10-01T20:24:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "files/AgreementScores.csv": {
+   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19861080685-be76a99cf5fe?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27AgreementScores.csv&response-content-type=text%2Fcomma-separated-values&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261001T202453Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20261001%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=212cd06a31a9fb521fdcf2aba91bd1d68392fec32cab517776d30aafc2a18d1d",
+   "params": {
+    "format": "original"
+   },
+   "status": 200,
+   "bytes": 145439690,
+   "sha256": "fc45eafe48e05bf4ed867250dc23a90242969a11248783095a965ed75bed08a6",
+   "retrieved_at": "2026-10-01T20:24:57+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "files/IdealPointDyads1946-2025.tab": {
+   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19d5006eabe-13854796dc48.orig?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27IdealPointDyads1946-2025.csv&response-content-type=text%2Fcomma-separated-values&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261001T202457Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20261001%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=8f54e5de08e1300e2d484715cfe0bfb459ca2c3b93dcc325127f7c80bec8977f",
+   "params": {
+    "format": "original"
+   },
+   "status": 200,
+   "bytes": 73920212,
+   "sha256": "933f80524d3322dadc455d46afa2a214d3317ae99fd25673fdddb0eb4d143da1",
+   "retrieved_at": "2026-10-01T20:24:59+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "files/IdealpointestimatesAll_Jun2024.csv": {
+   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b294248-dc494d2c6343?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27IdealpointestimatesAll_Jun2024.csv&response-content-type=text%2Fcsv&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261001T202459Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20261001%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=c6218077370ce0c8dd4c7cdfbafd813bf0b3528e6be5b7c524cb3bcf303055a2",
+   "params": {
+    "format": "original"
+   },
+   "status": 200,
+   "bytes": 1932704,
+   "sha256": "94ce7440bdba9252b2f4294333291585748dfe84dbaf56fe9f26e1af38f66198",
+   "retrieved_at": "2026-10-01T20:24:59+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "files/IdealpointestimatesFP_2026FP.csv": {
+   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19f9e87616a-b8c36423d826?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27IdealpointestimatesFP_2026FP.csv&response-content-type=text%2Fcomma-separated-values&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261001T202500Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20261001%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=ebe551cc63e8cadb9ef95b60d0027499ddfad9a6ac7f4141a12c99cb2974dcf5",
+   "params": {
+    "format": "original"
+   },
+   "status": 200,
+   "bytes": 1419867,
+   "sha256": "3ae821bbd19977d4229cde5ac648e4bc915d637ec0dcf93368838cf5bde2a956",
+   "retrieved_at": "2026-10-01T20:25:00+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "files/IdealpointsJuly2025.tab": {
+   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1985108dc4e-741cffb2a4e7.orig?response-content-disposition=attachment%3B%20filename%2A%3DUTF-8%27%27IdealpointsJuly2025.dta&response-content-type=application%2Fx-stata-14&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261001T202501Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAZT3GWQ6FKBSH5I56%2F20261001%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=3600&X-Amz-Signature=8981fc5d5307028a397498746c2120721c112ef969b70d99f3467a6cc59df088",
+   "params": {
+    "format": "original"
+   },
+   "status": 200,
+   "bytes": 1331515,
+   "sha256": "fea7fa9414e3643586dbdf95baa1100ceb418e56684d79d801a146cad79443ce",
+   "retrieved_at": "2026-10-01T20:25:01+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/unga_votes/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

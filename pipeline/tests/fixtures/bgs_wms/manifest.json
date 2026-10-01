@@ -1,0 +1,2807 @@
+{
+ "source_id": "bgs_wms",
+ "files": {
+  "items_0.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=0",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 0
+   },
+   "status": 200,
+   "bytes": 1803189,
+   "sha256": "26cae3c137b75bc52bf523866a5a5c63c1e3831bb0bbdcaeb111da96d39a4cb0",
+   "retrieved_at": "2026-10-01T20:25:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_1.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=1000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 1000
+   },
+   "status": 200,
+   "bytes": 1797499,
+   "sha256": "923412eefb4dad5dab9ccf10848bf9ee15dc035b37c68b47179c9b2dda7b0116",
+   "retrieved_at": "2026-10-01T20:25:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_2.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=2000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 2000
+   },
+   "status": 200,
+   "bytes": 1729010,
+   "sha256": "111df6fd08eb8d9b0dba6812c46ae8a78e3ca8d480fd03a8eabf8645ac663442",
+   "retrieved_at": "2026-10-01T20:25:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_3.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=3000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 3000
+   },
+   "status": 200,
+   "bytes": 1749618,
+   "sha256": "da18e9c2454c1a96ad5cac294b6723b1c1c392b9c1ce6accb1f9c31ed786a92d",
+   "retrieved_at": "2026-10-01T20:25:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_4.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=4000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 4000
+   },
+   "status": 200,
+   "bytes": 1802568,
+   "sha256": "1b885b374320e98f9c563244ae0f7ce9a335dd48695a60554501df4ec401c885",
+   "retrieved_at": "2026-10-01T20:25:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_5.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=5000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 5000
+   },
+   "status": 200,
+   "bytes": 1766420,
+   "sha256": "6be3566d5a313fffc94e821ad1c408f2a1f1f15d2e6c7d9aa96059f48a29edc3",
+   "retrieved_at": "2026-10-01T20:25:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_6.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=6000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 6000
+   },
+   "status": 200,
+   "bytes": 1769473,
+   "sha256": "1de13480562c8db663a0362aa90fa6cf81c0255039a0641274205ec20859833e",
+   "retrieved_at": "2026-10-01T20:25:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_7.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=7000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 7000
+   },
+   "status": 200,
+   "bytes": 1739610,
+   "sha256": "a7f5791a602bc53b06893bc12b5ac6adea4ab5184299c54d67959c101a023ca5",
+   "retrieved_at": "2026-10-01T20:25:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_8.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=8000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 8000
+   },
+   "status": 200,
+   "bytes": 1734687,
+   "sha256": "7e7c43fafb74972ed0622094caf8399747a73fecf3685f454e16a4ce93204586",
+   "retrieved_at": "2026-10-01T20:25:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_9.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=9000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 9000
+   },
+   "status": 200,
+   "bytes": 1755666,
+   "sha256": "185930de647f09d539cc4729a78815c37a81f1da661ab9e69a208129434014f0",
+   "retrieved_at": "2026-10-01T20:25:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_10.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=10000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 10000
+   },
+   "status": 200,
+   "bytes": 1780821,
+   "sha256": "00183f07900f7b9817960a3d8b325ffafd21d7c1ea526876a71c3ee9f2f998cf",
+   "retrieved_at": "2026-10-01T20:25:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_11.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=11000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 11000
+   },
+   "status": 200,
+   "bytes": 1758213,
+   "sha256": "6ff61966ca8fec2b5692c58167e407624fbec32e103048a46cd4ae15bc2dcf9e",
+   "retrieved_at": "2026-10-01T20:25:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_12.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=12000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 12000
+   },
+   "status": 200,
+   "bytes": 1772519,
+   "sha256": "07b55c0128dd53f480f27dd482d0c588598c135338051b14ad0520d91039dc96",
+   "retrieved_at": "2026-10-01T20:25:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_13.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=13000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 13000
+   },
+   "status": 200,
+   "bytes": 1810578,
+   "sha256": "d37e509b124db901013cc674ee1e486611d45d2930241e785f16973582d659f3",
+   "retrieved_at": "2026-10-01T20:25:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_14.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=14000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 14000
+   },
+   "status": 200,
+   "bytes": 1763144,
+   "sha256": "0cf8edf28126c7cb7ac77b6b4fce6ba899f489895393591323131451aacc193e",
+   "retrieved_at": "2026-10-01T20:25:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_15.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=15000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 15000
+   },
+   "status": 200,
+   "bytes": 1753068,
+   "sha256": "90267d139c2f7861c95d6a21f8694dd1a370a79208878df2cef27a54e4966107",
+   "retrieved_at": "2026-10-01T20:25:50+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_16.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=16000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 16000
+   },
+   "status": 200,
+   "bytes": 1745175,
+   "sha256": "6755c70fbe49e559b2d3a2d094d0767d38d0feffc78f6ad846e9536a47d806b4",
+   "retrieved_at": "2026-10-01T20:25:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_17.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=17000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 17000
+   },
+   "status": 200,
+   "bytes": 1784962,
+   "sha256": "f49626799c63a64a91a34ce949a209d6f840cb5a226fbf5e9f622e3cbad50654",
+   "retrieved_at": "2026-10-01T20:25:54+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_18.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=18000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 18000
+   },
+   "status": 200,
+   "bytes": 1789599,
+   "sha256": "e532514608087d596603bfb9be89b7793ea20ff1e62d9ebd8a091c5e5bfbff34",
+   "retrieved_at": "2026-10-01T20:25:57+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_19.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=19000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 19000
+   },
+   "status": 200,
+   "bytes": 1756330,
+   "sha256": "895d738888df9b686af655a9d4afc5c35bed8ea2de7207a28f9efe6abf5abea2",
+   "retrieved_at": "2026-10-01T20:25:59+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_20.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=20000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 20000
+   },
+   "status": 200,
+   "bytes": 1729987,
+   "sha256": "8f19294a7776212bae5d7cf90404f2073c490944614074939818ebe3b7ce0da6",
+   "retrieved_at": "2026-10-01T20:26:01+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_21.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=21000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 21000
+   },
+   "status": 200,
+   "bytes": 1768406,
+   "sha256": "ddaadb00bc9054645b70d857bb626535745e6909fa6b3708e49243fb79f709b0",
+   "retrieved_at": "2026-10-01T20:26:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_22.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=22000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 22000
+   },
+   "status": 200,
+   "bytes": 1760761,
+   "sha256": "970f80c2a719acfb5a89ab565e1ea96e9664e1d9191ee6afb6cff5e65602f1bb",
+   "retrieved_at": "2026-10-01T20:26:06+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_23.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=23000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 23000
+   },
+   "status": 200,
+   "bytes": 1793778,
+   "sha256": "6027a8a0598c6548fe719df9a5edddcee18be820b07450d347b6c0c40c9c3545",
+   "retrieved_at": "2026-10-01T20:26:08+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_24.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=24000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 24000
+   },
+   "status": 200,
+   "bytes": 1802056,
+   "sha256": "1d24d4d339a94f794a0c9ad523c0d4e8bc7eba2a5d2834b84903618b50cab173",
+   "retrieved_at": "2026-10-01T20:26:10+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_25.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=25000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 25000
+   },
+   "status": 200,
+   "bytes": 1759748,
+   "sha256": "00436afc73ba56c62052dc037cbaa6323d0528ec5203f562fa2476a200833077",
+   "retrieved_at": "2026-10-01T20:26:12+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_26.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=26000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 26000
+   },
+   "status": 200,
+   "bytes": 1753217,
+   "sha256": "e7cc4f55251c1b76710261a69c74af724f8980bd5ecd8d981cc4e96af349561e",
+   "retrieved_at": "2026-10-01T20:26:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_27.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=27000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 27000
+   },
+   "status": 200,
+   "bytes": 1757564,
+   "sha256": "6b588712779c0e838d3071f8f38cf9c9580a99abd1fac35d3b4fd83e75a36a3a",
+   "retrieved_at": "2026-10-01T20:26:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_28.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=28000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 28000
+   },
+   "status": 200,
+   "bytes": 1720725,
+   "sha256": "da2260f7cf5d5b0a2a5b2961aecfa037bfb8d91737b641deaab9858607f03fa5",
+   "retrieved_at": "2026-10-01T20:26:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_29.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=29000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 29000
+   },
+   "status": 200,
+   "bytes": 1732982,
+   "sha256": "6299d458de4f6097a6a98a9c0b9737e058797bfbafebbc1bb25aff181955aed2",
+   "retrieved_at": "2026-10-01T20:26:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_30.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=30000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 30000
+   },
+   "status": 200,
+   "bytes": 1751840,
+   "sha256": "eee6532a487683286cc235feb13927f2214b4838a5936fcb5dbcd1855141d840",
+   "retrieved_at": "2026-10-01T20:26:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_31.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=31000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 31000
+   },
+   "status": 200,
+   "bytes": 1770789,
+   "sha256": "1fc95367f919d0d549969b1b0fa89f0d2a1e21ae36c5a6a60fa4def4ddaef74e",
+   "retrieved_at": "2026-10-01T20:26:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_32.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=32000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 32000
+   },
+   "status": 200,
+   "bytes": 1778086,
+   "sha256": "4b1f97340e5035b790c033cc591e9cab0e494e51fd8db2c331f661358fa26045",
+   "retrieved_at": "2026-10-01T20:26:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_33.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=33000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 33000
+   },
+   "status": 200,
+   "bytes": 1845979,
+   "sha256": "4c82878b8970e52deb2a57b6ae0ef779b425c34ae9ae731461d555de1f3b543c",
+   "retrieved_at": "2026-10-01T20:26:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_34.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=34000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 34000
+   },
+   "status": 200,
+   "bytes": 1765250,
+   "sha256": "3412eb8ffa009e7282ac10cf2a03c5b0300a7ae1177ddb78667b18e5c871f371",
+   "retrieved_at": "2026-10-01T20:26:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_35.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=35000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 35000
+   },
+   "status": 200,
+   "bytes": 1769314,
+   "sha256": "ceccfe8490ad1afdeb75c992119cdd3c249628c45307193b0df20d2d353ac3e7",
+   "retrieved_at": "2026-10-01T20:26:35+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_36.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=36000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 36000
+   },
+   "status": 200,
+   "bytes": 1761428,
+   "sha256": "458442fbe090d76a093eb210f08929f26ba849ccea79895806e6d45c753349fe",
+   "retrieved_at": "2026-10-01T20:26:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_37.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=37000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 37000
+   },
+   "status": 200,
+   "bytes": 1753789,
+   "sha256": "b567ae042c482c7073cf3626a74a59da7a74176b3c1727bf8b5ec9b4b0296a1c",
+   "retrieved_at": "2026-10-01T20:26:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_38.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=38000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 38000
+   },
+   "status": 200,
+   "bytes": 1700762,
+   "sha256": "66269c50de12a78ee9919e040e340b71146433137f8eedcbb337ab8039861f21",
+   "retrieved_at": "2026-10-01T20:26:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_39.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=39000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 39000
+   },
+   "status": 200,
+   "bytes": 1772812,
+   "sha256": "6fd1a4a6bb687057fa426a5d4cadbb0f0b3663390a55d8dbc9281c5b117c0fab",
+   "retrieved_at": "2026-10-01T20:26:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_40.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=40000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 40000
+   },
+   "status": 200,
+   "bytes": 1792618,
+   "sha256": "09208bb9fdec9cc36943d4cdc86ce2128773e4d47a5a06403b4d870b6c21217e",
+   "retrieved_at": "2026-10-01T20:26:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_41.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=41000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 41000
+   },
+   "status": 200,
+   "bytes": 1776408,
+   "sha256": "b00964f867bcad7c84c908fe9d86b50851d44b82f0f72ab37a86054da47ae501",
+   "retrieved_at": "2026-10-01T20:26:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_42.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=42000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 42000
+   },
+   "status": 200,
+   "bytes": 1763491,
+   "sha256": "4b0a03af059e8230df3ddb7d47b443020c7131727a3fdc9bae8742e3dbc0d1d5",
+   "retrieved_at": "2026-10-01T20:26:54+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_43.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=43000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 43000
+   },
+   "status": 200,
+   "bytes": 1787558,
+   "sha256": "2e119cf80ae2977ee83a54dce0de3bf64ad7caf4dabd9339997ae23a8ea4ee7f",
+   "retrieved_at": "2026-10-01T20:26:56+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_44.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=44000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 44000
+   },
+   "status": 200,
+   "bytes": 1824398,
+   "sha256": "fa62b45232fb584b6c20582f15e8ea83e0017817139154800c39a64e52c3aaf9",
+   "retrieved_at": "2026-10-01T20:26:59+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_45.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=45000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 45000
+   },
+   "status": 200,
+   "bytes": 1784151,
+   "sha256": "2649748cf5c5583e3b5d5aa254a973e77d2eac444e61ce9e49742b2bfb783cbb",
+   "retrieved_at": "2026-10-01T20:27:01+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_46.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=46000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 46000
+   },
+   "status": 200,
+   "bytes": 1796067,
+   "sha256": "892e21c82a6e3cb02a04772f55a5792e67b5679444abf593240c6766db7b685c",
+   "retrieved_at": "2026-10-01T20:27:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_47.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=47000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 47000
+   },
+   "status": 200,
+   "bytes": 1719818,
+   "sha256": "c47490275939e4217e7d5af6e5bf53c135111994d9c1619a410c49870f61354e",
+   "retrieved_at": "2026-10-01T20:27:06+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_48.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=48000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 48000
+   },
+   "status": 200,
+   "bytes": 1776123,
+   "sha256": "af0c9a49f9a6978624cb44e699bac15e7252346825563d52ddc0d0a4e28bdb72",
+   "retrieved_at": "2026-10-01T20:27:08+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_49.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=49000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 49000
+   },
+   "status": 200,
+   "bytes": 1813980,
+   "sha256": "e23c02b08c365f5cae6103e38e00a90201eee4f520179e1e11e284cf505408fc",
+   "retrieved_at": "2026-10-01T20:27:10+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_50.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=50000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 50000
+   },
+   "status": 200,
+   "bytes": 1756652,
+   "sha256": "37106660bb8851d95f3c457b4c99e63b34e47d1466941d808f9a0bf5646e00e2",
+   "retrieved_at": "2026-10-01T20:27:13+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_51.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=51000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 51000
+   },
+   "status": 200,
+   "bytes": 1812497,
+   "sha256": "28c9f00446aa4b1fe22af9ca9fa69d78ce021645f4c0f966e4c61bace65da39c",
+   "retrieved_at": "2026-10-01T20:27:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_52.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=52000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 52000
+   },
+   "status": 200,
+   "bytes": 1785467,
+   "sha256": "015a81c6fd26f7da1fbb32295e5a4d5e5529e865aa89a5d94843d3625886b5e9",
+   "retrieved_at": "2026-10-01T20:27:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_53.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=53000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 53000
+   },
+   "status": 200,
+   "bytes": 1777479,
+   "sha256": "e8d66fec2a19679ab844f2c28b9497d3e9d809e474c76f0d2659b9b349a670d5",
+   "retrieved_at": "2026-10-01T20:27:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_54.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=54000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 54000
+   },
+   "status": 200,
+   "bytes": 1713877,
+   "sha256": "9f1f1f34f34ec412a3af6a664ad74deaead6d3f312e170db9dfe02eac0ec5e6b",
+   "retrieved_at": "2026-10-01T20:27:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_55.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=55000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 55000
+   },
+   "status": 200,
+   "bytes": 1815337,
+   "sha256": "975636a8e7f209e3d966291c403a172eece01e97b2101c1adfa07c63d33e7fbe",
+   "retrieved_at": "2026-10-01T20:27:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_56.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=56000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 56000
+   },
+   "status": 200,
+   "bytes": 1778366,
+   "sha256": "11bb73cdee64790b0c8c54d7fa5d9319677e346c8f0e637608fae2c26b185308",
+   "retrieved_at": "2026-10-01T20:27:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_57.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=57000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 57000
+   },
+   "status": 200,
+   "bytes": 1770225,
+   "sha256": "7d1ebdeae796c16075137a9373ff6a6d7faf21542b3602b9469c4d8eeb812871",
+   "retrieved_at": "2026-10-01T20:27:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_58.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=58000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 58000
+   },
+   "status": 200,
+   "bytes": 1721490,
+   "sha256": "675624f96693e1e809b597a32b582272a81f0767e4a7595e59d52c02a9a55e1d",
+   "retrieved_at": "2026-10-01T20:27:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_59.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=59000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 59000
+   },
+   "status": 200,
+   "bytes": 1704910,
+   "sha256": "1cd5710f690d8716e7aaf4664a89e0565ff95a183bc00c5fb59d276021fbbdbe",
+   "retrieved_at": "2026-10-01T20:27:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_60.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=60000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 60000
+   },
+   "status": 200,
+   "bytes": 1732028,
+   "sha256": "917d04d3f2f951aea50a1b498a0fdda3e92db673c1fd81e4786495c5c559c338",
+   "retrieved_at": "2026-10-01T20:27:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_61.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=61000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 61000
+   },
+   "status": 200,
+   "bytes": 1868072,
+   "sha256": "cf45e486220824a36f7ffae8847b397112f24cc0bd0a55c75f497989b769bf4a",
+   "retrieved_at": "2026-10-01T20:27:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_62.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=62000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 62000
+   },
+   "status": 200,
+   "bytes": 1789299,
+   "sha256": "f1f61105eec01b7f1e450405c59ac530be7c4e9bcf5b894dc78f63e6e9d56764",
+   "retrieved_at": "2026-10-01T20:27:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_63.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=63000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 63000
+   },
+   "status": 200,
+   "bytes": 1698058,
+   "sha256": "7b251a4a9fc1fc2a4695ae92b00babda756717d2a30be73feeb720841ce86b81",
+   "retrieved_at": "2026-10-01T20:27:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_64.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=64000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 64000
+   },
+   "status": 200,
+   "bytes": 1756007,
+   "sha256": "4cda1d4feb8da56b6180cdaa5907bdcbe229f8a1df015067459c4e921d03ad95",
+   "retrieved_at": "2026-10-01T20:27:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_65.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=65000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 65000
+   },
+   "status": 200,
+   "bytes": 1711994,
+   "sha256": "be911bac5c4e71166fbad092f176fa4154ba8442e8ffff4f35476245095f394e",
+   "retrieved_at": "2026-10-01T20:27:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_66.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=66000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 66000
+   },
+   "status": 200,
+   "bytes": 1718516,
+   "sha256": "25af87a81477b8d39ab01fc7e1d55047303237f9a1f02415c22dbe6a7a47101e",
+   "retrieved_at": "2026-10-01T20:27:50+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_67.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=67000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 67000
+   },
+   "status": 200,
+   "bytes": 1779760,
+   "sha256": "1c452fac8920ad6ba895719f40d9b432dbae0751c6e1fba7a1496467d143959f",
+   "retrieved_at": "2026-10-01T20:27:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_68.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=68000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 68000
+   },
+   "status": 200,
+   "bytes": 1770366,
+   "sha256": "833be8450bb5f320f2cf294110c7f0cb5b5b2e85f60a9d00b54f4304965ef9aa",
+   "retrieved_at": "2026-10-01T20:27:54+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_69.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=69000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 69000
+   },
+   "status": 200,
+   "bytes": 1764448,
+   "sha256": "dc7aac0e9546f9cdd29bc355ffd528af8a0050f22ba95222d746662e31601458",
+   "retrieved_at": "2026-10-01T20:27:57+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_70.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=70000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 70000
+   },
+   "status": 200,
+   "bytes": 1762561,
+   "sha256": "35a1fd84911d126a5e0657857c85367ca4e610f8b5dc21bbc55e6498514fd3e7",
+   "retrieved_at": "2026-10-01T20:27:59+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_71.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=71000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 71000
+   },
+   "status": 200,
+   "bytes": 1808288,
+   "sha256": "26584ab289828a8a0bd31609447d49cf9e05cf59f4020ac93ea41eee75884ab2",
+   "retrieved_at": "2026-10-01T20:28:01+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_72.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=72000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 72000
+   },
+   "status": 200,
+   "bytes": 1746504,
+   "sha256": "639f00a330fe5fb011ef8d95be1a49463bc73cb2a456c239d33ce9bddcdc3693",
+   "retrieved_at": "2026-10-01T20:28:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_73.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=73000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 73000
+   },
+   "status": 200,
+   "bytes": 1792594,
+   "sha256": "a13e75774b6270a9ff2366be9555e2fa050336080a52ff8f24052f10eff907a8",
+   "retrieved_at": "2026-10-01T20:28:06+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_74.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=74000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 74000
+   },
+   "status": 200,
+   "bytes": 1727990,
+   "sha256": "96e8a9c017bf5d011056e8e97287f80b18f81ff9735bcd1c1040bd99bbac696d",
+   "retrieved_at": "2026-10-01T20:28:08+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_75.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=75000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 75000
+   },
+   "status": 200,
+   "bytes": 1788925,
+   "sha256": "38eceb0d2ff5975200678d6efa4fa6f7c7003d9398fdd3b716eef2555ade53ec",
+   "retrieved_at": "2026-10-01T20:28:10+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_76.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=76000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 76000
+   },
+   "status": 200,
+   "bytes": 1827302,
+   "sha256": "dd3489a477df3f5729c23640f2a6fd41e5fa73e74fd367786d03a9d2eba2a649",
+   "retrieved_at": "2026-10-01T20:28:13+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_77.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=77000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 77000
+   },
+   "status": 200,
+   "bytes": 1798790,
+   "sha256": "95f1fa8053dea11a1d07d59e55bbd639c354749b8bd6dfab28c2b4cedfff889c",
+   "retrieved_at": "2026-10-01T20:28:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_78.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=78000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 78000
+   },
+   "status": 200,
+   "bytes": 1746278,
+   "sha256": "ddc1ce091e585d661da14cee8fccba4183e442fa9812888fbf0769047f41e071",
+   "retrieved_at": "2026-10-01T20:28:18+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_79.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=79000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 79000
+   },
+   "status": 200,
+   "bytes": 1732424,
+   "sha256": "bcdce9deb6a5180ceb69fa6843d43d8aa82bf299769fb3b185b3f7db13419891",
+   "retrieved_at": "2026-10-01T20:28:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_80.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=80000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 80000
+   },
+   "status": 200,
+   "bytes": 1763488,
+   "sha256": "52ec272093484a0259b607b69977aa8c86a6c8cf6fa8c54ab36b1bca8d62a076",
+   "retrieved_at": "2026-10-01T20:28:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_81.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=81000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 81000
+   },
+   "status": 200,
+   "bytes": 1799384,
+   "sha256": "994e3a729edfb5950937cd3bfc9fc5cba119994bd2e45ba4d2b9d554491ae16d",
+   "retrieved_at": "2026-10-01T20:28:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_82.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=82000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 82000
+   },
+   "status": 200,
+   "bytes": 1711837,
+   "sha256": "5eb6cee546f28c10eb95165984daa56fc33f4d308efbba6e21ed0d3e5c26e1a7",
+   "retrieved_at": "2026-10-01T20:28:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_83.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=83000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 83000
+   },
+   "status": 200,
+   "bytes": 1783292,
+   "sha256": "02dad8964f8b7008ff9ee9a1f55f7fdbd8d5188d541b08a01f7d25609a8a91c0",
+   "retrieved_at": "2026-10-01T20:28:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_84.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=84000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 84000
+   },
+   "status": 200,
+   "bytes": 1824054,
+   "sha256": "d1d7b192af39e81573f6d9d79fb93ed630b6dfe2715f33f6881b7ebb46f02f02",
+   "retrieved_at": "2026-10-01T20:28:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_85.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=85000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 85000
+   },
+   "status": 200,
+   "bytes": 1792652,
+   "sha256": "a3891801612337b4e812d7687573f92953509d2b98488808a8e73d3c72c4dab1",
+   "retrieved_at": "2026-10-01T20:28:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_86.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=86000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 86000
+   },
+   "status": 200,
+   "bytes": 1777903,
+   "sha256": "449270ad7e6c767d0b4584875598c9e5ddd0585045e0dcb45205b798e3a8fe4b",
+   "retrieved_at": "2026-10-01T20:28:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_87.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=87000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 87000
+   },
+   "status": 200,
+   "bytes": 1722933,
+   "sha256": "0e5561321f394063465ba20b355fb96865f1c589eb4cb49bed3c3c770f7a757c",
+   "retrieved_at": "2026-10-01T20:28:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_88.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=88000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 88000
+   },
+   "status": 200,
+   "bytes": 1785932,
+   "sha256": "71881b6bb70c5b90b1848233c4e3f5ff99cd988c75f43becb3dad97c35873664",
+   "retrieved_at": "2026-10-01T20:28:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_89.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=89000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 89000
+   },
+   "status": 200,
+   "bytes": 1705917,
+   "sha256": "dcb4e2637b6caa31dc4a8fd4326cdebf118183db90236be6b6120ea618f814db",
+   "retrieved_at": "2026-10-01T20:28:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_90.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=90000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 90000
+   },
+   "status": 200,
+   "bytes": 1699494,
+   "sha256": "0cc5e8d6b0ed9249ce5ace8fe57ac219b9e32c9627acd183fb65a50d6577ebd7",
+   "retrieved_at": "2026-10-01T20:28:46+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_91.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=91000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 91000
+   },
+   "status": 200,
+   "bytes": 1841918,
+   "sha256": "93cf10d78760dae15d6442cc6fcc2f24e667c37a1616fb5081ec0954e08a1390",
+   "retrieved_at": "2026-10-01T20:28:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_92.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=92000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 92000
+   },
+   "status": 200,
+   "bytes": 1808221,
+   "sha256": "29568cdb022cd4a21da110b35678b993e99dea0cb3fe5129628789ffebbaab1d",
+   "retrieved_at": "2026-10-01T20:28:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_93.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=93000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 93000
+   },
+   "status": 200,
+   "bytes": 1777871,
+   "sha256": "27f65c4bf9d12bc246da352b342439d932d0dc4cb65b88ca592aaeecb75b6bc1",
+   "retrieved_at": "2026-10-01T20:28:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_94.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=94000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 94000
+   },
+   "status": 200,
+   "bytes": 1737232,
+   "sha256": "e86aae6f92d04deeb6203832c4763894a9afbc355c55fde02029133bd27c3a06",
+   "retrieved_at": "2026-10-01T20:28:55+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_95.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=95000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 95000
+   },
+   "status": 200,
+   "bytes": 1749732,
+   "sha256": "cc6fb2360ffbefcc4a25967b04d867fbfa2e678819ba954960a2769f83f05d88",
+   "retrieved_at": "2026-10-01T20:28:57+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_96.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=96000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 96000
+   },
+   "status": 200,
+   "bytes": 1808670,
+   "sha256": "d22f808245a292b5477b03ec3503383f369379874e005b8d82a303b93d79b1e3",
+   "retrieved_at": "2026-10-01T20:29:00+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_97.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=97000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 97000
+   },
+   "status": 200,
+   "bytes": 1844072,
+   "sha256": "65e02829dc3f3bde463a65b30ff0be2c7a197b729e7c6221545408bbd85af54f",
+   "retrieved_at": "2026-10-01T20:29:02+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_98.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=98000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 98000
+   },
+   "status": 200,
+   "bytes": 1842207,
+   "sha256": "c6df4735efb6551bdf15cb6ad7671e46ed4cb48330e1a12b5690f0d42ad34df7",
+   "retrieved_at": "2026-10-01T20:29:05+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_99.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=99000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 99000
+   },
+   "status": 200,
+   "bytes": 1799352,
+   "sha256": "a8a2dd5a4b442ce77f9e00eb478380fa2c249bd3f597283892f92de00e305db6",
+   "retrieved_at": "2026-10-01T20:29:07+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_100.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=100000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 100000
+   },
+   "status": 200,
+   "bytes": 1801334,
+   "sha256": "ddfc58a3f62238da8cce381291448764b9616c802ce7d8b25b64496c5dc71347",
+   "retrieved_at": "2026-10-01T20:29:09+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_101.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=101000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 101000
+   },
+   "status": 200,
+   "bytes": 1802025,
+   "sha256": "31dd0c086dfcecf8741d9b3c3ed993f13ff3a67756c9a6e287d72a2315684905",
+   "retrieved_at": "2026-10-01T20:29:12+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_102.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=102000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 102000
+   },
+   "status": 200,
+   "bytes": 1856270,
+   "sha256": "c0792499124fa175c27d657e16b1163bece17f266f3213891748907fc6d20db2",
+   "retrieved_at": "2026-10-01T20:29:14+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_103.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=103000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 103000
+   },
+   "status": 200,
+   "bytes": 1814972,
+   "sha256": "327d1de2d5c2a0a77392e3360ad5e5eac3a0c7c3e0a534d8ada668b727557bae",
+   "retrieved_at": "2026-10-01T20:29:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_104.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=104000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 104000
+   },
+   "status": 200,
+   "bytes": 1777616,
+   "sha256": "88830d87fd1bbaaf19048f144b87e7f7787a66023efe209f98e70e4f5bee1aab",
+   "retrieved_at": "2026-10-01T20:29:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_105.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=105000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 105000
+   },
+   "status": 200,
+   "bytes": 1753494,
+   "sha256": "39425d0591f5c84092a5b96f279365358938f0f2e16939de541ac1353d7b041e",
+   "retrieved_at": "2026-10-01T20:29:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_106.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=106000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 106000
+   },
+   "status": 200,
+   "bytes": 1780608,
+   "sha256": "5d270442c1278dd2a57e62e87dec942b10d935d23adefeaf3c5e6e6483264ae6",
+   "retrieved_at": "2026-10-01T20:29:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_107.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=107000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 107000
+   },
+   "status": 200,
+   "bytes": 1788570,
+   "sha256": "4fff92474b036a7bf05ff2b5df1b785dbf9e329e1762d0ed4d9cb4c8bd04cff4",
+   "retrieved_at": "2026-10-01T20:29:28+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_108.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=108000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 108000
+   },
+   "status": 200,
+   "bytes": 1771558,
+   "sha256": "5b25a9e5055a1a3a95587a4d07664293e9f8d9c79be64b87f3ad425fa3e24183",
+   "retrieved_at": "2026-10-01T20:29:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_109.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=109000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 109000
+   },
+   "status": 200,
+   "bytes": 1780997,
+   "sha256": "d9dd00a4303b598cdf080b9ee5114248d840b3754b53f15d94f19a9601825567",
+   "retrieved_at": "2026-10-01T20:29:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_110.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=110000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 110000
+   },
+   "status": 200,
+   "bytes": 1747097,
+   "sha256": "6c6791cfefea5ab8476082c76fce13e68c3d2098b93dff7fc2bf22a9dc28b3dc",
+   "retrieved_at": "2026-10-01T20:29:35+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_111.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=111000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 111000
+   },
+   "status": 200,
+   "bytes": 1798586,
+   "sha256": "e21c162d467f4df4b86ee2ce8c7a3ba9d861184f84de085659adf48c13b1c0a6",
+   "retrieved_at": "2026-10-01T20:29:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_112.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=112000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 112000
+   },
+   "status": 200,
+   "bytes": 1798863,
+   "sha256": "124e43738796c20b64b16f458846d7df1dc6eeee21a3cd2ffd6fb9d0c9e6a3bd",
+   "retrieved_at": "2026-10-01T20:29:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_113.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=113000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 113000
+   },
+   "status": 200,
+   "bytes": 1846337,
+   "sha256": "127ce6637b10496f3354d4573a3706f3057ccd128551294867ab032f1770eb9a",
+   "retrieved_at": "2026-10-01T20:29:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_114.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=114000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 114000
+   },
+   "status": 200,
+   "bytes": 1741083,
+   "sha256": "0aa4b198106579cd0116e62cff18fbd12135af5b7d4a8bea9b1585dfd0b88bbf",
+   "retrieved_at": "2026-10-01T20:29:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_115.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=115000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 115000
+   },
+   "status": 200,
+   "bytes": 1731091,
+   "sha256": "cf8ad8e76c9e53205ed236e9b918580221d5831a8c8616016684c53f567ef62e",
+   "retrieved_at": "2026-10-01T20:29:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_116.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=116000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 116000
+   },
+   "status": 200,
+   "bytes": 1660688,
+   "sha256": "e7bec20aeea677a62443e132c54f0afe5406d7f698ca5bf66cad9416d7cb8a70",
+   "retrieved_at": "2026-10-01T20:29:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_117.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=117000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 117000
+   },
+   "status": 200,
+   "bytes": 1744062,
+   "sha256": "bbbdb253edc0f0f43d7d88159610472aa632f7a3a7361a46d21e4783d450e0fa",
+   "retrieved_at": "2026-10-01T20:29:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_118.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=118000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 118000
+   },
+   "status": 200,
+   "bytes": 1702696,
+   "sha256": "4b15e604c4e693ee32e99e9e670a93ce78d240aa0790343ef34559fb4b42d38c",
+   "retrieved_at": "2026-10-01T20:29:54+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_119.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=119000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 119000
+   },
+   "status": 200,
+   "bytes": 1702241,
+   "sha256": "9527add21420b2d1cad075f33823056ee3d9233b68a4695340504ed1e51ac3d6",
+   "retrieved_at": "2026-10-01T20:29:56+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_120.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=120000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 120000
+   },
+   "status": 200,
+   "bytes": 1694745,
+   "sha256": "e2c84f39daf2f466c4e8617b2aaac7028c2f66788e884852e08decd9f29df00c",
+   "retrieved_at": "2026-10-01T20:29:59+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_121.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=121000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 121000
+   },
+   "status": 200,
+   "bytes": 1703635,
+   "sha256": "9ec8c56e5c8b0cea5a703dff1c16d0832ffef1d7762019abcdfe4326cd159d56",
+   "retrieved_at": "2026-10-01T20:30:01+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_122.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=122000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 122000
+   },
+   "status": 200,
+   "bytes": 1707314,
+   "sha256": "994f082e6a6c1f2b2cd7ef150f8deb34a5c3a5e11deab8d5a9ce75a433d24eba",
+   "retrieved_at": "2026-10-01T20:30:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_123.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=123000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 123000
+   },
+   "status": 200,
+   "bytes": 1765595,
+   "sha256": "4099907ce784ff02824098508d3c533c79a585ab35155b38c3c6a68704f02136",
+   "retrieved_at": "2026-10-01T20:30:06+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_124.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=124000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 124000
+   },
+   "status": 200,
+   "bytes": 1754972,
+   "sha256": "a92b0944de21ba4d44676352ed8f1f35d56d12cd9d54a313d203e3c99524c22f",
+   "retrieved_at": "2026-10-01T20:30:08+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_125.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=125000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 125000
+   },
+   "status": 200,
+   "bytes": 1745291,
+   "sha256": "adcde709d4f319f2cef4df9c010eb92869fbce84db1d0f10c0b2ec91f4055f11",
+   "retrieved_at": "2026-10-01T20:30:10+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_126.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=126000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 126000
+   },
+   "status": 200,
+   "bytes": 1753900,
+   "sha256": "19cc1fd0142e6872bfb96352ea90206cef210d6f721a0d2f3c933192f06ba372",
+   "retrieved_at": "2026-10-01T20:30:13+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_127.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=127000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 127000
+   },
+   "status": 200,
+   "bytes": 1728391,
+   "sha256": "864a827e0ddac069b3aff1840f02db08e66503cf5581e182310cbd67dd3e3407",
+   "retrieved_at": "2026-10-01T20:30:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_128.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=128000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 128000
+   },
+   "status": 200,
+   "bytes": 1728566,
+   "sha256": "2c69638db6e871853b97daaf0bd24166f3f290b791d6a2f278a8c91f11c0116d",
+   "retrieved_at": "2026-10-01T20:30:18+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_129.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=129000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 129000
+   },
+   "status": 200,
+   "bytes": 1723146,
+   "sha256": "35682c576b26b26d3e6364fbcb21519168ae0db8c652d3ff6bd0e0d39d41b044",
+   "retrieved_at": "2026-10-01T20:30:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_130.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=130000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 130000
+   },
+   "status": 200,
+   "bytes": 1727474,
+   "sha256": "486aac6ce7c5927121340a97b44d37d330868152e571fe6df168fccc11a0ff2f",
+   "retrieved_at": "2026-10-01T20:30:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_131.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=131000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 131000
+   },
+   "status": 200,
+   "bytes": 1698451,
+   "sha256": "845f3af2a1d8913eb73f7fc995c298322c4e846702d6bbf904b0c4ac98322088",
+   "retrieved_at": "2026-10-01T20:30:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_132.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=132000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 132000
+   },
+   "status": 200,
+   "bytes": 1713115,
+   "sha256": "68a399a7514e5f9b4824c56ba898d6cd66620c4e71fcaffcaf587f8ec62bfe21",
+   "retrieved_at": "2026-10-01T20:30:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_133.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=133000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 133000
+   },
+   "status": 200,
+   "bytes": 1747540,
+   "sha256": "bbdcae0a88abda265e534f2fc5ad3b4799f0f623c2331088566ca5807096641b",
+   "retrieved_at": "2026-10-01T20:30:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_134.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=134000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 134000
+   },
+   "status": 200,
+   "bytes": 1712262,
+   "sha256": "37b96ffaf6f77cb301b5909327e2e3af410031a4f7bc93552d77ff63c9a63c5c",
+   "retrieved_at": "2026-10-01T20:30:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_135.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=135000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 135000
+   },
+   "status": 200,
+   "bytes": 1712608,
+   "sha256": "f457a83695adcc1bd749386a4095e6c99ef01168f479453f8659cb52910395f3",
+   "retrieved_at": "2026-10-01T20:30:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_136.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=136000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 136000
+   },
+   "status": 200,
+   "bytes": 1719541,
+   "sha256": "5b56166f2c5353cc7fd7b414e1ebbf399b5c65b7f46d9e3ed65ab747c989ef7a",
+   "retrieved_at": "2026-10-01T20:30:37+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_137.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=137000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 137000
+   },
+   "status": 200,
+   "bytes": 1709259,
+   "sha256": "dadaf4c9bf0038536427ed70cd1c44ce3f2793aa73cedfe6dd237820d68a70ab",
+   "retrieved_at": "2026-10-01T20:30:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_138.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=138000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 138000
+   },
+   "status": 200,
+   "bytes": 1698247,
+   "sha256": "5640bfdc9d2f90656f4c8ea7436824fefc2e028f0baa4943568cae86d0117b40",
+   "retrieved_at": "2026-10-01T20:30:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_139.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=139000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 139000
+   },
+   "status": 200,
+   "bytes": 1720877,
+   "sha256": "04ad019a898db617e46ab7d4def96dca9b8303767efc5fdd6849c440688f08b5",
+   "retrieved_at": "2026-10-01T20:30:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_140.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=140000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 140000
+   },
+   "status": 200,
+   "bytes": 1707674,
+   "sha256": "5f6133b38799d2ff9f1c1d3b737c444475dedf47771a3bda2a6037773a91c5d2",
+   "retrieved_at": "2026-10-01T20:30:46+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_141.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=141000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 141000
+   },
+   "status": 200,
+   "bytes": 1711967,
+   "sha256": "20d33ae381290d14db729e5585b3ea6e823323d05eaf945a26ea2c527186735b",
+   "retrieved_at": "2026-10-01T20:30:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_142.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=142000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 142000
+   },
+   "status": 200,
+   "bytes": 1734186,
+   "sha256": "dcba52580eb7d1816c36de85badb6b08a8d4d3324b3757a708f83f15c3bd221e",
+   "retrieved_at": "2026-10-01T20:30:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_143.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=143000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 143000
+   },
+   "status": 200,
+   "bytes": 1724837,
+   "sha256": "2179fd5f79154f845cbed96cd1f7d12a2020f766b31e3c1325bad662b4ee5934",
+   "retrieved_at": "2026-10-01T20:30:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_144.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=144000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 144000
+   },
+   "status": 200,
+   "bytes": 1718223,
+   "sha256": "dfe5e67280bcaf3ea9be2c73d4f2c4f13603a470c1e9b115142c67e9f1d679a6",
+   "retrieved_at": "2026-10-01T20:30:55+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_145.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=145000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 145000
+   },
+   "status": 200,
+   "bytes": 1742143,
+   "sha256": "b0c6a3ad2d456cf90883bcf6192efe66190be6233f0950e3084e74cca03ce85f",
+   "retrieved_at": "2026-10-01T20:30:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_146.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=146000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 146000
+   },
+   "status": 200,
+   "bytes": 1706085,
+   "sha256": "815d576bdcb5a3af7f6ba46b9ebfbe6a51423ec0d768db72a9e3a23e8a4f6d4b",
+   "retrieved_at": "2026-10-01T20:31:00+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_147.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=147000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 147000
+   },
+   "status": 200,
+   "bytes": 1740381,
+   "sha256": "07d365919ddd606d31a95d653b754ab0fede08e0e4f19978ba7aa1d8cfb5c526",
+   "retrieved_at": "2026-10-01T20:31:02+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_148.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=148000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 148000
+   },
+   "status": 200,
+   "bytes": 1748372,
+   "sha256": "d7f5d5606c53d6b4614bfb3e236f8aa4c2d84dc0e33b5a1f6ab626d8b44e462b",
+   "retrieved_at": "2026-10-01T20:31:05+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_149.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=149000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 149000
+   },
+   "status": 200,
+   "bytes": 1759841,
+   "sha256": "c8fccb63254bd8e641a2436def536e24c31ae8d88df7a67bc56305a5c503ef38",
+   "retrieved_at": "2026-10-01T20:31:07+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_150.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=150000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 150000
+   },
+   "status": 200,
+   "bytes": 1752088,
+   "sha256": "c3c7868fe655d4afdfc089c8c2db7211df0e6d2eadf64860c58510e1b561b694",
+   "retrieved_at": "2026-10-01T20:31:10+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_151.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=151000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 151000
+   },
+   "status": 200,
+   "bytes": 1741112,
+   "sha256": "daea63a7faf039db14dbc77336c5cc946d8dab98ba94c64ce1937737225b3c61",
+   "retrieved_at": "2026-10-01T20:31:12+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_152.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=152000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 152000
+   },
+   "status": 200,
+   "bytes": 1764569,
+   "sha256": "60694abe5bb95e0669c55acecf95b32761c2f7af718bf6663fc29c42a4f0af53",
+   "retrieved_at": "2026-10-01T20:31:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_153.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=153000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 153000
+   },
+   "status": 200,
+   "bytes": 1758390,
+   "sha256": "d0df0e176a5b7cfe0bdcf1d7d78d7c66410e22682a071317364b6c0f2f395333",
+   "retrieved_at": "2026-10-01T20:31:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_154.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=154000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 154000
+   },
+   "status": 200,
+   "bytes": 1743402,
+   "sha256": "83c38cf815d3270ff9790e9b76344b3b606af050bae297811dbbce18dc66c430",
+   "retrieved_at": "2026-10-01T20:31:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_155.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=155000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 155000
+   },
+   "status": 200,
+   "bytes": 1665239,
+   "sha256": "5db8c4e65707d4462d42722b782066a69082a68fbe020d46ae358e6b2a935a20",
+   "retrieved_at": "2026-10-01T20:31:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_156.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=156000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 156000
+   },
+   "status": 200,
+   "bytes": 1672565,
+   "sha256": "e25e2894a1700c4f0c183ed55003f13cec1a7ffd3f7156878596242dac0f8491",
+   "retrieved_at": "2026-10-01T20:31:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_157.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=157000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 157000
+   },
+   "status": 200,
+   "bytes": 1710104,
+   "sha256": "56353fd39e667bf59ec7441409633904dc5e76a535b8561b1cd4abfed532ce82",
+   "retrieved_at": "2026-10-01T20:31:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_158.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=158000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 158000
+   },
+   "status": 200,
+   "bytes": 1743900,
+   "sha256": "9efbc8c5ec46301f0099e8624516030a27ada354e5dae77d8e62eec2fd20e87d",
+   "retrieved_at": "2026-10-01T20:31:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_159.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=159000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 159000
+   },
+   "status": 200,
+   "bytes": 1730496,
+   "sha256": "26f19416f940a83b9726c68b26fdcc2b13f9b5778b34b307562cfbfee1ab617a",
+   "retrieved_at": "2026-10-01T20:31:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_160.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=160000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 160000
+   },
+   "status": 200,
+   "bytes": 1714134,
+   "sha256": "40158e880f28255da85731579c14bcee6eaba68fc89d3241a5be2bb1662c2e1d",
+   "retrieved_at": "2026-10-01T20:31:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_161.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=161000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 161000
+   },
+   "status": 200,
+   "bytes": 1805171,
+   "sha256": "19ab213cf65a8ed6e80ca36ee527f86223768c9fcf34ade97d08e2d983cbe269",
+   "retrieved_at": "2026-10-01T20:31:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_162.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=162000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 162000
+   },
+   "status": 200,
+   "bytes": 1740304,
+   "sha256": "35629295e3b7d098e8b6fae54249b14e90d384094e5766f6ded8f015a1765e90",
+   "retrieved_at": "2026-10-01T20:31:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_163.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=163000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 163000
+   },
+   "status": 200,
+   "bytes": 1738118,
+   "sha256": "3ee670e5e46e5e3b950143a4ea2ae7bece3e0e36ec20494e82530869c5a0e26a",
+   "retrieved_at": "2026-10-01T20:31:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_164.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=164000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 164000
+   },
+   "status": 200,
+   "bytes": 1763690,
+   "sha256": "10c22d6aba7b90844ae4359fd8112b9b534aace96ed24917b81e00b0e04f4f00",
+   "retrieved_at": "2026-10-01T20:31:46+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_165.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=165000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 165000
+   },
+   "status": 200,
+   "bytes": 1823338,
+   "sha256": "b3d5706a5a5883c1e519f2816d4c281e4dd9e92782f0a87de115d40e94c8d418",
+   "retrieved_at": "2026-10-01T20:31:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_166.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=166000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 166000
+   },
+   "status": 200,
+   "bytes": 1817424,
+   "sha256": "90c63a2a70075155d805a055675d30ab7d5a61b4c875cfd5e46bdd63b70a3c3a",
+   "retrieved_at": "2026-10-01T20:31:54+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_167.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=167000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 167000
+   },
+   "status": 200,
+   "bytes": 1763349,
+   "sha256": "0dec02773e55f0086754524161e93809802f84e8cc21ea2830db2324026a6336",
+   "retrieved_at": "2026-10-01T20:31:57+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_168.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=168000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 168000
+   },
+   "status": 200,
+   "bytes": 1769084,
+   "sha256": "c94626c78992d6bd193cc60cb8bfd800af76968e9da8a2b12b571f1c8b53ce16",
+   "retrieved_at": "2026-10-01T20:32:00+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_169.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=169000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 169000
+   },
+   "status": 200,
+   "bytes": 1724656,
+   "sha256": "59f6cbdd745b66fa2efb309a171524c3b4b88602e4776886c6a95cb1024a0711",
+   "retrieved_at": "2026-10-01T20:32:02+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_170.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=170000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 170000
+   },
+   "status": 200,
+   "bytes": 1741660,
+   "sha256": "457f9288f1f1891eca876736684f1296dbda19eacefa61a2e3f1e51582e37cbb",
+   "retrieved_at": "2026-10-01T20:32:04+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_171.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=171000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 171000
+   },
+   "status": 200,
+   "bytes": 1717304,
+   "sha256": "28838ff41620d71f1fa666d5f62744931af3f3a82deec80bdca83b9a036bdb97",
+   "retrieved_at": "2026-10-01T20:32:07+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_172.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=172000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 172000
+   },
+   "status": 200,
+   "bytes": 1793336,
+   "sha256": "7cda26817bf6452e4c59285061ae94a47f8a863eaeb19f3c707fa844a28f8c6f",
+   "retrieved_at": "2026-10-01T20:32:09+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_173.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=173000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 173000
+   },
+   "status": 200,
+   "bytes": 1740521,
+   "sha256": "75598834672782aa888cc65bdab7fe07bd229664dcee05b08ab7d0bbff78d62c",
+   "retrieved_at": "2026-10-01T20:32:12+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_174.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=174000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 174000
+   },
+   "status": 200,
+   "bytes": 1772547,
+   "sha256": "104d2aff0a2636afd6f6e06f72f062b255248dd5322318d98d673ea70a75ca83",
+   "retrieved_at": "2026-10-01T20:32:14+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_175.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=175000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 175000
+   },
+   "status": 200,
+   "bytes": 1752107,
+   "sha256": "459f8fda6d930d9673e115559f7d245c3e092cf710771e1db3ca3d5c6b80b278",
+   "retrieved_at": "2026-10-01T20:32:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_176.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=176000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 176000
+   },
+   "status": 200,
+   "bytes": 1762083,
+   "sha256": "337b1cf797dd99358d6e02818f3dd4055f66cfdb5109c2cd45c6ebeb2524f354",
+   "retrieved_at": "2026-10-01T20:32:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_177.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=177000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 177000
+   },
+   "status": 200,
+   "bytes": 1694099,
+   "sha256": "d0be1da05193427e90fa952806f2c0c389cb360a77acdf9e9aa8f77fa29d66fc",
+   "retrieved_at": "2026-10-01T20:32:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_178.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=178000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 178000
+   },
+   "status": 200,
+   "bytes": 1740005,
+   "sha256": "708affbeb3357ffc79ae32fa4391994a2194f10c6d38479fc0ea2883a448ae38",
+   "retrieved_at": "2026-10-01T20:32:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_179.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=179000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 179000
+   },
+   "status": 200,
+   "bytes": 1740934,
+   "sha256": "486bad0f5d0aa0b909ee94c48b133bcc98cffa77bb1f490e62c9d7a1b11f13d1",
+   "retrieved_at": "2026-10-01T20:32:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_180.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=180000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 180000
+   },
+   "status": 200,
+   "bytes": 1714831,
+   "sha256": "b9841999f76d83522bc7c80d11eb4d8fdb544d13a1e0f670d699ddd761f69869",
+   "retrieved_at": "2026-10-01T20:32:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_181.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=181000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 181000
+   },
+   "status": 200,
+   "bytes": 1761524,
+   "sha256": "7b0f57a70e6e19dd8083e445cd049d6957a9384c8a89dbeca8e8f24cc5601f14",
+   "retrieved_at": "2026-10-01T20:32:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_182.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=182000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 182000
+   },
+   "status": 200,
+   "bytes": 1697759,
+   "sha256": "a236771e9098c7f1d42fca9bcea6f32784eb52b6a8fbdd30ee91ddc6fb89f4ce",
+   "retrieved_at": "2026-10-01T20:32:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_183.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=183000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 183000
+   },
+   "status": 200,
+   "bytes": 1680975,
+   "sha256": "bd2943734d418d22736a3979d1170844519440c8e3647a1c23b005baa294bd3c",
+   "retrieved_at": "2026-10-01T20:32:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_184.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=184000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 184000
+   },
+   "status": 200,
+   "bytes": 1710755,
+   "sha256": "0370c7b013bfc82aa385b9e75b31d434c9976abbee41b24ed11516af3efa55b3",
+   "retrieved_at": "2026-10-01T20:32:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_185.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=185000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 185000
+   },
+   "status": 200,
+   "bytes": 1773583,
+   "sha256": "4dd4c692a8f892b84e6878a6c0261c53d5efe8758031ad69b4927f6ff1e0eb37",
+   "retrieved_at": "2026-10-01T20:32:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_186.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=186000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 186000
+   },
+   "status": 200,
+   "bytes": 1755377,
+   "sha256": "0981f97aba413514dcdbb377e1d841cea7f3c9d27752b251834f4033a3bf6649",
+   "retrieved_at": "2026-10-01T20:32:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_187.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=187000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 187000
+   },
+   "status": 200,
+   "bytes": 1739708,
+   "sha256": "e92e75638a57e5eb5a7dbda989dfb1fe17454786469927b94d07751650c01837",
+   "retrieved_at": "2026-10-01T20:32:55+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_188.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=188000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 188000
+   },
+   "status": 200,
+   "bytes": 1769592,
+   "sha256": "c1adcbaeb7bab8bd359ef97906f4b01a143afd7452d74a0ce6c524696278a64a",
+   "retrieved_at": "2026-10-01T20:32:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_189.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=189000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 189000
+   },
+   "status": 200,
+   "bytes": 1777923,
+   "sha256": "7ee4c11911ffc79ef180cf9111c1f6ebe2de03374847c76127a33629c7b803f7",
+   "retrieved_at": "2026-10-01T20:33:00+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_190.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=190000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 190000
+   },
+   "status": 200,
+   "bytes": 1688234,
+   "sha256": "449288d7113bcdc30f2d1f17090236d013db112af648dc27942cab07a4a40226",
+   "retrieved_at": "2026-10-01T20:33:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_191.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=191000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 191000
+   },
+   "status": 200,
+   "bytes": 1737173,
+   "sha256": "025a49c7a7f237ffbe5e52fd4476d9811dfb3995b23c9504c6272f5fa4bd7705",
+   "retrieved_at": "2026-10-01T20:33:05+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_192.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=192000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 192000
+   },
+   "status": 200,
+   "bytes": 1742883,
+   "sha256": "657c23ab817afbf678f377a8814616528eaadf7a553ef1bb491ea23ebf90cd95",
+   "retrieved_at": "2026-10-01T20:33:12+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_193.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=193000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 193000
+   },
+   "status": 200,
+   "bytes": 1723050,
+   "sha256": "00c4f2b2f4e6340015cc6e447f681337c6f75dd16c67295d1cf372641efb4b7c",
+   "retrieved_at": "2026-10-01T20:33:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_194.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=194000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 194000
+   },
+   "status": 200,
+   "bytes": 1747308,
+   "sha256": "20d1912b2d812833e82c0065e2291c5ad09a91a19549574017a1683b47142f8d",
+   "retrieved_at": "2026-10-01T20:33:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_195.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=195000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 195000
+   },
+   "status": 200,
+   "bytes": 1708289,
+   "sha256": "53b7bfe912e7bd3e0a6c40d799689df3a40f4674941ff94a1579eb343a765cfa",
+   "retrieved_at": "2026-10-01T20:33:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_196.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=196000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 196000
+   },
+   "status": 200,
+   "bytes": 1706057,
+   "sha256": "52868df4db011dbe1034cbbef50d46f117fb52f2c3b05a8d33f064e52044e6de",
+   "retrieved_at": "2026-10-01T20:33:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_197.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=197000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 197000
+   },
+   "status": 200,
+   "bytes": 1720480,
+   "sha256": "40c588a8608f5284c76074fcdd063d474256c171e5a3d682490829a574b9b805",
+   "retrieved_at": "2026-10-01T20:33:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_198.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=198000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 198000
+   },
+   "status": 200,
+   "bytes": 1790676,
+   "sha256": "6cb4adfadbcd8bba9b51574e711feb3aa9b556eae4237f932c30d2e3a180bb02",
+   "retrieved_at": "2026-10-01T20:33:30+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_199.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=199000",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 199000
+   },
+   "status": 200,
+   "bytes": 1793678,
+   "sha256": "6c94993a35803a96e9e9af773864e3faaa844e7507a220be58abfdc7d512aad4",
+   "retrieved_at": "2026-10-01T20:33:32+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bgs_wms/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

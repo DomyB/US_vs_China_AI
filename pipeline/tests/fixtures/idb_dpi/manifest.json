@@ -1,0 +1,19 @@
+{
+ "source_id": "idb_dpi",
+ "files": {
+  "package.json": {
+   "url": "https://data.iadb.org/api/3/action/package_show?id=the-database-of-political-institutions-dpi-2023",
+   "params": {
+    "id": "the-database-of-political-institutions-dpi-2023"
+   },
+   "status": 200,
+   "bytes": 43603,
+   "sha256": "49779fec38f70282a62676e4718e500c29efe7c2b673dc8cfd23409eb73a5aaa",
+   "retrieved_at": "2026-10-01T20:25:12+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

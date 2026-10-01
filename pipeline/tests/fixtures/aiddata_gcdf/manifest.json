@@ -1,0 +1,17 @@
+{
+ "source_id": "aiddata_gcdf",
+ "files": {
+  "page.html": {
+   "url": "https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0",
+   "params": {},
+   "status": 200,
+   "bytes": 29685,
+   "sha256": "8f9d38ec50c21bf863b9bc5544f9308503d3bfc4b0a20a7c723290901e608f50",
+   "retrieved_at": "2026-10-01T20:24:00+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/aiddata_gcdf/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

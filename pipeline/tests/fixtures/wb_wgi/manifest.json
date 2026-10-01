@@ -1,0 +1,97 @@
+{
+ "source_id": "wb_wgi",
+ "files": {
+  "CC.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/CC.EST?format=json&per_page=20000&date=1996%3A2026&source=3",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "1996:2026",
+    "source": "3"
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:15:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "GE.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/GE.EST?format=json&per_page=20000&date=1996%3A2026&source=3",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "1996:2026",
+    "source": "3"
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:15:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "PV.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/PV.EST?format=json&per_page=20000&date=1996%3A2026&source=3",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "1996:2026",
+    "source": "3"
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:15:23+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "RL.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/RL.EST?format=json&per_page=20000&date=1996%3A2026&source=3",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "1996:2026",
+    "source": "3"
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:15:23+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "RQ.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/RQ.EST?format=json&per_page=20000&date=1996%3A2026&source=3",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "1996:2026",
+    "source": "3"
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:15:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "VA.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/VA.EST?format=json&per_page=20000&date=1996%3A2026&source=3",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "1996:2026",
+    "source": "3"
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:15:25+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wgi/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

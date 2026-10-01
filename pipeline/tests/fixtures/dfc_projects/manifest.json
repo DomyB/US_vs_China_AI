@@ -1,0 +1,17 @@
+{
+ "source_id": "dfc_projects",
+ "files": {
+  "page.html": {
+   "url": "https://www.dfc.gov/our-impact/transaction-data",
+   "params": {},
+   "status": 200,
+   "bytes": 42414,
+   "sha256": "87855ea9a047ae85462ae8333a777b7850a70fb4a4a7abc5b5adda53cedb09eb",
+   "retrieved_at": "2026-10-01T20:24:14+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dfc_projects/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

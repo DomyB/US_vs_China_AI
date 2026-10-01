@@ -1,0 +1,19 @@
+{
+ "source_id": "usgs_mcs",
+ "files": {
+  "item.json": {
+   "url": "https://www.sciencebase.gov/catalog/item/69837e43b66b01367d7ec7c7?format=json",
+   "params": {
+    "format": "json"
+   },
+   "status": 200,
+   "bytes": 7275,
+   "sha256": "1acf6e89cb12007345289f59fc67819400158e68691619e1fd008f3445151d84",
+   "retrieved_at": "2026-10-01T20:15:29+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/usgs_mcs/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

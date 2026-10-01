@@ -1,0 +1,59 @@
+{
+ "source_id": "wb_ids",
+ "files": {
+  "DT.DOD.DPPG.CD_730.json": {
+   "url": "https://api.worldbank.org/v2/sources/6/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/DT.DOD.DPPG.CD/counterpart-area/730/time/all?format=json&per_page=20000",
+   "params": {
+    "format": "json",
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 180487,
+   "sha256": "d4a4b779730721d86e7184785d5b15d3c897c54ef7a42a41260aec7d23a05942",
+   "retrieved_at": "2026-10-01T20:15:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "DT.DOD.DPPG.CD_WLD.json": {
+   "url": "https://api.worldbank.org/v2/sources/6/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/DT.DOD.DPPG.CD/counterpart-area/WLD/time/all?format=json&per_page=20000",
+   "params": {
+    "format": "json",
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 183012,
+   "sha256": "32a392e346724daa52d46a9d23dd54e6c8189a84b7666200970aee1a5c852be6",
+   "retrieved_at": "2026-10-01T20:15:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "DT.DIS.DPPG.CD_730.json": {
+   "url": "https://api.worldbank.org/v2/sources/6/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/DT.DIS.DPPG.CD/counterpart-area/730/time/all?format=json&per_page=20000",
+   "params": {
+    "format": "json",
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 184982,
+   "sha256": "b2306d45483c2ab436238fd8ac056dea33233b4e2f3dcfa4caf27d885b8a8a6f",
+   "retrieved_at": "2026-10-01T20:15:28+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "DT.DIS.DPPG.CD_WLD.json": {
+   "url": "https://api.worldbank.org/v2/sources/6/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/DT.DIS.DPPG.CD/counterpart-area/WLD/time/all?format=json&per_page=20000",
+   "params": {
+    "format": "json",
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 188750,
+   "sha256": "e1766762575c2c33d586bb1241af79c3e76e527c8b0e5a4dbc050b97c227e59d",
+   "retrieved_at": "2026-10-01T20:15:29+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_ids/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

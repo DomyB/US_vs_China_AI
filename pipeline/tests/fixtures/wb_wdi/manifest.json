@@ -1,0 +1,91 @@
+{
+ "source_id": "wb_wdi",
+ "files": {
+  "NY.GDP.MKTP.CD.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/NY.GDP.MKTP.CD?format=json&per_page=20000&date=2000%3A2026",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "2000:2026"
+   },
+   "status": 200,
+   "bytes": 64624,
+   "sha256": "9872541b850ce4f579647ad7ccdf8170b7cb244e9738e2245750e7ef6cd1c12a",
+   "retrieved_at": "2026-10-01T20:15:15+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "TX.VAL.MRCH.CD.WT.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/TX.VAL.MRCH.CD.WT?format=json&per_page=20000&date=2000%3A2026",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "2000:2026"
+   },
+   "status": 200,
+   "bytes": 69029,
+   "sha256": "970efb74186f6b013bfbc6bac3ad8285d7058bb480feaa4f35d2f09b6ebfa9c7",
+   "retrieved_at": "2026-10-01T20:15:16+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "BX.KLT.DINV.CD.WD.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/BX.KLT.DINV.CD.WD?format=json&per_page=20000&date=2000%3A2026",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "2000:2026"
+   },
+   "status": 200,
+   "bytes": 77556,
+   "sha256": "2d05146252d1048c2438797eb758e4f5994fe415684ab070a519f20d93424bd8",
+   "retrieved_at": "2026-10-01T20:15:17+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "TX.VAL.MMTL.ZS.UN.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/TX.VAL.MMTL.ZS.UN?format=json&per_page=20000&date=2000%3A2026",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "2000:2026"
+   },
+   "status": 200,
+   "bytes": 75843,
+   "sha256": "f73238a9b103311cb4a2aeaa6d9a1bf04164a8105384050b4f41fd6d307f35f0",
+   "retrieved_at": "2026-10-01T20:15:18+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "NY.GDP.TOTL.RT.ZS.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/NY.GDP.TOTL.RT.ZS?format=json&per_page=20000&date=2000%3A2026",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "2000:2026"
+   },
+   "status": 200,
+   "bytes": 72216,
+   "sha256": "7dedf808c325880844bf0c5c238de4e6946b79c3e84ab8c85cbecc0c82ecb86c",
+   "retrieved_at": "2026-10-01T20:15:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "NY.GDP.MINR.RT.ZS.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/NY.GDP.MINR.RT.ZS?format=json&per_page=20000&date=2000%3A2026",
+   "params": {
+    "format": "json",
+    "per_page": 20000,
+    "date": "2000:2026"
+   },
+   "status": 200,
+   "bytes": 66903,
+   "sha256": "7a1ee366a87e05d05fcb1244d388002e345ea5b9ece05026b70e6155cb8ae3ef",
+   "retrieved_at": "2026-10-01T20:15:20+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wdi/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

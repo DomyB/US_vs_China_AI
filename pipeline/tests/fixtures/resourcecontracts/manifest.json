@@ -1,0 +1,259 @@
+{
+ "source_id": "resourcecontracts",
+ "files": {
+  "ARG_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=ar&per_page=100&page=1",
+   "params": {
+    "country_code": "ar",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 32877,
+   "sha256": "05551eb931a198176c3e77267e7ab78533613106b0465d68968675d9c5802cae",
+   "retrieved_at": "2026-10-01T20:24:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "BOL_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=bo&per_page=100&page=1",
+   "params": {
+    "country_code": "bo",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 39538,
+   "sha256": "574b15019971c8116e179a0c4ba6a00ffe0755943a10486b0487b2e9113bea64",
+   "retrieved_at": "2026-10-01T20:24:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "BRA_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=br&per_page=100&page=1",
+   "params": {
+    "country_code": "br",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 35906,
+   "sha256": "26a33792fb038efbf42800c501177d439d037bf0241f0d95ffefb84337405562",
+   "retrieved_at": "2026-10-01T20:24:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "CHL_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=cl&per_page=100&page=1",
+   "params": {
+    "country_code": "cl",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 12946,
+   "sha256": "ba638bc12019cfb4d00ed7beee91ea572afb07fba8bb2bed4baef2489f2cd45a",
+   "retrieved_at": "2026-10-01T20:24:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "COL_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=co&per_page=100&page=1",
+   "params": {
+    "country_code": "co",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 71119,
+   "sha256": "a35526765e1c26cca55a20be52c3501c8aeccb1f5b76ca76183bb40f655c9408",
+   "retrieved_at": "2026-10-01T20:24:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "COL_p2.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=co&per_page=100&page=2",
+   "params": {
+    "country_code": "co",
+    "per_page": 100,
+    "page": 2
+   },
+   "status": 200,
+   "bytes": 71119,
+   "sha256": "a35526765e1c26cca55a20be52c3501c8aeccb1f5b76ca76183bb40f655c9408",
+   "retrieved_at": "2026-10-01T20:24:23+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "COL_p3.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=co&per_page=100&page=3",
+   "params": {
+    "country_code": "co",
+    "per_page": 100,
+    "page": 3
+   },
+   "status": 200,
+   "bytes": 71119,
+   "sha256": "a35526765e1c26cca55a20be52c3501c8aeccb1f5b76ca76183bb40f655c9408",
+   "retrieved_at": "2026-10-01T20:24:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "COL_p4.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=co&per_page=100&page=4",
+   "params": {
+    "country_code": "co",
+    "per_page": 100,
+    "page": 4
+   },
+   "status": 200,
+   "bytes": 71119,
+   "sha256": "a35526765e1c26cca55a20be52c3501c8aeccb1f5b76ca76183bb40f655c9408",
+   "retrieved_at": "2026-10-01T20:24:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "ECU_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=ec&per_page=100&page=1",
+   "params": {
+    "country_code": "ec",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 28960,
+   "sha256": "749688b6f7d27181e7a84ae4ea877e6241d33028970a4f3deec29139b3385663",
+   "retrieved_at": "2026-10-01T20:24:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "GUY_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=gy&per_page=100&page=1",
+   "params": {
+    "country_code": "gy",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 27479,
+   "sha256": "eb565061917a910d353012879118f90602a652390ed08529573f9c4c09c95587",
+   "retrieved_at": "2026-10-01T20:24:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "PRY_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=py&per_page=100&page=1",
+   "params": {
+    "country_code": "py",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 11084,
+   "sha256": "16d8f036a9ef0deb820e22cdf4b77e3a7beb28829aa9710fa2aeebe1ddd32bf7",
+   "retrieved_at": "2026-10-01T20:24:28+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "PER_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=pe&per_page=100&page=1",
+   "params": {
+    "country_code": "pe",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 79272,
+   "sha256": "603d986ac27fd8cb3f1352f16cf065a58c0fb64895a84dcabae5a63bb8443e90",
+   "retrieved_at": "2026-10-01T20:24:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "PER_p2.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=pe&per_page=100&page=2",
+   "params": {
+    "country_code": "pe",
+    "per_page": 100,
+    "page": 2
+   },
+   "status": 200,
+   "bytes": 79272,
+   "sha256": "603d986ac27fd8cb3f1352f16cf065a58c0fb64895a84dcabae5a63bb8443e90",
+   "retrieved_at": "2026-10-01T20:24:30+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "PER_p3.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=pe&per_page=100&page=3",
+   "params": {
+    "country_code": "pe",
+    "per_page": 100,
+    "page": 3
+   },
+   "status": 200,
+   "bytes": 79272,
+   "sha256": "603d986ac27fd8cb3f1352f16cf065a58c0fb64895a84dcabae5a63bb8443e90",
+   "retrieved_at": "2026-10-01T20:24:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "PER_p4.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=pe&per_page=100&page=4",
+   "params": {
+    "country_code": "pe",
+    "per_page": 100,
+    "page": 4
+   },
+   "status": 200,
+   "bytes": 79272,
+   "sha256": "603d986ac27fd8cb3f1352f16cf065a58c0fb64895a84dcabae5a63bb8443e90",
+   "retrieved_at": "2026-10-01T20:24:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "SUR_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=sr&per_page=100&page=1",
+   "params": {
+    "country_code": "sr",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 3566,
+   "sha256": "006968ad2acd6e0b7d9c669e3442c165dd040d87f01b200e9a4dc3bc7a5477b1",
+   "retrieved_at": "2026-10-01T20:24:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "URY_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=uy&per_page=100&page=1",
+   "params": {
+    "country_code": "uy",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 16314,
+   "sha256": "fe20b76a33a9cd4481c549d92004427922e99aa2cdae2bedfe186d8f05126d90",
+   "retrieved_at": "2026-10-01T20:24:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "VEN_p1.json": {
+   "url": "https://api.resourcecontracts.org/contracts?country_code=ve&per_page=100&page=1",
+   "params": {
+    "country_code": "ve",
+    "per_page": 100,
+    "page": 1
+   },
+   "status": 200,
+   "bytes": 891,
+   "sha256": "1eff664de08821b02a981af9b5aa3d5ff8a6d3146a0b6b1bac715b207c202af0",
+   "retrieved_at": "2026-10-01T20:24:35+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/resourcecontracts/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

@@ -1,0 +1,459 @@
+{
+ "dataset": "REAL",
+ "generated_on": "2026-10-01",
+ "generated_at": "2026-10-01T20:33:40+00:00",
+ "sources_ok": [
+  "aiddata_gcdf",
+  "bgs_wms",
+  "federal_register",
+  "un_comtrade",
+  "usgs_mcs",
+  "vdem",
+  "wb_ids",
+  "wb_pink_sheet",
+  "wb_wdi",
+  "wb_wgi"
+ ],
+ "ingest_runs": [
+  {
+   "source_id": "dfc_projects",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:14+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: DFC transaction data file link not found"
+  },
+  {
+   "source_id": "idb_dpi",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:25:12+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: no CSV/XLSX resource in the DPI package"
+  },
+  {
+   "source_id": "un_comtrade",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:23:59+00:00",
+   "rows": "{\"trade_flow\": 14274}",
+   "error": null
+  },
+  {
+   "source_id": "wb_pink_sheet",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:31+00:00",
+   "rows": "{\"price\": 3200}",
+   "error": null
+  },
+  {
+   "source_id": "aei_cgit",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:13+00:00",
+   "rows": "{}",
+   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+  },
+  {
+   "source_id": "federal_register",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:24:18+00:00",
+   "rows": "{\"policy_document\": 444}",
+   "error": null
+  },
+  {
+   "source_id": "usgs_mcs",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:29+00:00",
+   "rows": "{\"production\": 0, \"price\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "wb_ids",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:29+00:00",
+   "rows": "{\"governance\": 2268}",
+   "error": null
+  },
+  {
+   "source_id": "bgs_wms",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:33:34+00:00",
+   "rows": "{\"production\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "exim_authorizations",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:14+00:00",
+   "rows": "{}",
+   "error": "FetchError: exim_authorizations: GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "source_id": "unga_votes",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:25:07+00:00",
+   "rows": "{}",
+   "error": "ColumnError: 'none of (\\'session\\',) found; available columns: [\\'ccode1,\"iso3c1\",\"Countryname1\",\"ccode2\",\"iso3c2\",\"Countryname2\",\"year\",\"IdealPointFP1\",\"IdealPointFP2\",\"AbsIdealDiff\"\\']'"
+  },
+  {
+   "source_id": "wb_wdi",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:20+00:00",
+   "rows": "{\"governance\": 1872}",
+   "error": null
+  },
+  {
+   "source_id": "aiddata_gcdf",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:24:13+00:00",
+   "rows": "{\"finance_event\": 1615}",
+   "error": null
+  },
+  {
+   "source_id": "resourcecontracts",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:35+00:00",
+   "rows": "{}",
+   "error": "AttributeError: 'NoneType' object has no attribute 'get'"
+  },
+  {
+   "source_id": "vdem",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:24:47+00:00",
+   "rows": "{\"governance\": 2184}",
+   "error": null
+  },
+  {
+   "source_id": "wb_wgi",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:25+00:00",
+   "rows": "{\"governance\": 0}",
+   "error": null
+  }
+ ],
+ "tables": {
+  "trade_flow": 14274,
+  "finance_event": 1615,
+  "governance": 6324,
+  "production": 0,
+  "price": 3200,
+  "policy_document": 444
+ },
+ "layers": {
+  "facts": "real",
+  "model_outputs": "sample",
+  "parliament": "sample",
+  "media": "sample",
+  "forecast": "sample"
+ },
+ "coverage": {
+  "ARG": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 189,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "BOL": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 147,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "BRA": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 200,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "CHL": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 78,
+   "contracts": 0,
+   "governance": 338,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "COL": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 101,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "ECU": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 232,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "GUY": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 125,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "PRY": {
+   "trade_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 4,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "PER": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "mirror_years": [],
+   "events": 165,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "SUR": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [],
+   "events": 106,
+   "contracts": 0,
+   "governance": 590,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "URY": {
+   "trade_years": [
+    2008,
+    2009,
+    2010,
+    2011
+   ],
+   "mirror_years": [],
+   "events": 89,
+   "contracts": 0,
+   "governance": 338,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  },
+  "VEN": {
+   "trade_years": [],
+   "mirror_years": [],
+   "events": 179,
+   "contracts": 0,
+   "governance": 338,
+   "production": 0,
+   "actions": true,
+   "governance_available": true
+  }
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "source_id": "wb_pink_sheet",
+ "files": {
+  "page.html": {
+   "url": "https://www.worldbank.org/en/research/commodity-markets",
+   "params": {},
+   "status": 200,
+   "bytes": 55841,
+   "sha256": "842c46c33e120d9baa06c0ea97a71f7efe77ec0c9a76eef0010ab345588fee2e",
+   "retrieved_at": "2026-10-01T20:15:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "CMO-Historical-Data-Monthly.xlsx": {
+   "url": "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx",
+   "params": {},
+   "status": 200,
+   "bytes": 586735,
+   "sha256": "9fdcfa8a2aed9a1bb545a10c1a5ce036c6a0acd4766f450424ca800b4b5a0225",
+   "retrieved_at": "2026-10-01T20:15:30+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_pink_sheet/2026-10-01",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}
