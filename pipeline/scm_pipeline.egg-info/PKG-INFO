@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: scm-pipeline
+Version: 0.1.0
+Summary: Data pipelines and models for the US-China critical minerals in South America platform
+Requires-Python: >=3.11
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: requests>=2.31
+Requires-Dist: pandas>=2.2
+Requires-Dist: pyarrow>=15
+Requires-Dist: duckdb>=1.0
+Requires-Dist: openpyxl>=3.1
+Requires-Dist: pandera>=0.20
+Requires-Dist: pyreadr>=0.5
+Requires-Dist: python-dateutil>=2.9
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"

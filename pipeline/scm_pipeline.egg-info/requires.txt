@@ -1,0 +1,13 @@
+pyyaml>=6.0
+requests>=2.31
+pandas>=2.2
+pyarrow>=15
+duckdb>=1.0
+openpyxl>=3.1
+pandera>=0.20
+pyreadr>=0.5
+python-dateutil>=2.9
+
+[dev]
+pytest>=8.0
+ruff>=0.6

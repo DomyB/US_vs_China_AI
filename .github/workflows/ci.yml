@@ -38,8 +38,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install pyyaml pytest ruff
-      - run: ruff check scripts tests
+      - run: pip install -e ".[dev]"
+      - run: ruff check scm scripts tests
       - run: python scripts/build_sources.py
       - run: python scripts/make_sample_data.py
       - run: pytest -q
