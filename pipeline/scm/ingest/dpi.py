@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import re
+import time
 from urllib.parse import urljoin
 
 import pandas as pd
@@ -13,6 +14,8 @@ from .base import Adapter, to_float
 from .util import col, read_any
 
 PACKAGE = "https://data.iadb.org/api/3/action/package_show"
+READY_ATTEMPTS = 8
+READY_WAIT_S = 8  # seconds; grows linearly per attempt (8, 16, ... 64 s)
 PACKAGE_ID = "the-database-of-political-institutions-dpi-2023"
 VARS = {"execrlc": "Chief executive party orientation (1 right, 2 centre, 3 left, 0 no information)",
         "yrsoffc": "Years chief executive in office", "checks": "Checks and balances (checks)", "polariz": "Polarization",
@@ -53,15 +56,31 @@ class DPI(Adapter):
                 errors.append(f"{page}: {str(e)[:120]}")
             for url in dict.fromkeys(u for u in urls if u):
                 try:
-                    snap.get(url, f"dpi.{ext}", timeout=300)
-                    snap.manifest["resource_used"] = {"id": r.get("id"), "name": r.get("name"), "url": url}
-                    snap.save()
-                    return
+                    if self._download_when_ready(snap, url, f"dpi.{ext}", ext):
+                        snap.manifest["resource_used"] = {"id": r.get("id"), "name": r.get("name"), "url": url}
+                        snap.save()
+                        return
+                    errors.append(f"{url}: still 202 (file not ready) after {READY_ATTEMPTS} attempts")
                 except Exception as e:  # noqa: BLE001
                     errors.append(f"{url}: {str(e)[:120]}")
         snap.manifest["errors"] = errors
         snap.save()
         raise RuntimeError("DPI: every resource download failed (set DPI_FILE_URL to a working link): " + " | ".join(errors))
+
+    @staticmethod
+    def _download_when_ready(snap: Snapshot, url: str, name: str, ext: str) -> bool:
+        """data.iadb.org answers 202 Accepted while it generates a download; retry until 200 with real content."""
+        for attempt in range(READY_ATTEMPTS):
+            snap.get(url, name, timeout=300, force=True, allow_statuses=(200, 202))
+            status = snap.files[name]["status"]
+            if status == 200 and snap.looks_like(name, ext):
+                return True
+            snap.path(name).unlink(missing_ok=True)
+            snap.files.pop(name, None)
+            if status == 200:
+                return False  # 200 but not the expected file type (an HTML page)
+            time.sleep(READY_WAIT_S * (attempt + 1))
+        return False
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         path = next(snap.path(n) for n in snap.files if n.startswith("dpi."))

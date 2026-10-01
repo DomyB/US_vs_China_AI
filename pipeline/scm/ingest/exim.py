@@ -18,6 +18,12 @@ API_BASES = ["https://catalog.data.gov/api/3/action", "https://catalog.data.gov/
 PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-12-31-2022", "authorizations-from-10-01-2006-thru-9-30-2025"]
 
 
+def _csv_links(page: str, html: str) -> list[str]:
+    found = [urljoin(page, h) for h in re.findall(r'href="([^"]+\.csv(?:\?[^"]*)?)"', html, re.I)]
+    found.sort(key=lambda u: ("authoriz" not in u.lower(), u))
+    return list(dict.fromkeys(found))
+
+
 class EXIM(Adapter):
     source_id = "exim_authorizations"
     tables = ("finance_event",)
@@ -64,8 +70,19 @@ class EXIM(Adapter):
                 except Exception as e:  # noqa: BLE001
                     snap.manifest.setdefault("errors", []).append({"name": page, "error": str(e)[:200]})
                     continue
-                found = [urljoin(page, h) for h in re.findall(r'href="([^"]+\.csv(?:\?[^"]*)?)"', html, re.I)]
-                found.sort(key=lambda u: ("authoriz" not in u.lower(), u))
+                found = _csv_links(page, html)
+                if not found:
+                    # a search page lists dataset pages; the CSV link sits on the dataset page
+                    datasets = [urljoin(page, h) for h in dict.fromkeys(re.findall(r'href="(/dataset/[a-z0-9\-]*authoriz[a-z0-9\-]*)"', html, re.I))]
+                    snap.manifest["dataset_links"] = datasets[:10]
+                    for j, ds in enumerate(datasets[:5]):
+                        try:
+                            found = _csv_links(ds, snap.get(ds, f"dataset_{j}.html", timeout=120).read_text(encoding="utf-8", errors="ignore"))
+                        except Exception as e:  # noqa: BLE001
+                            snap.manifest.setdefault("errors", []).append({"name": ds, "error": str(e)[:200]})
+                            continue
+                        if found:
+                            break
                 if found:
                     csvs = found
                     snap.manifest["csv_links"] = found[:10]

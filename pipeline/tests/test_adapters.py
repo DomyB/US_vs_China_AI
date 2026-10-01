@@ -226,6 +226,14 @@ def test_wgi_bulk_dataset_fallback(snap_factory):
     assert df[df["indicator"] == "CC.EST"].iloc[0]["value"] == 1.02
 
 
+def test_wgi_data360_fallback(snap_factory):
+    payload = {"count": 2, "value": [{"REF_AREA": "PER", "TIME_PERIOD": "2022", "OBS_VALUE": "-0.35", "INDICATOR": "WB_WGI_CC_EST"},
+                                     {"REF_AREA": "PER", "TIME_PERIOD": "2023", "OBS_VALUE": "..", "INDICATOR": "WB_WGI_CC_EST"}]}
+    snap = snap_factory("wb_wgi", {"d360_CC.EST_PER.json": payload})
+    out = _check(WGI(), snap, ["governance"])
+    assert len(out["governance"]) == 1 and out["governance"].iloc[0]["value"] == -0.35 and out["governance"].iloc[0]["year"] == 2022
+
+
 def test_clean_url_strips_signed_query_parameters():
     from scm.http import clean_url
 

@@ -15,6 +15,7 @@ from .util import col, read_any
 
 API = "https://api.worldbank.org/v2"
 WGI_SITE = "https://www.govindicators.org"
+DATA360 = "https://data360api.worldbank.org/data360/data"
 WGI_BULK_CANDIDATES = [f"{WGI_SITE}/data/wgidataset.xlsx", f"{WGI_SITE}/data/wgidataset.csv",
                        f"{WGI_SITE}/sites/default/files/wgidataset.xlsx", f"{WGI_SITE}/sites/default/files/wgidataset.csv"]
 WGI_BULK_CODES = {"cc": "CC.EST", "ge": "GE.EST", "pv": "PV.EST", "rl": "RL.EST", "rq": "RQ.EST", "va": "VA.EST"}
@@ -130,11 +131,26 @@ class WGI(Adapter):
                 snap.manifest.setdefault("errors", []).append({"name": "govindicators.html", "error": str(e)[:300]})
             for url in dict.fromkeys(links + WGI_BULK_CANDIDATES):
                 ext = url.split("?")[0].rsplit(".", 1)[-1].lower()
+                name = f"wgidataset.{ext}"
                 try:
-                    snap.get(url, f"wgidataset.{ext}", timeout=600)
-                    break
+                    snap.get(url, name, timeout=600, headers={"Referer": WGI_SITE + "/"})
                 except Exception as e:  # noqa: BLE001
                     snap.manifest.setdefault("errors", []).append({"name": url, "error": str(e)[:300]})
+                    continue
+                if snap.looks_like(name, ext):
+                    got = True
+                    break
+                snap.discard(name, f"{url}: not a {ext} file; starts with {snap.path(name).open('rb').read(120)!r}" if snap.has(name) else f"{url}: empty")
+        if not got:
+            # 4) World Bank Data360 (the platform WGI moved to): one call per indicator and country
+            for ind in self.indicators:
+                for iso in IN_SCOPE:
+                    try:
+                        snap.get_json(DATA360, f"d360_{ind}_{iso}.json", params={"DATABASE_ID": "WB_WGI", "INDICATOR": f"WB_WGI_{ind.replace('.', '_')}", "REF_AREA": iso})
+                    except Exception as e:  # noqa: BLE001
+                        snap.manifest.setdefault("errors", []).append({"name": f"d360_{ind}_{iso}", "error": str(e)[:300]})
+                        if iso == IN_SCOPE[0]:
+                            break  # the endpoint itself is unavailable; do not repeat 71 times
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
@@ -151,9 +167,24 @@ class WGI(Adapter):
                 rows += _parse_v2(payload, ind, name) if isinstance(payload, list) else parse_advanced(payload, ind, name)
         if not rows:
             rows = self._parse_bulk(snap)
+        if not rows:
+            rows = self._parse_data360(snap)
         df = pd.DataFrame(rows, columns=["country", "year", "indicator", "indicator_name", "value", "source_record_url"])
         df["value_type"] = "reported"
         return {"governance": self.stamp(snap, df)}
+
+    def _parse_data360(self, snap: Snapshot) -> list[dict]:
+        rows: list[dict] = []
+        for name, meta in snap.files.items():
+            if not name.startswith("d360_") or not snap.has(name):
+                continue
+            ind = name.split("_", 1)[1].rsplit("_", 1)[0]
+            try:
+                payload = json.loads(snap.path(name).read_text())
+            except json.JSONDecodeError:
+                continue
+            rows += _parse_data360_payload(payload, ind, self.indicators.get(ind, ind), meta.get("url"))
+        return rows
 
     def _parse_bulk(self, snap: Snapshot) -> list[dict]:
         """govindicators.org wgidataset: long format (countryname, code, year, indicator, estimate, ...)
@@ -194,6 +225,23 @@ class WGI(Adapter):
                     continue
                 rows.append({"country": iso, "year": int(float(r[c_year])), "indicator": ind, "indicator_name": self.indicators[ind], "value": float(r[c]), "source_record_url": url})
         return rows
+
+
+def _parse_data360_payload(payload: object, indicator: str, name: str, url: str | None) -> list[dict]:
+    """Data360 rows: {"value": [{"REF_AREA": "ARG", "TIME_PERIOD": "2022", "OBS_VALUE": "-0.1", ...}]}."""
+    rows: list[dict] = []
+    values = payload.get("value", []) if isinstance(payload, dict) else payload if isinstance(payload, list) else []
+    for r in values:
+        iso = str(r.get("REF_AREA", "")).upper()
+        v = r.get("OBS_VALUE")
+        period = str(r.get("TIME_PERIOD", ""))[:4]
+        if iso not in IN_SCOPE or v in (None, "", "..") or not period.isdigit():
+            continue
+        try:
+            rows.append({"country": iso, "year": int(period), "indicator": indicator, "indicator_name": name, "value": float(v), "source_record_url": url})
+        except (TypeError, ValueError):
+            continue
+    return rows
 
 
 def _has_rows(payload: object) -> bool:

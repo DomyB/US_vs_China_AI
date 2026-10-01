@@ -158,6 +158,20 @@ class Snapshot:
                     final_url=resp.url if resp.history else None)
         return target
 
+    def discard(self, name: str, reason: str) -> None:
+        """Drop a downloaded file from the snapshot (and record why) when its content is not usable."""
+        self.manifest.setdefault("errors", []).append({"name": name, "error": reason[:400]})
+        self.path(name).unlink(missing_ok=True)
+        self.files.pop(name, None)
+        self.save()
+
+    def looks_like(self, name: str, kind: str) -> bool:
+        """Cheap content sniff: 'xlsx'/'zip' must start with the zip magic, 'csv' must not be HTML."""
+        head = self.path(name).open("rb").read(512)
+        if kind in ("xlsx", "zip"):
+            return head.startswith(b"PK")
+        return not head.lstrip().lower().startswith((b"<!doctype", b"<html", b"<?xml"))
+
     def get_json(self, url: str, name: str, **kw) -> dict | list:
         p = self.get(url, name, **kw)
         return json.loads(p.read_text(encoding="utf-8"))
