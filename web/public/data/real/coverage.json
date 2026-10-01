@@ -25,7 +25,7 @@
    "mirror_years": [],
    "events": 192,
    "contracts": 46,
-   "governance": 793,
+   "governance": 1374,
    "production": 248,
    "actions": true,
    "governance_available": true
@@ -54,7 +54,7 @@
    "mirror_years": [],
    "events": 147,
    "contracts": 50,
-   "governance": 793,
+   "governance": 1373,
    "production": 321,
    "actions": true,
    "governance_available": true
@@ -83,7 +83,7 @@
    "mirror_years": [],
    "events": 214,
    "contracts": 49,
-   "governance": 793,
+   "governance": 1373,
    "production": 841,
    "actions": true,
    "governance_available": true
@@ -112,7 +112,7 @@
    "mirror_years": [],
    "events": 79,
    "contracts": 19,
-   "governance": 541,
+   "governance": 1121,
    "production": 426,
    "actions": true,
    "governance_available": true
@@ -141,7 +141,7 @@
    "mirror_years": [],
    "events": 138,
    "contracts": 100,
-   "governance": 793,
+   "governance": 1373,
    "production": 219,
    "actions": true,
    "governance_available": true
@@ -170,7 +170,7 @@
    "mirror_years": [],
    "events": 253,
    "contracts": 37,
-   "governance": 793,
+   "governance": 1373,
    "production": 74,
    "actions": true,
    "governance_available": true
@@ -199,7 +199,7 @@
    "mirror_years": [],
    "events": 125,
    "contracts": 39,
-   "governance": 793,
+   "governance": 1373,
    "production": 50,
    "actions": true,
    "governance_available": true
@@ -225,7 +225,7 @@
    "mirror_years": [],
    "events": 8,
    "contracts": 16,
-   "governance": 793,
+   "governance": 1369,
    "production": 0,
    "actions": true,
    "governance_available": true
@@ -253,7 +253,7 @@
    "mirror_years": [],
    "events": 169,
    "contracts": 100,
-   "governance": 793,
+   "governance": 1370,
    "production": 360,
    "actions": true,
    "governance_available": true
@@ -282,7 +282,7 @@
    "mirror_years": [],
    "events": 106,
    "contracts": 5,
-   "governance": 793,
+   "governance": 1370,
    "production": 57,
    "actions": true,
    "governance_available": true
@@ -297,7 +297,7 @@
    "mirror_years": [],
    "events": 89,
    "contracts": 25,
-   "governance": 541,
+   "governance": 1118,
    "production": 31,
    "actions": true,
    "governance_available": true
@@ -307,7 +307,7 @@
    "mirror_years": [],
    "events": 179,
    "contracts": 1,
-   "governance": 514,
+   "governance": 1091,
    "production": 175,
    "actions": true,
    "governance_available": true
