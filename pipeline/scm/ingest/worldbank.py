@@ -146,7 +146,9 @@ class WGI(Adapter):
             for ind in self.indicators:
                 for iso in IN_SCOPE:
                     try:
-                        snap.get_json(DATA360, f"d360_{ind}_{iso}.json", params={"DATABASE_ID": "WB_WGI", "INDICATOR": f"WB_WGI_{ind.replace('.', '_')}", "REF_AREA": iso})
+                        payload = snap.get_json(DATA360, f"d360_{ind}_{iso}.json", params={"DATABASE_ID": "WB_WGI", "INDICATOR": f"WB_WGI_{ind.replace('.', '_')}", "REF_AREA": iso})
+                        if "data360_sample" not in snap.manifest:
+                            snap.manifest["data360_sample"] = json.dumps(payload, ensure_ascii=False)[:1500]
                     except Exception as e:  # noqa: BLE001
                         snap.manifest.setdefault("errors", []).append({"name": f"d360_{ind}_{iso}", "error": str(e)[:300]})
                         if iso == IN_SCOPE[0]:
@@ -230,11 +232,21 @@ class WGI(Adapter):
 def _parse_data360_payload(payload: object, indicator: str, name: str, url: str | None) -> list[dict]:
     """Data360 rows: {"value": [{"REF_AREA": "ARG", "TIME_PERIOD": "2022", "OBS_VALUE": "-0.1", ...}]}."""
     rows: list[dict] = []
-    values = payload.get("value", []) if isinstance(payload, dict) else payload if isinstance(payload, list) else []
+    values: list = []
+    if isinstance(payload, dict):
+        for key in ("value", "data", "values", "results", "items"):
+            if isinstance(payload.get(key), list):
+                values = payload[key]
+                break
+    elif isinstance(payload, list):
+        values = payload
     for r in values:
-        iso = str(r.get("REF_AREA", "")).upper()
-        v = r.get("OBS_VALUE")
-        period = str(r.get("TIME_PERIOD", ""))[:4]
+        if not isinstance(r, dict):
+            continue
+        low = {str(k).lower(): v for k, v in r.items()}
+        iso = str(low.get("ref_area") or low.get("ref_area_id") or low.get("country") or "").upper()
+        v = low.get("obs_value", low.get("value"))
+        period = str(low.get("time_period") or low.get("time") or low.get("year") or "")[:4]
         if iso not in IN_SCOPE or v in (None, "", "..") or not period.isdigit():
             continue
         try:

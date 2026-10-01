@@ -14,6 +14,7 @@ from .util import col, tag_mineral
 
 # data.gov has served its CKAN API under both prefixes over time; try each.
 CATALOG = "https://catalog.data.gov"
+AGENCY_CATALOGS = ["https://www.exim.gov/data.json", "https://exim.gov/data.json"]
 API_BASES = ["https://catalog.data.gov/api/3/action", "https://catalog.data.gov/api/action"]
 PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-12-31-2022", "authorizations-from-10-01-2006-thru-9-30-2025"]
 
@@ -61,6 +62,26 @@ class EXIM(Adapter):
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": f"{base}/package_search", "error": str(e)[:200]})
         csvs = [r.get("url") for r in resources if str(r.get("format", "")).lower() == "csv" or str(r.get("url", "")).lower().endswith(".csv")]
+        if not csvs:
+            # 1b) the agency's own Project Open Data catalog (OMB M-13-13: every agency serves /data.json)
+            for url in AGENCY_CATALOGS:
+                try:
+                    cat = snap.get_json(url, "agency_data.json", timeout=120)
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": url, "error": str(e)[:200]})
+                    continue
+                datasets = cat.get("dataset", []) if isinstance(cat, dict) else []
+                hits = [d for d in datasets if "authoriz" in str(d.get("title", "")).lower()]
+                hits.sort(key=lambda d: (str(d.get("modified", "")), str(d.get("title", ""))), reverse=True)
+                snap.manifest["agency_catalog_hits"] = [d.get("title") for d in hits[:10]]
+                for d in hits:
+                    for dist in d.get("distribution", []) or []:
+                        u = dist.get("downloadURL") or dist.get("accessURL") or ""
+                        if "csv" in str(dist.get("mediaType", "")).lower() or u.lower().split("?")[0].endswith(".csv"):
+                            csvs.append(u)
+                if csvs:
+                    snap.manifest["package_title"] = hits[0].get("title")
+                    break
         if not csvs:
             # 2) the catalog's HTML pages: dataset pages for the known slugs, then the organisation's search page
             pages = [f"{CATALOG}/dataset/{pid}" for pid in PACKAGE_IDS] + [f"{CATALOG}/dataset/?q=exim+authorizations&organization=exim-gov"]

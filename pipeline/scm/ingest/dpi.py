@@ -75,6 +75,8 @@ class DPI(Adapter):
             status = snap.files[name]["status"]
             if status == 200 and snap.looks_like(name, ext):
                 return True
+            if attempt == 0:
+                snap.manifest.setdefault("not_ready_bodies", []).append({"url": url, "status": status, "body": snap.path(name).read_text(encoding="utf-8", errors="ignore")[:600]})
             snap.path(name).unlink(missing_ok=True)
             snap.files.pop(name, None)
             if status == 200:
