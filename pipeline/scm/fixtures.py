@@ -17,7 +17,7 @@ from .paths import PIPELINE_DIR
 
 FIXTURES = PIPELINE_DIR / "tests" / "fixtures"
 MAX_ROWS = 60
-MAX_FILES = 12  # per source; keep the first files in manifest order (page 1s, item lists, headers)
+MAX_FILES = 24  # per source; keep the first files in manifest order (page 1s, item lists, headers)
 
 
 def _trim_table(src: Path, target: Path) -> None:

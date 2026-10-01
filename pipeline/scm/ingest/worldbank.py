@@ -197,15 +197,21 @@ class WGI(Adapter):
             snap.manifest.setdefault("errors", []).append({"name": "d360_indicators", "error": str(e)[:300]})
             return fallback
         items = listing if isinstance(listing, list) else listing.get("value", listing.get("data", [])) if isinstance(listing, dict) else []
+        snap.manifest["data360_listing_sample"] = json.dumps(items[:2], ensure_ascii=False)[:1500]
         found: dict[str, str] = {}
         for it in items:
-            if not isinstance(it, dict):
-                continue
-            iid = str(it.get("id") or it.get("indicatorId") or it.get("series_description", {}).get("idno", "") or "")
-            key = iid.upper().replace(".", "_")
-            for ind in self.indicators:
-                if key.endswith(ind.replace(".", "_")) and ind not in found:
-                    found[ind] = iid
+            # the listing's field names are not documented: match each of our codes (CC.EST) or indicator
+            # names (Control of Corruption) anywhere in the item, and take the WB_WGI_* id it carries
+            text = json.dumps(it, ensure_ascii=False).upper().replace(".", "_")
+            ids = [str(v) for v in (it.values() if isinstance(it, dict) else [it]) if isinstance(v, str) and v.upper().startswith("WB_WGI")]
+            if isinstance(it, str) and it.upper().startswith("WB_WGI"):
+                ids = [it]
+            for ind, name in self.indicators.items():
+                concept = name.split(":")[0].upper()
+                if ind in found or not ids:
+                    continue
+                if ind.replace(".", "_") in text or concept in text:
+                    found[ind] = ids[0]
         snap.manifest["data360_ids"] = found or {"none matched; listing size": len(items)}
         return {**fallback, **found}
 
