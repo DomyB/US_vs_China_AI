@@ -98,15 +98,34 @@ class WGI(Adapter):
 
     def fetch(self, snap: Snapshot) -> None:
         for ind in self.indicators:
-            snap.get(f"{API}/sources/3/country/{COUNTRIES}/series/{ind}/time/all", f"{ind}.json", params={"format": "json", "per_page": 20000})
+            # 1) simple endpoint with the WGI database selected and no date filter
+            try:
+                payload = snap.get_json(f"{API}/country/{COUNTRIES}/indicator/{ind}", f"{ind}.json", params={"format": "json", "source": 3, "per_page": 20000})
+                if isinstance(payload, list) and len(payload) > 1 and payload[1]:
+                    continue
+            except Exception as e:  # noqa: BLE001 - fall through to the advanced endpoint
+                snap.manifest.setdefault("errors", []).append({"name": f"{ind}.json", "error": str(e)[:300]})
+            snap.path(f"{ind}.json").unlink(missing_ok=True)
+            snap.files.pop(f"{ind}.json", None)
+            # 2) advanced endpoint
+            try:
+                snap.get(f"{API}/sources/3/country/{COUNTRIES}/series/{ind}/time/all", f"{ind}.adv.json", params={"format": "json", "per_page": 20000})
+            except Exception as e:  # noqa: BLE001
+                snap.manifest.setdefault("errors", []).append({"name": f"{ind}.adv.json", "error": str(e)[:300]})
+        snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
-        import json
-
         rows: list[dict] = []
         for ind, name in self.indicators.items():
-            if snap.has(f"{ind}.json"):
-                rows += parse_advanced(json.loads(snap.path(f"{ind}.json").read_text()), ind, name)
+            for fname in (f"{ind}.json", f"{ind}.adv.json"):
+                if not snap.has(fname):
+                    continue
+                try:
+                    payload = json.loads(snap.path(fname).read_text())
+                except json.JSONDecodeError:
+                    snap.manifest.setdefault("unparsed", []).append(fname)
+                    continue
+                rows += _parse_v2(payload, ind, name) if isinstance(payload, list) else parse_advanced(payload, ind, name)
         df = pd.DataFrame(rows, columns=["country", "year", "indicator", "indicator_name", "value"])
         df["value_type"] = "reported"
         return {"governance": self.stamp(snap, df)}

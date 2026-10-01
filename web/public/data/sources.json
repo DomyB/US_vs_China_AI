@@ -4672,7 +4672,7 @@
   },
   {
    "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_method": "direct",
    "auth": "none",
    "id": "dfc_projects",
    "name": "US International Development Finance Corporation, active projects",
@@ -4684,11 +4684,11 @@
    "access": "bulk",
    "update_frequency": "quarterly",
    "refresh_schedule": "quarterly",
-   "coverage_from": 2019,
+   "coverage_from": 1960,
    "coverage_to": 2025,
    "language": "en",
    "status": "live",
-   "notes": "Quarterly XLSX, no API; snapshots are diffed. OPIC legacy commitments appear in earlier files.",
+   "notes": "Quarterly XLSX linked from the active-projects page (no API); the file includes OPIC-era commitments back to FY1960 with an 'Originating Agency' column. Snapshots are diffed.",
    "liveness": {
     "checked_at": "2026-10-01T20:06:46+00:00",
     "status": 200,

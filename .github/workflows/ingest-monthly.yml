@@ -3,9 +3,6 @@ name: Ingest (monthly)
 on:
   schedule:
     - cron: "17 6 3 * *"   # 3rd of each month, 06:17 UTC
-  push:
-    paths:
-      - ".github/workflows/ingest-monthly.yml"   # editing the workflow runs it once (dispatch needs the file on the default branch)
   workflow_dispatch:
     inputs:
       targets:
@@ -76,6 +73,8 @@ jobs:
           python -m scm build
           python -m scm export
       - name: Tests on the real fixtures
+        id: tests
+        continue-on-error: true
         run: pytest -q
       - name: Regenerate SOURCES.md and sources.json
         run: python scripts/build_sources.py
@@ -129,6 +128,8 @@ jobs:
             } else {
               await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ['ingestion'] });
             }
-      - name: Fail the job if adapters failed
-        if: steps.run.outcome == 'failure'
-        run: exit 1
+      - name: Fail the job if adapters or tests failed
+        if: steps.run.outcome == 'failure' || steps.tests.outcome == 'failure'
+        run: |
+          echo "adapters: ${{ steps.run.outcome }}, tests: ${{ steps.tests.outcome }}"
+          exit 1

@@ -8,8 +8,8 @@ from ..registry import IN_SCOPE, iso3_from_name
 from .base import Adapter, event_id, to_float
 from .util import col, tag_mineral
 
-PACKAGE = "https://catalog.data.gov/api/3/action/package_show"
-SEARCH = "https://catalog.data.gov/api/3/action/package_search"
+# data.gov has served its CKAN API under both prefixes over time; try each.
+API_BASES = ["https://catalog.data.gov/api/3/action", "https://catalog.data.gov/api/action"]
 PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-12-31-2022", "authorizations-from-10-01-2006-thru-9-30-2025"]
 
 
@@ -19,23 +19,30 @@ class EXIM(Adapter):
 
     def fetch(self, snap: Snapshot) -> None:
         resources: list[dict] = []
-        for pid in PACKAGE_IDS:
+        for base in API_BASES:
+            for pid in PACKAGE_IDS:
+                try:
+                    pkg = snap.get_json(f"{base}/package_show", f"package_{pid[:40]}.json", params={"id": pid})
+                    resources = pkg.get("result", {}).get("resources", []) if isinstance(pkg, dict) else []
+                    if resources:
+                        break
+                except Exception as e:  # noqa: BLE001 - try the next id / base, then search
+                    snap.manifest.setdefault("errors", []).append({"name": f"{base}/package_show?id={pid}", "error": str(e)[:200]})
+                    continue
+            if resources:
+                break
             try:
-                pkg = snap.get_json(PACKAGE, f"package_{pid[:40]}.json", params={"id": pid}, allow_statuses=(200,))
-                resources = pkg.get("result", {}).get("resources", []) if isinstance(pkg, dict) else []
-                if resources:
+                res = snap.get_json(f"{base}/package_search", "search.json", params={"q": "exim authorizations", "fq": "organization:exim-gov", "rows": 20})
+                pkgs = res.get("result", {}).get("results", []) if isinstance(res, dict) else []
+                pkgs = [p for p in pkgs if "authorization" in str(p.get("title", "")).lower()]
+                pkgs.sort(key=lambda p: str(p.get("metadata_modified", "")), reverse=True)
+                if pkgs:
+                    resources = pkgs[0].get("resources", [])
+                    snap.manifest["package_title"] = pkgs[0].get("title")
                     break
-            except Exception:  # noqa: BLE001 - try the next id, then search
-                continue
-        if not resources:
-            res = snap.get_json(SEARCH, "search.json", params={"q": "organization:exim-gov authorizations", "rows": 20})
-            pkgs = res.get("result", {}).get("results", []) if isinstance(res, dict) else []
-            pkgs = [p for p in pkgs if "authorization" in str(p.get("title", "")).lower()]
-            pkgs.sort(key=lambda p: str(p.get("metadata_modified", "")), reverse=True)
-            if pkgs:
-                resources = pkgs[0].get("resources", [])
-                snap.manifest["package_title"] = pkgs[0].get("title")
-                snap.save()
+            except Exception as e:  # noqa: BLE001
+                snap.manifest.setdefault("errors", []).append({"name": f"{base}/package_search", "error": str(e)[:200]})
+        snap.save()
         csvs = [r for r in resources if str(r.get("format", "")).lower() == "csv" or str(r.get("url", "")).lower().endswith(".csv")]
         if not csvs:
             raise RuntimeError("no CSV resource found for EXIM authorizations on data.gov")

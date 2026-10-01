@@ -49,13 +49,13 @@ sources:
     auth: none
     update_frequency: quarterly
     refresh_schedule: quarterly
-    coverage_from: 2019
+    coverage_from: 1960
     coverage_to: 2025
     language: en
     status: live
     verified_on: 2026-10-01
-    verified_method: search
-    notes: "Quarterly XLSX, no API; snapshots are diffed. OPIC legacy commitments appear in earlier files."
+    verified_method: direct
+    notes: "Quarterly XLSX linked from the active-projects page (no API); the file includes OPIC-era commitments back to FY1960 with an 'Originating Agency' column. Snapshots are diffed."
   - id: exim_authorizations
     name: Export-Import Bank of the United States, authorizations
     url: https://catalog.data.gov/organization/exim-gov

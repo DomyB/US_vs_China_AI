@@ -55,7 +55,13 @@ def record(ids: list[str] | None = None) -> dict:
             low = name.lower()
             try:
                 if low.endswith(".json"):
-                    target.write_text(json.dumps(_trim_json(json.loads(src.read_text(encoding="utf-8"))), ensure_ascii=False), encoding="utf-8")
+                    raw = src.read_text(encoding="utf-8", errors="ignore")
+                    try:
+                        target.write_text(json.dumps(_trim_json(json.loads(raw)), ensure_ascii=False), encoding="utf-8")
+                    except json.JSONDecodeError:
+                        target = target.with_suffix(".invalid.txt")
+                        target.write_text(raw[:4000], encoding="utf-8")
+                        name = name[: -len(".json")] + ".invalid.txt"
                 elif low.endswith((".csv", ".tab", ".txt")):
                     with src.open("r", encoding="utf-8", errors="ignore") as f, target.open("w", encoding="utf-8") as g:
                         for i, line in enumerate(f):

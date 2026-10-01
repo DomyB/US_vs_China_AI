@@ -25,10 +25,23 @@ class DPI(Adapter):
         def fmt(r):
             return str(r.get("format") or r.get("mimetype") or r.get("url", "").rsplit(".", 1)[-1]).lower()
 
-        pick = next((r for r in resources if fmt(r) == "csv"), None) or next((r for r in resources if fmt(r) in ("xlsx", "xls")), None)
-        if pick is None:
+        candidates = [r for r in resources if fmt(r) == "csv"] + [r for r in resources if fmt(r) in ("xlsx", "xls")]
+        if not candidates:
             raise RuntimeError(f"no CSV/XLSX resource in the DPI package: {[fmt(r) for r in resources]}")
-        snap.get(pick["url"], "dpi." + ("csv" if fmt(pick) == "csv" else "xlsx"), timeout=300)
+        errors = []
+        for r in candidates:
+            ext = "csv" if fmt(r) == "csv" else "xlsx"
+            for url in dict.fromkeys([r.get("url"), f"https://data.iadb.org/dataset/{PACKAGE_ID}/resource/{r.get('id')}/download"]):
+                if not url:
+                    continue
+                try:
+                    snap.get(url, f"dpi.{ext}", timeout=300)
+                    snap.manifest["resource_used"] = {"id": r.get("id"), "name": r.get("name"), "url": url}
+                    snap.save()
+                    return
+                except Exception as e:  # noqa: BLE001
+                    errors.append(f"{url}: {str(e)[:120]}")
+        raise RuntimeError("DPI: every resource download failed: " + " | ".join(errors))
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         path = next(snap.path(n) for n in snap.files if n.startswith("dpi."))

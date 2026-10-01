@@ -47,29 +47,43 @@ class DFC(Adapter):
         c_name = col(df, "Project Name", "Name")
         c_country = col(df, "Country")
         c_year = col(df, "Fiscal Year", "Year", "Board Date", "Commitment Date")
-        c_amt = col(df, "Committed Amount", "Commitment", "Amount")
-        c_type = col(df, "Project Type", "Product", "Type", required=False)
-        c_sector = col(df, "Sector", required=False)
+        c_amt = col(df, "Committed Amount", "Committed", "Commitment", "Amount")
+        c_type = col(df, "Support Type", "Project Type", "Product", "Type", required=False)
+        c_sector = col(df, "NAICS Sector", "Sector", required=False)
         c_desc = col(df, "Project Description", "Description", required=False)
         c_client = col(df, "Client", "Borrower", "Sponsor", required=False)
+        c_url = col(df, "Project Profile URL", "URL", required=False)
+        c_agency = col(df, "Originating Agency", required=False)
+        c_number = col(df, "Project Number", required=False)
+        c_currency = col(df, "Currency", required=False)
+        c_sov = col(df, "Sovereign", required=False)
         rows: list[dict] = []
         for i, r in df.iterrows():
             iso = iso3_from_name(r[c_country])
             if iso not in IN_SCOPE:
                 continue
             ystr = str(r[c_year])
-            m = re.search(r"(20\d{2})", ystr)
+            m = re.search(r"(19\d{2}|20\d{2})", ystr)
             if not m:
                 continue
             desc = str(r[c_desc]) if c_desc and pd.notna(r[c_desc]) else ""
+            agency = str(r[c_agency]) if c_agency and pd.notna(r[c_agency]) else "DFC"
+            actor_from = "US International Development Finance Corporation" if "dfc" in agency.lower() else f"{agency} (predecessor of DFC)"
+            record_url = str(r[c_url]) if c_url and pd.notna(r[c_url]) and str(r[c_url]).startswith("http") else snap.files[path.name]["url"]
+            bits = [str(r[c_name])]
+            if desc:
+                bits.append(desc[:400] + ("…" if len(desc) > 400 else ""))
+            if c_sov and pd.notna(r[c_sov]):
+                bits.append(f"sovereign: {r[c_sov]}")
             rows.append({
-                "event_id": event_id("dfc", r[c_name], r[c_country], ystr, r[c_amt], i), "country": iso, "date": None, "year": int(m.group(1)),
-                "actor_from": "US International Development Finance Corporation", "actor_from_origin": "US",
+                "event_id": event_id("dfc", r[c_number] if c_number and pd.notna(r[c_number]) else i, r[c_name], r[c_country], ystr, r[c_amt]), "country": iso, "date": None, "year": int(m.group(1)),
+                "actor_from": actor_from, "actor_from_origin": "US",
                 "actor_to": str(r[c_client]) if c_client and pd.notna(r[c_client]) else str(r[c_name]),
                 "type": str(r[c_type]).lower() if c_type and pd.notna(r[c_type]) else "dfc commitment",
-                "amount_usd": to_float(r[c_amt]), "currency": "USD", "sector": str(r[c_sector]) if c_sector else None,
+                "amount_usd": to_float(r[c_amt]), "currency": str(r[c_currency]) if c_currency and pd.notna(r[c_currency]) else "USD",
+                "sector": str(r[c_sector]) if c_sector and pd.notna(r[c_sector]) else None,
                 "mineral": tag_mineral(f"{r[c_name]} {desc} {r[c_sector] if c_sector else ''}"),
-                "description": f"{r[c_name]}" + (f": {desc[:400]}" if desc else ""), "value_type": "reported",
-                "source_record_url": snap.files[path.name]["url"],
+                "description": ": ".join(bits[:2]) + (f" ({bits[2]})" if len(bits) > 2 else ""), "value_type": "reported",
+                "source_record_url": record_url,
             })
         return {"finance_event": self.stamp(snap, pd.DataFrame(rows))}
