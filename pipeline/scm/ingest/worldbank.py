@@ -200,18 +200,17 @@ class WGI(Adapter):
         snap.manifest["data360_listing_sample"] = json.dumps(items[:2], ensure_ascii=False)[:1500]
         found: dict[str, str] = {}
         for it in items:
-            # the listing's field names are not documented: match each of our codes (CC.EST) or indicator
-            # names (Control of Corruption) anywhere in the item, and take the WB_WGI_* id it carries
+            # observed listing (October 2026): plain ids such as "GOV_WGI_CC"; a dict form is also accepted.
+            # Match on the two-letter concept at the end of the id (CC, GE, PV, RL, RQ, VA) or on the name.
+            ids = [it] if isinstance(it, str) else [str(v) for v in it.values() if isinstance(v, str) and "WGI" in v.upper()] if isinstance(it, dict) else []
             text = json.dumps(it, ensure_ascii=False).upper().replace(".", "_")
-            ids = [str(v) for v in (it.values() if isinstance(it, dict) else [it]) if isinstance(v, str) and v.upper().startswith("WB_WGI")]
-            if isinstance(it, str) and it.upper().startswith("WB_WGI"):
-                ids = [it]
             for ind, name in self.indicators.items():
+                short = ind.split(".")[0]
                 concept = name.split(":")[0].upper()
                 if ind in found or not ids:
                     continue
-                if ind.replace(".", "_") in text or concept in text:
-                    found[ind] = ids[0]
+                if any(i.upper().endswith((f"_{short}", f"_{short}_EST")) for i in ids) or concept in text:
+                    found[ind] = next((i for i in ids if i.upper().endswith((f"_{short}", f"_{short}_EST"))), ids[0])
         snap.manifest["data360_ids"] = found or {"none matched; listing size": len(items)}
         return {**fallback, **found}
 

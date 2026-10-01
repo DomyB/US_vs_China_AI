@@ -234,6 +234,12 @@ def test_wgi_data360_fallback(snap_factory):
     assert len(out["governance"]) == 1 and out["governance"].iloc[0]["value"] == -0.35 and out["governance"].iloc[0]["year"] == 2022
 
 
+def test_wgi_data360_indicator_ids(snap_factory):
+    snap = snap_factory("wb_wgi", {"d360_indicators.json": ["GOV_WGI_CC", "GOV_WGI_GE", "GOV_WGI_PV", "GOV_WGI_RL", "GOV_WGI_RQ", "GOV_WGI_VA"]})
+    ids = WGI()._data360_ids(snap)
+    assert ids["CC.EST"] == "GOV_WGI_CC" and ids["VA.EST"] == "GOV_WGI_VA"
+
+
 def test_clean_url_strips_signed_query_parameters():
     from scm.http import clean_url
 
