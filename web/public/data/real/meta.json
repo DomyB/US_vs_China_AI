@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-01",
- "generated_at": "2026-10-01T22:01:46+00:00",
+ "generated_at": "2026-10-01T22:06:28+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "bgs_wms",
@@ -19,10 +19,10 @@
  ],
  "ingest_runs": [
   {
-   "source_id": "bgs_wms",
+   "source_id": "aiddata_gcdf",
    "status": "ok",
-   "finished_at": "2026-10-01T21:01:57+00:00",
-   "rows": "{\"production\": 2684}",
+   "finished_at": "2026-10-01T21:02:49+00:00",
+   "rows": "{\"finance_event\": 1615}",
    "error": null
   },
   {
@@ -47,10 +47,10 @@
    "error": null
   },
   {
-   "source_id": "aiddata_gcdf",
+   "source_id": "bgs_wms",
    "status": "ok",
-   "finished_at": "2026-10-01T21:02:49+00:00",
-   "rows": "{\"finance_event\": 1615}",
+   "finished_at": "2026-10-01T21:01:57+00:00",
+   "rows": "{\"production\": 2684}",
    "error": null
   },
   {
@@ -82,17 +82,17 @@
    "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
   },
   {
-   "source_id": "idb_dpi",
-   "status": "failed",
-   "finished_at": "2026-10-01T21:51:47+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: DPI: every resource download failed (set DPI_FILE_URL to a working link): https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: still 202 (file not ready) after 8 attempts | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True: still 202 (file not ready) after 8 attempts"
+   "source_id": "resourcecontracts",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:02:14+00:00",
+   "rows": "{\"contract\": 487}",
+   "error": null
   },
   {
-   "source_id": "usgs_mcs",
+   "source_id": "vdem",
    "status": "ok",
-   "finished_at": "2026-10-01T21:00:03+00:00",
-   "rows": "{\"production\": 118, \"price\": 200}",
+   "finished_at": "2026-10-01T20:24:47+00:00",
+   "rows": "{\"governance\": 2184}",
    "error": null
   },
   {
@@ -110,31 +110,31 @@
    "error": null
   },
   {
-   "source_id": "resourcecontracts",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:14+00:00",
-   "rows": "{\"contract\": 487}",
-   "error": null
+   "source_id": "idb_dpi",
+   "status": "failed",
+   "finished_at": "2026-10-01T21:51:47+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: DPI: every resource download failed (set DPI_FILE_URL to a working link): https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: still 202 (file not ready) after 8 attempts | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True: still 202 (file not ready) after 8 attempts"
   },
   {
-   "source_id": "vdem",
+   "source_id": "usgs_mcs",
    "status": "ok",
-   "finished_at": "2026-10-01T20:24:47+00:00",
-   "rows": "{\"governance\": 2184}",
+   "finished_at": "2026-10-01T21:00:03+00:00",
+   "rows": "{\"production\": 118, \"price\": 200}",
    "error": null
   },
   {
    "source_id": "wb_wgi",
    "status": "ok",
-   "finished_at": "2026-10-01T22:01:42+00:00",
-   "rows": "{\"governance\": 6945}",
+   "finished_at": "2026-10-01T22:06:26+00:00",
+   "rows": "{\"governance\": 1620}",
    "error": null
   }
  ],
  "tables": {
   "trade_flow": 14274,
   "finance_event": 1699,
-  "governance": 15678,
+  "governance": 10353,
   "contract": 487,
   "production": 2802,
   "price": 3400,
@@ -172,7 +172,7 @@
    "mirror_years": [],
    "events": 192,
    "contracts": 46,
-   "governance": 1374,
+   "governance": 928,
    "production": 248,
    "actions": true,
    "governance_available": true
@@ -201,7 +201,7 @@
    "mirror_years": [],
    "events": 147,
    "contracts": 50,
-   "governance": 1373,
+   "governance": 928,
    "production": 321,
    "actions": true,
    "governance_available": true
@@ -230,7 +230,7 @@
    "mirror_years": [],
    "events": 214,
    "contracts": 49,
-   "governance": 1373,
+   "governance": 928,
    "production": 841,
    "actions": true,
    "governance_available": true
@@ -259,7 +259,7 @@
    "mirror_years": [],
    "events": 79,
    "contracts": 19,
-   "governance": 1121,
+   "governance": 676,
    "production": 426,
    "actions": true,
    "governance_available": true
@@ -288,7 +288,7 @@
    "mirror_years": [],
    "events": 138,
    "contracts": 100,
-   "governance": 1373,
+   "governance": 928,
    "production": 219,
    "actions": true,
    "governance_available": true
@@ -317,7 +317,7 @@
    "mirror_years": [],
    "events": 253,
    "contracts": 37,
-   "governance": 1373,
+   "governance": 928,
    "production": 74,
    "actions": true,
    "governance_available": true
@@ -346,7 +346,7 @@
    "mirror_years": [],
    "events": 125,
    "contracts": 39,
-   "governance": 1373,
+   "governance": 928,
    "production": 50,
    "actions": true,
    "governance_available": true
@@ -372,7 +372,7 @@
    "mirror_years": [],
    "events": 8,
    "contracts": 16,
-   "governance": 1369,
+   "governance": 928,
    "production": 0,
    "actions": true,
    "governance_available": true
@@ -400,7 +400,7 @@
    "mirror_years": [],
    "events": 169,
    "contracts": 100,
-   "governance": 1370,
+   "governance": 928,
    "production": 360,
    "actions": true,
    "governance_available": true
@@ -429,7 +429,7 @@
    "mirror_years": [],
    "events": 106,
    "contracts": 5,
-   "governance": 1370,
+   "governance": 928,
    "production": 57,
    "actions": true,
    "governance_available": true
@@ -444,7 +444,7 @@
    "mirror_years": [],
    "events": 89,
    "contracts": 25,
-   "governance": 1118,
+   "governance": 676,
    "production": 31,
    "actions": true,
    "governance_available": true
@@ -454,7 +454,7 @@
    "mirror_years": [],
    "events": 179,
    "contracts": 1,
-   "governance": 1091,
+   "governance": 649,
    "production": 175,
    "actions": true,
    "governance_available": true
