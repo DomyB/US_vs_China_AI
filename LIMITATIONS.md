@@ -25,10 +25,11 @@ media layers are still sample.
   reserves are a point estimate for the edition's data year. The 2026 data release is one
   consolidated long-format file; the first live run parsed it as a wide table and produced
   no rows (fixed; a re-run is needed).
-- **World Bank WGI**: in October 2026 the World Bank API (database 3) answered "Data not
-  found", govindicators.org served an HTML page instead of its dataset file to a non-browser
-  client, and the first Data360 query returned no rows. The adapter now discovers the Data360
-  indicator ids before querying; until that works, WGI is missing (V-Dem covers governance).
+- **World Bank WGI** comes from the World Bank Data360 API (dataset `WB_WGI`), because the
+  classic API (database 3) answers "Data not found" and govindicators.org serves an HTML page
+  instead of its dataset file to a non-browser client. Only the estimate (−2.5 to 2.5) is kept;
+  Data360's other breakdown codes (`WGI_SC`, `WGI_SR`, bounds, standard error) are undocumented
+  and are not shown until their meaning is confirmed.
 - **EXIM** and **IDB DPI**: in October 2026 the data.gov catalog API answered 404 on every
   CKAN path, its search page is script-rendered, and data.iadb.org answered 202 "preparing"
   to every download request for five minutes. Both adapters try the open paths first and

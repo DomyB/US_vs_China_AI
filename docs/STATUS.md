@@ -2,11 +2,11 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
-## Phase 2a — International and US pipelines (2026-10-01, eight live runs so far)
+## Phase 2a — International and US pipelines (2026-10-01, fifteen live runs)
 
 **What runs**
 - `pipeline/scm/`: ingestion framework (dated raw snapshots with manifests, pure parsers, pandera-validated Parquet per source and table), DuckDB warehouse build with `trade_discrepancy` (reported vs mirror) and `finance_event_dedup` (conservative cross-database clustering keeping every source id), site exporter writing `web/public/data/real/`, liveness checker, fixture recorder, CLI (`python -m scm run|build|export|liveness|fixtures`).
-- Live data on the site (committed under `web/public/data/real/`, all 12 countries covered) from: UN Comtrade annual HS6 reported flows 2008–2024 (keyless preview endpoint), AidData GCDF 3.0 finance events, Federal Register policy documents, V-Dem, World Bank WDI and IDS, World Bank Pink Sheet prices, BGS world mineral statistics, ResourceContracts contracts, UNGA ideal points and voting agreement.
+- Live data on the site (committed under `web/public/data/real/`, all 12 countries covered) from 13 sources: UN Comtrade annual HS6 reported flows 2008–2024 (keyless preview endpoint), AidData GCDF 3.0 finance events, DFC and OPIC-era commitments, Federal Register policy documents, USGS Mineral Commodity Summaries 2026 (production, reserves, US prices), V-Dem, World Bank WDI, IDS and WGI (via the Data360 API), World Bank Pink Sheet prices, BGS world mineral statistics, ResourceContracts contracts, UNGA ideal points and voting agreement. Warehouse after run 15: trade_flow 14,274 rows; finance_event 1,699; governance 10,353; contract 487; production 2,802; price 3,400; policy_document 444.
 - 3 Tier 2 adapters gated by secrets (Congress.gov, Census, BU CODF) report `skipped` until the secret exists.
 - 43 pipeline tests (synthetic fixtures in each source's real format, recorded real fixtures, warehouse derivations, end-to-end export) and ruff pass; web lint, typecheck, unit tests and build pass.
 - Workflows: `ingest-monthly.yml` (3rd of the month and on demand; restores the last Parquet release, runs adapters → records fixtures → build → export → tests → commits site data → Parquet release → issue on failure), `ingest-annual.yml`, `liveness.yml` (Mondays; 187 URLs checked, result shown on the Sources page).
@@ -14,7 +14,8 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 
 **What is missing**
 - Comtrade US/China mirror flows and some Uruguay/Venezuela years: the keyless endpoint's daily quota ran out after ~190 calls; the monthly run (or a manual `un_comtrade` dispatch on another day) completes them.
-- World Bank WGI (API answers "Data not found"; a govindicators.org bulk fallback is built but untested live), USGS MCS production and reserves (parser fixed for the 2026 consolidated file, re-run pending), DFC (schema widened to OPIC-era years, re-run pending), EXIM and IDB DPI (open endpoints answer 404; HTML fallbacks built, otherwise a hand-supplied file URL), AEI CGIT (Cloudflare 403; needs `CGIT_FILE_URL`).
+- EXIM authorizations (data.gov's catalog API answers 404 on every path and its pages are script-rendered), IDB DPI 2023 (data.iadb.org answers 202 "preparing" indefinitely to a non-browser client) and AEI CGIT (Cloudflare 403): each needs a file the owner downloads in a browser, supplied as a secret URL (`EXIM_FILE_URL`, `DPI_FILE_URL`, `CGIT_FILE_URL`) or, for the two redistributable ones, committed under `data/manual/` (see its README).
+- WGI percentile ranks: Data360 labels its statistical breakdowns with undocumented codes (`WGI_EST`, `WGI_SE`, `WGI_SC`, `WGI_SC_LB/UB`, `WGI_SR`); only the estimate is kept until the codes are confirmed.
 - Free registrations by the owner: Comtrade key (monthly data), Congress.gov key, Census key, BU CODF data-use agreement.
 - Vercel connection, so the real-data site has a public URL.
 
@@ -30,8 +31,8 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 - Run 5's outputs (BGS, contracts, UNGA) were lost because a failed run publishes no release and the next run restored the older one; re-run.
 
 **Recommendation**
-- Dispatch `Ingest (monthly)` with the fixed adapters (`wb_wgi usgs_mcs dfc_projects idb_dpi exim_authorizations`) plus the five whose run 8 commit was blocked; then a `un_comtrade` run on a fresh day for the mirrors.
-- Add the free keys and, for CGIT/EXIM/DPI if their sites stay broken, hand-downloaded file URLs as repository secrets.
+- Dispatch `Ingest (monthly)` with `targets: un_comtrade` on a fresh day so the keyless quota covers the US and China mirrors and the missing Uruguay and Venezuela years.
+- Download the EXIM CSV and the DPI 2023 file in a browser and commit them under `data/manual/`; put the CGIT file at a private URL in `CGIT_FILE_URL`; register the free Comtrade, Congress.gov and Census keys.
 - Merge to `main` once a full run is green so the scheduled workflows run on the default branch.
 
 ## Phase 1 — Interface with sample data (2026-10-01)
