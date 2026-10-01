@@ -217,7 +217,7 @@ def test_tier2_parsers(snap_factory, monkeypatch):
     assert out["finance_event"].iloc[0]["country"] == "VEN" and out["finance_event"].iloc[0]["amount_usd"] == 2e10
 
 
-@pytest.mark.parametrize("sid", ["congress_gov", "us_census_trade", "bu_codf"])
+@pytest.mark.parametrize("sid", ["congress_gov", "us_census_trade", "bu_codf", "aei_cgit"])
 def test_tier2_skipped_without_secret(sid, tmp_path, monkeypatch):
     for k in ADAPTERS[sid].requires_env:
         monkeypatch.delenv(k, raising=False)

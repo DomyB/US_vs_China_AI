@@ -1,8 +1,6 @@
 """AEI / Heritage China Global Investment Tracker -> deal_event (investment and construction)."""
 from __future__ import annotations
 
-import re
-
 import pandas as pd
 
 from ..http import Snapshot
@@ -11,19 +9,28 @@ from .base import Adapter, event_id, to_float
 from .util import col, sheet_names, tag_mineral
 
 PAGE = "https://www.aei.org/china-global-investment-tracker/"
-LINK_RE = re.compile(r"https?://[^\"' ]+China-Global-Investment-Tracker[^\"' ]*\.xlsx", re.I)
 
 
 class CGIT(Adapter):
     source_id = "aei_cgit"
     tables = ("deal_event",)
 
+    requires_env = ("CGIT_FILE_URL",)
+
     def fetch(self, snap: Snapshot) -> None:
-        html = snap.get(PAGE, "page.html").read_text(encoding="utf-8", errors="ignore")
-        links = sorted(set(LINK_RE.findall(html)))
-        if not links:
-            raise RuntimeError("CGIT XLSX link not found on the AEI page")
-        snap.get(links[-1], "cgit.xlsx")
+        """aei.org sits behind a Cloudflare browser challenge that returns 403 to any automated client,
+        so the tracker cannot be fetched from a runner. CGIT_FILE_URL points to a copy the project owner
+        downloaded by hand (the file is free for public use with citation)."""
+        import os
+
+        url = os.environ["CGIT_FILE_URL"]
+        if url.startswith("http"):
+            snap.get(url, "cgit.xlsx", timeout=300)
+        else:
+            import shutil
+
+            shutil.copy(url, snap.path("cgit.xlsx"))
+            snap.record("cgit.xlsx", PAGE, note="copied from a local file supplied by the owner")
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         path = snap.path("cgit.xlsx")

@@ -9,7 +9,8 @@ from .base import Adapter, event_id, to_float
 from .util import col, tag_mineral
 
 PACKAGE = "https://catalog.data.gov/api/3/action/package_show"
-PACKAGE_ID = "authorizations-from-10-01-2006-thru-12-31-2022"
+SEARCH = "https://catalog.data.gov/api/3/action/package_search"
+PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-12-31-2022", "authorizations-from-10-01-2006-thru-9-30-2025"]
 
 
 class EXIM(Adapter):
@@ -17,11 +18,27 @@ class EXIM(Adapter):
     tables = ("finance_event",)
 
     def fetch(self, snap: Snapshot) -> None:
-        pkg = snap.get_json(PACKAGE, "package.json", params={"id": PACKAGE_ID})
-        resources = pkg.get("result", {}).get("resources", []) if isinstance(pkg, dict) else []
+        resources: list[dict] = []
+        for pid in PACKAGE_IDS:
+            try:
+                pkg = snap.get_json(PACKAGE, f"package_{pid[:40]}.json", params={"id": pid}, allow_statuses=(200,))
+                resources = pkg.get("result", {}).get("resources", []) if isinstance(pkg, dict) else []
+                if resources:
+                    break
+            except Exception:  # noqa: BLE001 - try the next id, then search
+                continue
+        if not resources:
+            res = snap.get_json(SEARCH, "search.json", params={"q": "organization:exim-gov authorizations", "rows": 20})
+            pkgs = res.get("result", {}).get("results", []) if isinstance(res, dict) else []
+            pkgs = [p for p in pkgs if "authorization" in str(p.get("title", "")).lower()]
+            pkgs.sort(key=lambda p: str(p.get("metadata_modified", "")), reverse=True)
+            if pkgs:
+                resources = pkgs[0].get("resources", [])
+                snap.manifest["package_title"] = pkgs[0].get("title")
+                snap.save()
         csvs = [r for r in resources if str(r.get("format", "")).lower() == "csv" or str(r.get("url", "")).lower().endswith(".csv")]
         if not csvs:
-            raise RuntimeError("no CSV resource in the EXIM data.gov package")
+            raise RuntimeError("no CSV resource found for EXIM authorizations on data.gov")
         snap.get(csvs[0]["url"], "exim.csv")
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:

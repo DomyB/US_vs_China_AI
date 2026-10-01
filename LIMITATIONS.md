@@ -28,6 +28,7 @@ media layers are still sample.
   twice, with both sources visible.
 - **BU CODF** (policy-bank loans 2008–2024) requires a signed data-use agreement; until the
   owner obtains it, Chinese policy-bank lending comes from AidData (to 2021) only.
+- **AEI China Global Investment Tracker** cannot be fetched by a runner: aei.org serves a Cloudflare browser challenge (HTTP 403) to automated clients. The adapter runs when the owner supplies a hand-downloaded copy (`CGIT_FILE_URL`).
 - **Mineral tagging** of finance and deal records is keyword-based on titles, sectors and
   descriptions; events without a recognisable mineral keyword are kept with `mineral = none`.
 

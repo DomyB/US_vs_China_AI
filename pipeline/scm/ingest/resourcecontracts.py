@@ -15,6 +15,22 @@ ISO2 = {"ARG": "ar", "BOL": "bo", "BRA": "br", "CHL": "cl", "COL": "co", "ECU": 
 ISO2_TO_3 = {v: k for k, v in ISO2.items()}
 
 
+def _names(value: object) -> str:
+    """Join a list of strings or {name: ...} dicts; tolerate None and nested lists."""
+    items = value if isinstance(value, list) else [value]
+    out: list[str] = []
+    for x in items:
+        if x is None:
+            continue
+        if isinstance(x, dict):
+            out.append(str(x.get("name") or x.get("label") or x.get("code") or ""))
+        elif isinstance(x, list):
+            out.append(_names(x))
+        else:
+            out.append(str(x))
+    return ", ".join(t for t in out if t)
+
+
 class ResourceContracts(Adapter):
     source_id = "resourcecontracts"
     tables = ("contract",)
@@ -24,8 +40,8 @@ class ResourceContracts(Adapter):
             page = 1
             while page <= 20:
                 payload = snap.get_json(API, f"{iso3}_p{page}.json", params={"country_code": iso2, "per_page": 100, "page": page})
-                results = payload.get("results", []) if isinstance(payload, dict) else []
-                total = payload.get("total", 0) if isinstance(payload, dict) else 0
+                results = (payload.get("results") or []) if isinstance(payload, dict) else []
+                total = (payload.get("total") or 0) if isinstance(payload, dict) else 0
                 if not results or page * 100 >= int(total or 0):
                     break
                 page += 1
@@ -36,7 +52,11 @@ class ResourceContracts(Adapter):
             if not name.endswith(".json") or not snap.has(name):
                 continue
             payload = json.loads(snap.path(name).read_text())
-            for c in payload.get("results", []):
+            if not isinstance(payload, dict):
+                continue
+            for c in payload.get("results") or []:
+                if not isinstance(c, dict):
+                    continue
                 cid = str(c.get("id") or c.get("open_contracting_id") or "")
                 if not cid:
                     continue
@@ -48,9 +68,9 @@ class ResourceContracts(Adapter):
                 resources = c.get("resource") or c.get("resources") or []
                 companies = c.get("company") or c.get("companies") or []
                 ctype = c.get("contract_type") or c.get("type") or []
-                res_text = ", ".join(r if isinstance(r, str) else str(r.get("name", r)) for r in (resources if isinstance(resources, list) else [resources]))
-                comp_text = ", ".join(x if isinstance(x, str) else str(x.get("name", x)) for x in (companies if isinstance(companies, list) else [companies]))
-                ctype_text = ", ".join(x if isinstance(x, str) else str(x.get("name", x)) for x in (ctype if isinstance(ctype, list) else [ctype]))
+                res_text = _names(resources)
+                comp_text = _names(companies)
+                ctype_text = _names(ctype)
                 rows[cid] = {
                     "contract_id": event_id("rc", cid), "country": iso3, "title": c.get("name") or c.get("title") or cid,
                     "resource": res_text or None, "mineral": tag_mineral(f"{res_text} {c.get('name', '')}"), "companies": comp_text or None,

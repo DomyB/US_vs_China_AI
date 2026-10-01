@@ -39,7 +39,7 @@ which the tests run on real data.
 | wb_pink_sheet | `ingest/pink_sheet.py` | price | — |
 | un_comtrade | `ingest/comtrade.py` | trade_flow (reported + US/China mirrors) | optional `COMTRADE_KEY` |
 | aiddata_gcdf | `ingest/aiddata.py` | finance_event | — |
-| aei_cgit | `ingest/aei_cgit.py` | deal_event | — |
+| aei_cgit | `ingest/aei_cgit.py` | deal_event | `CGIT_FILE_URL` (aei.org blocks automated clients with a Cloudflare challenge; the owner downloads the free XLSX by hand and provides its URL or path) |
 | dfc_projects | `ingest/dfc.py` | finance_event | — |
 | exim_authorizations | `ingest/exim.py` | finance_event | — |
 | federal_register | `ingest/federal_register.py` | policy_document | — |
