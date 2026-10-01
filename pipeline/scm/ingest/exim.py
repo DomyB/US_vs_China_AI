@@ -8,12 +8,14 @@ from urllib.parse import urljoin
 import pandas as pd
 
 from ..http import Snapshot
+from ..paths import REPO_ROOT
 from ..registry import IN_SCOPE, iso3_from_name
-from .base import FINANCE_EVENT_COLUMNS, Adapter, event_id, to_float
+from .base import FINANCE_EVENT_COLUMNS, Adapter, event_id, fetch_manual, to_float
 from .util import col, tag_mineral
 
 # data.gov has served its CKAN API under both prefixes over time; try each.
 CATALOG = "https://catalog.data.gov"
+MANUAL_FILE = "data/manual/exim_authorizations.csv"  # US government work: public domain, may be committed
 AGENCY_CATALOGS = ["https://www.exim.gov/data.json", "https://exim.gov/data.json"]
 API_BASES = ["https://catalog.data.gov/api/3/action", "https://catalog.data.gov/api/action"]
 PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-12-31-2022", "authorizations-from-10-01-2006-thru-9-30-2025"]
@@ -31,10 +33,10 @@ class EXIM(Adapter):
 
     def fetch(self, snap: Snapshot) -> None:
         # 0) a file URL supplied by the project owner (EXIM_FILE_URL) wins: the catalog API has moved twice
-        manual = os.environ.get("EXIM_FILE_URL")
+        manual = os.environ.get("EXIM_FILE_URL") or (MANUAL_FILE if (REPO_ROOT / MANUAL_FILE).exists() else None)
         if manual:
-            snap.get(manual, "exim.csv", timeout=600)
-            snap.manifest["resource_used"] = {"url": manual, "via": "EXIM_FILE_URL"}
+            fetch_manual(snap, manual, "exim.csv", self.src.url)
+            snap.manifest["resource_used"] = {"url": manual, "via": "EXIM_FILE_URL or data/manual"}
             snap.save()
             return
         resources: list[dict] = []

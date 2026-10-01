@@ -59,6 +59,22 @@ repository or to the site. Recorded URLs are cleaned of credential-bearing query
 GitHub push protection rejects commits that contain such tokens (seen with Harvard
 Dataverse's presigned S3 redirects).
 
+## Hand-supplied files
+
+Three sources broke in the first live runs and may need a file the owner downloads in a
+browser: EXIM authorizations (the data.gov catalog API now answers 404 on every path and the
+site is script-rendered), IDB DPI 2023 (data.iadb.org answers 202 "preparing" indefinitely to
+a non-browser client) and AEI CGIT (Cloudflare challenge). Each adapter first tries every
+open path, then looks for the file:
+
+- a repository secret with a URL or a repository-relative path: `EXIM_FILE_URL`,
+  `DPI_FILE_URL`, `CGIT_FILE_URL` (`CODF_DOWNLOAD_URL` for BU CODF);
+- or, for redistributable data only, a file committed under `data/manual/` (see the README
+  there for names and licenses).
+
+The snapshot records the registry URL and a note that the file was supplied by hand, so the
+provenance shown on the site stays honest.
+
 ## Adding an adapter
 
 1. Add the source to `pipeline/config/sources/*.yaml` (the registry is the contract: URL,

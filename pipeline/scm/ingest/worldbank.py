@@ -16,6 +16,8 @@ from .util import col, read_any
 API = "https://api.worldbank.org/v2"
 WGI_SITE = "https://www.govindicators.org"
 DATA360 = "https://data360api.worldbank.org/data360/data"
+D360_INDICATORS = "https://data360api.worldbank.org/data360/indicators"
+D360_DATASET = "WB_WGI"
 WGI_BULK_CANDIDATES = [f"{WGI_SITE}/data/wgidataset.xlsx", f"{WGI_SITE}/data/wgidataset.csv",
                        f"{WGI_SITE}/sites/default/files/wgidataset.xlsx", f"{WGI_SITE}/sites/default/files/wgidataset.csv"]
 WGI_BULK_CODES = {"cc": "CC.EST", "ge": "GE.EST", "pv": "PV.EST", "rl": "RL.EST", "rq": "RQ.EST", "va": "VA.EST"}
@@ -142,17 +144,27 @@ class WGI(Adapter):
                     break
                 snap.discard(name, f"{url}: not a {ext} file; starts with {snap.path(name).open('rb').read(120)!r}" if snap.has(name) else f"{url}: empty")
         if not got:
-            # 4) World Bank Data360 (the platform WGI moved to): one call per indicator and country
-            for ind in self.indicators:
-                for iso in IN_SCOPE:
+            # 4) World Bank Data360 (the platform WGI moved to). Indicator ids are discovered from the
+            #    dataset's indicator list (recorded), then each indicator is paged through.
+            ids = self._data360_ids(snap)
+            for ind, d360_id in ids.items():
+                skip, pages = 0, 0
+                while pages < 20:
                     try:
-                        payload = snap.get_json(DATA360, f"d360_{ind}_{iso}.json", params={"DATABASE_ID": "WB_WGI", "INDICATOR": f"WB_WGI_{ind.replace('.', '_')}", "REF_AREA": iso})
-                        if "data360_sample" not in snap.manifest:
-                            snap.manifest["data360_sample"] = json.dumps(payload, ensure_ascii=False)[:1500]
+                        payload = snap.get_json(DATA360, f"d360_{ind}_{skip}.json", params={"DATABASE_ID": D360_DATASET, "INDICATOR": d360_id, "skip": skip})
                     except Exception as e:  # noqa: BLE001
-                        snap.manifest.setdefault("errors", []).append({"name": f"d360_{ind}_{iso}", "error": str(e)[:300]})
-                        if iso == IN_SCOPE[0]:
-                            break  # the endpoint itself is unavailable; do not repeat 71 times
+                        snap.manifest.setdefault("errors", []).append({"name": f"d360_{ind}_{skip}", "error": str(e)[:300]})
+                        break
+                    if "data360_sample" not in snap.manifest:
+                        snap.manifest["data360_sample"] = json.dumps(payload, ensure_ascii=False)[:1500]
+                    values = payload.get("value", []) if isinstance(payload, dict) else []
+                    count = payload.get("count", 0) if isinstance(payload, dict) else 0
+                    pages += 1
+                    skip += len(values)
+                    if not values or skip >= count:
+                        break
+                if not snap.has(f"d360_{ind}_0.json"):
+                    break  # endpoint unavailable; do not repeat for every indicator
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
@@ -175,12 +187,36 @@ class WGI(Adapter):
         df["value_type"] = "reported"
         return {"governance": self.stamp(snap, df)}
 
+    def _data360_ids(self, snap: Snapshot) -> dict[str, str]:
+        """Map our indicator codes (CC.EST ...) to Data360 indicator ids, from the dataset's indicator list
+        when it can be fetched, else the documented WB_WGI_<CODE> pattern."""
+        fallback = {ind: f"WB_WGI_{ind.replace('.', '_')}" for ind in self.indicators}
+        try:
+            listing = snap.get_json(D360_INDICATORS, "d360_indicators.json", params={"datasetId": D360_DATASET})
+        except Exception as e:  # noqa: BLE001
+            snap.manifest.setdefault("errors", []).append({"name": "d360_indicators", "error": str(e)[:300]})
+            return fallback
+        items = listing if isinstance(listing, list) else listing.get("value", listing.get("data", [])) if isinstance(listing, dict) else []
+        found: dict[str, str] = {}
+        for it in items:
+            if not isinstance(it, dict):
+                continue
+            iid = str(it.get("id") or it.get("indicatorId") or it.get("series_description", {}).get("idno", "") or "")
+            key = iid.upper().replace(".", "_")
+            for ind in self.indicators:
+                if key.endswith(ind.replace(".", "_")) and ind not in found:
+                    found[ind] = iid
+        snap.manifest["data360_ids"] = found or {"none matched; listing size": len(items)}
+        return {**fallback, **found}
+
     def _parse_data360(self, snap: Snapshot) -> list[dict]:
         rows: list[dict] = []
         for name, meta in snap.files.items():
             if not name.startswith("d360_") or not snap.has(name):
                 continue
             ind = name.split("_", 1)[1].rsplit("_", 1)[0]
+            if ind not in self.indicators:
+                continue
             try:
                 payload = json.loads(snap.path(name).read_text())
             except json.JSONDecodeError:

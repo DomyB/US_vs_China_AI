@@ -5,7 +5,7 @@ import pandas as pd
 
 from ..http import Snapshot
 from ..registry import IN_SCOPE, iso3_from_name
-from .base import Adapter, event_id, to_float
+from .base import Adapter, event_id, fetch_manual, to_float
 from .util import col, sheet_names, tag_mineral
 
 PAGE = "https://www.aei.org/china-global-investment-tracker/"
@@ -23,14 +23,7 @@ class CGIT(Adapter):
         downloaded by hand (the file is free for public use with citation)."""
         import os
 
-        url = os.environ["CGIT_FILE_URL"]
-        if url.startswith("http"):
-            snap.get(url, "cgit.xlsx", timeout=300)
-        else:
-            import shutil
-
-            shutil.copy(url, snap.path("cgit.xlsx"))
-            snap.record("cgit.xlsx", PAGE, note="copied from a local file supplied by the owner")
+        fetch_manual(snap, os.environ["CGIT_FILE_URL"], "cgit.xlsx", PAGE, timeout=300)
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         path = snap.path("cgit.xlsx")

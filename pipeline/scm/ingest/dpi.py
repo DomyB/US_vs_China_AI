@@ -9,11 +9,13 @@ from urllib.parse import urljoin
 import pandas as pd
 
 from ..http import Snapshot
+from ..paths import REPO_ROOT
 from ..registry import IN_SCOPE, iso3_from_name
-from .base import Adapter, to_float
+from .base import Adapter, fetch_manual, to_float
 from .util import col, read_any
 
 PACKAGE = "https://data.iadb.org/api/3/action/package_show"
+MANUAL_FILES = ["data/manual/dpi2023.csv", "data/manual/dpi2023.xlsx"]  # IDB open data (CC BY 3.0 IGO)
 READY_ATTEMPTS = 8
 READY_WAIT_S = 8  # seconds; grows linearly per attempt (8, 16, ... 64 s)
 PACKAGE_ID = "the-database-of-political-institutions-dpi-2023"
@@ -27,11 +29,11 @@ class DPI(Adapter):
     tables = ("governance",)
 
     def fetch(self, snap: Snapshot) -> None:
-        manual = os.environ.get("DPI_FILE_URL")
+        manual = os.environ.get("DPI_FILE_URL") or next((p for p in MANUAL_FILES if (REPO_ROOT / p).exists()), None)
         if manual:
             ext = "csv" if manual.split("?")[0].lower().endswith(".csv") else "xlsx"
-            snap.get(manual, f"dpi.{ext}", timeout=300)
-            snap.manifest["resource_used"] = {"url": manual, "via": "DPI_FILE_URL"}
+            fetch_manual(snap, manual, f"dpi.{ext}", self.src.url, timeout=300)
+            snap.manifest["resource_used"] = {"url": manual, "via": "DPI_FILE_URL or data/manual"}
             snap.save()
             return
         pkg = snap.get_json(PACKAGE, "package.json", params={"id": PACKAGE_ID})

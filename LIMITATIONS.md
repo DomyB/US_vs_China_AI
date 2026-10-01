@@ -25,13 +25,16 @@ media layers are still sample.
   reserves are a point estimate for the edition's data year. The 2026 data release is one
   consolidated long-format file; the first live run parsed it as a wide table and produced
   no rows (fixed; a re-run is needed).
-- **World Bank WGI**: the World Bank API (database 3) answered "Data not found" for every
-  request in October 2026; governance scores come from the govindicators.org bulk dataset
-  when that fallback succeeds, otherwise WGI is missing.
-- **EXIM** and **IDB DPI**: the data.gov catalog API (every CKAN path) and data.iadb.org file
-  downloads answered 404 in October 2026. Both adapters try the sites' HTML pages and accept
-  a hand-supplied file URL (`EXIM_FILE_URL`, `DPI_FILE_URL`); until one works, EXIM
-  authorizations and executive-ideology data are missing.
+- **World Bank WGI**: in October 2026 the World Bank API (database 3) answered "Data not
+  found", govindicators.org served an HTML page instead of its dataset file to a non-browser
+  client, and the first Data360 query returned no rows. The adapter now discovers the Data360
+  indicator ids before querying; until that works, WGI is missing (V-Dem covers governance).
+- **EXIM** and **IDB DPI**: in October 2026 the data.gov catalog API answered 404 on every
+  CKAN path, its search page is script-rendered, and data.iadb.org answered 202 "preparing"
+  to every download request for five minutes. Both adapters try the open paths first and
+  then a hand-supplied file (`EXIM_FILE_URL`, `DPI_FILE_URL`, or a file under `data/manual/`
+  where the license allows); until one is provided, EXIM authorizations and executive
+  ideology are missing.
 - **DFC** data goes back to OPIC records from the 1960s (schema widened to 1900); the
   project only analyses 2008 onward.
 - **Finance deduplication** is conservative (amount within 10 percent, same year and

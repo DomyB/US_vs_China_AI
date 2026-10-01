@@ -13,7 +13,7 @@ import pandas as pd
 
 from .. import schema
 from ..http import Snapshot, clean_url
-from ..paths import RAW_DIR, WAREHOUSE_DIR
+from ..paths import RAW_DIR, REPO_ROOT, WAREHOUSE_DIR
 from ..registry import Source, source
 
 log = logging.getLogger("scm")
@@ -120,6 +120,25 @@ class Adapter(ABC):
             df = pd.concat([pd.read_parquet(path), df], ignore_index=True)
         schema.validate("ingest_run", df).to_parquet(path, index=False)
         return rec
+
+
+def fetch_manual(snap: Snapshot, value: str, name: str, registry_url: str, timeout: int = 600) -> None:
+    """Bring a hand-supplied file into the snapshot. `value` is an http(s) URL (downloaded) or a path
+    inside the repository, e.g. data/manual/exim_authorizations.csv (copied; recorded against the
+    source's registry URL with a note). Used when a source's open endpoint is broken."""
+    if value.startswith(("http://", "https://")):
+        snap.get(value, name, timeout=timeout)
+        return
+    import shutil
+
+    src = Path(value)
+    if not src.is_absolute():
+        src = REPO_ROOT / src
+    if not src.exists():
+        raise FileNotFoundError(f"hand-supplied file not found: {value}")
+    snap.path(name).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(src, snap.path(name))
+    snap.record(name, registry_url, note=f"copied from a file supplied by the project owner ({value})")
 
 
 FINANCE_EVENT_COLUMNS = ["event_id", "country", "date", "year", "actor_from", "actor_from_origin", "actor_to", "type", "amount_usd", "currency", "sector", "mineral", "description", "value_type", "source_record_url"]
