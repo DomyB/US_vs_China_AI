@@ -193,7 +193,7 @@ def test_usgs_mcs(snap_factory):
     long_csv = (
         "MCS chapter,Section,Commodity,Country,Statistics,Statistics_detail,Unit,Year,Value,Notes,Is critical mineral 2025,Other notes\n"
         'Lithium,World,Lithium,Chile,Production,Mine production,metric tons,2024,"49,000",,Yes,\n'
-        'Lithium,World,Lithium,Chile,Production,"Mine production, estimated",metric tons,2025,"52,000",,Yes,\n'
+        'Lithium,World,Lithium,Chile,Production,Mine production,metric tons,2025,"52,000",Estimated. -- Includes brine operations.,Yes,\n'
         'Lithium,World,Lithium,Chile,Reserves,Reserves,metric tons,2025,"9,300,000",,Yes,\n'
         'Lithium,World,Lithium,United States,Production,Mine production,metric tons,2024,870,,Yes,\n'
         'Lithium,Salient,Lithium,United States,Price,"Price, lithium carbonate, dollars per metric ton",dollars per metric ton,2024,"12,000",,Yes,\n'

@@ -78,6 +78,7 @@ class USGSMCS(Adapter):
             c_year = find("year")
             c_type = find("type", "statistic", "measure", "variable", "item", exclude=("detail",))
             c_detail = find("detail")
+            c_notes = find("notes", exclude=("other",))
             c_value = find("value", "quantity", "amount", exclude=("critical",))
             c_unit = find("unit")
             notes[name] = {"columns": list(map(str, df.columns))[:30]}
@@ -116,7 +117,8 @@ class USGSMCS(Adapter):
                     measure = "production" if "prod" in ttext else "reserves" if "reserv" in ttext else None
                     if measure is None:
                         continue  # imports, exports, consumption, shipments, net import reliance: US-only statistics
-                    est = "estimat" in ttext or "estimat" in detail.lower() or str(r[c_year]).strip().lower().endswith("e")
+                    notes_text = str(r[c_notes]).lower() if c_notes and pd.notna(r[c_notes]) else ""
+                    est = "estimat" in ttext or "estimat" in detail.lower() or notes_text.startswith("estimat") or str(r[c_year]).strip().lower().endswith("e")
                     prod_rows.append({"country": iso, "mineral": mineral, "measure": measure, "year": year, "qty": to_float(r[c_value]), "unit": unit,
                                       "value_type": "estimated" if est else "reported",
                                       "note": f"USGS MCS {name.split('/')[-1]}: {r[c_commodity]} / {detail or r[c_type]}", "source_record_url": meta.get("url")})
