@@ -3,6 +3,9 @@ name: Source liveness check
 on:
   schedule:
     - cron: "23 5 * * 1"   # Mondays 05:23 UTC
+  push:
+    paths:
+      - ".github/workflows/liveness.yml"
   workflow_dispatch:
 
 permissions:
