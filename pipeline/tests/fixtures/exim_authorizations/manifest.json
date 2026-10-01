@@ -1,6 +1,18 @@
 {
  "source_id": "exim_authorizations",
- "files": {},
+ "files": {
+  "page_2.html": {
+   "url": "https://catalog.data.gov/dataset/?q=exim+authorizations&organization=exim-gov",
+   "params": {},
+   "status": 200,
+   "bytes": 215474,
+   "final_url": "https://catalog.data.gov/",
+   "sha256": "8606bbabc3b030d0d096142fb48e3fa44da9ca331347022b24f46c2df0e74bec",
+   "retrieved_at": "2026-10-01T21:00:52+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-10-01",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
@@ -27,6 +39,14 @@
   {
    "name": "https://catalog.data.gov/api/action/package_search",
    "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-12-31-2022",
+   "error": "exim_authorizations: GET https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-12-31-2022 -> 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <!-- datalayer injection -->\n  \n  \n  <!-- end "
+  },
+  {
+   "name": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-9-30-2025",
+   "error": "exim_authorizations: GET https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-9-30-2025 -> 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <!-- datalayer injection -->\n  \n  \n  <!-- end d"
   }
  ]
 }

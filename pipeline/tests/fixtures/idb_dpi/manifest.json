@@ -9,11 +9,29 @@
    "status": 200,
    "bytes": 43603,
    "sha256": "49779fec38f70282a62676e4718e500c29efe7c2b673dc8cfd23409eb73a5aaa",
-   "retrieved_at": "2026-10-01T20:46:29+00:00",
+   "retrieved_at": "2026-10-01T21:00:07+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "resource_csv.html": {
+   "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06",
+   "params": {},
+   "status": 200,
+   "bytes": 159582,
+   "sha256": "56c0a6aad0e6f08f995372de15c88e21c125e44a9120c3d8c125f9e8b7fa6304",
+   "retrieved_at": "2026-10-01T21:00:15+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-01",
- "note": "trimmed copy of a real response; see scm/fixtures.py"
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  "https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n ",
+  "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a",
+  "https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: idb_dpi: GET https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True -> 202 ",
+  "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-9",
+  "https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 202 ",
+  "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-9"
+ ]
 }

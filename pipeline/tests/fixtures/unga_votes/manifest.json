@@ -2,92 +2,110 @@
  "source_id": "unga_votes",
  "files": {
   "dataset.json": {
-   "url": "https://dataverse.harvard.edu/api/datasets/:persistentId/?persistentId=doi%3A10.7910%2FDVN%2FLEJUQZ",
+   "url": "https://dataverse.harvard.edu/api/datasets/:persistentId/?persistentId=doi:10.7910%2FDVN%2FLEJUQZ",
    "params": {
     "persistentId": "doi:10.7910/DVN/LEJUQZ"
    },
    "status": 200,
    "bytes": 17276,
    "sha256": "952fb873cd0543ea57304eee6477b9341061c7832d3c37d821f65dc8e81ea6df",
-   "retrieved_at": "2026-10-01T20:24:47+00:00",
+   "retrieved_at": "2026-10-01T21:02:15+00:00",
    "note": null,
    "trimmed": true
   },
   "files/AgreementScoresAll_Jun2024.csv": {
-   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b283445-712460918705",
+   "url": "https://dataverse.harvard.edu/api/access/datafile/10295876?format=original",
    "params": {
     "format": "original"
    },
    "status": 200,
    "bytes": 142732102,
+   "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b283445-712460918705",
    "sha256": "b009a2f6be5f408970ed177e56b553a1bc2e5a6f99e95c22b03af70a0296eb39",
-   "retrieved_at": "2026-10-01T20:24:53+00:00",
+   "retrieved_at": "2026-10-01T21:02:19+00:00",
    "note": null,
    "trimmed": true
   },
   "files/AgreementScores.csv": {
-   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19861080685-be76a99cf5fe",
+   "url": "https://dataverse.harvard.edu/api/access/datafile/11837234?format=original",
    "params": {
     "format": "original"
    },
    "status": 200,
    "bytes": 145439690,
+   "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19861080685-be76a99cf5fe",
    "sha256": "fc45eafe48e05bf4ed867250dc23a90242969a11248783095a965ed75bed08a6",
-   "retrieved_at": "2026-10-01T20:24:57+00:00",
+   "retrieved_at": "2026-10-01T21:02:22+00:00",
    "note": null,
    "trimmed": true
   },
   "files/IdealPointDyads1946-2025.tab": {
-   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19d5006eabe-13854796dc48.orig",
+   "url": "https://dataverse.harvard.edu/api/access/datafile/13642051?format=original",
    "params": {
     "format": "original"
    },
    "status": 200,
    "bytes": 73920212,
+   "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19d5006eabe-13854796dc48.orig",
    "sha256": "933f80524d3322dadc455d46afa2a214d3317ae99fd25673fdddb0eb4d143da1",
-   "retrieved_at": "2026-10-01T20:24:59+00:00",
+   "retrieved_at": "2026-10-01T21:02:24+00:00",
    "note": null,
    "trimmed": true
   },
   "files/IdealpointestimatesAll_Jun2024.csv": {
-   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b294248-dc494d2c6343",
+   "url": "https://dataverse.harvard.edu/api/access/datafile/10295878?format=original",
    "params": {
     "format": "original"
    },
    "status": 200,
    "bytes": 1932704,
+   "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b294248-dc494d2c6343",
    "sha256": "94ce7440bdba9252b2f4294333291585748dfe84dbaf56fe9f26e1af38f66198",
-   "retrieved_at": "2026-10-01T20:24:59+00:00",
+   "retrieved_at": "2026-10-01T21:02:24+00:00",
    "note": null,
    "trimmed": true
   },
   "files/IdealpointestimatesFP_2026FP.csv": {
-   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19f9e87616a-b8c36423d826",
+   "url": "https://dataverse.harvard.edu/api/access/datafile/14098429?format=original",
    "params": {
     "format": "original"
    },
    "status": 200,
    "bytes": 1419867,
+   "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19f9e87616a-b8c36423d826",
    "sha256": "3ae821bbd19977d4229cde5ac648e4bc915d637ec0dcf93368838cf5bde2a956",
-   "retrieved_at": "2026-10-01T20:25:00+00:00",
+   "retrieved_at": "2026-10-01T21:02:25+00:00",
    "note": null,
    "trimmed": true
   },
   "files/IdealpointsJuly2025.tab": {
-   "url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1985108dc4e-741cffb2a4e7.orig",
+   "url": "https://dataverse.harvard.edu/api/access/datafile/11824371?format=original",
    "params": {
     "format": "original"
    },
    "status": 200,
    "bytes": 1331515,
+   "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1985108dc4e-741cffb2a4e7.orig",
    "sha256": "fea7fa9414e3643586dbdf95baa1100ceb418e56684d79d801a146cad79443ce",
-   "retrieved_at": "2026-10-01T20:25:01+00:00",
+   "retrieved_at": "2026-10-01T21:02:27+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/unga_votes/2026-10-01",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "file_list": [
+  "AgreementScoresAll_Jun2024.csv",
+  "AgreementScoresAll_Jun2024.Rdata",
+  "AgreementScores.csv",
+  "AgreementScores.Rdata",
+  "Codebook_IdealPointEstimates1946-2025.txt",
+  "Codebook United Nations General Assembly Ideal Points.docx",
+  "IdealPointDyads1946-2025.tab",
+  "IdealpointestimatesAll_Jun2024.csv",
+  "IdealpointestimatesFP_2026FP.csv",
+  "IdealpointsJuly2025.tab"
+ ],
  "unparsed_files": [
   "files/IdealpointsJuly2025.tab"
  ]

@@ -1,6 +1,20 @@
 {
  "source_id": "wb_wgi",
  "files": {
+  "CC.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/CC.EST?format=json&source=3&per_page=20000",
+   "params": {
+    "format": "json",
+    "source": 3,
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:59:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
   "CC.EST.adv.invalid.txt": {
    "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/CC.EST/time/all?format=json&per_page=20000",
    "params": {
@@ -10,7 +24,21 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:46:14+00:00",
+   "retrieved_at": "2026-10-01T20:59:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "GE.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/GE.EST?format=json&source=3&per_page=20000",
+   "params": {
+    "format": "json",
+    "source": 3,
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:59:50+00:00",
    "note": null,
    "trimmed": true
   },
@@ -23,7 +51,21 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:46:16+00:00",
+   "retrieved_at": "2026-10-01T20:59:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "PV.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/PV.EST?format=json&source=3&per_page=20000",
+   "params": {
+    "format": "json",
+    "source": 3,
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:59:52+00:00",
    "note": null,
    "trimmed": true
   },
@@ -36,7 +78,21 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:46:18+00:00",
+   "retrieved_at": "2026-10-01T20:59:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "RL.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/RL.EST?format=json&source=3&per_page=20000",
+   "params": {
+    "format": "json",
+    "source": 3,
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:59:54+00:00",
    "note": null,
    "trimmed": true
   },
@@ -49,7 +105,21 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:46:20+00:00",
+   "retrieved_at": "2026-10-01T20:59:55+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "RQ.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/RQ.EST?format=json&source=3&per_page=20000",
+   "params": {
+    "format": "json",
+    "source": 3,
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:59:56+00:00",
    "note": null,
    "trimmed": true
   },
@@ -62,7 +132,21 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:46:22+00:00",
+   "retrieved_at": "2026-10-01T20:59:57+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "VA.EST.json": {
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/VA.EST?format=json&source=3&per_page=20000",
+   "params": {
+    "format": "json",
+    "source": 3,
+    "per_page": 20000
+   },
+   "status": 200,
+   "bytes": 102,
+   "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
+   "retrieved_at": "2026-10-01T20:59:58+00:00",
    "note": null,
    "trimmed": true
   },
@@ -75,11 +159,44 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T20:46:24+00:00",
+   "retrieved_at": "2026-10-01T20:59:59+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wgi/2026-10-01",
- "note": "trimmed copy of a real response; see scm/fixtures.py"
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "CC.EST.adv.json",
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "GE.EST.adv.json",
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "PV.EST.adv.json",
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "RL.EST.adv.json",
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "RQ.EST.adv.json",
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "VA.EST.adv.json",
+   "error": "Expecting value: line 1 column 1 (char 0)"
+  }
+ ],
+ "bulk_links": [
+  "https://www.govindicators.org/content/dam/sites/govindicators/doc/wgidataset_with_sourcedata-2026.xlsx"
+ ],
+ "omitted": [
+  "govindicators.html",
+  "wgidataset.xlsx"
+ ]
 }

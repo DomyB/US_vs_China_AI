@@ -1,18 +1,20 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-01",
- "generated_at": "2026-10-01T20:47:03+00:00",
+ "generated_at": "2026-10-01T21:03:06+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "bgs_wms",
+  "dfc_projects",
   "federal_register",
+  "resourcecontracts",
   "un_comtrade",
+  "unga_votes",
   "usgs_mcs",
   "vdem",
   "wb_ids",
   "wb_pink_sheet",
-  "wb_wdi",
-  "wb_wgi"
+  "wb_wdi"
  ],
  "ingest_runs": [
   {
@@ -23,10 +25,10 @@
    "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
   },
   {
-   "source_id": "un_comtrade",
+   "source_id": "resourcecontracts",
    "status": "ok",
-   "finished_at": "2026-10-01T20:23:59+00:00",
-   "rows": "{\"trade_flow\": 14274}",
+   "finished_at": "2026-10-01T21:02:14+00:00",
+   "rows": "{\"contract\": 487}",
    "error": null
   },
   {
@@ -37,25 +39,25 @@
    "error": null
   },
   {
-   "source_id": "dfc_projects",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:46:28+00:00",
-   "rows": "{}",
-   "error": "SchemaErrors: {\n    \"DATA\": {\n        \"DATAFRAME_CHECK\": [\n            {\n                \"schema\": \"finance_event\",\n                \"column\": \"year\",\n                \"check\": \"in_range(1990, 2100)\",\n                \"error\": \"Column 'year' failed element-wise validator number 0: in_range(1990, 2100) failure cases: 1986, 1987, 1987, 1989\"\n            }\n        ]\n    }\n}"
+   "source_id": "bgs_wms",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:01:57+00:00",
+   "rows": "{\"production\": 2684}",
+   "error": null
   },
   {
    "source_id": "federal_register",
    "status": "ok",
-   "finished_at": "2026-10-01T20:44:29+00:00",
+   "finished_at": "2026-10-01T21:02:53+00:00",
    "rows": "{\"policy_document\": 444}",
    "error": null
   },
   {
    "source_id": "unga_votes",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:25:07+00:00",
-   "rows": "{}",
-   "error": "ColumnError: 'none of (\\'session\\',) found; available columns: [\\'ccode1,\"iso3c1\",\"Countryname1\",\"ccode2\",\"iso3c2\",\"Countryname2\",\"year\",\"IdealPointFP1\",\"IdealPointFP2\",\"AbsIdealDiff\"\\']'"
+   "status": "ok",
+   "finished_at": "2026-10-01T21:02:34+00:00",
+   "rows": "{\"governance\": 2409}",
+   "error": null
   },
   {
    "source_id": "wb_pink_sheet",
@@ -65,53 +67,53 @@
    "error": null
   },
   {
-   "source_id": "bgs_wms",
+   "source_id": "aiddata_gcdf",
    "status": "ok",
-   "finished_at": "2026-10-01T20:33:34+00:00",
-   "rows": "{\"production\": 0}",
+   "finished_at": "2026-10-01T21:02:49+00:00",
+   "rows": "{\"finance_event\": 1615}",
    "error": null
   },
   {
    "source_id": "exim_authorizations",
    "status": "failed",
-   "finished_at": "2026-10-01T20:47:00+00:00",
+   "finished_at": "2026-10-01T21:00:52+00:00",
    "rows": "{}",
-   "error": "RuntimeError: no CSV resource found for EXIM authorizations on data.gov"
+   "error": "RuntimeError: no CSV resource found for EXIM authorizations on data.gov (API and HTML); set EXIM_FILE_URL to the current CSV"
   },
   {
-   "source_id": "resourcecontracts",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:24:35+00:00",
-   "rows": "{}",
-   "error": "AttributeError: 'NoneType' object has no attribute 'get'"
+   "source_id": "un_comtrade",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:23:59+00:00",
+   "rows": "{\"trade_flow\": 14274}",
+   "error": null
   },
   {
    "source_id": "usgs_mcs",
    "status": "ok",
-   "finished_at": "2026-10-01T20:46:26+00:00",
-   "rows": "{\"production\": 0, \"price\": 0}",
+   "finished_at": "2026-10-01T21:00:03+00:00",
+   "rows": "{\"production\": 118, \"price\": 200}",
    "error": null
   },
   {
-   "source_id": "wb_wgi",
+   "source_id": "wb_wdi",
    "status": "ok",
-   "finished_at": "2026-10-01T20:46:24+00:00",
-   "rows": "{\"governance\": 0}",
+   "finished_at": "2026-10-01T20:15:20+00:00",
+   "rows": "{\"governance\": 1872}",
    "error": null
   },
   {
-   "source_id": "aiddata_gcdf",
+   "source_id": "dfc_projects",
    "status": "ok",
-   "finished_at": "2026-10-01T20:44:24+00:00",
-   "rows": "{\"finance_event\": 1615}",
+   "finished_at": "2026-10-01T21:00:06+00:00",
+   "rows": "{\"finance_event\": 84}",
    "error": null
   },
   {
    "source_id": "idb_dpi",
    "status": "failed",
-   "finished_at": "2026-10-01T20:46:55+00:00",
+   "finished_at": "2026-10-01T21:00:43+00:00",
    "rows": "{}",
-   "error": "RuntimeError: DPI: every resource download failed: https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 202  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-9"
+   "error": "RuntimeError: DPI: every resource download failed (set DPI_FILE_URL to a working link): https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a | https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: idb_dpi: GET https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True -> 202  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-9 | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 202  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: idb_dpi: GET https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-9"
   },
   {
    "source_id": "vdem",
@@ -121,19 +123,20 @@
    "error": null
   },
   {
-   "source_id": "wb_wdi",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:20+00:00",
-   "rows": "{\"governance\": 1872}",
-   "error": null
+   "source_id": "wb_wgi",
+   "status": "failed",
+   "finished_at": "2026-10-01T21:00:01+00:00",
+   "rows": "{}",
+   "error": "ValueError: Excel file format cannot be determined, you must specify an engine manually."
   }
  ],
  "tables": {
   "trade_flow": 14274,
-  "finance_event": 1615,
-  "governance": 6324,
-  "production": 0,
-  "price": 3200,
+  "finance_event": 1699,
+  "governance": 8733,
+  "contract": 487,
+  "production": 2802,
+  "price": 3400,
   "policy_document": 444
  },
  "layers": {
@@ -166,10 +169,10 @@
     2025
    ],
    "mirror_years": [],
-   "events": 189,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "events": 192,
+   "contracts": 46,
+   "governance": 793,
+   "production": 248,
    "actions": true,
    "governance_available": true
   },
@@ -196,9 +199,9 @@
    ],
    "mirror_years": [],
    "events": 147,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "contracts": 50,
+   "governance": 793,
+   "production": 321,
    "actions": true,
    "governance_available": true
   },
@@ -224,10 +227,10 @@
     2025
    ],
    "mirror_years": [],
-   "events": 200,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "events": 214,
+   "contracts": 49,
+   "governance": 793,
+   "production": 841,
    "actions": true,
    "governance_available": true
   },
@@ -253,10 +256,10 @@
     2025
    ],
    "mirror_years": [],
-   "events": 78,
-   "contracts": 0,
-   "governance": 338,
-   "production": 0,
+   "events": 79,
+   "contracts": 19,
+   "governance": 541,
+   "production": 426,
    "actions": true,
    "governance_available": true
   },
@@ -282,10 +285,10 @@
     2025
    ],
    "mirror_years": [],
-   "events": 101,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "events": 138,
+   "contracts": 100,
+   "governance": 793,
+   "production": 219,
    "actions": true,
    "governance_available": true
   },
@@ -311,10 +314,10 @@
     2025
    ],
    "mirror_years": [],
-   "events": 232,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "events": 253,
+   "contracts": 37,
+   "governance": 793,
+   "production": 74,
    "actions": true,
    "governance_available": true
   },
@@ -341,9 +344,9 @@
    ],
    "mirror_years": [],
    "events": 125,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "contracts": 39,
+   "governance": 793,
+   "production": 50,
    "actions": true,
    "governance_available": true
   },
@@ -366,9 +369,9 @@
     2025
    ],
    "mirror_years": [],
-   "events": 4,
-   "contracts": 0,
-   "governance": 590,
+   "events": 8,
+   "contracts": 16,
+   "governance": 793,
    "production": 0,
    "actions": true,
    "governance_available": true
@@ -394,10 +397,10 @@
     2024
    ],
    "mirror_years": [],
-   "events": 165,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "events": 169,
+   "contracts": 100,
+   "governance": 793,
+   "production": 360,
    "actions": true,
    "governance_available": true
   },
@@ -424,9 +427,9 @@
    ],
    "mirror_years": [],
    "events": 106,
-   "contracts": 0,
-   "governance": 590,
-   "production": 0,
+   "contracts": 5,
+   "governance": 793,
+   "production": 57,
    "actions": true,
    "governance_available": true
   },
@@ -439,9 +442,9 @@
    ],
    "mirror_years": [],
    "events": 89,
-   "contracts": 0,
-   "governance": 338,
-   "production": 0,
+   "contracts": 25,
+   "governance": 541,
+   "production": 31,
    "actions": true,
    "governance_available": true
   },
@@ -449,9 +452,9 @@
    "trade_years": [],
    "mirror_years": [],
    "events": 179,
-   "contracts": 0,
-   "governance": 338,
-   "production": 0,
+   "contracts": 1,
+   "governance": 514,
+   "production": 175,
    "actions": true,
    "governance_available": true
   }
