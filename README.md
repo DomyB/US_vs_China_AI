@@ -17,7 +17,7 @@ indirect influence, and makes forecasts to 2030 with stated uncertainty.
 | Phase | Deliverable | State |
 |---|---|---|
 | 0 | Plan, source verification, coverage matrix, data model, cost, timeline | Done: [docs/PHASE0_PLAN.md](docs/PHASE0_PLAN.md) |
-| 1 | Full interface with a clearly labelled sample dataset | In progress |
+| 1 | Full interface with a clearly labelled sample dataset | Done: see [docs/STATUS.md](docs/STATUS.md); deploy by connecting Vercel ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)) |
 | 2 | Reproducible ingestion pipelines (international, US, China, national) | Not started |
 | 3 | Multilingual text analysis of parliaments and media, with validation | Not started |
 | 4 | Quantitative analysis (composite index, concentration, event studies, panels, anomaly flags, networks) | Not started |
@@ -59,6 +59,7 @@ LIMITATIONS.md       known gaps and biases
 - [Phase 0 plan](docs/PHASE0_PLAN.md): architecture, source verification, coverage matrix, data model, cost, timeline
 - [SOURCES.md](SOURCES.md), [DECISIONS.md](DECISIONS.md), [LIMITATIONS.md](LIMITATIONS.md)
 - [Deployment](docs/DEPLOYMENT.md)
+- [Status log per phase](docs/STATUS.md)
 
 ## Running locally
 
