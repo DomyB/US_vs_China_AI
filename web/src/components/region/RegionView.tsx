@@ -9,10 +9,10 @@ import type { Topology, GeometryCollection } from "topojson-specification";
 import type { FeatureCollection, Geometry } from "geojson";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { YearControl } from "@/components/controls/YearControl";
-import { LayerLabel } from "@/components/ui/Badges";
+import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Freshness } from "@/components/ui/Freshness";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
-import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion } from "@/lib/data";
+import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionShares } from "@/lib/data";
 import { fmtPct, fmtSigned } from "@/lib/format";
 import type { IndexFile, Meta, RegionData } from "@/lib/types";
 
@@ -28,12 +28,14 @@ export function RegionView() {
   const [index, setIndex] = useState<IndexFile | null>(null);
   const [region, setRegion] = useState<RegionData | null>(null);
   const [geo, setGeo] = useState<FC | null>(null);
+  const [shareRows, setShareRows] = useState<{ rows: RegionData["mineral_shares"]; layer: "real" | "sample" } | null>(null);
 
   useEffect(() => {
-    Promise.all([loadMeta(), loadIndex(), loadRegion()]).then(([m, i, r]) => {
+    Promise.all([loadMeta(), loadIndex(), loadRegion(), loadRegionShares()]).then(([m, i, r, s]) => {
       setMeta(m);
       setIndex(i);
       setRegion(r);
+      setShareRows(s);
     });
     fetch("/data/south-america.topo.json")
       .then((r) => r.json())
@@ -100,8 +102,8 @@ export function RegionView() {
   );
 
   const shares = useMemo(() => {
-    if (!region) return [];
-    const rows = region.mineral_shares.filter((r) => r.year === year);
+    if (!shareRows) return [];
+    const rows = shareRows.rows.filter((r) => r.year === year);
     const long: { mineral: string; partner: string; share: number }[] = [];
     for (const r of rows) {
       long.push({ mineral: prettyMineral(r.mineral), partner: "US", share: r.share_us });
@@ -109,12 +111,12 @@ export function RegionView() {
       long.push({ mineral: prettyMineral(r.mineral), partner: "ROW", share: r.share_other });
     }
     return long;
-  }, [region, year]);
+  }, [shareRows, year]);
   const sharesOptions = useMemo(
     () => ({
       height: 40 + 26 * (shares.length / 3),
       marginLeft: 130,
-      x: { label: "Share of regional exports (SAMPLE)", domain: [0, 1], tickFormat: (d: number) => fmtPct(d) },
+      x: { label: "Share of regional exports", domain: [0, 1], tickFormat: (d: number) => fmtPct(d) },
       y: { label: null },
       color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, OTHER_COLOR], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "rest of world" }[d] ?? d) },
       marks: [Plot.barX(shares, { x: "share", y: "mineral", fill: "partner", order: ["US", "CN", "ROW"], insetTop: 1, insetBottom: 1, tip: true }), Plot.ruleX([0])],
@@ -179,9 +181,9 @@ export function RegionView() {
         </section>
 
         <section className="rounded-md border border-rule bg-surface p-3" aria-labelledby="min-h">
-          <h2 id="min-h" className="mb-1 text-base font-semibold">Mineral by mineral in {year}</h2>
-          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s exports of each mineral going to the US, China and the rest of the world.</p>
-          <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}, sample data`} />
+          <div className="mb-1 flex items-center justify-between gap-2"><h2 id="min-h" className="text-base font-semibold">Mineral by mineral in {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer={shareRows?.layer} /><LayerLabel layer="facts" /></span></div>
+          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each mineral going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the 12 countries that reported)." : "."}</p>
+          {shares.length === 0 ? <p className="text-sm text-ink-3">No reported trade for {year} yet.</p> : <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />}
           <DataTable rows={shares} caption="Export shares by mineral and destination" columns={[{ key: "mineral", label: "Mineral" }, { key: "partner", label: "Destination" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }]} />
         </section>
 

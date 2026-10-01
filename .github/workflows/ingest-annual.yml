@@ -1,0 +1,17 @@
+name: Ingest (annual sources)
+
+on:
+  schedule:
+    - cron: "41 7 15 3 *"   # 15 March, after USGS MCS and V-Dem releases
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  annual:
+    uses: ./.github/workflows/ingest-monthly.yml
+    with:
+      targets: annual
+    secrets: inherit

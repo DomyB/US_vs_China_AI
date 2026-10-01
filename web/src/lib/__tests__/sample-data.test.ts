@@ -39,7 +39,7 @@ describe("sample dataset contract", () => {
       const c = read<CountryData>(`sample/country/${f}`);
       expect(c.dataset).toBe("SAMPLE DATA");
       for (const e of c.actions.events) expect(sourceIds.has(e.source.id)).toBe(true);
-      for (const t of c.actions.trade) expect(sourceIds.has(t.source.id)).toBe(true);
+      for (const t of c.actions.trade) expect(t.source && sourceIds.has(t.source.id)).toBe(true);
       for (const fl of c.analysis.flags) for (const ev of fl.evidence) expect(sourceIds.has(ev.id)).toBe(true);
       for (const d of c.parliament.documents) expect(d.title_original.length).toBeGreaterThan(0);
     }

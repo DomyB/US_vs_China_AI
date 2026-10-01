@@ -72,14 +72,97 @@ export interface ActionEvent {
   description: string;
   source: SourceRef;
   confidence: "documented" | "strongly_indicated" | "speculative";
+  sector?: string | null;
+  also_reported_by?: string[];
+  date_precision?: "day" | "month" | "year";
 }
 
 export interface TradeRow {
   year: number;
   mineral: string;
-  exports_musd: { CN: number; US: number; ROW: number };
+  exports_musd: { CN: number | null; US: number | null; ROW: number | null };
+  mirror_musd?: { CN: number | null; US: number | null };
   value_type: string;
+  source: SourceRef | null;
+  sources?: { reported?: SourceRef; mirror?: SourceRef };
+}
+
+export interface ContractRow {
+  id: string;
+  title: string;
+  resource: string | null;
+  mineral: string | null;
+  companies: string | null;
+  year: number | null;
+  type: string | null;
+  language: string | null;
   source: SourceRef;
+}
+
+export interface ProductionRow {
+  mineral: string;
+  measure: "production" | "reserves";
+  year: number;
+  qty: number | null;
+  unit: string;
+  note: string | null;
+  source: SourceRef;
+}
+
+export interface GovernanceRow {
+  year: number;
+  indicator: string;
+  name: string;
+  value: number | null;
+  source: SourceRef;
+}
+
+export interface TradeDiscrepancy {
+  reporter: string;
+  partner: string;
+  hs6: string;
+  mineral: string;
+  year: number;
+  flow: string;
+  reported_usd: number | null;
+  mirror_usd: number | null;
+  ratio: number | null;
+  flag: string;
+}
+
+export type LayerSource = "real" | "sample" | "none";
+
+export interface CountryCoverage {
+  trade_years: number[];
+  mirror_years: number[];
+  events: number;
+  contracts: number;
+  governance: number;
+  production: number;
+  actions: boolean;
+  governance_available: boolean;
+}
+
+export interface RealMeta {
+  dataset: "REAL";
+  generated_on: string;
+  generated_at: string;
+  sources_ok: string[];
+  ingest_runs: { source_id: string; status: string; finished_at: string; rows: string; error: string | null }[];
+  tables: Record<string, number>;
+  layers: Record<string, "real" | "sample">;
+  coverage: Record<string, CountryCoverage>;
+}
+
+export interface RealCountryData {
+  dataset: "REAL";
+  iso3: string;
+  name: string;
+  generated_on: string;
+  freshness: { actions: Freshness; governance: Freshness };
+  actions: { events: ActionEvent[]; trade: TradeRow[]; contracts: ContractRow[]; production: ProductionRow[] };
+  governance: GovernanceRow[];
+  trade_discrepancies: TradeDiscrepancy[];
 }
 
 export interface ParliamentDoc {
@@ -183,8 +266,11 @@ export interface CountryData {
   note: string;
   eiti_member: boolean;
   language: string;
-  freshness: Meta["freshness"];
-  actions: { events: ActionEvent[]; trade: TradeRow[] };
+  freshness: Meta["freshness"] & { governance?: Freshness };
+  layers?: Record<"actions" | "governance" | "parliament" | "media" | "analysis" | "forecast", LayerSource>;
+  actions: { events: ActionEvent[]; trade: TradeRow[]; contracts?: ContractRow[]; production?: ProductionRow[] };
+  governance?: GovernanceRow[];
+  trade_discrepancies?: TradeDiscrepancy[];
   parliament: { documents: ParliamentDoc[]; stance_series: StanceRow[] };
   media: { volume: MediaVolumeRow[]; narratives: NarrativeRow[]; articles: Article[] };
   analysis: {

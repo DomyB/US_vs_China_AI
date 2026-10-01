@@ -1,0 +1,119 @@
+name: Ingest (monthly)
+
+on:
+  schedule:
+    - cron: "17 6 3 * *"   # 3rd of each month, 06:17 UTC
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: "Adapters to run (space-separated source ids, or all / tier1 / monthly / annual)"
+        default: "tier1"
+      fetch_only:
+        description: "Only download raw snapshots (no parse)"
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      targets:
+        type: string
+        default: "annual"
+      fetch_only:
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: ingest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    defaults:
+      run:
+        working-directory: pipeline
+    env:
+      COMTRADE_KEY: ${{ secrets.COMTRADE_KEY }}
+      CONGRESS_GOV_KEY: ${{ secrets.CONGRESS_GOV_KEY }}
+      CENSUS_KEY: ${{ secrets.CENSUS_KEY }}
+      CODF_DOWNLOAD_URL: ${{ secrets.CODF_DOWNLOAD_URL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - name: Run adapters
+        id: run
+        continue-on-error: true
+        run: |
+          python -m scm run ${{ inputs.targets || 'tier1' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
+      - name: Record trimmed fixtures from the real responses
+        run: python -m scm fixtures
+      - name: Build warehouse and export site data
+        run: |
+          python -m scm build
+          python -m scm export
+      - name: Tests on the real fixtures
+        run: pytest -q
+      - name: Regenerate SOURCES.md and sources.json
+        run: python scripts/build_sources.py
+      - name: Commit data
+        run: |
+          cd ..
+          git config user.name "scm-bot"
+          git config user.email "scm-bot@users.noreply.github.com"
+          git add web/public/data/real pipeline/tests/fixtures SOURCES.md web/public/data/sources.json
+          git diff --cached --quiet || git commit -m "data: ingestion $(date -u +%Y-%m-%d) [skip ci]"
+          git push
+      - name: Package Parquet release
+        run: |
+          cd ..
+          tag="data-v$(date -u +%Y.%m.%d)"
+          tar czf warehouse-$tag.tar.gz -C data warehouse
+          echo "TAG=$tag" >> $GITHUB_ENV
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: Data release ${{ env.TAG }}
+          body: "Parquet warehouse and DuckDB views produced by the ingestion workflow. Every table carries source, URL, retrieval date and reliability columns."
+          files: warehouse-${{ env.TAG }}.tar.gz
+        continue-on-error: true
+      - name: Upload raw snapshots and logs (debugging)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ingest-${{ github.run_id }}
+          path: |
+            ingest.log
+            ingest-results.jsonl
+            data/raw/**/manifest.json
+          retention-days: 14
+      - name: Open or update an issue on failure
+        if: steps.run.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const lines = fs.readFileSync('ingest-results.jsonl', 'utf8').trim().split('\n').map(l => { try { return JSON.parse(l) } catch { return null } }).filter(Boolean);
+            const summary = lines.find(l => l.failed) || {failed: []};
+            const failed = summary.failed || [];
+            const title = `Ingestion failure: ${failed.join(', ') || 'see log'}`;
+            const body = `Workflow run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}\n\nFailed adapters: ${failed.join(', ')}\n\n\`\`\`\n${lines.filter(l => l.status === 'failed').map(l => `${l.source_id}: ${l.error}`).join('\n').slice(0, 6000)}\n\`\`\``;
+            const { data: issues } = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'ingestion' });
+            const existing = issues.find(i => i.title.startsWith('Ingestion failure'));
+            if (existing) {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: existing.number, body });
+            } else {
+              await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ['ingestion'] });
+            }
+      - name: Fail the job if adapters failed
+        if: steps.run.outcome == 'failure'
+        run: exit 1

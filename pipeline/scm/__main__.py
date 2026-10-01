@@ -1,0 +1,79 @@
+"""Command line: python -m scm run <source_id|all|tier1|annual> [--fetch-only|--parse-only]
+                 python -m scm build | export | liveness [ids...] | fixtures"""
+from __future__ import annotations
+
+import argparse
+import json
+import logging
+import sys
+
+from . import export_site, liveness, warehouse
+from .ingest import ADAPTERS, ANNUAL, TIER1, TIER2
+
+
+def main(argv: list[str] | None = None) -> int:
+    p = argparse.ArgumentParser(prog="scm")
+    sub = p.add_subparsers(dest="cmd", required=True)
+    r = sub.add_parser("run", help="run adapters")
+    r.add_argument("targets", nargs="+", help="source ids, or all / tier1 / tier2 / annual / monthly")
+    r.add_argument("--fetch-only", action="store_true")
+    r.add_argument("--parse-only", action="store_true")
+    r.add_argument("--fail-fast", action="store_true")
+    sub.add_parser("build", help="build the DuckDB warehouse and derived tables")
+    sub.add_parser("export", help="export web/public/data/real from the warehouse")
+    lv = sub.add_parser("liveness", help="direct HTTP check of every registry URL")
+    lv.add_argument("ids", nargs="*")
+    fx = sub.add_parser("fixtures", help="write trimmed copies of the latest snapshots into pipeline/tests/fixtures")
+    fx.add_argument("ids", nargs="*")
+    args = p.parse_args(argv)
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
+
+    if args.cmd == "run":
+        ids: list[str] = []
+        for t in args.targets:
+            if t == "all":
+                ids += [a.source_id for a in TIER1 + TIER2]
+            elif t == "tier1":
+                ids += [a.source_id for a in TIER1]
+            elif t == "tier2":
+                ids += [a.source_id for a in TIER2]
+            elif t == "annual":
+                ids += sorted(ANNUAL)
+            elif t == "monthly":
+                ids += [a.source_id for a in TIER1 + TIER2 if a.source_id not in ANNUAL]
+            else:
+                ids.append(t)
+        results = []
+        for sid in dict.fromkeys(ids):
+            if sid not in ADAPTERS:
+                print(f"unknown adapter: {sid}", file=sys.stderr)
+                return 2
+            rec = ADAPTERS[sid]().run(fetch=not args.parse_only, parse=not args.fetch_only)
+            results.append(rec)
+            print(json.dumps({k: rec[k] for k in ("source_id", "status", "rows", "error")}))
+            if args.fail_fast and rec["status"] == "failed":
+                return 1
+        failed = [r["source_id"] for r in results if r["status"] == "failed"]
+        print(json.dumps({"failed": failed, "ok": [r["source_id"] for r in results if r["status"] == "ok"], "skipped": [r["source_id"] for r in results if r["status"] == "skipped"]}))
+        return 1 if failed else 0
+    if args.cmd == "build":
+        print(warehouse.build())
+        return 0
+    if args.cmd == "export":
+        print(json.dumps(export_site.run(), indent=1)[:2000])
+        return 0
+    if args.cmd == "liveness":
+        res = liveness.run(only=args.ids or None)
+        bad = [k for k, v in res["results"].items() if not v["url"]["ok"]]
+        print(json.dumps({"checked": len(res["results"]), "failing": bad}))
+        return 0
+    if args.cmd == "fixtures":
+        from .fixtures import record
+
+        print(json.dumps(record(args.ids or None)))
+        return 0
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

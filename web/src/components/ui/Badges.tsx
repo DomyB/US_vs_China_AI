@@ -50,3 +50,9 @@ export function StanceBadge({ value, toward }: { value: number; toward: "US" | "
 export function SampleTag() {
   return <span className="inline-block rounded-sm bg-sample/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sample">Sample</span>;
 }
+
+export function DataLayerTag({ layer }: { layer: "real" | "sample" | "none" | undefined }) {
+  if (layer === "real") return <span className="inline-block rounded-sm bg-facts/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-facts">Real data</span>;
+  if (layer === "none") return <span className="inline-block rounded-sm bg-surface-2 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink-3">No data yet</span>;
+  return <SampleTag />;
+}

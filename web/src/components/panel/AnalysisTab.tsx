@@ -3,7 +3,7 @@
 import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
-import { EvidenceBadge, LayerLabel } from "@/components/ui/Badges";
+import { DataLayerTag, EvidenceBadge, LayerLabel } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { ACTOR_COLOR, prettyLabel } from "@/lib/constants";
 import { fmtSigned } from "@/lib/format";
@@ -65,6 +65,12 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
   );
 
   const flags = useMemo(() => [...data.analysis.flags].sort((a, b) => b.year - a.year), [data]);
+  const governance = useMemo(() => {
+    const rows = (data.governance ?? []).filter((g) => g.year === year);
+    const byInd = new Map<string, (typeof rows)[number]>();
+    for (const r of rows) if (!byInd.has(r.indicator)) byInd.set(r.indicator, r);
+    return Array.from(byInd.values()).sort((a, b) => a.indicator.localeCompare(b.indicator));
+  }, [data, year]);
 
   return (
     <div className="space-y-5">
@@ -119,6 +125,28 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
           ))}
         </ul>
       </section>
+
+      {governance.length > 0 && (
+        <section aria-labelledby="gov-h">
+          <div className="mb-1 flex items-center justify-between gap-2">
+            <h3 id="gov-h" className="text-sm font-semibold">Governance and alignment indicators, {year}</h3>
+            <span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span>
+          </div>
+          <p className="mb-1 text-xs text-ink-3">Inputs to the influence index: governance (World Bank WGI, V-Dem), executive ideology (IDB DPI), UN General Assembly alignment with the US and China, macro context.</p>
+          <table className="w-full text-xs">
+            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 text-right">Value</th><th className="py-1">Source</th></tr></thead>
+            <tbody>
+              {governance.map((g) => (
+                <tr key={g.indicator} className="border-t border-rule align-top">
+                  <td className="py-1">{g.name}</td>
+                  <td className="py-1 text-right tabular-nums">{g.value == null ? "—" : Math.abs(g.value) >= 1e6 ? g.value.toLocaleString("en-GB", { maximumFractionDigits: 0 }) : g.value.toFixed(2)}</td>
+                  <td className="py-1"><SourceLink source={g.source} compact /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
 
       <section aria-labelledby="interp-h">
         <div className="mb-1 flex items-center justify-between">

@@ -2,6 +2,30 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
+## Phase 2a — International and US pipelines (2026-10-01, first live run pending)
+
+**What runs**
+- `pipeline/scm/`: ingestion framework (dated raw snapshots with manifests, pure parsers, pandera-validated Parquet per source and table), DuckDB warehouse build with `trade_discrepancy` (reported vs mirror) and `finance_event_dedup` (conservative cross-database clustering keeping every source id), site exporter writing `web/public/data/real/`, liveness checker, fixture recorder, CLI (`python -m scm run|build|export|liveness|fixtures`).
+- 16 Tier 1 adapters (keyless): World Bank WDI, WGI, IDS; USGS Mineral Commodity Summaries; World Bank Pink Sheet; UN Comtrade annual HS6 with US and China mirrors; AidData GCDF 3.0; AEI China Global Investment Tracker; DFC; EXIM; Federal Register; ResourceContracts; V-Dem; UNGA voting; IDB DPI 2023; BGS.
+- 3 Tier 2 adapters gated by secrets: Congress.gov (`CONGRESS_GOV_KEY`), US Census monthly HS10 (`CENSUS_KEY`), BU CODF (`CODF_DOWNLOAD_URL`). They report `skipped` until the secret exists.
+- 27 pipeline tests (parsers on synthetic fixtures in each source's documented format, warehouse derivations, end-to-end export) and ruff pass; web lint, typecheck, 12 unit tests and build pass.
+- Workflows: `ingest-monthly.yml` (3rd of the month and on demand; adapters → fixtures → build → export → tests → commit site data → Parquet release → issue on failure), `ingest-annual.yml`, `liveness.yml` (Mondays).
+- Site: per-layer data resolution (facts real where covered, else sample), status banner stating what is real, "Real data" tags per block, mirror bars and discrepancy list on the trade chart, contracts and production blocks, governance facts on the Analysis tab, real mineral shares on the regional page. Verified in the browser against a synthetic export (not committed).
+
+**What is missing**
+- The first live run: the sandbox cannot reach the sources, so every adapter was written against documented formats. The first `ingest-monthly` run is the direct contact; expect some parsers to need column adjustments, which the logs and recorded fixtures will show.
+- Free registrations by the owner: Comtrade key (monthly data), Congress.gov key, Census key, BU CODF data-use agreement.
+- Vercel connection, so the real-data site has a public URL.
+
+**What broke and was fixed**
+- Finance clustering was order-dependent (chained on the previous row); rewritten to anchor on each cluster's first amount.
+- Regional mineral shares compared Comtrade partner codes against the wrong keys; fixed and covered by a test.
+- USGS data-release file names use five-letter commodity abbreviations; added a mapping.
+
+**Recommendation**
+- Trigger `Ingest (monthly)` with `targets: tier1` on this branch, read the log and the issue it opens if adapters fail, then fix parsers against the recorded fixtures. Repeat until green.
+- Merge to `main` once the first run is green so the scheduled workflows run on the default branch.
+
 ## Phase 1 — Interface with sample data (2026-10-01)
 
 **What runs**

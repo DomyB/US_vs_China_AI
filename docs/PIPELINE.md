@@ -1,0 +1,92 @@
+# Pipeline
+
+Python package `pipeline/scm/`. Every adapter follows the same three steps so that
+parsers never touch the network and every number keeps its provenance.
+
+```
+fetch(snapshot)  -> data/raw/<source_id>/<YYYY-MM-DD>/...   (+ manifest.json: URL, params, status, sha256, retrieved_at)
+parse(snapshot)  -> {table_name: DataFrame}                 (pure; validated against scm/schema.py)
+load(tables)     -> data/warehouse/<table>/<source_id>.parquet
+build            -> data/warehouse/scm.duckdb (views over Parquet + trade_discrepancy + finance_event_dedup)
+export           -> web/public/data/real/ (meta, coverage, country/<ISO3>.json, region, prices, policy)
+```
+
+## Running
+
+```bash
+cd pipeline
+uv venv .venv && uv pip install --python .venv/bin/python -e ".[dev]"
+.venv/bin/python -m scm run tier1            # every keyless adapter
+.venv/bin/python -m scm run un_comtrade wb_wgi --fetch-only
+.venv/bin/python -m scm build && .venv/bin/python -m scm export
+.venv/bin/python -m scm liveness            # direct HTTP check of every registry URL
+.venv/bin/python -m scm fixtures            # trimmed copies of the latest snapshots for tests
+.venv/bin/python -m pytest -q
+```
+
+The development sandbox used to write this code has no outbound network access except
+GitHub and PyPI, so the adapters were written against the documented response formats and
+tested on synthetic fixtures. The GitHub Actions workflows are where the sources are
+actually reached; the `fixtures` step records trimmed real responses and commits them, after
+which the tests run on real data.
+
+## Adapters
+
+| Source id | Module | Tables | Needs |
+|---|---|---|---|
+| wb_wdi, wb_wgi, wb_ids | `ingest/worldbank.py` | governance | — |
+| usgs_mcs | `ingest/usgs_mcs.py` | production, price | — |
+| wb_pink_sheet | `ingest/pink_sheet.py` | price | — |
+| un_comtrade | `ingest/comtrade.py` | trade_flow (reported + US/China mirrors) | optional `COMTRADE_KEY` |
+| aiddata_gcdf | `ingest/aiddata.py` | finance_event | — |
+| aei_cgit | `ingest/aei_cgit.py` | deal_event | — |
+| dfc_projects | `ingest/dfc.py` | finance_event | — |
+| exim_authorizations | `ingest/exim.py` | finance_event | — |
+| federal_register | `ingest/federal_register.py` | policy_document | — |
+| resourcecontracts | `ingest/resourcecontracts.py` | contract | — |
+| vdem | `ingest/vdem.py` | governance | — (RData from the vdemdata GitHub repository) |
+| unga_votes | `ingest/unga.py` | governance | — |
+| idb_dpi | `ingest/dpi.py` | governance | — |
+| bgs_wms | `ingest/bgs.py` | production (cross-check) | — |
+| congress_gov | `ingest/tier2.py` | policy_document | `CONGRESS_GOV_KEY` |
+| us_census_trade | `ingest/tier2.py` | trade_flow (monthly HS10 mirror) | `CENSUS_KEY` |
+| bu_codf | `ingest/tier2.py` | finance_event | `CODF_DOWNLOAD_URL` (signed data-use agreement; file never committed) |
+
+Adapters gated by a secret report `skipped` until the secret exists in the repository
+settings (Settings → Secrets and variables → Actions). No secret is ever written to the
+repository or to the site.
+
+## Adding an adapter
+
+1. Add the source to `pipeline/config/sources/*.yaml` (the registry is the contract: URL,
+   license, reliability, refresh schedule).
+2. Create `scm/ingest/<source_id>.py` with a class deriving from `Adapter`; set `source_id`
+   and `tables`; implement `fetch` (use `snap.get` / `snap.get_json`) and `parse` (return
+   DataFrames with the schema columns; call `self.stamp(snap, df)` to add provenance).
+3. Register it in `scm/ingest/__init__.py`.
+4. Add a parser test in `tests/test_adapters.py` with a minimal payload in the source's format.
+5. Run the monthly workflow with `targets: <source_id>`; the fixtures step records a trimmed
+   real response under `tests/fixtures/<source_id>/`.
+
+## Workflows
+
+| Workflow | Cadence | What it does |
+|---|---|---|
+| `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 adapters, fixtures, build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD`, opens an issue on failure |
+| `ingest-annual.yml` | 15 March | USGS, V-Dem, UNGA, DPI, BGS via the same job |
+| `liveness.yml` | Mondays | HEAD/GET of every registry URL → `data/liveness.json`, regenerates SOURCES.md |
+| `ci.yml` | every push | lint, typecheck, unit tests, build (web and pipeline) |
+
+Data commits carry `[skip ci]`. Scheduled workflows are disabled by GitHub after 60 days
+without repository activity; the monthly data commit keeps them alive.
+
+## Rules enforced in code
+
+- A parser that cannot find an expected column raises `ColumnError` listing the columns it
+  saw, so a layout change at the source is diagnosed from the log, not guessed.
+- Partner-reported trade is stored as `value_type = "mirror"` with `reported_by` naming the
+  reporting country; reported and mirror values are compared in `trade_discrepancy`.
+- Finance events from different databases are clustered (same country, year, origin, amount
+  within 10 percent) and every source id is kept; nothing is dropped.
+- Country matching uses ISO3 via `registry.iso3_from_name`; unmatched names are skipped and
+  counted, never guessed.

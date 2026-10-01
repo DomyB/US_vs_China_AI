@@ -18,7 +18,7 @@ indirect influence, and makes forecasts to 2030 with stated uncertainty.
 |---|---|---|
 | 0 | Plan, source verification, coverage matrix, data model, cost, timeline | Done: [docs/PHASE0_PLAN.md](docs/PHASE0_PLAN.md) |
 | 1 | Full interface with a clearly labelled sample dataset | Done: see [docs/STATUS.md](docs/STATUS.md); deploy by connecting Vercel ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)) |
-| 2 | Reproducible ingestion pipelines (international, US, China, national) | Not started |
+| 2 | Reproducible ingestion pipelines (international, US, China, national) | 2a built (international and US adapters, workflows); first live run pending. See [docs/PIPELINE.md](docs/PIPELINE.md) |
 | 3 | Multilingual text analysis of parliaments and media, with validation | Not started |
 | 4 | Quantitative analysis (composite index, concentration, event studies, panels, anomaly flags, networks) | Not started |
 | 5 | Forecasting to 2030 with backtests and scenarios | Not started |
@@ -45,7 +45,7 @@ seeded script and labelled SAMPLE DATA.
 
 ```
 web/                 Next.js site (TypeScript, MapLibre, Observable Plot)
-pipeline/            Python package: config/, scripts/, later ingest/, transform/, text/, models/, forecast/
+pipeline/            Python package scm/ (ingest/, schema, warehouse, export_site, liveness), config/, scripts/, tests/
 pipeline/config/     minerals.yaml, hs_codes.yaml, sources/*.yaml (the source registry)
 data/                raw snapshots (not in git), warehouse (Parquet/DuckDB), site JSON
 docs/                PHASE0_PLAN.md, DEPLOYMENT.md, METHODOLOGY.md
@@ -58,6 +58,7 @@ LIMITATIONS.md       known gaps and biases
 
 - [Phase 0 plan](docs/PHASE0_PLAN.md): architecture, source verification, coverage matrix, data model, cost, timeline
 - [SOURCES.md](SOURCES.md), [DECISIONS.md](DECISIONS.md), [LIMITATIONS.md](LIMITATIONS.md)
+- [Pipeline](docs/PIPELINE.md): adapters, workflows, secrets, how to add a source
 - [Deployment](docs/DEPLOYMENT.md)
 - [Status log per phase](docs/STATUS.md)
 
