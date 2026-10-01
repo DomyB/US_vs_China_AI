@@ -1,0 +1,318 @@
+{
+ "dataset": "SAMPLE DATA",
+ "generated_on": "2026-10-01",
+ "seed": 20261001,
+ "generator": "pipeline/scripts/make_sample_data.py",
+ "years": [
+  2008,
+  2009,
+  2010,
+  2011,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "actors": [
+  "US",
+  "CN"
+ ],
+ "minerals": [
+  {
+   "id": "lithium",
+   "name": "Lithium",
+   "core": true
+  },
+  {
+   "id": "copper",
+   "name": "Copper",
+   "core": true
+  },
+  {
+   "id": "rare_earths",
+   "name": "Rare earth elements",
+   "core": true
+  },
+  {
+   "id": "niobium",
+   "name": "Niobium",
+   "core": true
+  },
+  {
+   "id": "graphite",
+   "name": "Graphite (natural)",
+   "core": true
+  },
+  {
+   "id": "nickel",
+   "name": "Nickel",
+   "core": true
+  },
+  {
+   "id": "tin",
+   "name": "Tin",
+   "core": true
+  },
+  {
+   "id": "silver",
+   "name": "Silver",
+   "core": true
+  },
+  {
+   "id": "molybdenum",
+   "name": "Molybdenum",
+   "core": true
+  },
+  {
+   "id": "cobalt",
+   "name": "Cobalt",
+   "core": false
+  },
+  {
+   "id": "manganese",
+   "name": "Manganese",
+   "core": false
+  },
+  {
+   "id": "bauxite_aluminum",
+   "name": "Bauxite / aluminium",
+   "core": false
+  },
+  {
+   "id": "uranium",
+   "name": "Uranium",
+   "core": false
+  },
+  {
+   "id": "tungsten",
+   "name": "Tungsten",
+   "core": false
+  },
+  {
+   "id": "zinc",
+   "name": "Zinc",
+   "core": false
+  },
+  {
+   "id": "gold",
+   "name": "Gold",
+   "core": false
+  },
+  {
+   "id": "phosphate_potash",
+   "name": "Phosphate / potash",
+   "core": false
+  },
+  {
+   "id": "iron_ore",
+   "name": "Iron ore",
+   "core": false
+  },
+  {
+   "id": "titanium",
+   "name": "Titanium",
+   "core": false
+  },
+  {
+   "id": "gallium_germanium_antimony",
+   "name": "Gallium, germanium, antimony",
+   "core": false
+  }
+ ],
+ "countries": [
+  {
+   "iso3": "ARG",
+   "name": "Argentina",
+   "lat": -36.5,
+   "lon": -64.5,
+   "in_scope": true,
+   "eiti_member": true,
+   "note": "Lithium Triangle; RIGI investment regime from 2024."
+  },
+  {
+   "iso3": "BOL",
+   "name": "Bolivia",
+   "lat": -17.0,
+   "lon": -64.5,
+   "in_scope": true,
+   "eiti_member": false,
+   "note": "Lithium Triangle; YLB state lithium company."
+  },
+  {
+   "iso3": "BRA",
+   "name": "Brazil",
+   "lat": -10.5,
+   "lon": -53.0,
+   "in_scope": true,
+   "eiti_member": false,
+   "note": "Niobium, rare earths, graphite, nickel, lithium."
+  },
+  {
+   "iso3": "CHL",
+   "name": "Chile",
+   "lat": -29.5,
+   "lon": -71.2,
+   "in_scope": true,
+   "eiti_member": false,
+   "note": "Largest copper producer; second lithium producer."
+  },
+  {
+   "iso3": "COL",
+   "name": "Colombia",
+   "lat": 4.0,
+   "lon": -73.0,
+   "in_scope": true,
+   "eiti_member": true,
+   "note": "Nickel, gold, copper exploration."
+  },
+  {
+   "iso3": "ECU",
+   "name": "Ecuador",
+   "lat": -1.8,
+   "lon": -78.2,
+   "in_scope": true,
+   "eiti_member": true,
+   "note": "Copper (Mirador); gold."
+  },
+  {
+   "iso3": "GUY",
+   "name": "Guyana",
+   "lat": 5.2,
+   "lon": -59.6,
+   "in_scope": true,
+   "eiti_member": true,
+   "note": "Bauxite, manganese, gold."
+  },
+  {
+   "iso3": "PRY",
+   "name": "Paraguay",
+   "lat": -23.3,
+   "lon": -58.4,
+   "in_scope": true,
+   "eiti_member": false,
+   "note": "Recognises Taiwan; exploration-stage titanium, uranium, rare earths."
+  },
+  {
+   "iso3": "PER",
+   "name": "Peru",
+   "lat": -9.5,
+   "lon": -75.0,
+   "in_scope": true,
+   "eiti_member": true,
+   "note": "Second copper producer; silver, tin, zinc; Chancay port."
+  },
+  {
+   "iso3": "SUR",
+   "name": "Suriname",
+   "lat": 3.4,
+   "lon": -56.0,
+   "in_scope": true,
+   "eiti_member": true,
+   "note": "Gold (Zijin Rosebel, Newmont Merian); bauxite history."
+  },
+  {
+   "iso3": "URY",
+   "name": "Uruguay",
+   "lat": -32.9,
+   "lon": -55.9,
+   "in_scope": true,
+   "eiti_member": false,
+   "note": "Minimal mining; China trade and Mercosur politics."
+  },
+  {
+   "iso3": "VEN",
+   "name": "Venezuela",
+   "lat": 7.0,
+   "lon": -66.0,
+   "in_scope": true,
+   "eiti_member": false,
+   "note": "Arco Minero del Orinoco; official data scarce."
+  },
+  {
+   "iso3": "GUF",
+   "name": "French Guiana",
+   "lat": 2.8,
+   "lon": -53.1,
+   "in_scope": false,
+   "eiti_member": false,
+   "note": "French overseas territory; shown on the map, outside the analysis."
+  },
+  {
+   "iso3": "FLK",
+   "name": "Falkland Islands / Islas Malvinas",
+   "lat": -51.7,
+   "lon": -59.5,
+   "in_scope": false,
+   "eiti_member": false,
+   "note": "Disputed territory; shown on the map, outside the analysis."
+  }
+ ],
+ "refresh_schedule": [
+  {
+   "layer": "News (media)",
+   "cadence": "daily",
+   "note": "RSS and Media Cloud; GDELT daily files"
+  },
+  {
+   "layer": "Parliaments and gazettes",
+   "cadence": "weekly"
+  },
+  {
+   "layer": "Trade, finance, investment",
+   "cadence": "monthly or when the source publishes"
+  },
+  {
+   "layer": "Production, reserves, governance indices",
+   "cadence": "annual"
+  }
+ ],
+ "freshness": {
+  "actions": {
+   "last_updated": "2026-10-01",
+   "source_ids": [
+    "un_comtrade",
+    "bu_codf",
+    "aei_cgit"
+   ],
+   "schedule": "monthly"
+  },
+  "parliament": {
+   "last_updated": "2026-10-01",
+   "source_ids": [
+    "bra_camara_api",
+    "chl_camara",
+    "arg_hcdn"
+   ],
+   "schedule": "weekly"
+  },
+  "media": {
+   "last_updated": "2026-10-01",
+   "source_ids": [
+    "mediacloud",
+    "gdelt"
+   ],
+   "schedule": "daily"
+  },
+  "analysis": {
+   "last_updated": "2026-10-01",
+   "source_ids": [],
+   "schedule": "with each data refresh"
+  },
+  "forecast": {
+   "last_updated": "2026-10-01",
+   "source_ids": [],
+   "schedule": "quarterly"
+  }
+ }
+}

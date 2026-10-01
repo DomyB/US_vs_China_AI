@@ -22,3 +22,4 @@ data/warehouse/*.duckdb.wal
 .DS_Store
 .idea/
 .vscode/
+web/public/vendor/

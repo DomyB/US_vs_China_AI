@@ -4,6 +4,7 @@ SOURCES.md (repository root) and web/public/data/sources.json.
 Usage: python3 pipeline/scripts/build_sources.py
 Requires: pyyaml
 """
+
 from __future__ import annotations
 
 import json
@@ -19,9 +20,19 @@ SOURCES_MD = ROOT / "SOURCES.md"
 SITE_JSON = ROOT / "web" / "public" / "data" / "sources.json"
 
 REQUIRED = [
-    "id", "name", "url", "category", "reliability", "license", "access",
-    "update_frequency", "refresh_schedule", "coverage_from", "coverage_to",
-    "language", "status",
+    "id",
+    "name",
+    "url",
+    "category",
+    "reliability",
+    "license",
+    "access",
+    "update_frequency",
+    "refresh_schedule",
+    "coverage_from",
+    "coverage_to",
+    "language",
+    "status",
 ]
 RELIABILITY = {"official", "independent_academic", "partisan", "state_media", "analysis"}
 STATUS = {"live", "moved", "dead", "uncertain"}
@@ -36,9 +47,18 @@ RELIABILITY_LABEL = {
     "analysis": "Analysis (think tank)",
 }
 COUNTRY_NAME = {
-    "ARG": "Argentina", "BOL": "Bolivia", "BRA": "Brazil", "CHL": "Chile",
-    "COL": "Colombia", "ECU": "Ecuador", "GUY": "Guyana", "PRY": "Paraguay",
-    "PER": "Peru", "SUR": "Suriname", "URY": "Uruguay", "VEN": "Venezuela",
+    "ARG": "Argentina",
+    "BOL": "Bolivia",
+    "BRA": "Brazil",
+    "CHL": "Chile",
+    "COL": "Colombia",
+    "ECU": "Ecuador",
+    "GUY": "Guyana",
+    "PRY": "Paraguay",
+    "PER": "Peru",
+    "SUR": "Suriname",
+    "URY": "Uruguay",
+    "VEN": "Venezuela",
 }
 
 
@@ -147,16 +167,18 @@ def render_markdown(sources: list[dict]) -> str:
                 notes.append(s["notes"])
             lines.append(
                 "| "
-                + " | ".join([
-                    name,
-                    s["status"],
-                    RELIABILITY_LABEL[s["reliability"]],
-                    f"{s['coverage_from']}–{s['coverage_to']}",
-                    s["access"],
-                    s["refresh_schedule"],
-                    md_escape(s["license"]),
-                    md_escape(" ".join(notes)),
-                ])
+                + " | ".join(
+                    [
+                        name,
+                        s["status"],
+                        RELIABILITY_LABEL[s["reliability"]],
+                        f"{s['coverage_from']}–{s['coverage_to']}",
+                        s["access"],
+                        s["refresh_schedule"],
+                        md_escape(s["license"]),
+                        md_escape(" ".join(notes)),
+                    ]
+                )
                 + " |"
             )
         lines.append("")
