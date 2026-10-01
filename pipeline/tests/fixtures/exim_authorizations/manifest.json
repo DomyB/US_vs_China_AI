@@ -7,8 +7,8 @@
    "status": 200,
    "bytes": 215473,
    "final_url": "https://catalog.data.gov/",
-   "sha256": "1bce3bc9724adf63543850b2323d455112653303722df98baeff877e6f6566c2",
-   "retrieved_at": "2026-10-01T21:27:59+00:00",
+   "sha256": "8d42779c0e85de8933086a419a82544bc973450aaa7200864a4bab1ab1970170",
+   "retrieved_at": "2026-10-01T21:51:57+00:00",
    "note": null,
    "trimmed": true
   }
@@ -39,6 +39,14 @@
   {
    "name": "https://catalog.data.gov/api/action/package_search",
    "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://www.exim.gov/data.json",
+   "error": "exim_authorizations: GET https://www.exim.gov/data.json -> 404 <!DOCTYPE html><html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: "
+  },
+  {
+   "name": "https://exim.gov/data.json",
+   "error": "exim_authorizations: GET https://exim.gov/data.json -> 404 <!DOCTYPE html><html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http"
   },
   {
    "name": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-12-31-2022",

@@ -9,7 +9,7 @@
    "status": 200,
    "bytes": 43603,
    "sha256": "49779fec38f70282a62676e4718e500c29efe7c2b673dc8cfd23409eb73a5aaa",
-   "retrieved_at": "2026-10-01T21:08:03+00:00",
+   "retrieved_at": "2026-10-01T21:31:52+00:00",
    "note": null,
    "trimmed": true
   },
@@ -18,8 +18,8 @@
    "params": {},
    "status": 200,
    "bytes": 159582,
-   "sha256": "71052846a55da4cea0c852c2bd850558f7bc6f78559adc5a97dcf0594dd54e9c",
-   "retrieved_at": "2026-10-01T21:08:07+00:00",
+   "sha256": "e1d9b5ffb214dd0e8ae8a0374b5b4fffcd7b40e5e4f0520b118134202245fa77",
+   "retrieved_at": "2026-10-01T21:31:56+00:00",
    "note": null,
    "trimmed": true
   },
@@ -28,14 +28,36 @@
    "params": {},
    "status": 200,
    "bytes": 159356,
-   "sha256": "8bbdad6d6fa29c10cff71cdd13b0221948ab2b3a97318cf35289983b3c295c81",
-   "retrieved_at": "2026-10-01T21:18:13+00:00",
+   "sha256": "a978dbb8e5a11f8fabfe96dabe60a1122384bd30fa0ad90b51506f0a0dfdb76b",
+   "retrieved_at": "2026-10-01T21:42:06+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-01",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "not_ready_bodies": [
+  {
+   "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download",
+   "status": 202,
+   "body": ""
+  },
+  {
+   "url": "https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True",
+   "status": 202,
+   "body": ""
+  },
+  {
+   "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download",
+   "status": 202,
+   "body": ""
+  },
+  {
+   "url": "https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True",
+   "status": 202,
+   "body": ""
+  }
+ ],
  "errors": [
   "https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n ",
   "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts",

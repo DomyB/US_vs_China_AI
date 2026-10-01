@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-01",
- "generated_at": "2026-10-01T21:28:03+00:00",
+ "generated_at": "2026-10-01T21:52:00+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "bgs_wms",
@@ -19,11 +19,11 @@
  ],
  "ingest_runs": [
   {
-   "source_id": "bgs_wms",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:01:57+00:00",
-   "rows": "{\"production\": 2684}",
-   "error": null
+   "source_id": "aei_cgit",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:13+00:00",
+   "rows": "{}",
+   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
   },
   {
    "source_id": "federal_register",
@@ -33,11 +33,32 @@
    "error": null
   },
   {
-   "source_id": "un_comtrade",
+   "source_id": "unga_votes",
    "status": "ok",
-   "finished_at": "2026-10-01T20:23:59+00:00",
-   "rows": "{\"trade_flow\": 14274}",
+   "finished_at": "2026-10-01T21:02:34+00:00",
+   "rows": "{\"governance\": 2409}",
    "error": null
+  },
+  {
+   "source_id": "wb_pink_sheet",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:31+00:00",
+   "rows": "{\"price\": 3200}",
+   "error": null
+  },
+  {
+   "source_id": "bgs_wms",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:01:57+00:00",
+   "rows": "{\"production\": 2684}",
+   "error": null
+  },
+  {
+   "source_id": "idb_dpi",
+   "status": "failed",
+   "finished_at": "2026-10-01T21:51:47+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: DPI: every resource download failed (set DPI_FILE_URL to a working link): https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: still 202 (file not ready) after 8 attempts | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True: still 202 (file not ready) after 8 attempts"
   },
   {
    "source_id": "wb_ids",
@@ -47,11 +68,18 @@
    "error": null
   },
   {
-   "source_id": "aei_cgit",
+   "source_id": "aiddata_gcdf",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:02:49+00:00",
+   "rows": "{\"finance_event\": 1615}",
+   "error": null
+  },
+  {
+   "source_id": "exim_authorizations",
    "status": "failed",
-   "finished_at": "2026-10-01T20:24:13+00:00",
+   "finished_at": "2026-10-01T21:51:57+00:00",
    "rows": "{}",
-   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+   "error": "RuntimeError: no CSV resource found for EXIM authorizations on data.gov (API and HTML); set EXIM_FILE_URL to the current CSV"
   },
   {
    "source_id": "resourcecontracts",
@@ -75,34 +103,6 @@
    "error": null
   },
   {
-   "source_id": "aiddata_gcdf",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:49+00:00",
-   "rows": "{\"finance_event\": 1615}",
-   "error": null
-  },
-  {
-   "source_id": "exim_authorizations",
-   "status": "failed",
-   "finished_at": "2026-10-01T21:27:59+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: no CSV resource found for EXIM authorizations on data.gov (API and HTML); set EXIM_FILE_URL to the current CSV"
-  },
-  {
-   "source_id": "unga_votes",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:34+00:00",
-   "rows": "{\"governance\": 2409}",
-   "error": null
-  },
-  {
-   "source_id": "wb_pink_sheet",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:31+00:00",
-   "rows": "{\"price\": 3200}",
-   "error": null
-  },
-  {
    "source_id": "dfc_projects",
    "status": "ok",
    "finished_at": "2026-10-01T21:00:06+00:00",
@@ -110,11 +110,11 @@
    "error": null
   },
   {
-   "source_id": "idb_dpi",
-   "status": "failed",
-   "finished_at": "2026-10-01T21:27:51+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: DPI: every resource download failed (set DPI_FILE_URL to a working link): https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: still 202 (file not ready) after 8 attempts | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True: still 202 (file not ready) after 8 attempts"
+   "source_id": "un_comtrade",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:23:59+00:00",
+   "rows": "{\"trade_flow\": 14274}",
+   "error": null
   },
   {
    "source_id": "vdem",
@@ -126,7 +126,7 @@
   {
    "source_id": "wb_wgi",
    "status": "ok",
-   "finished_at": "2026-10-01T21:08:01+00:00",
+   "finished_at": "2026-10-01T21:31:52+00:00",
    "rows": "{\"governance\": 0}",
    "error": null
   }
