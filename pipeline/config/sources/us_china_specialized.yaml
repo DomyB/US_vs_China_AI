@@ -1,0 +1,721 @@
+# Source registry: United States (7b), China (7c), China-Latin America
+# databases (7d), prices (7f), regional (7g), companies and ownership (7e).
+sources:
+  # ---- United States (7b)
+  - id: doe_critical_materials
+    name: DOE Critical Materials List (2023, amended 2025)
+    url: https://www.federalregister.gov/documents/2023/08/04/2023-16611/notice-of-final-determination-on-2023-doe-critical-materials-list
+    category: policy
+    scope: US
+    reliability: official
+    license: public domain
+    access: html
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: annual
+    coverage_from: 2023
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+  - id: us_census_trade
+    name: US Census Bureau International Trade API
+    url: https://usatrade.census.gov
+    api_url: https://api.census.gov/data/timeseries/intltrade
+    category: trade
+    scope: US
+    reliability: official
+    license: public domain
+    access: api
+    auth: "Optional free key; unkeyed use capped per IP"
+    update_frequency: monthly
+    refresh_schedule: monthly
+    coverage_from: 2013
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Monthly HS10 by partner country; the US-side mirror for every South American reporter."
+  - id: dfc_projects
+    name: US International Development Finance Corporation, active projects
+    url: https://www.dfc.gov/what-we-do/active-projects
+    category: finance
+    scope: US
+    reliability: official
+    license: public domain
+    access: bulk
+    auth: none
+    update_frequency: quarterly
+    refresh_schedule: quarterly
+    coverage_from: 2019
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Quarterly XLSX, no API; snapshots are diffed. OPIC legacy commitments appear in earlier files."
+  - id: exim_authorizations
+    name: Export-Import Bank of the United States, authorizations
+    url: https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-12-31-2022
+    category: finance
+    scope: US
+    reliability: official
+    license: public domain
+    access: bulk
+    auth: none
+    update_frequency: quarterly
+    refresh_schedule: quarterly
+    coverage_from: 2007
+    coverage_to: 2025
+    language: en
+    status: moved
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "data.exim.gov closed Sept 2023; the data.gov CSV title is stale but the file runs to FY2025."
+  - id: usaspending
+    name: USAspending.gov API
+    url: https://www.usaspending.gov
+    api_url: https://api.usaspending.gov/api/v2/
+    category: finance
+    scope: US
+    reliability: official
+    license: public domain
+    access: api
+    auth: none
+    update_frequency: daily
+    refresh_schedule: monthly
+    coverage_from: 2008
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Limited minerals relevance; DoD and DOE awards with foreign place of performance."
+  - id: state_msp_forge
+    name: US State Department, Minerals Security Partnership (2022-2025) and FORGE (2026-)
+    url: https://2021-2025.state.gov/minerals-security-partnership/
+    category: diplomacy
+    scope: US
+    reliability: official
+    license: public domain
+    access: html
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: weekly
+    coverage_from: 2022
+    coverage_to: 2026
+    language: en
+    status: moved
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "MSP superseded in Feb 2026 by the Forum on Resource Geostrategic Engagement (FORGE); MSP pages live only in the 2021-2025 archive."
+  - id: us_embassies
+    name: US embassy press releases (ar, bo, br, cl, co, ec, gy, py, pe, sr, uy, ve .usembassy.gov)
+    url: https://ar.usembassy.gov/news/
+    category: diplomacy
+    scope: US
+    reliability: official
+    license: public domain
+    access: rss
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: weekly
+    coverage_from: 2010
+    coverage_to: 2026
+    language: multi
+    status: uncertain
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "WordPress platform, so /feed/ RSS is likely but unverified; tested in the first Actions run."
+  - id: congress_gov
+    name: Congress.gov API v3
+    url: https://api.congress.gov/
+    api_url: https://api.congress.gov/v3
+    category: legislature
+    scope: US
+    reliability: official
+    license: public domain
+    access: api
+    auth: "Free key; 5,000 requests/hour"
+    update_frequency: continuous
+    refresh_schedule: weekly
+    coverage_from: 1973
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: github
+    notes: "Bills, hearings, CRS reports, House votes (beta)."
+  - id: federal_register
+    name: Federal Register API
+    url: https://www.federalregister.gov
+    api_url: https://www.federalregister.gov/api/v1
+    category: policy
+    scope: US
+    reliability: official
+    license: public domain
+    access: api
+    auth: none
+    update_frequency: daily
+    refresh_schedule: weekly
+    coverage_from: 1994
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Executive orders, Section 232 proclamations (critical minerals Apr 2025; copper Jul 2025), list notices."
+  # ---- China (7c)
+  - id: mofcom_ofdi_bulletin
+    name: MOFCOM Statistical Bulletin of China's Outward Foreign Direct Investment
+    url: http://fec.mofcom.gov.cn
+    category: investment
+    scope: CN
+    reliability: official
+    license: "Chinese government terms"
+    access: pdf
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 2003
+    coverage_to: 2024
+    language: zh
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "State source. Most outward FDI is attributed to Hong Kong and offshore centres; English edition lags."
+  - id: gacc_customs
+    name: General Administration of Customs of China, trade statistics
+    url: https://stats.customs.gov.cn
+    category: trade
+    scope: CN
+    reliability: official
+    license: "Not stated"
+    access: html
+    auth: none
+    update_frequency: monthly
+    refresh_schedule: quarterly
+    coverage_from: 2017
+    coverage_to: 2026
+    language: zh
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "State source; query UI with XLSX export per query, no API or bulk. China-reported data in UN Comtrade is the primary proxy; GACC used for spot cross-checks."
+  - id: mofcom_export_controls
+    name: MOFCOM export-control announcements (gallium/germanium 2023 No. 23; graphite 2023 No. 39; antimony 2024 No. 33; rare earths 2025 No. 18; Oct 2025 Nos. 55-62; suspension No. 70)
+    url: http://www.mofcom.gov.cn
+    category: policy
+    scope: CN
+    reliability: official
+    license: "Chinese government terms"
+    access: html
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: weekly
+    coverage_from: 2023
+    coverage_to: 2026
+    language: zh
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "State source. Each control and each suspension is recorded as a dated event."
+  - id: cn_embassies
+    name: Chinese embassy statements (<cc>.china-embassy.gov.cn/esp/sgxw/)
+    url: https://ar.china-embassy.gov.cn/esp/sgxw/
+    category: diplomacy
+    scope: CN
+    reliability: state_media
+    license: "Not stated"
+    access: html
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: weekly
+    coverage_from: 2010
+    coverage_to: 2026
+    language: es
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "URL pattern confirmed for Argentina; Portuguese (/por/) for Brazil, English (/eng/) for Guyana and Suriname assumed and tested in Phase 2."
+  - id: xinhua_es
+    name: Xinhua (Spanish service)
+    url: http://spanish.xinhuanet.com
+    api_url: http://spanish.xinhuanet.com/rss/rss.html
+    category: press
+    scope: CN
+    reliability: state_media
+    license: "Copyright Xinhua; headlines and links only"
+    access: rss
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: daily
+    coverage_from: 2008
+    coverage_to: 2026
+    language: es
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "State-controlled media. RSS feeds include China-Iberoamérica."
+  - id: peoples_daily_es
+    name: People's Daily (Spanish edition)
+    url: http://spanish.people.com.cn
+    category: press
+    scope: CN
+    reliability: state_media
+    license: "Copyright; headlines and links only"
+    access: html
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: daily
+    coverage_from: 2008
+    coverage_to: 2026
+    language: es
+    status: uncertain
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "State-controlled media. RSS availability unverified."
+  # ---- China-Latin America databases (7d)
+  - id: bu_codf
+    name: Boston University GDP Center, China's Overseas Development Finance Database
+    url: https://www.bu.edu/gdp/chinas-overseas-development-finance/
+    category: finance
+    scope: CN
+    reliability: independent_academic
+    license: "Free after signed data-use agreement; non-commercial; cite"
+    access: bulk
+    auth: "Signed DUA"
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 2008
+    coverage_to: 2024
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Replaces the archived BU/Inter-American Dialogue 'Chinese Loans to Latin America' database (last data 2023). CDB and China Exim loans to sovereign and public borrowers only."
+  - id: bu_iad_cllac
+    name: BU GDP Center and Inter-American Dialogue, Chinese Loans to Latin America and the Caribbean (archived)
+    url: https://www.bu.edu/gdp/china-latin-america-finance-database-data-download/
+    category: finance
+    scope: CN
+    reliability: independent_academic
+    license: "Cite BU/IAD"
+    access: bulk
+    auth: none
+    update_frequency: none
+    refresh_schedule: none
+    coverage_from: 2005
+    coverage_to: 2023
+    language: en
+    status: dead
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Archived Feb 2025. Historical file retained for 2005-2023; superseded by bu_codf."
+  - id: aiddata_gcdf
+    name: AidData Global Chinese Development Finance Dataset v3.0
+    url: https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0
+    category: finance
+    scope: CN
+    reliability: independent_academic
+    license: "Free with citation"
+    access: bulk
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: annual
+    coverage_from: 2000
+    coverage_to: 2021
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "20,985 projects; commitments 2000-2021, implementation to 2023; geospatial companion dataset."
+  - id: aei_cgit
+    name: AEI / Heritage Foundation China Global Investment Tracker
+    url: https://www.aei.org/china-global-investment-tracker/
+    category: investment
+    scope: CN
+    reliability: analysis
+    license: "Free for public use with citation"
+    access: bulk
+    auth: none
+    update_frequency: semi-annual
+    refresh_schedule: semi-annual
+    coverage_from: 2005
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Think-tank compiled from press and filings; US$100m threshold. Labeled analysis-sourced data."
+  - id: redalc_china_monitor
+    name: Red ALC-China, Monitor de la OFDI china en América Latina y el Caribe
+    url: https://www.redalc-china.org/monitor/
+    category: investment
+    scope: CN
+    reliability: independent_academic
+    license: "Copyright UNAM / Red ALC-China; cite"
+    access: pdf
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 2000
+    coverage_to: 2024
+    language: es
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "678 transactions 2000-2024 in the 2025 edition; 2026 edition exists. Transaction table format to confirm."
+  - id: dialogue_earth
+    name: Dialogue Earth (formerly Diálogo Chino)
+    url: https://dialogue.earth/es/
+    category: press
+    scope: international
+    reliability: independent_academic
+    license: "CC BY-NC-ND (to confirm); headlines and links only"
+    access: rss
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: daily
+    coverage_from: 2014
+    coverage_to: 2026
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Rebranded 2024; RSS likely at /es/feed/."
+  - id: iad_chinese_investment_repository
+    name: Inter-American Dialogue, Regional Repository of Chinese Investments in Latin America
+    url: https://thedialogue.org/analysis/launch-of-the-regional-repository-of-chinese-investments-in-latin-america
+    category: investment
+    scope: CN
+    reliability: analysis
+    license: "Uncertain"
+    access: bulk
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: annual
+    coverage_from: 2000
+    coverage_to: 2024
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Georeferenced; eight countries (AR, BO, BR, CL, EC, PY, PE, UY). Candidate for the project map."
+  - id: think_tanks
+    name: Think-tank analysis (CSIS, Atlantic Council, Inter-American Dialogue, CFR)
+    url: https://www.csis.org/programs/americas-program
+    category: analysis
+    scope: international
+    reliability: analysis
+    license: "Copyright; cited, not ingested as data"
+    access: html
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: none
+    coverage_from: 2008
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Qualitative context only; labeled analysis."
+  # ---- Prices (7f)
+  - id: wb_pink_sheet
+    name: World Bank Commodity Price Data (Pink Sheet)
+    url: https://www.worldbank.org/en/research/commodity-markets
+    category: prices
+    scope: international
+    reliability: official
+    license: CC BY 4.0
+    access: bulk
+    auth: none
+    update_frequency: monthly
+    refresh_schedule: monthly
+    coverage_from: 1960
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Copper, nickel, tin, silver, aluminium, iron ore, lead, zinc. No lithium, cobalt, rare earths or graphite."
+  - id: imf_pcps
+    name: IMF Primary Commodity Price System
+    url: https://data.imf.org/en/datasets/IMF.STA:PCPS
+    category: prices
+    scope: international
+    reliability: official
+    license: "IMF terms"
+    access: api
+    auth: none
+    update_frequency: monthly
+    refresh_schedule: monthly
+    coverage_from: 1990
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: sdmx1
+    notes: "Includes cobalt and uranium; lithium inclusion to confirm."
+  - id: lme
+    name: London Metal Exchange public data
+    url: https://www.lme.com/market-data/accessing-market-data/historical-data
+    category: prices
+    scope: international
+    reliability: official
+    license: "LME data terms: delayed prices after free registration; no redistribution"
+    access: html
+    auth: "Free registration"
+    update_frequency: daily
+    refresh_schedule: none
+    coverage_from: 2021
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Spot-check only (lithium hydroxide CIF CJK); not stored or redistributed."
+  - id: lithium_price_proxy
+    name: Lithium price proxy (USGS annual average + customs unit values)
+    url: https://www.usgs.gov/centers/national-minerals-information-center/lithium-statistics-and-information
+    category: prices
+    scope: international
+    reliability: official
+    license: "Public domain (USGS); UN Comtrade terms"
+    access: derived
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 2008
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "No free licensed lithium benchmark exists. Unit values (value / quantity for HS 2836.91 and 2825.20) are labeled 'implicit realized price'."
+  # ---- Regional (7g)
+  - id: cepalstat
+    name: CEPAL / ECLAC CEPALSTAT
+    url: https://statistics.cepal.org/portal/cepalstat/
+    api_url: https://estadisticas.cepal.org/cepalstat/WEB_CEPALSTAT/openDataAPI.asp
+    category: macro
+    scope: regional
+    reliability: official
+    license: "ECLAC open data with attribution"
+    access: api
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: quarterly
+    coverage_from: 1990
+    coverage_to: 2025
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+  - id: eclac_fdi_report
+    name: ECLAC, Foreign Direct Investment in Latin America and the Caribbean (annual)
+    url: https://www.cepal.org/en/publications/type/foreign-direct-investment-latin-america-and-caribbean
+    category: investment
+    scope: regional
+    reliability: official
+    license: CC BY-IGO
+    access: pdf
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 2008
+    coverage_to: 2025
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "2025 edition includes a critical-minerals chapter."
+  - id: idb_integra
+    name: IDB INTEGRA (formerly INTrade) and IDB open data
+    url: https://integra.iadb.org
+    category: trade
+    scope: regional
+    reliability: official
+    license: "IDB open data"
+    access: html
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 2000
+    coverage_to: 2025
+    language: multi
+    status: moved
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "INTrade replaced by INTEGRA; CSV export; API uncertain."
+  - id: georgetown_sigla
+    name: Georgetown SIGLA (successor to the Political Database of the Americas)
+    url: https://sigla.georgetown.domains
+    category: governance
+    scope: regional
+    reliability: independent_academic
+    license: "Not stated"
+    access: html
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: annual
+    coverage_from: 2010
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "PDBA was decommissioned in 2010 (static archive)."
+  - id: international_idea
+    name: International IDEA data tools
+    url: https://www.idea.int/data-tools
+    category: governance
+    scope: international
+    reliability: independent_academic
+    license: "CC BY-NC-SA (to confirm)"
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1975
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+  # ---- Companies and ownership (7e)
+  - id: sec_edgar
+    name: SEC EDGAR (full-text search, submissions and XBRL APIs)
+    url: https://www.sec.gov/edgar
+    api_url: https://data.sec.gov
+    category: filings
+    scope: US
+    reliability: official
+    license: public domain
+    access: api
+    auth: "None; User-Agent with contact required; 10 requests/second"
+    update_frequency: continuous
+    refresh_schedule: weekly
+    coverage_from: 2001
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: github
+    python_package: edgartools
+    notes: "Albemarle, Freeport-McMoRan, SQM (20-F), Lithium Argentina (40-F) and other cross-listed issuers."
+  - id: sedar_plus
+    name: SEDAR+ (Canadian securities filings)
+    url: https://www.sedarplus.ca
+    category: filings
+    scope: other
+    reliability: official
+    license: "Terms of use prohibit scraping and database building"
+    access: html
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: none
+    coverage_from: 2023
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Never scraped. Canadian juniors covered through SEC cross-listings and company investor pages."
+  - id: hkexnews
+    name: HKEXnews (Hong Kong Exchange disclosures)
+    url: https://www1.hkexnews.hk
+    category: filings
+    scope: CN
+    reliability: official
+    license: "Terms (Aug 2025) ban scraping and text and data mining"
+    access: html
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: none
+    coverage_from: 2008
+    coverage_to: 2026
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Never scraped. Zijin, Ganfeng, CMOC, COSCO Shipping Ports announcements taken from company investor pages."
+  - id: cninfo
+    name: cninfo / Shanghai and Shenzhen exchange disclosures
+    url: http://www.cninfo.com.cn
+    category: filings
+    scope: CN
+    reliability: official
+    license: "Uncertain"
+    access: html
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: none
+    coverage_from: 2008
+    coverage_to: 2026
+    language: zh
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Spot use for A-share announcements (Tianqi, Ganfeng); undocumented endpoints."
+  - id: opencorporates
+    name: OpenCorporates
+    url: https://opencorporates.com
+    api_url: https://api.opencorporates.com
+    category: ownership
+    scope: international
+    reliability: independent_academic
+    license: "ODbL-style share-alike for free use"
+    access: api
+    auth: "Free tier 50 calls/day; public-benefit access by application"
+    update_frequency: continuous
+    refresh_schedule: quarterly
+    coverage_from: 2010
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Public-benefit application to be filed in Phase 2."
+  - id: icij_offshore_leaks
+    name: ICIJ Offshore Leaks Database
+    url: https://offshoreleaks.icij.org
+    api_url: https://offshoreleaks-data.icij.org/offshoreleaks/csv/full-oldb.LATEST.zip
+    category: ownership
+    scope: international
+    reliability: independent_academic
+    license: "ODbL 1.0 (database) and CC BY-SA 3.0 (contents)"
+    access: bulk
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: annual
+    coverage_from: 2013
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: github
+    notes: "Leads only, always corroborated. Snapshot July 2026."
+  # ---- Map data
+  - id: natural_earth
+    name: Natural Earth 1:10m admin-0 map units (v5)
+    url: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/
+    api_url: https://github.com/nvkelso/natural-earth-vector
+    category: geodata
+    scope: international
+    reliability: independent_academic
+    license: public domain
+    access: bulk
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: none
+    coverage_from: 2009
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: github
+    notes: "map_units keeps French Guiana as its own polygon (GUF)."

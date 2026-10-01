@@ -1,0 +1,417 @@
+# Source registry: international data (brief section 7a).
+# Field reference in pipeline/config/sources/README.md.
+sources:
+  - id: un_comtrade
+    name: UN Comtrade Plus
+    url: https://comtradeplus.un.org
+    api_url: https://comtradeapi.un.org
+    category: trade
+    scope: international
+    reliability: official
+    license: "UN data terms: free use with attribution; bulk redistribution restricted"
+    access: api
+    auth: "Free registered subscription key: 100,000 rows/call, 500 calls/day"
+    update_frequency: continuous
+    refresh_schedule: monthly
+    coverage_from: 1988
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: comtradeapicall
+    notes: "Primary trade source for all 12 countries (HS6, annual and monthly). China-reported data here is the proxy for GACC. Venezuela's own reports end around 2013; partner mirror data used after that."
+  - id: imf_imts
+    name: IMF International Merchandise Trade Statistics (IMTS, formerly Direction of Trade Statistics)
+    url: https://data.imf.org/en/datasets/IMF.STA:IMTS
+    api_url: https://api.imf.org/external/sdmx/3.0
+    category: trade
+    scope: international
+    reliability: official
+    license: "IMF data terms: free use with attribution"
+    access: api
+    auth: none
+    update_frequency: monthly
+    refresh_schedule: monthly
+    coverage_from: 1948
+    coverage_to: 2026
+    language: en
+    status: moved
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: sdmx1
+    notes: "Legacy DOTS portal retired Nov 2025; dataservices.imf.org no longer resolves. Bilateral totals used for cross-checks against Comtrade."
+  - id: wto_stats
+    name: WTO Stats / Timeseries API
+    url: https://stats.wto.org
+    api_url: https://api.wto.org/timeseries/v1
+    category: trade
+    scope: international
+    reliability: official
+    license: "WTO terms: free use with attribution"
+    access: api
+    auth: "Free subscription key"
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1948
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Tariffs and trade by product group; secondary."
+  - id: usgs_mcs
+    name: USGS Mineral Commodity Summaries
+    url: https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries
+    category: production
+    scope: international
+    reliability: official
+    license: public domain
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1996
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "2026 edition (data year 2025) released Feb 2026 with CSV/XLSX data release. World mine production and reserves by country; annual average prices (used for lithium)."
+  - id: usgs_myb_latam
+    name: USGS Minerals Yearbook, Volume III, Latin America and Canada
+    url: https://www.usgs.gov/centers/national-minerals-information-center/latin-america-and-canada-north-america-central-america
+    category: production
+    scope: international
+    reliability: official
+    license: public domain
+    access: pdf
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1994
+    coverage_to: 2022
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Country chapters with ownership structure; two to three year lag (2022 tables released, 2023 partial)."
+  - id: usgs_critical_minerals_list
+    name: USGS Final 2025 List of Critical Minerals
+    url: https://www.federalregister.gov/documents/2025/11/07/2025-19813/final-2025-list-of-critical-minerals
+    category: policy
+    scope: US
+    reliability: official
+    license: public domain
+    access: html
+    auth: none
+    update_frequency: triennial
+    refresh_schedule: annual
+    coverage_from: 2018
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "60 minerals; copper, silver, potash, phosphate, uranium and others added in 2025."
+  - id: bgs_wms
+    name: British Geological Survey World Mineral Statistics
+    url: https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/
+    api_url: https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics
+    category: production
+    scope: international
+    reliability: official
+    license: "UK Open Government Licence"
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1970
+    coverage_to: 2023
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Independent cross-check for USGS production figures; OGC API in beta."
+  - id: unctad_wir
+    name: UNCTAD World Investment Report and UNCTADstat
+    url: https://unctadstat.unctad.org/datacentre/
+    category: investment
+    scope: international
+    reliability: official
+    license: "UNCTAD open terms with attribution"
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1970
+    coverage_to: 2024
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "FDI totals only; bilateral FDI series discontinued after 2012."
+  - id: wb_wdi
+    name: World Bank World Development Indicators
+    url: https://data.worldbank.org
+    api_url: https://api.worldbank.org/v2
+    category: macro
+    scope: international
+    reliability: official
+    license: CC BY 4.0
+    access: api
+    auth: none
+    update_frequency: quarterly
+    refresh_schedule: quarterly
+    coverage_from: 1960
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: wbgapi
+  - id: wb_ids
+    name: World Bank International Debt Statistics (creditor-level)
+    url: https://datatopics.worldbank.org/debt/ids/
+    api_url: https://api.worldbank.org/v2/sources/6
+    category: finance
+    scope: international
+    reliability: official
+    license: CC BY 4.0
+    access: api
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1970
+    coverage_to: 2024
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: wbgapi
+    notes: "Public and publicly guaranteed debt by creditor country (China = counterpart 730). Covers 10 of 12 countries; Chile and Uruguay are not IDS reporters."
+  - id: imf_dip
+    name: IMF Direct Investment Positions by Counterpart Economy (DIP, formerly CDIS)
+    url: https://data.imf.org/en/datasets/IMF.STA:DIP
+    api_url: https://api.imf.org/external/sdmx/3.0
+    category: investment
+    scope: international
+    reliability: official
+    license: "IMF data terms"
+    access: api
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 2009
+    coverage_to: 2024
+    language: en
+    status: moved
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: sdmx1
+    notes: "Chinese FDI is often routed through Hong Kong and offshore centres; paired with MOFCOM and AEI CGIT."
+  - id: eiti
+    name: Extractive Industries Transparency Initiative (EITI)
+    url: https://eiti.org/countries
+    category: transparency
+    scope: international
+    countries: [ARG, COL, ECU, GUY, PER, SUR]
+    reliability: official
+    license: "EITI Open Data Policy"
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: quarterly
+    coverage_from: 2012
+    coverage_to: 2024
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Six South American implementing countries. Suriname suspended Mar 2025, lifted mid-2025. Brazil, Chile, Bolivia, Venezuela, Paraguay, Uruguay are not members. Beneficial ownership disclosures via Opening Extractives."
+  - id: resourcecontracts
+    name: ResourceContracts.org
+    url: https://www.resourcecontracts.org
+    api_url: https://api.resourcecontracts.org
+    category: contracts
+    scope: international
+    reliability: independent_academic
+    license: "Open (NRGI/CCSI/World Bank); contract texts public"
+    access: api
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: quarterly
+    coverage_from: 2000
+    coverage_to: 2025
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: github
+    notes: "3,343 published contracts across 107 countries, including Peru, Colombia, Ecuador, Guyana and Argentine provinces."
+  - id: wb_wgi
+    name: World Bank Worldwide Governance Indicators
+    url: https://www.govindicators.org
+    api_url: https://api.worldbank.org/v2/sources/3
+    category: governance
+    scope: international
+    reliability: official
+    license: CC BY 4.0
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1996
+    coverage_to: 2024
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+  - id: vdem
+    name: V-Dem Dataset v16
+    url: https://www.v-dem.net/data/the-v-dem-dataset/
+    category: governance
+    scope: international
+    reliability: independent_academic
+    license: CC BY-SA 4.0
+    access: bulk
+    auth: "Free registration"
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1789
+    coverage_to: 2025
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: github
+    notes: "No Python package; CSV loaded directly. v16 released March 2026."
+  - id: idb_dpi
+    name: IDB Database of Political Institutions 2023
+    url: https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023
+    category: governance
+    scope: international
+    reliability: official
+    license: "IDB open data"
+    access: bulk
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: annual
+    coverage_from: 1975
+    coverage_to: 2023
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "2023 edition published March 2026 (the brief assumed 2020). Government ideology; extended 2024-2026 by hand from sourced election outcomes."
+  - id: unga_votes
+    name: United Nations General Assembly Voting Data (Bailey, Strezhnev, Voeten)
+    url: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/LEJUQZ
+    category: governance
+    scope: international
+    reliability: independent_academic
+    license: "CC0 (Harvard Dataverse)"
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1946
+    coverage_to: 2024
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Ideal points and dyadic agreement with the US and China. Raw votes for recent sessions via UNGA-DM (unvotes.unige.ch)."
+  - id: gdelt
+    name: GDELT 2.0 (Events, Global Knowledge Graph, DOC API)
+    url: https://www.gdeltproject.org/data.html
+    api_url: https://api.gdeltproject.org/api/v2/doc/doc
+    category: events
+    scope: international
+    reliability: independent_academic
+    license: "Open with attribution"
+    access: bulk
+    auth: none
+    update_frequency: 15 minutes
+    refresh_schedule: daily
+    coverage_from: 2015
+    coverage_to: 2026
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: gdeltdoc
+    notes: "Machine-coded and noisy; used for volume and tone context, never as a primary count. Raw files used instead of BigQuery to stay at $0. Events 1.0 from 1979 is cruder."
+  - id: acled
+    name: ACLED (Armed Conflict Location and Event Data)
+    url: https://acleddata.com
+    category: events
+    scope: international
+    reliability: independent_academic
+    license: "ACLED Terms of Use: free research access, attribution, no redistribution"
+    access: api
+    auth: "Free registered account; OAuth since Sept 2025; download caps"
+    update_frequency: weekly
+    refresh_schedule: monthly
+    coverage_from: 2018
+    coverage_to: 2026
+    language: en
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    python_package: acled
+    notes: "Latin America coverage starts 2018."
+  - id: mediacloud
+    name: Media Cloud
+    url: https://search.mediacloud.org
+    api_url: https://search.mediacloud.org/api
+    category: media
+    scope: international
+    reliability: independent_academic
+    license: "Terms of use; counts and URLs only, no article text"
+    access: api
+    auth: "Free key; 4,000 requests/week"
+    update_frequency: continuous
+    refresh_schedule: daily
+    coverage_from: 2008
+    coverage_to: 2026
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: github
+    python_package: mediacloud
+    notes: "National collections for Spanish and Portuguese outlets; density varies by country and year."
+  - id: ejatlas
+    name: Environmental Justice Atlas (EJAtlas)
+    url: https://ejatlas.org
+    category: conflict
+    scope: international
+    reliability: independent_academic
+    license: CC BY-NC-SA 3.0
+    access: html
+    auth: "Bulk CSV only by approved request"
+    update_frequency: continuous
+    refresh_schedule: quarterly
+    coverage_from: 2012
+    coverage_to: 2026
+    language: multi
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "No API; scraping discouraged. Bulk request to be submitted in Phase 2."
+  - id: ocmal
+    name: OCMAL, Observatorio de Conflictos Mineros de América Latina
+    url: https://mapa.conflictosmineros.net/ocmal_db-v2/
+    category: conflict
+    scope: international
+    reliability: partisan
+    license: "Not stated"
+    access: html
+    auth: none
+    update_frequency: irregular
+    refresh_schedule: quarterly
+    coverage_from: 2010
+    coverage_to: 2026
+    language: es
+    status: live
+    verified_on: 2026-10-01
+    verified_method: search
+    notes: "Activist network; labeled partisan. Complement to EJAtlas."

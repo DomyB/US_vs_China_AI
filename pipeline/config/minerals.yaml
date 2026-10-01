@@ -1,0 +1,156 @@
+# Mineral list for the platform. Configurable: add or remove entries here;
+# the pipeline, the UI filter and the methodology page all read this file.
+#
+# on_us_list  : on the USGS 2025 Final List of Critical Minerals (60 minerals;
+#               Federal Register 2025-19813, 7 Nov 2025) or the DOE Critical
+#               Materials List (2023, amended May 2025).
+# on_cn_list  : on China's 2016 "strategic minerals" catalogue (24 minerals,
+#               National Mineral Resources Plan 2016-2020) or subject to Chinese
+#               export controls (2023-2025).
+# in_region   : produced or actively explored in at least one South American
+#               country (source noted).
+# core        : included in the default UI filter set from the brief.
+
+minerals:
+  - id: lithium
+    name: Lithium
+    core: true
+    on_us_list: true
+    on_cn_list: true
+    in_region: [ARG, BOL, CHL, BRA, PER]
+    note: "Lithium Triangle (ARG, BOL, CHL); Brazil hard-rock (Minas Gerais); Peru (Falchani) exploration."
+  - id: copper
+    name: Copper
+    core: true
+    on_us_list: true   # added in the 2025 list
+    on_cn_list: true
+    in_region: [CHL, PER, ECU, ARG, BRA, COL, BOL]
+    note: "Chile and Peru are the world's two largest producers (USGS MCS 2026)."
+  - id: rare_earths
+    name: Rare earth elements
+    core: true
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BRA, CHL, ARG, PRY]
+    note: "Brazil ionic-clay projects (Goiás, Minas Gerais); Paraguay prospecting."
+  - id: niobium
+    name: Niobium
+    core: true
+    on_us_list: true
+    on_cn_list: false
+    in_region: [BRA]
+    note: "Brazil supplies ~90% of world output (CBMM, CMOC)."
+  - id: graphite
+    name: Graphite (natural)
+    core: true
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BRA]
+    note: "Brazil is a top-3 producer; Chinese export controls from Dec 2023."
+  - id: nickel
+    name: Nickel
+    core: true
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BRA, COL, GUY, VEN]
+    note: "Brazil (Anglo American Barro Alto), Colombia (Cerro Matoso)."
+  - id: tin
+    name: Tin
+    core: true
+    on_us_list: true
+    on_cn_list: true
+    in_region: [PER, BOL, BRA]
+    note: "Peru (Minsur San Rafael), Bolivia (Huanuni, Vinto), Brazil (Rondônia)."
+  - id: silver
+    name: Silver
+    core: true
+    on_us_list: true   # added in the 2025 list
+    on_cn_list: false
+    in_region: [PER, BOL, CHL, ARG]
+    note: "Peru and Bolivia are top-5 producers."
+  - id: molybdenum
+    name: Molybdenum
+    core: true
+    on_us_list: false
+    on_cn_list: true
+    in_region: [CHL, PER]
+    note: "By-product of porphyry copper."
+  # Additional minerals on the US or Chinese lists with regional production or
+  # exploration. Not in the default filter set but ingested.
+  - id: cobalt
+    name: Cobalt
+    core: false
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BRA]
+    note: "Brazil (Piauí Nickel-Cobalt, Vale Onça Puma by-product)."
+  - id: manganese
+    name: Manganese
+    core: false
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BRA, GUY]
+    note: "Brazil (Azul, Urucum); Guyana (Matthews Ridge, Bosai/GMI)."
+  - id: bauxite_aluminum
+    name: Bauxite / aluminium
+    core: false
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BRA, GUY, SUR, VEN]
+    note: "Guyana (Bosai, Linden), Suriname (historic Alcoa), Brazil (MRN, Hydro)."
+  - id: uranium
+    name: Uranium
+    core: false
+    on_us_list: true   # added in the 2025 list
+    on_cn_list: true
+    in_region: [BRA, ARG, PRY, PER]
+    note: "Brazil (INB Caetité); Peru (Macusani); Paraguay (Caazapá) exploration."
+  - id: tungsten
+    name: Tungsten
+    core: false
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BOL, BRA, PER]
+    note: "Bolivia (La Paz department)."
+  - id: zinc
+    name: Zinc
+    core: false
+    on_us_list: true
+    on_cn_list: false
+    in_region: [PER, BOL, BRA]
+    note: "Peru is a top-3 producer; included because Chinese smelters are major buyers of concentrate."
+  - id: gold
+    name: Gold
+    core: false
+    on_us_list: false
+    on_cn_list: true
+    in_region: [PER, BRA, COL, GUY, SUR, VEN, ECU, ARG, CHL, BOL]
+    note: "Not on the US list; on China's strategic list. Included as context for Chinese mining presence (Zijin in Suriname, Colombia, Guyana; Arco Minero in Venezuela)."
+  - id: phosphate_potash
+    name: Phosphate / potash
+    core: false
+    on_us_list: true   # phosphate and potash added in the 2025 list
+    on_cn_list: true
+    in_region: [BRA, PER]
+    note: "Brazil (CMOC phosphate, Mosaic); Peru (Bayóvar)."
+  - id: iron_ore
+    name: Iron ore
+    core: false
+    on_us_list: false
+    on_cn_list: true
+    in_region: [BRA, PER, CHL, VEN]
+    note: "Not on US list; on China's strategic list and the largest China–Brazil mineral flow by value (Vale). Included as a denominator for shares."
+  - id: titanium
+    name: Titanium
+    core: false
+    on_us_list: true
+    on_cn_list: false
+    in_region: [PRY, BRA]
+    note: "Paraguay (Alto Paraná deposit, pilot stage)."
+  - id: gallium_germanium_antimony
+    name: Gallium, germanium, antimony
+    core: false
+    on_us_list: true
+    on_cn_list: true
+    in_region: [BOL]
+    note: "Bolivia produces antimony; grouped because the Chinese export controls of 2023-2024 covered them together."

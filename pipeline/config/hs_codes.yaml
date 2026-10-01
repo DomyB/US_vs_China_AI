@@ -1,0 +1,206 @@
+# Explicit HS6 to mineral mapping (HS 2017 / HS 2022; none of these subheadings
+# changed between editions). Verified against UNSD classification detail pages
+# during Phase 0 (see docs/PHASE0_PLAN.md section 2.2).
+#
+# stage: ore | concentrate | intermediate | refined | product
+# Codes marked shared=true cover more than one mineral or product and are
+# labeled as such in the UI.
+
+hs_codes:
+  # Lithium
+  - hs6: "283691"
+    mineral: lithium
+    stage: intermediate
+    description: "Lithium carbonates"
+  - hs6: "282520"
+    mineral: lithium
+    stage: intermediate
+    description: "Lithium oxide and hydroxide"
+    shared: true
+    note: "Oxide and hydroxide share one subheading; cannot separate LiOH."
+  - hs6: "280519"
+    mineral: lithium
+    stage: refined
+    description: "Alkali metals other than sodium (includes lithium metal)"
+    shared: true
+  - hs6: "253090"
+    mineral: lithium
+    stage: ore
+    description: "Mineral substances n.e.s. (spodumene concentrate is commonly declared here)"
+    shared: true
+    note: "There is no dedicated HS6 code for lithium ores; flows under 2530.90 are a noisy proxy and are labeled as such."
+  # Copper
+  - hs6: "260300"
+    mineral: copper
+    stage: concentrate
+    description: "Copper ores and concentrates"
+  - hs6: "740311"
+    mineral: copper
+    stage: refined
+    description: "Refined copper cathodes and sections of cathodes"
+  - hs6: "740200"
+    mineral: copper
+    stage: intermediate
+    description: "Unrefined copper; copper anodes for electrolytic refining"
+  - hs6: "740319"
+    mineral: copper
+    stage: refined
+    description: "Refined copper, other"
+  # Rare earths
+  - hs6: "284610"
+    mineral: rare_earths
+    stage: intermediate
+    description: "Cerium compounds"
+  - hs6: "284690"
+    mineral: rare_earths
+    stage: intermediate
+    description: "Compounds of rare-earth metals, other"
+  - hs6: "280530"
+    mineral: rare_earths
+    stage: refined
+    description: "Rare-earth metals, scandium and yttrium"
+  - hs6: "850511"
+    mineral: rare_earths
+    stage: product
+    description: "Permanent magnets of metal (includes NdFeB)"
+    shared: true
+  # Niobium
+  - hs6: "261590"
+    mineral: niobium
+    stage: concentrate
+    description: "Niobium, tantalum or vanadium ores and concentrates"
+    shared: true
+  - hs6: "720293"
+    mineral: niobium
+    stage: intermediate
+    description: "Ferro-niobium"
+  # Graphite
+  - hs6: "250410"
+    mineral: graphite
+    stage: concentrate
+    description: "Natural graphite in powder or flakes"
+  - hs6: "250490"
+    mineral: graphite
+    stage: concentrate
+    description: "Natural graphite, other"
+  # Nickel
+  - hs6: "260400"
+    mineral: nickel
+    stage: concentrate
+    description: "Nickel ores and concentrates"
+  - hs6: "750110"
+    mineral: nickel
+    stage: intermediate
+    description: "Nickel mattes"
+  - hs6: "750210"
+    mineral: nickel
+    stage: refined
+    description: "Unwrought nickel, not alloyed"
+  - hs6: "720260"
+    mineral: nickel
+    stage: intermediate
+    description: "Ferro-nickel"
+  # Tin
+  - hs6: "260900"
+    mineral: tin
+    stage: concentrate
+    description: "Tin ores and concentrates"
+  - hs6: "800110"
+    mineral: tin
+    stage: refined
+    description: "Unwrought tin, not alloyed"
+  # Silver
+  - hs6: "261610"
+    mineral: silver
+    stage: concentrate
+    description: "Silver ores and concentrates"
+  - hs6: "710691"
+    mineral: silver
+    stage: refined
+    description: "Silver, unwrought"
+  # Molybdenum
+  - hs6: "261310"
+    mineral: molybdenum
+    stage: concentrate
+    description: "Molybdenum ores and concentrates, roasted"
+  - hs6: "261390"
+    mineral: molybdenum
+    stage: concentrate
+    description: "Molybdenum ores and concentrates, other"
+  # Cobalt
+  - hs6: "260500"
+    mineral: cobalt
+    stage: concentrate
+    description: "Cobalt ores and concentrates"
+  # Manganese
+  - hs6: "260200"
+    mineral: manganese
+    stage: concentrate
+    description: "Manganese ores and concentrates"
+  # Bauxite / aluminium
+  - hs6: "260600"
+    mineral: bauxite_aluminum
+    stage: ore
+    description: "Aluminium ores and concentrates (bauxite)"
+  - hs6: "281820"
+    mineral: bauxite_aluminum
+    stage: intermediate
+    description: "Aluminium oxide (alumina), other than artificial corundum"
+  # Uranium
+  - hs6: "261210"
+    mineral: uranium
+    stage: concentrate
+    description: "Uranium ores and concentrates"
+  # Tungsten
+  - hs6: "261100"
+    mineral: tungsten
+    stage: concentrate
+    description: "Tungsten ores and concentrates"
+  # Zinc
+  - hs6: "260800"
+    mineral: zinc
+    stage: concentrate
+    description: "Zinc ores and concentrates"
+  # Gold
+  - hs6: "710812"
+    mineral: gold
+    stage: refined
+    description: "Gold, non-monetary, unwrought"
+  - hs6: "261690"
+    mineral: gold
+    stage: concentrate
+    description: "Precious-metal ores and concentrates, other than silver"
+    shared: true
+  # Phosphate / potash
+  - hs6: "251010"
+    mineral: phosphate_potash
+    stage: ore
+    description: "Natural calcium phosphates, unground"
+  - hs6: "251020"
+    mineral: phosphate_potash
+    stage: ore
+    description: "Natural calcium phosphates, ground"
+  # Iron ore
+  - hs6: "260111"
+    mineral: iron_ore
+    stage: concentrate
+    description: "Iron ores and concentrates, non-agglomerated"
+  - hs6: "260112"
+    mineral: iron_ore
+    stage: concentrate
+    description: "Iron ores and concentrates, agglomerated"
+  # Titanium
+  - hs6: "261400"
+    mineral: titanium
+    stage: concentrate
+    description: "Titanium ores and concentrates"
+  # Gallium / germanium / antimony
+  - hs6: "261710"
+    mineral: gallium_germanium_antimony
+    stage: concentrate
+    description: "Antimony ores and concentrates"
+  - hs6: "811292"
+    mineral: gallium_germanium_antimony
+    stage: refined
+    description: "Unwrought gallium, germanium, indium, niobium, rhenium, vanadium; waste and scrap"
+    shared: true
