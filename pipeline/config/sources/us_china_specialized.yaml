@@ -58,7 +58,7 @@ sources:
     notes: "Quarterly XLSX, no API; snapshots are diffed. OPIC legacy commitments appear in earlier files."
   - id: exim_authorizations
     name: Export-Import Bank of the United States, authorizations
-    url: https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-12-31-2022
+    url: https://catalog.data.gov/organization/exim-gov
     category: finance
     scope: US
     reliability: official
@@ -73,7 +73,7 @@ sources:
     status: moved
     verified_on: 2026-10-01
     verified_method: search
-    notes: "data.exim.gov closed Sept 2023; the data.gov CSV title is stale but the file runs to FY2025."
+    notes: "data.exim.gov closed Sept 2023. The dataset id changes with each refresh (the old 'thru-12-31-2022' id returned 404 on 2026-10-01), so the adapter discovers the current package through the data.gov search API."
   - id: usaspending
     name: USAspending.gov API
     url: https://www.usaspending.gov
@@ -443,7 +443,7 @@ sources:
     notes: "Copper, nickel, tin, silver, aluminium, iron ore, lead, zinc. No lithium, cobalt, rare earths or graphite."
   - id: imf_pcps
     name: IMF Primary Commodity Price System
-    url: https://data.imf.org/en/datasets/IMF.STA:PCPS
+    url: https://data.imf.org/en/datasets/IMF.RES:PCPS
     category: prices
     scope: international
     reliability: official
@@ -455,11 +455,11 @@ sources:
     coverage_from: 1990
     coverage_to: 2026
     language: en
-    status: live
+    status: uncertain
     verified_on: 2026-10-01
-    verified_method: search
+    verified_method: direct
     python_package: sdmx1
-    notes: "Includes cobalt and uranium; lithium inclusion to confirm."
+    notes: "Includes cobalt and uranium; lithium inclusion to confirm. The IMF.STA:PCPS path returned 404 on the first direct check (2026-10-01); IMF.RES:PCPS is the current dataset id to confirm."
   - id: lme
     name: London Metal Exchange public data
     url: https://www.lme.com/market-data/accessing-market-data/historical-data

@@ -5,6 +5,17 @@ import { ReliabilityBadge } from "@/components/ui/Badges";
 import { COUNTRY_NAMES, prettyLabel } from "@/lib/constants";
 import type { SourceEntry } from "@/lib/types";
 
+function livenessLabel(lv: NonNullable<SourceEntry["liveness"]>): string {
+  if (lv.ok || lv.api_ok) return "reachable";
+  if (lv.status === 403 || lv.status === 401) return "blocks automated clients (403)";
+  if (lv.status === 404) return "404 at registry URL";
+  if (lv.error) {
+    const kind = lv.error.split(":")[0];
+    return { SSLError: "TLS error (site certificate)", ConnectTimeout: "timeout", ConnectionError: "connection refused" }[kind] ?? kind;
+  }
+  return `HTTP ${lv.status}`;
+}
+
 export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
   const [q, setQ] = useState("");
   const [country, setCountry] = useState("");
@@ -77,6 +88,7 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
               <th className="border-b border-rule px-2 py-1">Access</th>
               <th className="border-b border-rule px-2 py-1">Refresh</th>
               <th className="border-b border-rule px-2 py-1">Status</th>
+              <th className="border-b border-rule px-2 py-1">Direct check</th>
               <th className="border-b border-rule px-2 py-1">License</th>
               <th className="border-b border-rule px-2 py-1">Notes</th>
             </tr>
@@ -103,6 +115,16 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
                 <td className="border-b border-rule px-2 py-1.5">
                   <span className={s.status === "dead" ? "text-cn" : s.status === "uncertain" ? "text-interp" : ""}>{s.status}</span>
                   <div className="text-[10px] text-ink-3">{s.verified_on} · {s.verified_method}</div>
+                </td>
+                <td className="border-b border-rule px-2 py-1.5">
+                  {s.liveness ? (
+                    <>
+                      <span className={s.liveness.ok || s.liveness.api_ok ? "text-facts" : s.liveness.status === 403 ? "text-interp" : "text-cn"}>{livenessLabel(s.liveness)}</span>
+                      <div className="text-[10px] text-ink-3">{s.liveness.checked_at?.slice(0, 10)}</div>
+                    </>
+                  ) : (
+                    <span className="text-ink-3">not checked</span>
+                  )}
                 </td>
                 <td className="border-b border-rule px-2 py-1.5 min-w-[12rem] max-w-[16rem]">{s.license}</td>
                 <td className="border-b border-rule px-2 py-1.5 min-w-[22rem] max-w-[30rem] text-ink-2">

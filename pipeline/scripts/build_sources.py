@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_DIR = ROOT / "pipeline" / "config" / "sources"
 SOURCES_MD = ROOT / "SOURCES.md"
 SITE_JSON = ROOT / "web" / "public" / "data" / "sources.json"
+LIVENESS = ROOT / "data" / "liveness.json"
 
 REQUIRED = [
     "id",
@@ -99,6 +100,41 @@ def validate(sources: list[dict]) -> list[str]:
     return errors
 
 
+def load_liveness() -> dict:
+    """Latest direct HTTP check per source id (from the liveness workflow), or {} if none has run."""
+    if not LIVENESS.exists():
+        return {}
+    payload = json.loads(LIVENESS.read_text(encoding="utf-8"))
+    out = {}
+    for sid, r in payload.get("results", {}).items():
+        u = r.get("url", {})
+        a = r.get("api_url")
+        out[sid] = {
+            "checked_at": r.get("checked_at"),
+            "status": u.get("status"),
+            "ok": bool(u.get("ok")),
+            "error": u.get("error"),
+            "api_status": a.get("status") if a else None,
+            "api_ok": bool(a.get("ok")) if a else None,
+        }
+    return out
+
+
+def liveness_label(lv: dict | None) -> str:
+    if not lv:
+        return "not checked"
+    if lv["ok"] or lv.get("api_ok"):
+        return "reachable"
+    if lv["status"] in (401, 403):
+        return "blocks automated clients (403)"
+    if lv["status"] == 404:
+        return "404 at registry URL"
+    if lv["error"]:
+        kind = lv["error"].split(":")[0]
+        return {"SSLError": "TLS error (site certificate)", "ConnectTimeout": "timeout", "ConnectionError": "connection refused"}.get(kind, kind)
+    return f"HTTP {lv['status']}"
+
+
 def group_title(s: dict) -> str:
     if s.get("countries"):
         return "National: " + ", ".join(COUNTRY_NAME[c] for c in s["countries"])
@@ -115,7 +151,8 @@ def md_escape(text: object) -> str:
     return str(text).replace("|", "\\|").replace("\n", " ")
 
 
-def render_markdown(sources: list[dict]) -> str:
+def render_markdown(sources: list[dict], liveness: dict | None = None) -> str:
+    liveness = liveness or {}
     groups: dict[str, list[dict]] = {}
     for s in sources:
         groups.setdefault(group_title(s), []).append(s)
@@ -140,6 +177,11 @@ def render_markdown(sources: list[dict]) -> str:
         "search-engine results, GitHub mirrors and package indexes, because the development sandbox cannot "
         "reach other hosts. Method `direct` means an HTTP check from a GitHub Actions runner.",
         "",
+        (f"**Direct check.** The liveness workflow last tested every URL on {next(iter(liveness.values()))['checked_at'][:10]}. "
+         "'Blocks automated clients' means the site answered 403 to a generic HTTP client (bot protection), not that it is down; "
+         "'TLS error' means the site's certificate chain did not validate on the runner."
+         if liveness else "**Direct check.** No liveness run recorded yet."),
+        "",
         "**Reliability ratings:** Official (government, central bank, multilateral, exchange); "
         "Independent / academic (universities, NGOs, independent press); Partisan (documented political "
         "alignment or advocacy); State-controlled media (state-owned outlets and government communication); "
@@ -148,8 +190,8 @@ def render_markdown(sources: list[dict]) -> str:
     ]
     for key in keys:
         lines += [f"## {key}", ""]
-        lines.append("| Source | Status | Reliability | Coverage | Access | Refresh | License | Notes |")
-        lines.append("|---|---|---|---|---|---|---|---|")
+        lines.append("| Source | Status | Direct check | Reliability | Coverage | Access | Refresh | License | Notes |")
+        lines.append("|---|---|---|---|---|---|---|---|---|")
         for s in sorted(groups[key], key=lambda x: (x["category"], x["name"])):
             name = f"[{md_escape(s['name'])}]({s['url']})"
             if s.get("api_url"):
@@ -171,6 +213,7 @@ def render_markdown(sources: list[dict]) -> str:
                     [
                         name,
                         s["status"],
+                        liveness_label(liveness.get(s["id"])),
                         RELIABILITY_LABEL[s["reliability"]],
                         f"{s['coverage_from']}–{s['coverage_to']}",
                         s["access"],
@@ -193,9 +236,10 @@ def main() -> int:
         for e in errors:
             print("  -", e, file=sys.stderr)
         return 1
-    SOURCES_MD.write_text(render_markdown(sources), encoding="utf-8")
+    liveness = load_liveness()
+    SOURCES_MD.write_text(render_markdown(sources, liveness), encoding="utf-8")
     SITE_JSON.parent.mkdir(parents=True, exist_ok=True)
-    public = [{k: v for k, v in s.items() if not k.startswith("_")} for s in sources]
+    public = [{**{k: v for k, v in s.items() if not k.startswith("_")}, "liveness": liveness.get(s["id"])} for s in sources]
     SITE_JSON.write_text(
         json.dumps({"generated_on": str(date.today()), "sources": public}, ensure_ascii=False, indent=1, default=str),
         encoding="utf-8",

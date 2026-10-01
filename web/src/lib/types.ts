@@ -334,6 +334,7 @@ export interface SourceEntry {
   verified_method?: string;
   python_package?: string;
   notes?: string;
+  liveness?: { checked_at: string; status: number | null; ok: boolean; error: string | null; api_status: number | null; api_ok: boolean | null } | null;
 }
 
 export interface SourcesFile {
