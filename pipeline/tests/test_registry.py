@@ -72,6 +72,8 @@ def test_mineral_tagging_uses_whole_words():
     assert tag_mineral("Petroecuador loan via the Shanghai Free Trade Zone branch") is None
     assert tag_mineral("Bulletin on the Orinoco mining arc") is None
     assert tag_mineral("Cauchari-Olaroz lithium brine project") == "lithium"
-    assert tag_mineral("Minera de oro en Madre de Dios") == "gold"
+    assert tag_mineral("Minería de oro en Madre de Dios") == "gold"
+    assert tag_mineral("Chinese Embassy donates supplies to El Oro schools") is None
+    assert tag_mineral("Puerto de La Plata, Argentina") is None
     assert tag_mineral("rare-earth separation plant") == "rare_earths"
     assert tag_mineral("San Rafael tin mine (Minsur)") == "tin"
