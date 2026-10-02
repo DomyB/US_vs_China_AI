@@ -102,7 +102,7 @@ class HCDN(Adapter):
         bills = self._frames(snap, "proyectos")
         if not bills.empty:
             snap.manifest["columns_proyectos"] = list(map(str, bills.columns))[:40]
-            c_exp = col(bills, "expediente", "exp", "proyecto_id", "id")
+            c_exp = col(bills, "exp_diputados", "expediente", required=False) or col(bills, "exp", "proyecto_id", "id")
             c_title = col(bills, "titulo", "título", "sumario", "descripcion")
             c_sum = col(bills, "sumario", required=False)
             c_date = col(bills, "fecha", "publicacion_fecha", "fecha_ingreso", required=False)
