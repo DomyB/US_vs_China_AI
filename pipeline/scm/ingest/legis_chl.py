@@ -72,33 +72,27 @@ class CamaraCL(Adapter):
         import datetime as dt
 
         methods = self._methods(snap)
-        by_year = [m for m in methods if "proyecto" in m.lower() and any(k in m.lower() for k in ("anno", "ano", "year", "periodo", "fecha"))]
-        candidates = by_year + ["retornarProyectosLeyPorAnno", "retornarProyectosLeyIngresadosPorAnno", "retornarProyectosLeyPorPeriodo"]
-        snap.manifest["list_method_candidates"] = candidates[:10]
-        method = None
-        for cand in dict.fromkeys(candidates):
-            for param in ("prmAnno", "prmAno", "prmYear"):
+        # observed (2026-10): retornarMocionesXAnno (members' bills) and retornarMensajesXAnno (executive bills)
+        by_year = [m for m in methods if "xanno" in m.lower() and any(k in m.lower() for k in ("mocion", "mensaje", "proyecto"))]
+        by_year = by_year or ["retornarMocionesXAnno", "retornarMensajesXAnno"]
+        snap.manifest["list_methods"] = by_year
+        got = 0
+        for method in by_year:
+            for y in range(FIRST_YEAR, dt.date.today().year + 1):
+                name = f"proyectos/{y}_{method}.xml"
                 try:
-                    snap.get(f"{WS}/{cand}", f"proyectos/{FIRST_YEAR}.xml", params={param: FIRST_YEAR}, timeout=300, force=True)
+                    snap.get(f"{WS}/{method}", name, params={"prmAnno": y}, timeout=300, allow_statuses=(200, 500))
                 except Exception as e:  # noqa: BLE001
-                    snap.manifest.setdefault("errors", []).append({"name": f"{cand}?{param}", "error": str(e)[:200]})
+                    snap.manifest.setdefault("errors", []).append({"name": name, "error": str(e)[:200]})
                     continue
-                if snap.path(f"proyectos/{FIRST_YEAR}.xml").read_bytes()[:400].lstrip().startswith(b"<?xml") and b"ProyectoLey" in snap.path(f"proyectos/{FIRST_YEAR}.xml").read_bytes()[:20000]:
-                    method, self._param = cand, param
-                    break
-                snap.discard(f"proyectos/{FIRST_YEAR}.xml", f"{cand}?{param}: no ProyectoLey elements")
-            if method:
-                break
-        snap.manifest["list_method"] = {"name": method, "param": getattr(self, "_param", None)}
+                head = snap.path(name).read_bytes()[:300].lstrip()
+                if snap.files[name]["status"] != 200 or not head.startswith(b"<?xml"):
+                    snap.discard(name, f"{method}?prmAnno={y}: HTTP {snap.files.get(name, {}).get('status')} {head[:120]!r}")
+                    continue
+                got += 1
         snap.save()
-        if method is None:
-            raise RuntimeError("chl_camara: no yearly bill-list method found on WSLegislativo (see service_methods in the manifest)")
-        for y in range(FIRST_YEAR + 1, dt.date.today().year + 1):
-            try:
-                snap.get(f"{WS}/{method}", f"proyectos/{y}.xml", params={self._param: y}, timeout=300)
-            except Exception as e:  # noqa: BLE001
-                snap.manifest.setdefault("errors", []).append({"name": f"proyectos/{y}", "error": str(e)[:200]})
-        snap.save()
+        if got == 0:
+            raise RuntimeError("chl_camara: no yearly bill list could be fetched (see list_methods and errors in the manifest)")
         kept = self._kept_projects(snap)
         snap.manifest["kept_projects"] = len(kept)
         calls = 0
@@ -123,12 +117,23 @@ class CamaraCL(Adapter):
         snap.save()
 
     def _projects(self, snap: Snapshot) -> list[ET.Element]:
+        """Bill elements from the yearly lists: any element with a boletín number and a name child
+        (ProyectoLey in the old service; Mocion / Mensaje elements may wrap them in the current one)."""
         out: list[ET.Element] = []
+        seen: set[str] = set()
         for name in sorted(snap.files):
-            if name.startswith("proyectos/") and snap.has(name):
-                root = _root(snap, name)
-                if root is not None:
-                    out += [el for el in root.iter() if el.tag.lower() == "proyectoley"]
+            if not (name.startswith("proyectos/") and snap.has(name)):
+                continue
+            root = _root(snap, name)
+            if root is None:
+                continue
+            for el in root.iter():
+                tags = [c.tag.lower() for c in el]
+                if any("boletin" in t for t in tags) and any(t == "nombre" or t.endswith("nombre") for t in tags):
+                    bol = _find(el, "Numero_Boletin", "NumeroBoletin", "Boletin")
+                    if bol and bol not in seen:
+                        seen.add(bol)
+                        out.append(el)
         return out
 
     def _kept_projects(self, snap: Snapshot) -> list[tuple[str, ET.Element]]:

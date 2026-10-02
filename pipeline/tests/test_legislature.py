@@ -192,3 +192,26 @@ def test_spley_and_silpy_payloads(snap_factory):
     out = SILpy().parse(snap_factory("pry_silpy", {"route__proyectos.json": silpy}))
     _validate(out)
     assert len(out["document"]) == 1 and out["document"].iloc[0]["native_id"] == "S-2211" and out["document"].iloc[0]["venue"] == "Congreso Nacional"
+
+
+def test_hcdn_real_column_names(snap_factory):
+    """Columns as the HCDN catalogue serves them (October 2026): votes name the expediente only in the title."""
+    from scm.ingest.legis_arg import HCDN
+
+    proyectos = ("PROYECTO_ID,TITULO,PUBLICACION_FECHA,PUBLICACION_ID,CAMARA_ORIGEN,EXP_DIPUTADOS,EXP_SENADO,TIPO,AUTOR\n"
+                 'HCDN1,"REGIMEN DE PROMOCION DE LA INDUSTRIALIZACION DEL LITIO.",2018-03-01T00:00:00,HCDN136TP1,Diputados,958-D-2018,,LEY,"PEREZ, JUAN"\n'
+                 'HCDN2,"DECLARAR DE INTERES EL FESTIVAL DEL TANGO.",2018-03-02T00:00:00,HCDN136TP2,Diputados,959-D-2018,,RESOLUCION,"GOMEZ, ANA"\n')
+    votaciones = ("sesion_id,acta_id,nroperiodo,tipo_periodo,reunion,sesion,tipo_sesion,numero,fecha,hora,base_mayoria,tipo_mayoria,titulo,resultado,presidente_nombre,persona_id,votos_afirmativos,votos_negativos,abstenciones,ausentes\n"
+                  "HCDN136R02,3761,136,Ordinario,2,2,Tablas,3,2018-03-21,17:02,Votos Emitidos,Dos tercios,Pedido de Incorporación del Expediente 958-D-2018. Votación.,NEGATIVO,MONZÓ Emilio,,96,108,4,48\n"
+                  "HCDN136R04,3779,136,Ordinario,4,3,Especial,11,2018-04-25,14:23,Legisladores Presentes,Dos tercios,Habilitar el Tratamiento del Expediente 959-D-2018. Votación.,NEGATIVO,MONZÓ Emilio,,127,101,0,28\n")
+    votos = ("acta_id,acta_detalle_id,diputado_nombre,persona_id,bloque,distrito_nombre,voto\n"
+             "3761,1085826,ABDALA DE MATARAZZO Norma Amanda, ,Frente Cívico por Santiago,Santiago del Estero,AFIRMATIVO\n"
+             "3779,1091475,YEDLIN Pablo Raúl, ,Justicialista por Tucumán,Tucumán,AFIRMATIVO\n")
+    out = HCDN().parse(snap_factory("arg_hcdn", {"proyectos/0.csv": proyectos, "votaciones/0.csv": votaciones, "votos/0.csv": votos}))
+    _validate(out)
+    d = out["document"]
+    assert len(d) == 1 and d.iloc[0]["native_id"] == "958-D-2018" and d.iloc[0]["author"] == "PEREZ, JUAN"
+    v = out["vote"]
+    assert len(v) == 1 and v.iloc[0]["doc_id"] == d.iloc[0]["doc_id"] and v.iloc[0]["yes"] == 96 and v.iloc[0]["absent"] == 48 and v.iloc[0]["result"] == "NEGATIVO"
+    m = out["vote_member"]
+    assert len(m) == 1 and m.iloc[0]["choice"] == "yes" and m.iloc[0]["region"] == "Santiago del Estero" and m.iloc[0]["party"].startswith("Frente")

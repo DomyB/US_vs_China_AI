@@ -5,6 +5,8 @@ recorded in the manifest, because the catalogue's names were not verifiable befo
 """
 from __future__ import annotations
 
+import re
+
 import pandas as pd
 
 from ..http import Snapshot
@@ -136,6 +138,7 @@ class HCDN(Adapter):
             c_res = col(votes, "resultado", required=False)
             c_yes, c_no, c_abs, c_absent = (col(votes, *names, required=False) for names in (("afirmativos", "afirmativo"), ("negativos", "negativo"), ("abstenciones", "abstencion"), ("ausentes", "ausente")))
             c_exp = col(votes, "expediente", "proyecto", required=False)
+            exp_re = re.compile(r"\b(\d{1,5}-[A-Z]{1,3}-\d{2,4})\b")
             def _i(x):
                 try:
                     return int(float(str(x).replace(",", ".")))
@@ -147,6 +150,9 @@ class HCDN(Adapter):
                 if not date or int(date[:4]) < FIRST_YEAR:
                     continue
                 exp = str(r[c_exp]).strip() if c_exp and r[c_exp] else ""
+                if not exp:
+                    m = exp_re.search(title)
+                    exp = m.group(1) if m else ""
                 rel = relevance(title)
                 if exp in docs:
                     doc_id = docs[exp]["doc_id"]
@@ -172,7 +178,7 @@ class HCDN(Adapter):
                 c_party = col(mv, "bloque", "partido", required=False)
                 c_prov = col(mv, "provincia", "distrito", required=False)
                 c_choice = col(mv, "voto")
-                c_mid = col(mv, "diputado_id", "id_diputado", required=False)
+                c_mid = col(mv, "diputado_id", "id_diputado", "persona_id", required=False)
                 mv = mv[mv[c_vid2].astype(str).isin(kept)]
                 for _, r in mv.iterrows():
                     choice_orig = str(r[c_choice])

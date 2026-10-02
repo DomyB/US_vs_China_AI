@@ -108,19 +108,22 @@ class SILpy(Adapter):
             for i, d in enumerate(items):
                 if not isinstance(d, dict):
                     continue
-                title = _pick(d, "titulo", "t_tulo", "nombre", "descripcion", "asunto")
+                # observed fields: acapite (title), appURL, descripcionEtapa, estadoProyecto, expedienteCamara,
+                # fechaIngresoExpediente (dd/mm/yyyy), idProyecto, iniciativa, origenProyecto
+                title = _pick(d, "acapite", "titulo", "t_tulo", "nombre", "descripcion", "asunto")
                 text = f"{title} {_pick(d, 'resumen', 'sumario', 'tema')}"
                 rel = relevance(text)
                 if not title or not is_relevant(rel, "parliament", text):
                     continue
-                date = iso_date(_pick(d, "fecha_ingreso", "fecha", "fechaingreso"))
+                date = iso_date(_pick(d, "fechaIngresoExpediente", "fecha_ingreso", "fecha", "fechaingreso"))
                 yr = year_of(date) or year_of(_pick(d, "anio", "ano", "periodo"))
                 if not yr or yr < 2008:
                     continue
-                native = _pick(d, "expediente", "id", "codigo", "numero") or f"{name}-{i}"
+                native = _pick(d, "idProyecto", "expedienteCamara", "expediente", "id", "codigo", "numero") or f"{name}-{i}"
+                etapa = " / ".join(x for x in (_pick(d, "estadoProyecto", "estado"), _pick(d, "descripcionEtapa"), _pick(d, "descripcionSubEtapa")) if x)
                 row = make_document(source_id=self.source_id, country="PRY", doc_type="bill", date=date or f"{yr}-01-01", date_precision="day" if date else "year",
-                                    title=title, language="es", venue="Congreso Nacional", url=_pick(d, "url", "link", "enlace") or self.src.url, rel=rel, native_id=native,
-                                    status=_pick(d, "estado") or None, author=_pick(d, "autor", "proyectista")[:300] or None)
+                                    title=title, language="es", venue=f"Congreso Nacional ({_pick(d, 'origenProyecto')})" if _pick(d, "origenProyecto") else "Congreso Nacional", url=_pick(d, "appURL", "url", "link", "enlace") or self.src.url,
+                                    rel=rel, native_id=native, status=etapa or None, author=_pick(d, "autor", "proyectista", "iniciativa")[:300] or None)
                 docs[row["doc_id"]] = row
         return {"document": self.stamp(snap, pd.DataFrame(list(docs.values()), columns=DOCUMENT_COLUMNS))}
 
