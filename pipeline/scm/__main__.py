@@ -11,6 +11,30 @@ from . import export_site, liveness, warehouse
 from .ingest import ADAPTERS, ANNUAL, GROUPS, LEGISLATURE, NATIONAL, TIER1, TIER2
 
 
+def _rss_mb() -> int:
+    """Peak resident memory of this process so far, in MB (Linux)."""
+    try:
+        import resource
+
+        return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024)
+    except Exception:  # noqa: BLE001
+        return -1
+
+
+def _cap_memory() -> None:
+    """Cap the address space (SCM_MEM_LIMIT_GB, default 8) so a runaway parse raises MemoryError and is
+    recorded as a failed adapter, instead of the host's OOM killer taking the whole CI runner down."""
+    try:
+        import os
+        import resource
+
+        gb = float(os.environ.get("SCM_MEM_LIMIT_GB", "8"))
+        if gb > 0:
+            resource.setrlimit(resource.RLIMIT_AS, (int(gb * (1 << 30)), int(gb * (1 << 30))))
+    except Exception:  # noqa: BLE001 - not available on this platform
+        pass
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="scm")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -43,13 +67,15 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 ids.append(t)
         results = []
+        _cap_memory()
         for sid in dict.fromkeys(ids):
             if sid not in ADAPTERS:
                 print(f"unknown adapter: {sid}", file=sys.stderr)
                 return 2
+            print(json.dumps({"source_id": sid, "status": "starting", "rss_mb": _rss_mb()}), flush=True)
             rec = ADAPTERS[sid]().run(fetch=not args.parse_only, parse=not args.fetch_only)
             results.append(rec)
-            print(json.dumps({k: rec[k] for k in ("source_id", "status", "rows", "error")}))
+            print(json.dumps({k: rec[k] for k in ("source_id", "status", "rows", "error")} | {"rss_mb": _rss_mb()}), flush=True)
             if args.fail_fast and rec["status"] == "failed":
                 return 1
         failed = [r["source_id"] for r in results if r["status"] == "failed"]

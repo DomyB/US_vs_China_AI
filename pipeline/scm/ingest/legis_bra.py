@@ -29,16 +29,25 @@ CHOICE = {"sim": "yes", "não": "no", "nao": "no", "abstenção": "abstain", "ab
           "obstrucao": "obstruction", "art. 17": "other", "artigo 17": "other", "ausente": "absent", "não votou": "absent"}
 
 
-def _read_csv(path) -> pd.DataFrame:
+def _read_csv(path, wanted: tuple[str, ...] | None = None) -> pd.DataFrame:
+    """Read a Câmara bulk CSV as strings; with `wanted`, only the columns whose name contains one of
+    those names (the yearly proposition files carry long text columns we never use)."""
     raw = path.read_bytes()
     text = raw.decode("utf-8", errors="ignore") if raw[:3] != b"\xef\xbb\xbf" else raw[3:].decode("utf-8", errors="ignore")
+    del raw
     first = text.split("\n", 1)[0]
     sep = ";" if first.count(";") >= first.count(",") else ","
+    header = [h.strip().strip('"') for h in first.strip().split(sep)]
+    usecols = [h for h in header if any(w.lower() == h.lower() or w.lower() in h.lower() for w in wanted)] if wanted else None
+    kw = {"sep": sep, "dtype": str, "keep_default_na": False}
+    if usecols:
+        kw["usecols"] = usecols
     try:
-        return pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, low_memory=False)
-    except pd.errors.ParserError:
+        return pd.read_csv(io.StringIO(text), low_memory=False, **kw)
+    except (pd.errors.ParserError, ValueError):
         # truncated download or stray quote: salvage what the python engine can read
-        return pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, engine="python", on_bad_lines="skip", quoting=3)
+        kw.pop("usecols", None)
+        return pd.read_csv(io.StringIO(text), engine="python", on_bad_lines="skip", quoting=3, **kw)
 
 
 def _year(s: str) -> int | None:
@@ -93,10 +102,9 @@ class CamaraBR(Adapter):
         for name in sorted(snap.files):
             if not (name.startswith("bulk/proposicoes-") and snap.has(name)):
                 continue
-            df = _read_csv(snap.path(name))
+            df = _read_csv(snap.path(name), self.BILL_COLUMNS)
             if col(df, "id", required=False) is None or col(df, "ementa", required=False) is None:
                 continue
-            df = df[[c for c in df.columns if col(pd.DataFrame(columns=list(self.BILL_COLUMNS)), str(c), required=False) is not None or str(c) in self.BILL_COLUMNS]]
             c_ementa = col(df, "ementa")
             c_kw = col(df, "keywords", required=False)
             c_det = col(df, "ementaDetalhada", required=False)
@@ -259,26 +267,36 @@ class SenadoBR(Adapter):
 
         tried: list[str] = []
         for y in range(FIRST_YEAR, dt.date.today().year + 1):
+            # keyword searches first: small responses. The whole-year list (every matter of the year, with
+            # full detail) is only a fallback, and it is parsed one file at a time.
             ok = False
-            for url, params in ((f"{SENADO}/materia/pesquisa/lista", {"ano": y}), (f"{SENADO}/materia/tramitando", {"ano": y}),
-                                (f"{SENADO}/processo", {"ano": y})):
-                tried.append(url)
+            for term in SENADO_TERMS:
+                url = f"{SENADO}/materia/pesquisa/lista"
+                tried.append(url + "?palavraChave")
                 try:
-                    payload = snap.get_json(url, f"materias/{y}.json", params=params, headers=self.headers, timeout=300)
+                    payload = snap.get_json(url, f"materias/{y}_{term}.json", params={"ano": y, "palavraChave": term}, headers=self.headers, timeout=300)
                 except Exception as e:  # noqa: BLE001
-                    snap.manifest.setdefault("errors", []).append({"name": f"materias/{y} {url}", "error": str(e)[:200]})
-                    continue
+                    snap.manifest.setdefault("errors", []).append({"name": f"materias/{y}_{term}", "error": str(e)[:200]})
+                    break
                 if any(True for _ in _walk(payload, {"Ementa"})) or any(True for _ in _walk(payload, {"ementa"})):
                     ok = True
-                    snap.manifest["materias_route"] = url
-                    break
-                snap.discard(f"materias/{y}.json", f"{url}: no matters in payload")
+                    snap.manifest["materias_route"] = url + "?palavraChave"
+                else:
+                    snap.discard(f"materias/{y}_{term}.json", "no matters in payload")
+                del payload
             if not ok:
-                for term in SENADO_TERMS:
+                for url, params in ((f"{SENADO}/materia/pesquisa/lista", {"ano": y}), (f"{SENADO}/materia/tramitando", {"ano": y}),
+                                    (f"{SENADO}/processo", {"ano": y})):
+                    tried.append(url)
                     try:
-                        snap.get_json(f"{SENADO}/materia/pesquisa/lista", f"materias/{y}_{term}.json", params={"ano": y, "palavraChave": term}, headers=self.headers, timeout=300)
+                        snap.get(url, f"materias/{y}.json", params=params, headers=self.headers, timeout=300)
                     except Exception as e:  # noqa: BLE001
-                        snap.manifest.setdefault("errors", []).append({"name": f"materias/{y}_{term}", "error": str(e)[:200]})
+                        snap.manifest.setdefault("errors", []).append({"name": f"materias/{y} {url}", "error": str(e)[:200]})
+                        continue
+                    if snap.path(f"materias/{y}.json").stat().st_size > 2_000:
+                        snap.manifest["materias_route"] = url
+                        break
+                    snap.discard(f"materias/{y}.json", f"{url}: empty payload")
         snap.manifest["endpoints_tried"] = sorted(set(tried))
         snap.save()
         kept = self._kept_matters(snap)

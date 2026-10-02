@@ -77,7 +77,7 @@ jobs:
         id: run
         continue-on-error: true
         run: |
-          python -m scm run ${{ inputs.targets || 'tier1 legislature national' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
+          python -u -m scm run ${{ inputs.targets || 'tier1 legislature national' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
       - name: Runner resources after ingestion
         if: always()
         run: df -h / && free -m && du -sh ../data/raw/* 2>/dev/null | sort -h | tail -15
