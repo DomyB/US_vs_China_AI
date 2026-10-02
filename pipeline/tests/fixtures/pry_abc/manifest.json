@@ -5,9 +5,9 @@
    "url": "https://www.abc.com.py/",
    "params": {},
    "status": 200,
-   "bytes": 988754,
-   "sha256": "013791feeaab80880d86ad2a083620b52bf6f6a8cae5f238363aa125b3a81f4a",
-   "retrieved_at": "2026-10-02T17:12:03+00:00",
+   "bytes": 945581,
+   "sha256": "2e3ecb2a7388e5be6820dca4a90937c22d0c4c2edaf514cce6f592fca5055b78",
+   "retrieved_at": "2026-10-02T19:30:43+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,9 +15,9 @@
    "url": "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml",
    "params": {},
    "status": 200,
-   "bytes": 403920,
-   "sha256": "000df4909eb234025f2b38d25b1c39a0a2803cf301baabac6e8ea881e3334363",
-   "retrieved_at": "2026-10-02T17:12:23+00:00",
+   "bytes": 464588,
+   "sha256": "99b3cbcb791eb7357b29cb369c9b45f508d907789401a215edc8ef901ad87ee5",
+   "retrieved_at": "2026-10-02T19:31:03+00:00",
    "note": null,
    "trimmed": true
   }

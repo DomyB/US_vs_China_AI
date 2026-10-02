@@ -5,9 +5,9 @@
    "url": "https://www.elcomercio.com/feed/",
    "params": {},
    "status": 200,
-   "bytes": 132262,
-   "sha256": "9590a4c9a780fef8b3f7192c1baf925cb7d6ec9a4acb33265fe11de24fbb1887",
-   "retrieved_at": "2026-10-02T17:11:04+00:00",
+   "bytes": 142402,
+   "sha256": "026c04449baee105b25435c1cc171d15c9a14addff4bb1ba1e5a71124fde9920",
+   "retrieved_at": "2026-10-02T19:29:46+00:00",
    "note": null,
    "trimmed": true
   }

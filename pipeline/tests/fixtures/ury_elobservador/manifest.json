@@ -5,10 +5,10 @@
    "url": "https://www.elobservador.com.uy/",
    "params": {},
    "status": 200,
-   "bytes": 384002,
+   "bytes": 385614,
    "final_url": "https://www.elobservador.com.uy/estados-unidos",
-   "sha256": "f2a60d4d37f991ff0708d6788551d6faefbc2e5fd7d308fd6ad1d7ea2ab11840",
-   "retrieved_at": "2026-10-02T17:12:26+00:00",
+   "sha256": "7fad39d349f70e2744710330aba333d00a26d8f2d523d43b90525d0d893a048f",
+   "retrieved_at": "2026-10-02T19:31:06+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,9 +16,9 @@
    "url": "https://www.elobservador.com.uy/rss/pages/home.xml",
    "params": {},
    "status": 200,
-   "bytes": 21420,
-   "sha256": "9426bab0868992c92cfa12a829fdb0466fa7fa754f160285459521dd4f6c772b",
-   "retrieved_at": "2026-10-02T17:12:56+00:00",
+   "bytes": 20624,
+   "sha256": "4ea83bff07718809d664a46e47cbdce66774a7bc3ac681e41aab6af885a92068",
+   "retrieved_at": "2026-10-02T19:31:36+00:00",
    "note": null,
    "trimmed": true
   }

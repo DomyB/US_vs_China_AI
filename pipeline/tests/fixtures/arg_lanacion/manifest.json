@@ -5,9 +5,9 @@
    "url": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 641074,
-   "sha256": "9bd0a0baa71c4512704ad923a7826d27915ad3608d113cead52b8e5e4091b9fe",
-   "retrieved_at": "2026-10-02T17:09:22+00:00",
+   "bytes": 748635,
+   "sha256": "82283a152884f4c60f97ac02c8fc595b786bdd7e3eff9770fbccf9dc2c953a55",
+   "retrieved_at": "2026-10-02T19:27:36+00:00",
    "note": null,
    "trimmed": true
   }

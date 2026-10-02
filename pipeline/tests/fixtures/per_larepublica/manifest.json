@@ -5,9 +5,9 @@
    "url": "https://larepublica.pe/",
    "params": {},
    "status": 200,
-   "bytes": 1671780,
-   "sha256": "dc27fdd62702f008655de23e38b2ac2d50fdbdb67f3964dcfec445111424080b",
-   "retrieved_at": "2026-10-02T17:11:24+00:00",
+   "bytes": 1665177,
+   "sha256": "fec7c056a0173bb0f20e3346f3f7c93a16130a4df93dee7b29e6ce2e1cd0f911",
+   "retrieved_at": "2026-10-02T19:30:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,10 +15,10 @@
    "url": "https://larepublica.pe/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 1378509,
+   "bytes": 1409773,
    "final_url": "https://larepublica.pe/rss/home.xml",
-   "sha256": "dad5bf366166f7aa7f5bc592d6fab27a62caf39e1a632ecc76df6ed584fe356c",
-   "retrieved_at": "2026-10-02T17:11:32+00:00",
+   "sha256": "036cbaac8d9547942a8777cb8717fdfb9952579e30ce67d6f7cc130f0a3624dc",
+   "retrieved_at": "2026-10-02T19:30:12+00:00",
    "note": null,
    "trimmed": true
   }

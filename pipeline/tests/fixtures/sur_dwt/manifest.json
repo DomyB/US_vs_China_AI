@@ -5,12 +5,105 @@
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "robots_blocked": [
   "https://dwtonline.com",
-  "https://dwtonline.com/rss"
+  "https://dwtonline.com/rss",
+  "https://dwtonline.com/feed/",
+  "https://dwtonline.com/feed",
+  "https://dwtonline.com/rss.xml",
+  "https://dwtonline.com/feed.xml",
+  "https://dwtonline.com/feeds/rss",
+  "https://dwtonline.com/rss/portada",
+  "https://dwtonline.com/rss/ultimas-noticias",
+  "https://dwtonline.com/arc/outboundfeeds/rss/",
+  "https://dwtonline.com/arc/outboundfeeds/rss/?outputType=xml",
+  "https://dwtonline.com/arcio/rss/",
+  "https://dwtonline.com/rss/lo-ultimo/",
+  "https://dwtonline.com/feeds/articulos",
+  "https://dwtonline.com/rss/listado/",
+  "https://dwtonline.com/rss/pages/home.xml"
  ],
  "errors": [
   {
    "name": "home.html",
    "error": "sur_dwt: robots.txt disallows https://dwtonline.com"
+  },
+  {
+   "name": "https://dwtonline.com/rss",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/rss"
+  },
+  {
+   "name": "https://dwtonline.com/feed/",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/feed/"
+  },
+  {
+   "name": "https://dwtonline.com/feed",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/feed"
+  },
+  {
+   "name": "https://dwtonline.com/rss.xml",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/rss.xml"
+  },
+  {
+   "name": "https://dwtonline.com/feed.xml",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/feed.xml"
+  },
+  {
+   "name": "https://dwtonline.com/feeds/rss",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/feeds/rss"
+  },
+  {
+   "name": "https://dwtonline.com/rss/portada",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/rss/portada"
+  },
+  {
+   "name": "https://dwtonline.com/rss/ultimas-noticias",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/rss/ultimas-noticias"
+  },
+  {
+   "name": "https://dwtonline.com/arc/outboundfeeds/rss/",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/arc/outboundfeeds/rss/"
+  },
+  {
+   "name": "https://dwtonline.com/arc/outboundfeeds/rss/?outputType=xml",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/arc/outboundfeeds/rss/?outputType=xml"
+  },
+  {
+   "name": "https://dwtonline.com/arcio/rss/",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/arcio/rss/"
+  },
+  {
+   "name": "https://dwtonline.com/rss/lo-ultimo/",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/rss/lo-ultimo/"
+  },
+  {
+   "name": "https://dwtonline.com/feeds/articulos",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/feeds/articulos"
+  },
+  {
+   "name": "https://dwtonline.com/rss/listado/",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/rss/listado/"
+  },
+  {
+   "name": "https://dwtonline.com/rss/pages/home.xml",
+   "error": "sur_dwt: robots.txt disallows https://dwtonline.com/rss/pages/home.xml"
   }
- ]
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://dwtonline.com/rss",
+  "https://dwtonline.com/feed/",
+  "https://dwtonline.com/feed",
+  "https://dwtonline.com/rss.xml",
+  "https://dwtonline.com/feed.xml",
+  "https://dwtonline.com/feeds/rss",
+  "https://dwtonline.com/rss/portada",
+  "https://dwtonline.com/rss/ultimas-noticias",
+  "https://dwtonline.com/arc/outboundfeeds/rss/",
+  "https://dwtonline.com/arc/outboundfeeds/rss/?outputType=xml",
+  "https://dwtonline.com/arcio/rss/",
+  "https://dwtonline.com/rss/lo-ultimo/",
+  "https://dwtonline.com/feeds/articulos",
+  "https://dwtonline.com/rss/listado/",
+  "https://dwtonline.com/rss/pages/home.xml"
+ ],
+ "feeds_found": 0
 }

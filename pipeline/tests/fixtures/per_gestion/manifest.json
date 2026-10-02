@@ -5,10 +5,10 @@
    "url": "https://gestion.pe/arcio/rss/",
    "params": {},
    "status": 200,
-   "bytes": 836632,
+   "bytes": 862649,
    "final_url": "https://gestion.pe/arc/outboundfeeds/rss/?outputType=xml",
-   "sha256": "482d45b5e404e388e8ce83a29c74369310d4f4e23bf5d13c3b5ab126bf4cb681",
-   "retrieved_at": "2026-10-02T17:11:17+00:00",
+   "sha256": "c2065b711802b5dcaf2159334e2df4bef796e1e4f4a0d8c340175eafbf16d925",
+   "retrieved_at": "2026-10-02T19:29:58+00:00",
    "note": null,
    "trimmed": true
   }

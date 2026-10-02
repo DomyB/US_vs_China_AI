@@ -5,9 +5,9 @@
    "url": "https://www.opinion.com.bo/rss/",
    "params": {},
    "status": 200,
-   "bytes": 36178,
-   "sha256": "0e9765ebca3f668d178c6866f73afecf2c2f7161256e17d73eee986c9fa963c7",
-   "retrieved_at": "2026-10-02T17:09:29+00:00",
+   "bytes": 36293,
+   "sha256": "687933c8feb0411c16a6b05d3c0b4566f3b392f951349f5b1009e349f04ed3ec",
+   "retrieved_at": "2026-10-02T19:27:43+00:00",
    "note": null,
    "trimmed": true
   }
@@ -18,15 +18,14 @@
   {
    "url": "https://www.opinion.com.bo/rss/listado/",
    "links": [
-    "https://www.opinion.com.bo/rss/",
-    "https://es.wikipedia.org/wiki/RSS"
+    "https://www.opinion.com.bo/rss/"
    ]
   }
  ],
  "errors": [
   {
    "name": "feed_0.xml",
-   "error": "https://www.opinion.com.bo/rss/listado/: HTML index, 2 feed-like links"
+   "error": "https://www.opinion.com.bo/rss/listado/: HTML index, 1 feed-like links"
   }
  ],
  "feed_urls": [

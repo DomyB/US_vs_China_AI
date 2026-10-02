@@ -5,9 +5,9 @@
    "url": "https://www.estadao.com.br/",
    "params": {},
    "status": 200,
-   "bytes": 1447514,
-   "sha256": "f46afe579a5178712ba1ff6c04702ad062f110cec2c78767e823d9c738e10c9f",
-   "retrieved_at": "2026-10-02T17:09:30+00:00",
+   "bytes": 1388936,
+   "sha256": "34c73e29bc30141e00569e32a3ee261f09ede6d0fd58aac319a553920bbc071b",
+   "retrieved_at": "2026-10-02T19:27:44+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,8 +16,8 @@
    "params": {},
    "status": 200,
    "bytes": 109538,
-   "sha256": "08544acad75c8f9fcb2dad727e1323fd887e36c28298a61fa2c89967f40c6f8a",
-   "retrieved_at": "2026-10-02T17:09:32+00:00",
+   "sha256": "60fb4bd2021992696756607ea8e2faf77dc54824abcabc3c6910279161e6338d",
+   "retrieved_at": "2026-10-02T19:27:46+00:00",
    "note": null,
    "trimmed": true
   }

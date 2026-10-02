@@ -5,10 +5,10 @@
    "url": "https://www.cronista.com/",
    "params": {},
    "status": 200,
-   "bytes": 460017,
+   "bytes": 457418,
    "final_url": "https://www.cronista.com/usa/",
-   "sha256": "62a46c893ed040d7310aba687a572382044223be041713f3e0c078bc70afe4a9",
-   "retrieved_at": "2026-10-02T17:08:59+00:00",
+   "sha256": "4a535582405ce1577f30367257c03b25ba94e66150251949e45b771aea28fda7",
+   "retrieved_at": "2026-10-02T19:27:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,9 +16,9 @@
    "url": "https://www.cronista.com/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 650748,
-   "sha256": "41617876408c00cee1c3cac1a52134626739fcdfe873b23d5df339f3a368c73f",
-   "retrieved_at": "2026-10-02T17:09:17+00:00",
+   "bytes": 643901,
+   "sha256": "9b649453c61c3277afa0657935df88e5ed74b9e2cd8ac1f1d38196e0eb6077ed",
+   "retrieved_at": "2026-10-02T19:27:31+00:00",
    "note": null,
    "trimmed": true
   }

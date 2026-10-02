@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<proyectos><proyecto>
+                 <descripcion>
+                    <boletin>18487-12</boletin>
+                    <titulo>Modifica la ley N°19.300, para eliminar las labores de exploración minera de aquellas que deben ingresar al Sistema de Evaluación de Impacto Ambiental</titulo>
+                    <fecha_ingreso>14/07/2026</fecha_ingreso>
+                    <iniciativa>Moción</iniciativa>
+                    <camara_origen>C.Diputados</camara_origen>
+                    <urgencia_actual>Sin urgencia</urgencia_actual>
+                    <etapa>Primer trámite constitucional (C.Diputados)</etapa>
+                    <subetapa>Primer informe de comisión Medio Ambiente y Recursos Naturales</subetapa>
+                    <leynro />
+                    <diariooficial />
+                    <estado>En tramitación </estado>
+                    <refundidos />
+                    <link_mensaje_mocion>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=19165&amp;tipodoc=mensaje_mocion</link_mensaje_mocion>
+                 </descripcion><autores><autor><PARLAMENTARIO>Arqueros Pizarro, Carlo</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Cristoffanini Jaraquemada, Sebastián</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Grohs Marín, Erich</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Jéldrez Ortiz, Stephanie</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Ugarte Tejeda, Fernando</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Urcullú Clèment-Lund, Ignacio</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Valenzuela Salazar, Daniel</PARLAMENTARIO></autor>
+</autores>
+<tramitacion><tramite><SESION>/</SESION><FECHA>14/07/2026</FECHA><DESCRIPCIONTRAMITE>Ingreso de proyecto .  </DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>47/374</SESION><FECHA>22/07/2026</FECHA><DESCRIPCIONTRAMITE>Cuenta de proyecto . Pasa a Comisión Medio Ambiente y Recursos Naturales</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+</tramitacion>
+<votaciones />
+<urgencias />
+<informes />
+<comparados />
+<oficios />
+<indicaciones />
+<observaciones />
+<materias />
+</proyecto>
+</proyectos>

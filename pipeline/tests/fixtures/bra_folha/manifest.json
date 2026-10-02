@@ -5,9 +5,9 @@
    "url": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
    "params": {},
    "status": 200,
-   "bytes": 121067,
-   "sha256": "258721ca2ae0be29f063a007e66c99060b5176b708921492100b470240830b43",
-   "retrieved_at": "2026-10-02T17:09:37+00:00",
+   "bytes": 123738,
+   "sha256": "53d27e7605f054350857be704f1770f971252d1ef45aebc634951d35e1c91d1c",
+   "retrieved_at": "2026-10-02T19:27:51+00:00",
    "note": null,
    "trimmed": true
   }

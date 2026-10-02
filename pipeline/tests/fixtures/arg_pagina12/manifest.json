@@ -5,9 +5,20 @@
    "url": "https://www.pagina12.com.ar/",
    "params": {},
    "status": 200,
-   "bytes": 910251,
-   "sha256": "3de459adcd3c7d03a015373f484f1225e0eacbc0eee4d02471a79f910d847fd9",
-   "retrieved_at": "2026-10-02T17:09:23+00:00",
+   "bytes": 915113,
+   "sha256": "c88e1a6ecf6c45fe9d20907d0e38887d721a1f11301cac0f12b9fb5523ab6f5b",
+   "retrieved_at": "2026-10-02T19:27:37+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada",
+   "params": {},
+   "status": 200,
+   "bytes": 7173,
+   "final_url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada/",
+   "sha256": "7081391054abafc95a8cc2795fb72a0b500b091d1b744c5402446b4436b0bd7c",
+   "retrieved_at": "2026-10-02T19:27:41+00:00",
    "note": null,
    "trimmed": true
   }
@@ -18,40 +29,23 @@
   {
    "url": "https://www.pagina12.com.ar/rss",
    "links": [
-    "http://es.wikipedia.org/wiki/RSS",
     "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada",
     "https://www.pagina12.com.ar/arc/outboundfeeds/rss/edicion-impresa"
-   ]
-  },
-  {
-   "url": "http://es.wikipedia.org/wiki/RSS",
-   "links": [
-    "http://es.wikipedia.org/w/index.php?title=Especial:CambiosRecientes&feed=atom",
-    "https://ar.wikipedia.org/wiki/RSS",
-    "https://ast.wikipedia.org/wiki/RSS",
-    "https://az.wikipedia.org/wiki/RSS",
-    "https://be-tarask.wikipedia.org/wiki/RSS",
-    "https://be.wikipedia.org/wiki/RSS",
-    "https://bg.wikipedia.org/wiki/RSS",
-    "https://ca.wikipedia.org/wiki/RSS",
-    "https://cs.wikipedia.org/wiki/RSS",
-    "https://cy.wikipedia.org/wiki/RSS",
-    "https://da.wikipedia.org/wiki/RSS",
-    "https://de.wikipedia.org/wiki/RSS_(Web-Feed)"
    ]
   }
  ],
  "errors": [
   {
    "name": "feed_0.xml",
-   "error": "https://www.pagina12.com.ar/rss: HTML index, 3 feed-like links"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "http://es.wikipedia.org/wiki/RSS: HTML index, 12 feed-like links"
+   "error": "https://www.pagina12.com.ar/rss: HTML index, 2 feed-like links"
   }
  ],
- "robots_blocked": [
-  "http://es.wikipedia.org/w/index.php?title=Especial:CambiosRecientes&feed=atom"
- ]
+ "feed_urls": [
+  "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada"
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://www.pagina12.com.ar/rss"
+ ],
+ "feeds_found": 1
 }

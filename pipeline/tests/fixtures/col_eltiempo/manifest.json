@@ -5,9 +5,9 @@
    "url": "https://www.eltiempo.com/",
    "params": {},
    "status": 200,
-   "bytes": 888986,
-   "sha256": "1c6d2f9ccc42ac0c20cc9d4e95ce01aa7f8a2e93433389c15454db29d27c47c8",
-   "retrieved_at": "2026-10-02T17:10:56+00:00",
+   "bytes": 867154,
+   "sha256": "b05d7e0c973ec74558e95edb646a65f0cd91bee1742126850142825f941bc68a",
+   "retrieved_at": "2026-10-02T19:29:38+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,8 +16,8 @@
    "params": {},
    "status": 200,
    "bytes": 8713,
-   "sha256": "3dd8ddbeaf564d1c553510d79fac16f59828bb80c5cefda2140c141278cb40f4",
-   "retrieved_at": "2026-10-02T17:11:00+00:00",
+   "sha256": "14485aec9c59db942168766fb26672d8d63f583910c130d46bded5a9aec4d76e",
+   "retrieved_at": "2026-10-02T19:29:42+00:00",
    "note": null,
    "trimmed": true
   }

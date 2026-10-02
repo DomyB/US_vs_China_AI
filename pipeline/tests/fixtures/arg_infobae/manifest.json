@@ -5,10 +5,10 @@
    "url": "https://www.infobae.com/",
    "params": {},
    "status": 200,
-   "bytes": 503494,
+   "bytes": 502092,
    "final_url": "https://www.infobae.com/estados-unidos/",
-   "sha256": "3e6a01dc001bc798d599c771c34612aedd78bb2f099291f79d830871cc15723e",
-   "retrieved_at": "2026-10-02T17:09:20+00:00",
+   "sha256": "34dffe15f761d3090a16e0959c8f9f35fed176a8bb9453c1d26a792666bb6f62",
+   "retrieved_at": "2026-10-02T19:27:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,9 +16,9 @@
    "url": "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/",
    "params": {},
    "status": 200,
-   "bytes": 945248,
-   "sha256": "c80536f4d2ed89e076a8e5af8173abfbbcf516324ac84d0cf6622be261d547c8",
-   "retrieved_at": "2026-10-02T17:09:22+00:00",
+   "bytes": 962193,
+   "sha256": "3c2cf39d866e40eb5280b885a4ca787c07278125bd5c1d17922242b6f694b534",
+   "retrieved_at": "2026-10-02T19:27:35+00:00",
    "note": null,
    "trimmed": true
   }

@@ -5,9 +5,9 @@
    "url": "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml",
    "params": {},
    "status": 200,
-   "bytes": 148431,
-   "sha256": "7585dbe1149864ad5d0557646e061151ed97922490daadbb18d1c050731bcd80",
-   "retrieved_at": "2026-10-02T17:11:15+00:00",
+   "bytes": 148045,
+   "sha256": "2688cae13a72b540fd27aa521fd1ebdcb635842d2cb7545865ca4e653313e070",
+   "retrieved_at": "2026-10-02T19:29:56+00:00",
    "note": null,
    "trimmed": true
   }
@@ -18,16 +18,14 @@
   {
    "url": "https://www.eluniverso.com/rss/",
    "links": [
-    "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml",
-    "http://www.pluck.com/products/rss-reader.html",
-    "http://es.wikipedia.org/wiki/Rss"
+    "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml"
    ]
   }
  ],
  "errors": [
   {
    "name": "feed_0.xml",
-   "error": "https://www.eluniverso.com/rss/: HTML index, 3 feed-like links"
+   "error": "https://www.eluniverso.com/rss/: HTML index, 1 feed-like links"
   }
  ],
  "feed_urls": [

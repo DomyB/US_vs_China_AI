@@ -5,10 +5,10 @@
    "url": "https://valor.com.br/rss",
    "params": {},
    "status": 200,
-   "bytes": 400909,
+   "bytes": 415819,
    "final_url": "http://pox.globo.com/rss/valor",
-   "sha256": "7228c53b22942f1cdc62eed32dc090ea8c74cf2be4cea9cead1ebc27fbda2f34",
-   "retrieved_at": "2026-10-02T17:09:44+00:00",
+   "sha256": "9df1c8c805637a23b7eaa1fdc2897fb48fe94dcf27b117a764b57fffe0d1e7d3",
+   "retrieved_at": "2026-10-02T19:27:58+00:00",
    "note": null,
    "trimmed": true
   }

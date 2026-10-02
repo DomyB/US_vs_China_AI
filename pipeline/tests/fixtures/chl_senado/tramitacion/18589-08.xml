@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<proyectos><proyecto>
+                 <descripcion>
+                    <boletin>18589-08</boletin>
+                    <titulo>Modifica el decreto ley N°3.525, de 1980, que crea el Servicio Nacional de Geología y Minería, para establecer la competencia de los tribunales para conocer reclamos contra resoluciones emitidas por ese servicio</titulo>
+                    <fecha_ingreso>10/08/2026</fecha_ingreso>
+                    <iniciativa>Moción</iniciativa>
+                    <camara_origen>C.Diputados</camara_origen>
+                    <urgencia_actual>Sin urgencia</urgencia_actual>
+                    <etapa>Primer trámite constitucional (C.Diputados)</etapa>
+                    <subetapa>Primer informe de comisión de Minería y Energía</subetapa>
+                    <leynro />
+                    <diariooficial />
+                    <estado>En tramitación </estado>
+                    <refundidos />
+                    <link_mensaje_mocion>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=19276&amp;tipodoc=mensaje_mocion</link_mensaje_mocion>
+                 </descripcion><autores><autor><PARLAMENTARIO>Rivas Villalobos, José</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Valenzuela Salazar, Daniel</PARLAMENTARIO></autor>
+</autores>
+<tramitacion><tramite><SESION>/</SESION><FECHA>10/08/2026</FECHA><DESCRIPCIONTRAMITE>Ingreso de proyecto .  </DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>58/374</SESION><FECHA>18/08/2026</FECHA><DESCRIPCIONTRAMITE>Cuenta de proyecto . Pasa a Comisión de Minería y Energía</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>58/374</SESION><FECHA>18/08/2026</FECHA><DESCRIPCIONTRAMITE>A solicitud del diputado Moreno la Comisión de Medio Ambiente informará como segunda comisión técnica. ACORDADO</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>/</SESION><FECHA>18/08/2026</FECHA><DESCRIPCIONTRAMITE>Oficio N° 21514. Comunica a la Comisión de Minería y Energía el acuerdo de la Sala, en orden a  remitir el proyecto de ley a la Comisión de Medio Ambiente y Recursos Naturales, con posterioridad a su despacho. </DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>/</SESION><FECHA>18/08/2026</FECHA><DESCRIPCIONTRAMITE>Oficio N° 21515. Comunica a la Comisión de Medio Ambiente y Recursos Naturales el acuerdo de la Sala, en orden a asignarle el proyecto de ley, una vez que sea despachado por la Comisión de Minería y Energía.</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+</tramitacion>
+<votaciones />
+<urgencias />
+<informes />
+<comparados />
+<oficios><oficio><NUMERO>21514</NUMERO><FECHA>18/08/2026</FECHA><TRAMITE>Primer informe de comisión</TRAMITE><ETAPA>Primer trámite constitucional</ETAPA><TIPO>Otros oficios</TIPO><CAMARA>C. Diputados</CAMARA><DESCRIPCION>Comunica a la Comisión de Minería y Energía el acuerdo de la Sala para remitir al proyecto de ley a la Comisión de Medio Ambiente y Recursos Naturales, con posterioridad a su despacho. </DESCRIPCION><LINK_OFICIO>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=37059&amp;tipodoc=ofic</LINK_OFICIO></oficio>
+<oficio><NUMERO>21515</NUMERO><FECHA>18/08/2026</FECHA><TRAMITE>Primer informe de comisión</TRAMITE><ETAPA>Primer trámite constitucional</ETAPA><TIPO>Otros oficios</TIPO><CAMARA>C. Diputados</CAMARA><DESCRIPCION>Comunica a la Comisión de Medio Ambiente y Recursos Naturales el acuerdo de la Sala, en orden a asignarle el proyecto de ley, una vez que sea despachado por la Comisión de Minería y Energía.</DESCRIPCION><LINK_OFICIO>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=37060&amp;tipodoc=ofic</LINK_OFICIO></oficio>
+</oficios>
+<indicaciones />
+<observaciones />
+<materias />
+</proyecto>
+</proyectos>

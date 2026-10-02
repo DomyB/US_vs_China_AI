@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<proyectos><proyecto>
+                 <descripcion>
+                    <boletin>18313-08</boletin>
+                    <titulo>Modifica el decreto ley N° 1.349, de 1976, que crea la Comisión Chilena del Cobre, para otorgar a la Contraloría General de la República facultades fiscalizadoras respecto de las empresas estatales productoras de cobre y sus derivados</titulo>
+                    <fecha_ingreso>02/06/2026</fecha_ingreso>
+                    <iniciativa>Moción</iniciativa>
+                    <camara_origen>C.Diputados</camara_origen>
+                    <urgencia_actual>Sin urgencia</urgencia_actual>
+                    <etapa>Primer trámite constitucional (C.Diputados)</etapa>
+                    <subetapa>Primer informe de comisión de Minería y Energía</subetapa>
+                    <leynro />
+                    <diariooficial />
+                    <estado>En tramitación </estado>
+                    <refundidos />
+                    <link_mensaje_mocion>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=18984&amp;tipodoc=mensaje_mocion</link_mensaje_mocion>
+                 </descripcion><autores><autor><PARLAMENTARIO>Beltrán Silva, Juan Carlos</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Briones Moller, Patricio</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Celis Montt, Andrés</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Durán Salinas, Eduardo</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Olivares Avendaño, Javier</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Orrego Gutiérrez, Francisco</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Valenzuela Henríquez, Juan</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Valenzuela Salazar, Daniel</PARLAMENTARIO></autor>
+</autores>
+<tramitacion><tramite><SESION>/</SESION><FECHA>02/06/2026</FECHA><DESCRIPCIONTRAMITE>Ingreso de proyecto .  </DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>30/374</SESION><FECHA>08/06/2026</FECHA><DESCRIPCIONTRAMITE>Cuenta de proyecto . Pasa a Comisión de Minería y Energía</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>30/374</SESION><FECHA>08/06/2026</FECHA><DESCRIPCIONTRAMITE>A solicitud del diputado Barraza, la Sala acordó remitir el proyecto a la Comisión de Constitución, una vez sea despachado por la Comisión de Minería. ACORDADO</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>/</SESION><FECHA>08/06/2026</FECHA><DESCRIPCIONTRAMITE>Oficio N° 21282. Comunica a la Comisión de Minería y Energía el acuerdo de la Sala, en orden a remitir a la Comisión de Constitución, Legislación, Justicia y Reglamento el proyecto de ley, con posterioridada su despacho.</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>/</SESION><FECHA>08/06/2026</FECHA><DESCRIPCIONTRAMITE>Oficio N° 21283. Comunica a la Comisión de Constitución, Legislación, Justicia y Reglamento el acuerdo de la Sala, en orden a asignarle el proyecto de ley una vez que sea despachado por la Comisión de Minería y Energía. </DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+</tramitacion>
+<votaciones />
+<urgencias />
+<informes />
+<comparados />
+<oficios><oficio><NUMERO>21282</NUMERO><FECHA>08/06/2026</FECHA><TRAMITE>Cuenta de proyecto</TRAMITE><ETAPA>Primer trámite constitucional</ETAPA><TIPO>Otros oficios</TIPO><CAMARA>C. Diputados</CAMARA><DESCRIPCION>Comunica a la Comisión de Minería y Energía el acuerdo de la Sala, en orden a remitir a la Comisión de Constitución, Legislación, Justicia y Reglamento, el proyecto de ley  con posterioridad a su despacho.</DESCRIPCION><LINK_OFICIO>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=36676&amp;tipodoc=ofic</LINK_OFICIO></oficio>
+<oficio><NUMERO>21283</NUMERO><FECHA>08/06/2026</FECHA><TRAMITE>Cuenta de proyecto</TRAMITE><ETAPA>Primer trámite constitucional</ETAPA><TIPO>Otros oficios</TIPO><CAMARA>C. Diputados</CAMARA><DESCRIPCION>Comunica a la Comisión de Constitución, Legislación,  Justicia y Reglamento el acuerdo de la Sala para asignarle el proyecto de ley, una vez que sea despachado por la Comisión de Minería Y Energía. </DESCRIPCION><LINK_OFICIO>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=36677&amp;tipodoc=ofic</LINK_OFICIO></oficio>
+<oficio><NUMERO>21282</NUMERO><FECHA>08/06/2026</FECHA><TRAMITE>Primer informe de comisión</TRAMITE><ETAPA>Primer trámite constitucional</ETAPA><TIPO>Otros oficios</TIPO><CAMARA>C. Diputados</CAMARA><DESCRIPCION>Comunica a la Comisión de Minería y Energía el acuerdo de la Sala, en orden a remitir a la Comisión de Constitución, Legislación, Justicia y Reglamento el proyecto de ley, con posterioridada su despacho.</DESCRIPCION><LINK_OFICIO>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=36678&amp;tipodoc=ofic</LINK_OFICIO></oficio>
+<oficio><NUMERO>21283</NUMERO><FECHA>08/06/2026</FECHA><TRAMITE>Primer informe de comisión</TRAMITE><ETAPA>Primer trámite constitucional</ETAPA><TIPO>Otros oficios</TIPO><CAMARA>C. Diputados</CAMARA><DESCRIPCION>Comunica a la Comisión de Constitución, Legislación, Justicia y Reglamento el acuerdo de la Sala, en orden a asignarle el proyecto de ley una vez que sea despachado por la Comisión de Minería y Energía. </DESCRIPCION><LINK_OFICIO>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=36682&amp;tipodoc=ofic</LINK_OFICIO></oficio>
+</oficios>
+<indicaciones />
+<observaciones />
+<materias />
+</proyecto>
+</proyectos>
