@@ -86,7 +86,9 @@ class GDELTDoc(Adapter):
     tables = ("document", "media_volume")
     incremental = True
     min_interval = 7.0  # GDELT asks for at most one request every 5 seconds; runners share egress, so go slower
-    THROTTLE_SLEEP = 60  # seconds to pause after an HTTP 429 before the next window
+    THROTTLE_SLEEP = 30  # seconds to pause after an HTTP 429 before the next window
+    MAX_THROTTLES = 8  # after this many 429s the run stops: the address is being rate-limited for the day
+    TIME_BUDGET_MIN = 45  # minutes of fetching per run (GDELT_TIME_BUDGET_MIN); unfetched windows stay in the backlog
 
     def fetch(self, snap: Snapshot) -> None:
         budget = int(os.environ.get("GDELT_BACKFILL_WINDOWS", "60") or 60)
@@ -107,7 +109,17 @@ class GDELTDoc(Adapter):
         snap.manifest["windows_planned"] = len(plan)
         snap.manifest["windows_backlog"] = max(0, len(backlog) - budget)
         snap.manifest["errors"] = []
+        import time
+
+        t0 = time.monotonic()
+        time_budget = float(os.environ.get("GDELT_TIME_BUDGET_MIN", str(self.TIME_BUDGET_MIN))) * 60
         for iso, start, end, _recent in plan:
+            if time.monotonic() - t0 > time_budget:
+                snap.manifest["stopped"] = f"time budget of {time_budget / 60:.0f} min exhausted"
+                break
+            if snap.manifest.get("throttled", 0) >= self.MAX_THROTTLES:
+                snap.manifest["stopped"] = f"{self.MAX_THROTTLES} throttle responses; remaining windows left for the next run"
+                break
             for lang in COUNTRY_LANGS.get(iso, ["es"]):
                 name = f"{iso}/{start.isoformat()}_{lang}.json"
                 params = {"query": f"{TERMS[lang]} sourcecountry:{FIPS[iso]}", "mode": "artlist", "format": "json", "maxrecords": MAX_RECORDS, "sort": "datedesc",
@@ -117,8 +129,6 @@ class GDELTDoc(Adapter):
                 except Exception as e:  # noqa: BLE001 - keep going; the window stays missing and is retried next run
                     snap.manifest["errors"].append({"name": name, "error": str(e)[:200]})
                     if "429" in str(e):
-                        import time
-
                         snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
                         time.sleep(self.THROTTLE_SLEEP)
                     continue
@@ -140,8 +150,7 @@ class GDELTDoc(Adapter):
                 except Exception as e:  # noqa: BLE001
                     snap.manifest["errors"].append({"name": name + " (fallback)", "error": str(e)[:200]})
                     if "429" in str(e):
-                        import time
-
+                        snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
                         time.sleep(self.THROTTLE_SLEEP)
                     continue
                 head = snap.path(name).open("rb").read(200).lstrip()
