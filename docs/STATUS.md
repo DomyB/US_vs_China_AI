@@ -2,23 +2,31 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
-## Phase 2b — National adapters (started 2026-10-02; wave 1 built, first live run pending)
+## Phase 2b — National adapters (started 2026-10-02; waves 1–4 built, live runs in progress)
 
-**What runs (locally, on synthetic fixtures)**
-- Text tables `document` (bills, hearings, news; news rows carry no summary by schema), `vote`, `vote_member`, plus `concession` and `media_volume`; incremental merge on key with the previous data release; `document_dedup` merges the same article seen through RSS and GDELT.
-- Shared modules: feed parser (RSS 2.0, Atom, RSS 1.0; stdlib), versioned multilingual keyword filter (es/pt/en/nl; matched terms stored per row), robots.txt cache with crawl-delay, XML fixture trimming, `legislature` / `press` / `national` target groups, weekly `ingest-press.yml`.
-- Adapters: Brazil Câmara (yearly bulk CSVs filtered by keyword, member votes from the API), one RSS adapter per registry press outlet (27; feed from `api_url` or discovery), Guyana GGMC production CSV.
-- Exporter writes `real/parliament/<ISO3>.json` and `real/media/<ISO3>.json` with coverage flags and explicit notes for Bolivia, Guyana, Suriname and Venezuela; the site shows real records tagged "Real records · unclassified" with stance "not yet classified", stance/attention/narrative charts stay SAMPLE.
-- 59 pipeline tests and ruff pass; web lint, typecheck, unit tests and build pass.
+**What runs**
+- Text tables `document` (bills, hearings, votes, news; news rows carry no summary by schema), `vote`, `vote_member`, plus `concession` and `media_volume`; incremental merge on key with the previous data release; `document_dedup` merges the same article seen through RSS and GDELT.
+- Shared modules: feed parser (RSS 2.0, Atom, RSS 1.0; stdlib) with feed-index discovery, versioned multilingual keyword filter (es/pt/en/nl; matched terms stored per row), robots.txt cache with crawl-delay (a disallow is recorded as `skipped`), XML fixture trimming, `legislature` / `press` / `national` target groups, weekly `ingest-press.yml`.
+- Live after run 16 (2026-10-02): **Brazil Câmara** 3,266 documents (1,676 bills, 1,590 hearing requests), 1,166 votes, 8,294 member votes; **17 of 27 press feeds** parsed (headlines are recent-only until GDELT history lands); the site shows Brazil's records and the first headlines for Argentina, Chile and Peru as "Real records · unclassified" with stance "not yet classified", stance/attention/narrative charts still SAMPLE; Bolivia, Guyana, Suriname and Venezuela show the no-structured-records note.
+- Built and tested on documented formats, awaiting their live runs: Brazil Senado, Chile Cámara and Senado, Argentina HCDN, Uruguay Parlamento, Colombia Cámara, Paraguay SILpy, Ecuador votes, Peru SPLEY; GDELT history; Colombia and Ecuador cadastres; Guyana GGMC (92 rows live from the real file), Peru BCRP, Chile Cochilco.
+- 99 pipeline tests and ruff pass; web lint, typecheck, 15 unit tests and build pass; Playwright screenshots of the Parliament and Media tabs checked.
 
 **What is missing**
-- The first live run of wave 1 (`bra_camara_api press guy_ggmc`), then waves 2–4: GDELT history, Chile, Brazil Senado, Argentina, Uruguay, Colombia, Paraguay, Ecuador, Peru, cadastres and national statistics.
+- Live confirmation of the wave 2–4 adapters (run 17 covering all three groups lost its runner after 39 minutes, before any fixture or data was saved; the legislature group is being re-run alone with memory-lean parsers).
+- GDELT backfill (2017→) and the weekly press cadence; feeds not found for six outlets (Folha's and El Tiempo's feed index pages are now scanned for links; Emol resets connections; De Ware Tijd forbids automated clients).
+- Stance, tone, translations and narratives: Phase 3.
 
 **What broke and was fixed**
-- (filled after the first live run)
+- GGMC's CSV has a three-row header (mineral / company / unit); parser rewritten, gold kept as the grand total in ounces only.
+- Portuguese "ouro" and "prata" matched place names (bairro Prata); gold and silver now need a mining phrase in Portuguese as in Spanish.
+- Six publishers answer an HTML index of feeds where a feed was expected; the press adapter now harvests feed links from such pages (one level).
+- Câmara member-vote detail hit the 400-call cap; raised to 1,500 with the most recent votes first.
+- Fixture trimming wrote `;`-separated files back with the wrong separator; separators are sniffed now.
+- Run 17 (legislature + press + national together) killed the runner: yearly legislative corpora were concatenated in memory. Parsers now filter each file as it is read and stream member-vote files in chunks; the workflow prints disk and memory before and after ingestion.
+- A year with 286 records produced a 46,000-pixel page: record lists page 50 at a time; symbolic votes (no roll call) are labelled.
 
 **Recommendation**
-- Dispatch `Ingest (monthly)` with `targets: bra_camara_api press guy_ggmc`; fix parsers against the recorded fixtures; then wave 2.
+- Run the groups separately until memory use is known: `legislature`, then `press` (with a one-off GDELT backfill), then `national`; fix parsers against the recorded fixtures after each.
 
 ## Phase 2a — International and US pipelines (2026-10-01, fifteen live runs)
 
