@@ -5,9 +5,11 @@ items, so these adapters are incremental and run weekly; history comes from GDEL
 """
 from __future__ import annotations
 
+from urllib.parse import urlsplit
+
 import pandas as pd
 
-from ..http import FetchError, Snapshot
+from ..http import FetchError, RobotsDisallowed, Snapshot
 from ..registry import sources
 from .base import Adapter
 from .docs import DOCUMENT_COLUMNS, MEDIA_VOLUME_COLUMNS, make_document
@@ -15,6 +17,18 @@ from .feeds import FEED_CANDIDATES, discover_feeds, parse_feed, today_iso
 from .keywords import is_relevant, relevance
 
 MAX_FEEDS = 3
+
+
+def _same_site(url: str, site: str) -> bool:
+    """Same registered domain (feeds.folha.uol.com.br belongs to folha.uol.com.br; wikipedia.org does not)."""
+    def key(u):
+        host = urlsplit(u).netloc.lower().split(":")[0]
+        parts = host.split(".")
+        return ".".join(parts[-3:]) if len(parts) >= 3 and parts[-2] in ("com", "co", "org", "net", "gob", "gov") else ".".join(parts[-2:])
+    try:
+        return key(url) == key(site) or urlsplit(url).netloc.lower().endswith("." + urlsplit(site).netloc.lower().removeprefix("www."))
+    except Exception:  # noqa: BLE001
+        return False
 
 
 def _looks_like_feed_url(url: str | None) -> bool:
@@ -49,7 +63,7 @@ class RSSPress(Adapter):
             discovered: list[str] = []
             try:
                 html = snap.get(self.src.url, "home.html", timeout=60).read_text(encoding="utf-8", errors="ignore")
-                discovered = discover_feeds(html, self.src.url)
+                discovered = [u for u in discover_feeds(html, self.src.url) if _same_site(u, self.src.url)]
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": "home.html", "error": str(e)[:200]})
             base = self.src.url.rstrip("/")
@@ -69,14 +83,14 @@ class RSSPress(Adapter):
     def _try_feed(self, snap: Snapshot, url: str, name: str) -> bool:
         try:
             snap.get(url, name, timeout=60, headers={"Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, */*"})
-        except FetchError as e:
+        except (FetchError, RobotsDisallowed) as e:
             snap.manifest.setdefault("errors", []).append({"name": url, "error": str(e)[:200]})
             return False
         if not self._is_feed(snap, name):
             # an HTML page where a feed was expected is often the publisher's RSS index: harvest its links once
             if snap.has(name) and not url.endswith(".html") and "index_" not in name:
                 html = snap.path(name).read_text(encoding="utf-8", errors="ignore")
-                links = [u for u in discover_feeds(html, url, anchors=True) if u != url][:12]
+                links = [u for u in discover_feeds(html, url, anchors=True) if u != url and _same_site(u, self.src.url)][:12]
                 snap.manifest.setdefault("index_pages", []).append({"url": url, "links": links})
                 snap.discard(name, f"{url}: HTML index, {len(links)} feed-like links")
                 for i, u in enumerate(links):

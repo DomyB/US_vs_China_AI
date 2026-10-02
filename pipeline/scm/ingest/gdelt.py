@@ -35,6 +35,15 @@ TERMS = {
     "en": '(mining OR bauxite OR gold OR lithium OR minerals) (China OR Chinese OR "United States")',
     "nl": '(mijnbouw OR goud OR bauxiet OR olie) (China OR Chinese OR "Verenigde Staten")',
 }
+# ASCII-only, shorter variants: in the first live run every Spanish and Portuguese window came back empty while
+# the English and Dutch ones returned articles, so accented or long queries are suspected; the fallback is tried
+# once per empty window and the variant that yields results is recorded in the manifest
+TERMS_FALLBACK = {
+    "es": '(litio OR cobre OR mineria OR minera) (China OR "Estados Unidos")',
+    "pt": '(litio OR cobre OR mineracao OR mineradora OR niobio) (China OR "Estados Unidos")',
+    "en": "(mining OR lithium OR copper) (China OR \"United States\")",
+    "nl": "(mijnbouw OR goud OR bauxiet) (China OR \"Verenigde Staten\")",
+}
 COUNTRY_LANGS = {"BRA": ["pt"], "GUY": ["en"], "SUR": ["nl", "en"]}
 # registry press hosts that GDELT reports under another domain
 DOMAIN_ALIASES = {"www1.folha.uol.com.br": "bra_folha", "folha.uol.com.br": "bra_folha", "valor.globo.com": "bra_valor", "oglobo.globo.com": "bra_oglobo",
@@ -76,7 +85,8 @@ class GDELTDoc(Adapter):
     source_id = "gdelt"
     tables = ("document", "media_volume")
     incremental = True
-    min_interval = 5.0  # GDELT asks for at most one request every 5 seconds
+    min_interval = 7.0  # GDELT asks for at most one request every 5 seconds; runners share egress, so go slower
+    THROTTLE_SLEEP = 60  # seconds to pause after an HTTP 429 before the next window
 
     def fetch(self, snap: Snapshot) -> None:
         budget = int(os.environ.get("GDELT_BACKFILL_WINDOWS", "60") or 60)
@@ -106,10 +116,43 @@ class GDELTDoc(Adapter):
                     snap.get(API, name, params=params, timeout=60, force=True)
                 except Exception as e:  # noqa: BLE001 - keep going; the window stays missing and is retried next run
                     snap.manifest["errors"].append({"name": name, "error": str(e)[:200]})
+                    if "429" in str(e):
+                        import time
+
+                        snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
+                        time.sleep(self.THROTTLE_SLEEP)
                     continue
                 head = snap.path(name).open("rb").read(200).lstrip()
                 if not head.startswith((b"{", b"[")):
                     snap.discard(name, f"GDELT answered non-JSON for {name}: {head[:150]!r}")
+                    continue
+                try:
+                    n_arts = len(json.loads(snap.path(name).read_text(encoding="utf-8")).get("articles", []))
+                except (json.JSONDecodeError, AttributeError):
+                    n_arts = 0
+                tally = snap.manifest.setdefault("query_variant_hits", {"primary": 0, "fallback": 0, "empty": 0})
+                if n_arts:
+                    tally["primary"] += 1
+                    continue
+                # empty window: try the ASCII-only short query once
+                try:
+                    snap.get(API, name, params={**params, "query": f"{TERMS_FALLBACK[lang]} sourcecountry:{FIPS[iso]}"}, timeout=60, force=True)
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest["errors"].append({"name": name + " (fallback)", "error": str(e)[:200]})
+                    if "429" in str(e):
+                        import time
+
+                        time.sleep(self.THROTTLE_SLEEP)
+                    continue
+                head = snap.path(name).open("rb").read(200).lstrip()
+                if not head.startswith((b"{", b"[")):
+                    snap.discard(name, f"GDELT answered non-JSON for {name} (fallback): {head[:150]!r}")
+                    continue
+                try:
+                    n2 = len(json.loads(snap.path(name).read_text(encoding="utf-8")).get("articles", []))
+                except (json.JSONDecodeError, AttributeError):
+                    n2 = 0
+                tally["fallback" if n2 else "empty"] += 1
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
