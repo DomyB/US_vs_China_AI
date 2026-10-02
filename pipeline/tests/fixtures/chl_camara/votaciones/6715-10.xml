@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>7106</ns0:Id>
+  <ns0:NumeroBoletin>6715-10</ns0:NumeroBoletin>
+  <ns0:Nombre>Acuerdo Suplementario sobre el Comercio de Servicios del Tratado de Libre Comercio entre los Gobiernos de las Repúblicas de Chile y  Popular China.</ns0:Nombre>
+  <ns0:FechaIngreso>2009-09-29T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+  <ns0:MinisteriosPatrocinantes>
+    <ns0:Ministerio>
+      <ns0:Id>51</ns0:Id>
+      <ns0:Nombre>Ministerio de Relaciones Exteriores</ns0:Nombre>
+    </ns0:Ministerio>
+  </ns0:MinisteriosPatrocinantes>
+  <ns0:Votaciones>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>13268</ns0:Id>
+      <ns0:Descripcion>Boletín N°6715-10</ns0:Descripcion>
+      <ns0:Fecha>2009-12-15T12:25:28</ns0:Fecha>
+      <ns0:TotalSi>62</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>1</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>0</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="3">General y Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo />
+      <ns0:TramiteConstitucional Id="1">Primer Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+  </ns0:Votaciones>
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>7097</ns0:Id>
+      <ns0:Nombre>COMERCIO DE SERVICIOS</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>892</ns0:Id>
+      <ns0:Nombre>ACUERDOS INTERNACIONALES</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

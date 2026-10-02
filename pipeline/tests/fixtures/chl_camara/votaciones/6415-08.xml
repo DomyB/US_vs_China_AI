@@ -1,0 +1,374 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>6805</ns0:Id>
+  <ns0:NumeroBoletin>6415-08</ns0:NumeroBoletin>
+  <ns0:Nombre>Regula el cierre de faenas e instalaciones mineras.</ns0:Nombre>
+  <ns0:FechaIngreso>2009-03-02T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+  <ns0:MinisteriosPatrocinantes>
+    <ns0:Ministerio>
+      <ns0:Id>2</ns0:Id>
+      <ns0:Nombre>Ministerio de Hacienda</ns0:Nombre>
+    </ns0:Ministerio>
+    <ns0:Ministerio>
+      <ns0:Id>48</ns0:Id>
+      <ns0:Nombre>Ministerio de Minería</ns0:Nombre>
+    </ns0:Ministerio>
+  </ns0:MinisteriosPatrocinantes>
+  <ns0:Votaciones>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11829</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:13:55</ns0:Fecha>
+      <ns0:TotalSi>96</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>indicación N°8 de la Comisión de Hacienda, para reemplazar la frase “estos se regirán por lo dispuesto en los artículos 49 y siguientes” por la siguiente: “estos se regirán por los parámetros establecidos en los artículos 49 y siguientes, los que se calcularán respecto del remanente de vida útil de la faena minera o de hidrocarburo”. 
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11826</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:13:08</ns0:Fecha>
+      <ns0:TotalSi>95</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>artículo cuarto transitorio aprobado por el Senado, conjuntamente con la indicación N°18 de la Comisión de Minería, mediante la cual se agrega el siguiente inciso segundo, nuevo:
+“Para efectos de la constitución de garantía de los proyectos mineros y de hidrocarburos que a la época de entrada en vigencia de esta ley se encontraren en operación, éstos se regirán por lo dispuesto en los artículos 49 y siguientes.”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11830</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:12:12</ns0:Fecha>
+      <ns0:TotalSi>97</ns0:TotalSi>
+      <ns0:TotalNo>3</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>58 del texto aprobado por el Senado.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11827</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:11:29</ns0:Fecha>
+      <ns0:TotalSi>89</ns0:TotalSi>
+      <ns0:TotalNo>10</ns0:TotalNo>
+      <ns0:TotalAbstencion>1</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>indicación N°7 de la Comisión de Hacienda, para agregar el siguiente inciso sexto al artículo 48 aprobado por el Senado:
+“Respecto de aquellos planes de cierre que se formulen para la exploración, o para la explotación y beneficio de un yacimiento de hidrocarburos cuya capacidad de extracción sea igual o inferior a la señalada en el inciso anterior, se sujetarán al procedimiento simplificado.”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11831</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:09:53</ns0:Fecha>
+      <ns0:TotalSi>84</ns0:TotalSi>
+      <ns0:TotalNo>11</ns0:TotalNo>
+      <ns0:TotalAbstencion>6</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>inciso quinto del artículo 48 propuesto por el Senado (LOC), conjuntamente con las indicación N°6 la Comisión de Hacienda, para agregar, a continuación de la palabra “hidrocarburos”, la siguiente frase: “, y cuya capacidad de extracción por yacimiento sea superior a seiscientos metros cúbicos por día (600 m3/día) de petróleo o un millón de metros cúbicos por día (1.000.000 m3/día) de gas natural,”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11828</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:09:11</ns0:Fecha>
+      <ns0:TotalSi>101</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>artículo 44, inciso tercero, del texto aprobado por el Senado, conjuntamente con la indicación N°10 de la Comisión de Recursos Naturales, por la cual introduce las siguientes tres enmiendas en dicho inciso (LOC):
+a) Intercalar, a continuación de la expresión “Plan de Cierre,” la frase “respecto de materias medioambientales,”.
+b) Sustituir la frase “previa consulta vinculante a” por “previo informe vinculante de”.
+c) Agregar el siguiente párrafo final: “Lo anterior es sin perjuicio de las facultades fiscalizadoras y sancionatorias de la Superintendencia del Medio Ambiente, de conformidad a su ley orgánica.”
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11832</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:08:27</ns0:Fecha>
+      <ns0:TotalSi>101</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>artículo 26 aprobado por el Senado, conjuntamente con la indicación N°5 de la Comisión de Hacienda para intercalar el inciso segundo siguiente:
+“Producido el cierre de la faena minera, de acuerdo a lo establecido en la presente ley, el propietario del predio superficial o cualquiera que tuviere interés patrimonial en ello podrá solicitar la extinción de la servidumbre minera que grava el predio superficial.”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11833</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:07:04</ns0:Fecha>
+      <ns0:TotalSi>90</ns0:TotalSi>
+      <ns0:TotalNo>4</ns0:TotalNo>
+      <ns0:TotalAbstencion>2</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>16 del texto aprobado por el Senado.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11834</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:05:56</ns0:Fecha>
+      <ns0:TotalSi>102</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>indicación N°9 de la Comisión de Recursos Naturales, mediante la cual se incorpora la siguiente letra k), nueva, en el artículo 13:
+“k) Un programa de difusión a la comunidad sobre la implementación del plan de cierre de la faena minera, a excepción de aquellas que le corresponda el régimen simplificado.”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11835</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:04:26</ns0:Fecha>
+      <ns0:TotalSi>102</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>letra e) del artículo 13 del texto aprobado por el Senado, conjuntamente con la indicación N°7 de la Comisión de Minería, para intercalar, a continuación de la palabra “minera”, la frase “así como el resguardo de la vida, salud y seguridad de las personas, de acuerdo a la ley;”, más la adición de la expresión “y medio ambiente” contenida en la indicación N°8 de la Comisión de Recursos Naturales.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11836</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:03:43</ns0:Fecha>
+      <ns0:TotalSi>101</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>inciso tercero del artículo 10 aprobado por el Senado, conjuntamente con la indicación N°4 de la Comisión de Hacienda, para reemplazar la expresión “diez mil toneladas (10.000 t) mensuales” por “diez mil toneladas brutas (10.000 t) mensuales”, y con la indicación N°5 de la Comisión de Minería, para establecer que la capacidad de extracción es “por faena minera”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11837</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:03:04</ns0:Fecha>
+      <ns0:TotalSi>103</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>letra d) del artículo 5° del texto aprobado por el Senado, conjuntamente con la indicación N°7 de la Comisión de Recursos Naturales, destinada a intercalar, entre las palabras “evaluar” y “modificaciones”, la frase “en interacción con la autoridad ambiental, si correspondiere”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11838</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:02:13</ns0:Fecha>
+      <ns0:TotalSi>102</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>indicación N°6 de la Comisión de Recursos Naturales, para reemplazar el artículo 4° del proyecto aprobado por el Senado por el siguiente:
+“Artículo 4°.- Carácter sectorial del plan de cierre. La aprobación que realizare el Servicio al plan de cierre, en conformidad a lo dispuesto en la presente ley, constituirá un permiso sectorial para todos los efectos legales. El plan de cierre original deberá ser elaborado en conformidad con la resolución de calificación ambiental previamente aprobada, de forma tal de asegurar el cumplimiento de las obligaciones de reparación, mitigación o compensación diversas a las prescritas por esta ley, respecto de los predios superficiales, en conformidad a la ley N° 19.300 y la normativa ambiental aplicable. La empresa minera no podrá iniciar la operación de la faena minera sin contar, previamente, con un plan de cierre aprobado en la forma prescrita en esta ley.”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11839</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:01:01</ns0:Fecha>
+      <ns0:TotalSi>103</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>letra o) del artículo 3° del texto aprobado por el Senado, conjuntamente con la indicación N°3 de la Comisión de Minería, mediante la cual intercala, entre la palabra “lugar” y el punto (.), la siguiente frase: “así como el resguardo de la vida, salud y seguridad de las personas, de acuerdo a la ley.”, y también con las indicaciones 4 y 5 de la Comisión de Recursos Naturales, que tienen como propósito intercalar la expresión “y medio ambiente”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11840</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T14:00:22</ns0:Fecha>
+      <ns0:TotalSi>103</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>letra i) del artículo 3° aprobado por el Senado, conjuntamente con la indicación N°2 de la Comisión de Minería para agregar la frase “baterías, equipamiento, ductos, oleoductos y gasoductos de hidrocarburos”, y con las indicaciones 1 y 2 de la Comisión de Hacienda, para eliminar en la letra i) del artículo 3° la palabra “refinerías” y para sustituir en el inciso segundo de la letra i) del artículo 3° la expresión “las sustancias fósiles e hidrocarburos líquidos o gaseosos”, por la frase “las sustancias fósiles y depósitos de hidrocarburos líquidos o gaseosos”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11841</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T13:59:37</ns0:Fecha>
+      <ns0:TotalSi>101</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>letra h) del artículo 3° aprobado por el Senado, conjuntamente con la indicación N°3 de la Comisión de Recursos Naturales para intercalar, entre la palabra “control” y la preposición “de”, la frase “en agua, en aire y en suelo”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11842</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T13:58:47</ns0:Fecha>
+      <ns0:TotalSi>101</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="2">Particular</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>artículo 2° aprobado por el Senado, conjuntamente con la indicación N°1 de la Comisión de Minería, para reemplazar en el inciso primero del artículo 2°, luego de la expresión: “aplicable”, la coma (,), por un punto seguido (.), y  sustituir la frase: “así como el resguardo de la vida, salud y seguridad de las personas, de acuerdo a la ley.”, por “La ejecución de las medidas y acciones de la manera antes señaladas deberán otorgar el debido resguardo a la vida, salud y seguridad de las personas, de acuerdo a la ley.”, y con las indicaciones 1 y 2 de la Comisión de Recursos Naturales para agregar la expresión “y medio ambiente”.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11843</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T13:56:34</ns0:Fecha>
+      <ns0:TotalSi>98</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>1</ns0:TotalDispensado>
+      <ns0:Quorum Valor="5">Ley Orgánica Constitucional</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="1">General</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo>4°, 6°, 7°, 9°, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22, 23, 24, 26, 27, 28, 31, 33, 37, 38, 41, 44, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58, 59 y los artículos primero, segundo, tercero y cuarto transitorios.
+</ns0:Articulo>
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>11844</ns0:Id>
+      <ns0:Descripcion>Boletín N°6415-08</ns0:Descripcion>
+      <ns0:Fecha>2011-06-15T13:55:01</ns0:Fecha>
+      <ns0:TotalSi>100</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>0</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="1">General</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo />
+      <ns0:TramiteConstitucional Id="2">Segundo Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+  </ns0:Votaciones>
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>5497</ns0:Id>
+      <ns0:Nombre>INSTALACIONES MINERAS</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>3867</ns0:Id>
+      <ns0:Nombre>MINERÍA</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>17202</ns0:Id>
+      <ns0:Nombre>CIERRE DE FAENAS E INSTALACIONES MINERAS.</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>10096</ns0:Id>
+      <ns0:Nombre>FAENAS MINERAS</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>19026</ns0:Id>
+      <ns0:Nombre>INDUSTRIA MINERA</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

@@ -7,7 +7,199 @@
    "status": 200,
    "bytes": 6178,
    "sha256": "3888b33ec9107e18885a86f2869f92d57da652e1f4181eec51a5f1e10492d441",
-   "retrieved_at": "2026-10-02T16:15:05+00:00",
+   "retrieved_at": "2026-10-02T16:33:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2008_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2008",
+   "params": {
+    "prmAnno": 2008
+   },
+   "status": 200,
+   "bytes": 46473,
+   "sha256": "7fe7ecd358e9d8824c27274eb225b4b43274135ca71bfcc9b50f3b0cd8ef757e",
+   "retrieved_at": "2026-10-02T16:33:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2009_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2009",
+   "params": {
+    "prmAnno": 2009
+   },
+   "status": 200,
+   "bytes": 45623,
+   "sha256": "7fc3d77d251732647535b41430ecbb3cb6cbaa9fdb24bc13b5b4a8cb5fe6cab0",
+   "retrieved_at": "2026-10-02T16:33:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2010_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2010",
+   "params": {
+    "prmAnno": 2010
+   },
+   "status": 200,
+   "bytes": 44930,
+   "sha256": "afcbf3a886f688a0b6c282b08204066ee839797e9726d957c44d6760516bd58c",
+   "retrieved_at": "2026-10-02T16:33:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2011_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2011",
+   "params": {
+    "prmAnno": 2011
+   },
+   "status": 200,
+   "bytes": 48686,
+   "sha256": "704b1b25bf4a11601240ed564ff6c794d932d2001ba55e68490092a6b6981a6e",
+   "retrieved_at": "2026-10-02T16:33:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2012_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2012",
+   "params": {
+    "prmAnno": 2012
+   },
+   "status": 200,
+   "bytes": 39776,
+   "sha256": "2bd2d363dae69b15fdc570e7d5c5a43e4d40fa34ffe5bdee4618b5eb2dbc40fd",
+   "retrieved_at": "2026-10-02T16:33:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2013_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2013",
+   "params": {
+    "prmAnno": 2013
+   },
+   "status": 200,
+   "bytes": 47563,
+   "sha256": "561386dd561755adca23a2b1f15b0215f56cf73f8d3b88d62119db9aa0fc3c84",
+   "retrieved_at": "2026-10-02T16:33:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2014_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2014",
+   "params": {
+    "prmAnno": 2014
+   },
+   "status": 200,
+   "bytes": 47386,
+   "sha256": "ba43e8276a49c77784beaa9009023959677858b26d083b9c07c602533f62b750",
+   "retrieved_at": "2026-10-02T16:33:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2015_retornarMensajesXAnno.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarMensajesXAnno?prmAnno=2015",
+   "params": {
+    "prmAnno": 2015
+   },
+   "status": 200,
+   "bytes": 56214,
+   "sha256": "121af957d849543438b7953b782a17fe959fa3c970b6948d666bfa340c589ed6",
+   "retrieved_at": "2026-10-02T16:33:46+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6088-05.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6088-05",
+   "params": {
+    "prmNumeroBoletin": "6088-05"
+   },
+   "status": 200,
+   "bytes": 1769,
+   "sha256": "5e4b24dde2839dbdca4cf7642dd3f801fdeb7521c6da14f48afd2e9befe15dfe",
+   "retrieved_at": "2026-10-02T16:34:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6715-10.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6715-10",
+   "params": {
+    "prmNumeroBoletin": "6715-10"
+   },
+   "status": 200,
+   "bytes": 1808,
+   "sha256": "cf15285786a4b3f2fa0e33221fe8a7a96c11e9c02f1256a0d339b48f16c5ce8b",
+   "retrieved_at": "2026-10-02T16:34:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6373-03.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6373-03",
+   "params": {
+    "prmNumeroBoletin": "6373-03"
+   },
+   "status": 200,
+   "bytes": 1904,
+   "sha256": "e062eddb0219c2a23613cf117fd1c8925174577a3342ebcd0ed411141edd5e71",
+   "retrieved_at": "2026-10-02T16:34:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6415-08.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6415-08",
+   "params": {
+    "prmNumeroBoletin": "6415-08"
+   },
+   "status": 200,
+   "bytes": 22564,
+   "sha256": "ba4817b4c152817ef32c7a67e029305d824172166ae726486554183a3298ffec",
+   "retrieved_at": "2026-10-02T16:34:23+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6411-21.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6411-21",
+   "params": {
+    "prmNumeroBoletin": "6411-21"
+   },
+   "status": 200,
+   "bytes": 3626,
+   "sha256": "0227e746550a909331f82671f0b130df15f809210e110fef0619e695813bca6f",
+   "retrieved_at": "2026-10-02T16:34:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6763-01.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6763-01",
+   "params": {
+    "prmNumeroBoletin": "6763-01"
+   },
+   "status": 200,
+   "bytes": 3597,
+   "sha256": "10a476c005ff30ee69773dc47e51c8dd2c5e2bc909ddd78f0e07872d27d3b184",
+   "retrieved_at": "2026-10-02T16:34:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6781-07.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6781-07",
+   "params": {
+    "prmNumeroBoletin": "6781-07"
+   },
+   "status": 200,
+   "bytes": 1832,
+   "sha256": "2e165c3d1e784cd4f4eafaff3545525786ee6afd8a76fb3840a665c1c051976b",
+   "retrieved_at": "2026-10-02T16:34:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/6508-08.xml": {
+   "url": "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarVotacionesXProyectoLey?prmNumeroBoletin=6508-08",
+   "params": {
+    "prmNumeroBoletin": "6508-08"
+   },
+   "status": 200,
+   "bytes": 1546,
+   "sha256": "7877eabd33f9dfacd47736f1dc3ffd758a9bcf546a9a7492b24e9c0d83871e3b",
+   "retrieved_at": "2026-10-02T16:34:27+00:00",
    "note": null,
    "trimmed": true
   }
@@ -31,51 +223,206 @@
   "retornarVotacionesXAnno",
   "retornarVotacionesXProyectoLey"
  ],
- "list_method_candidates": [
-  "retornarProyectosLeyPorAnno",
-  "retornarProyectosLeyIngresadosPorAnno",
-  "retornarProyectosLeyPorPeriodo"
+ "list_methods": [
+  "retornarMensajesXAnno",
+  "retornarMocionesXAnno"
  ],
- "errors": [
-  {
-   "name": "retornarProyectosLeyPorAnno?prmAnno",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2008 El nombre de m&#233;todo de servicios Web retornarProyectos"
-  },
-  {
-   "name": "retornarProyectosLeyPorAnno?prmAno",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAno=2008 El nombre de m&#233;todo de servicios Web retornarProyectosL"
-  },
-  {
-   "name": "retornarProyectosLeyPorAnno?prmYear",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmYear=2008 El nombre de m&#233;todo de servicios Web retornarProyectos"
-  },
-  {
-   "name": "retornarProyectosLeyIngresadosPorAnno?prmAnno",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyIngresadosPorAnno?prmAnno=2008 El nombre de m&#233;todo de servicios Web retorna"
-  },
-  {
-   "name": "retornarProyectosLeyIngresadosPorAnno?prmAno",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyIngresadosPorAnno?prmAno=2008 El nombre de m&#233;todo de servicios Web retornar"
-  },
-  {
-   "name": "retornarProyectosLeyIngresadosPorAnno?prmYear",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyIngresadosPorAnno?prmYear=2008 El nombre de m&#233;todo de servicios Web retorna"
-  },
-  {
-   "name": "retornarProyectosLeyPorPeriodo?prmAnno",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorPeriodo?prmAnno=2008 El nombre de m&#233;todo de servicios Web retornarProyec"
-  },
-  {
-   "name": "retornarProyectosLeyPorPeriodo?prmAno",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorPeriodo?prmAno=2008 El nombre de m&#233;todo de servicios Web retornarProyect"
-  },
-  {
-   "name": "retornarProyectosLeyPorPeriodo?prmYear",
-   "error": "chl_camara: HTTP 500 on GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorPeriodo?prmYear=2008 El nombre de m&#233;todo de servicios Web retornarProyec"
-  }
- ],
- "list_method": {
-  "name": null,
-  "param": null
- }
+ "kept_projects": 173,
+ "omitted": [
+  "proyectos/2016_retornarMensajesXAnno.xml",
+  "proyectos/2017_retornarMensajesXAnno.xml",
+  "proyectos/2018_retornarMensajesXAnno.xml",
+  "proyectos/2019_retornarMensajesXAnno.xml",
+  "proyectos/2020_retornarMensajesXAnno.xml",
+  "proyectos/2021_retornarMensajesXAnno.xml",
+  "proyectos/2022_retornarMensajesXAnno.xml",
+  "proyectos/2023_retornarMensajesXAnno.xml",
+  "proyectos/2024_retornarMensajesXAnno.xml",
+  "proyectos/2025_retornarMensajesXAnno.xml",
+  "proyectos/2026_retornarMensajesXAnno.xml",
+  "proyectos/2008_retornarMocionesXAnno.xml",
+  "proyectos/2009_retornarMocionesXAnno.xml",
+  "proyectos/2010_retornarMocionesXAnno.xml",
+  "proyectos/2011_retornarMocionesXAnno.xml",
+  "proyectos/2012_retornarMocionesXAnno.xml",
+  "proyectos/2013_retornarMocionesXAnno.xml",
+  "proyectos/2014_retornarMocionesXAnno.xml",
+  "proyectos/2015_retornarMocionesXAnno.xml",
+  "proyectos/2016_retornarMocionesXAnno.xml",
+  "proyectos/2017_retornarMocionesXAnno.xml",
+  "proyectos/2018_retornarMocionesXAnno.xml",
+  "proyectos/2019_retornarMocionesXAnno.xml",
+  "proyectos/2020_retornarMocionesXAnno.xml",
+  "proyectos/2021_retornarMocionesXAnno.xml",
+  "proyectos/2022_retornarMocionesXAnno.xml",
+  "proyectos/2023_retornarMocionesXAnno.xml",
+  "proyectos/2024_retornarMocionesXAnno.xml",
+  "proyectos/2025_retornarMocionesXAnno.xml",
+  "proyectos/2026_retornarMocionesXAnno.xml",
+  "votaciones/7170-05.xml",
+  "votaciones/7275-06.xml",
+  "votaciones/7223-07.xml",
+  "votaciones/6941-08.xml",
+  "votaciones/7361-06.xml",
+  "votaciones/6940-08.xml",
+  "votaciones/7051-08.xml",
+  "votaciones/6855-08.xml",
+  "votaciones/7186-24.xml",
+  "votaciones/7190-08.xml",
+  "votaciones/7210-13.xml",
+  "votaciones/7684-10.xml",
+  "votaciones/7848-08.xml",
+  "votaciones/7919-10.xml",
+  "votaciones/7875-08.xml",
+  "votaciones/7790-07.xml",
+  "votaciones/7866-08.xml",
+  "votaciones/7918-04.xml",
+  "votaciones/8006-08.xml",
+  "votaciones/8196-10.xml",
+  "votaciones/8272-08.xml",
+  "votaciones/8485-10.xml",
+  "votaciones/8247-07.xml",
+  "votaciones/8299-08.xml",
+  "votaciones/8392-08.xml",
+  "votaciones/8303-08.xml",
+  "votaciones/8746-07.xml",
+  "votaciones/9002-10.xml",
+  "votaciones/9096-10.xml",
+  "votaciones/8801-10.xml",
+  "votaciones/9169-08.xml",
+  "votaciones/8952-10.xml",
+  "votaciones/8840-08.xml",
+  "votaciones/8841-08.xml",
+  "votaciones/9185-08.xml",
+  "votaciones/9131-08.xml",
+  "votaciones/9017-13.xml",
+  "votaciones/9624-08.xml",
+  "votaciones/9464-10.xml",
+  "votaciones/9275-08.xml",
+  "votaciones/9243-10.xml",
+  "votaciones/9530-08.xml",
+  "votaciones/9561-10.xml",
+  "votaciones/9332-10.xml",
+  "votaciones/9779-33.xml",
+  "votaciones/9362-08.xml",
+  "votaciones/9357-08.xml",
+  "votaciones/9740-08.xml",
+  "votaciones/9540-08.xml",
+  "votaciones/9546-06.xml",
+  "votaciones/9443-08.xml",
+  "votaciones/10205-10.xml",
+  "votaciones/10244-10.xml",
+  "votaciones/10312-08.xml",
+  "votaciones/10022-07.xml",
+  "votaciones/9962-12.xml",
+  "votaciones/9970-12.xml",
+  "votaciones/10108-12.xml",
+  "votaciones/10038-08.xml",
+  "votaciones/10010-08.xml",
+  "votaciones/10092-07.xml",
+  "votaciones/10187-07.xml",
+  "votaciones/10168-07.xml",
+  "votaciones/10441-08.xml",
+  "votaciones/10776-10.xml",
+  "votaciones/10572-10.xml",
+  "votaciones/10571-10.xml",
+  "votaciones/11028-05.xml",
+  "votaciones/10995-08.xml",
+  "votaciones/10941-21.xml",
+  "votaciones/10597-07.xml",
+  "votaciones/10557-08.xml",
+  "votaciones/10569-08.xml",
+  "votaciones/10598-05.xml",
+  "votaciones/10629-12.xml",
+  "votaciones/10638-08.xml",
+  "votaciones/10852-06.xml",
+  "votaciones/10518-07.xml",
+  "votaciones/11172-10.xml",
+  "votaciones/11480-10.xml",
+  "votaciones/11346-10.xml",
+  "votaciones/11261-07.xml",
+  "votaciones/11498-08.xml",
+  "votaciones/12041-10.xml",
+  "votaciones/11582-10.xml",
+  "votaciones/12324-08.xml",
+  "votaciones/11749-10.xml",
+  "votaciones/11611-10.xml",
+  "votaciones/12195-10.xml",
+  "votaciones/11568-10.xml",
+  "votaciones/11871-10.xml",
+  "votaciones/11904-08.xml",
+  "votaciones/12173-07.xml",
+  "votaciones/11955-24.xml",
+  "votaciones/12196-08.xml",
+  "votaciones/11976-21.xml",
+  "votaciones/12095-13.xml",
+  "votaciones/12093-08.xml",
+  "votaciones/11903-07.xml",
+  "votaciones/12603-10.xml",
+  "votaciones/12518-13.xml",
+  "votaciones/12569-13.xml",
+  "votaciones/12574-21.xml",
+  "votaciones/12832-07.xml",
+  "votaciones/13645-08.xml",
+  "votaciones/13666-08.xml",
+  "votaciones/13850-08.xml",
+  "votaciones/13954-08.xml",
+  "votaciones/13641-13.xml",
+  "votaciones/14769-05.xml",
+  "votaciones/14244-21.xml",
+  "votaciones/14057-21.xml",
+  "votaciones/14513-21.xml",
+  "votaciones/14009-12.xml",
+  "votaciones/13998-24.xml",
+  "votaciones/14329-06.xml",
+  "votaciones/15265-08.xml",
+  "votaciones/15511-08.xml",
+  "votaciones/14829-08.xml",
+  "votaciones/15510-08.xml",
+  "votaciones/14800-08.xml",
+  "votaciones/15309-07.xml",
+  "votaciones/15206-08.xml",
+  "votaciones/15223-07.xml",
+  "votaciones/15525-25.xml",
+  "votaciones/14788-08.xml",
+  "votaciones/14938-08.xml",
+  "votaciones/15385-07.xml",
+  "votaciones/14786-08.xml",
+  "votaciones/15297-24.xml",
+  "votaciones/15011-08.xml",
+  "votaciones/16389-10.xml",
+  "votaciones/16011-08.xml",
+  "votaciones/16117-08.xml",
+  "votaciones/16053-07.xml",
+  "votaciones/16067-08.xml",
+  "votaciones/16198-07.xml",
+  "votaciones/16778-08.xml",
+  "votaciones/17019-10.xml",
+  "votaciones/16994-10.xml",
+  "votaciones/16596-10.xml",
+  "votaciones/17120-08.xml",
+  "votaciones/17262-06.xml",
+  "votaciones/17166-08.xml",
+  "votaciones/16587-25.xml",
+  "votaciones/16605-08.xml",
+  "votaciones/16785-07.xml",
+  "votaciones/16839-06.xml",
+  "votaciones/16600-07.xml",
+  "votaciones/17479-10.xml",
+  "votaciones/17372-08.xml",
+  "votaciones/17990-08.xml",
+  "votaciones/17883-07.xml",
+  "votaciones/18022-08.xml",
+  "votaciones/17954-06.xml",
+  "votaciones/18259-08.xml",
+  "votaciones/18571-08.xml",
+  "votaciones/18487-12.xml",
+  "votaciones/18313-08.xml",
+  "votaciones/18194-08.xml",
+  "votaciones/18042-22.xml",
+  "votaciones/18606-08.xml",
+  "votaciones/18268-06.xml",
+  "votaciones/18589-08.xml",
+  "votaciones/18653-08.xml"
+ ]
 }

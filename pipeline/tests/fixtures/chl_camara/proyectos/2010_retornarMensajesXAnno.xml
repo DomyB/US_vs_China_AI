@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>7560</ns0:Id>
+    <ns0:NumeroBoletin>7159-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Precisa sentido y alcance de la modificación efectuada a la ley sobre impuesto a la renta, por la ley N° 20.448.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-08-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7594</ns0:Id>
+    <ns0:NumeroBoletin>7193-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea una comisión permanente de coordinación del sistema de justicia penal.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7252</ns0:Id>
+    <ns0:NumeroBoletin>6856-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica plazos en materia de actuaciones judiciales y declaración de muerte presunta en las zonas afectadas por el terremoto.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-03-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7228</ns0:Id>
+    <ns0:NumeroBoletin>6829-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Aplica Convención sobre el Comercio Internacional de Especies Amenazadas de Flora y Fauna Silvestre. </ns0:Nombre>
+    <ns0:FechaIngreso>2010-03-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7229</ns0:Id>
+    <ns0:NumeroBoletin>6831-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo único de la ley N° 20.411, de 2009. </ns0:Nombre>
+    <ns0:FechaIngreso>2010-03-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7604</ns0:Id>
+    <ns0:NumeroBoletin>7206-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece la iniciativa ciudadana de ley.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7535</ns0:Id>
+    <ns0:NumeroBoletin>7140-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 19.882, en materia de dedicación exclusiva respecto de cargos de Subdirector Médico.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-08-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7596</ns0:Id>
+    <ns0:NumeroBoletin>7199-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Contrato especial de trabajo a distancia.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7635</ns0:Id>
+    <ns0:NumeroBoletin>7239-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece las bases y procedimientos de fijación de tarifas de los servicios de gas en la XII Región.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7210</ns0:Id>
+    <ns0:NumeroBoletin>6813-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo que Aprueba el protocolo contra la Fabricación y el Tráfico de Armas de Fuego, su Piezas y Componentes y Municiones, que complementa la Convención de las Naciones Unidas contra la Delincuencia Organizada Transnacional.   </ns0:Nombre>
+    <ns0:FechaIngreso>2010-01-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7342</ns0:Id>
+    <ns0:NumeroBoletin>6947-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 20.351, prorrogando y perfeccionando el incentivo al precontrato y a la capacitación de los trabajadores.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-05-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7423</ns0:Id>
+    <ns0:NumeroBoletin>7024-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Facilita el acceso a las pensiones solidarias para la discapacidad y la vejez </ns0:Nombre>
+    <ns0:FechaIngreso>2010-06-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7655</ns0:Id>
+    <ns0:NumeroBoletin>7228-10</ns0:NumeroBoletin>
+    <ns0:Nombre> Aprueba Acuerdo sobre Servicios Aéreos, entre el Gobierno de la República de Chile y el Gobierno de la República Federativa del Brasil, suscrito en Sao Paulo, el 30 de julio de 2009 .</ns0:Nombre>
+    <ns0:FechaIngreso>2010-10-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7372</ns0:Id>
+    <ns0:NumeroBoletin>6968-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas de excepción en materia de subvenciones a establecimientos educacionales</ns0:Nombre>
+    <ns0:FechaIngreso>2010-06-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7429</ns0:Id>
+    <ns0:NumeroBoletin>7029-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre recuperación y continuidad en condiciones críticas y de emergencia del sistema público de telecomunicaciones</ns0:Nombre>
+    <ns0:FechaIngreso>2010-06-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7749</ns0:Id>
+    <ns0:NumeroBoletin>7358-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula los actos electorales de chilenos en el extranjero.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7343</ns0:Id>
+    <ns0:NumeroBoletin>6948-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Evita el no pago de la tarifa, en vehículos de la locomoción colectiva</ns0:Nombre>
+    <ns0:FechaIngreso>2010-05-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7602</ns0:Id>
+    <ns0:NumeroBoletin>7203-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica Sistema de Justicia Militar y establece un régimen más estricto de sanciones, tratándose de delitos contra los miembros de las policías.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7656</ns0:Id>
+    <ns0:NumeroBoletin>7255-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre cuota anual de captura en materia pesquera </ns0:Nombre>
+    <ns0:FechaIngreso>2010-10-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7220</ns0:Id>
+    <ns0:NumeroBoletin>6823-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece el pago de un impuesto específico de beneficio municipal por la instalación de una central generadora de energía eléctrica. </ns0:Nombre>
+    <ns0:FechaIngreso>2010-01-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7501</ns0:Id>
+    <ns0:NumeroBoletin>7102-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Prorroga la vigencia del decreto ley N° 701, de 1974, y aumenta los incentivos a la forestación.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-08-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7471</ns0:Id>
+    <ns0:NumeroBoletin>7074-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga un bono a los cónyuges que cumplan cincuenta años de matrimonio.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-07-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7509</ns0:Id>
+    <ns0:NumeroBoletin>7096-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre el Gobierno de la República de Chile y la Corporación Andina de Fomento (CAF), para el desarrollo de las actividades de la CAF en Chile, suscrito en Santiago de Chile el 15 de julio de 2009.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-08-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7563</ns0:Id>
+    <ns0:NumeroBoletin>7161-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba la &amp;quot;Convención Internacional Contra el Dopaje en el Deporte&amp;quot;, aprobada en París, el 18 de octubre de 2005, en la 33a Reunión de la Conferencia General de la Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7584</ns0:Id>
+    <ns0:NumeroBoletin>7185-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 18.575, Orgánica Constitucional de Bases Generales de la Administración del Estado, en lo referente a la declaración de intereses y de patrimonio.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7585</ns0:Id>
+    <ns0:NumeroBoletin>7187-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 20.248, de subvención escolar preferencial.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7608</ns0:Id>
+    <ns0:NumeroBoletin>7212-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Permite el acceso uniforme a las licencias profesionales cumpliendo los requisitos exigidos en la Ley de Tránsito.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7615</ns0:Id>
+    <ns0:NumeroBoletin>7216-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Complementa y modifica ley N° 20.387, sobre bonificación por retiro voluntario, de funcionarios municipales.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7651</ns0:Id>
+    <ns0:NumeroBoletin>7226-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Ley de Presupuestos para el Sector Público, correspondiente al año 2011.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7238</ns0:Id>
+    <ns0:NumeroBoletin>6834-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 18.575, Orgánica Constitucional de Bases Generales de la Administración del Estado, en lo referente a la declaración de intereses y de patrimonio </ns0:Nombre>
+    <ns0:FechaIngreso>2010-03-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7352</ns0:Id>
+    <ns0:NumeroBoletin>6952-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea inhabilidades para condenados por delitos sexuales contra menores y establece registro de dichas inhabilidades. </ns0:Nombre>
+    <ns0:FechaIngreso>2010-05-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7623</ns0:Id>
+    <ns0:NumeroBoletin>7196-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Ministerio de Desarrollo Social.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-27T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7701</ns0:Id>
+    <ns0:NumeroBoletin>7309-21</ns0:NumeroBoletin>
+    <ns0:Nombre>Implementa la medida de conservación 10-8 (2006), de la Comisión de los Recursos Vivos Marinos Antárticos.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-11-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7230</ns0:Id>
+    <ns0:NumeroBoletin>6832-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Reemplaza, en los textos que indica, las expresiones Director de Logística del Ejército por Comandante de Apoyo a la Fuerza del Ejército, y  Comando de Ingenieros del Ejército por  Comando de Infraestructura del Ejército. </ns0:Nombre>
+    <ns0:FechaIngreso>2010-03-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7231</ns0:Id>
+    <ns0:NumeroBoletin>6833-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Tratado de Libre Comercio entre las Repúblicas de Chile y Turquía.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-03-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7426</ns0:Id>
+    <ns0:NumeroBoletin>7023-24</ns0:NumeroBoletin>
+    <ns0:Nombre>Denomina Ruka Moñen Tayu Folil, Juan Cayupi Huechicura al Museo Folclórico Araucano Juan Antonio Ríos.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-06-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7209</ns0:Id>
+    <ns0:NumeroBoletin>6810-12</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un programa de intervención en zonas con presencia de polimetales en la comuna de Arica. </ns0:Nombre>
+    <ns0:FechaIngreso>2010-01-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7214</ns0:Id>
+    <ns0:NumeroBoletin>6816-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que modifica el artículo 19, numerales 23 y 24, de la Constitución Política de la República , (aguas).   </ns0:Nombre>
+    <ns0:FechaIngreso>2010-01-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7389</ns0:Id>
+    <ns0:NumeroBoletin>6989-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Reajusta el monto del ingreso mínimo mensual.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-06-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7566</ns0:Id>
+    <ns0:NumeroBoletin>7164-25</ns0:NumeroBoletin>
+    <ns0:Nombre>Amplía Escalafón de Oficiales Policiales  Profesionales de la Policía de Investigaciones de Chile.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7607</ns0:Id>
+    <ns0:NumeroBoletin>7211-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Relativo a las conductas terroristas y su investigación.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7664</ns0:Id>
+    <ns0:NumeroBoletin>7262-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Efectúa un aporte extraordinario al Fondo Común Municipal, y compensa menores ingresos de comunas afectadas por terremoto y maremoto del 27 de febrero de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-10-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7700</ns0:Id>
+    <ns0:NumeroBoletin>7308-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre plebiscito y consultas de carácter comunal.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-11-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7719</ns0:Id>
+    <ns0:NumeroBoletin>7329-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre Calidad y Equidad de la Educación.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-11-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7730</ns0:Id>
+    <ns0:NumeroBoletin>7335-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre voto de chilenos en el extranjero.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-12-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7212</ns0:Id>
+    <ns0:NumeroBoletin>6815-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Fortalece la educación pública</ns0:Nombre>
+    <ns0:FechaIngreso>2010-01-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7314</ns0:Id>
+    <ns0:NumeroBoletin>6917-21</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley General de Pesca y establece normas transitorias para enfrentar la catástrofe del 27 de febrero de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-05-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7500</ns0:Id>
+    <ns0:NumeroBoletin>7101-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Aumento del Subsidio Nacional Transitorio al Transporte Público remunerado de Pasajeros.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-08-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7732</ns0:Id>
+    <ns0:NumeroBoletin>7337-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica Código Procesal Penal, en materia de suspensión condicional del  procedimiento y prisión preventiva.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-12-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7323</ns0:Id>
+    <ns0:NumeroBoletin>6922-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Facilita el pago de las deudas previsionales </ns0:Nombre>
+    <ns0:FechaIngreso>2010-05-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7316</ns0:Id>
+    <ns0:NumeroBoletin>6918-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica disposiciones legales en materia de vivienda y urbanismo con el objeto de favorecer la reconstrucción</ns0:Nombre>
+    <ns0:FechaIngreso>2010-05-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7384</ns0:Id>
+    <ns0:NumeroBoletin>6981-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Facilita la constitución y funcionamiento de nuevas empresas</ns0:Nombre>
+    <ns0:FechaIngreso>2010-06-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7424</ns0:Id>
+    <ns0:NumeroBoletin>7021-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el &amp;quot;Convenio sobre la Distribución de Señales Portadoras de Programas Transmitidas por Satélite, adoptado en Bruselas el 21 de mayo de 1974.&amp;quot;.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-06-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7562</ns0:Id>
+    <ns0:NumeroBoletin>7160-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo sobre Medidas del Estado Rector del Puerto Destinadas a Prevenir, Desalentar y Eliminar la Pesca Ilegal, no Declarada y no Reglamentada, aprobado, el 22 de noviembre de 2009, por la Conferencia de la Organización de las Naciones Unidas para la Agricultura y la Alimentación (FAO) en su 36º período de sesiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-08-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7783</ns0:Id>
+    <ns0:NumeroBoletin>7386-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Convenio 187, sobre el Marco Promocional para la Seguridad y Salud en el Trabajo&amp;quot;, adoptado por la Organización Internacional del Trabajo.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-12-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7637</ns0:Id>
+    <ns0:NumeroBoletin>7240-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre procedimiento para otorgar concesiones eléctricas.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-09-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7208</ns0:Id>
+    <ns0:NumeroBoletin>6811-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre otorgamiento y uso de licencias médicas </ns0:Nombre>
+    <ns0:FechaIngreso>2010-01-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7341</ns0:Id>
+    <ns0:NumeroBoletin>6946-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional para adecuar los plazos vinculados a las elecciones presidenciales. </ns0:Nombre>
+    <ns0:FechaIngreso>2010-05-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7464</ns0:Id>
+    <ns0:NumeroBoletin>7065-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Faculta al Servicio de Tesorerías para otorgar facilidades de pago a los contribuyentes por impuestos morosos, por un plazo de hasta 36 meses.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-07-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7472</ns0:Id>
+    <ns0:NumeroBoletin>7075-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce modificaciones a la ley N° 19.828, que crea el Servicio Nacional del Adulto Mayor.</ns0:Nombre>
+    <ns0:FechaIngreso>2010-07-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

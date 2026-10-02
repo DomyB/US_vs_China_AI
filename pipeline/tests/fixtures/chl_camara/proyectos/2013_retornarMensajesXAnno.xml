@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>9168</ns0:Id>
+    <ns0:NumeroBoletin>8764-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica límite intercomunal entre Vicuña y Paiguano, en la Región de Coquimbo.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9268</ns0:Id>
+    <ns0:NumeroBoletin>8865-21</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Instituto de Desarrollo de la Pesca Artesanal y de la Acuicultura de Pequeña Escala, IDEPA.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-04-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9407</ns0:Id>
+    <ns0:NumeroBoletin>9002-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo Suplementario sobre Inversiones del Tratado de Libre Comercio entre el Gobierno de la República de Chile y el Gobierno de la República Popular de China, suscrito en Vladivostok, Federación Rusa, el 9 de septiembre de 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-06-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9253</ns0:Id>
+    <ns0:NumeroBoletin>8851-18</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica Ley de Violencia Intrafamiliar y otros cuerpos legales y, establece ley sobre violencia en las relaciones íntimas de pareja sin convivencia.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9353</ns0:Id>
+    <ns0:NumeroBoletin>8951-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo para modificar el Tratado de Libre Comercio entre el Gobierno de la República de Chile y el Gobierno de Canadá, hecho en Santiago el 5 de diciembre de 1996, tal como se ha modificado entre el Gobierno de la República de Chile y el Gobierno de Canadá, firmado en Santiago, Chile, el 16 de abril de 2012</ns0:Nombre>
+    <ns0:FechaIngreso>2013-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9444</ns0:Id>
+    <ns0:NumeroBoletin>9037-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Reajusta monto del ingreso mínimo mensual.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-07-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9175</ns0:Id>
+    <ns0:NumeroBoletin>8772-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica plazo para reintegro parcial del impuesto específico al petróleo diesel para las empresas de transporte de carga, y modifica otros aspectos de este mecanismo.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9176</ns0:Id>
+    <ns0:NumeroBoletin>8769-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 20.554 que crea Juzgados de Policía Local en las comunas que indica, con el objeto de precisar el momento para la instalación de Juzgados de Policía Local .</ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9222</ns0:Id>
+    <ns0:NumeroBoletin>8819-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Perfecciona las disposiciones introducidas por la ley N° 20.568 sobre inscripción automática y que modernizó el sistema de votaciones.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9344</ns0:Id>
+    <ns0:NumeroBoletin>8938-24</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Ministerio de Cultura</ns0:Nombre>
+    <ns0:FechaIngreso>2013-05-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9447</ns0:Id>
+    <ns0:NumeroBoletin>9040-31</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga un bono de apoyo a familias numerosas.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-07-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9487</ns0:Id>
+    <ns0:NumeroBoletin>9083-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce perfeccionamientos en los regímenes de gobierno corporativo de las empresas del Estado y de aquellas en que éste tenga participación.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-09-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9581</ns0:Id>
+    <ns0:NumeroBoletin>9170-23</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 20.423, del Sistema Institucional para el Desarrollo del Turismo.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-11-27T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9486</ns0:Id>
+    <ns0:NumeroBoletin>9084-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Perfecciona la gestión en el sector público, mediante nuevas herramientas de gestión y el mejoramiento del Sistema de Alta Dirección Pública.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-09-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9242</ns0:Id>
+    <ns0:NumeroBoletin>8835-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el &amp;quot;Acuerdo entre el &amp;quot;Gobierno de la República de Chile y el Gobierno de la República de Guyana de Eliminación Parcial de Visa para Titulares de Pasaportes Diplomáticos, de Servicio y Oficiales&amp;quot;, adoptado por Cambio de Notas, fechadas el 6 de mayo de 2011 y el 28 de septiembre de 2011, en Georgetown y Santiago, respectivamente&amp;quot;.  </ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9404</ns0:Id>
+    <ns0:NumeroBoletin>8997-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que establece la obligatoriedad del segundo nivel de transición y crea  un sistema de financiamiento gratuito desde el nivel medio mayor.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-06-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9567</ns0:Id>
+    <ns0:NumeroBoletin>9156-32</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea Fondo Concursable de Apoyo Directo al Adulto Mayor.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-11-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9576</ns0:Id>
+    <ns0:NumeroBoletin>9155-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Suprime feriado judicial, para los tribunales que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-11-25T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9190</ns0:Id>
+    <ns0:NumeroBoletin>8786-27</ns0:NumeroBoletin>
+    <ns0:Nombre>Pone término a la existencia legal de la Empresa de Abastecimiento de Zonas Aisladas (Emaza).</ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9178</ns0:Id>
+    <ns0:NumeroBoletin>8773-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica diversas normas que regulan la actividad hípica nacional con el fin de incentivar y promover dicha actividad en Chile.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9279</ns0:Id>
+    <ns0:NumeroBoletin>8874-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce modificaciones a la legislación tributaria en materia de factura electrónica y dispone otras medidas que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-04-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9235</ns0:Id>
+    <ns0:NumeroBoletin>8829-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea un registro voluntario de contratos agrícolas.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9243</ns0:Id>
+    <ns0:NumeroBoletin>8836-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo que aprueba el &amp;quot;Memorándum de Entendimiento entre el Gobierno de la República de Chile y el Gobierno de los Emiratos Árabes Unidos sobre Exención Mutua del Requisito de Visa de Ingreso para los Titulares de Pasaportes Diplomáticos y Oficiales/Especiales&amp;quot;, suscrito en Nueva York, el 22 de septiembre de 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9251</ns0:Id>
+    <ns0:NumeroBoletin>8845-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Reajusta el monto del ingreso mínimo mensual.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9420</ns0:Id>
+    <ns0:NumeroBoletin>9015-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea Comisión de Valores y Seguros.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-07-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9216</ns0:Id>
+    <ns0:NumeroBoletin>8810-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Código Procesal Penal con el fin de reforzar la protección de las víctimas, mejorar la función que desempeña el Ministerio Público y fortalecer la acción policial y la operatividad del sistema de justicia penal.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9571</ns0:Id>
+    <ns0:NumeroBoletin>9164-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo de Cooperación Técnica y Científica, entre el Gobierno de la República de Chile y el Gobierno de San Vicente y las Granadinas, suscrito en Kingstown, el 30 de noviembre de 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-11-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9531</ns0:Id>
+    <ns0:NumeroBoletin>9118-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga a los funcionarios del poder judicial que indica una bonificación por retiro voluntario y otros beneficios que señala.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9469</ns0:Id>
+    <ns0:NumeroBoletin>9064-16</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece incentivos al retiro para los funcionarios del Senado y de la Biblioteca del Congreso Nacional.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-08-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9220</ns0:Id>
+    <ns0:NumeroBoletin>8814-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Incrementa el monto de la asignación mensual que perciben los soldados conscriptos</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9245</ns0:Id>
+    <ns0:NumeroBoletin>8842-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de acuerdo que aprueba el Convenio de Seguridad Social entre el Gobierno de la  República de Chile y el Gobierno del Reino Unido de Gran Bretaña e Irlanda del Norte, suscrito en Santiago con  fecha 13 de marzo de 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9441</ns0:Id>
+    <ns0:NumeroBoletin>9036-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N°18.961, Orgánica Constitucional de Carabineros de Chile, para establecer la medida de control preventivo de identidad.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-07-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9583</ns0:Id>
+    <ns0:NumeroBoletin>9177-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga reajuste de remuneraciones a los trabajadores del Sector Público, concede aguinaldos que señala y, concede otros beneficios que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-12-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9233</ns0:Id>
+    <ns0:NumeroBoletin>8828-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Ley General de Urbanismo y Construcciones en materia de afectaciones de utilidad pública de los planes reguladores.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9503</ns0:Id>
+    <ns0:NumeroBoletin>9096-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Tratado de Libre Comercio entre Chile y Hong Kong, China, suscrito en Vladivostok, Federación de Rusia, el 7 de septiembre de 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-09-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9572</ns0:Id>
+    <ns0:NumeroBoletin>9165-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Enmiendas a las Cuantías de Limitación que Figuran en el Protocolo de 1992, que Enmienda el Convenio Internacional sobre Responsabilidad Civil Nacida de Daños Debidos a Contaminación por Hidrocarburos de 1969, aprobadas por Resolución Leg. 1 (82) del Comité Jurídico de la Organización Marítima Internacional, el 18 de octubre 2000</ns0:Nombre>
+    <ns0:FechaIngreso>2013-11-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9582</ns0:Id>
+    <ns0:NumeroBoletin>9176-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Incorpora al 3° y 4° año de enseñanza media, al régimen de Subvención Escolar Preferencial, a contar del año 2014.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-12-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9426</ns0:Id>
+    <ns0:NumeroBoletin>9018-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 17.635 de 1972 que establece normas sobre cobro ejecutivo de créditos para la vivienda que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-07-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9585</ns0:Id>
+    <ns0:NumeroBoletin>9174-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la planta de personal de la Junta Nacional de Jardines Infantiles y otorga las facultades que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-12-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9494</ns0:Id>
+    <ns0:NumeroBoletin>9087-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Seguro Social de Educación Parvularia en niveles de Sala Cuna y Medio Menor.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-09-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9354</ns0:Id>
+    <ns0:NumeroBoletin>8939-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre el Gobierno de la República de Chile y el Gobierno de la República Federal de Alemania sobre una Actividad Laboral Remunerada de Familiares Dependientes de Miembros de una Representación Diplomática o Consular, suscrito en Berlín, el 22 de octubre de 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9377</ns0:Id>
+    <ns0:NumeroBoletin>8970-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Ley de Migración y Extranjería.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-06-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9574</ns0:Id>
+    <ns0:NumeroBoletin>9166-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica disposiciones introducidas por ley N° 19.948, que crea un procedimiento para eximir de responsabilidad en caso de extravío, robo o hurto de la cédula de identidad y, de otros documentos de identificación.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-11-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9207</ns0:Id>
+    <ns0:NumeroBoletin>8801-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo Marco de la Alianza del Pacífico, entre la República de Chile, la República de Colombia, los Estados Unidos Mexicanos y la República del Perú, suscrito en Paranal&amp;quot;, Antofagasta, el 6 de junio 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-24T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9438</ns0:Id>
+    <ns0:NumeroBoletin>9031-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Constitución Política de la República, en materia de reelección y vacancia de parlamentarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-07-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9432</ns0:Id>
+    <ns0:NumeroBoletin>9030-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 18.700, orgánica constitucional sobre votaciones populares y escrutinios, con el objeto de sustituir el sistema electoral aplicable a la elección de parlamentarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-07-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9501</ns0:Id>
+    <ns0:NumeroBoletin>9094-12</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece marco para la gestión de residuos y responsabilidad extendida del productor.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-09-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9605</ns0:Id>
+    <ns0:NumeroBoletin>9197-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Permite la emisión de medios de pago con provisión de fondo por entidades no bancarias.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-12-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9342</ns0:Id>
+    <ns0:NumeroBoletin>8936-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica los artículos 88 y 89 de la ley N° 20.255, en relación con el régimen del seguro social en contra de riesgos de accidentes de trabajo y enfermedades profesionales, aplicable a los afiliados independientes y voluntarios del nuevo sistema de pensiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-05-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9206</ns0:Id>
+    <ns0:NumeroBoletin>8800-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre el Gobierno de la República de Chile y el Gobierno de la República Socialista Democrática de Sri Lanka sobre Exención del Requisito de Visa para los Titulares de Pasaportes Diplomáticos, Oficiales y/o de Servicio&amp;quot;, suscrito en Colombo, el 26 de junio de 2012. </ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-24T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9579</ns0:Id>
+    <ns0:NumeroBoletin>9169-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica textos legales que indica, para impulsar la inversión minera.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-11-26T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9237</ns0:Id>
+    <ns0:NumeroBoletin>8830-31</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga un bono solidario a las familias de menores ingresos y de clase media vulnerables.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9538</ns0:Id>
+    <ns0:NumeroBoletin>9124-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece facultades especiales para el otorgamiento de concesiones marítimas y regularización de palafitos en la Provincia de Chiloé.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-10-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9528</ns0:Id>
+    <ns0:NumeroBoletin>9117-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Ley de Presupuestos del sector Público, correspondiente al año 2014.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9244</ns0:Id>
+    <ns0:NumeroBoletin>8843-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre el Gobierno de la República de Chile y el Gobierno de la República de Trinidad y Tobago sobre Autorización para que los Dependientes del Personal Diplomático, Consular, Técnico y Administrativo de las Misiones Diplomáticas y Consulares realicen Actividades Remuneradas, suscrito en Puerto  España, Trinidad y Tobago, el 29 de marzo de 2012.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9189</ns0:Id>
+    <ns0:NumeroBoletin>8783-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la Agencia Nacional de Medicamentos.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-01-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9221</ns0:Id>
+    <ns0:NumeroBoletin>8815-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga a los funcionarios del Instituto de Desarrollo Agropecuario (INDAP), condiciones especiales para la bonificación por retiro voluntario, por el período que indica, y otros incentivos al retiro.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-03-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9403</ns0:Id>
+    <ns0:NumeroBoletin>8995-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Aumenta las protecciones legales y beneficios aplicables a los miembros de las Fuerzas de Orden y Seguridad.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-06-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9601</ns0:Id>
+    <ns0:NumeroBoletin>9157-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Ministerio de Agricultura, Alimentos, Pesca y Recursos Forestales y el Sistema Nacional de Inocuidad Alimentaria.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-12-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>9359</ns0:Id>
+    <ns0:NumeroBoletin>8952-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo que aprueba Convenio entre la República de Chile y los Estados Unidos Mexicanos, sobre Protección y Restitución de Bienes Culturales, suscrito en Ciudad de México, el 8 de julio de 2011.</ns0:Nombre>
+    <ns0:FechaIngreso>2013-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>7873</ns0:Id>
+    <ns0:NumeroBoletin>7488-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga un bono mensual extraordinario a los ex beneficiarios de la indemnización compensatoria de ley N° 19.129, que dejaron de percibir dicha prestación en agosto de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8316</ns0:Id>
+    <ns0:NumeroBoletin>7920-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo de Servicios Aéreos entre el Gobierno de la República de Chile y el Gobierno de Malasia y su Anexo, suscrito en Kuala Lumpur, Malasia, el 14 de abril de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-09-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8422</ns0:Id>
+    <ns0:NumeroBoletin>8026-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley, iniciado en Mensaje de S.E. el Presidente de la República, sobre publicidad de los alimentos.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-11-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7924</ns0:Id>
+    <ns0:NumeroBoletin>7529-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley que excluye a los menores de edad de la legislación sobre conductas terroristas.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8082</ns0:Id>
+    <ns0:NumeroBoletin>7684-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de acuerdo que aprueba el ´Tratado de Extradición entre el Gobierno de la República de Chile y el Gobierno de los Estados Unidos de América´, suscrito en Santiago el 12 de enero de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-05-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8150</ns0:Id>
+    <ns0:NumeroBoletin>7754-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Protocolo Adicional al Tratado Constitutivo de UNASUR sobre Compromiso con la Democracia, suscrito en Georgetown, República Cooperativa de Guyana, el 26 de noviembre de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-06-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7837</ns0:Id>
+    <ns0:NumeroBoletin>7440-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Moderniza y fomenta la competencia del sistema financiero.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-01-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7973</ns0:Id>
+    <ns0:NumeroBoletin>7585-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo sobre el Protocolo Modificatorio del Tratado entre las Repúblicas de Chile y de Argentina, sobre traslado de nacionales condenados y cumplimiento de sentencias penales, suscrito en Santiago el 28 de mayo de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-04-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8043</ns0:Id>
+    <ns0:NumeroBoletin>7652-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 18.290, aumentando las sanciones por manejo en estado de ebriedad, bajo la influencia de sustancias estupefacientes o sicotrópicas, y bajo la influencia del alcohol.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-05-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8078</ns0:Id>
+    <ns0:NumeroBoletin>7685-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre la República de Chile y la Organización para la Prohibición de las Armas Químicas (OPAQ), sobre los privilegios e inmunidades de la OPAQ, suscrito en La Haya, el 30 de octubre de 2007.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-05-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8269</ns0:Id>
+    <ns0:NumeroBoletin>7874-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley sobre reprogramación de créditos universitarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-08-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8363</ns0:Id>
+    <ns0:NumeroBoletin>7966-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Administración de Fondos de Terceros y Carteras Individuales y deroga los cuerpos legales que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8180</ns0:Id>
+    <ns0:NumeroBoletin>7784-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el examen de excelencia profesional docente y la asignación de excelencia pedagógica inicial</ns0:Nombre>
+    <ns0:FechaIngreso>2011-07-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8214</ns0:Id>
+    <ns0:NumeroBoletin>7822-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Perfecciona el Sistema de Alta Dirección Pública</ns0:Nombre>
+    <ns0:FechaIngreso>2011-07-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7871</ns0:Id>
+    <ns0:NumeroBoletin>7503-19</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 20.241, que establece un incentivo tributario, a la inversión privada en investigación y desarrollo.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7821</ns0:Id>
+    <ns0:NumeroBoletin>7433-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Extiende plazo de vigencia de las franquicias contenidas en  artículo. 28, de DFL N° 341, de 1977, y en el artículo. 35, de la ley N° 19.420.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-01-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8378</ns0:Id>
+    <ns0:NumeroBoletin>7976-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica las normas de los trabajadores agrícolas establecidas en el Código del Trabajo.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8125</ns0:Id>
+    <ns0:NumeroBoletin>7737-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Reajusta monto del ingreso mínimo mensual.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-06-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8338</ns0:Id>
+    <ns0:NumeroBoletin>7947-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre fomento de la pesca artesanal, Comisión Nacional de Acuicultura y Consejos Zonales de Pesca.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-09-27T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8366</ns0:Id>
+    <ns0:NumeroBoletin>7973-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica plazos sobre muerte presunta y establece normas sobre comprobación judicial de muerte.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8428</ns0:Id>
+    <ns0:NumeroBoletin>8034-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la Superintendencia de Telecomunicaciones.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-11-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8433</ns0:Id>
+    <ns0:NumeroBoletin>8037-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo que aprueba el Protocolo Bilateral entre la República de Chile y la República de Nicaragua al Tratado de Libre Comercio entre Chile y Centroamérica y sus Anexos&amp;quot;, suscrito en Managua, el 22 de febrero de 2011.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-11-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8482</ns0:Id>
+    <ns0:NumeroBoletin>8082-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea las agencias públicas de educación local y establece otras normas de fortalecimiento de la educación estatal.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-12-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7889</ns0:Id>
+    <ns0:NumeroBoletin>7486-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley que crea el Servicio Nacional Forestal, CONAF.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8012</ns0:Id>
+    <ns0:NumeroBoletin>7616-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Probidad en la Función Pública</ns0:Nombre>
+    <ns0:FechaIngreso>2011-05-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7796</ns0:Id>
+    <ns0:NumeroBoletin>7408-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Registro Nacional de Prófugos de la Justicia.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-01-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7797</ns0:Id>
+    <ns0:NumeroBoletin>7409-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 18.290 y la ley Nº 20.084, para establecer nuevas edades mínimas para obtener licencia de conducir a quienes cometan delitos que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-01-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7839</ns0:Id>
+    <ns0:NumeroBoletin>7441-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 19.539, permitiendo a los pensionados de la Dirección de Previsión de Carabineros de Chile y, de la Caja de Previsión de la Defensa Nacional, incorporarse a Cajas de Compensación de Asignación Familiar.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-01-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7907</ns0:Id>
+    <ns0:NumeroBoletin>7514-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional para suprimir los cargos de Fiscal Judicial de la Corte Suprema y de Fiscales Judiciales de las Cortes de Apelaciones.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7908</ns0:Id>
+    <ns0:NumeroBoletin>7515-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Suprime los abogados integrantes, los Fiscales Judiciales de las Cortes de Apelaciones y, el Fiscal Judicial de la Corte Suprema.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7930</ns0:Id>
+    <ns0:NumeroBoletin>7539-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce criterios de razonabilidad y solidaridad en lo que respecta a las tablas de factores y a la determinación del precio base de los contratos de salud.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7959</ns0:Id>
+    <ns0:NumeroBoletin>7568-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce modificaciones, en materia de inscripción de nacimientos, a la ley N° 4808, sobre Registro Civil.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-04-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8083</ns0:Id>
+    <ns0:NumeroBoletin>7687-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley sobre aumento de plazas en el grado de Contraalmirante.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-06-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8092</ns0:Id>
+    <ns0:NumeroBoletin>7692-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley que restringe el consumo de tabaco en lugares públicos.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-06-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8123</ns0:Id>
+    <ns0:NumeroBoletin>7726-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Convenio entre el Gobierno de la República de Chile y el Gobierno de la República de Letonia sobre Exención del Requisito de Visa para los Titulares de Pasaportes Diplomáticos, Oficiales y de Servicio, suscrito en Nueva York el 23 de septiembre de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-06-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8199</ns0:Id>
+    <ns0:NumeroBoletin>7805-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el departamento Agencia Nacional de Medicamentos en el Instituto de Salud Pública.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-07-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8207</ns0:Id>
+    <ns0:NumeroBoletin>7814-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Prorroga la cotización extraordinaria para el Seguro Social contra riesgos de accidentes del trabajo y enfermedades profesionales, y modifica la ley N° 19.578.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-07-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8335</ns0:Id>
+    <ns0:NumeroBoletin>7948-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo vigésimo transitorio de la ley N° 20.501.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-09-27T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7872</ns0:Id>
+    <ns0:NumeroBoletin>7484-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula las transacciones comerciales de productos agropecuarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7888</ns0:Id>
+    <ns0:NumeroBoletin>7487-12</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley que crea el Servicio de Biodiversidad y Áreas Silvestres Protegidas y el Sistema Nacional de Áreas Silvestres Protegidas.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7918</ns0:Id>
+    <ns0:NumeroBoletin>7526-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley en materia de duración del descanso de maternidad.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7956</ns0:Id>
+    <ns0:NumeroBoletin>7569-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo sobre Traslado de Personas condenadas entre las Repúblicas de Chile y del Perú, suscrito en Lima, el 25 de noviembre de 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-04-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7957</ns0:Id>
+    <ns0:NumeroBoletin>7567-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica Código Civil y otras leyes, regulando el régimen patrimonial de sociedad conyugal.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-04-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8353</ns0:Id>
+    <ns0:NumeroBoletin>7953-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 20.444 y la ley N° 19.885, con el objeto de fomentar las donaciones y simplificar sus procedimientos.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-09-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8245</ns0:Id>
+    <ns0:NumeroBoletin>7848-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre Seguridad e Institucionalidad Minera.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-08-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8258</ns0:Id>
+    <ns0:NumeroBoletin>7862-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley N° 19.039, de Propiedad Industrial, para estandarizar y mejorar el proceso de solicitud de marcas y patentes.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-08-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8466</ns0:Id>
+    <ns0:NumeroBoletin>8067-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga reajuste de remuneraciones a los trabajadores del sector público, concede aguinaldos que señala y otros beneficios que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-11-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8071</ns0:Id>
+    <ns0:NumeroBoletin>7678-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece nuevo mecanismo de financiamiento, de las capacidades estratégicas de la defensa nacional.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-05-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8158</ns0:Id>
+    <ns0:NumeroBoletin>7761-24</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Ley sobre Donaciones con Fines Culturales, contenida en el artículo 8° de la ley N° 18.985.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-07-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8212</ns0:Id>
+    <ns0:NumeroBoletin>7815-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley en materia de sanciones a vehículos impedidos de efectuar transporte público y de escolares.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-07-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8279</ns0:Id>
+    <ns0:NumeroBoletin>7885-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo en materia de Servicios Aéreos entre el Gobierno de la República de Chile y el Gobierno del Estado de Kuwait y su Anexo</ns0:Nombre>
+    <ns0:FechaIngreso>2011-08-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8287</ns0:Id>
+    <ns0:NumeroBoletin>7892-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convención sobre la Conservación y Ordenamiento de los Recursos Pesqueros en Alta Mar en el Océano Pacífico Sur,  hecha en Auckland, el 14 de noviembre de 2009. </ns0:Nombre>
+    <ns0:FechaIngreso>2011-08-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8292</ns0:Id>
+    <ns0:NumeroBoletin>7899-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Traspasa al Fondo Nacional de Salud la tramitación de las licencias médicas que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-09-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8294</ns0:Id>
+    <ns0:NumeroBoletin>7900-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Declara como feriado irrenunciable el día 19 de septiembre de 2011.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-09-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8418</ns0:Id>
+    <ns0:NumeroBoletin>8021-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas de excepción, en materia de subvenciones a establecimientos educacionales.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-11-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8365</ns0:Id>
+    <ns0:NumeroBoletin>7968-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Convenio de Cooperación Técnico- Militar entre el Gobierno de la República de Chile y el Gobierno de la Federación de Rusia, suscrito en Santiago, el 19 de noviembre de 2004. </ns0:Nombre>
+    <ns0:FechaIngreso>2011-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8383</ns0:Id>
+    <ns0:NumeroBoletin>7987-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre el Gobierno de la República de Chile y el Gobierno de la República de Nicaragua sobre Autorización para el Ejercicio de Actividades Remuneradas para Familiares Dependientes del Personal Diplomático, Consular, Técnico y Administrativo de las Misiones Diplomáticas y Representaciones Consulares&amp;quot;, suscrito en Managua, Nicaragua, el 22 de febrero de 2011.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-10-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>8504</ns0:Id>
+    <ns0:NumeroBoletin>8105-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Sistema Privado de Salud, incorporando un plan garantizado.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-12-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7890</ns0:Id>
+    <ns0:NumeroBoletin>7485-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley relativo al Sistema de Alta Dirección Pública.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7928</ns0:Id>
+    <ns0:NumeroBoletin>7534-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley que modifica el régimen de libertad condicional y establece, en caso de multa, la pena alternativa de trabajos comunitarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2011-03-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

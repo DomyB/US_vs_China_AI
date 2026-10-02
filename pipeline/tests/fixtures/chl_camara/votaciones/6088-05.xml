@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>6472</ns0:Id>
+  <ns0:NumeroBoletin>6088-05</ns0:NumeroBoletin>
+  <ns0:Nombre>Incorpora a la ley N° 20.063, el combustible gas natural licuado y modifica el decreto con fuerza de ley N° 1, de 1978, del Ministerio de Minería.</ns0:Nombre>
+  <ns0:FechaIngreso>2008-09-10T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+  <ns0:MinisteriosPatrocinantes>
+    <ns0:Ministerio>
+      <ns0:Id>2</ns0:Id>
+      <ns0:Nombre>Ministerio de Hacienda</ns0:Nombre>
+    </ns0:Ministerio>
+  </ns0:MinisteriosPatrocinantes>
+  <ns0:Votaciones>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>12623</ns0:Id>
+      <ns0:Descripcion>Boletín N°6088-05</ns0:Descripcion>
+      <ns0:Fecha>2008-10-28T12:29:47</ns0:Fecha>
+      <ns0:TotalSi>70</ns0:TotalSi>
+      <ns0:TotalNo>3</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>0</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="1">General</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo />
+      <ns0:TramiteConstitucional Id="1">Primer Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+  </ns0:Votaciones>
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>5050</ns0:Id>
+      <ns0:Nombre>COMBUSTIBLES</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>5062</ns0:Id>
+      <ns0:Nombre>GAS NATURAL LICUADO</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

@@ -1,0 +1,466 @@
+{
+ "source_id": "ecu_cadastre",
+ "files": {
+  "catalogue.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services?f=json",
+   "params": {
+    "f": "json"
+   },
+   "status": 200,
+   "bytes": 481,
+   "sha256": "de4843583c435d7b23aa8629ca9e0c537fec5a61e1d0a0e21c2cfd59861c642c",
+   "retrieved_at": "2026-10-02T16:40:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "layer.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0?f=json",
+   "params": {
+    "f": "json"
+   },
+   "status": 200,
+   "bytes": 597976,
+   "sha256": "c05571cff029fa0a672a856b8b12842ce672dcfdb6a08f89460301179cdcc864",
+   "retrieved_at": "2026-10-02T16:40:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_0.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=0&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 0,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_1.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=1000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 1000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_2.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=2000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 2000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_3.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=3000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 3000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:35+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_4.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=4000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 4000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_5.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=5000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 5000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:37+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_6.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=6000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 6000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_7.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=7000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 7000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_8.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=8000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 8000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_9.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=9000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 9000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_10.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=10000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 10000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_11.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=11000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 11000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_12.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=12000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 12000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_13.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=13000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 13000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_14.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=14000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 14000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:46+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_15.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=15000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 15000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_16.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=16000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 16000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_17.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=17000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 17000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_18.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=18000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 18000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:50+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_19.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=19000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 19000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_20.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=20000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 20000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_21.json": {
+   "url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0/query?where=1%3D1&outFields=%2A&f=json&returnGeometry=false&resultOffset=21000&resultRecordCount=1000",
+   "params": {
+    "where": "1=1",
+    "outFields": "*",
+    "f": "json",
+    "returnGeometry": "false",
+    "resultOffset": 21000,
+    "resultRecordCount": 1000
+   },
+   "status": 200,
+   "bytes": 814932,
+   "sha256": "855e9a5411d67c5bf31e023186ec5301ea338241e33e70ceffc11352cd1c786a",
+   "retrieved_at": "2026-10-02T16:40:53+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_cadastre/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "fields_seen": [
+  "ach",
+  "adr",
+  "cas",
+  "com",
+  "cox",
+  "coy",
+  "dpa_canton",
+  "dpa_descan",
+  "dpa_despar",
+  "dpa_despro",
+  "dpa_parroq",
+  "dpa_provin",
+  "eac",
+  "fcode",
+  "fei",
+  "fen",
+  "feo",
+  "frm",
+  "frm_1",
+  "man",
+  "nam",
+  "nco",
+  "objectid",
+  "obs_sgm",
+  "plz",
+  "rep",
+  "rgl",
+  "rgm",
+  "sol",
+  "st_area(shape)",
+  "st_length(shape)",
+  "tco",
+  "tel",
+  "temp",
+  "tipo_mineral",
+  "tmm",
+  "ttm",
+  "txt",
+  "zon"
+ ],
+ "omitted": [
+  "page_22.json",
+  "page_23.json",
+  "page_24.json",
+  "page_25.json",
+  "page_26.json",
+  "page_27.json",
+  "page_28.json",
+  "page_29.json",
+  "page_30.json",
+  "page_31.json",
+  "page_32.json",
+  "page_33.json",
+  "page_34.json",
+  "page_35.json",
+  "page_36.json",
+  "page_37.json",
+  "page_38.json",
+  "page_39.json"
+ ]
+}

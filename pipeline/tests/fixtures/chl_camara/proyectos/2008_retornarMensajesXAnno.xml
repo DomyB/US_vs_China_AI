@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>6634</ns0:Id>
+    <ns0:NumeroBoletin>6252-09</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula los servicios sanitarios rurales.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6700</ns0:Id>
+    <ns0:NumeroBoletin>6312-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el D.F.L. N° 1, de 2005, del Ministerio de Salud, incorporando la presunción de declaración y no pago de las cotizaciones de salud al sistema de ISAPRES, homologando el interés penal y la multa por no pago de tales cotizaciones a los contemplados en el D.L. N°3.500 y en la ley N° 17.322.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6166</ns0:Id>
+    <ns0:NumeroBoletin>5782-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Adecúa la legislación interna a las observaciones y sugerencias efectuadas a Chile por la OCDE, para implementar la Convención para Combatir el Cohecho a Funcionarios Extranjeros en Transacciones Comerciales  Internacionales.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-04-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6204</ns0:Id>
+    <ns0:NumeroBoletin>5820-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre contrato especial de los tripulantes de vuelo y tripulantes auxiliares de aeronaves comerciales de pasajeros y carga.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-04-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6213</ns0:Id>
+    <ns0:NumeroBoletin>5836-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma el sistema registral y notarial.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-04-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6234</ns0:Id>
+    <ns0:NumeroBoletin>5853-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre la República de Chile y la Unión Europea sobre la Participación de la República de Chile en la operación militar de gestión de crisis de la Unión Europea en Bosnia y Herzegovina.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-05-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6241</ns0:Id>
+    <ns0:NumeroBoletin>5867-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea cargos en la Dirección Regional del Servicio Electoral de la Región de Arica y Parinacota, y dicta norma relativa a partidos políticos en nuevas regiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-05-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6265</ns0:Id>
+    <ns0:NumeroBoletin>5872-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce modificaciones en la ley N° 19.175, Orgánica Constitucional sobre Gobierno y Administración Regional.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-05-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6266</ns0:Id>
+    <ns0:NumeroBoletin>5887-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece nueva Ley Orgánica Constitucional de los Partidos Políticos.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-05-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6538</ns0:Id>
+    <ns0:NumeroBoletin>6152-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Convenio de Integración Cinematográfica Iberoamericana, suscrito en Caracas el 11 de noviembre de 1989.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-10-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6611</ns0:Id>
+    <ns0:NumeroBoletin>6220-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Tratado de Libre Comercio entre los Gobiernos de la República de Chile y de Australia.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6632</ns0:Id>
+    <ns0:NumeroBoletin>6243-21</ns0:NumeroBoletin>
+    <ns0:Nombre>Caduca la inscripción en el Registro Artesanal en las pesquerías de los recursos de anchoveta y sardina común en las regiones que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6630</ns0:Id>
+    <ns0:NumeroBoletin>6232-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que crea la Defensoría de las Personas.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6596</ns0:Id>
+    <ns0:NumeroBoletin>6203-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga un reajuste de remuneraciones a los trabajadores del sector público, concede aguinaldos que señala, reajusta las asignaciones familiar y maternal, del subsidio familiar y concede otros beneficios que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-11-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6655</ns0:Id>
+    <ns0:NumeroBoletin>6264-27</ns0:NumeroBoletin>
+    <ns0:Nombre>Prorroga los incentivos para el desarrollo económico de las regiones de Aysén y Magallanes y de la provincia de Palena; y modifica la ley de zonas francas contenida en el D.F.L. N° 2, de 2001, Ministerio de Hacienda.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6615</ns0:Id>
+    <ns0:NumeroBoletin>6231-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Faculta al Presidente de la República para realizar un aporte extraordinario de capital al Banco del Estado de Chile, y amplía el patrimonio del D.L. N° 3.472, de 1980, que creó el Fondo de Garantía para Pequeños  Empresarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6644</ns0:Id>
+    <ns0:NumeroBoletin>6260-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Sistema Intersectorial de Protección Social e institucionaliza el Subsistema de Protección Integral a la Infancia, Chile Crece Contigo.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6645</ns0:Id>
+    <ns0:NumeroBoletin>6261-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Segundo protocolo Adicional al Acuerdo por el que se establece una Asociación entre la República de Chile, por una parte y, la Comunidad Europea y sus Estados Miembros, por otra, para tener en cuenta la Adhesión de la República de Bulgaria y Rumanía a la Unión Europea, y sus Anexos.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6631</ns0:Id>
+    <ns0:NumeroBoletin>6242-21</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley general de pesca y acuicultura en materia del concepto de embarcación artesanal y de su clasificación por eslora, del reemplazo de la inscripción en el Registro Pesquero Artesanal y de los requisitos  para inscribirse en el mismos registro.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6633</ns0:Id>
+    <ns0:NumeroBoletin>6244-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Código Orgánico de Tribunales y la ley N° 19.665, en las materias que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6637</ns0:Id>
+    <ns0:NumeroBoletin>6251-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Fortalece la educación pública.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-12-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6076</ns0:Id>
+    <ns0:NumeroBoletin>5687-23</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un sistema institucional para el desarrollo del turismo, modifica el decreto ley N° 1.224, que crea el Servicio Nacional de Turismo y otras normas legales.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6080</ns0:Id>
+    <ns0:NumeroBoletin>5697-29</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Ministerio del Deporte y de la Juventud</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6092</ns0:Id>
+    <ns0:NumeroBoletin>5719-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Ley General de Urbanismo y Construcciones en materia de planificación urbana.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6094</ns0:Id>
+    <ns0:NumeroBoletin>5721-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Adiciona recursos al Fondo de Estabilización de precios de Combustibles derivados del petróleo, establecido en la ley N° 20.063.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6105</ns0:Id>
+    <ns0:NumeroBoletin>5723-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Amplía los plazos de evaluación y precalificación de los permisos de operación para casinos de juego.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6106</ns0:Id>
+    <ns0:NumeroBoletin>5724-26</ns0:NumeroBoletin>
+    <ns0:Nombre>Fija normas especiales para las empresas de menor tamaño.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6139</ns0:Id>
+    <ns0:NumeroBoletin>5758-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de acuerdo entre el Gobierno de la República de Chile y el Gobierno de Barbados, sobre exención de visas para titulares de pasaportes diplomáticos y oficiales.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-03-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6268</ns0:Id>
+    <ns0:NumeroBoletin>5884-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo Marco sobre Cooperación en materia de seguridad regional entre los Estados Partes del MERCOSUR y las Rep. de Bolivia, Chile, Ecuador, Perú y la Rep. Bolivariana de Venezuela.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-06-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6290</ns0:Id>
+    <ns0:NumeroBoletin>5906-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea juzgados de policía local en las comunas que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-06-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6350</ns0:Id>
+    <ns0:NumeroBoletin>5971-17</ns0:NumeroBoletin>
+    <ns0:Nombre>Declaración de ausencia por desaparición forzada de personas.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-07-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6215</ns0:Id>
+    <ns0:NumeroBoletin>5839-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Fondo Nacional para la Representación de Víctimas de Delito.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-04-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6299</ns0:Id>
+    <ns0:NumeroBoletin>5898-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula obligación de ciertas autoridades públicas de constituir un mandato especial de administación ciega de patrimonio y de enajenar activos, en los casos y forma que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-06-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6304</ns0:Id>
+    <ns0:NumeroBoletin>5923-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Reajusta el monto del ingreso mínimo mensual.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-06-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6309</ns0:Id>
+    <ns0:NumeroBoletin>5929-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio para la Unificación de Ciertas Reglas para el Transporte Aéreo internacional.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-06-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6067</ns0:Id>
+    <ns0:NumeroBoletin>5695-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la denominación del Estadio Nacional por Estadio Nacional Julio Martínez Pradanos.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6578</ns0:Id>
+    <ns0:NumeroBoletin>6191-19</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 19.132, de Televisión Nacional de Chile.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-11-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6138</ns0:Id>
+    <ns0:NumeroBoletin>5757-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre las Repúblicas de Chile y del Estado de Israel, sobre actividades remuneradas para los familiares de una misión diplomática o representación consular.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-03-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6117</ns0:Id>
+    <ns0:NumeroBoletin>5734-26</ns0:NumeroBoletin>
+    <ns0:Nombre>Incrementa transitoriamente un incentivo tributario a la inversión en activo fijo de la micro, pequeña y mediana empresa.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6362</ns0:Id>
+    <ns0:NumeroBoletin>5985-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Protocolo Adicional a los Convenios de Ginebra del 12 de agosto de 1949, relativo a la Aprobación de un Signo Distintivo Adicional.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-07-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6472</ns0:Id>
+    <ns0:NumeroBoletin>6088-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Incorpora a la ley N° 20.063, el combustible gas natural licuado y modifica el decreto con fuerza de ley N° 1, de 1978, del Ministerio de Minería.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-09-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6577</ns0:Id>
+    <ns0:NumeroBoletin>6189-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas sobre la actividad de lobby.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-11-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6579</ns0:Id>
+    <ns0:NumeroBoletin>6190-19</ns0:NumeroBoletin>
+    <ns0:Nombre>Permite la introducción de la televisión digital terrestre.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-11-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6133</ns0:Id>
+    <ns0:NumeroBoletin>5752-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece rebaja transitoria al impuesto a las gasolinas automotrices y modifica otros cuerpos legales.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-03-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6303</ns0:Id>
+    <ns0:NumeroBoletin>5922-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Extiende la bonificación por retiro voluntario, creada por la ley N° 20.209, además crea una bonificación adicional para el personal que indica, e introduce modificaciones a la ley N° 20.209.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-06-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6345</ns0:Id>
+    <ns0:NumeroBoletin>5960-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo 2° transitorio de la ley N° 20.240, que perfecciona el sistema de incentivos al desempeño de los fiscales y a los funcionarios del Ministerio Público. </ns0:Nombre>
+    <ns0:FechaIngreso>2008-07-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6387</ns0:Id>
+    <ns0:NumeroBoletin>5980-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley general de telecomunicaciones. (concesiones de radio difusión sonora).</ns0:Nombre>
+    <ns0:FechaIngreso>2008-07-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6398</ns0:Id>
+    <ns0:NumeroBoletin>6017-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce modificaciones en materia de seguridad social.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-08-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6365</ns0:Id>
+    <ns0:NumeroBoletin>5990-27</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea un Fondo de Fomento de la Productividad de las Zona Extremas, establece una bonificación a la contratación de mano de obra en las regiones y en las provincias que indica, crea el Fondo de Fomento y Desarrollo de las regiones extremas, y prorroga los incentivos para el desarrollo económico de las Regiones de Aysén y de Magallanes y de la provincia de Palena.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-07-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6485</ns0:Id>
+    <ns0:NumeroBoletin>6084-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la comuna de Rahue, en la Región de Los Lagos.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-09-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6503</ns0:Id>
+    <ns0:NumeroBoletin>6119-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga bono extraodinario para quienes ejerzan como vocales de las mesas receptoras de sufragio.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-09-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6507</ns0:Id>
+    <ns0:NumeroBoletin>6123-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la regulación de la cuota mortuoria del seguro escolar y de la asignación por muerte de beneficiarios de pensión básica solidaria de invalidez carentes de recursos.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6518</ns0:Id>
+    <ns0:NumeroBoletin>6138-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 19.451, que establece normas sobre transplante y donación de órganos.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-10-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6519</ns0:Id>
+    <ns0:NumeroBoletin>6139-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Moderniza el Servicio Electoral.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-10-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6557</ns0:Id>
+    <ns0:NumeroBoletin>6174-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece una franquicia tributaria respecto de sistemas solares térmicos.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-10-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6318</ns0:Id>
+    <ns0:NumeroBoletin>5935-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo para la enmienda de la Convención sobre protección física de los materiales nucleares.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-07-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6410</ns0:Id>
+    <ns0:NumeroBoletin>6019-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Protocolo Bilateral al Tratado de Libre Comercio entre Centroamércia y Chile suscrito entre los Gobiernos de las Repúblicas de Chile y Guatemala.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-08-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6061</ns0:Id>
+    <ns0:NumeroBoletin>5688-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Ley Orgánica Constitucional de Enseñanza, con el fin de regular la oferta de carreras impartidas por instituciones de educación superior autónomas.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-01-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6331</ns0:Id>
+    <ns0:NumeroBoletin>5947-12</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Ministerio, el Servicio de Evaluación Ambiental y la Superintendencia del Medio Ambiente. </ns0:Nombre>
+    <ns0:FechaIngreso>2008-07-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6224</ns0:Id>
+    <ns0:NumeroBoletin>5845-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea un panel de expertos en el sector Telecomunicaciones.</ns0:Nombre>
+    <ns0:FechaIngreso>2008-04-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

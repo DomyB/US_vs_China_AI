@@ -31,7 +31,7 @@
    "governance_available": true,
    "parliament_available": true,
    "parliament_documents": 1233,
-   "parliament_votes": 0,
+   "parliament_votes": 2,
    "parliament_from": 2008,
    "parliament_note": null,
    "media_available": true,
@@ -140,13 +140,13 @@
    "events": 79,
    "contracts": 19,
    "governance": 676,
-   "production": 426,
+   "production": 1200,
    "actions": true,
    "governance_available": true,
-   "parliament_available": false,
-   "parliament_documents": 0,
+   "parliament_available": true,
+   "parliament_documents": 173,
    "parliament_votes": 0,
-   "parliament_from": null,
+   "parliament_from": 2008,
    "parliament_note": null,
    "media_available": true,
    "media_articles": 2,
@@ -189,7 +189,7 @@
    "media_available": false,
    "media_articles": 0,
    "media_from": null,
-   "concessions": 0
+   "concessions": 6769
   },
   "ECU": {
    "trade_years": [
@@ -227,7 +227,7 @@
    "media_available": false,
    "media_articles": 0,
    "media_from": null,
-   "concessions": 0
+   "concessions": 1000
   },
   "GUY": {
    "trade_years": [
@@ -254,7 +254,7 @@
    "events": 125,
    "contracts": 39,
    "governance": 928,
-   "production": 50,
+   "production": 145,
    "actions": true,
    "governance_available": true,
    "parliament_available": false,

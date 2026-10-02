@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>6819</ns0:Id>
+    <ns0:NumeroBoletin>6426-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio Internacional para la Protección de Obtenciones Vegetales.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6762</ns0:Id>
+    <ns0:NumeroBoletin>6372-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo que Aprueba el Acuerdo sobre el Derecho de Marcas (TLT).</ns0:Nombre>
+    <ns0:FechaIngreso>2009-01-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6818</ns0:Id>
+    <ns0:NumeroBoletin>6424-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un nuevo plazo para regular construcciones, en inmuebles en los que funcionen jardines infantiles.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7086</ns0:Id>
+    <ns0:NumeroBoletin>6692-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce una serie de reformas en materia de liquidez, innovación financiera e integración del mercado de capitales.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-09-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7194</ns0:Id>
+    <ns0:NumeroBoletin>6792-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 18.695, Orgánica Constitucional de Municipalidades, y regula las Asociaciones Municipales. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-12-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6811</ns0:Id>
+    <ns0:NumeroBoletin>6418-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula la inscripción automática, el sufragio voluntario y, el voto de los chilenos en el extranjero.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7127</ns0:Id>
+    <ns0:NumeroBoletin>6733-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica límites intercomunales entre Combarbalá y Punitaqui, en la Región de Coquimbo, y entre Puerto Varas y Puerto Montt, en la Región de Los Lagos.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-10-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6895</ns0:Id>
+    <ns0:NumeroBoletin>6501-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Permite presentar una nueva cuenta de ingresos y gastos electorales correspondientes a las elecciones municipales 2008, en los casos que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-05-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7134</ns0:Id>
+    <ns0:NumeroBoletin>6739-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Jurisdicción y competencia de los Tribunales Militares y procedimiento ante ellos. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-10-27T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7192</ns0:Id>
+    <ns0:NumeroBoletin>6786-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba la Convención de Asistencia Mutua en Materia Penal, suscrita en Estrasburgo el 20 de abril de 1959 y sus Protocolos Adicionales suscritos en los años 1978 y 2001.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-12-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7193</ns0:Id>
+    <ns0:NumeroBoletin>6791-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Aumenta en un grado la pena del delito de falsa alarma, cuando ocasione un tumulto, conmoción pública o altere la seguridad o el orden público. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-12-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6779</ns0:Id>
+    <ns0:NumeroBoletin>6393-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el subsidio al empleo.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6843</ns0:Id>
+    <ns0:NumeroBoletin>6451-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre Chile y Colombia para evitar la doble imposición y para prevenir la evasión fiscal con relación a los impuestos a la renta y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6952</ns0:Id>
+    <ns0:NumeroBoletin>6560-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de acuerdo que aprueba el &amp;quot;Estatuto de Roma que creó la Corte Penal Internacional&amp;quot;, adoptado en dicha ciudad el 17 de julio de 1.998 .</ns0:Nombre>
+    <ns0:FechaIngreso>2009-06-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7035</ns0:Id>
+    <ns0:NumeroBoletin>6640-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas sobre Estado Mayor Conjunto.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-08-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7039</ns0:Id>
+    <ns0:NumeroBoletin>6648-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga ascenso extraordinario al personal de Carabineros como reconocimiento póstumo.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-08-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7080</ns0:Id>
+    <ns0:NumeroBoletin>6689-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convención Interamericana sobre Desaparición Forzada de Personas.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-09-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7153</ns0:Id>
+    <ns0:NumeroBoletin>6760-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un bono extraordinario para quienes ejerzan como vocales de mesa receptoras de sufragios. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-11-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7154</ns0:Id>
+    <ns0:NumeroBoletin>6755-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 20.084, de resaponsabilidad de los adolescentes por infracciones a la ley penal, en el sentido que indica. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-11-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7145</ns0:Id>
+    <ns0:NumeroBoletin>6750-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica artículo quinto transitorio de ley N° 19.665, extendiendo el funcionamiento de los tribunales que indica. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-11-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6844</ns0:Id>
+    <ns0:NumeroBoletin>6452-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre Chile y la Confederación Suiza para evitar la doble imposición y para prevenir la evasión fiscal con relación a los impuestos a la renta y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7197</ns0:Id>
+    <ns0:NumeroBoletin>6799-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo para aprobar las Enmiendas al Acuerdo Constitutivo de la Organización Internacional de Telecomunicaciones por Satélite. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-12-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6744</ns0:Id>
+    <ns0:NumeroBoletin>6356-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo Modificatorio del Convenio de Seguridad Social entre las Repúblicas de Chile y Argentina, suscrito en Buenos Aires el 26 de abril de 1996.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-01-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6778</ns0:Id>
+    <ns0:NumeroBoletin>6391-21</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley general de pesca y acuicultura en materia de áreas de manejo y registro pesquero artesanal.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6788</ns0:Id>
+    <ns0:NumeroBoletin>6394-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba la Convención Interamericana para la Protección y Conservación de las Tortugas Marinas, y sus Anexos.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6978</ns0:Id>
+    <ns0:NumeroBoletin>6586-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Incentiva el uso, fomento e integración de la bicicleta.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-07-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7084</ns0:Id>
+    <ns0:NumeroBoletin>6690-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Quincuagésimo Tercer Protocolo Adicional al Acuerdo de Complementación Económica N° 35, sobre el comercio de servicio, celebrado entre los Gobiernos de los Estados Partes del MERCOSUR y el Gobierno de Chile, en Montevideo, el 27 de mayo de 2009.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-09-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7195</ns0:Id>
+    <ns0:NumeroBoletin>6793-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Regulariza la nómina de armadores habilitados para operar en la pesquería de pez espada </ns0:Nombre>
+    <ns0:FechaIngreso>2009-12-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6726</ns0:Id>
+    <ns0:NumeroBoletin>6349-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce diversas modificaciones a ley N° 19.175, Orgánica Constitucional de Municipalidades; ley N° 18.700, Orgánica Constitucional de votaciones populares y escrutinios y ley N° 18.556, Orgánica Constitucional sobre sistema de inscripciones electorales y Servicio Electoral.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-01-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6761</ns0:Id>
+    <ns0:NumeroBoletin>6355-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula derechos sobre obtenciones vegetales y deroga ley N° 19.342.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-01-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6813</ns0:Id>
+    <ns0:NumeroBoletin>6419-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica Código Orgánico de Tribunales, habilitando al Presidente de la República para disponer que el cargo de archivero sea desempeñado por quien ejerza la función de notario o conservador.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6837</ns0:Id>
+    <ns0:NumeroBoletin>6443-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que modifica transitoriamente la fecha de elección de Presidente de la República.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6838</ns0:Id>
+    <ns0:NumeroBoletin>6447-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Moderniza Gendarmería de Chile, incrementando su personal y readecuando las normas de su carrera funcionaria.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6973</ns0:Id>
+    <ns0:NumeroBoletin>6582-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Información, orientación y prestaciones en materia de regulación de la fertilidad.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-06-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7085</ns0:Id>
+    <ns0:NumeroBoletin>6691-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica Código Penal en lo relativo al delito de tortura, adecuándolo  a la Convención Contra la Tortura y otros Tratos o Penas Crueles, Inhumanas o Degradantes.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-09-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7105</ns0:Id>
+    <ns0:NumeroBoletin>6709-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre el Gobierno de la República de Chile y el Consejo Federal Suizo, relativo al intercambio de Pasantes.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-09-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7118</ns0:Id>
+    <ns0:NumeroBoletin>6726-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Ministerio de Asuntos Indígenas y la Agencia de Desarrollo indígena</ns0:Nombre>
+    <ns0:FechaIngreso>2009-10-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6841</ns0:Id>
+    <ns0:NumeroBoletin>6444-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo que modifica el Convenio de Seguridad Social entrre los Gobiernos de Chile y Australia, adoptado por Intercambio de Notas de 2 de octubre y 18 de diciembre de 2008.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6842</ns0:Id>
+    <ns0:NumeroBoletin>6450-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre los Gobiernos de Chile y Reino de Tailandia, para evitar la doble imposición y prevenir la evasión fiscal en relación a los impuestos a la renta y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6852</ns0:Id>
+    <ns0:NumeroBoletin>6458-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Faculta a las universidades estatales a establecer un mecanismo de incentivo al retiro para sus funcionarios y, concede otros beneficios que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6867</ns0:Id>
+    <ns0:NumeroBoletin>6476-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Complementa ley que introduce modificaciones al Código Penal, en la regulación de ciertos delitos contra la Administración Pública.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6871</ns0:Id>
+    <ns0:NumeroBoletin>6477-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas que permiten el acceso a la información bancaria por parte de la autoridad tributaria.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6893</ns0:Id>
+    <ns0:NumeroBoletin>6498-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas que incentivan la calidad de atención al contribuyente por  parte del Servicio de impuestos Internos.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-05-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6901</ns0:Id>
+    <ns0:NumeroBoletin>6512-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que suprime la referencia al número de Diputados.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-05-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6934</ns0:Id>
+    <ns0:NumeroBoletin>6541-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Faculta renovación de bonificación por retiro voluntario, creada por ley N° 20.135, y crea bonificación adicional para los funcionarios municipales que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-06-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6958</ns0:Id>
+    <ns0:NumeroBoletin>6567-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el nuevo Código Procesal Civil.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-06-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6773</ns0:Id>
+    <ns0:NumeroBoletin>6379-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce modificaciones a ley N° 19.657, sobre concesiones de energía geotérmica.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-01-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7041</ns0:Id>
+    <ns0:NumeroBoletin>6650-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo de Servicios Aéreos entre los Gobiernos de las Repúblicas de Chile y de la India, suscrito en Santiago el 21 de abril de 2008.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-08-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7071</ns0:Id>
+    <ns0:NumeroBoletin>6681-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Impide la constitución de derechos de aprovechamiento de aguas, en virtud del artículo 4° transitorio  de la ley N° 20.017, de 2005, en determinadas zonas o áreas.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-09-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7152</ns0:Id>
+    <ns0:NumeroBoletin>6756-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo 126 bis de la Constitución Política de la República, sobre territorios especiales de Isla de Pascua y Archipiélago Juan Fernández.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-11-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7023</ns0:Id>
+    <ns0:NumeroBoletin>6628-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece elecciones primarias para candidatos a alcaldes, parlamentarios y Presidente del República</ns0:Nombre>
+    <ns0:FechaIngreso>2009-07-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7139</ns0:Id>
+    <ns0:NumeroBoletin>6743-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Consejo de Pueblos Indígenas. </ns0:Nombre>
+    <ns0:FechaIngreso>2009-10-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6956</ns0:Id>
+    <ns0:NumeroBoletin>6562-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre Colegios Profesionales</ns0:Nombre>
+    <ns0:FechaIngreso>2009-06-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7113</ns0:Id>
+    <ns0:NumeroBoletin>6707-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Ley de Presupuestos para el Sector Público correspondiente al año 2010.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6827</ns0:Id>
+    <ns0:NumeroBoletin>6434-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica D.F.L. N° 2, de 1968, y establece normas de ajuste remuneracional, para el personal de las Fuerzas de Orden y Seguridad Ciudadana.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6830</ns0:Id>
+    <ns0:NumeroBoletin>6433-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea una bonificación por calidad de satisfacción al usuario y establece normas que indica para los funcionarios del Servicio de Registro Civil e Identificación.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6776</ns0:Id>
+    <ns0:NumeroBoletin>6392-09</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 18.450, sobre fomento a la inversión privada en obras de riego y drenaje.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6831</ns0:Id>
+    <ns0:NumeroBoletin>6437-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica distintos cuerpos legales, con el objeto de mejorar las condiciones de financiamiento para personas y empresas.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-04-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>7156</ns0:Id>
+    <ns0:NumeroBoletin>6759-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Faculta a los ministerios de Relaciones Exteriores ; Hacienda; Economía, Fomento y Reconstrucción, y al Consejo Nacional de la Cultura y las Artes, para integrarse al Directorio de la Fundación Imagen de Chile.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-11-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>6806</ns0:Id>
+    <ns0:NumeroBoletin>6413-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de Chile y la Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura referente a la creación y  funcionamiento del Centro Regional del Agua para Zonas Áridas y Semiáridas de América Latina y El Caribe.</ns0:Nombre>
+    <ns0:FechaIngreso>2009-03-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

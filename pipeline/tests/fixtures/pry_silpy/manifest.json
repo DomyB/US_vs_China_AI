@@ -6,8 +6,8 @@
    "params": {},
    "status": 200,
    "bytes": 37658,
-   "sha256": "1105f27e8da937eae4e2277932d15e0be36ea41119dc557c087f5b5b4466169f",
-   "retrieved_at": "2026-10-02T16:19:06+00:00",
+   "sha256": "42b5cc3a4ba679155711151d66084486387208744e4aa02111a79e4036c65396",
+   "retrieved_at": "2026-10-02T16:40:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,14 +17,14 @@
    "status": 200,
    "bytes": 37505,
    "sha256": "f8de99e939f0b9a432f1e3fff7c4345fda3e809ff55051dc2d5d3797b25403a3",
-   "retrieved_at": "2026-10-02T16:19:06+00:00",
+   "retrieved_at": "2026-10-02T16:40:13+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_silpy/2026-10-02",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "index_head": "<?xml version='1.0' encoding='UTF-8' ?>\n<!DOCTYPE composition>\n<html xmlns=\"http://www.w3.org/1999/xhtml\"><head id=\"j_idt2\"><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/theme.css.pmf?ln=primefaces-bootstrap\" /><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/css/default.css.pmf;jsessionid=d69833fbdc9cfc5b205fc52c3800\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery.js.pmf;jsessionid=d69833fbdc9cfc5b205fc52c3800?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery-plugins.js.pmf;jsessionid=d69833fbdc9cfc5b205fc52c3800?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/core.js.pmf;jsessionid=d69833fbdc9cfc5b205fc52c3800?ln=primefaces&amp;v=6.2\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/components.css.pmf;jsessionid=d69833fbdc9cfc5b205fc52c3800?ln=primefaces&amp;v=6.2\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/components.js.pmf;jsessionid=d69833fbdc9cfc5b205fc52c3800?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\">if(window.PrimeFaces){PrimeFaces.settings.locale='es';PrimeFaces.settings.projectStage='Development';}</script>\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n        <meta http-equiv=\"refresh\" content=\"1800;url=https://datos.congreso.gov.py/opendata/i",
+ "index_head": "<?xml version='1.0' encoding='UTF-8' ?>\n<!DOCTYPE composition>\n<html xmlns=\"http://www.w3.org/1999/xhtml\"><head id=\"j_idt2\"><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/theme.css.pmf?ln=primefaces-bootstrap\" /><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/css/default.css.pmf;jsessionid=d7cd86bc2f29da260e601f46df3e\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery.js.pmf;jsessionid=d7cd86bc2f29da260e601f46df3e?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery-plugins.js.pmf;jsessionid=d7cd86bc2f29da260e601f46df3e?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/core.js.pmf;jsessionid=d7cd86bc2f29da260e601f46df3e?ln=primefaces&amp;v=6.2\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/components.css.pmf;jsessionid=d7cd86bc2f29da260e601f46df3e?ln=primefaces&amp;v=6.2\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/components.js.pmf;jsessionid=d7cd86bc2f29da260e601f46df3e?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\">if(window.PrimeFaces){PrimeFaces.settings.locale='es';PrimeFaces.settings.projectStage='Development';}</script>\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n        <meta http-equiv=\"refresh\" content=\"1800;url=https://datos.congreso.gov.py/opendata/i",
  "route_used": "https://datos.congreso.gov.py/opendata/api/data/proyecto",
  "route_sample": "[{\"acapite\": \"QUE DESAFECTA DEL DOMINIO P\u00daBLICO MUNICIPAL AL DOMINIO PRIVADO MUNICIPAL LA FRACCI\u00d3N CON CTA. CTE. CTRAL. N\u00ba 15-0062-01 (PARTE) DEL DISTRITO DE SANT\u00cdSIMA TRINIDAD - presentado por el Diputado Antonio Buzarquis.\", \"appURL\": \"http://silpy.congreso.gov.py/expediente/129338\", \"descripcionEtapa\": \"PRIMER TR\u00c1MITE CONSTITUCIONAL\", \"descripcionSubEtapa\": \"DICTAMEN DE COMISI\u00d3N\", \"estadoProyecto\": \"EN TRAMITE\", \"expedienteCamara\": \"D-2163904\", \"fechaIngresoExpediente\": \"01/09/2021\", \"idProyecto\": 129338, \"iniciativa\": \"PARLAMENTARIA\", \"origenProyecto\": \"CAMARA DE DIPUTADOS\", \"tipoProyecto\": \"PROYECTO DE LEY\", \"urgencia\": \"ORDINARIO\"}, {\"acapite\": \"\u00d1E-EASA, \u00d1E-ENDY HA \u00d1E-E OJEHEKOVEJOPYVA REHEGUA AMANDAJE PYTAGUA \u201cJAGUEROJERA \u00d1ANE \u00d1E-E GUARANI\u201d, OITAHAPE TET\u00c3YGUA HA\u201d, OMBOSAKO-IVA FUNDACION YVY MAR\u00c3E-Y, CONSEJO NACIONAL DE CIENCIA Y TECNOLOGIA \u2013 CONACYT PYTYV\u00d5ME\u201d (QUE DECLARA DE INTER\u00c9S NACIONAL EL SEMINARIO INTERNACIONAL SOBRE TRADUCCI\u00d3N, TERMINOLOG\u00cdA Y LENGUAS MINORIZADAS \u201cJAGUEROJERA \u00d1ANE \u00d1E-E GUARANI\u201d, ORGANIZADO POR LA FUNDACI\u00d3N YVY MAR\u00c3E-Y, CON EL APOYO DEL CONSEJO NACIONAL DE CIENCIA Y TECNOLOGIA \u2013 CONACYT. Presentado por el Diputado Ramon Duarte.\", \"appURL\": \"http://silp"
 }

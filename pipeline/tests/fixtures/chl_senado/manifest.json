@@ -1,0 +1,1141 @@
+{
+ "source_id": "chl_senado",
+ "files": {
+  "votaciones/18653-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18653",
+   "params": {
+    "boletin": "18653"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:18+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18606-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18606",
+   "params": {
+    "boletin": "18606"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:18+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18571-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18571",
+   "params": {
+    "boletin": "18571"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:19+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18589-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18589",
+   "params": {
+    "boletin": "18589"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18487-12.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18487",
+   "params": {
+    "boletin": "18487"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18313-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18313",
+   "params": {
+    "boletin": "18313"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18259-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18259",
+   "params": {
+    "boletin": "18259"
+   },
+   "status": 200,
+   "bytes": 3913,
+   "sha256": "98ce67ff6b551829d05667823713aede210ea350677485b5c3ede43f45d128e4",
+   "retrieved_at": "2026-10-02T16:37:23+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18268-06.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18268",
+   "params": {
+    "boletin": "18268"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18194-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18194",
+   "params": {
+    "boletin": "18194"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18042-22.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18042",
+   "params": {
+    "boletin": "18042"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/18022-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=18022",
+   "params": {
+    "boletin": "18022"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17990-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17990",
+   "params": {
+    "boletin": "17990"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:28+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17954-06.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17954",
+   "params": {
+    "boletin": "17954"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17883-07.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17883",
+   "params": {
+    "boletin": "17883"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:30+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17479-10.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17479",
+   "params": {
+    "boletin": "17479"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17372-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17372",
+   "params": {
+    "boletin": "17372"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17262-06.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17262",
+   "params": {
+    "boletin": "17262"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17166-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17166",
+   "params": {
+    "boletin": "17166"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17120-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17120",
+   "params": {
+    "boletin": "17120"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:35+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/17019-10.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=17019",
+   "params": {
+    "boletin": "17019"
+   },
+   "status": 200,
+   "bytes": 3747,
+   "sha256": "68f5c36539fe0380ec765fd50f8135a70b9afd422c224767ac67615c99bc716a",
+   "retrieved_at": "2026-10-02T16:37:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/16994-10.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=16994",
+   "params": {
+    "boletin": "16994"
+   },
+   "status": 200,
+   "bytes": 3552,
+   "sha256": "50c391a0766889aedc9313943742a05120252e0b23d3863591c120f6ad9b9814",
+   "retrieved_at": "2026-10-02T16:37:37+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/16839-06.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=16839",
+   "params": {
+    "boletin": "16839"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/16785-07.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=16785",
+   "params": {
+    "boletin": "16785"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/16605-08.xml": {
+   "url": "https://tramitacion.senado.cl/wspublico/votaciones.php?boletin=16605",
+   "params": {
+    "boletin": "16605"
+   },
+   "status": 200,
+   "bytes": 26,
+   "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
+   "retrieved_at": "2026-10-02T16:37:40+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_senado/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "boletines_from_camara": 173,
+ "boletines": {
+  "18653-08": {
+   "doc_id": "50bf04ed8d6fb8f6",
+   "title": "Bolet\u00edn 18653-08: Modifica el decreto ley N\u00b0 1.350, de 1976, que crea la Corporaci\u00f3n Nacional del Cobre de Chile, con el prop\u00f3sito de suprimir la participaci\u00f3n de representantes de los trabajadores en"
+  },
+  "18606-08": {
+   "doc_id": "ea3ee3553be81d2f",
+   "title": "Bolet\u00edn 18606-08: Regula situaci\u00f3n de labores mineras abandonadas"
+  },
+  "18571-08": {
+   "doc_id": "da2d33adeb73890b",
+   "title": "Bolet\u00edn 18571-08: Establece obligaciones que indica para los exportadores de concentrado de cobre"
+  },
+  "18589-08": {
+   "doc_id": "4282769f0f19e379",
+   "title": "Bolet\u00edn 18589-08: Modifica el decreto ley N\u00b03.525, de 1980, que crea el Servicio Nacional de Geolog\u00eda y Miner\u00eda, para establecer la competencia de los tribunales para conocer reclamos contra resolucio"
+  },
+  "18487-12": {
+   "doc_id": "516e05f772a27e97",
+   "title": "Bolet\u00edn 18487-12: Modifica la ley N\u00b019.300, para eliminar las labores de exploraci\u00f3n minera de aquellas que deben ingresar al Sistema de Evaluaci\u00f3n de Impacto Ambiental"
+  },
+  "18313-08": {
+   "doc_id": "eedf377f35a5d6f8",
+   "title": "Bolet\u00edn 18313-08: Modifica el decreto ley N\u00b0 1.349, de 1976, que crea la Comisi\u00f3n Chilena del Cobre, para otorgar a la Contralor\u00eda General de la Rep\u00fablica facultades fiscalizadoras respecto de las emp"
+  },
+  "18259-08": {
+   "doc_id": "58bee70077e97d5b",
+   "title": "Bolet\u00edn 18259-08: Modifica el C\u00f3digo de Miner\u00eda y las leyes n\u00fameros 21.420 y 21.649, en materia de amparo minero y otras materias que indica"
+  },
+  "18268-06": {
+   "doc_id": "ffadf80bd00d7376",
+   "title": "Bolet\u00edn 18268-06: Modifica textos legales que indica para fortalecer la transparencia activa y la rendici\u00f3n de cuentas en la ejecuci\u00f3n de los aportes fiscales de libre disposici\u00f3n del royalty minero"
+  },
+  "18194-08": {
+   "doc_id": "a09f10ba3b91a962",
+   "title": "Bolet\u00edn 18194-08: Crea un r\u00e9gimen jur\u00eddico especial aplicable a los minerales cr\u00edticos"
+  },
+  "18042-22": {
+   "doc_id": "674d5c1a5735670a",
+   "title": "Bolet\u00edn 18042-22: Establece la obligaci\u00f3n de contar con equipamiento especializado para el control y extinci\u00f3n de incendios, en recintos destinados al estacionamiento de veh\u00edculos el\u00e9ctricos o almacen"
+  },
+  "18022-08": {
+   "doc_id": "03be91c62a718d80",
+   "title": "Bolet\u00edn 18022-08: Modifica el C\u00f3digo de Miner\u00eda para exigir que un porcentaje mayoritario de la producci\u00f3n de cobre fino del pa\u00eds sea efectuada en territorio nacional"
+  },
+  "17990-08": {
+   "doc_id": "0890e305a9e6a760",
+   "title": "Bolet\u00edn 17990-08: Exige a las empresas mineras mantener en la regi\u00f3n del yacimiento un centro de comando y operaci\u00f3n remota, con trabajadores residentes en dicha regi\u00f3n"
+  },
+  "17954-06": {
+   "doc_id": "e429f93379aa318b",
+   "title": "Bolet\u00edn 17954-06: Modifica la Ley de Rentas Municipales, con el objeto de fomentar la transparencia en el uso de los recursos provenientes del denominado royalty minero"
+  },
+  "17883-07": {
+   "doc_id": "1a115baaaf87ac17",
+   "title": "Bolet\u00edn 17883-07: Modifica la Carta Fundamental para asegurar la participaci\u00f3n mayoritaria del Estado en empresas que tengan por objeto la exploraci\u00f3n, explotaci\u00f3n o beneficio del litio"
+  },
+  "17479-10": {
+   "doc_id": "33ba78844c4a15d2",
+   "title": "Bolet\u00edn 17479-10: Aprueba el Protocolo por el cual se adicionan los cap\u00edtulos de G\u00e9nero y Comercio, y de Micro, Peque\u00f1as y Medianas Empresas, al Tratado de Libre Comercio entre la Rep\u00fablica de Chile y"
+  },
+  "17372-08": {
+   "doc_id": "baa24a0efd9f9530",
+   "title": "Bolet\u00edn 17372-08: Moderniza el gobierno corporativo de la Empresa Nacional de Miner\u00eda"
+  },
+  "17262-06": {
+   "doc_id": "4cd065083c74b983",
+   "title": "Bolet\u00edn 17262-06: Modifica la ley N\u00b0 19.175 para obligar a los gobernadores regionales a dar cuenta p\u00fablica del uso de los recursos obtenidos en virtud de la Ley sobre Royalty a la Miner\u00eda"
+  },
+  "17166-08": {
+   "doc_id": "6f304e08f4ddaa39",
+   "title": "Bolet\u00edn 17166-08: Establece medidas para la adecuada gesti\u00f3n de pasivos ambientales mineros"
+  },
+  "17120-08": {
+   "doc_id": "10577547766d255c",
+   "title": "Bolet\u00edn 17120-08: Modifica el C\u00f3digo de Miner\u00eda, en materia de consanguinidad exigida para acceder al pago de patente rebajada, en los t\u00e9rminos que indica"
+  },
+  "17019-10": {
+   "doc_id": "285f3d4c9c4fcce5",
+   "title": "Bolet\u00edn 17019-10: Aprueba el Acuerdo por Intercambio de Cartas de fecha 21 de junio de 2024 entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica, relativo al uso d"
+  },
+  "16994-10": {
+   "doc_id": "8802ce2b1dd58674",
+   "title": "Bolet\u00edn 16994-10: Aprueba el &quot;Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica, adoptado por Canje de Notas de 27 de julio y 11 de agosto de 2023,"
+  },
+  "16839-06": {
+   "doc_id": "9259bcaea32b5f5f",
+   "title": "Bolet\u00edn 16839-06: Modifica la ley N\u00b0 18.695, org\u00e1nica constitucional de Municipalidades, para exigir a los alcaldes incluir en su cuenta p\u00fablica anual una relaci\u00f3n detallada del uso de los recursos pr"
+  },
+  "16785-07": {
+   "doc_id": "36c9cf8bfa830012",
+   "title": "Bolet\u00edn 16785-07: Modifica la Carta Fundamental, en lo relativo a la exploraci\u00f3n y explotaci\u00f3n del litio"
+  },
+  "16605-08": {
+   "doc_id": "8f9496e788040d36",
+   "title": "Bolet\u00edn 16605-08: Dispone el resguardo de la capacidad de fundici\u00f3n de la Empresa Nacional de Miner\u00eda"
+  },
+  "16596-10": {
+   "doc_id": "65a1dcaa7727f55b",
+   "title": "Bolet\u00edn 16596-10: Aprueba el Tercer Protocolo Modificatorio del Protocolo Adicional al Acuerdo Marco de la Alianza del Pac\u00edfico, suscrito entre la Rep\u00fablica de Chile, la Rep\u00fablica de Colombia, los Est"
+  },
+  "16600-07": {
+   "doc_id": "61d63699b5abe292",
+   "title": "Bolet\u00edn 16600-07: Modifica el C\u00f3digo Penal para tipificar el delito de robo de cables de cobre"
+  },
+  "16587-25": {
+   "doc_id": "b21077b2f47ad06b",
+   "title": "Bolet\u00edn 16587-25: Modifica el C\u00f3digo Penal, con el objeto de tipificar y sancionar el delito de sustracci\u00f3n de minerales, en los t\u00e9rminos que se\u00f1ala"
+  },
+  "16778-08": {
+   "doc_id": "e7fba014004d5270",
+   "title": "Bolet\u00edn 16778-08: Deroga la no concesibilidad del litio y establece una tasa \u00fanica para su adquisici\u00f3n dentro de la concesi\u00f3n de explotaci\u00f3n de que se trate"
+  },
+  "16389-10": {
+   "doc_id": "575ba1db79898159",
+   "title": "Bolet\u00edn 16389-10: Aprueba el acuerdo por canje de notas que enmienda el Convenio entre el Gobierno de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica para Evitar la Doble Imposici\u00f3n y Prevenir la"
+  },
+  "16198-07": {
+   "doc_id": "bbfacbd56af8b5b5",
+   "title": "Bolet\u00edn 16198-07: Modifica el C\u00f3digo Penal para tipificar el delito de sustracci\u00f3n de cables de cobre del sistema de transmisi\u00f3n de energ\u00eda el\u00e9ctrica"
+  },
+  "16117-08": {
+   "doc_id": "542cb8c648a06fff",
+   "title": "Bolet\u00edn 16117-08: Modifica el C\u00f3digo de Miner\u00eda para eliminar el litio como mineral no susceptible de concesi\u00f3n minera"
+  },
+  "16067-08": {
+   "doc_id": "67aa35e6c0781bcf",
+   "title": "Bolet\u00edn 16067-08: Establece normas sobre exportaci\u00f3n de concentrado de cobre"
+  },
+  "16053-07": {
+   "doc_id": "0cf2adc26d8069a9",
+   "title": "Bolet\u00edn 16053-07: Modifica el art\u00edculo 19 N\u00b0 24\u00b0 de la Carta Fundamental, para incorporar un grado de participaci\u00f3n de los pueblos ind\u00edgenas en la propiedad o administraci\u00f3n de los yacimientos que se\u00f1"
+  },
+  "16011-08": {
+   "doc_id": "44bc06f9e7961dc7",
+   "title": "Bolet\u00edn 16011-08: Modifica el C\u00f3digo de Miner\u00eda para establecer una distancia m\u00ednima entre concesiones mineras y lugares poblados"
+  },
+  "15525-25": {
+   "doc_id": "e2b10497d9c1a1ca",
+   "title": "Bolet\u00edn 15525-25: Proyecto de ley, iniciado en Moci\u00f3n de los Honorables Senadores se\u00f1or Vel\u00e1squez y se\u00f1ora Sep\u00falveda, que modifica diversos cuerpos legales, con el objeto de tipificar los delitos de r"
+  },
+  "15511-08": {
+   "doc_id": "35e969384e2d182b",
+   "title": "Bolet\u00edn 15511-08: Pospone, para el sector minero, los efectos de la ley N\u00b021.420, que reduce o elimina exenciones tributarias que indica"
+  },
+  "15510-08": {
+   "doc_id": "bec4c13f8ce55112",
+   "title": "Bolet\u00edn 15510-08: Modifica disposiciones del C\u00f3digo de Miner\u00eda; la ley N\u00b021.420, que reduce o elimina exenciones tributarias que indica; la ley org\u00e1nica constitucional de Concesiones Mineras; la ley N"
+  },
+  "15385-07": {
+   "doc_id": "877975fb2e672dc3",
+   "title": "Bolet\u00edn 15385-07: Modifica el C\u00f3digo Penal para tipificar el delito de sustracci\u00f3n de minerales"
+  },
+  "15309-07": {
+   "doc_id": "e4b97aa4003cb2cc",
+   "title": "Bolet\u00edn 15309-07: Modifica el C\u00f3digo Penal para tipificar los delitos de hurto y robo de cobre"
+  },
+  "15297-24": {
+   "doc_id": "87f7bc3e59eb8fab",
+   "title": "Bolet\u00edn 15297-24: Autoriza construir un monumento en homenaje a la primera mujer minera"
+  },
+  "15265-08": {
+   "doc_id": "24b35fa86881044e",
+   "title": "Bolet\u00edn 15265-08: Modifica la ley N\u00b019.993, con el objeto de permitir que el tratamiento de los productos de la peque\u00f1a y mediana miner\u00eda de Enami pueda realizarse por Codelco en instalaciones distint"
+  },
+  "15223-07": {
+   "doc_id": "d9ad5df8ba937a67",
+   "title": "Bolet\u00edn 15223-07: Modifica la Carta Fundamental para autorizar la renacionalizaci\u00f3n de la Gran Miner\u00eda del Cobre y de otros recursos naturales que revistan car\u00e1cter estrat\u00e9gico o prioritario para la e"
+  },
+  "15206-08": {
+   "doc_id": "7c7b17a6e8c9ec31",
+   "title": "Bolet\u00edn 15206-08: Modifica el decreto con fuerza de ley N\u00b0 1, de 1986, del Ministerio de Miner\u00eda, que fija el texto refundido, coordinado y sistematizado de la ley N\u00b0 9.618, que crea la Empresa Nacion"
+  },
+  "15011-08": {
+   "doc_id": "02cc563bf0ef0d19",
+   "title": "Bolet\u00edn 15011-08: Establece la obligaci\u00f3n de elaborar un informe anual de sustentabilidad en la gran miner\u00eda del cobre, para promover el desarrollo de la miner\u00eda verde"
+  },
+  "14938-08": {
+   "doc_id": "9f9d5733b8da95ef",
+   "title": "Bolet\u00edn 14938-08: Establece el deber de la industria minera de utilizar veh\u00edculos menores e industriales cero emisiones al a\u00f1o 2030"
+  },
+  "14829-08": {
+   "doc_id": "b94610b66121e6d7",
+   "title": "Bolet\u00edn 14829-08: Modifica la ley N\u00b019.993 para eliminar la obligaci\u00f3n legal de Codelco de mantener, en la Fundici\u00f3n y Refiner\u00eda Las Ventanas, la capacidad de fusi\u00f3n y refinaci\u00f3n necesaria para garant"
+  },
+  "14800-08": {
+   "doc_id": "13fa3c156eb1d199",
+   "title": "Bolet\u00edn 14800-08: Modifica el C\u00f3digo de Miner\u00eda, para prohibir la licitaci\u00f3n de contratos especiales de operaci\u00f3n de minerales no concesibles a privados, en los tres meses anteriores al traspaso de un"
+  },
+  "14788-08": {
+   "doc_id": "f55bff58b9dc01a7",
+   "title": "Bolet\u00edn 14788-08: Modifica el C\u00f3digo de Miner\u00eda para suspender transitoriamente los procesos de licitaci\u00f3n de concesiones y contratos especiales de operaci\u00f3n sobre el litio"
+  },
+  "14786-08": {
+   "doc_id": "fe4dc3bc8296e18c",
+   "title": "Bolet\u00edn 14786-08: Modifica el C\u00f3digo de Miner\u00eda para prohibir la celebraci\u00f3n de concesiones administrativas o contratos especiales de operaci\u00f3n sobre el litio con privados, durante los \u00faltimos tres me"
+  },
+  "14769-05": {
+   "doc_id": "a5a7faef8e27859b",
+   "title": "Bolet\u00edn 14769-05: Establece un nuevo marco de gobierno corporativo para la Empresa Nacional de Miner\u00eda, el Banco del Estado de Chile y la Corporaci\u00f3n de Fomento de la Producci\u00f3n"
+  },
+  "14513-21": {
+   "doc_id": "db3424e53806ddf2",
+   "title": "Bolet\u00edn 14513-21: Modifica la ley N\u00b018.892, General de Pesca y Acuicultura, para ampliar el \u00e1rea de mar territorial reservada a la pesca artesanal para el ejercicio de las actividades pesqueras extrac"
+  },
+  "14329-06": {
+   "doc_id": "1548afca675db6cb",
+   "title": "Bolet\u00edn 14329-06: Modifica la ley N\u00b018.700, org\u00e1nica constitucional Sobre votaciones populares y escrutinios, para facilitar el ejercicio del derecho a voto de quienes se encuentren laborando en faena"
+  },
+  "14244-21": {
+   "doc_id": "7318a41bf8bf7624",
+   "title": "Bolet\u00edn 14244-21: Modifica la ley N\u00b018.892, General de Pesca y Acuicultura, para suprimir toda posibilidad de ejercer la actividad extractiva industrial en el \u00e1rea reservada a la pesca artesanal, y es"
+  },
+  "14057-21": {
+   "doc_id": "9f774b748208eba9",
+   "title": "Bolet\u00edn 14057-21: Modifica la ley N\u00b018.892, General de Pesca y Acuicultura, a fin de exigir el acuerdo de los integrantes artesanales del Consejo Zonal de Pesca respectivo, para autorizar la actividad"
+  },
+  "14009-12": {
+   "doc_id": "4386d25efd10f8f6",
+   "title": "Bolet\u00edn 14009-12: Modifica la ley N\u00b019.300, que Aprueba ley sobre Bases Generales del Medio Ambiente, para exigir que las empresas mineras cuenten con al menos un 50% de trabajadores domiciliados en l"
+  },
+  "13998-24": {
+   "doc_id": "283b0044c02162ee",
+   "title": "Bolet\u00edn 13998-24: Modifica la ley N\u00b020.363, que Instituye el d\u00eda del minero, para agregar, el d\u00eda 10 de agosto de cada a\u00f1o, la conmemoraci\u00f3n del d\u00eda de San Lorenzo"
+  },
+  "13954-08": {
+   "doc_id": "e104cc498413d138",
+   "title": "Bolet\u00edn 13954-08: Establece obligaci\u00f3n para la venta de productos concentrados del cobre."
+  },
+  "13850-08": {
+   "doc_id": "2b047f8b1724708c",
+   "title": "Bolet\u00edn 13850-08: Modifica el C\u00f3digo de Miner\u00eda para incluir como sustancias minerales a los \u00e1ridos derivados de la explotaci\u00f3n minera, para su uso en la construcci\u00f3n"
+  },
+  "13666-08": {
+   "doc_id": "169d4ffcbec918ba",
+   "title": "Bolet\u00edn 13666-08: Dispone la suspensi\u00f3n parcial de las faenas mineras, previa aprobaci\u00f3n de un plan de cierre temporal, en las condiciones y por el plazo que indica, como medida de prevenci\u00f3n ante la "
+  },
+  "13645-08": {
+   "doc_id": "8f3f3ff0d5746343",
+   "title": "Bolet\u00edn 13645-08: Proyecto de ley que establece un beneficio excepcional y transitorio respecto a la obligaci\u00f3n de garantizar el cierre de una faena de conformidad a la ley N\u00b0 20.551, que regula el ci"
+  },
+  "13641-13": {
+   "doc_id": "f6f5ab6836f910f9",
+   "title": "Bolet\u00edn 13641-13: Establece exigencias para garantizar la protecci\u00f3n de la vida e integridad de las trabajadoras y trabajadores de faenas mineras, en contexto de pandemia, epidemia o alerta sanitaria"
+  },
+  "12832-07": {
+   "doc_id": "71a944443687db9e",
+   "title": "Bolet\u00edn 12832-07: Proyecto de reforma constitucional que crea la Empresa Nacional del Litio."
+  },
+  "12603-10": {
+   "doc_id": "e31effff97a1ed92",
+   "title": "Bolet\u00edn 12603-10: Aprueba el Convenio Constitutivo del Banco Asi\u00e1tico de Inversi\u00f3n en Infraestructura y sus Anexos A y B, suscrito en Beijing, Rep\u00fablica Popular China, el 29 de junio de 2015"
+  },
+  "12569-13": {
+   "doc_id": "b1182ab4f26ea6e6",
+   "title": "Bolet\u00edn 12569-13: Modifica el decreto ley N\u00b0 1.350, de 1976, que Crea la Corporaci\u00f3n Nacional del Cobre de Chile, para permitir que las faenas, oficinas o centros de trabajo de Codelco que ocupen habi"
+  },
+  "12574-21": {
+   "doc_id": "db9f0e3161615a8d",
+   "title": "Bolet\u00edn 12574-21: Modifica la ley N\u00b018.892, General de Pesca y Acuicultura, para regular la realizaci\u00f3n de actividades de pesca extractiva y acuicultura en las \u00e1reas silvestres protegidas, reservas de"
+  },
+  "12518-13": {
+   "doc_id": "4958e0e6796d1c3f",
+   "title": "Bolet\u00edn 12518-13: Modifica el C\u00f3digo del Trabajo, con el objeto de fijar criterios para la autorizaci\u00f3n de sistemas excepcionales de distribuci\u00f3n de jornadas de trabajo y descansos en el sector minero"
+  },
+  "12324-08": {
+   "doc_id": "58721d61ca9eeea0",
+   "title": "Bolet\u00edn 12324-08: Modifica la ley N\u00b020.551, que regula el cierre de las faenas e instalaciones mineras."
+  },
+  "12195-10": {
+   "doc_id": "7b10ad5552c18b64",
+   "title": "Bolet\u00edn 12195-10: Aprueba el Tratado Integral y Progresista de Asociaci\u00f3n Transpac\u00edfico entre Australia, Brun\u00e9i Darussalam, Canad\u00e1, los Estados Unidos Mexicanos, Jap\u00f3n, Malasia, Nueva Zelanda, la Rep\u00fa"
+  },
+  "12196-08": {
+   "doc_id": "e67b9ec38996e955",
+   "title": "Bolet\u00edn 12196-08: Modifica el C\u00f3digo de Miner\u00eda en materia de aprovechamiento de aguas en faenas mineras"
+  },
+  "12173-07": {
+   "doc_id": "d08ff4348de4edfe",
+   "title": "Bolet\u00edn 12173-07: Para consagrar la explotaci\u00f3n directa del litio por el Estado de Chile."
+  },
+  "12093-08": {
+   "doc_id": "444d0760a8a01c04",
+   "title": "Bolet\u00edn 12093-08: Ley sobre Royalty a la Miner\u00eda"
+  },
+  "12095-13": {
+   "doc_id": "b624eef96c6b731c",
+   "title": "Bolet\u00edn 12095-13: Modifica el C\u00f3digo del Trabajo en materia de seguridad minera"
+  },
+  "12041-10": {
+   "doc_id": "bce88a7e06965c3e",
+   "title": "Bolet\u00edn 12041-10: Aprueba el Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica para la Investigaci\u00f3n, Desarrollo, Prueba y Evaluaci\u00f3n de Proyectos en Ma"
+  },
+  "11976-21": {
+   "doc_id": "41c50527565da7e0",
+   "title": "Bolet\u00edn 11976-21: Modifica la ley N\u00b0 18.892, General de Pesca y Acuicultura, para prohibir las operaciones pesqueras extractivas de car\u00e1cter industrial en la zona reservada a la pesca artesanal."
+  },
+  "11955-24": {
+   "doc_id": "3d4a68d77cb58ff7",
+   "title": "Bolet\u00edn 11955-24: Modifica la ley N\u00b0 20.363, que Instituye el D\u00eda del Minero, para reconocer la labor que cumple la mujer en la industria de la miner\u00eda"
+  },
+  "11904-08": {
+   "doc_id": "7aea7255acfdf938",
+   "title": "Bolet\u00edn 11904-08: Modifica el decreto ley N\u00b0 1.350, de 1976, que Crea la Corporaci\u00f3n Nacional del Cobre de Chile, en lo que respecta a los requisitos para ser director de dicha empresa."
+  },
+  "11903-07": {
+   "doc_id": "f1fdd0658adbec28",
+   "title": "Bolet\u00edn 11903-07: Faculta al Estado para desarrollar actividades empresariales de exploraci\u00f3n y explotaci\u00f3n de litio y modifica el decreto con fuerza de ley N\u00b0 153, de 1960, que Crea la Empresa Nacion"
+  },
+  "11871-10": {
+   "doc_id": "b33a6e9f18fcd7d3",
+   "title": "Bolet\u00edn 11871-10: Aprueba la Convenci\u00f3n para Homologar el Tratamiento Impositivo Previsto en los Convenios para Evitar la Doble Imposici\u00f3n suscritos entre los Estados Parte del Acuerdo Marco de la Ali"
+  },
+  "11749-10": {
+   "doc_id": "03994d73642716ad",
+   "title": "Bolet\u00edn 11749-10: Aprueba el Protocolo de Modificaci\u00f3n del Tratado de Libre Comercio y del Acuerdo Complementario sobre Comercio de Servicios entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno d"
+  },
+  "11611-10": {
+   "doc_id": "a7ec44f2e1d674d6",
+   "title": "Bolet\u00edn 11611-10: Aprueba el Acuerdo de Inversiones entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de la Regi\u00f3n Administrativa Especial de Hong Kong de la Rep\u00fablica Popular China y sus Anexo"
+  },
+  "11582-10": {
+   "doc_id": "75fcc7276e324609",
+   "title": "Bolet\u00edn 11582-10: Aprueba el Convenio entre el Gobierno de la Rep\u00fablica de Chile y la Organizaci\u00f3n Panamericana de la Salud (OPS) para el Establecimiento de una Oficina de la OPS en Chile, suscrito en"
+  },
+  "11568-10": {
+   "doc_id": "9d7ef51ebc346e2c",
+   "title": "Bolet\u00edn 11568-10: Aprueba el acuerdo entre la Rep\u00fablica de Chile y los Estados Unidos de Am\u00e9rica Respecto a la Asignaci\u00f3n de Oficiales de Seguridad de a Bordo y su Anexo , firmado en Santiago, Chile, "
+  },
+  "11498-08": {
+   "doc_id": "40968dfc4027ed42",
+   "title": "Bolet\u00edn 11498-08: Fija el sentido y alcance de las normas relativas al estatuto legal que rige a la Corporaci\u00f3n Nacional del Cobre."
+  },
+  "11480-10": {
+   "doc_id": "bc5c089fc61e6fbd",
+   "title": "Bolet\u00edn 11480-10: Aprueba el tratado de extradici\u00f3n entre la Rep\u00fablica de Chile y la Rep\u00fablica Popular China"
+  },
+  "11346-10": {
+   "doc_id": "4b6f7558989758c0",
+   "title": "Bolet\u00edn 11346-10: Aprueba el Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de la Rep\u00fablica de Trinidad y Tobago sobre Supresi\u00f3n del Requisito de Visa para los Titulares de Pasaporte"
+  },
+  "11261-07": {
+   "doc_id": "54ac328c389bbb73",
+   "title": "Bolet\u00edn 11261-07: Modifica la Carta Fundamental para crear la Empresa Nacional del Litio"
+  },
+  "11172-10": {
+   "doc_id": "ec52004cc7f5442b",
+   "title": "Bolet\u00edn 11172-10: Aprueba el Segundo Protocolo Modificatorio del Protocolo Adicional al Acuerdo Marco de la Alianza del Pac\u00edfico, suscrito entre la Rep\u00fablica de Colombia, la Rep\u00fablica de Chile, los Es"
+  },
+  "11028-05": {
+   "doc_id": "f7166afb86397882",
+   "title": "Bolet\u00edn 11028-05: Autoriza traspasar recursos provenientes de la aplicaci\u00f3n de la ley Reservada del Cobre al Tesoro P\u00fablico, permitiendo una capitalizaci\u00f3n extraordinaria a la Corporaci\u00f3n Nacional del"
+  },
+  "10995-08": {
+   "doc_id": "3ad1e6902b554f77",
+   "title": "Bolet\u00edn 10995-08: Crea un mecanismo de estabilizaci\u00f3n del precio del cobre para la Peque\u00f1a Miner\u00eda"
+  },
+  "10941-21": {
+   "doc_id": "5eb20e2e3b7630e2",
+   "title": "Bolet\u00edn 10941-21: Modifica el \u00e1rea de operaci\u00f3n extractiva de la reineta en la zona sur austral"
+  },
+  "10852-06": {
+   "doc_id": "663ae7a62e33efdc",
+   "title": "Bolet\u00edn 10852-06: Establece como feriado el d\u00eda 10 de agosto de cada a\u00f1o en la Regi\u00f3n de Atacama, con motivo de celebrarse el D\u00eda del Minero"
+  },
+  "10776-10": {
+   "doc_id": "80a726d32f6c0420",
+   "title": "Bolet\u00edn 10776-10: Aprueba el Primer Protocolo Modificatorio del Protocolo Adicional al Acuerdo Marco de la Alianza del Pac\u00edfico, suscrito entre la Rep\u00fablica de Colombia, la Rep\u00fablica de Chile, los Est"
+  },
+  "10638-08": {
+   "doc_id": "3750f492252f6594",
+   "title": "Bolet\u00edn 10638-08: Declara de inter\u00e9s nacional la explotaci\u00f3n y comercializaci\u00f3n del litio, y la Sociedad Qu\u00edmica y Minera de Chile S.A."
+  },
+  "10629-12": {
+   "doc_id": "bdc4fd358e1147b0",
+   "title": "Bolet\u00edn 10629-12: Modifica la ley N\u00b019.300 de Bases Generales del Medio Ambiente, para someter el transporte, recepci\u00f3n, acopio y embarque de minerales al sistema de evaluaci\u00f3n de impacto ambiental, y"
+  },
+  "10598-05": {
+   "doc_id": "d5e5b59708a15f7f",
+   "title": "Bolet\u00edn 10598-05: Suprime el art\u00edculo cuarto transitorio de la ley N\u00b0 20.469, que Introduce modificaciones a la tributaci\u00f3n de la actividad minera"
+  },
+  "10572-10": {
+   "doc_id": "2188f7f30f2d9d29",
+   "title": "Bolet\u00edn 10572-10: Aprueba el Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno del Estado de Palestina sobre Exenci\u00f3n del Requisito de Visa para los Titulares de Pasaportes Diplom\u00e1ticos"
+  },
+  "10571-10": {
+   "doc_id": "0244ae3e60e754e3",
+   "title": "Bolet\u00edn 10571-10: Aprueba el Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno del Estado de Kuwait sobre Exenci\u00f3n del Requisito de Visa para Titulares de Pasaportes Diplom\u00e1ticos, Ofici"
+  },
+  "10597-07": {
+   "doc_id": "c0cf6d10dfca871c",
+   "title": "Bolet\u00edn 10597-07: Declara la nulidad del art\u00edculo cuarto transitorio de la ley N\u00b0 20.469, que Introduce modificaciones a la tributaci\u00f3n de la actividad minera"
+  },
+  "10557-08": {
+   "doc_id": "028d497d69bcf431",
+   "title": "Bolet\u00edn 10557-08: Modifica el art\u00edculo 18 de la ley N\u00b018.097, org\u00e1nica constitucional sobre concesiones mineras, estableciendo una nueva causal de caducidad de las mismas."
+  },
+  "10569-08": {
+   "doc_id": "7a1a8fee027b9878",
+   "title": "Bolet\u00edn 10569-08: Modifica el C\u00f3digo de Miner\u00eda, en materia de plazo para inscribir la sentencia constitutiva de concesi\u00f3n minera"
+  },
+  "10518-07": {
+   "doc_id": "8968eed1d556a1ef",
+   "title": "Bolet\u00edn 10518-07: Exige la publicaci\u00f3n en el Diario Oficial de la ley N\u00b013.196, Reservada del Cobre"
+  },
+  "10441-08": {
+   "doc_id": "de5067cc761b4172",
+   "title": "Bolet\u00edn 10441-08: Modifica el C\u00f3digo de Miner\u00eda respecto de los terrenos en que se requiere permiso del propietario para catar y cavar"
+  },
+  "10312-08": {
+   "doc_id": "6117f8007d28141f",
+   "title": "Bolet\u00edn 10312-08: Regula el transporte, descarga y acopio de concentrado de minerales"
+  },
+  "10244-10": {
+   "doc_id": "a8a77ed92cb9d246",
+   "title": "Bolet\u00edn 10244-10: Proyecto de Acuerdo que aprueba el &quot;Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Banco Internacional de Reconstrucci\u00f3n y Fomento, la Asociaci\u00f3n Internacional de Fomen"
+  },
+  "10205-10": {
+   "doc_id": "e1d65fb315092bd0",
+   "title": "Bolet\u00edn 10205-10: Aprueba el protocolo adicional al acuerdo marco de la alianza del pac\u00edfico, suscrito entre la Rep\u00fablica de Colombia, la Rep\u00fablica de Chile, los Estados Unidos Mexicanos y la Rep\u00fablic"
+  },
+  "10187-07": {
+   "doc_id": "c6ec2b89ccd93807",
+   "title": "Bolet\u00edn 10187-07: Reforma constitucional que permite la nacionalizaci\u00f3n de recursos naturales de car\u00e1cter estrat\u00e9gico y establece normas especiales sobre la materia respecto de la Gran Miner\u00eda del Cob"
+  },
+  "10168-07": {
+   "doc_id": "7d6dec1b595ee1c9",
+   "title": "Bolet\u00edn 10168-07: Reforma Constitucional que declara a los materiales at\u00f3micos naturales y el litio como sustancias de valor estrat\u00e9gico, no susceptibles de concesi\u00f3n y reserva al Estado su exploraci\u00f3"
+  },
+  "10108-12": {
+   "doc_id": "90f2713f34e85959",
+   "title": "Bolet\u00edn 10108-12: Modifica la ley N\u00b0 19.300 de Bases generales del medio ambiente, para someter al sistema de evaluaci\u00f3n de impacto ambiental el transporte, recepci\u00f3n, acopio y embarque de minerales."
+  },
+  "10092-07": {
+   "doc_id": "ae8e4fc28536efec",
+   "title": "Bolet\u00edn 10092-07: Reforma constitucional sobre concesi\u00f3n de pasivos mineros"
+  },
+  "10038-08": {
+   "doc_id": "1d56e068646bf0a8",
+   "title": "Bolet\u00edn 10038-08: Modifica el C\u00f3digo de Miner\u00eda en materia de uso de agua en faenas mineras."
+  },
+  "10022-07": {
+   "doc_id": "61b5e2a067293268",
+   "title": "Bolet\u00edn 10022-07: Reforma constitucional que otorga competencia a tribunales especiales en materia de concesiones mineras."
+  },
+  "10010-08": {
+   "doc_id": "8f16eb5ac6b3b99f",
+   "title": "Bolet\u00edn 10010-08: Modifica diversos cuerpos legales para otorgar competencia a los tribunales ambientales en materia de concesiones mineras."
+  },
+  "9962-12": {
+   "doc_id": "a310e95ec89d5bee",
+   "title": "Bolet\u00edn 9962-12: Modifica el decreto ley N\u00b0 2.222, de 1978, con el objeto de prohibir el vertimiento,  derrame o disposici\u00f3n de resiuos mineros en las aguas sometidas a la jurisdicci\u00f3n nacional."
+  },
+  "9970-12": {
+   "doc_id": "99add191c4ca261b",
+   "title": "Bolet\u00edn 9970-12: Establece la conformaci\u00f3n de mesas de trabajo como mecanismo de participaci\u00f3n ciudadana en los proyectos mineros y energ\u00e9ticos."
+  },
+  "9779-33": {
+   "doc_id": "f6a5ed2eb6f286f7",
+   "title": "Bolet\u00edn 9779-33: Modifica la ley General de Servicios Sanitarios, en el sentido de privilegiar la disposici\u00f3n de aguas servidas tratadas, para usos en actividades agr\u00edcolas y mineras"
+  },
+  "9740-08": {
+   "doc_id": "649cdecbcd869acb",
+   "title": "Bolet\u00edn 9740-08: Modifica el decreto ley N\u00b0 1.350, de 1976, que Crea la Corporaci\u00f3n Nacional del Cobre de Chile, en materia de elecci\u00f3n de los representantes de los trabajadores en el directorio de la"
+  },
+  "9624-08": {
+   "doc_id": "afdaa6186ba734de",
+   "title": "Bolet\u00edn 9624-08: Modifica la ley N\u00b0 20.551, que Regula el Cierre de Faenas e Instalaciones Mineras, y el decreto ley N\u00b0 3.525, de 1980, que crea el Sernageomin."
+  },
+  "9561-10": {
+   "doc_id": "d81d26396b98dc0a",
+   "title": "Bolet\u00edn 9561-10: Acuerdo por el cual se extiende indefinidamente la duraci\u00f3n del Acuerdo B\u00e1sico de Cooperaci\u00f3n Cient\u00edfica y Tecnol\u00f3gica entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los "
+  },
+  "9546-06": {
+   "doc_id": "c1706ba0d0cf94cd",
+   "title": "Bolet\u00edn 9546-06: Declara feriado el D\u00eda del Minero para la Regi\u00f3n de Atacama"
+  },
+  "9540-08": {
+   "doc_id": "bfbe6134171c1798",
+   "title": "Bolet\u00edn 9540-08: Modifica C\u00f3digo de Miner\u00eda, para exigir al concesionario, la implementaci\u00f3n de medidas de mitigaci\u00f3n por la contaminaci\u00f3n de las aguas que ocasione su actividad"
+  },
+  "9530-08": {
+   "doc_id": "b18505f97d6e057e",
+   "title": "Bolet\u00edn 9530-08: Establece aporte de capital extraordinario para la Corporaci\u00f3n Nacional del Cobre de Chile y la autoriza para contraer endeudamiento."
+  },
+  "9464-10": {
+   "doc_id": "c7514ddda0255c7e",
+   "title": "Bolet\u00edn 9464-10: Aprueba Tratado de Beijing sobre interpretaciones y ejecuciones audiovisuales, de la Organizaci\u00f3n Mundial de la Propiedad Intelectual (OMPI), suscrito en Beijing, Rep\u00fablica Popular Ch"
+  },
+  "9443-08": {
+   "doc_id": "77acd3e9bee68204",
+   "title": "Bolet\u00edn 9443-08: Establece d\u00eda 11 de julio, D\u00eda de la Dignidad Nacional, en conmemoraci\u00f3n de la nacionalizaci\u00f3n del cobre."
+  },
+  "9362-08": {
+   "doc_id": "2c96cedb48735e95",
+   "title": "Bolet\u00edn 9362-08: Modifica ley N\u00b0 19.137, con objeto de establecer licitaci\u00f3n de pertenencias mineras traspasadas por Codelco a Enami, en beneficio de la peque\u00f1a y mediana miner\u00eda."
+  },
+  "9357-08": {
+   "doc_id": "2ffef8ae6e33b7c3",
+   "title": "Bolet\u00edn 9357-08: Modifica duraci\u00f3n y extensi\u00f3n territorial, de las concesiones mineras."
+  },
+  "9332-10": {
+   "doc_id": "ab673bdc2790ad87",
+   "title": "Bolet\u00edn 9332-10: Aprueba el \"Tratado de Extradici\u00f3n entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica\", suscrito en Washington, el 5 de junio de 2013."
+  },
+  "9275-08": {
+   "doc_id": "6d9464cdbec72d17",
+   "title": "Bolet\u00edn 9275-08: Incorpora modificaciones en materia de gobierno corporativo a la ley que crea la Empresa Nacional de Miner\u00eda."
+  },
+  "9243-10": {
+   "doc_id": "40a4bc3c5a9c78d9",
+   "title": "Bolet\u00edn 9243-10: Aprueba Acuerdo entre Gobierno de Chile y Gobierno de los Estados Unidos de Am\u00e9rica, en materia de incremento de la cooperaci\u00f3n en la prevenci\u00f3n y combate del delito grave, suscrito  "
+  },
+  "9185-08": {
+   "doc_id": "5c64f7babe4c1e81",
+   "title": "Bolet\u00edn 9185-08: Establece la desalinizaci\u00f3n del agua de mar para su uso en proceso productivos mineros."
+  },
+  "9169-08": {
+   "doc_id": "fd4edfb3e7897c18",
+   "title": "Bolet\u00edn 9169-08: Modifica textos legales que indica, para impulsar la inversi\u00f3n minera."
+  },
+  "9131-08": {
+   "doc_id": "0c33be157978a150",
+   "title": "Bolet\u00edn 9131-08: Dispone la publicaci\u00f3n y radiodifusi\u00f3n regionales de las peticiones de concesiones mineras."
+  },
+  "9096-10": {
+   "doc_id": "0d07999449708177",
+   "title": "Bolet\u00edn 9096-10: Aprueba Tratado de Libre Comercio entre Chile y Hong Kong, China, suscrito en Vladivostok, Federaci\u00f3n de Rusia, el 7 de septiembre de 2012."
+  },
+  "9017-13": {
+   "doc_id": "618abee33a38cae4",
+   "title": "Bolet\u00edn 9017-13: Modifica C\u00f3digo del Trabajo, exigiendo contrataci\u00f3n de un determinado porcentaje de personas del medio local, en actividades mineras, agr\u00edcolas, silvoagropecuarias, forestales y de es"
+  },
+  "9002-10": {
+   "doc_id": "8ebce4fcbccd5b54",
+   "title": "Bolet\u00edn 9002-10: Aprueba el Acuerdo Suplementario sobre Inversiones del Tratado de Libre Comercio entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de la Rep\u00fablica Popular de China, suscrito en"
+  },
+  "8952-10": {
+   "doc_id": "3d8ef3d65f810df1",
+   "title": "Bolet\u00edn 8952-10: Acuerdo que aprueba Convenio entre la Rep\u00fablica de Chile y los Estados Unidos Mexicanos, sobre Protecci\u00f3n y Restituci\u00f3n de Bienes Culturales, suscrito en Ciudad de M\u00e9xico, el 8 de jul"
+  },
+  "8840-08": {
+   "doc_id": "09479d280eee1a93",
+   "title": "Bolet\u00edn 8840-08: Modifica D.F.L. N\u00b0 1, de 1987, que crea la Comisi\u00f3n Chilena del Cobre."
+  },
+  "8841-08": {
+   "doc_id": "a413331073afb5e1",
+   "title": "Bolet\u00edn 8841-08: Modifica el Decreto Ley que crea la Corporaci\u00f3n Nacional del Cobre CODELCO, en lo referido Gobierno Corporativo de la Empresa. BOLET\u00cdN N\u00b0 8841-08."
+  },
+  "8801-10": {
+   "doc_id": "3380c24528acbdfb",
+   "title": "Bolet\u00edn 8801-10: Acuerdo Marco de la Alianza del Pac\u00edfico, entre la Rep\u00fablica de Chile, la Rep\u00fablica de Colombia, los Estados Unidos Mexicanos y la Rep\u00fablica del Per\u00fa, suscrito en Paranal&quot;, Antof"
+  },
+  "8746-07": {
+   "doc_id": "51b74ac6c1c0ce43",
+   "title": "Bolet\u00edn 8746-07: Modifica Art. 19 N\u00b024 de la Constituci\u00f3n Pol\u00edtica de la Rep\u00fablica, reservando a las empresas del Estado o aquellas en las que \u00e9ste tenga participaci\u00f3n, la exploraci\u00f3n y explotaci\u00f3n de"
+  },
+  "8485-10": {
+   "doc_id": "ec40a85045733199",
+   "title": "Bolet\u00edn 8485-10: Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de la Rep\u00fablica Popular de Bangladesh sobre Exenci\u00f3n del Requisito de Visa para los Titulares de Pasaportes Diplom\u00e1tic"
+  },
+  "8392-08": {
+   "doc_id": "92a8861d38650eea",
+   "title": "Bolet\u00edn 8392-08: Modifica el art\u00edculo 3\u00b0 del decreto ley N\u00b0 1.350 que crea la Corporaci\u00f3n Nacional del Cobre, ampliando el objetivo en materia de exploraci\u00f3n y explotaci\u00f3n de litio."
+  },
+  "8303-08": {
+   "doc_id": "9d161a378cf83aed",
+   "title": "Bolet\u00edn 8303-08: Modifica el n\u00famero 24\u00b0 del art\u00edculo 19 de la Constituci\u00f3n Pol\u00edtica de la Rep\u00fablica, para reservar al Estado la exploraci\u00f3n y explotaci\u00f3n del litio y establecer modalidades en su r\u00e9gim"
+  },
+  "8299-08": {
+   "doc_id": "2c1f04970854e199",
+   "title": "Bolet\u00edn 8299-08: Incluye al litio entre las sustancias mineras no susceptibles de concesi\u00f3n y reserva, al Estado y sus empresas, la exploraci\u00f3n, explotaci\u00f3n y beneficio de los derivados del metal."
+  },
+  "8247-07": {
+   "doc_id": "0ba3f6f1670a7aef",
+   "title": "Bolet\u00edn 8247-07: Reforma Constitucional, art\u00edculo 19, N\u00b024 inciso d\u00e9cimo, en materia de explotaci\u00f3n del litio."
+  },
+  "8272-08": {
+   "doc_id": "39be1feb5b5ed678",
+   "title": "Bolet\u00edn 8272-08: Crea y destina recursos para el Fondo de Desarrollo  del Norte y de las Comunas Mineras de Chile."
+  },
+  "8196-10": {
+   "doc_id": "3b91e9826c9b07f5",
+   "title": "Bolet\u00edn 8196-10: Acuerdo que aprueba el Tratado de Libre Comercio entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de la Rep\u00fablica Socialista de Vietnam, suscrito en Honolulu, Hawai, Estados U"
+  },
+  "8006-08": {
+   "doc_id": "479d5c624cc2cb11",
+   "title": "Bolet\u00edn 8006-08: Obliga a grandes explotadores mineros a la desalinizaci\u00f3n de agua para sus procesos productivos."
+  },
+  "7919-10": {
+   "doc_id": "83fe2d9364dc032e",
+   "title": "Bolet\u00edn 7919-10: Aprueba el Acuerdo de Servicios A\u00e9reos entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de la Rep\u00fablica Popular China, suscrito en Singapur el 13 de noviembre de 2009."
+  },
+  "7918-04": {
+   "doc_id": "5e0e95edc11a4fb0",
+   "title": "Bolet\u00edn 7918-04: Modifica la ley N\u00b0 20.349, respecto de monumento en homenaje a los ex mineros del carb\u00f3n."
+  },
+  "7875-08": {
+   "doc_id": "d80f776e0a73473c",
+   "title": "Bolet\u00edn 7875-08: Proyecto de reforma constitucional sobre cierre de faenas mineras en relaci\u00f3n con yacimientos que contengan sustancias no susceptibles de concesi\u00f3n."
+  },
+  "7866-08": {
+   "doc_id": "4a1d88c7cc5af673",
+   "title": "Bolet\u00edn 7866-08: Establece normas para la protecci\u00f3n de la comunidad y el medio ambiente frente a las obras previas complementarias destinadas a la exploraci\u00f3n y explotaci\u00f3n de proyectos mineros."
+  },
+  "7848-08": {
+   "doc_id": "af14aba1d9ec222c",
+   "title": "Bolet\u00edn 7848-08: Sobre Seguridad e Institucionalidad Minera."
+  },
+  "7790-07": {
+   "doc_id": "3fd76c6117d31a3f",
+   "title": "Bolet\u00edn 7790-07: Modifica el art\u00edculo 19 N\u00b0 24, de la Constituci\u00f3n Pol\u00edtica de la Rep\u00fablica, con el objeto de Nacionalizar el Cobre."
+  },
+  "7684-10": {
+   "doc_id": "2a79f5ea3e60487b",
+   "title": "Bolet\u00edn 7684-10: Proyecto de acuerdo que aprueba el \u00b4Tratado de Extradici\u00f3n entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica\u00b4, suscrito en Santiago el 12 de en"
+  },
+  "7361-06": {
+   "doc_id": "fd64279414049dfc",
+   "title": "Bolet\u00edn 7361-06: Reemplaza denominaci\u00f3n de Aeropuerto Desierto de Atacama, de Copiap\u00f3, por Aeropuerto Mineros de Chile."
+  },
+  "7275-06": {
+   "doc_id": "aa251e59cf466c44",
+   "title": "Bolet\u00edn 7275-06: Establece, como feriado regional en la Regi\u00f3n de Atacama, el 22 de agosto como D\u00eda de la Esperanza Minera."
+  },
+  "7223-07": {
+   "doc_id": "46ac6440c860eb96",
+   "title": "Bolet\u00edn 7223-07: Modifica el art\u00edculo 24 de la Constituci\u00f3n Pol\u00edtica de la Rep\u00fablica con el objeto de asegurar el derecho del Estado a percibir una regal\u00eda minera justa."
+  },
+  "7210-13": {
+   "doc_id": "849325bb69521562",
+   "title": "Bolet\u00edn 7210-13: Relativo al t\u00e9rmino del contrato de trabajo por faltas a la seguridad minera."
+  },
+  "7186-24": {
+   "doc_id": "269555b92fd99156",
+   "title": "Bolet\u00edn 7186-24: Memorial al esp\u00edritu heroico de los 33 mineros del Bicentenario."
+  },
+  "7190-08": {
+   "doc_id": "e09b1cfb53c748e5",
+   "title": "Bolet\u00edn 7190-08: Sobre seguridad minera."
+  },
+  "7170-05": {
+   "doc_id": "a2eb18651cf4fbb9",
+   "title": "Bolet\u00edn 7170-05: Introduce modificaciones a la tributaci\u00f3n espec\u00edfica de la actividad minera. (royalty)"
+  },
+  "7051-08": {
+   "doc_id": "18d55fa343feeb05",
+   "title": "Bolet\u00edn 7051-08: Modifica el D.F.L. N\u00b0 1, de Miner\u00eda, de 1978, con el objeto de permitir la clausura de los establecimientos de distribuci\u00f3n de combustibles que adulteren sus productos."
+  },
+  "6941-08": {
+   "doc_id": "79ddf358fe681f37",
+   "title": "Bolet\u00edn 6941-08: Establece restricciones a las concesiones de litio ya existentes."
+  },
+  "6940-08": {
+   "doc_id": "1cf1eb740de86131",
+   "title": "Bolet\u00edn 6940-08: Elimina el litio como mineral no concesible."
+  },
+  "6855-08": {
+   "doc_id": "4c4498dd607ca3eb",
+   "title": "Bolet\u00edn 6855-08: Establece una compensaci\u00f3n por la explotaci\u00f3n de recursos mineros."
+  },
+  "6781-07": {
+   "doc_id": "6aba950271defe51",
+   "title": "Bolet\u00edn 6781-07: Declara a los materiales at\u00f3micos naturales y al litio como sustancias no concesibles de valor estrat\u00e9gico y reserva al Estado su exploraci\u00f3n, explotaci\u00f3n y beneficio."
+  },
+  "6763-01": {
+   "doc_id": "279d8d36ccc737a1",
+   "title": "Bolet\u00edn 6763-01: Reforma el C\u00f3digo de Aguas, el C\u00f3digo de Miner\u00eda y otros cuerpos legales, con el objeto de garantizar la conservaci\u00f3n del medio ambiente y los recursos naturales."
+  },
+  "6715-10": {
+   "doc_id": "5bb9b1d80d6772d4",
+   "title": "Bolet\u00edn 6715-10: Acuerdo Suplementario sobre el Comercio de Servicios del Tratado de Libre Comercio entre los Gobiernos de las Rep\u00fablicas de Chile y  Popular China."
+  },
+  "6508-08": {
+   "doc_id": "12c8b6f15e2f34e0",
+   "title": "Bolet\u00edn 6508-08: Establece la obligaci\u00f3n de comunicar al Servicio Nacional de Geolog\u00eda y Minas, las tronaduras que deseen efectuar las empresas mineras."
+  },
+  "6411-21": {
+   "doc_id": "956bed9233325e44",
+   "title": "Bolet\u00edn 6411-21: Regula actividad pesquera extractiva con artes, aparejos e implementos de pesca que da\u00f1en ecosistemas marinos vulnerables."
+  },
+  "6415-08": {
+   "doc_id": "ee2496fe0e3385db",
+   "title": "Bolet\u00edn 6415-08: Regula el cierre de faenas e instalaciones mineras."
+  },
+  "6373-03": {
+   "doc_id": "dfe0c6e643b0d62a",
+   "title": "Bolet\u00edn 6373-03: Prorroga el r\u00e9gimen de Zona Franca Industrial de insumos de partes y piezas para la miner\u00eda, en la comuna de Tocopilla, en la Regi\u00f3n de Antofagasta."
+  },
+  "6088-05": {
+   "doc_id": "da553ac0763ae99d",
+   "title": "Bolet\u00edn 6088-05: Incorpora a la ley N\u00b0 20.063, el combustible gas natural licuado y modifica el decreto con fuerza de ley N\u00b0 1, de 1978, del Ministerio de Miner\u00eda."
+  }
+ },
+ "omitted": [
+  "votaciones/16596-10.xml",
+  "votaciones/16600-07.xml",
+  "votaciones/16587-25.xml",
+  "votaciones/16778-08.xml",
+  "votaciones/16389-10.xml",
+  "votaciones/16198-07.xml",
+  "votaciones/16117-08.xml",
+  "votaciones/16067-08.xml",
+  "votaciones/16053-07.xml",
+  "votaciones/16011-08.xml",
+  "votaciones/15525-25.xml",
+  "votaciones/15511-08.xml",
+  "votaciones/15510-08.xml",
+  "votaciones/15385-07.xml",
+  "votaciones/15309-07.xml",
+  "votaciones/15297-24.xml",
+  "votaciones/15265-08.xml",
+  "votaciones/15223-07.xml",
+  "votaciones/15206-08.xml",
+  "votaciones/15011-08.xml",
+  "votaciones/14938-08.xml",
+  "votaciones/14829-08.xml",
+  "votaciones/14800-08.xml",
+  "votaciones/14788-08.xml",
+  "votaciones/14786-08.xml",
+  "votaciones/14769-05.xml",
+  "votaciones/14513-21.xml",
+  "votaciones/14329-06.xml",
+  "votaciones/14244-21.xml",
+  "votaciones/14057-21.xml",
+  "votaciones/14009-12.xml",
+  "votaciones/13998-24.xml",
+  "votaciones/13954-08.xml",
+  "votaciones/13850-08.xml",
+  "votaciones/13666-08.xml",
+  "votaciones/13645-08.xml",
+  "votaciones/13641-13.xml",
+  "votaciones/12832-07.xml",
+  "votaciones/12603-10.xml",
+  "votaciones/12569-13.xml",
+  "votaciones/12574-21.xml",
+  "votaciones/12518-13.xml",
+  "votaciones/12324-08.xml",
+  "votaciones/12195-10.xml",
+  "votaciones/12196-08.xml",
+  "votaciones/12173-07.xml",
+  "votaciones/12093-08.xml",
+  "votaciones/12095-13.xml",
+  "votaciones/12041-10.xml",
+  "votaciones/11976-21.xml",
+  "votaciones/11955-24.xml",
+  "votaciones/11904-08.xml",
+  "votaciones/11903-07.xml",
+  "votaciones/11871-10.xml",
+  "votaciones/11749-10.xml",
+  "votaciones/11611-10.xml",
+  "votaciones/11582-10.xml",
+  "votaciones/11568-10.xml",
+  "votaciones/11498-08.xml",
+  "votaciones/11480-10.xml",
+  "votaciones/11346-10.xml",
+  "votaciones/11261-07.xml",
+  "votaciones/11172-10.xml",
+  "votaciones/11028-05.xml",
+  "votaciones/10995-08.xml",
+  "votaciones/10941-21.xml",
+  "votaciones/10852-06.xml",
+  "votaciones/10776-10.xml",
+  "votaciones/10638-08.xml",
+  "votaciones/10629-12.xml",
+  "votaciones/10598-05.xml",
+  "votaciones/10572-10.xml",
+  "votaciones/10571-10.xml",
+  "votaciones/10597-07.xml",
+  "votaciones/10557-08.xml",
+  "votaciones/10569-08.xml",
+  "votaciones/10518-07.xml",
+  "votaciones/10441-08.xml",
+  "votaciones/10312-08.xml",
+  "votaciones/10244-10.xml",
+  "votaciones/10205-10.xml",
+  "votaciones/10187-07.xml",
+  "votaciones/10168-07.xml",
+  "votaciones/10108-12.xml",
+  "votaciones/10092-07.xml",
+  "votaciones/10038-08.xml",
+  "votaciones/10022-07.xml",
+  "votaciones/10010-08.xml",
+  "votaciones/9962-12.xml",
+  "votaciones/9970-12.xml",
+  "votaciones/9779-33.xml",
+  "votaciones/9740-08.xml",
+  "votaciones/9624-08.xml",
+  "votaciones/9561-10.xml",
+  "votaciones/9546-06.xml",
+  "votaciones/9540-08.xml",
+  "votaciones/9530-08.xml",
+  "votaciones/9464-10.xml",
+  "votaciones/9443-08.xml",
+  "votaciones/9362-08.xml",
+  "votaciones/9357-08.xml",
+  "votaciones/9332-10.xml",
+  "votaciones/9275-08.xml",
+  "votaciones/9243-10.xml",
+  "votaciones/9185-08.xml",
+  "votaciones/9169-08.xml",
+  "votaciones/9131-08.xml",
+  "votaciones/9096-10.xml",
+  "votaciones/9017-13.xml",
+  "votaciones/9002-10.xml",
+  "votaciones/8952-10.xml",
+  "votaciones/8840-08.xml",
+  "votaciones/8841-08.xml",
+  "votaciones/8801-10.xml",
+  "votaciones/8746-07.xml",
+  "votaciones/8485-10.xml",
+  "votaciones/8392-08.xml",
+  "votaciones/8303-08.xml",
+  "votaciones/8299-08.xml",
+  "votaciones/8247-07.xml",
+  "votaciones/8272-08.xml",
+  "votaciones/8196-10.xml",
+  "votaciones/8006-08.xml",
+  "votaciones/7919-10.xml",
+  "votaciones/7918-04.xml",
+  "votaciones/7875-08.xml",
+  "votaciones/7866-08.xml",
+  "votaciones/7848-08.xml",
+  "votaciones/7790-07.xml",
+  "votaciones/7684-10.xml",
+  "votaciones/7361-06.xml",
+  "votaciones/7275-06.xml",
+  "votaciones/7223-07.xml",
+  "votaciones/7210-13.xml",
+  "votaciones/7186-24.xml",
+  "votaciones/7190-08.xml",
+  "votaciones/7170-05.xml",
+  "votaciones/7051-08.xml",
+  "votaciones/6941-08.xml",
+  "votaciones/6940-08.xml",
+  "votaciones/6855-08.xml",
+  "votaciones/6781-07.xml",
+  "votaciones/6763-01.xml",
+  "votaciones/6715-10.xml",
+  "votaciones/6508-08.xml",
+  "votaciones/6411-21.xml",
+  "votaciones/6415-08.xml",
+  "votaciones/6373-03.xml",
+  "votaciones/6088-05.xml"
+ ]
+}

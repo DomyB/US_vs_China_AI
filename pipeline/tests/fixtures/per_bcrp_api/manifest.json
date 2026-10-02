@@ -1,0 +1,39 @@
+{
+ "source_id": "per_bcrp_api",
+ "files": {
+  "metadata.csv": {
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/metadata",
+   "params": {},
+   "status": 200,
+   "bytes": 6879840,
+   "sha256": "254b7480f7eb48a9f768a066280677d4867aca969f4298a340901bc0e1c3096d",
+   "retrieved_at": "2026-10-02T16:41:42+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_bcrp_api/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "metadata_columns": [
+  "Cdigo de serie",
+  "Categora de serie",
+  "Grupo de serie",
+  "Nombre de serie",
+  "Descripcin de la serie",
+  "Metodologa de la serie",
+  "Unidad de medida",
+  "Escala",
+  "Geografa (Pas, Regin de Per)",
+  "Fuente",
+  "Frecuencia",
+  "Fecha de creacin",
+  "Grupo de publicacin",
+  "rea que publica",
+  "Fecha de actualizacin",
+  "Fecha de inicio",
+  "Fecha de fin",
+  "Memo",
+  "Unnamed: 18"
+ ],
+ "series_selected": []
+}

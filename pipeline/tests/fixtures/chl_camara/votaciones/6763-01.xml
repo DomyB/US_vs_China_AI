@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>7160</ns0:Id>
+  <ns0:NumeroBoletin>6763-01</ns0:NumeroBoletin>
+  <ns0:Nombre>Reforma el Código de Aguas, el Código de Minería y otros cuerpos legales, con el objeto de garantizar la conservación del medio ambiente y los recursos naturales. </ns0:Nombre>
+  <ns0:FechaIngreso>2009-11-18T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="2">Moción</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+  <ns0:Autores>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>800</ns0:Id>
+        <ns0:Nombre>Enrique</ns0:Nombre>
+        <ns0:ApellidoPaterno>Accorsi</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Opazo</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>886</ns0:Id>
+        <ns0:Nombre>Jaime</ns0:Nombre>
+        <ns0:ApellidoPaterno>Quintana</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Leal</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>890</ns0:Id>
+        <ns0:Nombre>Fulvio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Rossi</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Ciocca</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>910</ns0:Id>
+        <ns0:Nombre>Esteban</ns0:Nombre>
+        <ns0:ApellidoPaterno>Valenzuela</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Van Treek</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>836</ns0:Id>
+        <ns0:Nombre>Marcos</ns0:Nombre>
+        <ns0:ApellidoPaterno>Espinosa</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Monardes</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>845</ns0:Id>
+        <ns0:Nombre>Guido</ns0:Nombre>
+        <ns0:ApellidoPaterno>Girardi</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Briere</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>861</ns0:Id>
+        <ns0:Nombre>Juan</ns0:Nombre>
+        <ns0:ApellidoPaterno>Lobos</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Krause</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>896</ns0:Id>
+        <ns0:Nombre>Roberto</ns0:Nombre>
+        <ns0:ApellidoPaterno>Sepúlveda</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Hermosilla</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Diputado>
+        <ns0:Id>913</ns0:Id>
+        <ns0:Nombre>Mario</ns0:Nombre>
+        <ns0:ApellidoPaterno>Venegas</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Cárdenas</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+    </ns0:ParlamentarioAutor>
+  </ns0:Autores>
+  <ns0:Votaciones />
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>7438</ns0:Id>
+      <ns0:Nombre>CONSERVACIÓN DE LOS RECURSOS NATURALES</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>1414</ns0:Id>
+      <ns0:Nombre>MEDIO AMBIENTE</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>1013</ns0:Id>
+      <ns0:Nombre>CÓDIGO DE AGUAS</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>1016</ns0:Id>
+      <ns0:Nombre>CÓDIGO DE MINERÍA</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

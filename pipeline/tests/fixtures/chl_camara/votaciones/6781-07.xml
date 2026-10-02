@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>7179</ns0:Id>
+  <ns0:NumeroBoletin>6781-07</ns0:NumeroBoletin>
+  <ns0:Nombre>Declara a los materiales atómicos naturales y al litio como sustancias no concesibles de valor estratégico y reserva al Estado su exploración, explotación y beneficio.</ns0:Nombre>
+  <ns0:FechaIngreso>2009-12-01T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="2">Moción</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+  <ns0:Autores>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>24</ns0:Id>
+        <ns0:Nombre>Ricardo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Núñez</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Muñoz</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>908</ns0:Id>
+        <ns0:Nombre>Camilo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Escalona</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Medina</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>912</ns0:Id>
+        <ns0:Nombre>Juan Pablo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Letelier</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Morel</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+  </ns0:Autores>
+  <ns0:Votaciones />
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>7523</ns0:Id>
+      <ns0:Nombre>GESTIÓN DEL ESTADO</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>7521</ns0:Id>
+      <ns0:Nombre>LITIO</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>7522</ns0:Id>
+      <ns0:Nombre>MATERIALES ATÓMICOS NATURALES</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

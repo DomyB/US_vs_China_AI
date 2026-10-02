@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>6763</ns0:Id>
+  <ns0:NumeroBoletin>6373-03</ns0:NumeroBoletin>
+  <ns0:Nombre>Prorroga el régimen de Zona Franca Industrial de insumos de partes y piezas para la minería, en la comuna de Tocopilla, en la Región de Antofagasta.</ns0:Nombre>
+  <ns0:FechaIngreso>2009-01-20T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+  <ns0:MinisteriosPatrocinantes>
+    <ns0:Ministerio>
+      <ns0:Id>1</ns0:Id>
+      <ns0:Nombre>Ministerio de Economía, Fomento y Turism</ns0:Nombre>
+    </ns0:Ministerio>
+  </ns0:MinisteriosPatrocinantes>
+  <ns0:Votaciones>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>13836</ns0:Id>
+      <ns0:Descripcion>Boletín N°6373-03</ns0:Descripcion>
+      <ns0:Fecha>2009-01-21T12:51:48</ns0:Fecha>
+      <ns0:TotalSi>96</ns0:TotalSi>
+      <ns0:TotalNo>1</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>0</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="1">General</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo />
+      <ns0:TramiteConstitucional Id="1">Primer Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+  </ns0:Votaciones>
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>5052</ns0:Id>
+      <ns0:Nombre>REGIÓN DE ANTOFAGASTA (CHILE) 2</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>1381</ns0:Id>
+      <ns0:Nombre>ZONA FRANCA</ns0:Nombre>
+    </ns0:Materia>
+    <ns0:Materia>
+      <ns0:Id>5416</ns0:Id>
+      <ns0:Nombre>TOCOPILLA (CHILE: COMUNA)</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>
