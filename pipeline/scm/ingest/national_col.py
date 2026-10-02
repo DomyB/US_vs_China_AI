@@ -23,9 +23,32 @@ class ANMAnna(Adapter):
     tables = ("concession",)
     language = "es"
 
+    CATALOG = "https://api.us.socrata.com/api/catalog/v1"
+
+    def _dataset(self, snap: Snapshot) -> str:
+        """The registry id (si2v-pbq5) turned out to be the registry's annotations table. Ask the Socrata
+        catalogue for datos.gov.co datasets about mining titles whose columns name a holder and minerals."""
+        try:
+            cat = snap.get_json(self.CATALOG, "catalog.json", params={"domains": "www.datos.gov.co", "q": "titulos mineros", "limit": 50}, timeout=120)
+        except Exception as e:  # noqa: BLE001
+            snap.manifest.setdefault("errors", []).append({"name": "catalog", "error": str(e)[:200]})
+            return SOCRATA
+        best, best_score = None, 0
+        for r in cat.get("results", []) if isinstance(cat, dict) else []:
+            res = r.get("resource", {})
+            cols = " ".join(str(c).lower() for c in res.get("columns_field_name", []) + res.get("columns_name", []))
+            name = str(res.get("name", "")).lower()
+            score = sum(w in cols for w in ("titular", "mineral", "estado", "area", "hectareas", "fecha")) + 2 * ("titulo" in name or "título" in name) + ("anna" in name)
+            if score > best_score:
+                best, best_score = res, score
+        snap.manifest["catalog_choice"] = {"name": best.get("name") if best else None, "id": best.get("id") if best else None, "score": best_score}
+        return f"https://www.datos.gov.co/resource/{best['id']}.json" if best and best_score >= 3 else SOCRATA
+
     def fetch(self, snap: Snapshot) -> None:
+        url = self._dataset(snap)
+        snap.manifest["dataset_url"] = url
         for page in range(MAX_PAGES):
-            payload = snap.get_json(SOCRATA, f"page_{page}.json", params={"$limit": PAGE, "$offset": page * PAGE, "$order": ":id"}, timeout=300)
+            payload = snap.get_json(url, f"page_{page}.json", params={"$limit": PAGE, "$offset": page * PAGE, "$order": ":id"}, timeout=300)
             if not isinstance(payload, list) or len(payload) < PAGE:
                 break
 

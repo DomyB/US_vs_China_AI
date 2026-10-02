@@ -34,13 +34,20 @@ class ECUCadastre(Adapter):
             snap.get_json(layer, "layer.json", params={"f": "json"}, timeout=60)
         except Exception as e:  # noqa: BLE001
             snap.manifest.setdefault("errors", []).append({"name": "layer", "error": str(e)[:200]})
+        # the MapServer ignored resultOffset in the first live run (every page returned the same 1000 rows):
+        # page by objectid instead, which every layer supports
+        last = -1
         for page in range(MAX_PAGES):
-            payload = snap.get_json(f"{layer}/query", f"page_{page}.json", params={"where": "1=1", "outFields": "*", "f": "json", "returnGeometry": "false",
-                                                                                   "resultOffset": page * PAGE, "resultRecordCount": PAGE}, timeout=300)
+            payload = snap.get_json(f"{layer}/query", f"page_{page}.json", params={"where": f"objectid>{last}", "outFields": "*", "f": "json", "returnGeometry": "false",
+                                                                                   "orderByFields": "objectid", "resultRecordCount": PAGE}, timeout=300)
             feats = payload.get("features", []) if isinstance(payload, dict) else []
             if isinstance(payload, dict) and "error" in payload:
                 snap.manifest.setdefault("errors", []).append({"name": f"page_{page}", "error": json.dumps(payload["error"])[:300]})
                 break
+            ids = [int(f.get("attributes", {}).get("objectid") or f.get("attributes", {}).get("OBJECTID") or -1) for f in feats]
+            if not ids or max(ids) <= last:
+                break
+            last = max(ids)
             if len(feats) < PAGE:
                 break
 
@@ -57,18 +64,20 @@ class ECUCadastre(Adapter):
             for i, f in enumerate(payload.get("features", []) if isinstance(payload, dict) else []):
                 a = f.get("attributes", {}) or {}
                 fields.update(a.keys())
-                native = _pick(a, "codigo", "cod_", "objectid") or f"{name}-{i}"
-                minerals_text = _pick(a, "mineral", "sustancia", "tipo_miner", "material")
-                holder = _pick(a, "titular", "concesiona", "nombre_tit", "propietari")
-                nombre = _pick(a, "nombre", "denominaci", "area_minera")
-                status = _pick(a, "estado", "situacion", "fase")
-                granted_raw = _pick(a, "fecha_otor", "fecha_insc", "fecha_regi", "fecha")
+                # observed layer (aliases): nam = código, com = concesión, ttm = titular, feo = fecha de otorgamiento,
+                # fen = fecha de inscripción, eac = estado actual, ach = superficie, sol = tipo de solicitud, frm = fase
+                native = _pick(a, "nam", "codigo", "fcode", "cod_", "objectid") or f"{name}-{i}"
+                minerals_text = " / ".join(x for x in (_pick(a, "tipo_mineral", "mineral", "sustancia", "material"), _pick(a, "tmm")) if x)
+                holder = _pick(a, "ttm", "titular", "concesiona", "nombre_tit", "propietari")
+                nombre = _pick(a, "com", "nombre", "denominaci", "area_minera")
+                status = " / ".join(x for x in (_pick(a, "eac", "estado", "situacion"), _pick(a, "sol"), _pick(a, "frm", "fase")) if x)
+                granted_raw = _pick(a, "feo", "fen", "fecha_otor", "fecha_insc", "fecha_regi", "fecha")
                 granted = iso_date(granted_raw)
                 if granted is None and granted_raw.strip().lstrip("-").isdigit():  # ArcGIS epoch milliseconds
                     from datetime import UTC, datetime
 
                     granted = datetime.fromtimestamp(int(granted_raw) / 1000, tz=UTC).date().isoformat()
-                area = to_float(_pick(a, "hectareas", "area_ha", "superficie", "area"))
+                area = to_float(_pick(a, "ach", "hectareas", "area_ha", "superficie", "area"))
                 rows[native] = {"concession_id": event_id("ECU", self.source_id, native), "country": "ECU", "title": (f"{nombre} ({native})" if nombre else f"Concesión {native}")[:300],
                                 "holder": holder[:300] or None, "minerals": minerals_text[:300] or None, "mineral": tag_mineral(minerals_text), "status": status or None,
                                 "granted_date": granted, "granted_year": year_of(granted), "expires_year": year_of(_pick(a, "fecha_venc", "fecha_term", "vigencia")),

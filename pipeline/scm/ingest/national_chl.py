@@ -62,8 +62,16 @@ class Cochilco(Adapter):
                 if best is None or best_n < 3:
                     continue
                 years = {j: int(str(v).strip()) for j, v in enumerate(df.iloc[best]) if YEAR_RE.match(str(v).strip())}
-                unit_m = re.search(r"\((?:en )?([^)]+)\)|miles de [a-záé ]+|toneladas[a-z ]*|TMF|onzas?[a-z ]*", title, re.I)
-                unit = (unit_m.group(1) if unit_m and unit_m.group(1) else unit_m.group(0)) if unit_m else "see source table"
+                unit = "see source table"
+                for um in re.finditer(r"\((?:en )?([^)]+)\)|miles de [a-záéíóú ]+|toneladas[a-z ]*|TMF|onzas?[a-z ]*|kg de [a-z ]+", title, re.I):
+                    cand = (um.group(1) or um.group(0)).strip()
+                    if cand and not cand.isdigit() and len(cand) > 1:
+                        unit = cand[:60]
+                        break
+                table_title = next((str(v).strip() for v in df.iloc[:6].values.ravel() if str(v).strip() and len(str(v).strip()) > 12), sheet)[:120]
+                low_t = table_title.lower()
+                if "%" in table_title or "participaci" in low_t or "índice" in low_t or "indice" in low_t or unit in ("%",):
+                    continue  # shares and indices are not production quantities
                 for i in range(best + 1, len(df)):
                     label = str(df.iloc[i, 0]).strip()
                     if not re.search(r"\bchile\b|^total", label, re.I):
@@ -72,7 +80,7 @@ class Cochilco(Adapter):
                         qty = to_float(df.iloc[i, j])
                         if qty is not None:
                             rows.append({"country": "CHL", "mineral": mineral, "measure": "production", "year": year, "qty": qty, "unit": unit, "value_type": "reported",
-                                         "note": f"Cochilco anuario, sheet {sheet}: {label}", "source_record_url": snap.files[name]["url"]})
+                                         "note": f"Cochilco anuario, {sheet} ({table_title}): {label}", "source_record_url": snap.files[name]["url"]})
                     break  # the first Chile/total row of the sheet
                 sheets_used.append(sheet)
         snap.manifest["sheets_used"] = sheets_used[:40]

@@ -103,7 +103,7 @@ class CamaraCL(Adapter):
                 snap.manifest.setdefault("errors", []).append({"name": f"votaciones/{boletin}", "error": str(e)[:200]})
                 continue
             root = _root(snap, f"votaciones/{boletin}.xml")
-            for v in (root.iter("Votacion") if root is not None else []):
+            for v in ([el for el in root.iter() if el.tag.lower().startswith("votacion") and el.tag.lower() != "votaciones"] if root is not None else []):
                 vid = _find(v, "Id")
                 if not vid or calls >= MAX_VOTE_DETAIL_CALLS:
                     continue
@@ -161,7 +161,7 @@ class CamaraCL(Adapter):
         members: list[dict] = []
         for boletin, row in docs.items():
             root = _root(snap, f"votaciones/{boletin}.xml") if snap.has(f"votaciones/{boletin}.xml") else None
-            for v in (root.iter("Votacion") if root is not None else []):
+            for v in ([el for el in root.iter() if el.tag.lower().startswith("votacion") and el.tag.lower() != "votaciones"] if root is not None else []):
                 vid = _find(v, "Id")
                 date = _date(_find(v, "Fecha"))
                 if not vid or not date:
@@ -228,10 +228,15 @@ class SenadoCL(Adapter):
             raise RuntimeError("chl_senado: no Cámara bills stored yet (run chl_camara first)")
         snap.manifest["boletines"] = {b: {"doc_id": d, "title": t[:200]} for b, d, t in bols[:MAX_SENADO_BOLETINES]}
         for b, _, _ in bols[:MAX_SENADO_BOLETINES]:
-            try:
-                snap.get(f"{SENADO_WS}/votaciones.php", f"votaciones/{b}.xml", params={"boletin": b.split("-")[0]}, timeout=120, allow_statuses=(200, 404, 500))
-            except Exception as e:  # noqa: BLE001
-                snap.manifest.setdefault("errors", []).append({"name": f"votaciones/{b}", "error": str(e)[:200]})
+            for form in (b, b.split("-")[0]):  # the first live run returned empty <votaciones/> for the bare number
+                try:
+                    snap.get(f"{SENADO_WS}/votaciones.php", f"votaciones/{b}.xml", params={"boletin": form}, timeout=120, allow_statuses=(200, 404, 500), force=True)
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": f"votaciones/{b}", "error": str(e)[:200]})
+                    break
+                if b"<votacion" in snap.path(f"votaciones/{b}.xml").read_bytes()[:5000].lower().replace(b"<votaciones", b""):
+                    snap.manifest.setdefault("boletin_form", "full" if "-" in form else "number")
+                    break
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:

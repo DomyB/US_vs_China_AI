@@ -83,13 +83,31 @@ class SILpy(Adapter):
                 payload = snap.get_json(self.API + r, f"route{r.replace('/', '_')}.json", timeout=300)
                 snap.manifest["route_used"] = self.API + r
                 snap.manifest["route_sample"] = json.dumps(payload, ensure_ascii=False)[:1200]
-                # paginated? follow a few pages if the payload says so
-                for page in range(2, 40):
-                    if not isinstance(payload, dict) or not any(k in payload for k in ("next", "nextPage", "siguiente", "totalPages", "total_pages")):
+                # the route answered a fixed page of 50 projects in the first live run: probe paging parameters and
+                # record which (if any) changes the result; also harvest bulk-export links from the "datos" page
+                first_ids = {str(d.get("idProyecto")) for d in payload if isinstance(d, dict)} if isinstance(payload, list) else set()
+                for pname, pval in (("page", 2), ("pagina", 2), ("offset", 50), ("start", 50), ("desde", 50)):
+                    try:
+                        more = snap.get_json(self.API + r, f"route{r.replace('/', '_')}_{pname}.json", params={pname: pval, "limit": 50, "size": 50}, timeout=300)
+                    except Exception as e:  # noqa: BLE001
+                        snap.manifest.setdefault("errors", []).append({"name": f"{r}?{pname}", "error": str(e)[:200]})
+                        continue
+                    ids = {str(d.get("idProyecto")) for d in more if isinstance(d, dict)} if isinstance(more, list) else set()
+                    if ids and ids != first_ids:
+                        snap.manifest["paging_param"] = pname
+                        for page in range(3, 400):
+                            val = page if pname in ("page", "pagina") else (page - 1) * 50
+                            more = snap.get_json(self.API + r, f"route{r.replace('/', '_')}_{pname}{page}.json", params={pname: val, "limit": 50, "size": 50}, timeout=300)
+                            ids2 = {str(d.get("idProyecto")) for d in more if isinstance(d, dict)} if isinstance(more, list) else set()
+                            if not ids2 or ids2 == ids:
+                                break
+                            ids = ids2
                         break
-                    payload = snap.get_json(self.API + r, f"route{r.replace('/', '_')}_p{page}.json", params={"page": page}, timeout=300)
-                    if not payload or (isinstance(payload, dict) and not any(isinstance(v, list) and v for v in payload.values())):
-                        break
+                try:
+                    html = snap.get("https://datos.congreso.gov.py/opendata/datos", "datos.html", timeout=60).read_text(encoding="utf-8", errors="ignore")
+                    snap.manifest["bulk_links"] = [u for u in re.findall(r'href="([^"]+)"', html) if any(k in u.lower() for k in (".csv", ".json", ".xlsx", "download", "descarg"))][:30]
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": "datos.html", "error": str(e)[:200]})
                 break
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": r, "error": str(e)[:200]})

@@ -39,7 +39,10 @@ class BCRP(Adapter):
 
     def _select_codes(self, snap: Snapshot) -> list[tuple[str, str]]:
         raw = snap.path("metadata.csv").read_bytes()
-        text = raw.decode("utf-8", errors="ignore") if raw[:3] != b"\xef\xbb\xbf" else raw[3:].decode("utf-8", errors="ignore")
+        try:
+            text = raw.decode("utf-8-sig")
+        except UnicodeDecodeError:
+            text = raw.decode("latin-1")  # the metadata export is Latin-1 (accents were lost in the first live run)
         first = text.split("\n", 1)[0]
         sep = max([",", ";", "\t"], key=first.count)
         df = pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, on_bad_lines="skip", engine="python")

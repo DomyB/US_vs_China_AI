@@ -139,6 +139,8 @@ class HCDN(Adapter):
             c_yes, c_no, c_abs, c_absent = (col(votes, *names, required=False) for names in (("afirmativos", "afirmativo"), ("negativos", "negativo"), ("abstenciones", "abstencion"), ("ausentes", "ausente")))
             c_exp = col(votes, "expediente", "proyecto", required=False)
             exp_re = re.compile(r"\b(\d{1,5}-[A-Z]{1,3}-\d{2,4})\b")
+            norm_exp = lambda e: re.sub(r"^0+(?=\d)", "", str(e).strip().upper())  # noqa: E731
+            docs_by_exp = {norm_exp(k): v for k, v in docs.items()}
             def _i(x):
                 try:
                     return int(float(str(x).replace(",", ".")))
@@ -154,8 +156,8 @@ class HCDN(Adapter):
                     m = exp_re.search(title)
                     exp = m.group(1) if m else ""
                 rel = relevance(title)
-                if exp in docs:
-                    doc_id = docs[exp]["doc_id"]
+                if exp and norm_exp(exp) in docs_by_exp:
+                    doc_id = docs_by_exp[norm_exp(exp)]["doc_id"]
                 elif is_relevant(rel, "parliament", title):
                     row = make_document(source_id=self.source_id, country="ARG", doc_type="vote", date=date, date_precision="day", title=title, language="es",
                                         venue="Cámara de Diputados", url=f"{BASE}/dataset/votaciones", rel=rel, native_id=f"vot-{r[c_vid]}")
