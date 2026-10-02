@@ -73,6 +73,20 @@ class RSSPress(Adapter):
             snap.manifest.setdefault("errors", []).append({"name": url, "error": str(e)[:200]})
             return False
         if not self._is_feed(snap, name):
+            # an HTML page where a feed was expected is often the publisher's RSS index: harvest its links once
+            if snap.has(name) and not url.endswith(".html") and "index_" not in name:
+                html = snap.path(name).read_text(encoding="utf-8", errors="ignore")
+                links = [u for u in discover_feeds(html, url, anchors=True) if u != url][:12]
+                snap.manifest.setdefault("index_pages", []).append({"url": url, "links": links})
+                snap.discard(name, f"{url}: HTML index, {len(links)} feed-like links")
+                for i, u in enumerate(links):
+                    if self._try_feed(snap, u, name if i == 0 else f"index_{name}"):
+                        if i and snap.has(f"index_{name}"):
+                            snap.path(name).write_bytes(snap.path(f"index_{name}").read_bytes())
+                            snap.files[name] = snap.files.pop(f"index_{name}")
+                            snap.save()
+                        return True
+                return False
             snap.discard(name, f"{url}: not a feed; starts with {snap.path(name).open('rb').read(80)!r}" if snap.has(name) else f"{url}: empty")
             return False
         snap.manifest.setdefault("feed_urls", []).append(url)

@@ -37,12 +37,20 @@ def test_rss_adapters_come_from_registry():
 
 
 def test_ggmc_commodities_table(snap_factory):
-    csv = "GGMC Commodities Table\n,,,\nYear,Gold (oz),Bauxite (tonnes),Diamonds (carats),Manganese (tonnes)\n2023,432123,\"3,120,000\",41000,0\n2024,\"434,000\",3200000,39000,120000\n"
+    csv = ("GUYANA MINERAL PRODUCTION DECLARED ,,,,,,,,,\n,,,,,,,,,\n"
+           "MINERALS,GOLD,,,,DIAMONDS,STONE,BAUXITE,MANGANESE,\n"
+           "COMPANY,OMAI,,GRAND TOTAL,,-,-,-,-,\n"
+           "YEAR,OZs,KGs,OZs,KGs,Metric Cts,TONNES,x1000 TONNES,TONNES,\n"
+           '2023, -   , -   ," 432,123.00 ", 13440.1 ," 41,000 ", 100,"3,120.0 ", -,\n'
+           '2024, -   , -   ," 434,000.00 ", 13500.0 ," 39,000 ", 100,"3,200.0 ", 120000,\n')
     out = GGMC().parse(snap_factory("guy_ggmc", {"commodities.csv": csv}))
     df = schema.validate("production", out["production"].copy())
     assert set(df["mineral"]) == {"gold", "bauxite_aluminum", "manganese"}
-    gold = df[(df["mineral"] == "gold") & (df["year"] == 2024)].iloc[0]
-    assert gold["qty"] == 434000 and gold["unit"] == "oz" and gold["country"] == "GUY"
+    gold = df[(df["mineral"] == "gold") & (df["year"] == 2024)]
+    assert len(gold) == 1 and gold.iloc[0]["qty"] == 434000 and gold.iloc[0]["unit"] == "OZs"  # grand total in ounces only, no per-company or kg duplicates
+    assert df[(df["mineral"] == "bauxite_aluminum") & (df["year"] == 2023)].iloc[0]["unit"] == "x1000 TONNES"
+    assert len(df[df["mineral"] == "manganese"]) == 1
+
 
 
 def test_gdelt_outlet_matching_and_windows(snap_factory, monkeypatch):

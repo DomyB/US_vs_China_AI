@@ -1,6 +1,13 @@
-"""Guyana: GGMC commodities table (CSV, 1979-2024) -> production."""
+"""Guyana: GGMC "Guyana mineral production declared" table (CSV, 1979-2024) -> production.
+
+The sheet has a three-row header: a MINERALS row (forward-filled across company columns), a
+COMPANY row (gold is split by producer with a GRAND TOTAL) and a YEAR row that carries the unit
+of each column (OZs, KGs, Metric Cts, TONNES, x1000 TONNES). Only the grand-total gold column and
+the single-column minerals are kept, so nothing is double counted.
+"""
 from __future__ import annotations
 
+import csv
 import re
 
 import pandas as pd
@@ -9,7 +16,7 @@ from ..http import Snapshot
 from .base import Adapter, to_float
 from .util import tag_mineral
 
-UNIT_RE = re.compile(r"\(([^)]+)\)")
+PROD_COLUMNS = ["country", "mineral", "measure", "year", "qty", "unit", "value_type", "note", "source_record_url"]
 
 
 class GGMC(Adapter):
@@ -20,26 +27,46 @@ class GGMC(Adapter):
         snap.get(self.src.url, "commodities.csv", timeout=120)
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
-        path = snap.path("commodities.csv")
-        lines = path.read_text(encoding="utf-8", errors="ignore").splitlines()
-        hdr = next((i for i, line in enumerate(lines[:20]) if "year" in line.lower()), 0)  # preamble rows are ragged
-        df = pd.read_csv(path, skiprows=hdr, dtype=str, keep_default_na=False, encoding_errors="ignore")
-        snap.manifest["columns"] = list(map(str, df.columns))[:30]
-        c_year = next(c for c in df.columns if "year" in str(c).lower())
-        rows: list[dict] = []
-        for c in df.columns:
-            if c == c_year:
+        rows_raw = list(csv.reader(snap.path("commodities.csv").open(encoding="utf-8", errors="ignore")))
+        def find_row(word: str) -> list[str] | None:
+            return next((r for r in rows_raw[:30] if r and str(r[0]).strip().upper().startswith(word)), None)
+        minerals_row, company_row, year_row = find_row("MINERALS"), find_row("COMPANY"), find_row("YEAR")
+        if minerals_row is None or year_row is None:
+            snap.manifest["parse_note"] = "header rows MINERALS/YEAR not found"
+            return {"production": self.stamp(snap, pd.DataFrame(columns=PROD_COLUMNS))}
+        width = max(len(minerals_row), len(year_row))
+        minerals_row += [""] * (width - len(minerals_row))
+        year_row += [""] * (width - len(year_row))
+        company_row = (company_row or []) + [""] * (width - len(company_row or []))
+        # forward-fill the mineral label across its company columns
+        labels: list[str] = []
+        current = ""
+        for v in minerals_row:
+            current = v.strip() or current
+            labels.append(current)
+        columns: list[tuple[int, str, str]] = []  # (index, mineral_id, unit)
+        for i in range(1, width):
+            label, company, unit = labels[i], company_row[i].strip().upper(), year_row[i].strip()
+            mineral = tag_mineral(label.replace("BAUXITE", "bauxite aluminum").title())
+            if mineral is None or not unit:
                 continue
-            label = str(c)
-            mineral = tag_mineral(label.replace("Bauxite", "bauxite aluminum"))
-            if mineral is None:
+            many_companies = sum(1 for j in range(1, width) if labels[j] == label and year_row[j].strip()) > 1
+            if many_companies and "TOTAL" not in company:
+                continue  # per-company gold columns
+            if many_companies and unit.upper().startswith("KG"):
+                continue  # keep ounces once, not the kilogram duplicate
+            columns.append((i, mineral, unit))
+        snap.manifest["columns_used"] = [{"index": i, "mineral": m, "unit": u} for i, m, u in columns]
+        start = rows_raw.index(year_row) + 1
+        out: list[dict] = []
+        for r in rows_raw[start:]:
+            if not r or not re.match(r"\s*(19|20)\d{2}", str(r[0])):
                 continue
-            unit = (UNIT_RE.search(label).group(1) if UNIT_RE.search(label) else "see source table").strip()
-            for _, r in df.iterrows():
-                m = re.search(r"(19|20)\d{2}", str(r[c_year]))
-                qty = to_float(r[c])
-                if not m or qty is None:
+            year = int(re.match(r"\s*((?:19|20)\d{2})", str(r[0])).group(1))
+            for i, mineral, unit in columns:
+                qty = to_float(r[i]) if i < len(r) else None
+                if qty is None:
                     continue
-                rows.append({"country": "GUY", "mineral": mineral, "measure": "production", "year": int(m.group(0)), "qty": qty, "unit": unit,
-                             "value_type": "reported", "note": f"GGMC commodities table, column {label}", "source_record_url": self.src.url})
-        return {"production": self.stamp(snap, pd.DataFrame(rows, columns=["country", "mineral", "measure", "year", "qty", "unit", "value_type", "note", "source_record_url"]))}
+                out.append({"country": "GUY", "mineral": mineral, "measure": "production", "year": year, "qty": qty, "unit": unit, "value_type": "reported",
+                            "note": f"GGMC declared production, column {labels[i]} {company_row[i].strip()}".strip(), "source_record_url": self.src.url})
+        return {"production": self.stamp(snap, pd.DataFrame(out, columns=PROD_COLUMNS))}

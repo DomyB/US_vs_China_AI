@@ -19,8 +19,8 @@ RSS1 = "{http://purl.org/rss/1.0/}"
 DC = "{http://purl.org/dc/elements/1.1/}"
 
 # common feed paths tried when a publisher's page does not advertise its feed
-FEED_CANDIDATES = ["/rss", "/feed", "/rss.xml", "/feed.xml", "/feeds/rss", "/rss/portada", "/rss/ultimas-noticias",
-                   "/arc/outboundfeeds/rss/?outputType=xml", "/rss/lo-ultimo/", "/feeds/articulos", "/rss/listado/"]
+FEED_CANDIDATES = ["/rss", "/feed/", "/feed", "/rss.xml", "/feed.xml", "/feeds/rss", "/rss/portada", "/rss/ultimas-noticias", "/arc/outboundfeeds/rss/",
+                   "/arc/outboundfeeds/rss/?outputType=xml", "/arcio/rss/", "/rss/lo-ultimo/", "/feeds/articulos", "/rss/listado/", "/rss/pages/home.xml"]
 
 _TRACKING = re.compile(r"^(utm_.*|fbclid|gclid|mc_cid|mc_eid|ref|source|cmpid|ncid|sc_src|ito)$", re.I)
 
@@ -115,27 +115,34 @@ def parse_feed(path: Path) -> list[FeedItem]:
     return parse_feed_bytes(path.read_bytes())
 
 
+_FEEDISH = re.compile(r"(rss|feed|atom|\.xml)(?![a-z])", re.I)
+
+
 class _LinkFinder(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.feeds: list[str] = []
+        self.anchors: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        if tag.lower() != "link":
-            return
         a = {k.lower(): (v or "") for k, v in attrs}
-        if "alternate" in a.get("rel", "").lower() and a.get("type", "").lower() in ("application/rss+xml", "application/atom+xml", "application/rdf+xml") and a.get("href"):
-            self.feeds.append(a["href"])
+        if tag.lower() == "link":
+            if "alternate" in a.get("rel", "").lower() and a.get("type", "").lower() in ("application/rss+xml", "application/atom+xml", "application/rdf+xml") and a.get("href"):
+                self.feeds.append(a["href"])
+        elif tag.lower() == "a" and a.get("href") and _FEEDISH.search(a["href"].split("?")[0].rsplit("/", 2)[-1] + "/" + a["href"].split("?")[0].rsplit("/", 2)[-2] if a["href"].count("/") >= 2 else a["href"]):
+            self.anchors.append(a["href"])
 
 
-def discover_feeds(html: str, base_url: str) -> list[str]:
-    """Feed URLs advertised in the page head (<link rel="alternate" type="application/rss+xml">)."""
+def discover_feeds(html: str, base_url: str, anchors: bool = False) -> list[str]:
+    """Feed URLs advertised in the page head (<link rel="alternate" type="application/rss+xml">); with
+    `anchors`, also links on the page whose path looks like a feed (publishers' "RSS" index pages)."""
     finder = _LinkFinder()
     try:
         finder.feed(html)
     except Exception:  # noqa: BLE001 - malformed HTML; whatever was found so far
         pass
-    return list(dict.fromkeys(urljoin(base_url, h) for h in finder.feeds))
+    found = finder.feeds + (finder.anchors if anchors else [])
+    return list(dict.fromkeys(urljoin(base_url, h) for h in found if not h.startswith(("mailto:", "javascript:", "#"))))
 
 
 def normalize_url(url: str) -> str:

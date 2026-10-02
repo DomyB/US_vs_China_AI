@@ -12,7 +12,7 @@ from pathlib import Path
 import pandas as pd
 
 from .. import schema
-from ..http import Snapshot, clean_url
+from ..http import RobotsDisallowed, Snapshot, clean_url
 from ..paths import RAW_DIR, REPO_ROOT, WAREHOUSE_DIR
 from ..registry import Source, source
 
@@ -122,6 +122,9 @@ class Adapter(ABC):
             if parse:
                 rows = self.load(self.parse(snap), out_dir=out_dir)
             return self._run_record(started, "ok", rows, None, snap_dir, out_dir)
+        except RobotsDisallowed as e:
+            # the publisher does not want automated clients: an honest "skipped", not a failure to fix
+            return self._run_record(started, "skipped", {}, f"robots.txt disallows: {e}", snap_dir, out_dir)
         except Exception as e:  # noqa: BLE001 - we record every failure
             log.error("%s failed: %s\n%s", self.source_id, e, traceback.format_exc())
             return self._run_record(started, "failed", {}, f"{type(e).__name__}: {e}", snap_dir, out_dir)

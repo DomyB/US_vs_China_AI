@@ -68,7 +68,7 @@ _KEYWORDS: dict[str, list[str]] = {
     "graphite": [r"graphite", r"grafito", r"grafite"],
     "nickel": [r"nickel", r"níquel", r"niquel"],
     "tin": [r"tin", r"estaño", r"estanho", r"cassiterite"],
-    "silver": [r"silver", r"minas? de plata", r"minería de plata", r"argentífer\w*", r"prata"],
+    "silver": [r"silver", r"minas? de plata", r"minería de plata", r"argentífer\w*", r"minas? de prata", r"mineração de prata"],
     "molybdenum": [r"molybdenum", r"molibdeno", r"molibdênio"],
     "cobalt": [r"cobalt", r"cobalto"],
     "manganese": [r"manganese", r"manganeso", r"manganês"],
@@ -77,7 +77,7 @@ _KEYWORDS: dict[str, list[str]] = {
     "tungsten": [r"tungsten", r"wolfram", r"tungsteno"],
     "zinc": [r"zinc", r"zinco"],
     # bare "oro"/"plata" collide with place names (El Oro province, La Plata), so require a mining phrase
-    "gold": [r"gold", r"minas? de oro", r"minería de oro", r"minería aurífera", r"aurífer\w*", r"ouro"],
+    "gold": [r"gold", r"minas? de oro", r"minería de oro", r"minería aurífera", r"aurífer\w*", r"minas? de ouro", r"mineração de ouro", r"garimpo", r"extração de ouro", r"ouro ilegal"],
     "phosphate_potash": [r"phosphates?", r"fosfatos?", r"potash", r"potasio", r"potássio"],
     "iron_ore": [r"iron[- ]ore", r"mineral de hierro", r"minério de ferro"],
     "titanium": [r"titanium", r"titanio", r"titânio", r"ilmenite"],

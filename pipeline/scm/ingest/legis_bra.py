@@ -22,7 +22,7 @@ BULK = "https://dadosabertos.camara.leg.br/arquivos/{kind}/csv/{kind}-{year}.csv
 API = "https://dadosabertos.camara.leg.br/api/v2"
 RECORD = "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao={id}"
 FIRST_YEAR = 2008
-MAX_VOTE_DETAIL_CALLS = 400
+MAX_VOTE_DETAIL_CALLS = 1500
 BILL_TYPES = {"PL", "PLP", "PEC", "MPV", "PLV", "PDL", "PDC", "PRC", "PLN", "PLC", "PLS"}
 HEARING_TYPES = {"REQ", "RIC", "INC", "PFC", "RCP"}
 CHOICE = {"sim": "yes", "não": "no", "nao": "no", "abstenção": "abstain", "abstencao": "abstain", "obstrução": "obstruction",
@@ -34,7 +34,11 @@ def _read_csv(path) -> pd.DataFrame:
     text = raw.decode("utf-8", errors="ignore") if raw[:3] != b"\xef\xbb\xbf" else raw[3:].decode("utf-8", errors="ignore")
     first = text.split("\n", 1)[0]
     sep = ";" if first.count(";") >= first.count(",") else ","
-    return pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, low_memory=False)
+    try:
+        return pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, low_memory=False)
+    except pd.errors.ParserError:
+        # truncated download or stray quote: salvage what the python engine can read
+        return pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, engine="python", on_bad_lines="skip", quoting=3)
 
 
 def _year(s: str) -> int | None:
@@ -120,7 +124,10 @@ class CamaraBR(Adapter):
         if c_ementa:
             extra = links[[is_relevant(relevance(t), "parliament", t) for t in links[c_ementa].fillna("")]]
             kept = pd.concat([kept, extra]).drop_duplicates(subset=[c_vid])
-        return sorted(set(kept[c_vid].astype(str)))
+        c_date = col(links, "data", required=False)
+        if c_date:  # most recent votes first, so a call cap drops the oldest member-level detail
+            kept = kept.sort_values(c_date, ascending=False)
+        return list(dict.fromkeys(kept[c_vid].astype(str)))
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         bills = self._bills(snap)

@@ -899,7 +899,7 @@
    "id": "arg_lanacion",
    "name": "La Nación",
    "url": "https://www.lanacion.com.ar",
-   "api_url": "https://servicios.lanacion.com.ar/herramientas/rss/ayuda",
+   "api_url": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/",
    "countries": [
     "ARG"
    ],
@@ -3742,6 +3742,7 @@
    "countries": [
     "PER"
    ],
+   "api_url": "https://gestion.pe/arcio/rss/",
    "category": "press",
    "reliability": "independent_academic",
    "orientation": "business, pro-market (Grupo El Comercio)",
@@ -3973,6 +3974,7 @@
    "coverage_to": 2026,
    "language": "nl",
    "status": "live",
+   "notes": "robots.txt disallows automated clients (checked 2026-10-02); feed not fetched, headlines via GDELT only.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-01T20:05:50+00:00",

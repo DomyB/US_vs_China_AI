@@ -26,7 +26,8 @@ def _trim_table(src: Path, target: Path) -> None:
     file keeps rows from every section, e.g. several countries and statistics), falling back to
     the first rows when the file cannot be parsed as a delimited table."""
     try:
-        sep = "\t" if src.suffix.lower() in (".tab", ".tsv") or src.suffix.lower() == ".txt" and "\t" in src.open(encoding="utf-8", errors="ignore").readline() else ","
+        first = src.open(encoding="utf-8", errors="ignore").readline()
+        sep = max([",", ";", "\t", "|"], key=first.count)
         df = pd.read_csv(src, sep=sep, dtype=str, keep_default_na=False, encoding_errors="ignore", low_memory=False)
         if len(df) > MAX_ROWS:
             step = max(1, len(df) // MAX_ROWS)

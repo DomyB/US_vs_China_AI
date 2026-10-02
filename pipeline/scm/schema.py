@@ -89,7 +89,7 @@ production = DataFrameSchema(
         "country": Column(str, Check.str_length(3, 3)),
         "mineral": Column(str),
         "measure": Column(str, Check.isin(["production", "reserves"])),
-        "year": Column(int, Check.in_range(1990, 2100)),
+        "year": Column(int, Check.in_range(1900, 2100)),  # national series (GGMC) start in 1979
         "qty": Column(float, nullable=True),
         "unit": Column(str),
         "value_type": Column(str, Check.isin(VALUE_TYPE)),
