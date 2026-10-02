@@ -11,8 +11,12 @@ from .dpi import DPI
 from .exim import EXIM
 from .federal_register import FederalRegister
 from .gdelt import GDELTDoc
+from .legis_arg import HCDN
 from .legis_bra import CamaraBR, SenadoBR
 from .legis_chl import CamaraCL
+from .legis_col import CamaraCO
+from .legis_ury import ParlamentoUY
+from .national_col import ANMAnna
 from .national_guy import GGMC
 from .pink_sheet import PinkSheet
 from .press import make_rss_adapters
@@ -26,9 +30,9 @@ from .worldbank import IDS, WDI, WGI
 TIER1: list[type[Adapter]] = [WDI, WGI, IDS, USGSMCS, PinkSheet, Comtrade, AidData, CGIT, DFC, EXIM, FederalRegister, ResourceContracts, VDem, UNGA, DPI, BGS]
 TIER2: list[type[Adapter]] = [CongressGov, CensusTrade, BUCODF]
 # Phase 2b national groups
-LEGISLATURE: list[type[Adapter]] = [CamaraBR, SenadoBR, CamaraCL]
+LEGISLATURE: list[type[Adapter]] = [CamaraBR, SenadoBR, CamaraCL, HCDN, ParlamentoUY, CamaraCO]
 PRESS: list[type[Adapter]] = [*make_rss_adapters(), GDELTDoc]  # one class per registry press outlet with access: rss, plus GDELT history
-NATIONAL: list[type[Adapter]] = [GGMC]
+NATIONAL: list[type[Adapter]] = [GGMC, ANMAnna]
 ANNUAL = {"usgs_mcs", "vdem", "unga_votes", "idb_dpi", "bgs_wms", "guy_ggmc"}
 
 GROUPS: dict[str, list[type[Adapter]]] = {"tier1": TIER1, "tier2": TIER2, "legislature": LEGISLATURE, "press": PRESS, "national": NATIONAL}

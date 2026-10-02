@@ -70,3 +70,17 @@ def test_gdelt_outlet_matching_and_windows(snap_factory, monkeypatch):
     w = windows("BRA", date(2017, 2, 10))
     assert w[0] == (date(2017, 1, 1), date(2017, 1, 15)) and w[1] == (date(2017, 1, 16), date(2017, 1, 31)) and w[-1] == (date(2017, 2, 1), date(2017, 2, 10))
     assert windows("URY", date(2017, 3, 5))[1] == (date(2017, 2, 1), date(2017, 2, 28))
+
+
+def test_anm_anna_concessions(snap_factory):
+    from scm.ingest.national_col import ANMAnna
+
+    page = [{"codigo_expediente": "ABC-123", "titular": "Minera X S.A.S.", "minerales": "COBRE\\ORO", "estado": "Titulo vigente", "modalidad": "Contrato de concesión (L 685)",
+             "fecha_inscripcion": "2015-06-30T00:00:00.000", "fecha_terminacion": "2045-06-30T00:00:00.000", "area_ha": "1200.5", "latitud": "4.5", "longitud": "-74.1"},
+            {"codigo_expediente": "DEF-9", "titular": "Y", "minerales": "MATERIALES DE CONSTRUCCION", "estado": "Titulo vigente"}]
+    out = ANMAnna().parse(snap_factory("col_anm_anna", {"page_0.json": page}))
+    df = schema.validate("concession", out["concession"].copy())
+    assert len(df) == 2
+    a = df.set_index("native_id").loc["ABC-123"]
+    assert a["mineral"] == "copper" and a["granted_year"] == 2015 and a["expires_year"] == 2045 and a["area_ha"] == 1200.5 and a["holder"] == "Minera X S.A.S."
+    assert df.set_index("native_id").loc["DEF-9"]["mineral"] is None or df.set_index("native_id").loc["DEF-9"]["mineral"] != df.set_index("native_id").loc["DEF-9"]["mineral"]

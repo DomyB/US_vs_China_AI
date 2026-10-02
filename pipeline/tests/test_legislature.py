@@ -109,3 +109,36 @@ def test_chile_camara_soap_xml(snap_factory):
     assert v["yes"] == 120 and v["absent"] == 2 and v["total"] == 137 and v["result"] == "Aprobado" and v["doc_id"] == d["doc_id"]
     m = out["vote_member"]
     assert list(m["choice"]) == ["yes", "abstain"] and m.iloc[0]["member_name"] == "Ana Pérez Soto"
+
+
+def test_hcdn_ckan_csvs(snap_factory):
+    from scm.ingest.legis_arg import HCDN
+
+    proyectos = "expediente;tipo;fecha;titulo;sumario;camara_origen;autor\n0001-D-2024;PROYECTO DE LEY;2024-03-05;Régimen de promoción del litio;Promueve la industrialización del litio;Diputados;Pérez, Juan\n0002-D-2024;PROYECTO DE LEY;2024-03-06;Día del tango;;Diputados;Gómez\n"
+    votaciones = "votacion_id,fecha,titulo,resultado,afirmativos,negativos,abstenciones,ausentes,expediente\n501,2024-11-20,Litio: régimen de promoción,AFIRMATIVO,140,90,5,22,0001-D-2024\n502,2024-11-21,Tango,AFIRMATIVO,200,0,0,57,0002-D-2024\n"
+    votos = "votacion_id,diputado,bloque,provincia,voto\n501,PEREZ JUAN,Unión por la Patria,Buenos Aires,AFIRMATIVO\n501,LOPEZ ANA,PRO,CABA,NEGATIVO\n502,LOPEZ ANA,PRO,CABA,AFIRMATIVO\n"
+    snap = snap_factory("arg_hcdn", {"proyectos/0.csv": proyectos, "votaciones/0.csv": votaciones, "votos/0.csv": votos})
+    out = HCDN().parse(snap)
+    _validate(out)
+    d = out["document"]
+    assert len(d) == 1 and d.iloc[0]["native_id"] == "0001-D-2024" and d.iloc[0]["minerals"] == "lithium" and d.iloc[0]["author"] == "Pérez, Juan"
+    v = out["vote"]
+    assert len(v) == 1 and v.iloc[0]["doc_id"] == d.iloc[0]["doc_id"] and v.iloc[0]["yes"] == 140 and v.iloc[0]["absent"] == 22 and v.iloc[0]["total"] == 257
+    m = out["vote_member"]
+    assert len(m) == 2 and list(m["choice"]) == ["yes", "no"] and m.iloc[0]["party"] == "Unión por la Patria"
+
+
+def test_uruguay_and_colombia_bills(snap_factory):
+    from scm.ingest.legis_col import CamaraCO
+    from scm.ingest.legis_ury import ParlamentoUY
+
+    asuntos = "id,titulo,fecha,camara,tipo\n77,Minería de gran porte. Modificación.,12/04/2013,CRR,PROYECTO DE LEY\n78,Feriado departamental,13/04/2013,CSS,PROYECTO DE LEY\n"
+    out = ParlamentoUY().parse(snap_factory("ury_parlamento", {"asuntos/0.csv": asuntos}))
+    _validate(out)
+    assert len(out["document"]) == 1 and out["document"].iloc[0]["date"] == "2013-04-12" and out["document"].iloc[0]["venue"] == "Parlamento (CRR)"
+    page = [{"numero_camara": "123/2023C", "titulo": "Por medio de la cual se regula la explotación de cobre y se dictan otras disposiciones", "fecha_de_radicacion": "2023-08-01T00:00:00.000", "estado": "Archivado", "autor": "H.R. X", "legislatura": "2023-2024"},
+            {"numero_camara": "124/2023C", "titulo": "Por la cual se honra a un municipio", "fecha_de_radicacion": "2023-08-02T00:00:00.000"}]
+    out = CamaraCO().parse(snap_factory("col_camara", {"page_0.json": page}))
+    _validate(out)
+    d = out["document"].iloc[0]
+    assert len(out["document"]) == 1 and d["native_id"] == "123/2023C" and d["minerals"] == "copper" and d["status"] == "Archivado" and d["date"] == "2023-08-01"
