@@ -43,3 +43,30 @@ def test_ggmc_commodities_table(snap_factory):
     assert set(df["mineral"]) == {"gold", "bauxite_aluminum", "manganese"}
     gold = df[(df["mineral"] == "gold") & (df["year"] == 2024)].iloc[0]
     assert gold["qty"] == 434000 and gold["unit"] == "oz" and gold["country"] == "GUY"
+
+
+def test_gdelt_outlet_matching_and_windows(snap_factory, monkeypatch):
+    from scm.ingest.gdelt import GDELTDoc, outlet_domains, windows
+
+    payload = {"articles": [
+        {"url": "https://www1.folha.uol.com.br/mercado/2025/03/x.shtml", "title": "China amplia compras de nióbio brasileiro", "seendate": "20250312T101500Z", "domain": "folha.uol.com.br", "language": "Portuguese", "sourcecountry": "Brazil"},
+        {"url": "https://www.unknown-blog.com/a", "title": "Lítio e China", "seendate": "20250313T000000Z", "domain": "unknown-blog.com", "language": "Portuguese", "sourcecountry": "Brazil"},
+        {"url": "https://valor.globo.com/y", "title": "Bolsa fecha em alta", "seendate": "20250314T000000Z", "domain": "valor.globo.com", "language": "Portuguese", "sourcecountry": "Brazil"},
+        {"url": "https://valor.globo.com/z", "title": "EUA e Brasil negociam terras raras", "seendate": "20250315T000000Z", "domain": "valor.globo.com", "language": "Portuguese", "sourcecountry": "Brazil"},
+    ]}
+    snap = snap_factory("gdelt", {"BRA/2025-03-01_pt.json": payload})
+    out = GDELTDoc().parse(snap)
+    for k, v in out.items():
+        assert len(schema.validate(k, v.copy())) == len(v)
+    docs = out["document"].sort_values("date")
+    assert len(docs) == 2 and list(docs["outlet_source_id"]) == ["bra_folha", "bra_valor"]
+    assert (docs["date_precision"] == "seen").all() and docs.iloc[0]["date"] == "2025-03-12"
+    assert docs.iloc[0]["reliability"] == "independent_academic" and docs.iloc[0]["source_id"] == "gdelt" and docs.iloc[0]["venue"].startswith("Folha")
+    assert snap.manifest["unmatched_domains"] == {"unknown-blog.com": 1}
+    vol = out["media_volume"].iloc[0]
+    assert vol["period"] == "2025-03-01" and vol["items_total"] == 4 and vol["items_cn"] == 2
+    assert outlet_domains()["valor.globo.com"] == "bra_valor"
+    from datetime import date
+    w = windows("BRA", date(2017, 2, 10))
+    assert w[0] == (date(2017, 1, 1), date(2017, 1, 15)) and w[1] == (date(2017, 1, 16), date(2017, 1, 31)) and w[-1] == (date(2017, 2, 1), date(2017, 2, 10))
+    assert windows("URY", date(2017, 3, 5))[1] == (date(2017, 2, 1), date(2017, 2, 28))

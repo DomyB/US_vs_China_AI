@@ -19,7 +19,7 @@ KEYWORDS_VERSION = "2026.10"
 MINING_TERMS = [
     # es
     r"miner[ií]a", r"minero?s?", r"minera?s?", r"yacimientos?", r"concesi[oó]n(?:es)? mineras?", r"regal[ií]as mineras?",
-    r"c[oó]digo de miner[ií]a", r"salar(?:es)?", r"explotaci[oó]n minera", r"extractiv[oa]s?",
+    r"c[oó]digo de miner[ií]a", r"salar(?:es)?", r"explotaci[oó]n minera", r"extractiv[oa]s?", r"minerales?", r"minerais",
     # pt
     r"minera[cç][aã]o", r"miner[aá]rios?", r"miner[aá]rias?", r"min[eé]rios?", r"lavra", r"cfem", r"garimpo",
     # en

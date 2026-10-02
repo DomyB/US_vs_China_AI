@@ -10,7 +10,9 @@ from .dfc import DFC
 from .dpi import DPI
 from .exim import EXIM
 from .federal_register import FederalRegister
-from .legis_bra import CamaraBR
+from .gdelt import GDELTDoc
+from .legis_bra import CamaraBR, SenadoBR
+from .legis_chl import CamaraCL
 from .national_guy import GGMC
 from .pink_sheet import PinkSheet
 from .press import make_rss_adapters
@@ -24,8 +26,8 @@ from .worldbank import IDS, WDI, WGI
 TIER1: list[type[Adapter]] = [WDI, WGI, IDS, USGSMCS, PinkSheet, Comtrade, AidData, CGIT, DFC, EXIM, FederalRegister, ResourceContracts, VDem, UNGA, DPI, BGS]
 TIER2: list[type[Adapter]] = [CongressGov, CensusTrade, BUCODF]
 # Phase 2b national groups
-LEGISLATURE: list[type[Adapter]] = [CamaraBR]
-PRESS: list[type[Adapter]] = make_rss_adapters()  # one class per registry press outlet with access: rss
+LEGISLATURE: list[type[Adapter]] = [CamaraBR, SenadoBR, CamaraCL]
+PRESS: list[type[Adapter]] = [*make_rss_adapters(), GDELTDoc]  # one class per registry press outlet with access: rss, plus GDELT history
 NATIONAL: list[type[Adapter]] = [GGMC]
 ANNUAL = {"usgs_mcs", "vdem", "unga_votes", "idb_dpi", "bgs_wms", "guy_ggmc"}
 

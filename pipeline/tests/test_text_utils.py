@@ -43,6 +43,7 @@ def test_relevance_languages_and_whole_words():
     assert relevance("Proyecto que modifica el Código de Minería").mining
     assert relevance("Mineracao: CFEM sobe").mining  # accent-insensitive
     assert relevance("Goudwinning in Suriname").mining
+    assert relevance("Política Nacional de Minerais Críticos").mining and relevance("Ley de minerales estratégicos").mining
     assert relevance("EUA e Brasil assinam acordo de terras raras").mentions_us
     for neg in ["Free trade", "El Oro province festival", "Mina Clavero recibe turistas", "Chinandega celebra"]:
         r = relevance(neg)

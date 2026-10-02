@@ -7,6 +7,7 @@ hundred calls at most). The API is the fallback when a bulk file is missing.
 from __future__ import annotations
 
 import io
+import json
 import re
 
 import pandas as pd
@@ -195,6 +196,168 @@ class CamaraBR(Adapter):
                                         "member_name": str(dep.get("nome", "")), "party": dep.get("siglaPartido"), "region": dep.get("siglaUf"),
                                         "choice": CHOICE.get(choice_orig.strip().lower(), "other"), "choice_original": choice_orig,
                                         "source_record_url": f"{API}/votacoes/{vid}/votos"})
+        return {
+            "document": self.stamp(snap, pd.DataFrame(list(docs.values()), columns=DOCUMENT_COLUMNS)),
+            "vote": self.stamp(snap, pd.DataFrame(votes_rows, columns=VOTE_COLUMNS)),
+            "vote_member": self.stamp(snap, pd.DataFrame(members, columns=VOTE_MEMBER_COLUMNS)),
+        }
+
+
+SENADO = "https://legis.senado.leg.br/dadosabertos"
+SENADO_RECORD = "https://www25.senado.leg.br/web/atividade/materias/-/materia/{codigo}"
+SENADO_TERMS = ["mineração", "minerais", "lítio", "nióbio", "terras raras", "cobre", "China", "Estados Unidos"]
+MAX_SENADO_VOTE_CALLS = 300
+
+
+def _walk(obj, want: set[str]):
+    """Yield every dict (anywhere in a JSON tree) that has all the keys in `want`."""
+    if isinstance(obj, dict):
+        if want <= set(obj):
+            yield obj
+        for v in obj.values():
+            yield from _walk(v, want)
+    elif isinstance(obj, list):
+        for v in obj:
+            yield from _walk(v, want)
+
+
+def _pick(d: dict, *names: str, default=None):
+    low = {k.lower(): v for k, v in d.items()}
+    for n in names:
+        if n.lower() in low and low[n.lower()] not in (None, ""):
+            return low[n.lower()]
+    return default
+
+
+class SenadoBR(Adapter):
+    """Senado Federal open data: matters per year (or per keyword when the yearly list fails), then
+    votes per matter kept. Both the classic and the renamed routes are tried and recorded."""
+
+    source_id = "bra_senado_api"
+    tables = ("document", "vote", "vote_member")
+    language = "pt"
+    min_interval = 1.0
+    headers = {"Accept": "application/json"}
+
+    def fetch(self, snap: Snapshot) -> None:
+        import datetime as dt
+
+        tried: list[str] = []
+        for y in range(FIRST_YEAR, dt.date.today().year + 1):
+            ok = False
+            for url, params in ((f"{SENADO}/materia/pesquisa/lista", {"ano": y}), (f"{SENADO}/materia/tramitando", {"ano": y}),
+                                (f"{SENADO}/processo", {"ano": y})):
+                tried.append(url)
+                try:
+                    payload = snap.get_json(url, f"materias/{y}.json", params=params, headers=self.headers, timeout=300)
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": f"materias/{y} {url}", "error": str(e)[:200]})
+                    continue
+                if any(True for _ in _walk(payload, {"Ementa"})) or any(True for _ in _walk(payload, {"ementa"})):
+                    ok = True
+                    snap.manifest["materias_route"] = url
+                    break
+                snap.discard(f"materias/{y}.json", f"{url}: no matters in payload")
+            if not ok:
+                for term in SENADO_TERMS:
+                    try:
+                        snap.get_json(f"{SENADO}/materia/pesquisa/lista", f"materias/{y}_{term}.json", params={"ano": y, "palavraChave": term}, headers=self.headers, timeout=300)
+                    except Exception as e:  # noqa: BLE001
+                        snap.manifest.setdefault("errors", []).append({"name": f"materias/{y}_{term}", "error": str(e)[:200]})
+        snap.manifest["endpoints_tried"] = sorted(set(tried))
+        snap.save()
+        kept = self._kept_matters(snap)
+        snap.manifest["kept_matters"] = len(kept)
+        for i, codigo in enumerate(kept):
+            if i >= MAX_SENADO_VOTE_CALLS:
+                snap.manifest["vote_calls_capped"] = True
+                break
+            try:
+                snap.get_json(f"{SENADO}/materia/votacoes/{codigo}", f"votacoes/{codigo}.json", headers=self.headers, timeout=120, allow_statuses=(200, 404))
+            except Exception as e:  # noqa: BLE001
+                snap.manifest.setdefault("errors", []).append({"name": f"votacoes/{codigo}", "error": str(e)[:200]})
+        snap.save()
+
+    def _matters(self, snap: Snapshot) -> dict[str, dict]:
+        out: dict[str, dict] = {}
+        for name in sorted(snap.files):
+            if not name.startswith("materias/") or not snap.has(name):
+                continue
+            try:
+                payload = json.loads(snap.path(name).read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            for d in list(_walk(payload, {"Ementa"})) + list(_walk(payload, {"ementa"})):
+                codigo = str(_pick(d, "Codigo", "CodigoMateria", "codigoMateria", "id", default="")).strip()
+                if codigo:
+                    out[codigo] = d
+        return out
+
+    def _kept_matters(self, snap: Snapshot) -> list[str]:
+        kept = []
+        for codigo, d in self._matters(snap).items():
+            text = f"{_pick(d, 'Ementa', 'ementa', default='')} {_pick(d, 'IndexacaoMateria', 'indexacao', default='')}"
+            if is_relevant(relevance(text), "parliament", text):
+                kept.append(codigo)
+        return sorted(kept)
+
+    def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
+        docs: dict[str, dict] = {}
+        matters = self._matters(snap)
+        for codigo in self._kept_matters(snap):
+            d = matters[codigo]
+            ementa = str(_pick(d, "Ementa", "ementa", default=""))
+            sigla = str(_pick(d, "Sigla", "SiglaSubtipoMateria", "siglaSubtipoMateria", "sigla", default=""))
+            numero = str(_pick(d, "Numero", "NumeroMateria", "numero", default=""))
+            ano = str(_pick(d, "Ano", "AnoMateria", "ano", default=""))
+            ident = str(_pick(d, "DescricaoIdentificacao", "DescricaoIdentificacaoMateria", "identificacao", default=f"{sigla} {numero}/{ano}".strip()))
+            date = _date(_pick(d, "Data", "DataApresentacao", "dataApresentacao", default="")) or (f"{_year(ano)}-01-01" if _year(ano) else None)
+            if not date or int(date[:4]) < FIRST_YEAR:
+                continue
+            prec = "day" if _date(_pick(d, "Data", "DataApresentacao", "dataApresentacao", default="")) else "year"
+            autor = _pick(d, "Autor", "NomeAutor", "autor")
+            situacao = _pick(d, "Situacao", "DescricaoSituacao", "situacao")
+            text = f"{ementa} {_pick(d, 'IndexacaoMateria', 'indexacao', default='')}"
+            row = make_document(source_id=self.source_id, country="BRA", doc_type="bill", date=date, date_precision=prec, title=f"{ident}: {ementa}", language="pt",
+                                venue="Senado Federal", url=SENADO_RECORD.format(codigo=codigo), rel=relevance(text), native_id=codigo, summary=ementa[:1000] or None,
+                                author=str(autor) if autor else None, status=str(situacao) if situacao else None)
+            docs[codigo] = row
+        votes_rows: list[dict] = []
+        members: list[dict] = []
+        for codigo, row in docs.items():
+            name = f"votacoes/{codigo}.json"
+            if not snap.has(name):
+                continue
+            try:
+                payload = json.loads(snap.path(name).read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            for i, v in enumerate(list(_walk(payload, {"DescricaoVotacao"})) + list(_walk(payload, {"descricaoVotacao"}))):
+                sess = _pick(v, "SessaoPlenaria", "sessaoPlenaria", default={}) or {}
+                date = _date(_pick(v, "DataSessao", "dataSessao", default="") or _pick(sess, "DataSessao", "dataSessao", default=""))
+                if not date:
+                    continue
+                def _i(x):
+                    try:
+                        return int(float(x))
+                    except (TypeError, ValueError):
+                        return None
+                yes, no, abst = (_i(_pick(v, k1, k2)) for k1, k2 in (("TotalVotosSim", "totalVotosSim"), ("TotalVotosNao", "totalVotosNao"), ("TotalVotosAbstencao", "totalVotosAbstencao")))
+                vid_native = str(_pick(v, "CodigoSessaoVotacao", "codigoSessaoVotacao", "SequencialSessao", default=f"{codigo}-{i}"))
+                vote_id = event_id("BRA", self.source_id, "vote", codigo, vid_native)
+                votes_rows.append({"vote_id": vote_id, "doc_id": row["doc_id"], "country": "BRA", "chamber": "Senado Federal", "date": date, "year": int(date[:4]),
+                                   "title_original": str(_pick(v, "DescricaoVotacao", "descricaoVotacao", default=""))[:400] or row["title_original"],
+                                   "result": _pick(v, "DescricaoResultado", "Resultado", "descricaoResultado", "resultado"), "yes": yes, "no": no, "abstain": abst, "absent": None,
+                                   "total": (yes or 0) + (no or 0) + (abst or 0) if yes is not None or no is not None else None, "native_id": vid_native,
+                                   "value_type": "reported", "source_record_url": f"{SENADO}/materia/votacoes/{codigo}"})
+                for vp in list(_walk(v, {"NomeParlamentar"})) + list(_walk(v, {"nomeParlamentar"})):
+                    choice_orig = str(_pick(vp, "DescricaoVoto", "Voto", "SiglaDescricaoVoto", "descricaoVoto", "voto", default=""))
+                    low = choice_orig.strip().lower()
+                    choice = "yes" if low.startswith("sim") else "no" if low.startswith(("não", "nao")) else "abstain" if "absten" in low else "absent" if ("ausente" in low or "não votou" in low or "nao votou" in low) else "other"
+                    members.append({"vote_id": vote_id, "country": "BRA", "member_id": str(_pick(vp, "CodigoParlamentar", "codigoParlamentar", default=event_id(_pick(vp, "NomeParlamentar", "nomeParlamentar")))),
+                                    "member_name": str(_pick(vp, "NomeParlamentar", "nomeParlamentar", default="")), "party": _pick(vp, "SiglaPartido", "siglaPartido"),
+                                    "region": _pick(vp, "SiglaUF", "siglaUF", "SiglaUf"), "choice": choice, "choice_original": choice_orig or "?",
+                                    "source_record_url": f"{SENADO}/materia/votacoes/{codigo}"})
         return {
             "document": self.stamp(snap, pd.DataFrame(list(docs.values()), columns=DOCUMENT_COLUMNS)),
             "vote": self.stamp(snap, pd.DataFrame(votes_rows, columns=VOTE_COLUMNS)),
