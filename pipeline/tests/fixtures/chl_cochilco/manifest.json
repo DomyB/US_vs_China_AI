@@ -5,9 +5,9 @@
    "url": "https://www.cochilco.cl/web/anuario-de-estadisticas-del-cobre-y-otros-minerales/",
    "params": {},
    "status": 200,
-   "bytes": 135336,
-   "sha256": "6f3bb777ff3ce7f28bbdc2e14d49c37affe7889bc0fd6eb8d0636068889ae8cc",
-   "retrieved_at": "2026-10-02T16:41:18+00:00",
+   "bytes": 135337,
+   "sha256": "43057f972d02ea4a1aeb354cbaf3a59cc1c13e034d1550ef56164605224b43cb",
+   "retrieved_at": "2026-10-02T17:02:00+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,7 +17,7 @@
    "status": 200,
    "bytes": 911313,
    "sha256": "80d620da33f59f5913802b9eea924fd895c6e4f4534103afad7107e8c26c1b45",
-   "retrieved_at": "2026-10-02T16:41:21+00:00",
+   "retrieved_at": "2026-10-02T17:02:03+00:00",
    "note": null,
    "trimmed": true
   },
@@ -27,7 +27,7 @@
    "status": 200,
    "bytes": 1330111,
    "sha256": "2dbb240838a97ce67c2f7a89f4e310a5293be8d14028867f94b717d1a046ab8a",
-   "retrieved_at": "2026-10-02T16:41:24+00:00",
+   "retrieved_at": "2026-10-02T17:02:06+00:00",
    "note": null,
    "trimmed": true
   },
@@ -37,7 +37,7 @@
    "status": 200,
    "bytes": 1564375,
    "sha256": "4541f12c75bfabb27964a649b04f63873aca73671e0b5181fbd4947252d9021b",
-   "retrieved_at": "2026-10-02T16:41:27+00:00",
+   "retrieved_at": "2026-10-02T17:02:09+00:00",
    "note": null,
    "trimmed": true
   }

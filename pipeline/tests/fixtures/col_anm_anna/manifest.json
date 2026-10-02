@@ -1,129 +1,56 @@
 {
  "source_id": "col_anm_anna",
  "files": {
+  "catalog.json": {
+   "url": "https://api.us.socrata.com/api/catalog/v1?domains=www.datos.gov.co&q=titulos+mineros&limit=50",
+   "params": {
+    "domains": "www.datos.gov.co",
+    "q": "titulos mineros",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 77097,
+   "sha256": "d1bf2d193882c0eee685adf31660959a01e6901b27ebbc0235f2ffd680111235",
+   "retrieved_at": "2026-10-02T17:02:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
   "page_0.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=0&%24order=:id",
+   "url": "https://www.datos.gov.co/resource/4vii-h9cm.json?%24limit=5000&%24offset=0&%24order=:id",
    "params": {
     "$limit": 5000,
     "$offset": 0,
     "$order": ":id"
    },
    "status": 200,
-   "bytes": 2511084,
-   "sha256": "a80d19ba7821311b564d766e04c54ae7dbd6c811047391ee2cf1916106e49fa4",
-   "retrieved_at": "2026-10-02T16:40:17+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "page_1.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=5000&%24order=:id",
-   "params": {
-    "$limit": 5000,
-    "$offset": 5000,
-    "$order": ":id"
-   },
-   "status": 200,
-   "bytes": 2610084,
-   "sha256": "050b8786cb3668c8083a57a939a3f0952353ece2f5ab4e2812bcc7b0ca755efa",
-   "retrieved_at": "2026-10-02T16:40:19+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "page_2.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=10000&%24order=:id",
-   "params": {
-    "$limit": 5000,
-    "$offset": 10000,
-    "$order": ":id"
-   },
-   "status": 200,
-   "bytes": 2577041,
-   "sha256": "3640a161c55ef846b0b55dc7c93cbcec4801acb975ddfa4bc656ad7cbc0ba751",
-   "retrieved_at": "2026-10-02T16:40:20+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "page_3.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=15000&%24order=:id",
-   "params": {
-    "$limit": 5000,
-    "$offset": 15000,
-    "$order": ":id"
-   },
-   "status": 200,
-   "bytes": 2646834,
-   "sha256": "57d3ba606c77fc489ac83d2784a0f407be17130b4cf26b951cafbaef0dbcaf65",
-   "retrieved_at": "2026-10-02T16:40:21+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "page_4.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=20000&%24order=:id",
-   "params": {
-    "$limit": 5000,
-    "$offset": 20000,
-    "$order": ":id"
-   },
-   "status": 200,
-   "bytes": 2554451,
-   "sha256": "6281f2e81d6868b202e3de457bb4e0364fb352bdda760be899228d94edc4037f",
-   "retrieved_at": "2026-10-02T16:40:24+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "page_5.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=25000&%24order=:id",
-   "params": {
-    "$limit": 5000,
-    "$offset": 25000,
-    "$order": ":id"
-   },
-   "status": 200,
-   "bytes": 2406019,
-   "sha256": "d2f65859ffc2cdd2f1350f34715217af240ae7a9493b8f8cedcdf969e76e9156",
-   "retrieved_at": "2026-10-02T16:40:26+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "page_6.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=30000&%24order=:id",
-   "params": {
-    "$limit": 5000,
-    "$offset": 30000,
-    "$order": ":id"
-   },
-   "status": 200,
-   "bytes": 2267868,
-   "sha256": "570f368240eba3bc4d899b73d7f81188a262fa6823d6f05e9a9176ce758732fe",
-   "retrieved_at": "2026-10-02T16:40:27+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "page_7.json": {
-   "url": "https://www.datos.gov.co/resource/si2v-pbq5.json?%24limit=5000&%24offset=35000&%24order=:id",
-   "params": {
-    "$limit": 5000,
-    "$offset": 35000,
-    "$order": ":id"
-   },
-   "status": 200,
-   "bytes": 1112477,
-   "sha256": "016690435b9c85e9e4cff2063461663397c228f3162698d72c02142d86a54d75",
-   "retrieved_at": "2026-10-02T16:40:28+00:00",
+   "bytes": 30764,
+   "sha256": "0a980ef97482b37f896390e2bedbdef2b0660f06853f0648819e67dda9053fed",
+   "retrieved_at": "2026-10-02T17:02:55+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_anm_anna/2026-10-02",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "catalog_choice": {
+  "name": "TITULOS MINEROS MUNICIPIO DE SEGOVIA ANTIOQUIA",
+  "id": "4vii-h9cm",
+  "score": 7
+ },
+ "dataset_url": "https://www.datos.gov.co/resource/4vii-h9cm.json",
  "columns_seen": [
-  "codigo_expediente",
-  "estado_juridico",
-  "fecha_anotacion",
-  "fecha_ejecutoria",
-  "id_tipo_de_anotacion",
+  "area_ha",
+  "clasificaci_n",
+  "codigo_exp",
+  "estado",
+  "etapa",
+  "fecha_de_expedicion",
+  "fecha_de_expiracion",
+  "fecha_de_solicitud",
+  "minerales",
   "modalidad",
-  "observacion",
-  "tipo_de_anotacion"
+  "municipios",
+  "n",
+  "titular"
  ]
 }

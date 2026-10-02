@@ -7,7 +7,67 @@
    "status": 200,
    "bytes": 6879840,
    "sha256": "254b7480f7eb48a9f768a066280677d4867aca969f4298a340901bc0e1c3096d",
-   "retrieved_at": "2026-10-02T16:41:42+00:00",
+   "retrieved_at": "2026-10-02T17:02:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "series_0.json": {
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PM05133AA-PM05134AA-PM05135AA-PM05136AA-PM05137AA-PM05138AA-PM05139AA-PM05140AA-PM05146AA-PM05147AA/json/2000/2026/esp",
+   "params": {},
+   "status": 200,
+   "bytes": 6921,
+   "sha256": "7fd91a3ffc78e8cdbca07b1e5575e3495ad6f94139110658f9b22e9d44cec00e",
+   "retrieved_at": "2026-10-02T17:02:28+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "series_1.json": {
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PM05148AA-PM05149AA-PM05150AA-PM05151AA-PM05152AA-PM05153AA-CD10504DA-CD10505DA-CD10506DA-CD10507DA/json/2000/2026/esp",
+   "params": {},
+   "status": 200,
+   "bytes": 5598,
+   "sha256": "1013c1c6e83684e05b0b9bbb9988b4c82b8151c67c4a7c05d8dcd299b92f20cc",
+   "retrieved_at": "2026-10-02T17:02:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "series_2.json": {
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/CD10508DA-CD10509DA-CD10510DA-CD10511DA-CD10512DA-CD10513DA-CD10514DA-CD10515DA-CD10516DA-CD10517DA/json/2000/2026/esp",
+   "params": {},
+   "status": 200,
+   "bytes": 1242,
+   "sha256": "cd82ad12cd761fd8d32f1f8c73024c0a53a8bc9e905c7216781880c831ba4544",
+   "retrieved_at": "2026-10-02T17:02:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "series_3.json": {
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/CD10518DA-CD10519DA-CD10520DA-CD10521DA-CD10523DA-CD10525DA-CD10527DA-CD12781DA-RD15516DA-RD15517DA/json/2000/2026/esp",
+   "params": {},
+   "status": 200,
+   "bytes": 4323,
+   "sha256": "85c736a445bb24c2b01af18ff3df5e5758d71564c96395c95d9de3b0b6c18755",
+   "retrieved_at": "2026-10-02T17:02:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "series_4.json": {
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD15518DA-RD15519DA-RD15520DA-RD15521DA-RD15522DA-RD15523DA-RD15524DA-RD15525DA-RD15526DA-RD15527DA/json/2000/2026/esp",
+   "params": {},
+   "status": 200,
+   "bytes": 5368,
+   "sha256": "33c6f58dacccff86722f2e229e0c4bb29e5a92ab51df5d3e7c61a3fc38feb30c",
+   "retrieved_at": "2026-10-02T17:02:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "series_5.json": {
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD15528DA-RD15529DA-RD15530DA-RD15531DA-RD15532DA-RD15533DA-RD15534DA-RD15535DA-RD15536DA-RD15537DA/json/2000/2026/esp",
+   "params": {},
+   "status": 200,
+   "bytes": 5725,
+   "sha256": "4d41f3b0c1e998b21dacbb44785d90809177490c1245bb4bf1561dc5b2401ed0",
+   "retrieved_at": "2026-10-02T17:02:35+00:00",
    "note": null,
    "trimmed": true
   }
@@ -15,25 +75,266 @@
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_bcrp_api/2026-10-02",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "metadata_columns": [
-  "Cdigo de serie",
-  "Categora de serie",
+  "C\u00f3digo de serie",
+  "Categor\u00eda de serie",
   "Grupo de serie",
   "Nombre de serie",
-  "Descripcin de la serie",
-  "Metodologa de la serie",
+  "Descripci\u00f3n de la serie",
+  "Metodolog\u00eda de la serie",
   "Unidad de medida",
   "Escala",
-  "Geografa (Pas, Regin de Per)",
+  "Geograf\u00eda (Pa\u00eds, Regi\u00f3n de Per\u00fa)",
   "Fuente",
   "Frecuencia",
-  "Fecha de creacin",
-  "Grupo de publicacin",
-  "rea que publica",
-  "Fecha de actualizacin",
+  "Fecha de creaci\u00f3n",
+  "Grupo de publicaci\u00f3n",
+  "\u00c1rea que publica",
+  "Fecha de actualizaci\u00f3n",
   "Fecha de inicio",
   "Fecha de fin",
   "Memo",
   "Unnamed: 18"
  ],
- "series_selected": []
+ "series_selected": [
+  [
+   "PM05133AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Cobre"
+  ],
+  [
+   "PM05134AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Esta\u00f1o"
+  ],
+  [
+   "PM05135AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Hierro"
+  ],
+  [
+   "PM05136AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Oro"
+  ],
+  [
+   "PM05137AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Plata"
+  ],
+  [
+   "PM05138AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Plomo"
+  ],
+  [
+   "PM05139AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Zinc"
+  ],
+  [
+   "PM05140AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Molibdeno"
+  ],
+  [
+   "PM05146AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Cobre (miles de toneladas)"
+  ],
+  [
+   "PM05147AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Esta\u00f1o (miles de toneladas)"
+  ],
+  [
+   "PM05148AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Hierro (miles de toneladas)"
+  ],
+  [
+   "PM05149AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Oro (Kilogramos)"
+  ],
+  [
+   "PM05150AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Plata (Kilogramos)"
+  ],
+  [
+   "PM05151AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Plomo (miles de toneladas)"
+  ],
+  [
+   "PM05152AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Zinc (miles de toneladas)"
+  ],
+  [
+   "PM05153AA",
+   "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Molibdeno (miles de toneladas)"
+  ],
+  [
+   "CD10504DA",
+   "Valor de la producci\u00f3n minera, 1929-1971 (miles de soles oro) - Total"
+  ],
+  [
+   "CD10505DA",
+   "Valor de la producci\u00f3n minera, 1929-1971 (miles de soles oro) - Met\u00e1licos"
+  ],
+  [
+   "CD10506DA",
+   "Valor de la producci\u00f3n minera, 1929-1971 (miles de soles oro) - No Met\u00e1licos - Total"
+  ],
+  [
+   "CD10507DA",
+   "Valor de la producci\u00f3n minera, 1929-1971 (miles de soles oro) - No Met\u00e1licos - Combustibles"
+  ],
+  [
+   "CD10508DA",
+   "Valor de la producci\u00f3n minera, 1929-1971 (miles de soles oro) - No Met\u00e1licos - Otros"
+  ],
+  [
+   "CD10509DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Cobre (toneladas metricas)"
+  ],
+  [
+   "CD10510DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Cobre (miles de soles oro)"
+  ],
+  [
+   "CD10511DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Hierro - Bruto (toneladas metricas)"
+  ],
+  [
+   "CD10512DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Hierro - Fino (toneladas metricas)"
+  ],
+  [
+   "CD10513DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Hierro (miles de soles oro)"
+  ],
+  [
+   "CD10514DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Oro (gramos)"
+  ],
+  [
+   "CD10515DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Oro (miles de soles oro)"
+  ],
+  [
+   "CD10516DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Plata (kilogramos)"
+  ],
+  [
+   "CD10517DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Plata (miles de soles oro)"
+  ],
+  [
+   "CD10518DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Plomo (toneladas metricas)"
+  ],
+  [
+   "CD10519DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Plomo (miles de soles oro)"
+  ],
+  [
+   "CD10520DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Zinc (toneladas metricas)"
+  ],
+  [
+   "CD10521DA",
+   "Producci\u00f3n minera met\u00e1lica (cantidad y valor), 1929-1980 - Zinc (miles de soles oro)"
+  ],
+  [
+   "CD10523DA",
+   "Producci\u00f3n minera no met\u00e1lica (cantidad y valor), 1929-1980 - Carb\u00f3n Mineral (miles de soles oro)"
+  ],
+  [
+   "CD10525DA",
+   "Producci\u00f3n minera no met\u00e1lica (cantidad y valor), 1929-1980 - Gasolina Natural (miles de soles oro)"
+  ],
+  [
+   "CD10527DA",
+   "Producci\u00f3n minera no met\u00e1lica (cantidad y valor), 1929-1980 - Petr\u00f3leo Crudo (miles de soles oro)"
+  ],
+  [
+   "CD12781DA",
+   "Acu\u00f1aci\u00f3n estimada de plata en la Casa de la Moneda de Potos\u00ed entre 1575-1599 - Producci\u00f3n minera en pesos ensayados de 450 mrs."
+  ],
+  [
+   "RD15516DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Total (tm.f)"
+  ],
+  [
+   "RD15517DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Ancash (tm.f)"
+  ],
+  [
+   "RD15518DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Apurimac (tm.f)"
+  ],
+  [
+   "RD15519DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Arequipa (tm.f)"
+  ],
+  [
+   "RD15520DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Ayacucho (tm.f)"
+  ],
+  [
+   "RD15521DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Cajamarca (tm.f)"
+  ],
+  [
+   "RD15522DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Cusco (tm.f)"
+  ],
+  [
+   "RD15523DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Huancavelica (tm.f)"
+  ],
+  [
+   "RD15524DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Hu\u00e1nuco (tm.f)"
+  ],
+  [
+   "RD15525DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Ica (tm.f)"
+  ],
+  [
+   "RD15526DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Jun\u00edn (tm.f)"
+  ],
+  [
+   "RD15527DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - La Libertad (tm.f)"
+  ],
+  [
+   "RD15528DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Lima (tm.f)"
+  ],
+  [
+   "RD15529DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Moquegua (tm.f)"
+  ],
+  [
+   "RD15530DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Pasco (tm.f)"
+  ],
+  [
+   "RD15531DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Puno (tm.f)"
+  ],
+  [
+   "RD15532DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Cobre - Tacna (tm.f)"
+  ],
+  [
+   "RD15533DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Esta\u00f1o - Total (tm.f)"
+  ],
+  [
+   "RD15534DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Esta\u00f1o - Puno (tm.f)"
+  ],
+  [
+   "RD15535DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Hierro - Total (tm.f)"
+  ],
+  [
+   "RD15536DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Hierro - Ica (tm.f)"
+  ],
+  [
+   "RD15537DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Molibdeno - Total (tm.f)"
+  ]
+ ]
 }

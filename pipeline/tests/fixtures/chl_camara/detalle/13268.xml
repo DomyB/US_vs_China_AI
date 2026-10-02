@@ -1,0 +1,555 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:Votacion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>13268</ns0:Id>
+  <ns0:Descripcion>Boletín N° 6715-10</ns0:Descripcion>
+  <ns0:Fecha>2009-12-15T12:25:28</ns0:Fecha>
+  <ns0:TotalSi>62</ns0:TotalSi>
+  <ns0:TotalNo>0</ns0:TotalNo>
+  <ns0:TotalAbstencion>1</ns0:TotalAbstencion>
+  <ns0:TotalDispensado>0</ns0:TotalDispensado>
+  <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+  <ns0:Resultado Valor="1">Aprobado</ns0:Resultado>
+  <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+  <ns0:Votos>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>801</ns0:Id>
+        <ns0:Nombre>René</ns0:Nombre>
+        <ns0:ApellidoPaterno>Aedo</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Ormeño</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>802</ns0:Id>
+        <ns0:Nombre>Sergio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Aguiló</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Melo</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>805</ns0:Id>
+        <ns0:Nombre>Claudio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Alvarado</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Andrade</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>807</ns0:Id>
+        <ns0:Nombre>Rodrigo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Alvarez</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Zenteno</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>808</ns0:Id>
+        <ns0:Nombre>Pedro</ns0:Nombre>
+        <ns0:ApellidoPaterno>Araya</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Guerrero</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>809</ns0:Id>
+        <ns0:Nombre>Gonzalo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Arenas</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Hödar</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>810</ns0:Id>
+        <ns0:Nombre>Gabriel</ns0:Nombre>
+        <ns0:ApellidoPaterno>Ascencio</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Mansilla</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>812</ns0:Id>
+        <ns0:Nombre>Eugenio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Bauer</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Jouanne</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>814</ns0:Id>
+        <ns0:Nombre>Mario</ns0:Nombre>
+        <ns0:ApellidoPaterno>Bertolino</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Rendic</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>815</ns0:Id>
+        <ns0:Nombre>Sergio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Bobadilla</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Muñoz</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>816</ns0:Id>
+        <ns0:Nombre>Jorge</ns0:Nombre>
+        <ns0:ApellidoPaterno>Burgos</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Varela</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>818</ns0:Id>
+        <ns0:Nombre>Alberto</ns0:Nombre>
+        <ns0:ApellidoPaterno>Cardemil</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Herrera</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>820</ns0:Id>
+        <ns0:Nombre>Francisco</ns0:Nombre>
+        <ns0:ApellidoPaterno>Chahuán</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Chahuán</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>821</ns0:Id>
+        <ns0:Nombre>Sergio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Correa</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>De la Cerda</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>822</ns0:Id>
+        <ns0:Nombre>María Angélica</ns0:Nombre>
+        <ns0:ApellidoPaterno>Cristi</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Marfil</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>825</ns0:Id>
+        <ns0:Nombre>Roberto</ns0:Nombre>
+        <ns0:ApellidoPaterno>Delmastro</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Naso</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>827</ns0:Id>
+        <ns0:Nombre>Marcelo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Díaz</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Díaz</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>829</ns0:Id>
+        <ns0:Nombre>Gonzalo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Duarte</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Leiva</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>831</ns0:Id>
+        <ns0:Nombre>Edmundo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Eluchans</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Urenda</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>834</ns0:Id>
+        <ns0:Nombre>Maximiano</ns0:Nombre>
+        <ns0:ApellidoPaterno>Errázuriz</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Eguiguren</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>838</ns0:Id>
+        <ns0:Nombre>Enrique</ns0:Nombre>
+        <ns0:ApellidoPaterno>Estay</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Peñaloza</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="2">Abstención</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>839</ns0:Id>
+        <ns0:Nombre>Ramón</ns0:Nombre>
+        <ns0:ApellidoPaterno>Farías</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Ponce</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>841</ns0:Id>
+        <ns0:Nombre>Renán</ns0:Nombre>
+        <ns0:ApellidoPaterno>Fuentealba</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Vildósola</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>843</ns0:Id>
+        <ns0:Nombre>René Manuel</ns0:Nombre>
+        <ns0:ApellidoPaterno>García</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>García</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>844</ns0:Id>
+        <ns0:Nombre>Alejandro</ns0:Nombre>
+        <ns0:ApellidoPaterno>García-Huidobro</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Sanfuentes</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>845</ns0:Id>
+        <ns0:Nombre>Guido</ns0:Nombre>
+        <ns0:ApellidoPaterno>Girardi</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Briere</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>846</ns0:Id>
+        <ns0:Nombre>Joaquín</ns0:Nombre>
+        <ns0:ApellidoPaterno>Godoy</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Ibáñez</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>849</ns0:Id>
+        <ns0:Nombre>Patricio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Hales</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Dib</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>850</ns0:Id>
+        <ns0:Nombre>Javier</ns0:Nombre>
+        <ns0:ApellidoPaterno>Hernández</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Hernández</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>852</ns0:Id>
+        <ns0:Nombre>Jorge</ns0:Nombre>
+        <ns0:ApellidoPaterno>Insunza</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Gregorio de las Heras</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>854</ns0:Id>
+        <ns0:Nombre>Enrique</ns0:Nombre>
+        <ns0:ApellidoPaterno>Jaramillo</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Becker</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>855</ns0:Id>
+        <ns0:Nombre>Carlos Abel</ns0:Nombre>
+        <ns0:ApellidoPaterno>Jarpa</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Wevar</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>857</ns0:Id>
+        <ns0:Nombre>José Antonio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Kast</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Rist</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>862</ns0:Id>
+        <ns0:Nombre>Pablo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Lorenzini</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Basso</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>863</ns0:Id>
+        <ns0:Nombre>Rosauro</ns0:Nombre>
+        <ns0:ApellidoPaterno>Martínez</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Labbé</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>868</ns0:Id>
+        <ns0:Nombre>Nicolás</ns0:Nombre>
+        <ns0:ApellidoPaterno>Monckeberg</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Díaz</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>870</ns0:Id>
+        <ns0:Nombre>Carlos</ns0:Nombre>
+        <ns0:ApellidoPaterno>Montes</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Cisternas</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>873</ns0:Id>
+        <ns0:Nombre>Adriana</ns0:Nombre>
+        <ns0:ApellidoPaterno>Muñoz</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>D'Albora</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>875</ns0:Id>
+        <ns0:Nombre>Iván</ns0:Nombre>
+        <ns0:ApellidoPaterno>Norambuena</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Farías</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>877</ns0:Id>
+        <ns0:Nombre>Sergio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Ojeda</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Uribe</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>879</ns0:Id>
+        <ns0:Nombre>José Miguel</ns0:Nombre>
+        <ns0:ApellidoPaterno>Ortiz</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Novoa</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>880</ns0:Id>
+        <ns0:Nombre>Clemira</ns0:Nombre>
+        <ns0:ApellidoPaterno>Pacheco</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Rivas</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>881</ns0:Id>
+        <ns0:Nombre>Osvaldo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Palma</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Flores</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>883</ns0:Id>
+        <ns0:Nombre>Denise</ns0:Nombre>
+        <ns0:ApellidoPaterno>Pascal</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Allende</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>885</ns0:Id>
+        <ns0:Nombre>José</ns0:Nombre>
+        <ns0:ApellidoPaterno>Pérez</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Arriagada</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>891</ns0:Id>
+        <ns0:Nombre>Karla</ns0:Nombre>
+        <ns0:ApellidoPaterno>Rubilar</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Barahona</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>893</ns0:Id>
+        <ns0:Nombre>Jorge</ns0:Nombre>
+        <ns0:ApellidoPaterno>Sabag</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Villalobos</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>894</ns0:Id>
+        <ns0:Nombre>Eduardo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Saffirio</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Suárez</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>895</ns0:Id>
+        <ns0:Nombre>Felipe</ns0:Nombre>
+        <ns0:ApellidoPaterno>Salaberry</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Soto</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>899</ns0:Id>
+        <ns0:Nombre>Laura</ns0:Nombre>
+        <ns0:ApellidoPaterno>Soto</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>González</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>900</ns0:Id>
+        <ns0:Nombre>Alejandro</ns0:Nombre>
+        <ns0:ApellidoPaterno>Sule</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Fernández</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>901</ns0:Id>
+        <ns0:Nombre>Raúl</ns0:Nombre>
+        <ns0:ApellidoPaterno>Sunico</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Galdames</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>902</ns0:Id>
+        <ns0:Nombre>Jorge</ns0:Nombre>
+        <ns0:ApellidoPaterno>Tarud</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Daccarett</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>906</ns0:Id>
+        <ns0:Nombre>Jorge</ns0:Nombre>
+        <ns0:ApellidoPaterno>Ulloa</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Aguillón</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>908</ns0:Id>
+        <ns0:Nombre>Ignacio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Urrutia</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Bonilla</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>911</ns0:Id>
+        <ns0:Nombre>Patricio</ns0:Nombre>
+        <ns0:ApellidoPaterno>Vallespín</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>López</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>912</ns0:Id>
+        <ns0:Nombre>Alfonso</ns0:Nombre>
+        <ns0:ApellidoPaterno>Vargas</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Lyng</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>913</ns0:Id>
+        <ns0:Nombre>Mario</ns0:Nombre>
+        <ns0:ApellidoPaterno>Venegas</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Cárdenas</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>914</ns0:Id>
+        <ns0:Nombre>Samuel</ns0:Nombre>
+        <ns0:ApellidoPaterno>Venegas</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Rubio</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    <ns0:Voto>
+      <ns0:Diputado>
+        <ns0:Id>915</ns0:Id>
+        <ns0:Nombre>Germán</ns0:Nombre>
+        <ns0:ApellidoPaterno>Verdugo</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Soto</ns0:ApellidoMaterno>
+      </ns0:Diputado>
+      <ns0:OpcionVoto Valor="1">Afirmativo</ns0:OpcionVoto>
+    </ns0:Voto>
+    </ns0:Votos>
+</ns0:Votacion>
