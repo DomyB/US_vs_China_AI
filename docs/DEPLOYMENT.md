@@ -10,8 +10,10 @@ There is no server-side database: the app reads JSON files from
 2. Set **Root Directory** to `web`.
 3. Framework preset: Next.js (auto-detected). Build command and output are the
    defaults (`next build`).
-4. Production branch: `main` (or the branch you choose). Every push to other
-   branches creates a preview deployment with its own URL.
+4. Production branch: `main`. Development happens on a feature branch that is
+   fast-forwarded into `main`; ingestion workflows are dispatched from `main` and commit
+   their data there, which triggers the production deployment. Pushes to other branches
+   create preview deployments with their own URLs.
 5. No environment variables are needed for Phase 1.
 
 The Hobby tier is sufficient: static pages, no serverless database, well under

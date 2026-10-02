@@ -2,31 +2,31 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
-## Phase 2b — National adapters (started 2026-10-02; waves 1–4 built, live runs in progress)
+## Phase 2b — National adapters (started 2026-10-02; waves 1–4 live, fixes continuing)
 
-**What runs**
-- Text tables `document` (bills, hearings, votes, news; news rows carry no summary by schema), `vote`, `vote_member`, plus `concession` and `media_volume`; incremental merge on key with the previous data release; `document_dedup` merges the same article seen through RSS and GDELT.
-- Shared modules: feed parser (RSS 2.0, Atom, RSS 1.0; stdlib) with feed-index discovery, versioned multilingual keyword filter (es/pt/en/nl; matched terms stored per row), robots.txt cache with crawl-delay (a disallow is recorded as `skipped`), XML fixture trimming, `legislature` / `press` / `national` target groups, weekly `ingest-press.yml`.
-- Live after run 16 (2026-10-02): **Brazil Câmara** 3,266 documents (1,676 bills, 1,590 hearing requests), 1,166 votes, 8,294 member votes; **17 of 27 press feeds** parsed (headlines are recent-only until GDELT history lands); the site shows Brazil's records and the first headlines for Argentina, Chile and Peru as "Real records · unclassified" with stance "not yet classified", stance/attention/narrative charts still SAMPLE; Bolivia, Guyana, Suriname and Venezuela show the no-structured-records note.
-- Built and tested on documented formats, awaiting their live runs: Brazil Senado, Chile Cámara and Senado, Argentina HCDN, Uruguay Parlamento, Colombia Cámara, Paraguay SILpy, Ecuador votes, Peru SPLEY; GDELT history; Colombia and Ecuador cadastres; Guyana GGMC (92 rows live from the real file), Peru BCRP, Chile Cochilco.
-- 99 pipeline tests and ruff pass; web lint, typecheck, 15 unit tests and build pass; Playwright screenshots of the Parliament and Media tabs checked.
+**What runs (live, committed to `main`)**
+- Text tables `document` (bills, hearings, votes, news; news rows carry no summary by schema), `vote`, `vote_member`, `concession`, `media_volume`; incremental merge with the previous data release; `document_dedup` merges the same article seen through RSS and GDELT. Shared modules: feed parser and feed-index discovery, versioned multilingual keyword filter, robots.txt cache (disallow recorded as `skipped`), XML fixtures, `legislature` / `press` / `national` groups, weekly `ingest-press.yml`, per-adapter memory cap and progress lines.
+- Legislatures: Brazil Câmara 2,931 documents, 963 roll calls, 22,580 member votes; Brazil Senado 893 matters, 2 votes; Chile Cámara 173 bills, 148 roll calls, 16,432 member votes; Argentina Diputados 1,233 bills; Colombia Cámara 76 bills; Peru SPLEY 140 bills; Paraguay 4 bills (the API pages 50 at a time and stopped early).
+- National statistics and cadastres: Ecuador cadastre 15,446 titles; Peru BCRP 817 production rows (annual quantities by mineral); Cochilco 762 rows; Guyana GGMC 95 rows.
+- Press: 23 of 29 press adapters run (feeds found by discovery for Folha, El Tiempo, La Nación and others); headlines are recent-only until GDELT history arrives. GDELT's English and Dutch queries returned articles (Guyana, Suriname); every Spanish and Portuguese window came back empty, so an ASCII-only fallback query is now tried per empty window and the variant that works is recorded.
+- Site: Parliament and Media tabs show the real records tagged "Real records · unclassified" with stance "not yet classified"; charts stay SAMPLE; long lists page 50 at a time; Bolivia, Guyana, Suriname and Venezuela show the no-records note. 114 pipeline tests and ruff pass; web lint, typecheck, 15 unit tests and build pass.
+- Ingestion runs are dispatched from `main` (fast-forwarded from the development branch) from 2026-10-02 18:40 UTC.
 
 **What is missing**
-- Live confirmation of the wave 2–4 adapters (run 17 covering all three groups lost its runner after 39 minutes, before any fixture or data was saved; the legislature group is being re-run alone with memory-lean parsers).
-- GDELT backfill (2017→) and the weekly press cadence; feeds not found for six outlets (Folha's and El Tiempo's feed index pages are now scanned for links; Emol resets connections; De Ware Tijd forbids automated clients).
+- Colombia titles cadastre: the national dataset is a map layer that Socrata serves only as a geospatial export (now requested); the registry's dataset id was the annotations table and is never stored as concessions.
+- Chile Senate votes: `votaciones.php` answers empty for every boletín; the tramitación document is now parsed as well. Argentina roll calls: 2 linked (votes name the expediente only in their title; alias matching added).
+- Uruguay (site answers 403 to automated clients; hand-downloaded export accepted), Ecuador votes (script-only page), four outlets without a feed (El Mostrador, OjoPúblico, Emol resets connections, De Ware Tijd forbids automated clients).
+- GDELT history (2017→) depends on the fallback query; the backlog is about 1,840 windows at one request every 7 seconds.
 - Stance, tone, translations and narratives: Phase 3.
 
 **What broke and was fixed**
-- GGMC's CSV has a three-row header (mineral / company / unit); parser rewritten, gold kept as the grand total in ounces only.
-- Portuguese "ouro" and "prata" matched place names (bairro Prata); gold and silver now need a mining phrase in Portuguese as in Spanish.
-- Six publishers answer an HTML index of feeds where a feed was expected; the press adapter now harvests feed links from such pages (one level).
-- Câmara member-vote detail hit the 400-call cap; raised to 1,500 with the most recent votes first.
-- Fixture trimming wrote `;`-separated files back with the wrong separator; separators are sniffed now.
-- Run 17 (legislature + press + national together) killed the runner: yearly legislative corpora were concatenated in memory. Parsers now filter each file as it is read and stream member-vote files in chunks; the workflow prints disk and memory before and after ingestion.
-- A year with 286 records produced a 46,000-pixel page: record lists page 50 at a time; symbolic votes (no roll call) are labelled.
+- Runs 17 and 18 killed the runner (host OOM, no stdout reaching the log): parsers now filter each yearly file as it is read, member-vote files stream in chunks, Python runs unbuffered with a per-adapter memory cap (8 GB) so a runaway parse fails as `MemoryError` instead.
+- Real formats differed from documentation: GGMC three-row header; Câmara `;` separators and the fixture trimmer's separator; Chile's service methods (`retornarMocionesXAnno` / `retornarMensajesXAnno`) and vote element (`VotacionProyectoLey`); HCDN dataset names (Proyectos Parlamentarios, Votaciones Nominales cabecera/detalles) and the expediente carried only in vote titles; Paraguay's documented route (`/data/proyecto`, `acapite`, `fechaIngresoExpediente`) and `offset` paging; Ecuador's abbreviated ArcGIS fields and a MapServer that ignores result offsets (now paged by objectid); Peru's Latin-1 metadata and growth-rate series; Cochilco share tables; Portuguese "prata"/"ouro" place names; publishers' HTML feed indexes; a discovered feed on another domain (Wikipedia) tripping robots.txt.
+- GDELT throttles the shared runner address (HTTP 429): pacing is 7 s with a 60 s pause after a 429.
 
 **Recommendation**
-- Run the groups separately until memory use is known: `legislature`, then `press` (with a one-off GDELT backfill), then `national`; fix parsers against the recorded fixtures after each.
+- Keep running the groups separately from `main`; after the next press run, decide the GDELT query form from `query_variant_hits`, then launch the one-off backfill (`gdelt_backfill_windows: 1900`).
+- Download the Uruguay export and commit it under `data/manual/`; set feed URLs in the registry for the four outlets if their sites publish one.
 
 ## Phase 2a — International and US pipelines (2026-10-01, fifteen live runs)
 
