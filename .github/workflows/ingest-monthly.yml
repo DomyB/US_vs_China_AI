@@ -71,11 +71,16 @@ jobs:
           else
             echo "no previous data release"
           fi
+      - name: Runner resources before ingestion
+        run: df -h / && free -m
       - name: Run adapters
         id: run
         continue-on-error: true
         run: |
           python -m scm run ${{ inputs.targets || 'tier1 legislature national' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
+      - name: Runner resources after ingestion
+        if: always()
+        run: df -h / && free -m && du -sh ../data/raw/* 2>/dev/null | sort -h | tail -15
       - name: Record trimmed fixtures from the real responses
         run: python -m scm fixtures
       - name: Build warehouse and export site data

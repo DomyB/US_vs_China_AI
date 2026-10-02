@@ -59,6 +59,35 @@ class HCDN(Adapter):
                     snap.manifest.setdefault("unparsed", []).append({"name": name, "error": str(e)[:200]})
         return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
 
+    def _member_rows(self, snap: Snapshot, kept_ids: set[str]) -> pd.DataFrame:
+        """The per-deputy vote file holds every roll call since 2011 (millions of rows): stream it in
+        chunks and keep only the votes selected above."""
+        import io
+
+        parts = []
+        for name in sorted(snap.files):
+            if not name.startswith("votos/") or not snap.has(name):
+                continue
+            path = snap.path(name)
+            fmt = name.rsplit(".", 1)[-1]
+            if fmt in ("xlsx", "xls"):
+                df = read_table(path, fmt)
+                c = col(df, "votacion_id", "id_votacion", required=False)
+                if c:
+                    parts.append(df[df[c].astype(str).isin(kept_ids)])
+                continue
+            raw = path.read_bytes()
+            text = raw.decode("utf-8-sig", errors="ignore")
+            first = text.split("\n", 1)[0]
+            sep = max([",", ";", "\t", "|"], key=first.count)
+            for chunk in pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, chunksize=200_000, on_bad_lines="skip"):
+                c = col(chunk, "votacion_id", "id_votacion", required=False)
+                if c is None:
+                    break
+                parts.append(chunk[chunk[c].astype(str).isin(kept_ids)])
+            del text, raw
+        return pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()
+
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         docs: dict[str, dict] = {}
         bills = self._frames(snap, "proyectos")
@@ -128,7 +157,7 @@ class HCDN(Adapter):
                                    "total": sum(x or 0 for x in (yes, no, abst, absent)) if yes is not None or no is not None else None, "native_id": str(r[c_vid]),
                                    "value_type": "reported", "source_record_url": f"{BASE}/dataset/votaciones"})
             kept = {v["native_id"]: v["vote_id"] for v in votes_rows}
-            mv = self._frames(snap, "votos")
+            mv = self._member_rows(snap, set(kept))
             if not mv.empty:
                 snap.manifest["columns_votos"] = list(map(str, mv.columns))[:40]
                 c_vid2 = col(mv, "votacion_id", "id_votacion")

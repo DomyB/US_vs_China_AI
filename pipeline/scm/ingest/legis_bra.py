@@ -82,25 +82,33 @@ class CamaraBR(Adapter):
         snap.save()
 
     # ---- selection shared by fetch and parse
+    BILL_COLUMNS = ("id", "siglaTipo", "numero", "ano", "ementa", "ementaDetalhada", "keywords", "dataApresentacao", "ultimoStatus_descricaoSituacao", "descricaoSituacao")
+
     def _bills(self, snap: Snapshot) -> pd.DataFrame:
-        frames = []
+        """Relevant propositions only; each yearly file is filtered as it is read (the full corpus is
+        hundreds of thousands of rows of long text and does not fit comfortably in a runner's memory)."""
+        if getattr(self, "_bills_cache", None) is not None:
+            return self._bills_cache
+        kept_frames = []
         for name in sorted(snap.files):
-            if name.startswith("bulk/proposicoes-") and snap.has(name):
-                df = _read_csv(snap.path(name))
-                if "id" in df.columns or col(df, "id", required=False):
-                    frames.append(df)
-        if not frames:
-            return pd.DataFrame()
-        df = pd.concat(frames, ignore_index=True)
-        c_ementa = col(df, "ementa")
-        c_kw = col(df, "keywords", required=False)
-        c_det = col(df, "ementaDetalhada", required=False)
-        text = df[c_ementa].fillna("") + " " + (df[c_kw].fillna("") if c_kw else "") + " " + (df[c_det].fillna("") if c_det else "")
-        rels = [relevance(t) for t in text]
-        keep = [is_relevant(r, "parliament", t) for r, t in zip(rels, text, strict=True)]
-        df = df[keep].copy()
-        df["_rel"] = [r for r, k in zip(rels, keep, strict=True) if k]
-        return df
+            if not (name.startswith("bulk/proposicoes-") and snap.has(name)):
+                continue
+            df = _read_csv(snap.path(name))
+            if col(df, "id", required=False) is None or col(df, "ementa", required=False) is None:
+                continue
+            df = df[[c for c in df.columns if col(pd.DataFrame(columns=list(self.BILL_COLUMNS)), str(c), required=False) is not None or str(c) in self.BILL_COLUMNS]]
+            c_ementa = col(df, "ementa")
+            c_kw = col(df, "keywords", required=False)
+            c_det = col(df, "ementaDetalhada", required=False)
+            text = df[c_ementa].fillna("") + " " + (df[c_kw].fillna("") if c_kw else "") + " " + (df[c_det].fillna("") if c_det else "")
+            rels = [relevance(t) for t in text]
+            keep = [is_relevant(r, "parliament", t) for r, t in zip(rels, text, strict=True)]
+            part = df[keep].copy()
+            part["_rel"] = [r for r, k in zip(rels, keep, strict=True) if k]
+            kept_frames.append(part)
+            del df, text, rels
+        self._bills_cache = pd.concat(kept_frames, ignore_index=True) if kept_frames else pd.DataFrame()
+        return self._bills_cache
 
     def _vote_links(self, snap: Snapshot) -> pd.DataFrame:
         frames = [_read_csv(snap.path(n)) for n in sorted(snap.files) if n.startswith("bulk/votacoesProposicoes-") and snap.has(n)]
@@ -296,17 +304,14 @@ class SenadoBR(Adapter):
                 continue
             for d in list(_walk(payload, {"Ementa"})) + list(_walk(payload, {"ementa"})):
                 codigo = str(_pick(d, "Codigo", "CodigoMateria", "codigoMateria", "id", default="")).strip()
-                if codigo:
-                    out[codigo] = d
+                text = f"{_pick(d, 'Ementa', 'ementa', default='')} {_pick(d, 'IndexacaoMateria', 'indexacao', default='')}"
+                if codigo and is_relevant(relevance(text), "parliament", text):
+                    out[codigo] = d  # only relevant matters are kept in memory
+            del payload
         return out
 
     def _kept_matters(self, snap: Snapshot) -> list[str]:
-        kept = []
-        for codigo, d in self._matters(snap).items():
-            text = f"{_pick(d, 'Ementa', 'ementa', default='')} {_pick(d, 'IndexacaoMateria', 'indexacao', default='')}"
-            if is_relevant(relevance(text), "parliament", text):
-                kept.append(codigo)
-        return sorted(kept)
+        return sorted(self._matters(snap))
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         docs: dict[str, dict] = {}
