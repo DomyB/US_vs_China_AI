@@ -1,5 +1,0 @@
-"NombreAtributo,""Descripcion"",""TipoDato"""
-"Fecha,""Fecha de entrada del proyecto a la Cámara de Senadores, en formato Año-mes-día"",""Date"""
-"Asuntos,""Número único qué identifica el trámite y permite la trazabilidad informática. Se mantiene en todas las unidades ejecutoras. El asunto se refiere a cualquier tema, propuesta, proyecto de ley, resolucin, mocin, peticin, u otro tipo de documento o cuestin que est siendo tratado por el Parlamento. Es el contenido especfico que se est considerando."",""Integer"""
-"Carpetas,"" Número que identifica el trámite y permite la trazabilidad legislativa. Varía según la unidad ejecutora. Es el expediente o conjunto de documentos que contienen la informacin y el historial completo de un asunto especfico. Incluye todos los documentos, informes, notas y registros relacionados con ese asunto. La carpeta digital donde se organiza y guarda toda la informacin relevante para el seguimiento y tratamiento de un asunto en particular"",""String"""
-"Título,"" Síntesis descriptiva del proyecto que se ingresa"",""String"""

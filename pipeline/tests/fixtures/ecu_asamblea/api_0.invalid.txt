@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--[ifa IE 8]>	<html class="no-js lt-ie9" lang="es"> <![endif]-->
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
+<div class="destacado">
+  <div class="container">
+    <div class="box">
+      <h2>¡Vaya! Ya no se admite tu navegador web</h2>
+      <p>Este sitio es compatible con una amplia gama de navegadores. No obstante, si quieres utilizar muchas de nuestras últimas y mejores funciones, debes actualizar a un navegador actual y completamente compatible. </p>
+      <p>Busca las últimas versiones de los navegadores admitidos a continuación:</p>
+      <ul>
+        <li><a href="https://www.google.com/intl/es/chrome/browser/?hl=es" title="Descargar Chrome"><strong>Chrome</strong> (Google)</a></li>
+        <li><a href="http://windows.microsoft.com/es-es/internet-explorer/downloads/ie-9/worldwide-languages" title="Descargar IExplorer 9"><strong>Internet Explorer</strong> (Microsoft)</a></li>
+        <li><a href="http://www.mozilla.org/es-ES/firefox/new/" title="Descargar Firefox"><strong>Firefox</strong> (Mozilla)</a></li>
+        <li><a href="http://support.apple.com/kb/DL1531?viewlocale=es_ES&amp;locale=es_ES" title="Descargar Safari"><strong>Safari</strong> (Apple)</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html xmlns:fb="https://www.facebook.com/2008/fbml" xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" version="XHTML 1.0" dir="ltr"
+  xmlns:fb="http://ogp.me/ns/fb#"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:article="http://ogp.me/ns/article#"
+  xmlns:book="http://ogp.me/ns/book#"
+  xmlns:profile="http://ogp.me/ns/profile#"
+  xmlns:video="http://ogp.me/ns/video#">
+    <!--<![endif]-->
+    <head profile="http://www.w3.org/1999/xhtml/vocab">
+        <base href="https://www.asambleanacional.gob.ec">
+        <meta name="ahrefs-site-verification" content="dace308a19f0c38b375914938ead1dfb44f8e5b0cfc249ad1278128ef0e1a3e4">
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width" />
+            <link rel="apple-touch-icon" sizes="57x57" href="sites/all/themes/asamblea/favicon/apple-icon-57x57.png"/>
+            <link rel="apple-touch-icon" sizes="60x60" href="sites/all/themes/asamblea/favicon/apple-icon-60x60.png"/>
+            <link rel="apple-touch-icon" sizes="72x72" href="sites/all/themes/asamblea/favicon/apple-icon-72x72.png"/>
+            <link rel="apple-touch-icon" sizes="76x76" href="sites/all/themes/asamblea/favicon/apple-icon-76x76.png"/>
+            <link rel="apple-touch-icon" sizes="114x114" href="sites/all/themes/asamblea/favicon/apple-icon-114x114.png"/>
+            <link rel="apple-touch-icon" sizes="120x120" href="sites/all/themes/asamblea/favicon/apple-icon-120x120.png"/>
+            <link rel="apple-touch-icon" sizes="144x144" href="sites/all/themes/asamblea/favicon/apple-icon-144x144.png"/>
+            <link rel="apple-touch-icon" sizes="152x152" href="sites/all/themes/asamblea/favicon/apple-icon-152x152.png"/>
+            <link rel="apple-touch-icon" sizes="180x180" href="sites/all/themes/asamblea/favicon/apple-icon-180x180.png"/>
+            <link rel="icon" type="image/png" sizes="192x192"  href="sites/all/themes/asamblea/favicon/android-icon-192x192.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="sites/all/themes/asamblea/favicon/favicon-32x32.png"/>
+            <link rel="icon" type="image/png" sizes="96x96" href="sites/all/themes/asamblea/favicon/favicon-96x96.png"/>
+            <link rel="icon" type="image/png" sizes="16x16" href="sites/all/themes/asamblea/favicon/favicon-16x16.png"/>
+            <link rel="icon" href="/favicon.ico" sizes="any">
+            <!-- Forzar indexación del favicon y logo en Google -->
+            
+            <link rel="icon" type="image/x-icon" href="/sites/all/themes/asamblea/favicon.ico">
+            <link rel="shortcut icon" type="image/x-icon" href="/sites/all/themes/asamblea/favicon.ico">
+      
