@@ -2,6 +2,24 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
+## Phase 2b — National adapters (started 2026-10-02; wave 1 built, first live run pending)
+
+**What runs (locally, on synthetic fixtures)**
+- Text tables `document` (bills, hearings, news; news rows carry no summary by schema), `vote`, `vote_member`, plus `concession` and `media_volume`; incremental merge on key with the previous data release; `document_dedup` merges the same article seen through RSS and GDELT.
+- Shared modules: feed parser (RSS 2.0, Atom, RSS 1.0; stdlib), versioned multilingual keyword filter (es/pt/en/nl; matched terms stored per row), robots.txt cache with crawl-delay, XML fixture trimming, `legislature` / `press` / `national` target groups, weekly `ingest-press.yml`.
+- Adapters: Brazil Câmara (yearly bulk CSVs filtered by keyword, member votes from the API), one RSS adapter per registry press outlet (27; feed from `api_url` or discovery), Guyana GGMC production CSV.
+- Exporter writes `real/parliament/<ISO3>.json` and `real/media/<ISO3>.json` with coverage flags and explicit notes for Bolivia, Guyana, Suriname and Venezuela; the site shows real records tagged "Real records · unclassified" with stance "not yet classified", stance/attention/narrative charts stay SAMPLE.
+- 59 pipeline tests and ruff pass; web lint, typecheck, unit tests and build pass.
+
+**What is missing**
+- The first live run of wave 1 (`bra_camara_api press guy_ggmc`), then waves 2–4: GDELT history, Chile, Brazil Senado, Argentina, Uruguay, Colombia, Paraguay, Ecuador, Peru, cadastres and national statistics.
+
+**What broke and was fixed**
+- (filled after the first live run)
+
+**Recommendation**
+- Dispatch `Ingest (monthly)` with `targets: bra_camara_api press guy_ggmc`; fix parsers against the recorded fixtures; then wave 2.
+
 ## Phase 2a — International and US pipelines (2026-10-01, fifteen live runs)
 
 **What runs**

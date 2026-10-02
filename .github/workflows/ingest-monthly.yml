@@ -6,12 +6,15 @@ on:
   workflow_dispatch:
     inputs:
       targets:
-        description: "Adapters to run (space-separated source ids, or all / tier1 / monthly / annual)"
-        default: "tier1"
+        description: "Adapters to run (space-separated source ids, or all / tier1 / legislature / press / national / monthly / annual)"
+        default: "tier1 legislature national"
       fetch_only:
         description: "Only download raw snapshots (no parse)"
         type: boolean
         default: false
+      gdelt_backfill_windows:
+        description: "GDELT: how many missing historical windows to fetch this run (about 5 s each)"
+        default: "60"
   workflow_call:
     inputs:
       targets:
@@ -20,6 +23,9 @@ on:
       fetch_only:
         type: boolean
         default: false
+      gdelt_backfill_windows:
+        type: string
+        default: "60"
 
 permissions:
   contents: write
@@ -44,6 +50,7 @@ jobs:
       CGIT_FILE_URL: ${{ secrets.CGIT_FILE_URL }}
       EXIM_FILE_URL: ${{ secrets.EXIM_FILE_URL }}
       DPI_FILE_URL: ${{ secrets.DPI_FILE_URL }}
+      GDELT_BACKFILL_WINDOWS: ${{ inputs.gdelt_backfill_windows || '60' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -68,7 +75,7 @@ jobs:
         id: run
         continue-on-error: true
         run: |
-          python -m scm run ${{ inputs.targets || 'tier1' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
+          python -m scm run ${{ inputs.targets || 'tier1 legislature national' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
       - name: Record trimmed fixtures from the real responses
         run: python -m scm fixtures
       - name: Build warehouse and export site data
@@ -112,6 +119,7 @@ jobs:
             ingest.log
             ingest-results.jsonl
             data/raw/**/manifest.json
+            data/raw/**/*.xml
           retention-days: 14
       - name: Open or update an issue on failure
         if: steps.run.outcome == 'failure'

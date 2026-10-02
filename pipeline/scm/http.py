@@ -61,6 +61,10 @@ def sha256_of(path: Path) -> str:
     return h.hexdigest()
 
 
+class RobotsDisallowed(RuntimeError):
+    """robots.txt of the host forbids fetching this URL for our user agent."""
+
+
 class FetchError(RuntimeError):
     pass
 
@@ -74,6 +78,7 @@ class Snapshot:
     manifest: dict = field(default_factory=dict)
     session: requests.Session | None = None
     min_interval: float = 1.0
+    robots: object | None = None  # scm.robots.RobotsCache when the adapter respects robots.txt
     _last_request: float = 0.0
 
     @classmethod
@@ -142,6 +147,7 @@ class Snapshot:
             return target
         if self.session is None:
             self.session = make_session()
+        self._check_robots(url)
         self._throttle()
         resp = self.session.get(url, params=params, headers=headers, timeout=timeout, stream=True)
         if resp.status_code not in allow_statuses:
@@ -171,6 +177,41 @@ class Snapshot:
         if kind in ("xlsx", "zip"):
             return head.startswith(b"PK")
         return not head.lstrip().lower().startswith((b"<!doctype", b"<html", b"<?xml"))
+
+    def _check_robots(self, url: str) -> None:
+        if self.robots is None:
+            return
+        if not self.robots.allowed(url):  # type: ignore[attr-defined]
+            self.manifest.setdefault("robots_blocked", []).append(url)
+            self.save()
+            raise RobotsDisallowed(f"{self.source_id}: robots.txt disallows {url}")
+        delay = self.robots.crawl_delay(url)  # type: ignore[attr-defined]
+        if delay and delay > self.min_interval:
+            self.min_interval = float(delay)
+
+    def get_xml(self, url: str, name: str, **kw):
+        """GET an XML document (RSS, Atom, SOAP) and return its parsed root element."""
+        import xml.etree.ElementTree as ET
+
+        p = self.get(url, name, **kw)
+        return ET.fromstring(p.read_bytes())
+
+    def post_json(self, url: str, name: str, json_body: dict, headers: dict | None = None, timeout: int = 120,
+                  force: bool = False, allow_statuses: tuple[int, ...] = (200,)) -> dict | list:
+        """POST a JSON body (some legislative APIs only answer POST) and store the JSON response."""
+        target = self.path(name)
+        if not (self.has(name) and not force):
+            if self.session is None:
+                self.session = make_session()
+            self._check_robots(url)
+            self._throttle()
+            resp = self.session.post(url, json=json_body, headers=headers, timeout=timeout)
+            if resp.status_code not in allow_statuses:
+                raise FetchError(f"{self.source_id}: POST {url} -> {resp.status_code} {resp.text[:500]}")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(resp.content)
+            self.record(name, url, params={"json": json_body}, status=resp.status_code)
+        return json.loads(target.read_text(encoding="utf-8"))
 
     def get_json(self, url: str, name: str, **kw) -> dict | list:
         p = self.get(url, name, **kw)

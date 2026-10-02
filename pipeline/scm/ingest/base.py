@@ -31,6 +31,8 @@ class Adapter(ABC):
     requires_env: tuple[str, ...] = ()
     language: str | None = None  # override registry language if needed
     min_interval: float = 1.0
+    incremental: bool = False  # merge with the previously stored rows (feeds, windows) instead of replacing them
+    respect_robots: bool = False  # consult robots.txt before every GET (HTML, SOAP, feeds)
 
     def __init__(self) -> None:
         self.src: Source = source(self.source_id)
@@ -69,7 +71,17 @@ class Adapter(ABC):
 
     # ---- lifecycle
     def snapshot(self, base: Path = RAW_DIR) -> Snapshot:
-        return Snapshot.today(self.source_id, base=base, min_interval=self.min_interval)
+        snap = Snapshot.today(self.source_id, base=base, min_interval=self.min_interval)
+        if self.respect_robots:
+            from ..robots import RobotsCache
+
+            snap.robots = RobotsCache()
+        return snap
+
+    def previous_table(self, name: str, out_dir: Path = WAREHOUSE_DIR) -> pd.DataFrame | None:
+        """Rows this adapter stored in an earlier run (restored from the data release), or None."""
+        target = out_dir / name / f"{self.source_id}.parquet"
+        return pd.read_parquet(target) if target.exists() else None
 
     def load(self, tables: dict[str, pd.DataFrame], out_dir: Path = WAREHOUSE_DIR) -> dict[str, int]:
         rows: dict[str, int] = {}
@@ -79,8 +91,16 @@ class Adapter(ABC):
             df = schema.validate(name, df.copy())
             target = out_dir / name / f"{self.source_id}.parquet"
             target.parent.mkdir(parents=True, exist_ok=True)
+            new_rows = len(df)
+            if self.incremental and target.exists() and name in schema.KEY_COLUMNS:
+                old = pd.read_parquet(target)
+                merged = pd.concat([old, df], ignore_index=True).drop_duplicates(subset=schema.KEY_COLUMNS[name], keep="first")
+                df = schema.validate(name, merged.reset_index(drop=True))
+                new_rows = len(df) - len(old)
             df.to_parquet(target, index=False)
             rows[name] = len(df)
+            if self.incremental:
+                rows[f"{name}_new"] = new_rows
             log.info("%s -> %s (%d rows)", self.source_id, target, len(df))
         return rows
 

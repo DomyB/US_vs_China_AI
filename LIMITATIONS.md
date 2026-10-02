@@ -47,6 +47,29 @@ media layers are still sample.
 - **Mineral tagging** of finance and deal records is keyword-based on titles, sectors and
   descriptions; events without a recognisable mineral keyword are kept with `mineral = none`.
 
+## Phase 2b data caveats
+
+- **Keyword selection.** Legislative records and headlines enter the warehouse only when a
+  mining or mineral term (es/pt/en/nl) or a China/US actor term matches the title or summary.
+  Recall is limited by the term lists (`pipeline/scm/ingest/keywords.py`, versioned); the terms
+  that matched are stored with every row so the filter can be audited and tightened.
+- **Press depth.** RSS feeds expose roughly the last 20–100 items, so the headline record is
+  continuous only from the week the press workflow started; earlier years come from the GDELT
+  index (2017 onward, larger outlets over-represented, 250 results per query window). GDELT
+  dates are indexing dates (`date_precision = seen`), not publication dates.
+- **Outlets without a feed** (and outlets GDELT does not index under the registry's domain)
+  have no headlines yet; the manifest of each run lists unmatched domains and failed feed URLs.
+- **Roll-call votes** exist for Brazil (both chambers, planned), Chile (planned), Argentina's
+  Diputados (planned) and, where exposed, Paraguay and Ecuador. Argentina's Senado, Colombia,
+  Peru and Uruguay publish votes only in PDF minutes or not at all.
+- **Bolivia, Guyana, Suriname, Venezuela**: no machine-readable legislative records; the site
+  shows the reason, not an empty list.
+- **No translations or stance** until Phase 3; records are shown in the original language.
+- **Incremental tables** (documents, votes, concessions) merge with the previous data release; a
+  failed run publishes no release, so one press week can be lost.
+- **National trade series by mineral** (Argentina SIACAM, Uruguay XXI) and sources that answer
+  403 to runners (Comex Stat, Chile Aduanas) or need registration (DANE microdata) are deferred.
+
 ## Verification caveat (Phase 0)
 
 Source verification was done from a sandbox whose network policy blocks direct

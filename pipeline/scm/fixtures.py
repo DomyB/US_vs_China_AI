@@ -1,7 +1,8 @@
 """Write trimmed copies of the latest raw snapshots into pipeline/tests/fixtures/<source_id>/.
 
 JSON files keep their first records; CSV/TSV files keep their header and first rows;
-XLSX files keep the first rows of every sheet; binary files are skipped. The manifest
+XLSX files keep the first rows of every sheet; XML files keep the first children per element;
+binary files are skipped. The manifest
 is copied so parsers run unchanged on fixtures.
 """
 from __future__ import annotations
@@ -39,11 +40,31 @@ def _trim_table(src: Path, target: Path) -> None:
                 g.write(line)
 
 
+def _trim_xml(src: Path, target: Path) -> None:
+    """Keep at most MAX_ROWS same-tag children per element (feed items, SOAP rows); on a parse
+    error keep the first 20,000 characters so the fixture still shows what the server sent."""
+    import xml.etree.ElementTree as ET
+
+    raw = src.read_bytes()
+    try:
+        root = ET.fromstring(raw.lstrip(b"\xef\xbb\xbf \r\n\t"))
+    except ET.ParseError:
+        target.write_text(raw[:20000].decode("utf-8", errors="ignore"), encoding="utf-8")
+        return
+    for el in root.iter():
+        counts: dict[str, int] = {}
+        for child in list(el):
+            counts[child.tag] = counts.get(child.tag, 0) + 1
+            if counts[child.tag] > MAX_ROWS:
+                el.remove(child)
+    target.write_bytes(ET.tostring(root, encoding="utf-8", xml_declaration=True))
+
+
 def _trim_json(obj: object) -> object:
     if isinstance(obj, list):
         return [_trim_json(x) for x in obj[:MAX_ROWS]]
     if isinstance(obj, dict):
-        return {k: (_trim_json(v) if k in ("data", "results", "features", "files", "bills", "resources") or isinstance(v, (dict, list)) else v) for k, v in obj.items()}
+        return {k: (_trim_json(v) if k in ("data", "results", "features", "files", "bills", "resources", "articles", "dados", "result", "records", "Materias", "value") or isinstance(v, (dict, list)) else v) for k, v in obj.items()}
     return obj
 
 
@@ -89,6 +110,8 @@ def record(ids: list[str] | None = None) -> dict:
                             pd.read_excel(src, sheet_name=sheet, header=None, nrows=MAX_ROWS).to_excel(w, sheet_name=sheet[:31], header=False, index=False)
                 elif low.endswith(".html"):
                     target.write_text(src.read_text(encoding="utf-8", errors="ignore")[:20000], encoding="utf-8")
+                elif low.endswith((".xml", ".rss", ".atom")):
+                    _trim_xml(src, target)
                 else:
                     continue
             except Exception as e:  # noqa: BLE001

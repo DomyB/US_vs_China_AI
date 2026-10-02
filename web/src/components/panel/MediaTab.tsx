@@ -3,7 +3,7 @@
 import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
-import { LayerLabel, StanceBadge } from "@/components/ui/Badges";
+import { DataLayerTag, LayerLabel, StanceBadge } from "@/components/ui/Badges";
 import { ACTOR_COLOR, LANGUAGE_NAME, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtPct } from "@/lib/format";
 import type { CountryData } from "@/lib/types";
@@ -68,14 +68,21 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
   );
 
   const articles = useMemo(() => data.media.articles.filter((a) => Number(a.date.slice(0, 4)) === year && (mineral === "all" || a.topic_minerals.includes(mineral))), [data, year, mineral]);
+  const layer = data.layers?.media;
+  const nearestYear = useMemo(() => {
+    const years = data.media.articles.map((a) => Number(a.date.slice(0, 4)));
+    if (years.length === 0) return null;
+    return years.reduce((best, y) => (Math.abs(y - year) < Math.abs(best - year) ? y : best), years[0]);
+  }, [data, year]);
 
   return (
     <div className="space-y-5">
       <section aria-labelledby="vol-h">
         <div className="mb-1 flex items-center justify-between">
           <h3 id="vol-h" className="text-sm font-semibold">Attention: share of national coverage mentioning each actor</h3>
-          <LayerLabel layer="model" />
+          <span className="flex items-center gap-1.5"><LayerLabel layer="model" /><DataLayerTag layer="sample" /></span>
         </div>
+        {layer === "facts_only" && <p className="mb-1 text-xs text-ink-3">Attention, tone and narratives are SAMPLE until Phase 3 classifies the real headlines listed below.</p>}
         <PlotFigure options={volumeOptions} ariaLabel={`Share of ${data.name} press coverage mentioning the United States and China, 2008 to 2026, sample data`} />
         <h3 className="mt-3 text-sm font-semibold">Tone of that coverage</h3>
         <PlotFigure options={toneOptions} ariaLabel={`Mean tone of coverage about the United States and China in ${data.name}, sample data`} />
@@ -94,18 +101,25 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
       <section aria-labelledby="art-h">
         <div className="mb-1 flex items-center justify-between">
           <h3 id="art-h" className="text-sm font-semibold">Articles in {year}</h3>
-          <LayerLabel layer="facts" />
+          <span className="flex items-center gap-1.5"><LayerLabel layer="facts" /><DataLayerTag layer={layer} /></span>
         </div>
-        <p className="mb-1 text-xs text-ink-3">Headline, date, outlet and link only; no article text is stored or republished.</p>
+        <p className="mb-1 text-xs text-ink-3">
+          Headline, date, outlet and link only; no article text is stored or republished.
+          {layer === "facts_only" && ` ${data.media.articles.length} headlines about minerals and the two powers from the registry's outlets (RSS feeds and the GDELT index; keyword-selected).`}
+        </p>
         {articles.length === 0 ? (
-          <p className="text-sm text-ink-3">No articles for this selection.</p>
+          <p className="text-sm text-ink-3">
+            {layer === "facts_only" && nearestYear !== null ? `No headlines match this selection in ${year}. Nearest year with headlines: ${nearestYear}.` : "No articles for this selection."}
+          </p>
         ) : (
           <ol className="divide-y divide-rule border-y border-rule">
             {articles.map((a) => (
               <li key={a.id} className="py-2 text-sm">
                 <div className="flex flex-wrap items-baseline gap-x-2 text-xs text-ink-3">
-                  <span className="tabular-nums">{fmtDate(a.date)}</span>
+                  <span className="tabular-nums">{fmtDate(a.date)}{a.date_precision === "seen" ? " (indexed)" : ""}</span>
                   <span className="font-medium text-ink-2">{a.outlet}</span>
+                  {a.orientation && <span>orientation: {a.orientation}</span>}
+                  {a.via === "gdelt" && <span>via GDELT</span>}
                 </div>
                 <p className="mt-0.5 font-medium" lang={a.language}>
                   {a.url.startsWith("http") ? (
@@ -114,11 +128,16 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
                     a.headline_original
                   )}
                 </p>
-                <p className="text-xs text-ink-2"><span className="text-ink-3">{LANGUAGE_NAME[a.language] ?? a.language} original · English:</span> {a.headline_en}</p>
+                <p className="text-xs text-ink-2">
+                  <span className="text-ink-3">{LANGUAGE_NAME[a.language] ?? a.language} original · English:</span> {a.headline_en ?? <span className="text-ink-3">translation in Phase 3</span>}
+                </p>
                 <div className="mt-1 flex flex-wrap items-center gap-1.5">
                   <StanceBadge value={a.stance_us} toward="US" />
                   <StanceBadge value={a.stance_cn} toward="CN" />
-                  <span className="text-[11px] text-ink-3">tone {a.tone > 0 ? "+" : ""}{a.tone.toFixed(2)} · {a.topic_minerals.map(prettyMineral).join(", ")}</span>
+                  <span className="text-[11px] text-ink-3">
+                    {a.tone !== null && a.tone !== undefined ? `tone ${a.tone > 0 ? "+" : ""}${a.tone.toFixed(2)} · ` : ""}
+                    {a.topic_minerals.map(prettyMineral).join(", ")}
+                  </span>
                 </div>
               </li>
             ))}

@@ -74,6 +74,27 @@ def finance_clusters(fin: pd.DataFrame) -> pd.DataFrame:
     return f
 
 
+def news_clusters(docs: pd.DataFrame) -> pd.DataFrame:
+    """The same article seen through an outlet's feed and through GDELT: group news rows by
+    country and normalised URL, keep every source id in `source_ids`, and let the publisher's
+    own date (RSS, precision "day") win over GDELT's indexing date ("seen")."""
+    docs = docs.copy()
+    if docs.empty:
+        docs["source_ids"] = pd.Series(dtype=str)
+        return docs
+    news = docs[docs["doc_type"] == "news"].copy()
+    other = docs[docs["doc_type"] != "news"].copy()
+    other["source_ids"] = other["source_id"]
+    if news.empty:
+        return pd.concat([other], ignore_index=True)
+    prec_rank = {"day": 0, "month": 1, "year": 2, "seen": 3}
+    news["_rank"] = news["date_precision"].map(prec_rank).fillna(9)
+    news = news.sort_values(["country", "url_norm", "_rank", "retrieved_at"])
+    news["source_ids"] = news.groupby(["country", "url_norm"])["source_id"].transform(lambda s: ",".join(sorted(set(s))))
+    news = news.drop_duplicates(subset=["country", "url_norm"], keep="first").drop(columns="_rank")
+    return pd.concat([other, news], ignore_index=True)
+
+
 def build(warehouse: Path = WAREHOUSE_DIR, db_name: str = "scm.duckdb") -> Path:
     warehouse.mkdir(parents=True, exist_ok=True)
     db_path = warehouse / db_name
@@ -91,5 +112,8 @@ def build(warehouse: Path = WAREHOUSE_DIR, db_name: str = "scm.duckdb") -> Path:
     fin = finance_clusters(table_frames("finance_event", warehouse))
     con.register("fin_df", fin)
     con.execute("CREATE TABLE finance_event_dedup AS SELECT * FROM fin_df")
+    docs = news_clusters(table_frames("document", warehouse))
+    con.register("docs_df", docs)
+    con.execute("CREATE TABLE document_dedup AS SELECT * FROM docs_df")
     con.close()
     return db_path

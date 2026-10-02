@@ -37,7 +37,14 @@ export function EvidenceBadge({ level }: { level: string }) {
   return <span className={`inline-block rounded-sm border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide ${cls}`}>{EVIDENCE_LABEL[level] ?? level}</span>;
 }
 
-export function StanceBadge({ value, toward }: { value: number; toward: "US" | "CN" }) {
+export function StanceBadge({ value, toward }: { value: number | null; toward: "US" | "CN" }) {
+  if (value === null || value === undefined) {
+    return (
+      <span className="inline-block rounded-sm border border-dashed border-rule px-1.5 py-0.5 text-[11px] text-ink-3" title={`Stance toward ${toward === "US" ? "the United States" : "China"}: not yet classified (Phase 3)`}>
+        {toward} · not yet classified
+      </span>
+    );
+  }
   const label = STANCE_LABEL[value] ?? String(value);
   const sign = value > 0 ? "+" : "";
   return (
@@ -51,8 +58,9 @@ export function SampleTag() {
   return <span className="inline-block rounded-sm bg-sample/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sample">Sample</span>;
 }
 
-export function DataLayerTag({ layer }: { layer: "real" | "sample" | "none" | undefined }) {
+export function DataLayerTag({ layer }: { layer: "real" | "sample" | "none" | "facts_only" | undefined }) {
   if (layer === "real") return <span className="inline-block rounded-sm bg-facts/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-facts">Real data</span>;
+  if (layer === "facts_only") return <span className="inline-block rounded-sm bg-facts/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-facts">Real records · unclassified</span>;
   if (layer === "none") return <span className="inline-block rounded-sm bg-surface-2 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink-3">No data yet</span>;
   return <SampleTag />;
 }

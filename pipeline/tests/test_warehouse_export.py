@@ -69,3 +69,57 @@ def test_build_and_export_end_to_end(tmp_path):
     assert region["mineral_shares"][0]["share_cn"] == 0.5
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["facts"] == "real" and meta["layers"]["model_outputs"] == "sample"
+
+
+def _doc(country, doc_type, date, title, sid, url, prec="day", summary=None, outlet=None, native=None, minerals=None, cn=False, us=False):
+    from scm.ingest.feeds import normalize_url
+
+    return {"doc_id": f"{sid}-{native or url}"[:60], "country": country, "doc_type": doc_type, "date": date, "date_precision": prec, "year": int(date[:4]),
+            "title_original": title, "language": "pt" if country == "BRA" else "es", "venue": "Câmara dos Deputados" if doc_type != "news" else (outlet or sid),
+            "outlet_source_id": outlet, "author": None, "summary": summary, "status": None, "native_id": native, "url_norm": normalize_url(url),
+            "keywords_matched": "litio", "minerals": minerals, "mentions_us": us, "mentions_cn": cn, "mining_related": True, "filter_version": "2026.10",
+            "full_text_stored": False, "value_type": "reported", **_prov(sid, rel="official" if doc_type != "news" else "independent_academic"), "source_record_url": url}
+
+
+def test_export_parliament_and_media_layers(tmp_path):
+    wh = tmp_path / "wh"
+    docs = pd.DataFrame([
+        _doc("BRA", "bill", "2024-07-04", "PL 2780/2024: Política Nacional de Minerais Críticos", "bra_camara_api", "https://www.camara.leg.br/p?id=1", summary="Institui...", native="1", cn=True),
+        _doc("BRA", "news", "2026-10-01", "China amplia compras de nióbio", "bra_folha", "https://www1.folha.uol.com.br/x.shtml?utm_source=rss", outlet="bra_folha", minerals="niobium", cn=True),
+        _doc("BRA", "news", "2026-10-02", "China amplia compras de nióbio", "gdelt", "https://www1.folha.uol.com.br/x.shtml", prec="seen", outlet="bra_folha", minerals="niobium", cn=True),
+    ])
+    (wh / "document").mkdir(parents=True)
+    schema.validate("document", docs.iloc[[0]].copy()).to_parquet(wh / "document" / "bra_camara_api.parquet", index=False)
+    schema.validate("document", docs.iloc[[1]].copy()).to_parquet(wh / "document" / "bra_folha.parquet", index=False)
+    schema.validate("document", docs.iloc[[2]].copy()).to_parquet(wh / "document" / "gdelt.parquet", index=False)
+    votes = pd.DataFrame([{"vote_id": "v1", "doc_id": docs.iloc[0]["doc_id"], "country": "BRA", "chamber": "Câmara dos Deputados", "date": "2025-03-11", "year": 2025, "title_original": "Aprovado",
+                           "result": "aprovado", "yes": 380, "no": 20, "abstain": None, "absent": None, "total": 405, "native_id": "100", "value_type": "reported", **_prov("bra_camara_api")}])
+    (wh / "vote").mkdir()
+    schema.validate("vote", votes).to_parquet(wh / "vote" / "bra_camara_api.parquet", index=False)
+    members = pd.DataFrame([{"vote_id": "v1", "country": "BRA", "member_id": "1", "member_name": "A", "party": "PT", "region": "SP", "choice": "yes", "choice_original": "Sim", **_prov("bra_camara_api")},
+                            {"vote_id": "v1", "country": "BRA", "member_id": "2", "member_name": "B", "party": "PL", "region": "RJ", "choice": "abstain", "choice_original": "Abstenção", **_prov("bra_camara_api")}])
+    (wh / "vote_member").mkdir()
+    schema.validate("vote_member", members).to_parquet(wh / "vote_member" / "bra_camara_api.parquet", index=False)
+    runs = pd.DataFrame([{"run_id": "r", "source_id": "bra_camara_api", "started_at": "t", "finished_at": "t", "status": "ok", "rows": "{}", "error": None, "snapshot_dir": None}])
+    (wh / "ingest_run").mkdir()
+    schema.validate("ingest_run", runs).to_parquet(wh / "ingest_run" / "x.parquet", index=False)
+
+    warehouse.build(wh)
+    out = tmp_path / "site"
+    export_site.run(wh, out)
+    parl = json.loads((out / "parliament" / "BRA.json").read_text())
+    d = parl["documents"][0]
+    assert d["stance_us"] is None and d["title_en"] is None and d["classification"] == "not_yet_classified" and d["summary"] == "Institui..."
+    assert d["vote"]["yes"] == 380 and d["vote"]["abstain"] == 1 and d["vote"]["members_recorded"] == 2 and d["vote"]["result"] == "aprovado"
+    media = json.loads((out / "media" / "BRA.json").read_text())
+    assert len(media["articles"]) == 1, "RSS and GDELT copies of the same URL must be merged"
+    a = media["articles"][0]
+    assert a["date"] == "2026-10-01" and a["via"] == "rss" and a["also_reported_by"] == ["gdelt"] and a["outlet"].startswith("Folha") and a["orientation"]
+    assert a["tone"] is None and "summary" not in a and "text" not in a
+    assert media["outlets"]["bra_folha"]["orientation"]
+    cov = json.loads((out / "coverage.json").read_text())["countries"]
+    assert cov["BRA"]["parliament_available"] and cov["BRA"]["parliament_votes"] == 1 and cov["BRA"]["media_available"] and cov["BRA"]["media_from"] == 2026
+    assert cov["BOL"]["parliament_available"] is False and "Asamblea" in cov["BOL"]["parliament_note"] and cov["BRA"]["parliament_note"] is None
+    meta = json.loads((out / "meta.json").read_text())
+    assert meta["layers"]["parliament"] == "facts_only" and meta["layers"]["media"] == "facts_only" and meta["tables"]["document"] == 3
+    assert not (out / "parliament" / "CHL.json").exists()

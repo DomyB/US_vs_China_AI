@@ -1,0 +1,17 @@
+name: Ingest (press, weekly)
+
+on:
+  schedule:
+    - cron: "37 4 * * 3"   # Wednesdays 04:37 UTC; feeds expose only recent items, so weekly keeps the headline record continuous
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  press:
+    uses: ./.github/workflows/ingest-monthly.yml
+    with:
+      targets: press
+    secrets: inherit

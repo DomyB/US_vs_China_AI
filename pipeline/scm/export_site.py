@@ -1,7 +1,8 @@
 """Export the warehouse into web/public/data/real/ using the JSON contract the UI already reads.
 
-Only the *facts* layer is exported (actions, trade, contracts, governance, prices, policy).
-Model outputs stay in the sample dataset until Phases 3-5. A coverage file tells the UI
+Only *facts* are exported (actions, trade, contracts, governance, prices, policy, and from Phase 2b
+the legislative records and press headlines, unclassified). Model outputs stay in the sample dataset
+until Phases 3-5. A coverage file tells the UI
 which countries and tables have real data so it can fall back to sample per layer.
 """
 from __future__ import annotations
@@ -17,6 +18,17 @@ from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
 from .registry import COUNTRIES, IN_SCOPE, core_minerals, sources
 
 ORIGIN_TO_SIDE = {"US": "US", "CN": "CN", "other": "other", "unknown": "other"}
+MAX_ARTICLES = 4000  # most recent headlines per country kept in the site file
+# Legislatures with no machine-readable records (docs/PHASE0_PLAN.md section 3): shown as an explicit absence, never as zero.
+NO_STRUCTURED_LEGISLATURE = {
+    "BOL": "The Asamblea Legislativa Plurinacional publishes no API, no roll-call data and no transcripts; the Gaceta's full text is paywalled.",
+    "GUY": "The Parliament of Guyana publishes Hansard as PDF only, with no structured bill or vote records.",
+    "SUR": "De Nationale Assemblée publishes bills as Dutch PDFs; debates and roll-calls are not online.",
+    "VEN": "Two assemblies claim legitimacy; neither publishes structured bill or vote records.",
+}
+# fields a news item may carry on the site: headline, date, outlet and URL plus derived flags; never article text
+ARTICLE_KEYS = {"id", "date", "date_precision", "outlet", "outlet_source_id", "orientation", "reliability", "headline_original", "language", "headline_en",
+                "url", "stance_us", "stance_cn", "tone", "classification", "topic_minerals", "mentions", "via", "also_reported_by", "source"}
 
 
 def _src(sid: str, record_url: str | None = None) -> dict:
@@ -47,6 +59,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     con = duckdb.connect(str(db), read_only=True)
     out.mkdir(parents=True, exist_ok=True)
     (out / "country").mkdir(exist_ok=True)
+    (out / "parliament").mkdir(exist_ok=True)
+    (out / "media").mkdir(exist_ok=True)
     today = str(date.today())
     core = core_minerals()
 
@@ -62,6 +76,18 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     prices = _rows(con, "SELECT mineral, series, date, year, month, price, unit, source_id, source_record_url FROM price")
     policy = _rows(con, "SELECT * FROM policy_document ORDER BY date DESC")
     disc = _rows(con, "SELECT * FROM trade_discrepancy")
+    docs = _rows(con, "SELECT * FROM document_dedup ORDER BY date DESC")
+    votes = _rows(con, "SELECT * FROM vote")
+    member_counts = _rows(con, "SELECT vote_id, choice, count(*) AS n FROM vote_member GROUP BY 1, 2")
+    concessions = _rows(con, "SELECT country, count(*) AS n FROM concession GROUP BY 1")
+    conc_by_country = {r["country"]: int(r["n"]) for r in concessions}
+    votes_by_doc: dict[str, list[dict]] = {}
+    counts_by_vote: dict[str, dict[str, int]] = {}
+    for r in member_counts:
+        counts_by_vote.setdefault(r["vote_id"], {})[r["choice"]] = int(r["n"])
+    for v in votes:
+        votes_by_doc.setdefault(v["doc_id"], []).append(v)
+    reg = sources()
 
     coverage: dict[str, dict] = {}
     for iso in IN_SCOPE:
@@ -127,6 +153,61 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             })
         events.sort(key=lambda e: e["date"])
 
+        # parliament: bills, hearings and votes (facts; stance is Phase 3)
+        parl_docs = []
+        for r in docs:
+            if r["country"] != iso or r["doc_type"] == "news":
+                continue
+            vlist = votes_by_doc.get(r["doc_id"], [])
+            vote_block = None
+            if vlist:
+                v = sorted(vlist, key=lambda x: x["date"])[-1]
+                mc = counts_by_vote.get(v["vote_id"], {})
+                vote_block = {"date": v["date"], "chamber": v["chamber"], "result": v["result"],
+                              "yes": v["yes"] if v["yes"] is not None else mc.get("yes"), "no": v["no"] if v["no"] is not None else mc.get("no"),
+                              "abstain": v["abstain"] if v["abstain"] is not None else mc.get("abstain"),
+                              "members_recorded": sum(mc.values()) if mc else None, "n_votes": len(vlist), "url": v["source_record_url"]}
+            parl_docs.append({
+                "id": r["doc_id"], "date": r["date"], "date_precision": r["date_precision"], "chamber": r["venue"], "type": r["doc_type"],
+                "title_original": r["title_original"], "language": r["language"], "title_en": None, "summary": r["summary"], "status": r["status"],
+                "author": r["author"], "stance_us": None, "stance_cn": None, "classification": "not_yet_classified",
+                "topic_minerals": [m for m in str(r["minerals"] or "").split(",") if m], "mentions": {"us": bool(r["mentions_us"]), "cn": bool(r["mentions_cn"])},
+                "vote": vote_block, "url": r["source_record_url"] or "", "source": _src(r["source_id"], r["source_record_url"]),
+            })
+        parl_docs.sort(key=lambda d: d["date"], reverse=True)
+        parl_src = sorted({d["source"]["id"] for d in parl_docs})
+        n_votes = sum(1 for d in parl_docs if d["vote"])
+        if parl_docs:
+            (out / "parliament" / f"{iso}.json").write_text(json.dumps({"dataset": "REAL", "iso3": iso, "generated_on": today, "documents": parl_docs,
+                                                                          "freshness": {"last_updated": today, "source_ids": parl_src, "schedule": "monthly"}},
+                                                                         ensure_ascii=False, default=str), encoding="utf-8")
+
+        # media: headline, date, outlet and URL only
+        articles = []
+        for r in docs:
+            if r["country"] != iso or r["doc_type"] != "news":
+                continue
+            outlet_id = r["outlet_source_id"] or r["source_id"]
+            o = reg.get(outlet_id)
+            articles.append({
+                "id": r["doc_id"], "date": r["date"], "date_precision": r["date_precision"], "outlet": o.name if o else r["venue"], "outlet_source_id": outlet_id,
+                "orientation": o.orientation if o else None, "reliability": r["reliability"], "headline_original": r["title_original"], "language": r["language"],
+                "headline_en": None, "url": r["source_record_url"] or "", "stance_us": None, "stance_cn": None, "tone": None, "classification": "not_yet_classified",
+                "topic_minerals": [m for m in str(r["minerals"] or "").split(",") if m], "mentions": {"us": bool(r["mentions_us"]), "cn": bool(r["mentions_cn"])},
+                "via": "gdelt" if r["source_id"] == "gdelt" else "rss", "also_reported_by": [s for s in str(r.get("source_ids") or "").split(",") if s and s != r["source_id"]],
+                "source": _src(r["source_id"], r["source_record_url"]),
+            })
+        articles.sort(key=lambda a: a["date"], reverse=True)
+        articles = articles[:MAX_ARTICLES]
+        assert all(set(a) <= ARTICLE_KEYS for a in articles), "article export carries an unexpected field"
+        outlets = {sid: {"name": s.name, "orientation": s.orientation, "reliability": s.reliability, "paywall": s.paywall}
+                   for sid, s in reg.items() if s.category == "press" and iso in s.countries}
+        if articles:
+            (out / "media" / f"{iso}.json").write_text(json.dumps({"dataset": "REAL", "iso3": iso, "generated_on": today, "articles": articles, "outlets": outlets,
+                                                                     "freshness": {"last_updated": today, "source_ids": sorted({a["source"]["id"] for a in articles}),
+                                                                                   "schedule": "weekly (RSS) and monthly windows (GDELT)"}},
+                                                                    ensure_ascii=False, default=str), encoding="utf-8")
+
         country = {
             "dataset": "REAL", "iso3": iso, "name": COUNTRIES[iso], "generated_on": today,
             "freshness": {"actions": {"last_updated": today, "source_ids": sorted({e["source"]["id"] for e in events} | {b["source"]["id"] for b in trade_block if b["source"]}), "schedule": "monthly"},
@@ -141,6 +222,10 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
         coverage[iso] = {
             "trade_years": years, "mirror_years": mirror_years, "events": len(events), "contracts": len(c_rows), "governance": len(g_rows), "production": len(p_rows),
             "actions": bool(events or trade_block), "governance_available": bool(g_rows),
+            "parliament_available": bool(parl_docs), "parliament_documents": len(parl_docs), "parliament_votes": n_votes,
+            "parliament_from": min((int(d["date"][:4]) for d in parl_docs), default=None), "parliament_note": NO_STRUCTURED_LEGISLATURE.get(iso),
+            "media_available": bool(articles), "media_articles": len(articles), "media_from": min((int(a["date"][:4]) for a in articles), default=None),
+            "concessions": conc_by_country.get(iso, 0),
         }
 
     # region: mineral shares from reported exports summed over the 12 countries
@@ -164,8 +249,11 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     meta = {
         "dataset": "REAL", "generated_on": today, "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "sources_ok": ok_sources, "ingest_runs": runs,
-        "tables": {t: int(con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]) for t in ("trade_flow", "finance_event", "deal_event", "governance", "contract", "production", "price", "policy_document") if _table_exists(con, t)},
-        "layers": {"facts": "real", "model_outputs": "sample", "parliament": "sample", "media": "sample", "forecast": "sample"},
+        "tables": {t: int(con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]) for t in ("trade_flow", "finance_event", "deal_event", "governance", "contract", "production", "price", "policy_document", "document", "vote", "vote_member", "concession", "media_volume") if _table_exists(con, t)},
+        # "facts_only": real records are shown, the layer's model outputs (stance, tone, narratives) remain sample until Phase 3
+        "layers": {"facts": "real", "model_outputs": "sample",
+                   "parliament": "facts_only" if any(c["parliament_available"] for c in coverage.values()) else "sample",
+                   "media": "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample", "forecast": "sample"},
         "coverage": coverage,
     }
     (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, default=str, indent=1), encoding="utf-8")

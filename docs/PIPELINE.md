@@ -59,6 +59,29 @@ repository or to the site. Recorded URLs are cleaned of credential-bearing query
 GitHub push protection rejects commits that contain such tokens (seen with Harvard
 Dataverse's presigned S3 redirects).
 
+## Phase 2b: national adapters, text tables and groups
+
+| Adapter | Module | Produces | Notes |
+|---|---|---|---|
+| bra_camara_api | `ingest/legis_bra.py` | document (bills, hearings), vote, vote_member | yearly bulk CSVs filtered by keyword; member votes from `/api/v2/votacoes/{id}/votos` |
+| RSS_<outlet> (27) | `ingest/press.py` | document (news), media_volume | one class per registry press source with `access: rss`; feed from `api_url` or discovery |
+| guy_ggmc | `ingest/national_guy.py` | production | direct CSV |
+
+Target groups: `legislature`, `press`, `national` (plus `tier1`, `tier2`, `annual`, `monthly`,
+`all`). `monthly` = tier1 + legislature + national; `press` runs weekly from
+`ingest-press.yml`. Text tables: `document` (bills and news; news rows carry no summary),
+`vote`, `vote_member`, `media_volume`; cadastres go to `concession`.
+
+Incremental tables (see `schema.KEY_COLUMNS`) merge with the Parquet restored from the previous
+data release; the first-seen row wins. Adapters that fetch HTML, feeds or web services set
+`respect_robots = True`: robots.txt is read once per host and crawl-delays raise the request
+interval. The keyword filter (`ingest/keywords.py`) is versioned; `relevance()` returns the
+matched terms, which are stored with each row.
+
+**Adding a press outlet:** add the registry entry with `access: rss` and the feed URL in
+`api_url` (orientation and paywall are required for press); the adapter class is created
+automatically. XML feeds are recorded as fixtures (first 60 items per element).
+
 ## Hand-supplied files
 
 Three sources broke in the first live runs and may need a file the owner downloads in a

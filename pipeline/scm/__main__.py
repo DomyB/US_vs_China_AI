@@ -1,4 +1,4 @@
-"""Command line: python -m scm run <source_id|all|tier1|annual> [--fetch-only|--parse-only]
+"""Command line: python -m scm run <source_id|all|tier1|legislature|press|national|annual|monthly> [--fetch-only|--parse-only]
                  python -m scm build | export | liveness [ids...] | fixtures"""
 from __future__ import annotations
 
@@ -8,14 +8,14 @@ import logging
 import sys
 
 from . import export_site, liveness, warehouse
-from .ingest import ADAPTERS, ANNUAL, TIER1, TIER2
+from .ingest import ADAPTERS, ANNUAL, GROUPS, LEGISLATURE, NATIONAL, TIER1, TIER2
 
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="scm")
     sub = p.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run", help="run adapters")
-    r.add_argument("targets", nargs="+", help="source ids, or all / tier1 / tier2 / annual / monthly")
+    r.add_argument("targets", nargs="+", help="source ids, or all / tier1 / tier2 / legislature / press / national / annual / monthly")
     r.add_argument("--fetch-only", action="store_true")
     r.add_argument("--parse-only", action="store_true")
     r.add_argument("--fail-fast", action="store_true")
@@ -32,15 +32,14 @@ def main(argv: list[str] | None = None) -> int:
         ids: list[str] = []
         for t in args.targets:
             if t == "all":
-                ids += [a.source_id for a in TIER1 + TIER2]
-            elif t == "tier1":
-                ids += [a.source_id for a in TIER1]
-            elif t == "tier2":
-                ids += [a.source_id for a in TIER2]
+                ids += list(ADAPTERS)
+            elif t in GROUPS:
+                ids += [a.source_id for a in GROUPS[t]]
             elif t == "annual":
                 ids += sorted(ANNUAL)
             elif t == "monthly":
-                ids += [a.source_id for a in TIER1 + TIER2 if a.source_id not in ANNUAL]
+                # press has its own weekly workflow
+                ids += [a.source_id for a in TIER1 + TIER2 + LEGISLATURE + NATIONAL if a.source_id not in ANNUAL]
             else:
                 ids.append(t)
         results = []

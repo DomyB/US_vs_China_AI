@@ -130,7 +130,8 @@ export interface TradeDiscrepancy {
   flag: string;
 }
 
-export type LayerSource = "real" | "sample" | "none";
+/** "facts_only": real records are shown while the layer's model outputs (stance, tone) remain sample. */
+export type LayerSource = "real" | "sample" | "none" | "facts_only";
 
 export interface CountryCoverage {
   trade_years: number[];
@@ -141,6 +142,15 @@ export interface CountryCoverage {
   production: number;
   actions: boolean;
   governance_available: boolean;
+  parliament_available?: boolean;
+  parliament_documents?: number;
+  parliament_votes?: number;
+  parliament_from?: number | null;
+  parliament_note?: string | null;
+  media_available?: boolean;
+  media_articles?: number;
+  media_from?: number | null;
+  concessions?: number;
 }
 
 export interface RealMeta {
@@ -150,7 +160,7 @@ export interface RealMeta {
   sources_ok: string[];
   ingest_runs: { source_id: string; status: string; finished_at: string; rows: string; error: string | null }[];
   tables: Record<string, number>;
-  layers: Record<string, "real" | "sample">;
+  layers: Record<string, "real" | "sample" | "facts_only">;
   coverage: Record<string, CountryCoverage>;
 }
 
@@ -165,6 +175,25 @@ export interface RealCountryData {
   trade_discrepancies: TradeDiscrepancy[];
 }
 
+/** web/public/data/real/parliament/<ISO3>.json */
+export interface RealParliamentFile {
+  dataset: "REAL";
+  iso3: string;
+  generated_on: string;
+  documents: ParliamentDoc[];
+  freshness: Freshness;
+}
+
+/** web/public/data/real/media/<ISO3>.json */
+export interface RealMediaFile {
+  dataset: "REAL";
+  iso3: string;
+  generated_on: string;
+  articles: Article[];
+  outlets: Record<string, { name: string; orientation: string | null; reliability: Reliability; paywall: string | null }>;
+  freshness: Freshness;
+}
+
 export interface ParliamentDoc {
   id: string;
   date: string;
@@ -172,11 +201,17 @@ export interface ParliamentDoc {
   type: string;
   title_original: string;
   language: string;
-  title_en: string;
-  stance_us: number;
-  stance_cn: number;
+  title_en: string | null;
+  stance_us: number | null;
+  stance_cn: number | null;
+  classification?: "not_yet_classified" | "sample" | "coded";
+  date_precision?: "day" | "month" | "year" | "seen";
+  summary?: string | null;
+  status?: string | null;
+  author?: string | null;
+  mentions?: { us: boolean; cn: boolean };
   topic_minerals: string[];
-  vote: { yes: number; no: number; abstain: number } | null;
+  vote: { yes: number | null; no: number | null; abstain: number | null; result?: string | null; chamber?: string; date?: string; members_recorded?: number | null; n_votes?: number; url?: string | null } | null;
   url: string;
   source: SourceRef;
 }
@@ -209,11 +244,20 @@ export interface Article {
   outlet: string;
   headline_original: string;
   language: string;
-  headline_en: string;
+  headline_en: string | null;
   url: string;
-  stance_us: number;
-  stance_cn: number;
-  tone: number;
+  stance_us: number | null;
+  stance_cn: number | null;
+  tone: number | null;
+  classification?: "not_yet_classified" | "sample" | "coded";
+  date_precision?: "day" | "month" | "year" | "seen";
+  outlet_source_id?: string;
+  orientation?: string | null;
+  reliability?: Reliability;
+  mentions?: { us: boolean; cn: boolean };
+  via?: "rss" | "gdelt";
+  also_reported_by?: string[];
+  source?: SourceRef;
   topic_minerals: string[];
 }
 
@@ -268,6 +312,8 @@ export interface CountryData {
   language: string;
   freshness: Meta["freshness"] & { governance?: Freshness };
   layers?: Record<"actions" | "governance" | "parliament" | "media" | "analysis" | "forecast", LayerSource>;
+  /** why a legislature has no structured records (BOL, GUY, SUR, VEN), from the exporter */
+  parliament_note?: string | null;
   actions: { events: ActionEvent[]; trade: TradeRow[]; contracts?: ContractRow[]; production?: ProductionRow[] };
   governance?: GovernanceRow[];
   trade_discrepancies?: TradeDiscrepancy[];

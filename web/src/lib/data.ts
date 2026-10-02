@@ -1,4 +1,4 @@
-import type { CountryData, IndexFile, IndexRow, Meta, RealCountryData, RealMeta, RegionData } from "./types";
+import type { CountryCoverage, CountryData, IndexFile, IndexRow, Meta, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -31,26 +31,48 @@ export async function loadRealMeta(): Promise<RealMeta | null> {
  */
 export async function loadCountry(iso3: string): Promise<CountryData> {
   const sample = await getJSON<CountryData>(`${BASE}/country/${iso3}.json`);
-  sample.layers = { actions: "sample", governance: "none", parliament: "sample", media: "sample", analysis: "sample", forecast: "sample" };
   const realMeta = await loadRealMeta();
   const cov = realMeta?.coverage?.[iso3];
-  if (!cov || (!cov.actions && !cov.governance_available)) return sample;
-  try {
-    const real = await getJSON<RealCountryData>(`${REAL}/country/${iso3}.json`);
-    if (cov.actions) {
-      sample.actions = { events: real.actions.events, trade: real.actions.trade, contracts: real.actions.contracts, production: real.actions.production };
-      sample.freshness = { ...sample.freshness, actions: real.freshness.actions };
-      sample.layers.actions = "real";
-      sample.trade_discrepancies = real.trade_discrepancies;
-    }
-    if (cov.governance_available) {
-      sample.governance = real.governance;
-      sample.freshness = { ...sample.freshness, governance: real.freshness.governance };
-      sample.layers.governance = "real";
-    }
-  } catch {
-    // real file missing or malformed: keep the sample and say so through layers
+  if (!cov) return mergeRealLayers(sample, undefined, null, null, null);
+  const safe = async <T,>(p: Promise<T>): Promise<T | null> => p.catch(() => null);
+  const [real, parliament, media] = await Promise.all([
+    cov.actions || cov.governance_available ? safe(getJSON<RealCountryData>(`${REAL}/country/${iso3}.json`)) : Promise.resolve(null),
+    cov.parliament_available ? safe(getJSON<RealParliamentFile>(`${REAL}/parliament/${iso3}.json`)) : Promise.resolve(null),
+    cov.media_available ? safe(getJSON<RealMediaFile>(`${REAL}/media/${iso3}.json`)) : Promise.resolve(null),
+  ]);
+  return mergeRealLayers(sample, cov, real, parliament, media);
+}
+
+/**
+ * Pure merge of the real layers into the sample country file. Actions and governance are replaced
+ * wholesale; for parliament and media only the record lists are replaced (stance series, volume
+ * and narratives stay sample until Phase 3) and the layer is marked "facts_only".
+ */
+export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | undefined, real: RealCountryData | null, parliament: RealParliamentFile | null, media: RealMediaFile | null): CountryData {
+  sample.layers = { actions: "sample", governance: "none", parliament: "sample", media: "sample", analysis: "sample", forecast: "sample" };
+  if (!cov) return sample;
+  if (real && cov.actions) {
+    sample.actions = { events: real.actions.events, trade: real.actions.trade, contracts: real.actions.contracts, production: real.actions.production };
+    sample.freshness = { ...sample.freshness, actions: real.freshness.actions };
+    sample.layers.actions = "real";
+    sample.trade_discrepancies = real.trade_discrepancies;
   }
+  if (real && cov.governance_available) {
+    sample.governance = real.governance;
+    sample.freshness = { ...sample.freshness, governance: real.freshness.governance };
+    sample.layers.governance = "real";
+  }
+  if (parliament && cov.parliament_available) {
+    sample.parliament = { ...sample.parliament, documents: parliament.documents };
+    sample.freshness = { ...sample.freshness, parliament: parliament.freshness };
+    sample.layers.parliament = "facts_only";
+  }
+  if (media && cov.media_available) {
+    sample.media = { ...sample.media, articles: media.articles };
+    sample.freshness = { ...sample.freshness, media: media.freshness };
+    sample.layers.media = "facts_only";
+  }
+  sample.parliament_note = cov.parliament_note ?? null;
   return sample;
 }
 

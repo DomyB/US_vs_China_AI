@@ -10,7 +10,10 @@ from .dfc import DFC
 from .dpi import DPI
 from .exim import EXIM
 from .federal_register import FederalRegister
+from .legis_bra import CamaraBR
+from .national_guy import GGMC
 from .pink_sheet import PinkSheet
+from .press import make_rss_adapters
 from .resourcecontracts import ResourceContracts
 from .tier2 import BUCODF, CensusTrade, CongressGov
 from .unga import UNGA
@@ -20,6 +23,11 @@ from .worldbank import IDS, WDI, WGI
 
 TIER1: list[type[Adapter]] = [WDI, WGI, IDS, USGSMCS, PinkSheet, Comtrade, AidData, CGIT, DFC, EXIM, FederalRegister, ResourceContracts, VDem, UNGA, DPI, BGS]
 TIER2: list[type[Adapter]] = [CongressGov, CensusTrade, BUCODF]
-ANNUAL = {"usgs_mcs", "vdem", "unga_votes", "idb_dpi", "bgs_wms"}
+# Phase 2b national groups
+LEGISLATURE: list[type[Adapter]] = [CamaraBR]
+PRESS: list[type[Adapter]] = make_rss_adapters()  # one class per registry press outlet with access: rss
+NATIONAL: list[type[Adapter]] = [GGMC]
+ANNUAL = {"usgs_mcs", "vdem", "unga_votes", "idb_dpi", "bgs_wms", "guy_ggmc"}
 
-ADAPTERS: dict[str, type[Adapter]] = {a.source_id: a for a in TIER1 + TIER2}
+GROUPS: dict[str, list[type[Adapter]]] = {"tier1": TIER1, "tier2": TIER2, "legislature": LEGISLATURE, "press": PRESS, "national": NATIONAL}
+ADAPTERS: dict[str, type[Adapter]] = {a.source_id: a for a in TIER1 + TIER2 + LEGISLATURE + PRESS + NATIONAL}

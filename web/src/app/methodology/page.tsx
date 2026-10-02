@@ -92,7 +92,8 @@ export default function MethodologyPage() {
         <li>Phase 0 source verification was search-based because the development sandbox cannot reach most hosts; direct checks run in the first scheduled ingestion.</li>
         <li>No free licensed lithium price benchmark exists; USGS annual averages and customs unit values are used instead.</li>
         <li>Chinese policy-bank lending has no loan-level disclosure; the BU and AidData databases cover sovereign and public borrowers only.</li>
-        <li>Bolivia, Guyana, Suriname and Venezuela have no machine-readable legislative records; their Parliament tab will rely on documents and press reporting.</li>
+        <li>Bolivia, Guyana, Suriname and Venezuela have no machine-readable legislative records; their Parliament tab states this instead of showing an empty list.</li>
+        <li>From Phase 2b the Parliament and Media tabs list real bills, votes and headlines (keyword-selected at ingestion, original language) marked &quot;not yet classified&quot;; stance, tone, translations and narratives arrive with Phase 3.</li>
         <li>SEDAR+ and HKEX forbid scraping; ownership chains for Canadian and Hong Kong intermediaries are built from SEC cross-listings and company reports.</li>
         <li>GDELT is machine-coded and noisy; ACLED covers Latin America only from 2018.</li>
       </ul>
