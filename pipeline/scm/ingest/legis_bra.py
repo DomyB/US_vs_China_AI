@@ -329,7 +329,9 @@ class SenadoBR(Adapter):
         return out
 
     def _kept_matters(self, snap: Snapshot) -> list[str]:
-        return sorted(self._matters(snap))
+        matters = self._matters(snap)
+        # most recent first, so the vote-call budget covers the matters most likely to have reached the floor recently
+        return sorted(matters, key=lambda c: (str(_pick(matters[c], "Ano", "AnoMateria", "ano", default="")), c), reverse=True)
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         docs: dict[str, dict] = {}

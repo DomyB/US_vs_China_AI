@@ -84,10 +84,15 @@ def record(ids: list[str] | None = None) -> dict:
         for old in dest.rglob("*"):
             if old.is_file():
                 old.unlink()
+        per_dir: dict[str, int] = {}
         for name, meta in snap.files.items():
-            if len(kept) >= MAX_FILES:
+            # spread the budget across sub-directories (page lists, per-record detail, votes ...) so a
+            # fixture shows every kind of response the adapter received
+            group = name.split("/", 1)[0] if "/" in name else ""
+            if len(kept) >= MAX_FILES or per_dir.get(group, 0) >= max(4, MAX_FILES // max(1, len({n.split("/", 1)[0] if "/" in n else "" for n in snap.files}))):
                 manifest.setdefault("omitted", []).append(name)
                 continue
+            per_dir[group] = per_dir.get(group, 0) + 1
             src = snap.path(name)
             if not src.exists() or src.stat().st_size == 0:
                 continue
