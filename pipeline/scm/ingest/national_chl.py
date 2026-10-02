@@ -68,7 +68,8 @@ class Cochilco(Adapter):
                     if cand and not cand.isdigit() and len(cand) > 1:
                         unit = cand[:60]
                         break
-                table_title = next((str(v).strip() for v in df.iloc[:6].values.ravel() if str(v).strip() and len(str(v).strip()) > 12), sheet)[:120]
+                cells = [str(v).strip() for v in df.iloc[:8].values.ravel() if str(v).strip() and len(str(v).strip()) > 12]
+                table_title = (next((c for c in cells if "producci" in c.lower()), None) or next((c for c in cells if "tabla" in c.lower()), None) or (cells[0] if cells else sheet))[:120]
                 low_t = table_title.lower()
                 if "%" in table_title or "participaci" in low_t or "índice" in low_t or "indice" in low_t or unit in ("%",):
                     continue  # shares and indices are not production quantities
