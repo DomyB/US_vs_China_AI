@@ -1,0 +1,85 @@
+{
+ "source_id": "chl_camara",
+ "files": {},
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_camara/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "proyectos/2008",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2008 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2009",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2009 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2010",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2010 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2011",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2011 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2012",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2012 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2013",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2013 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2014",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2014 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2015",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2015 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2016",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2016 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2017",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2017 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2018",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2018 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2019",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2019 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2020",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2020 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2021",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2021 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2022",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2022 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2023",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2023 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2024",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2024 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2025",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2025 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  },
+  {
+   "name": "proyectos/2026",
+   "error": "chl_camara: GET https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx/retornarProyectosLeyPorAnno?prmAnno=2026 -> 500 El nombre de m&#233;todo de servicios Web retornarProyectosLeyPo"
+  }
+ ],
+ "kept_projects": 0
+}

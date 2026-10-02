@@ -1,0 +1,931 @@
+{
+ "source_id": "bra_senado_api",
+ "files": {
+  "materias/2008_minera\u00e7\u00e3o.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2008&palavraChave=minera%C3%A7%C3%A3o",
+   "params": {
+    "ano": 2008,
+    "palavraChave": "minera\u00e7\u00e3o"
+   },
+   "status": 200,
+   "bytes": 1960,
+   "sha256": "27273a1a7e90d3ce211154abad9c256874296b7ceda94506cc1ec7de7a5e2d3c",
+   "retrieved_at": "2026-10-02T15:52:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2008_minerais.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2008&palavraChave=minerais",
+   "params": {
+    "ano": 2008,
+    "palavraChave": "minerais"
+   },
+   "status": 200,
+   "bytes": 3697,
+   "sha256": "e9e6d7dd005170e6c7e567ada26a96cb1780bb339518f5497e91d9fad074bd29",
+   "retrieved_at": "2026-10-02T15:52:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2008_China.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2008&palavraChave=China",
+   "params": {
+    "ano": 2008,
+    "palavraChave": "China"
+   },
+   "status": 200,
+   "bytes": 4798,
+   "sha256": "6007af0af1ee0215988d689c22bf2197c2e0d83f67aaf21ae3a881ead6a42a8d",
+   "retrieved_at": "2026-10-02T15:52:31+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2008_Estados Unidos.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2008&palavraChave=Estados+Unidos",
+   "params": {
+    "ano": 2008,
+    "palavraChave": "Estados Unidos"
+   },
+   "status": 200,
+   "bytes": 64376,
+   "sha256": "affc4ed89acc36276f21d2428871b1365c5433097ffeafc340f1e15aa6fb0dbf",
+   "retrieved_at": "2026-10-02T15:52:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2009_minera\u00e7\u00e3o.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2009&palavraChave=minera%C3%A7%C3%A3o",
+   "params": {
+    "ano": 2009,
+    "palavraChave": "minera\u00e7\u00e3o"
+   },
+   "status": 200,
+   "bytes": 1755,
+   "sha256": "ba40131e4f162edc4a8aa5570f2854e6b87d0ff2eda26658659b58becd926eda",
+   "retrieved_at": "2026-10-02T15:52:33+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2009_minerais.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2009&palavraChave=minerais",
+   "params": {
+    "ano": 2009,
+    "palavraChave": "minerais"
+   },
+   "status": 200,
+   "bytes": 1627,
+   "sha256": "9d6976b703efa2cd0b5b81b1f9439eb41afd73ca36aab9cb622ddab412c8d469",
+   "retrieved_at": "2026-10-02T15:52:35+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2009_cobre.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2009&palavraChave=cobre",
+   "params": {
+    "ano": 2009,
+    "palavraChave": "cobre"
+   },
+   "status": 200,
+   "bytes": 901,
+   "sha256": "830ff3419233525b263f69e22d5863e12fe32ad10bed4fb886bed0128d673d63",
+   "retrieved_at": "2026-10-02T15:52:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2009_China.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2009&palavraChave=China",
+   "params": {
+    "ano": 2009,
+    "palavraChave": "China"
+   },
+   "status": 200,
+   "bytes": 6475,
+   "sha256": "acc1197ca7c756e34e771cf5474e5c34b393841ad7960478367591f7ada6db02",
+   "retrieved_at": "2026-10-02T15:52:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2009_Estados Unidos.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2009&palavraChave=Estados+Unidos",
+   "params": {
+    "ano": 2009,
+    "palavraChave": "Estados Unidos"
+   },
+   "status": 200,
+   "bytes": 71756,
+   "sha256": "3421e55e8a1b6ec874efceb8003df4c90442facb6c2e36086aadbc055550e87d",
+   "retrieved_at": "2026-10-02T15:52:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2010_minerais.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2010&palavraChave=minerais",
+   "params": {
+    "ano": 2010,
+    "palavraChave": "minerais"
+   },
+   "status": 200,
+   "bytes": 2603,
+   "sha256": "5d6f4b2471ab8a958b46c3d20ef6e9124f9a3cff74e253da5a3d0f7530bbc4d8",
+   "retrieved_at": "2026-10-02T15:52:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2010_China.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2010&palavraChave=China",
+   "params": {
+    "ano": 2010,
+    "palavraChave": "China"
+   },
+   "status": 200,
+   "bytes": 5179,
+   "sha256": "865a81f8eac460a1390f81857e9f5379a2c6e75c6fdc075b1ac9541ccb5d8510",
+   "retrieved_at": "2026-10-02T15:52:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2010_Estados Unidos.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2010&palavraChave=Estados+Unidos",
+   "params": {
+    "ano": 2010,
+    "palavraChave": "Estados Unidos"
+   },
+   "status": 200,
+   "bytes": 72728,
+   "sha256": "c56a85f2267c7701ab6f15952bb049114ab9b279cd563f0747a1bded526b7eef",
+   "retrieved_at": "2026-10-02T15:52:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2011_minera\u00e7\u00e3o.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2011&palavraChave=minera%C3%A7%C3%A3o",
+   "params": {
+    "ano": 2011,
+    "palavraChave": "minera\u00e7\u00e3o"
+   },
+   "status": 200,
+   "bytes": 4008,
+   "sha256": "ce7bd0999d4c3ea92aab3a006d2faea8f4cdad57aae0b4acb0dc238b2820a92c",
+   "retrieved_at": "2026-10-02T15:52:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2011_minerais.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2011&palavraChave=minerais",
+   "params": {
+    "ano": 2011,
+    "palavraChave": "minerais"
+   },
+   "status": 200,
+   "bytes": 7265,
+   "sha256": "72c7842aa4d5cb08a7233007c996ebbd8269c57d1c3d4251dded9016cce75bc7",
+   "retrieved_at": "2026-10-02T15:52:50+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2011_terras raras.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2011&palavraChave=terras+raras",
+   "params": {
+    "ano": 2011,
+    "palavraChave": "terras raras"
+   },
+   "status": 200,
+   "bytes": 1260,
+   "sha256": "f618d54c4832272520c3cfc871a5f8c7002dfe5b2b6853844faae9dbc45f2a09",
+   "retrieved_at": "2026-10-02T15:52:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2011_China.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2011&palavraChave=China",
+   "params": {
+    "ano": 2011,
+    "palavraChave": "China"
+   },
+   "status": 200,
+   "bytes": 2556,
+   "sha256": "71ea8ea93c100aa305a29e4b7b8efbcc550adc0acf0ffbef36dcc0872e442545",
+   "retrieved_at": "2026-10-02T15:52:55+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2011_Estados Unidos.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2011&palavraChave=Estados+Unidos",
+   "params": {
+    "ano": 2011,
+    "palavraChave": "Estados Unidos"
+   },
+   "status": 200,
+   "bytes": 33445,
+   "sha256": "504fe7a52f1890e7f1e304f1e38cbc94b9c3864e27c300df99a2dd26aa7d1d2e",
+   "retrieved_at": "2026-10-02T15:52:56+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2012_minera\u00e7\u00e3o.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2012&palavraChave=minera%C3%A7%C3%A3o",
+   "params": {
+    "ano": 2012,
+    "palavraChave": "minera\u00e7\u00e3o"
+   },
+   "status": 200,
+   "bytes": 4303,
+   "sha256": "dde9420cc27a296229b303514c305e165929bb03d90b9a9e36ba570a398934f4",
+   "retrieved_at": "2026-10-02T15:52:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2012_minerais.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2012&palavraChave=minerais",
+   "params": {
+    "ano": 2012,
+    "palavraChave": "minerais"
+   },
+   "status": 200,
+   "bytes": 5569,
+   "sha256": "9f22a8a14a88fcb91fed6948cba9c7571f24afe0ff03c169fdfc6bfa26d7d51a",
+   "retrieved_at": "2026-10-02T15:52:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2012_terras raras.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2012&palavraChave=terras+raras",
+   "params": {
+    "ano": 2012,
+    "palavraChave": "terras raras"
+   },
+   "status": 200,
+   "bytes": 3338,
+   "sha256": "ee88ad0a1783a7b98d78533205769e4ef0392576d960bb2b579887708e8c2794",
+   "retrieved_at": "2026-10-02T15:53:01+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2012_China.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2012&palavraChave=China",
+   "params": {
+    "ano": 2012,
+    "palavraChave": "China"
+   },
+   "status": 200,
+   "bytes": 8290,
+   "sha256": "9e12e11858fbe6b85c8012a018ce5a2c99ddf5f922ab891e3c9525af8b2a9b54",
+   "retrieved_at": "2026-10-02T15:53:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2012_Estados Unidos.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2012&palavraChave=Estados+Unidos",
+   "params": {
+    "ano": 2012,
+    "palavraChave": "Estados Unidos"
+   },
+   "status": 200,
+   "bytes": 65614,
+   "sha256": "ae8eebc9e40a899e152382ba0338a0e86c7969eb8e7e93d7cb80d5b547ba3c99",
+   "retrieved_at": "2026-10-02T15:53:04+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2013_minera\u00e7\u00e3o.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2013&palavraChave=minera%C3%A7%C3%A3o",
+   "params": {
+    "ano": 2013,
+    "palavraChave": "minera\u00e7\u00e3o"
+   },
+   "status": 200,
+   "bytes": 16796,
+   "sha256": "4a041f69cb23b2463f35550c8f161097f23967681362206f63e3f68d080c1cdc",
+   "retrieved_at": "2026-10-02T15:53:05+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "materias/2013_minerais.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?ano=2013&palavraChave=minerais",
+   "params": {
+    "ano": 2013,
+    "palavraChave": "minerais"
+   },
+   "status": 200,
+   "bytes": 14326,
+   "sha256": "e2f574398d42a0456a3f9a310e696869d5f32846ec329dd1135f84c5e5752eae",
+   "retrieved_at": "2026-10-02T15:53:06+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_senado_api/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "materias_route": "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?palavraChave",
+ "errors": [
+  {
+   "name": "materias/2008_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2008_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2008_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2008_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2009_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2009_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2009_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2010_minera\u00e7\u00e3o.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2010_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2010_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2010_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2010_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2011_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2011_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2011_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2012_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2012_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2012_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2013_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2013_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2013_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2014_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2014_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2014_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2014_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2015_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2015_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2015_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2016_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2016_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2016_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2017_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2017_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2017_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2018_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2018_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2018_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2018_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2019_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2019_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2019_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2020_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2020_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2020_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2020_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2021_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2021_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2022_l\u00edtio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2022_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2022_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2023_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2023_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2023_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2024_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2024_terras raras.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2024_cobre.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2025_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  },
+  {
+   "name": "materias/2026_ni\u00f3bio.json",
+   "error": "no matters in payload"
+  }
+ ],
+ "endpoints_tried": [
+  "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?palavraChave"
+ ],
+ "kept_matters": 893,
+ "vote_calls_capped": true,
+ "omitted": [
+  "materias/2013_terras raras.json",
+  "materias/2013_China.json",
+  "materias/2013_Estados Unidos.json",
+  "materias/2014_minera\u00e7\u00e3o.json",
+  "materias/2014_minerais.json",
+  "materias/2014_China.json",
+  "materias/2014_Estados Unidos.json",
+  "materias/2015_minera\u00e7\u00e3o.json",
+  "materias/2015_minerais.json",
+  "materias/2015_ni\u00f3bio.json",
+  "materias/2015_China.json",
+  "materias/2015_Estados Unidos.json",
+  "materias/2016_minera\u00e7\u00e3o.json",
+  "materias/2016_minerais.json",
+  "materias/2016_ni\u00f3bio.json",
+  "materias/2016_China.json",
+  "materias/2016_Estados Unidos.json",
+  "materias/2017_minera\u00e7\u00e3o.json",
+  "materias/2017_minerais.json",
+  "materias/2017_cobre.json",
+  "materias/2017_China.json",
+  "materias/2017_Estados Unidos.json",
+  "materias/2018_minera\u00e7\u00e3o.json",
+  "materias/2018_minerais.json",
+  "materias/2018_China.json",
+  "materias/2018_Estados Unidos.json",
+  "materias/2019_minera\u00e7\u00e3o.json",
+  "materias/2019_minerais.json",
+  "materias/2019_cobre.json",
+  "materias/2019_China.json",
+  "materias/2019_Estados Unidos.json",
+  "materias/2020_minera\u00e7\u00e3o.json",
+  "materias/2020_minerais.json",
+  "materias/2020_China.json",
+  "materias/2020_Estados Unidos.json",
+  "materias/2021_minera\u00e7\u00e3o.json",
+  "materias/2021_minerais.json",
+  "materias/2021_terras raras.json",
+  "materias/2021_cobre.json",
+  "materias/2021_China.json",
+  "materias/2021_Estados Unidos.json",
+  "materias/2022_minera\u00e7\u00e3o.json",
+  "materias/2022_minerais.json",
+  "materias/2022_cobre.json",
+  "materias/2022_China.json",
+  "materias/2022_Estados Unidos.json",
+  "materias/2023_minera\u00e7\u00e3o.json",
+  "materias/2023_minerais.json",
+  "materias/2023_l\u00edtio.json",
+  "materias/2023_China.json",
+  "materias/2023_Estados Unidos.json",
+  "materias/2024_minera\u00e7\u00e3o.json",
+  "materias/2024_minerais.json",
+  "materias/2024_l\u00edtio.json",
+  "materias/2024_China.json",
+  "materias/2024_Estados Unidos.json",
+  "materias/2025_minera\u00e7\u00e3o.json",
+  "materias/2025_minerais.json",
+  "materias/2025_l\u00edtio.json",
+  "materias/2025_terras raras.json",
+  "materias/2025_cobre.json",
+  "materias/2025_China.json",
+  "materias/2025_Estados Unidos.json",
+  "materias/2026_minera\u00e7\u00e3o.json",
+  "materias/2026_minerais.json",
+  "materias/2026_l\u00edtio.json",
+  "materias/2026_terras raras.json",
+  "materias/2026_cobre.json",
+  "materias/2026_China.json",
+  "materias/2026_Estados Unidos.json",
+  "votacoes/100226.json",
+  "votacoes/100385.json",
+  "votacoes/100516.json",
+  "votacoes/100678.json",
+  "votacoes/100795.json",
+  "votacoes/100869.json",
+  "votacoes/100955.json",
+  "votacoes/101060.json",
+  "votacoes/102208.json",
+  "votacoes/102314.json",
+  "votacoes/102576.json",
+  "votacoes/102623.json",
+  "votacoes/102712.json",
+  "votacoes/102716.json",
+  "votacoes/103138.json",
+  "votacoes/103574.json",
+  "votacoes/103752.json",
+  "votacoes/103819.json",
+  "votacoes/103832.json",
+  "votacoes/103834.json",
+  "votacoes/103839.json",
+  "votacoes/103869.json",
+  "votacoes/104240.json",
+  "votacoes/104745.json",
+  "votacoes/104852.json",
+  "votacoes/105058.json",
+  "votacoes/105097.json",
+  "votacoes/105149.json",
+  "votacoes/105235.json",
+  "votacoes/105287.json",
+  "votacoes/105562.json",
+  "votacoes/105564.json",
+  "votacoes/105597.json",
+  "votacoes/105731.json",
+  "votacoes/105982.json",
+  "votacoes/106114.json",
+  "votacoes/106334.json",
+  "votacoes/106336.json",
+  "votacoes/106338.json",
+  "votacoes/106981.json",
+  "votacoes/107062.json",
+  "votacoes/107101.json",
+  "votacoes/107102.json",
+  "votacoes/107106.json",
+  "votacoes/107108.json",
+  "votacoes/107756.json",
+  "votacoes/107759.json",
+  "votacoes/108351.json",
+  "votacoes/108352.json",
+  "votacoes/108541.json",
+  "votacoes/108542.json",
+  "votacoes/109488.json",
+  "votacoes/109607.json",
+  "votacoes/109768.json",
+  "votacoes/109913.json",
+  "votacoes/109920.json",
+  "votacoes/110428.json",
+  "votacoes/111653.json",
+  "votacoes/111995.json",
+  "votacoes/112188.json",
+  "votacoes/112293.json",
+  "votacoes/112418.json",
+  "votacoes/112570.json",
+  "votacoes/112714.json",
+  "votacoes/112834.json",
+  "votacoes/112864.json",
+  "votacoes/112865.json",
+  "votacoes/112873.json",
+  "votacoes/113077.json",
+  "votacoes/113080.json",
+  "votacoes/113154.json",
+  "votacoes/113156.json",
+  "votacoes/113365.json",
+  "votacoes/113575.json",
+  "votacoes/113576.json",
+  "votacoes/113577.json",
+  "votacoes/113608.json",
+  "votacoes/113612.json",
+  "votacoes/113616.json",
+  "votacoes/113617.json",
+  "votacoes/113620.json",
+  "votacoes/113633.json",
+  "votacoes/113634.json",
+  "votacoes/113697.json",
+  "votacoes/113808.json",
+  "votacoes/113821.json",
+  "votacoes/113822.json",
+  "votacoes/113894.json",
+  "votacoes/113997.json",
+  "votacoes/114149.json",
+  "votacoes/114266.json",
+  "votacoes/114347.json",
+  "votacoes/114544.json",
+  "votacoes/114568.json",
+  "votacoes/114659.json",
+  "votacoes/115366.json",
+  "votacoes/115508.json",
+  "votacoes/115520.json",
+  "votacoes/115524.json",
+  "votacoes/115526.json",
+  "votacoes/115575.json",
+  "votacoes/115586.json",
+  "votacoes/115589.json",
+  "votacoes/115590.json",
+  "votacoes/115617.json",
+  "votacoes/115660.json",
+  "votacoes/115681.json",
+  "votacoes/115728.json",
+  "votacoes/115773.json",
+  "votacoes/115774.json",
+  "votacoes/115814.json",
+  "votacoes/115817.json",
+  "votacoes/115818.json",
+  "votacoes/115839.json",
+  "votacoes/115873.json",
+  "votacoes/115950.json",
+  "votacoes/115987.json",
+  "votacoes/116245.json",
+  "votacoes/116333.json",
+  "votacoes/116334.json",
+  "votacoes/116339.json",
+  "votacoes/116473.json",
+  "votacoes/116588.json",
+  "votacoes/116589.json",
+  "votacoes/116591.json",
+  "votacoes/116626.json",
+  "votacoes/116924.json",
+  "votacoes/116955.json",
+  "votacoes/117021.json",
+  "votacoes/117022.json",
+  "votacoes/117026.json",
+  "votacoes/117156.json",
+  "votacoes/117315.json",
+  "votacoes/117316.json",
+  "votacoes/117317.json",
+  "votacoes/117730.json",
+  "votacoes/117876.json",
+  "votacoes/118003.json",
+  "votacoes/118087.json",
+  "votacoes/118153.json",
+  "votacoes/118165.json",
+  "votacoes/118166.json",
+  "votacoes/118191.json",
+  "votacoes/118193.json",
+  "votacoes/118194.json",
+  "votacoes/118195.json",
+  "votacoes/118200.json",
+  "votacoes/118262.json",
+  "votacoes/118289.json",
+  "votacoes/118361.json",
+  "votacoes/118362.json",
+  "votacoes/118363.json",
+  "votacoes/118458.json",
+  "votacoes/118509.json",
+  "votacoes/118511.json",
+  "votacoes/118520.json",
+  "votacoes/118529.json",
+  "votacoes/118558.json",
+  "votacoes/118776.json",
+  "votacoes/118955.json",
+  "votacoes/118964.json",
+  "votacoes/119396.json",
+  "votacoes/119424.json",
+  "votacoes/119446.json",
+  "votacoes/119448.json",
+  "votacoes/119971.json",
+  "votacoes/120161.json",
+  "votacoes/120555.json",
+  "votacoes/120694.json",
+  "votacoes/120981.json",
+  "votacoes/121023.json",
+  "votacoes/121573.json",
+  "votacoes/121660.json",
+  "votacoes/121661.json",
+  "votacoes/121956.json",
+  "votacoes/121958.json",
+  "votacoes/121959.json",
+  "votacoes/121981.json",
+  "votacoes/121996.json",
+  "votacoes/122379.json",
+  "votacoes/122382.json",
+  "votacoes/122485.json",
+  "votacoes/122502.json",
+  "votacoes/122543.json",
+  "votacoes/122593.json",
+  "votacoes/122737.json",
+  "votacoes/122741.json",
+  "votacoes/122970.json",
+  "votacoes/123356.json",
+  "votacoes/123473.json",
+  "votacoes/123825.json",
+  "votacoes/123955.json",
+  "votacoes/124007.json",
+  "votacoes/124009.json",
+  "votacoes/124019.json",
+  "votacoes/124047.json",
+  "votacoes/124048.json",
+  "votacoes/124180.json",
+  "votacoes/124206.json",
+  "votacoes/124787.json",
+  "votacoes/124788.json",
+  "votacoes/124863.json",
+  "votacoes/125028.json",
+  "votacoes/125030.json",
+  "votacoes/125045.json",
+  "votacoes/125059.json",
+  "votacoes/125084.json",
+  "votacoes/125391.json",
+  "votacoes/125392.json",
+  "votacoes/125394.json",
+  "votacoes/125580.json",
+  "votacoes/125582.json",
+  "votacoes/125583.json",
+  "votacoes/125619.json",
+  "votacoes/125670.json",
+  "votacoes/125672.json",
+  "votacoes/125698.json",
+  "votacoes/125699.json",
+  "votacoes/126275.json",
+  "votacoes/126632.json",
+  "votacoes/126717.json",
+  "votacoes/126718.json",
+  "votacoes/126728.json",
+  "votacoes/126926.json",
+  "votacoes/126927.json",
+  "votacoes/127044.json",
+  "votacoes/128027.json",
+  "votacoes/128180.json",
+  "votacoes/128353.json",
+  "votacoes/128399.json",
+  "votacoes/128474.json",
+  "votacoes/128537.json",
+  "votacoes/128597.json",
+  "votacoes/129117.json",
+  "votacoes/129185.json",
+  "votacoes/129284.json",
+  "votacoes/129566.json",
+  "votacoes/129984.json",
+  "votacoes/130065.json",
+  "votacoes/130145.json",
+  "votacoes/130146.json",
+  "votacoes/130150.json",
+  "votacoes/130263.json",
+  "votacoes/130473.json",
+  "votacoes/130514.json",
+  "votacoes/130551.json",
+  "votacoes/130562.json",
+  "votacoes/130598.json",
+  "votacoes/130641.json",
+  "votacoes/130642.json",
+  "votacoes/130664.json",
+  "votacoes/130684.json",
+  "votacoes/130692.json",
+  "votacoes/130693.json",
+  "votacoes/130694.json",
+  "votacoes/130697.json",
+  "votacoes/130763.json",
+  "votacoes/130776.json",
+  "votacoes/130995.json",
+  "votacoes/131018.json",
+  "votacoes/131019.json",
+  "votacoes/131068.json",
+  "votacoes/131069.json",
+  "votacoes/131681.json",
+  "votacoes/131711.json",
+  "votacoes/132009.json",
+  "votacoes/132034.json",
+  "votacoes/132064.json",
+  "votacoes/132106.json",
+  "votacoes/132226.json",
+  "votacoes/132245.json",
+  "votacoes/132246.json",
+  "votacoes/132303.json",
+  "votacoes/132314.json",
+  "votacoes/132489.json",
+  "votacoes/132497.json",
+  "votacoes/132523.json",
+  "votacoes/132570.json",
+  "votacoes/132697.json",
+  "votacoes/132798.json",
+  "votacoes/132859.json",
+  "votacoes/132910.json",
+  "votacoes/132934.json",
+  "votacoes/133269.json",
+  "votacoes/133287.json",
+  "votacoes/133288.json",
+  "votacoes/133336.json",
+  "votacoes/133337.json",
+  "votacoes/133338.json",
+  "votacoes/133469.json",
+  "votacoes/133493.json",
+  "votacoes/133509.json",
+  "votacoes/133529.json",
+  "votacoes/133531.json",
+  "votacoes/133588.json",
+  "votacoes/133743.json",
+  "votacoes/133750.json",
+  "votacoes/133864.json",
+  "votacoes/133876.json",
+  "votacoes/133878.json"
+ ]
+}

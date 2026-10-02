@@ -1,0 +1,8 @@
+NombreAtributo,Descripcion,TipoDato
+Legislatura,Numero de la Legislatura,String
+Fecha,Fecha del hecho,Date
+Tipo,"Numero de agrupamiento (1=Sesiones Plenario, 2=Proyectos Plenario, 3=Sesion Comision, 4=Asuntos Informados Comision",Integer
+Detalle,Descripcion del hecho,String
+MesN,Numero de mes del hecho,Integer
+AnioN,Número de año del hecho,Integer
+Ejercicio,Número de año de ejercicio al que corresponde el hecho,Integer

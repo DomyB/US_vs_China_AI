@@ -1,0 +1,53 @@
+{
+ "source_id": "col_camara",
+ "files": {
+  "page_0.json": {
+   "url": "https://www.datos.gov.co/resource/kcxp-nxum.json?%24limit=5000&%24offset=0&%24order=:id",
+   "params": {
+    "$limit": 5000,
+    "$offset": 0,
+    "$order": ":id"
+   },
+   "status": 200,
+   "bytes": 6576626,
+   "sha256": "43d5f4d2db5aab664f0757635e6f6a52a55d7a2679784560109630f5e24eb5df",
+   "retrieved_at": "2026-10-02T16:08:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "page_1.json": {
+   "url": "https://www.datos.gov.co/resource/kcxp-nxum.json?%24limit=5000&%24offset=5000&%24order=:id",
+   "params": {
+    "$limit": 5000,
+    "$offset": 5000,
+    "$order": ":id"
+   },
+   "status": 200,
+   "bytes": 1351697,
+   "sha256": "08d300f0aff2b5302dacfcd18f9e81e9cc896ea005ba6efe0cce55168009f95e",
+   "retrieved_at": "2026-10-02T16:08:50+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_camara/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "columns_seen": [
+  "autores",
+  "comisi_n_es_",
+  "estado_de_ley",
+  "fecha_c_mara",
+  "fecha_senado",
+  "legislatura",
+  "link_del_proyecto",
+  "no_",
+  "no_c_mara",
+  "no_senado",
+  "objeto_del_proyecto",
+  "observaciones",
+  "origen_de_ley",
+  "proyecto",
+  "t_tulo",
+  "tipo_de_ley"
+ ]
+}

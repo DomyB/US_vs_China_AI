@@ -1,0 +1,228 @@
+{
+ "source_id": "ury_parlamento",
+ "files": {
+  "search.json": {
+   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=100&fq=organization:parlamento-uruguayo",
+   "params": {
+    "rows": 100,
+    "fq": "organization:parlamento-uruguayo"
+   },
+   "status": 200,
+   "bytes": 288852,
+   "sha256": "42c1b58f277c6432c15603c81ea796e7b84d8cf65972a838920f6e8754aeaf9f",
+   "retrieved_at": "2026-10-02T16:08:21+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/0.csv": {
+   "url": "https://infolegislativa.parlamento.gub.uy/PL/Datos_abiertos/Metadatos_ProyectosEntrados.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 1094,
+   "sha256": "f2e37b3115b32411adb689afb4f4e976bf37d33442e9db6e6cd534efd9faae9c",
+   "retrieved_at": "2026-10-02T16:08:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/1.csv": {
+   "url": "https://infolegislativa.parlamento.gub.uy/PL/Datos_abiertos/Metadatos_Asistencias.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 1275,
+   "sha256": "406d355b45cbb07eb725b66ae184af31f55f37ca0c59a64ad533446d699f7d74",
+   "retrieved_at": "2026-10-02T16:08:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/2.csv": {
+   "url": "https://documentos.diputados.gub.uy/docs/DAbalanceLegislativo.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 333813,
+   "sha256": "1ad35451575b152b6bdc3e23e503d09b9f411813e47d260149c6cbb4b4bc7784",
+   "retrieved_at": "2026-10-02T16:08:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/3.json": {
+   "url": "https://documentos.diputados.gub.uy/docs/DAbalanceLegislativo.json",
+   "params": {},
+   "status": 200,
+   "bytes": 839855,
+   "sha256": "78c37dca2ea172710a592ca0baa1552c05039a07b6611776dec5087b317586db",
+   "retrieved_at": "2026-10-02T16:08:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/4.csv": {
+   "url": "https://documentos.diputados.gub.uy/docs/DAbalanceLegislativo_metadatos.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 435,
+   "sha256": "16992f990dccdcbe7ef2140b4d0d4706bafd70b51dfe9aa70bf3e89b9d7a5ca9",
+   "retrieved_at": "2026-10-02T16:08:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/5.csv": {
+   "url": "https://infolegislativa.parlamento.gub.uy/PL/Datos_abiertos/Metadatos_PedidosInformes.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 766,
+   "sha256": "87dc2101d55715a5d9359b60059eb1b76664e1068d6726a06d3cb48c04fd8b7b",
+   "retrieved_at": "2026-10-02T16:08:46+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_parlamento/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "resource_candidates": [
+  {
+   "name": "Proyectos al Parlamento - Legislatura 50",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2025-02-15&Fechahasta=2030-02-14&page&_format=json",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "json"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 50",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2025-02-15&Fechahasta=2030-02-14&page&_format=csv",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "csv"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 49",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2020-02-15&Fechahasta=2025-02-14&page&_format=json",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "json"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 49",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2020-02-15&Fechahasta=2025-02-14&page&_format=csv",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "csv"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 48",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2015-02-15&Fechahasta=2020-02-14&page&_format=json",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "json"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 48",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2015-02-15&Fechahasta=2020-02-14&page&_format=csv",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "csv"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 47",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2010-02-15&Fechahasta=2015-02-14&page&_format=json",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "json"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 47",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2010-02-15&Fechahasta=2015-02-14&page&_format=csv",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "csv"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 46",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2005-02-15&Fechahasta=2010-02-14&page&_format=json",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "json"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 46",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2005-02-15&Fechahasta=2010-02-14&page&_format=csv",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "csv"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 45",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2000-02-15&Fechahasta=2005-02-14&page&_format=json",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "json"
+  },
+  {
+   "name": "Proyectos al Parlamento - Legislatura 45",
+   "url": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2000-02-15&Fechahasta=2005-02-14&page&_format=csv",
+   "package": "Proyectos entrados al Parlamento",
+   "format": "csv"
+  }
+ ],
+ "errors": [
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2025-02-15&Fechahasta=2030-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2025-02-15&Fechahasta=2030-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2025-02-15&Fechahasta=2030-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2025-02-15&Fechahasta=2030-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2020-02-15&Fechahasta=2025-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2020-02-15&Fechahasta=2025-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2020-02-15&Fechahasta=2025-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2020-02-15&Fechahasta=2025-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2015-02-15&Fechahasta=2020-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2015-02-15&Fechahasta=2020-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2015-02-15&Fechahasta=2020-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2015-02-15&Fechahasta=2020-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2010-02-15&Fechahasta=2015-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2010-02-15&Fechahasta=2015-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2010-02-15&Fechahasta=2015-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2010-02-15&Fechahasta=2015-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2005-02-15&Fechahasta=2010-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2005-02-15&Fechahasta=2010-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2005-02-15&Fechahasta=2010-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2005-02-15&Fechahasta=2010-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2000-02-15&Fechahasta=2005-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=2000-02-15&Fechahasta=2005-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2000-02-15&Fechahasta=2005-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=2000-02-15&Fechahasta=2005-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=1995-02-15&Fechahasta=2000-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=1995-02-15&Fechahasta=2000-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=1995-02-15&Fechahasta=2000-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=1995-02-15&Fechahasta=2000-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=1990-02-15&Fechahasta=1995-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=1990-02-15&Fechahasta=1995-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=1990-02-15&Fechahasta=1995-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=1990-02-15&Fechahasta=1995-02-14&page&_format=csv"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=1985-02-15&Fechahasta=1990-02-14&page&_format=json",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/json?Cpo_Codigo=All&Fechadesde=1985-02-15&Fechahasta=1990-02-14&page&_format=js"
+  },
+  {
+   "name": "https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=1985-02-15&Fechahasta=1990-02-14&page&_format=csv",
+   "error": "ury_parlamento: GET https://parlamento.gub.uy/camarasycomisiones/senadores/transparencia/datos-abiertos/asuntos-entrados/csv?Cpo_Codigo=All&Fechadesde=1985-02-15&Fechahasta=1990-02-14&page&_format=csv"
+  }
+ ]
+}

@@ -1,0 +1,269 @@
+{
+ "source_id": "arg_hcdn",
+ "files": {
+  "search_proyectos.json": {
+   "url": "https://datos.hcdn.gob.ar/api/3/action/package_search?rows=100&q=proyectos",
+   "params": {
+    "rows": 100,
+    "q": "proyectos"
+   },
+   "status": 200,
+   "bytes": 37622,
+   "sha256": "d32375ce83ded0aab319edb67859635fe2b2e4ba8aa6a2badcd7724f26c73fb1",
+   "retrieved_at": "2026-10-02T16:06:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "search_votaciones.json": {
+   "url": "https://datos.hcdn.gob.ar/api/3/action/package_search?rows=100&q=votaciones",
+   "params": {
+    "rows": 100,
+    "q": "votaciones"
+   },
+   "status": 200,
+   "bytes": 14121,
+   "sha256": "71afd685c6382de804bdf136a281049f6c423e9570e5d89a055ead075cd4241e",
+   "retrieved_at": "2026-10-02T16:06:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "search_votos.json": {
+   "url": "https://datos.hcdn.gob.ar/api/3/action/package_search?rows=100&q=votos",
+   "params": {
+    "rows": 100,
+    "q": "votos"
+   },
+   "status": 200,
+   "bytes": 9166,
+   "sha256": "0a776926aae72ba3959d15467951d9fa038f265d0aee7f2bb06d11ba954b44a2",
+   "retrieved_at": "2026-10-02T16:06:59+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/0.json": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/a71100a5-f569-4881-8528-aec6fd9232c8/resource/cb94c15b-dd0b-415e-82b3-c8d5ed29919d/download/giro-a-comisiones-de-leyes-sancionadas1.7.json",
+   "params": {},
+   "status": 200,
+   "bytes": 522574,
+   "sha256": "8c5de37b9ab4cbced05fcfff833d4ac6afec545713b52d8fc17bf81cf89f83bd",
+   "retrieved_at": "2026-10-02T16:07:02+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/1.csv": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/a71100a5-f569-4881-8528-aec6fd9232c8/resource/79334dda-b3af-4056-b930-0f288f5dfaeb/download/giro-a-comisiones-de-leyes-sancionadas1.7.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 217491,
+   "sha256": "acfaf2da208a9a964b950022161ac71d5739b6aa72b37f995020a070b0347a99",
+   "retrieved_at": "2026-10-02T16:07:02+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/2.json": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/384c2ec9-f503-49d5-8313-ee355b6da7ba/resource/680ee432-c728-40e5-bf26-29c6fd52b110/download/movimientos_proyectos3.0.json",
+   "params": {},
+   "status": 200,
+   "bytes": 21348541,
+   "sha256": "687bd4fed73aaf2a77eb4f708d43b7d2426360dcbe19a729ab31b03259459c62",
+   "retrieved_at": "2026-10-02T16:07:13+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/3.csv": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/384c2ec9-f503-49d5-8313-ee355b6da7ba/resource/6108ea83-3f12-423c-a136-df1ae9cb2972/download/movimientos_proyectos3.0.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 8044528,
+   "sha256": "ad6ce3559bbc2333f188799235581dcd68155955947a2f82372218a5c82dfaea",
+   "retrieved_at": "2026-10-02T16:07:22+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/4.csv": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/74011487-857d-4971-b7d1-24ab90a2e397/resource/daf0e90e-d94f-4186-b7cf-dfad5b6f9369/download/resultados_proyectos3.1.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 3528336,
+   "sha256": "0e5cb3f998e18bc941b7a2e6ff6527ecc2cfa48bc338189689f1f1219e7ae295",
+   "retrieved_at": "2026-10-02T16:07:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "proyectos/5.json": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/839441fc-1b5c-45b8-82c9-8b0f18ac7c9b/resource/10953cf9-e851-4187-bb94-356b7256e112/download/proyectos_parlamentarios2.5.json",
+   "params": {},
+   "status": 200,
+   "bytes": 55510216,
+   "sha256": "8e3bda5c73b906b9bb7bcca0100c9b8741f0f20c18a4e8b67f5d93a0c3739350",
+   "retrieved_at": "2026-10-02T16:07:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/0.invalid.txt": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/52b28075-1690-4c4e-b4b8-7eec0fb71618/download/detalle-actas-datos-generales-2.4.json",
+   "params": {},
+   "status": 200,
+   "bytes": 46696428,
+   "sha256": "8d9156df45778456b763901faa7d0278db4a9b2d1c2cc140e9d25b9de81f6b30",
+   "retrieved_at": "2026-10-02T16:08:00+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/1.csv": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/262cc543-3186-401b-b35e-dcdb2635976d/download/detalle-actas-datos-generales-2.4.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 18463248,
+   "sha256": "033b3bc2489a6b43547dee94347a769b225cd99519874aa1fdb540d93f4a6353",
+   "retrieved_at": "2026-10-02T16:08:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/2.invalid.txt": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/cbc1a4e1-5616-40d9-947e-22e567eba2f5/download/actas-datos-generales-2.4.json",
+   "params": {},
+   "status": 200,
+   "bytes": 472812,
+   "sha256": "21395a5923f4402012a3677f9ea0a4df99de8d9d5b1b1b3c03f85181635540d3",
+   "retrieved_at": "2026-10-02T16:08:04+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/3.csv": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/28bdc184-d8e3-4d50-b5b5-e2151f902ac7/download/actas-datos-generales-2.4.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 187178,
+   "sha256": "797bd3dd10323245a7df8283e22aa24bcbeb8814248b51c19e60e4c5d850e66e",
+   "retrieved_at": "2026-10-02T16:08:05+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/4.invalid.txt": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/95ab89bf-2a4a-4c60-be19-d47cd5747b6f/download/actas-detalle-137-2.0.json",
+   "params": {},
+   "status": 200,
+   "bytes": 5051079,
+   "sha256": "08748465b5c21c7d05b1f6482d73672da3acaf097c0a1446dc44eb6fe638c283",
+   "retrieved_at": "2026-10-02T16:08:07+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votaciones/5.csv": {
+   "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/f86728ed-d4b9-479e-b939-a9841fd6d8d3/download/actas-detalle-137-2.0.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 1941490,
+   "sha256": "13333fd65afdc66f7f50a959b6d74432f6d313535a3d1aa775f244edae52bce8",
+   "retrieved_at": "2026-10-02T16:08:08+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_hcdn/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "resource_candidates": {
+  "proyectos": [
+   {
+    "name": "Giros a Comisiones de Leyes Sancionadas",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/a71100a5-f569-4881-8528-aec6fd9232c8/resource/cb94c15b-dd0b-415e-82b3-c8d5ed29919d/download/giro-a-comisiones-de-leyes-sancionadas1.7.json",
+    "package": "Comisiones",
+    "format": "json"
+   },
+   {
+    "name": "Giro a Comisiones de Leyes Sancionadas",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/a71100a5-f569-4881-8528-aec6fd9232c8/resource/79334dda-b3af-4056-b930-0f288f5dfaeb/download/giro-a-comisiones-de-leyes-sancionadas1.7.csv",
+    "package": "Comisiones",
+    "format": "csv"
+   },
+   {
+    "name": "Movimientos de proyectos",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/384c2ec9-f503-49d5-8313-ee355b6da7ba/resource/680ee432-c728-40e5-bf26-29c6fd52b110/download/movimientos_proyectos3.0.json",
+    "package": "Movimientos de proyectos",
+    "format": "json"
+   },
+   {
+    "name": "Movimientos de proyectos",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/384c2ec9-f503-49d5-8313-ee355b6da7ba/resource/6108ea83-3f12-423c-a136-df1ae9cb2972/download/movimientos_proyectos3.0.csv",
+    "package": "Movimientos de proyectos",
+    "format": "csv"
+   },
+   {
+    "name": "RESULTADO PROYECTOS",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/74011487-857d-4971-b7d1-24ab90a2e397/resource/daf0e90e-d94f-4186-b7cf-dfad5b6f9369/download/resultados_proyectos3.1.csv",
+    "package": "RESULTADO PROYECTOS",
+    "format": "csv"
+   },
+   {
+    "name": "Proyectos Parlamentarios",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/839441fc-1b5c-45b8-82c9-8b0f18ac7c9b/resource/10953cf9-e851-4187-bb94-356b7256e112/download/proyectos_parlamentarios2.5.json",
+    "package": "Proyectos Parlamentarios",
+    "format": "json"
+   },
+   {
+    "name": "Proyectos Parlamentarios",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/839441fc-1b5c-45b8-82c9-8b0f18ac7c9b/resource/22b2d52c-7a0e-426b-ac0a-a3326c388ba6/download/proyectos_parlamentarios2.5.csv",
+    "package": "Proyectos Parlamentarios",
+    "format": "csv"
+   },
+   {
+    "name": "leyes sancionadas",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/5b1d2f38-e23f-412c-a286-02ab9dcf6082/resource/a449095f-1818-4918-8600-455724db34ac/download/leyes_sancionadas3.2.json",
+    "package": "Leyes Sancionadas",
+    "format": "json"
+   }
+  ],
+  "votaciones": [
+   {
+    "name": "VOTACIONES NOMINALES PER\u00cdODOS 129 A 137 - DETALLES",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/52b28075-1690-4c4e-b4b8-7eec0fb71618/download/detalle-actas-datos-generales-2.4.json",
+    "package": "Votaciones Nominales",
+    "format": "json"
+   },
+   {
+    "name": "VOTACIONES NOMINALES PER\u00cdODOS 129 A 137 - DETALLES",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/262cc543-3186-401b-b35e-dcdb2635976d/download/detalle-actas-datos-generales-2.4.csv",
+    "package": "Votaciones Nominales",
+    "format": "csv"
+   },
+   {
+    "name": "VOTACIONES NOMINALES PER\u00cdODOS 129 A 137 - CABECERA",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/cbc1a4e1-5616-40d9-947e-22e567eba2f5/download/actas-datos-generales-2.4.json",
+    "package": "Votaciones Nominales",
+    "format": "json"
+   },
+   {
+    "name": "VOTACIONES NOMINALES PER\u00cdODOS 129 A 137 - CABECERA",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/28bdc184-d8e3-4d50-b5b5-e2151f902ac7/download/actas-datos-generales-2.4.csv",
+    "package": "Votaciones Nominales",
+    "format": "csv"
+   },
+   {
+    "name": "Votaciones Nominales per\u00edodo 137 \u2013 Detalles",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/95ab89bf-2a4a-4c60-be19-d47cd5747b6f/download/actas-detalle-137-2.0.json",
+    "package": "Votaciones Nominales",
+    "format": "json"
+   },
+   {
+    "name": "Votaciones Nominales per\u00edodo 137 \u2013 Detalles",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/f86728ed-d4b9-479e-b939-a9841fd6d8d3/download/actas-detalle-137-2.0.csv",
+    "package": "Votaciones Nominales",
+    "format": "csv"
+   },
+   {
+    "name": "Votaciones Nominales per\u00edodo 137 \u2013 Cabecera",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/2ec36d41-e387-4e86-8275-a78b5524be87/download/actas-cabecera-137-2.0.json",
+    "package": "Votaciones Nominales",
+    "format": "json"
+   },
+   {
+    "name": "Votaciones Nominales per\u00edodo 137 \u2013 Cabecera",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/2e08ab84-09f4-4aac-86b3-9573ca9810db/resource/59c05ba8-ad0a-4d55-803d-20e3fe464d0b/download/actas-cabecera-137-2.0.csv",
+    "package": "Votaciones Nominales",
+    "format": "csv"
+   }
+  ],
+  "votos": []
+ }
+}
