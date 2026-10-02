@@ -237,13 +237,13 @@ class SenadoCL(Adapter):
                 if b"<votacion" in snap.path(f"votaciones/{b}.xml").read_bytes()[:5000].lower().replace(b"<votaciones", b""):
                     snap.manifest.setdefault("boletin_form", "full" if "-" in form else "number")
                     break
-            if "sample_response" not in snap.manifest:
-                snap.manifest["sample_response"] = {"boletin": b, "votaciones": snap.path(f"votaciones/{b}.xml").read_text(encoding="utf-8", errors="ignore")[:400]}
-                try:  # the tramitación service may carry the votes when votaciones.php does not
+            if b"<votacion" not in snap.path(f"votaciones/{b}.xml").read_bytes()[:5000].lower().replace(b"<votaciones", b""):
+                try:  # the tramitación document carries a <votaciones> block when the Senate has voted
                     snap.get(f"{SENADO_WS}/tramitacion.php", f"tramitacion/{b}.xml", params={"boletin": b.split("-")[0]}, timeout=120, allow_statuses=(200, 404, 500))
-                    snap.manifest["sample_response"]["tramitacion"] = snap.path(f"tramitacion/{b}.xml").read_text(encoding="utf-8", errors="ignore")[:800]
                 except Exception as e:  # noqa: BLE001
                     snap.manifest.setdefault("errors", []).append({"name": f"tramitacion/{b}", "error": str(e)[:200]})
+            if "sample_response" not in snap.manifest:
+                snap.manifest["sample_response"] = {"boletin": b, "votaciones": snap.path(f"votaciones/{b}.xml").read_text(encoding="utf-8", errors="ignore")[:400]}
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
@@ -251,9 +251,9 @@ class SenadoCL(Adapter):
         votes_rows: list[dict] = []
         members: list[dict] = []
         for name in sorted(snap.files):
-            if not name.startswith("votaciones/") or not snap.has(name):
+            if not (name.startswith("votaciones/") or name.startswith("tramitacion/")) or not snap.has(name):
                 continue
-            boletin = name[len("votaciones/"):-len(".xml")]
+            boletin = name.split("/", 1)[1][:-len(".xml")]
             meta = info.get(boletin) or {"doc_id": event_id("CHL", "chl_camara", boletin), "title": f"Boletín {boletin}"}
             root = _root(snap, name)
             if root is None:
@@ -282,4 +282,6 @@ class SenadoCL(Adapter):
                     members.append({"vote_id": vote_id, "country": "CHL", "member_id": event_id(nm), "member_name": nm, "party": None, "region": None,
                                     "choice": SENADO_CHOICE.get(sel.strip().lower(), "other"), "choice_original": sel or "?",
                                     "source_record_url": f"{SENADO_WS}/votaciones.php?boletin={boletin.split('-')[0]}"})
-        return {"vote": self.stamp(snap, pd.DataFrame(votes_rows, columns=VOTE_COLUMNS)), "vote_member": self.stamp(snap, pd.DataFrame(members, columns=VOTE_MEMBER_COLUMNS))}
+        votes_df = pd.DataFrame(votes_rows, columns=VOTE_COLUMNS).drop_duplicates(subset=["vote_id"])
+        members_df = pd.DataFrame(members, columns=VOTE_MEMBER_COLUMNS).drop_duplicates(subset=["vote_id", "member_id"])
+        return {"vote": self.stamp(snap, votes_df), "vote_member": self.stamp(snap, members_df)}

@@ -155,5 +155,6 @@
   "modalidad",
   "observacion",
   "tipo_de_anotacion"
- ]
+ ],
+ "parse_note": "dataset has no holder column (['codigo_expediente', 'estado_juridico', 'fecha_anotacion', 'fecha_ejecutoria', 'id_tipo_de_anotacion', 'modalidad', 'observacion', 'tipo_de_anotacion']); not the titles cadastre, nothing stored"
 }

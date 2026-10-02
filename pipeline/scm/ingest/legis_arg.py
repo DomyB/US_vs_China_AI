@@ -99,6 +99,7 @@ class HCDN(Adapter):
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         docs: dict[str, dict] = {}
+        aliases: dict[str, str] = {}
         bills = self._frames(snap, "proyectos")
         if not bills.empty:
             snap.manifest["columns_proyectos"] = list(map(str, bills.columns))[:40]
@@ -129,7 +130,7 @@ class HCDN(Adapter):
                                     native_id=exp, summary=summ[:1000] or None, author=str(r[c_auth])[:300] if c_auth and r[c_auth] else None)
                 docs[exp] = row
                 if c_exp2 and str(r[c_exp2]).strip() and str(r[c_exp2]).strip() != exp:
-                    docs.setdefault(str(r[c_exp2]).strip(), row)  # reachable by either chamber's expediente
+                    aliases[str(r[c_exp2]).strip()] = exp  # reachable by either chamber's expediente
         votes_rows: list[dict] = []
         members: list[dict] = []
         votes = self._frames(snap, "votaciones")
@@ -144,6 +145,7 @@ class HCDN(Adapter):
             exp_re = re.compile(r"\b(\d{1,5}-[A-Z]{1,3}-\d{2,4})\b")
             norm_exp = lambda e: re.sub(r"^0+(?=\d)", "", str(e).strip().upper())  # noqa: E731
             docs_by_exp = {norm_exp(k): v for k, v in docs.items()}
+            docs_by_exp.update({norm_exp(a): docs[k] for a, k in aliases.items() if k in docs})
             def _i(x):
                 try:
                     return int(float(str(x).replace(",", ".")))

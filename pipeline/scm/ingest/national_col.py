@@ -52,20 +52,32 @@ class ANMAnna(Adapter):
                 cnt = snap.get_json(url, f"count_{ds}.json", params={"$select": "count(*) as n"}, timeout=120)
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": ds, "error": str(e)[:200]})
+                if "non-tabular" in str(e):
+                    # a map layer (the national titles cadastre is one): Socrata exposes it only as a geospatial export
+                    probes.append({"id": ds, "rows": None, "geospatial": True})
+                    snap.manifest["catalog_probes"] = probes
                 continue
             cols = " ".join(k.lower() for d in (sample if isinstance(sample, list) else []) for k in d)
             n = int(cnt[0].get("n", 0)) if isinstance(cnt, list) and cnt else 0
             ok = "titular" in cols and "mineral" in cols
             probes.append({"id": ds, "rows": n, "has_holder_and_minerals": ok})
             snap.manifest["catalog_probes"] = probes
-        good = [p for p in probes if p["has_holder_and_minerals"]]
+        good = [p for p in probes if p.get("has_holder_and_minerals")]
         best = max(good, key=lambda p: p["rows"]) if good else None
+        if best is None:
+            geo = [p for p in probes if p.get("geospatial")]
+            if geo:
+                snap.manifest["catalog_choice"] = {"id": geo[0]["id"], "geospatial": True}
+                return f"https://www.datos.gov.co/api/geospatial/{geo[0]['id']}?method=export&format=GeoJSON"
         snap.manifest["catalog_choice"] = best
         return f"https://www.datos.gov.co/resource/{best['id']}.json" if best else SOCRATA
 
     def fetch(self, snap: Snapshot) -> None:
         url = self._dataset(snap)
         snap.manifest["dataset_url"] = url
+        if "/api/geospatial/" in url:
+            snap.get(url, "export.geojson", timeout=900)  # one file with every title; properties carry the attributes
+            return
         for page in range(MAX_PAGES):
             payload = snap.get_json(url, f"page_{page}.json", params={"$limit": PAGE, "$offset": page * PAGE, "$order": ":id"}, timeout=300)
             if not isinstance(payload, list) or len(payload) < PAGE:
@@ -75,13 +87,15 @@ class ANMAnna(Adapter):
         rows: dict[str, dict] = {}
         cols_seen: set[str] = set()
         for name in sorted(snap.files):
-            if not name.startswith("page_") or not snap.has(name):
+            if not (name.startswith("page_") or name.endswith(".geojson")) or not snap.has(name):
                 continue
             try:
                 recs = json.loads(snap.path(name).read_text(encoding="utf-8"))
             except json.JSONDecodeError:
                 snap.manifest.setdefault("unparsed", []).append(name)
                 continue
+            if isinstance(recs, dict) and "features" in recs:  # GeoJSON export: attributes live in properties
+                recs = [f.get("properties", {}) for f in recs.get("features", [])]
             for i, d in enumerate(recs if isinstance(recs, list) else []):
                 cols_seen.update(d.keys())
                 native = _pick(d, "codigo_expediente", "c_digo_expediente", "expediente", "codigo", "id") or f"{name}-{i}"
@@ -102,4 +116,9 @@ class ANMAnna(Adapter):
                                 "source_record_url": f"{SOCRATA}?codigo_expediente={native}" if native and not native.startswith("page_") else SOCRATA}
         snap.manifest["columns_seen"] = sorted(cols_seen)[:60]
         snap.save()
+        if cols_seen and not any("titular" in c.lower() for c in cols_seen):
+            # registry annotations, not the titles cadastre: store nothing rather than mislabelled rows
+            snap.manifest["parse_note"] = f"dataset has no holder column ({sorted(cols_seen)[:8]}); not the titles cadastre, nothing stored"
+            snap.save()
+            rows = {}
         return {"concession": self.stamp(snap, pd.DataFrame(list(rows.values()), columns=CONCESSION_COLUMNS))}
