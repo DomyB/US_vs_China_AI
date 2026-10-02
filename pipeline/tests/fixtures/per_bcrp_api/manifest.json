@@ -7,67 +7,67 @@
    "status": 200,
    "bytes": 6879840,
    "sha256": "254b7480f7eb48a9f768a066280677d4867aca969f4298a340901bc0e1c3096d",
-   "retrieved_at": "2026-10-02T17:02:26+00:00",
+   "retrieved_at": "2026-10-02T19:06:34+00:00",
    "note": null,
    "trimmed": true
   },
   "series_0.json": {
-   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PM05133AA-PM05134AA-PM05135AA-PM05136AA-PM05137AA-PM05138AA-PM05139AA-PM05140AA-PM05146AA-PM05147AA/json/2000/2026/esp",
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PM05146AA-PM05147AA-PM05148AA-PM05149AA-PM05150AA-PM05151AA-PM05152AA-PM05153AA-CD10504DA-CD10505DA/json/2000/2026/esp",
    "params": {},
    "status": 200,
-   "bytes": 6921,
-   "sha256": "7fd91a3ffc78e8cdbca07b1e5575e3495ad6f94139110658f9b22e9d44cec00e",
-   "retrieved_at": "2026-10-02T17:02:28+00:00",
+   "bytes": 6165,
+   "sha256": "1dad6a9c4831d46d41377936666607ecaeb63527bc13b2f1e4f2fd9b75885400",
+   "retrieved_at": "2026-10-02T19:06:36+00:00",
    "note": null,
    "trimmed": true
   },
   "series_1.json": {
-   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PM05148AA-PM05149AA-PM05150AA-PM05151AA-PM05152AA-PM05153AA-CD10504DA-CD10505DA-CD10506DA-CD10507DA/json/2000/2026/esp",
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/CD10506DA-CD10507DA-CD10508DA-CD10509DA-CD10510DA-CD10511DA-CD10512DA-CD10513DA-CD10514DA-CD10515DA/json/2000/2026/esp",
    "params": {},
    "status": 200,
-   "bytes": 5598,
-   "sha256": "1013c1c6e83684e05b0b9bbb9988b4c82b8151c67c4a7c05d8dcd299b92f20cc",
-   "retrieved_at": "2026-10-02T17:02:29+00:00",
+   "bytes": 1255,
+   "sha256": "787551db5a8333ee42764dfcae628251195c574acae9c46bc355d7c495819930",
+   "retrieved_at": "2026-10-02T19:06:38+00:00",
    "note": null,
    "trimmed": true
   },
   "series_2.json": {
-   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/CD10508DA-CD10509DA-CD10510DA-CD10511DA-CD10512DA-CD10513DA-CD10514DA-CD10515DA-CD10516DA-CD10517DA/json/2000/2026/esp",
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/CD10516DA-CD10517DA-CD10518DA-CD10519DA-CD10520DA-CD10521DA-CD10523DA-CD10525DA-CD10527DA-CD12781DA/json/2000/2026/esp",
    "params": {},
    "status": 200,
-   "bytes": 1242,
-   "sha256": "cd82ad12cd761fd8d32f1f8c73024c0a53a8bc9e905c7216781880c831ba4544",
-   "retrieved_at": "2026-10-02T17:02:31+00:00",
+   "bytes": 1320,
+   "sha256": "05b04c6d7e1ff8387a3abc9e722e26ebc19ab76103f5f88f45d82e6ae56dba88",
+   "retrieved_at": "2026-10-02T19:06:39+00:00",
    "note": null,
    "trimmed": true
   },
   "series_3.json": {
-   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/CD10518DA-CD10519DA-CD10520DA-CD10521DA-CD10523DA-CD10525DA-CD10527DA-CD12781DA-RD15516DA-RD15517DA/json/2000/2026/esp",
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD15516DA-RD15517DA-RD15518DA-RD15519DA-RD15520DA-RD15521DA-RD15522DA-RD15523DA-RD15524DA-RD15525DA/json/2000/2026/esp",
    "params": {},
    "status": 200,
-   "bytes": 4323,
-   "sha256": "85c736a445bb24c2b01af18ff3df5e5758d71564c96395c95d9de3b0b6c18755",
-   "retrieved_at": "2026-10-02T17:02:32+00:00",
+   "bytes": 5524,
+   "sha256": "8d2249ae55acd9fb5639cbecef50809e1e99b991484c1ba2010bdcb7f93f7be4",
+   "retrieved_at": "2026-10-02T19:06:41+00:00",
    "note": null,
    "trimmed": true
   },
   "series_4.json": {
-   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD15518DA-RD15519DA-RD15520DA-RD15521DA-RD15522DA-RD15523DA-RD15524DA-RD15525DA-RD15526DA-RD15527DA/json/2000/2026/esp",
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD15526DA-RD15527DA-RD15528DA-RD15529DA-RD15530DA-RD15531DA-RD15532DA-RD15533DA-RD15534DA-RD15535DA/json/2000/2026/esp",
    "params": {},
    "status": 200,
-   "bytes": 5368,
-   "sha256": "33c6f58dacccff86722f2e229e0c4bb29e5a92ab51df5d3e7c61a3fc38feb30c",
-   "retrieved_at": "2026-10-02T17:02:34+00:00",
+   "bytes": 5621,
+   "sha256": "abb4e1e0d0b8c36843010b81ff48f66256dd988243a19e1365ec8edb93970afd",
+   "retrieved_at": "2026-10-02T19:06:42+00:00",
    "note": null,
    "trimmed": true
   },
   "series_5.json": {
-   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD15528DA-RD15529DA-RD15530DA-RD15531DA-RD15532DA-RD15533DA-RD15534DA-RD15535DA-RD15536DA-RD15537DA/json/2000/2026/esp",
+   "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/RD15536DA-RD15537DA-RD15538DA-RD15539DA-RD15540DA-RD15541DA-RD15542DA-RD15543DA-RD15544DA-RD15545DA/json/2000/2026/esp",
    "params": {},
    "status": 200,
-   "bytes": 5725,
-   "sha256": "4d41f3b0c1e998b21dacbb44785d90809177490c1245bb4bf1561dc5b2401ed0",
-   "retrieved_at": "2026-10-02T17:02:35+00:00",
+   "bytes": 5527,
+   "sha256": "b7adeee16cd7c99d1077830e8200e41d0b9172244e87184b7134f277f857035d",
+   "retrieved_at": "2026-10-02T19:06:44+00:00",
    "note": null,
    "trimmed": true
   }
@@ -96,38 +96,6 @@
   "Unnamed: 18"
  ],
  "series_selected": [
-  [
-   "PM05133AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Cobre"
-  ],
-  [
-   "PM05134AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Esta\u00f1o"
-  ],
-  [
-   "PM05135AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Hierro"
-  ],
-  [
-   "PM05136AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Oro"
-  ],
-  [
-   "PM05137AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Plata"
-  ],
-  [
-   "PM05138AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Plomo"
-  ],
-  [
-   "PM05139AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Zinc"
-  ],
-  [
-   "PM05140AA",
-   "Producci\u00f3n minera e hidrocarburos por principales productos (variaci\u00f3n porcentual interanual) - Miner\u00eda Met\u00e1lica - Molibdeno"
-  ],
   [
    "PM05146AA",
    "Producci\u00f3n minera e hidrocarburos por principales productos (miles de unidades recuperables) - Miner\u00eda Met\u00e1lica - Cobre (miles de toneladas)"
@@ -335,6 +303,38 @@
   [
    "RD15537DA",
    "Producci\u00f3n de productos mineros seg\u00fan departamentos - Molibdeno - Total (tm.f)"
+  ],
+  [
+   "RD15538DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Molibdeno - Ancash (tm.f)"
+  ],
+  [
+   "RD15539DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Molibdeno - Arequipa (tm.f)"
+  ],
+  [
+   "RD15540DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Molibdeno - Jun\u00edn (tm.f)"
+  ],
+  [
+   "RD15541DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Molibdeno - Moquegua (tm.f)"
+  ],
+  [
+   "RD15542DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Molibdeno - Tacna (tm.f)"
+  ],
+  [
+   "RD15543DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Oro - Total (grs.f)"
+  ],
+  [
+   "RD15544DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Oro - Ancash (grs.f)"
+  ],
+  [
+   "RD15545DA",
+   "Producci\u00f3n de productos mineros seg\u00fan departamentos - Oro - Apurimac (grs.f)"
   ]
  ]
 }

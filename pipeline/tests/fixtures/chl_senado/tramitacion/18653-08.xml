@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<proyectos><proyecto>
+                 <descripcion>
+                    <boletin>18653-08</boletin>
+                    <titulo>Modifica el decreto ley N° 1.350, de 1976, que crea la Corporación Nacional del Cobre de Chile, con el propósito de suprimir la participación de representantes de los trabajadores en su directorio</titulo>
+                    <fecha_ingreso>19/08/2026</fecha_ingreso>
+                    <iniciativa>Moción</iniciativa>
+                    <camara_origen>C.Diputados</camara_origen>
+                    <urgencia_actual>Sin urgencia</urgencia_actual>
+                    <etapa>Primer trámite constitucional (C.Diputados)</etapa>
+                    <subetapa>Primer informe de comisión de Minería y Energía</subetapa>
+                    <leynro />
+                    <diariooficial />
+                    <estado>En tramitación </estado>
+                    <refundidos />
+                    <link_mensaje_mocion>http://www.senado.cl/appsenado/index.php?mo=tramitacion&amp;ac=getDocto&amp;iddocto=19336&amp;tipodoc=mensaje_mocion</link_mensaje_mocion>
+                 </descripcion><autores><autor><PARLAMENTARIO>Grohs Marín, Erich</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Jofré Cáceres, Álvaro</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Karlezi Hazleby, Pier</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Kast Sommerhoff, Tomás</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Muñoz Minte, Paulina</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Sulantay Olivares, Marco Antonio</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Urcullú Clèment-Lund, Ignacio</PARLAMENTARIO></autor>
+<autor><PARLAMENTARIO>Valenzuela Salazar, Daniel</PARLAMENTARIO></autor>
+</autores>
+<tramitacion><tramite><SESION>/</SESION><FECHA>19/08/2026</FECHA><DESCRIPCIONTRAMITE>Ingreso de proyecto .  </DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+<tramite><SESION>67/374</SESION><FECHA>21/09/2026</FECHA><DESCRIPCIONTRAMITE>Cuenta de proyecto . Pasa a Comisión de Minería y Energía</DESCRIPCIONTRAMITE><ETAPDESCRIPCION>Primer trámite constitucional</ETAPDESCRIPCION><CAMARATRAMITE>C.Diputados</CAMARATRAMITE></tramite>
+</tramitacion>
+<votaciones />
+<urgencias />
+<informes />
+<comparados />
+<oficios />
+<indicaciones />
+<observaciones />
+<materias />
+</proyecto>
+</proyectos>

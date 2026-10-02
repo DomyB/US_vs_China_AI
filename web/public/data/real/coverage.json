@@ -189,7 +189,7 @@
    "media_available": false,
    "media_articles": 0,
    "media_from": null,
-   "concessions": 58
+   "concessions": 6769
   },
   "ECU": {
    "trade_years": [
@@ -326,7 +326,7 @@
    "events": 169,
    "contracts": 100,
    "governance": 928,
-   "production": 1108,
+   "production": 1177,
    "actions": true,
    "governance_available": true,
    "parliament_available": true,
