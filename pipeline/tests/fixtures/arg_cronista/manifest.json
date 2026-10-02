@@ -1,0 +1,78 @@
+{
+ "source_id": "arg_cronista",
+ "files": {
+  "home.html": {
+   "url": "https://www.cronista.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 451670,
+   "final_url": "https://www.cronista.com/usa/",
+   "sha256": "07ca599a81902a47e6771e7a44cbb20cde9b4ad76a8485dbabc4ff9e9937a858",
+   "retrieved_at": "2026-10-02T13:35:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.cronista.com/arc/outboundfeeds/rss/?outputType=xml",
+   "params": {},
+   "status": 200,
+   "bytes": 659335,
+   "sha256": "1a643e300c2beb0f62b766c572e6473db96f5d9124bed75aa133a29a96538177",
+   "retrieved_at": "2026-10-02T13:35:36+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_cronista/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://www.cronista.com/rss/feed.xml",
+   "error": "arg_cronista: GET https://www.cronista.com/rss/feed.xml -> 404 Not Found"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.cronista.com/rss: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.cronista.com/feed: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+  },
+  {
+   "name": "https://www.cronista.com/rss.xml",
+   "error": "arg_cronista: GET https://www.cronista.com/rss.xml -> 404 Not Found"
+  },
+  {
+   "name": "https://www.cronista.com/feed.xml",
+   "error": "arg_cronista: GET https://www.cronista.com/feed.xml -> 404 Not Found"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.cronista.com/feeds/rss: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.cronista.com/rss/portada: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.cronista.com/rss/ultimas-noticias: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+  }
+ ],
+ "feed_urls": [
+  "https://www.cronista.com/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://www.cronista.com/rss/feed.xml",
+  "https://www.cronista.com/rss",
+  "https://www.cronista.com/feed",
+  "https://www.cronista.com/rss.xml",
+  "https://www.cronista.com/feed.xml",
+  "https://www.cronista.com/feeds/rss",
+  "https://www.cronista.com/rss/portada",
+  "https://www.cronista.com/rss/ultimas-noticias",
+  "https://www.cronista.com/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "feeds_found": 1
+}

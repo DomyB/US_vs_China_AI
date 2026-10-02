@@ -1,0 +1,78 @@
+{
+ "source_id": "per_ojopublico",
+ "files": {
+  "home.html": {
+   "url": "https://ojo-publico.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 392044,
+   "sha256": "cf7c0112da7044db56599d72e8cae30bd151131d2a680e30b8c75e224b1e8d56",
+   "retrieved_at": "2026-10-02T13:38:51+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_ojopublico/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://ojo-publico.com/rss",
+   "error": "per_ojopublico: GET https://ojo-publico.com/rss -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://"
+  },
+  {
+   "name": "https://ojo-publico.com/feed",
+   "error": "per_ojopublico: GET https://ojo-publico.com/feed -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http:/"
+  },
+  {
+   "name": "https://ojo-publico.com/rss.xml",
+   "error": "per_ojopublico: GET https://ojo-publico.com/rss.xml -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: htt"
+  },
+  {
+   "name": "https://ojo-publico.com/feed.xml",
+   "error": "per_ojopublico: GET https://ojo-publico.com/feed.xml -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: ht"
+  },
+  {
+   "name": "https://ojo-publico.com/feeds/rss",
+   "error": "per_ojopublico: GET https://ojo-publico.com/feeds/rss -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: h"
+  },
+  {
+   "name": "https://ojo-publico.com/rss/portada",
+   "error": "per_ojopublico: GET https://ojo-publico.com/rss/portada -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf:"
+  },
+  {
+   "name": "https://ojo-publico.com/rss/ultimas-noticias",
+   "error": "per_ojopublico: GET https://ojo-publico.com/rss/ultimas-noticias -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/term"
+  },
+  {
+   "name": "https://ojo-publico.com/arc/outboundfeeds/rss/?outputType=xml",
+   "error": "per_ojopublico: GET https://ojo-publico.com/arc/outboundfeeds/rss/?outputType=xml -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http:/"
+  },
+  {
+   "name": "https://ojo-publico.com/rss/lo-ultimo/",
+   "error": "per_ojopublico: GET https://ojo-publico.com/rss/lo-ultimo/ -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  fo"
+  },
+  {
+   "name": "https://ojo-publico.com/feeds/articulos",
+   "error": "per_ojopublico: GET https://ojo-publico.com/feeds/articulos -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  f"
+  },
+  {
+   "name": "https://ojo-publico.com/rss/listado/",
+   "error": "per_ojopublico: GET https://ojo-publico.com/rss/listado/ -> 404 <!DOCTYPE html>\n<html lang=\"es\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf"
+  }
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://ojo-publico.com/rss",
+  "https://ojo-publico.com/feed",
+  "https://ojo-publico.com/rss.xml",
+  "https://ojo-publico.com/feed.xml",
+  "https://ojo-publico.com/feeds/rss",
+  "https://ojo-publico.com/rss/portada",
+  "https://ojo-publico.com/rss/ultimas-noticias",
+  "https://ojo-publico.com/arc/outboundfeeds/rss/?outputType=xml",
+  "https://ojo-publico.com/rss/lo-ultimo/",
+  "https://ojo-publico.com/feeds/articulos",
+  "https://ojo-publico.com/rss/listado/"
+ ],
+ "feeds_found": 0
+}

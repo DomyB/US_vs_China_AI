@@ -1,0 +1,25 @@
+{
+ "source_id": "ury_ladiaria",
+ "files": {
+  "feed_0.xml": {
+   "url": "https://ladiaria.com.uy/feeds/articulos",
+   "params": {},
+   "status": 200,
+   "bytes": 487341,
+   "final_url": "https://ladiaria.com.uy/feeds/articulos/",
+   "sha256": "a360d8c35de47c1f759cbb3547480fe5ebd19a974e88b28182d10755f06dbbed",
+   "retrieved_at": "2026-10-02T13:39:55+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_ladiaria/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://ladiaria.com.uy/feeds/articulos"
+ ],
+ "feeds_tried": [
+  "https://ladiaria.com.uy/feeds/articulos"
+ ],
+ "feeds_found": 1
+}

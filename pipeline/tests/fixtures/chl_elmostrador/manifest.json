@@ -1,0 +1,78 @@
+{
+ "source_id": "chl_elmostrador",
+ "files": {
+  "home.html": {
+   "url": "https://www.elmostrador.cl/",
+   "params": {},
+   "status": 200,
+   "bytes": 223251,
+   "sha256": "a60adb7c1a6dd1698f97f765035b4e5287966b2ca67f40fc2a5cf036085f01e5",
+   "retrieved_at": "2026-10-02T13:37:16+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmostrador/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://www.elmostrador.cl/rss",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html lang=\""
+  },
+  {
+   "name": "https://www.elmostrador.cl/feed",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feed -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html lang="
+  },
+  {
+   "name": "https://www.elmostrador.cl/rss.xml",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss.xml -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html la"
+  },
+  {
+   "name": "https://www.elmostrador.cl/feed.xml",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feed.xml -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html l"
+  },
+  {
+   "name": "https://www.elmostrador.cl/feeds/rss",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feeds/rss -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html "
+  },
+  {
+   "name": "https://www.elmostrador.cl/rss/portada",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/portada -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<htm"
+  },
+  {
+   "name": "https://www.elmostrador.cl/rss/ultimas-noticias",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/ultimas-noticias -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype h"
+  },
+  {
+   "name": "https://www.elmostrador.cl/arc/outboundfeeds/rss/?outputType=xml",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/arc/outboundfeeds/rss/?outputType=xml -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "name": "https://www.elmostrador.cl/rss/lo-ultimo/",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/lo-ultimo/ -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<"
+  },
+  {
+   "name": "https://www.elmostrador.cl/feeds/articulos",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feeds/articulos -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n"
+  },
+  {
+   "name": "https://www.elmostrador.cl/rss/listado/",
+   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/listado/ -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<ht"
+  }
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://www.elmostrador.cl/rss",
+  "https://www.elmostrador.cl/feed",
+  "https://www.elmostrador.cl/rss.xml",
+  "https://www.elmostrador.cl/feed.xml",
+  "https://www.elmostrador.cl/feeds/rss",
+  "https://www.elmostrador.cl/rss/portada",
+  "https://www.elmostrador.cl/rss/ultimas-noticias",
+  "https://www.elmostrador.cl/arc/outboundfeeds/rss/?outputType=xml",
+  "https://www.elmostrador.cl/rss/lo-ultimo/",
+  "https://www.elmostrador.cl/feeds/articulos",
+  "https://www.elmostrador.cl/rss/listado/"
+ ],
+ "feeds_found": 0
+}

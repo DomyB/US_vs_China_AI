@@ -1,0 +1,24 @@
+{
+ "source_id": "arg_clarin",
+ "files": {
+  "feed_0.xml": {
+   "url": "https://www.clarin.com/rss/lo-ultimo/",
+   "params": {},
+   "status": 200,
+   "bytes": 10437,
+   "sha256": "a72bd6398685c29e8839447aa67a25845fb6078b51a6a32ca3f7ddf498921f36",
+   "retrieved_at": "2026-10-02T13:35:18+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_clarin/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://www.clarin.com/rss/lo-ultimo/"
+ ],
+ "feeds_tried": [
+  "https://www.clarin.com/rss/lo-ultimo/"
+ ],
+ "feeds_found": 1
+}

@@ -1,0 +1,25 @@
+{
+ "source_id": "bra_valor",
+ "files": {
+  "feed_0.xml": {
+   "url": "https://valor.com.br/rss",
+   "params": {},
+   "status": 200,
+   "bytes": 328397,
+   "final_url": "http://pox.globo.com/rss/valor",
+   "sha256": "1b0dcea27313c55118859da92931e580cc1e3cbbb415c3bc44c2e46c47e8c6e3",
+   "retrieved_at": "2026-10-02T13:36:40+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_valor/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://valor.com.br/rss"
+ ],
+ "feeds_tried": [
+  "https://valor.com.br/rss"
+ ],
+ "feeds_found": 1
+}

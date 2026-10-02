@@ -1,0 +1,63 @@
+{
+ "source_id": "col_elespectador",
+ "files": {
+  "home.html": {
+   "url": "https://www.elespectador.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 571523,
+   "sha256": "7b428185e58833131978d1b475bb85c74816f44f3d4a29dea4523008a1b82b6e",
+   "retrieved_at": "2026-10-02T13:37:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.elespectador.com/feed/",
+   "params": {},
+   "status": 200,
+   "bytes": 934,
+   "sha256": "d8d812068c0d560efb3b38cba1c4fa37367f78526ad3963e0ded442fdcf26e05",
+   "retrieved_at": "2026-10-02T13:37:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_1.xml": {
+   "url": "https://www.elespectador.com/comments/feed/",
+   "params": {},
+   "status": 200,
+   "bytes": 9208,
+   "sha256": "de21d04116152da5a86582bf5decfe42f6620e4670a1d1e1c540631b4d784d60",
+   "retrieved_at": "2026-10-02T13:37:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_2.xml": {
+   "url": "https://www.elespectador.com/arc/outboundfeeds/discover/",
+   "params": {},
+   "status": 200,
+   "bytes": 135682,
+   "sha256": "3c24ebcc9058256609155b10a802ead6d615c866436ea22f63883161c86f9c55",
+   "retrieved_at": "2026-10-02T13:37:46+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_elespectador/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://www.elespectador.com/feed/",
+  "https://www.elespectador.com/comments/feed/",
+  "https://www.elespectador.com/arc/outboundfeeds/discover/"
+ ],
+ "discovered_feeds": [
+  "https://www.elespectador.com/feed/",
+  "https://www.elespectador.com/comments/feed/",
+  "https://www.elespectador.com/arc/outboundfeeds/discover/"
+ ],
+ "feeds_tried": [
+  "https://www.elespectador.com/feed/",
+  "https://www.elespectador.com/comments/feed/",
+  "https://www.elespectador.com/arc/outboundfeeds/discover/"
+ ],
+ "feeds_found": 3
+}

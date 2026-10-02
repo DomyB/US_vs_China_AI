@@ -1,5 +1,5 @@
 {
- "generated_on": "2026-10-01",
+ "generated_on": "2026-10-02",
  "countries": {
   "ARG": {
    "trade_years": [
@@ -28,7 +28,16 @@
    "governance": 928,
    "production": 248,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": true,
+   "media_articles": 1,
+   "media_from": 2026,
+   "concessions": 0
   },
   "BOL": {
    "trade_years": [
@@ -57,7 +66,16 @@
    "governance": 928,
    "production": 321,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": "The Asamblea Legislativa Plurinacional publishes no API, no roll-call data and no transcripts; the Gaceta's full text is paywalled.",
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "BRA": {
    "trade_years": [
@@ -86,7 +104,16 @@
    "governance": 928,
    "production": 841,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": true,
+   "parliament_documents": 3266,
+   "parliament_votes": 485,
+   "parliament_from": 2001,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "CHL": {
    "trade_years": [
@@ -115,7 +142,16 @@
    "governance": 676,
    "production": 426,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": true,
+   "media_articles": 2,
+   "media_from": 2026,
+   "concessions": 0
   },
   "COL": {
    "trade_years": [
@@ -144,7 +180,16 @@
    "governance": 928,
    "production": 219,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "ECU": {
    "trade_years": [
@@ -173,7 +218,16 @@
    "governance": 928,
    "production": 74,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "GUY": {
    "trade_years": [
@@ -202,7 +256,16 @@
    "governance": 928,
    "production": 50,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": "The Parliament of Guyana publishes Hansard as PDF only, with no structured bill or vote records.",
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "PRY": {
    "trade_years": [
@@ -228,7 +291,16 @@
    "governance": 928,
    "production": 0,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "PER": {
    "trade_years": [
@@ -256,7 +328,16 @@
    "governance": 928,
    "production": 360,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": true,
+   "media_articles": 4,
+   "media_from": 2026,
+   "concessions": 0
   },
   "SUR": {
    "trade_years": [
@@ -285,7 +366,16 @@
    "governance": 928,
    "production": 57,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": "De Nationale Assembl\u00e9e publishes bills as Dutch PDFs; debates and roll-calls are not online.",
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "URY": {
    "trade_years": [
@@ -300,7 +390,16 @@
    "governance": 676,
    "production": 31,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   },
   "VEN": {
    "trade_years": [],
@@ -310,7 +409,16 @@
    "governance": 649,
    "production": 175,
    "actions": true,
-   "governance_available": true
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": "Two assemblies claim legitimacy; neither publishes structured bill or vote records.",
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "concessions": 0
   }
  }
 }

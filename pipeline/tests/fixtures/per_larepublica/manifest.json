@@ -1,0 +1,48 @@
+{
+ "source_id": "per_larepublica",
+ "files": {
+  "home.html": {
+   "url": "https://larepublica.pe/",
+   "params": {},
+   "status": 200,
+   "bytes": 1663401,
+   "sha256": "600e5e4e532ac559c5f0a787b16f083022523647d035d5751151c41893290597",
+   "retrieved_at": "2026-10-02T13:38:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://larepublica.pe/rss.xml",
+   "params": {},
+   "status": 200,
+   "bytes": 1381284,
+   "final_url": "https://larepublica.pe/rss/home.xml",
+   "sha256": "3e895251b186743feb74326904ecbb2989a5b61674b00d4a8583ba75ec66d01e",
+   "retrieved_at": "2026-10-02T13:38:49+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_larepublica/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://larepublica.pe/rss",
+   "error": "per_larepublica: GET https://larepublica.pe/rss -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-head=\""
+  },
+  {
+   "name": "https://larepublica.pe/feed",
+   "error": "per_larepublica: GET https://larepublica.pe/feed -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-head="
+  }
+ ],
+ "feed_urls": [
+  "https://larepublica.pe/rss.xml"
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://larepublica.pe/rss",
+  "https://larepublica.pe/feed",
+  "https://larepublica.pe/rss.xml"
+ ],
+ "feeds_found": 1
+}

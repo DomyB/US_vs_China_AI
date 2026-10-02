@@ -1,0 +1,37 @@
+{
+ "source_id": "bra_oglobo",
+ "files": {
+  "home.html": {
+   "url": "https://oglobo.globo.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 990181,
+   "sha256": "da42466a78fe8200170b15a4ffd1f03eba99ef4e4bbbf7c2346e827f892e926a",
+   "retrieved_at": "2026-10-02T13:36:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://oglobo.globo.com/rss/oglobo",
+   "params": {},
+   "status": 200,
+   "bytes": 439622,
+   "sha256": "046b81597209e60f726629d520358b897de9c6930e8d2d7335af2a566940f9ee",
+   "retrieved_at": "2026-10-02T13:36:36+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_oglobo/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://oglobo.globo.com/rss/oglobo"
+ ],
+ "discovered_feeds": [
+  "https://oglobo.globo.com/rss/oglobo"
+ ],
+ "feeds_tried": [
+  "https://oglobo.globo.com/rss/oglobo"
+ ],
+ "feeds_found": 1
+}

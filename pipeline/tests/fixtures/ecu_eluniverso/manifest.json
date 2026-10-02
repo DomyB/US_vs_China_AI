@@ -1,0 +1,44 @@
+{
+ "source_id": "ecu_eluniverso",
+ "files": {
+  "home.html": {
+   "url": "https://www.eluniverso.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 1960057,
+   "sha256": "29e3dabd8593b6fca85350f370bf9c5913c36c269274e0fed5b316b4c0abc4b5",
+   "retrieved_at": "2026-10-02T13:38:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml",
+   "params": {},
+   "status": 200,
+   "bytes": 149238,
+   "sha256": "e29ff6d6a8b18691db0804866a2f669e3c24f825e7830286446b541fa459a7fc",
+   "retrieved_at": "2026-10-02T13:38:34+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_eluniverso/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.eluniverso.com/rss/: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta name=\"viewport\" content=\"width=device'"
+  }
+ ],
+ "feed_urls": [
+  "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "discovered_feeds": [
+  "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "feeds_tried": [
+  "https://www.eluniverso.com/rss/",
+  "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "feeds_found": 1
+}

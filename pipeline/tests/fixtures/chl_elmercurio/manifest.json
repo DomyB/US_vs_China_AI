@@ -1,0 +1,17 @@
+{
+ "source_id": "chl_elmercurio",
+ "files": {
+  "home.html": {
+   "url": "https://www.emol.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 157374,
+   "sha256": "184498a43639385fe919c2446a653cb4b332d36a03234a74e2f8be858ce90533",
+   "retrieved_at": "2026-10-02T13:36:48+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmercurio/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}

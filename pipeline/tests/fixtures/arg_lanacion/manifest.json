@@ -1,0 +1,37 @@
+{
+ "source_id": "arg_lanacion",
+ "files": {
+  "home.html": {
+   "url": "https://www.lanacion.com.ar/",
+   "params": {},
+   "status": 200,
+   "bytes": 1096203,
+   "sha256": "91721f3e1cfdc27901ad53c6d3253852c9e89965e6867e9ae6db8245f861fce4",
+   "retrieved_at": "2026-10-02T13:35:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/",
+   "params": {},
+   "status": 200,
+   "bytes": 708191,
+   "sha256": "09fd347f2e534e73547de88f0086344f04e99d21d46265d9e646f7123dc619b9",
+   "retrieved_at": "2026-10-02T13:35:43+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_lanacion/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://www.lanacion.com.ar/arc/outboundfeeds/rss/"
+ ],
+ "discovered_feeds": [
+  "https://www.lanacion.com.ar/arc/outboundfeeds/rss/"
+ ],
+ "feeds_tried": [
+  "https://www.lanacion.com.ar/arc/outboundfeeds/rss/"
+ ],
+ "feeds_found": 1
+}

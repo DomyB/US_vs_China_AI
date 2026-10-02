@@ -1,0 +1,37 @@
+{
+ "source_id": "chl_biobio",
+ "files": {
+  "home.html": {
+   "url": "https://www.biobiochile.cl/",
+   "params": {},
+   "status": 200,
+   "bytes": 1241045,
+   "sha256": "1446a6aff96bf4fbcb0ffccf98c88144731aa35d05c55cc6069e3eaaa3fcef7b",
+   "retrieved_at": "2026-10-02T13:36:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://feeds.feedburner.com/radiobiobio/NNeJ",
+   "params": {},
+   "status": 200,
+   "bytes": 189715,
+   "sha256": "a2042775d37d871f5a3cee861df71d231378f3108bf53d7b815775b6952bdb99",
+   "retrieved_at": "2026-10-02T13:36:44+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://feeds.feedburner.com/radiobiobio/NNeJ"
+ ],
+ "discovered_feeds": [
+  "https://feeds.feedburner.com/radiobiobio/NNeJ"
+ ],
+ "feeds_tried": [
+  "https://feeds.feedburner.com/radiobiobio/NNeJ"
+ ],
+ "feeds_found": 1
+}

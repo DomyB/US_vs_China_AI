@@ -1,0 +1,72 @@
+{
+ "source_id": "pry_abc",
+ "files": {
+  "home.html": {
+   "url": "https://www.abc.com.py/",
+   "params": {},
+   "status": 200,
+   "bytes": 1065683,
+   "sha256": "ab3a358d6e1b0aa975830de4548c9b9a2f93694efdc23b2f6e3edb9e348d3bd3",
+   "retrieved_at": "2026-10-02T13:39:13+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml",
+   "params": {},
+   "status": 200,
+   "bytes": 444731,
+   "sha256": "0dba70eb8171b593a0582b3dbf7a0257b07c0fc758d364908574f8ee56ac9e92",
+   "retrieved_at": "2026-10-02T13:39:29+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_abc/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://www.abc.com.py/rss",
+   "error": "pry_abc: GET https://www.abc.com.py/rss/ -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"/><titl"
+  },
+  {
+   "name": "https://www.abc.com.py/feed",
+   "error": "pry_abc: GET https://www.abc.com.py/feed/ -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"/><tit"
+  },
+  {
+   "name": "https://www.abc.com.py/rss.xml",
+   "error": "pry_abc: GET https://www.abc.com.py/rss.xml -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"/><t"
+  },
+  {
+   "name": "https://www.abc.com.py/feed.xml",
+   "error": "pry_abc: GET https://www.abc.com.py/feed.xml -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"/><"
+  },
+  {
+   "name": "https://www.abc.com.py/feeds/rss",
+   "error": "pry_abc: GET https://www.abc.com.py/feeds/rss/ -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"/"
+  },
+  {
+   "name": "https://www.abc.com.py/rss/portada",
+   "error": "pry_abc: GET https://www.abc.com.py/rss/portada/ -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no"
+  },
+  {
+   "name": "https://www.abc.com.py/rss/ultimas-noticias",
+   "error": "pry_abc: GET https://www.abc.com.py/rss/ultimas-noticias/ -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-"
+  }
+ ],
+ "feed_urls": [
+  "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://www.abc.com.py/rss",
+  "https://www.abc.com.py/feed",
+  "https://www.abc.com.py/rss.xml",
+  "https://www.abc.com.py/feed.xml",
+  "https://www.abc.com.py/feeds/rss",
+  "https://www.abc.com.py/rss/portada",
+  "https://www.abc.com.py/rss/ultimas-noticias",
+  "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "feeds_found": 1
+}

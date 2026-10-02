@@ -1,0 +1,72 @@
+{
+ "source_id": "arg_pagina12",
+ "files": {
+  "home.html": {
+   "url": "https://www.pagina12.com.ar/",
+   "params": {},
+   "status": 200,
+   "bytes": 907506,
+   "sha256": "f51cf3df42b49661dbd5d7ceb7c476dbf88105bc0f15ca6d0b11d14859da7d8e",
+   "retrieved_at": "2026-10-02T13:35:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/?outputType=xml",
+   "params": {},
+   "status": 200,
+   "bytes": 28107,
+   "sha256": "04956484aa1fb6e44030ea122f2f2059989a1df7dd04642101477dd036c18f69",
+   "retrieved_at": "2026-10-02T13:36:00+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_pagina12/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.pagina12.com.ar/rss: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\" dir=\"ltr\"><head><meta name=\"viewport\" content=\"wi'"
+  },
+  {
+   "name": "https://www.pagina12.com.ar/feed",
+   "error": "arg_pagina12: GET https://www.pagina12.com.ar/feed/ -> 404 <!DOCTYPE html><html lang=\"es\" dir=\"ltr\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as=\"i"
+  },
+  {
+   "name": "https://www.pagina12.com.ar/rss.xml",
+   "error": "arg_pagina12: GET https://www.pagina12.com.ar/rss.xml -> 404 <!DOCTYPE html><html lang=\"es\" dir=\"ltr\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as="
+  },
+  {
+   "name": "https://www.pagina12.com.ar/feed.xml",
+   "error": "arg_pagina12: GET https://www.pagina12.com.ar/feed.xml -> 404 <!DOCTYPE html><html lang=\"es\" dir=\"ltr\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" as"
+  },
+  {
+   "name": "https://www.pagina12.com.ar/feeds/rss",
+   "error": "arg_pagina12: GET https://www.pagina12.com.ar/feeds/rss/ -> 404 <!DOCTYPE html><html lang=\"es\" dir=\"ltr\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" "
+  },
+  {
+   "name": "https://www.pagina12.com.ar/rss/portada",
+   "error": "arg_pagina12: GET https://www.pagina12.com.ar/rss/portada/ -> 404 <!DOCTYPE html><html lang=\"es\" dir=\"ltr\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload"
+  },
+  {
+   "name": "https://www.pagina12.com.ar/rss/ultimas-noticias",
+   "error": "arg_pagina12: GET https://www.pagina12.com.ar/rss/ultimas-noticias/ -> 404 <!DOCTYPE html><html lang=\"es\" dir=\"ltr\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel"
+  }
+ ],
+ "feed_urls": [
+  "https://www.pagina12.com.ar/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://www.pagina12.com.ar/rss",
+  "https://www.pagina12.com.ar/feed",
+  "https://www.pagina12.com.ar/rss.xml",
+  "https://www.pagina12.com.ar/feed.xml",
+  "https://www.pagina12.com.ar/feeds/rss",
+  "https://www.pagina12.com.ar/rss/portada",
+  "https://www.pagina12.com.ar/rss/ultimas-noticias",
+  "https://www.pagina12.com.ar/arc/outboundfeeds/rss/?outputType=xml"
+ ],
+ "feeds_found": 1
+}

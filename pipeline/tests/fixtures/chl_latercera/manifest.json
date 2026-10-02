@@ -1,0 +1,36 @@
+{
+ "source_id": "chl_latercera",
+ "files": {
+  "home.html": {
+   "url": "https://www.latercera.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 1109679,
+   "sha256": "a47b92368de46eb8938c4ce234bd5794250fd0a902043dc6593e33cdcd29c09f",
+   "retrieved_at": "2026-10-02T13:37:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.latercera.com/rss",
+   "params": {},
+   "status": 200,
+   "bytes": 574860,
+   "final_url": "https://www.latercera.com/arc/outboundfeeds/rss/?outputType=xml",
+   "sha256": "188af1d9c0cebb235f7b9cbe0f5a5510b5c493b0761fe5ba08b247e955e5e79e",
+   "retrieved_at": "2026-10-02T13:37:40+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_latercera/2026-10-02",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://www.latercera.com/rss"
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://www.latercera.com/rss"
+ ],
+ "feeds_found": 1
+}
