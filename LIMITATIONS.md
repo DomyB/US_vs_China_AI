@@ -64,6 +64,12 @@ media layers are still sample.
   Peru and Uruguay publish votes only in PDF minutes or not at all.
 - **Bolivia, Guyana, Suriname, Venezuela**: no machine-readable legislative records; the site
   shows the reason, not an empty list.
+- **Uruguay**: the Parlamento's open-data exports answer HTTP 403 to non-browser clients; the
+  adapter accepts a hand-downloaded export (`data/manual/ury_asuntos.csv`). **Ecuador**: the
+  plenary-votes page is a script-rendered application whose data service is not exposed; votes
+  stay missing until a documented endpoint is found. **Paraguay**: the open-data API is documented
+  on its index page (`/opendata/api/data/proyecto`) and is used; its reuse terms are listed as
+  "to confirm" in the registry.
 - **No translations or stance** until Phase 3; records are shown in the original language.
 - **Incremental tables** (documents, votes, concessions) merge with the previous data release; a
   failed run publishes no release, so one press week can be lost.
