@@ -21,6 +21,11 @@ FIRST_YEAR = 2008
 def _pick(d: dict, *words: str) -> str:
     low = {k.lower(): v for k, v in d.items()}
     for w in words:
+        w = w.lower()
+        if w in low and low[w] not in (None, ""):
+            return str(low[w])
+    for w in words:
+        w = w.lower()
         for k, v in low.items():
             if w in k and v not in (None, ""):
                 return str(v)

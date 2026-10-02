@@ -21,7 +21,11 @@ CHOICE = {"afirmativo": "yes", "a favor": "yes", "en contra": "no", "negativo": 
 
 
 def _find(el: ET.Element, *names: str) -> str:
-    """Text of the first child whose tag contains one of `names` (case-insensitive)."""
+    """Text of the first child whose tag equals one of `names` (case-insensitive), else contains one."""
+    for n in names:
+        for child in el:
+            if child.tag.lower() == n.lower():
+                return (child.text or "").strip()
     for n in names:
         for child in el:
             if n.lower() in child.tag.lower():
@@ -150,3 +154,81 @@ class CamaraCL(Adapter):
             "vote": self.stamp(snap, pd.DataFrame(votes_rows, columns=VOTE_COLUMNS)),
             "vote_member": self.stamp(snap, pd.DataFrame(members, columns=VOTE_MEMBER_COLUMNS)),
         }
+
+
+SENADO_WS = "https://tramitacion.senado.cl/wspublico"
+SENADO_RECORD = "https://tramitacion.senado.cl/appsenado/templates/tramitacion/index.php?boletin_ini={boletin}"
+MAX_SENADO_BOLETINES = 300
+SENADO_CHOICE = {"si": "yes", "sí": "yes", "a favor": "yes", "no": "no", "en contra": "no", "abstencion": "abstain", "abstención": "abstain", "pareo": "absent", "pareado": "absent"}
+
+
+class SenadoCL(Adapter):
+    """Senado de Chile public web services: votes per boletín for the bills the Cámara adapter kept
+    (both chambers share the boletín number). Reads the Cámara table stored by the previous run."""
+
+    source_id = "chl_senado"
+    tables = ("vote", "vote_member")
+    language = "es"
+    respect_robots = True
+    min_interval = 1.0
+
+    def _boletines(self) -> list[tuple[str, str, str]]:
+        """(boletin, doc_id, title) from the Cámara document table, most recent first."""
+        from .base import WAREHOUSE_DIR
+
+        path = WAREHOUSE_DIR / "document" / "chl_camara.parquet"
+        if not path.exists():
+            return []
+        df = pd.read_parquet(path).sort_values("date", ascending=False)
+        return [(str(r["native_id"]), str(r["doc_id"]), str(r["title_original"])) for _, r in df.iterrows() if r["native_id"]]
+
+    def fetch(self, snap: Snapshot) -> None:
+        bols = self._boletines()
+        snap.manifest["boletines_from_camara"] = len(bols)
+        if not bols:
+            raise RuntimeError("chl_senado: no Cámara bills stored yet (run chl_camara first)")
+        snap.manifest["boletines"] = {b: {"doc_id": d, "title": t[:200]} for b, d, t in bols[:MAX_SENADO_BOLETINES]}
+        for b, _, _ in bols[:MAX_SENADO_BOLETINES]:
+            try:
+                snap.get(f"{SENADO_WS}/votaciones.php", f"votaciones/{b}.xml", params={"boletin": b.split("-")[0]}, timeout=120, allow_statuses=(200, 404, 500))
+            except Exception as e:  # noqa: BLE001
+                snap.manifest.setdefault("errors", []).append({"name": f"votaciones/{b}", "error": str(e)[:200]})
+        snap.save()
+
+    def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
+        info: dict[str, dict] = snap.manifest.get("boletines", {})
+        votes_rows: list[dict] = []
+        members: list[dict] = []
+        for name in sorted(snap.files):
+            if not name.startswith("votaciones/") or not snap.has(name):
+                continue
+            boletin = name[len("votaciones/"):-len(".xml")]
+            meta = info.get(boletin) or {"doc_id": event_id("CHL", "chl_camara", boletin), "title": f"Boletín {boletin}"}
+            root = _root(snap, name)
+            if root is None:
+                continue
+            for v in [el for el in root.iter() if el.tag.lower() == "votacion"]:
+                date = _date(_find(v, "FECHA", "Fecha"))
+                vid = _find(v, "ID", "Id") or f"{boletin}-{_find(v, 'SESION', 'Sesion')}-{date}"
+                if not date:
+                    continue
+                def _i(x):
+                    try:
+                        return int(float(x))
+                    except (TypeError, ValueError):
+                        return None
+                yes, no, abst, pareo = (_i(_find(v, k)) for k in ("SI", "NO", "ABSTENCION", "PAREO"))
+                vote_id = event_id("CHL", self.source_id, "vote", boletin, vid)
+                votes_rows.append({"vote_id": vote_id, "doc_id": meta["doc_id"], "country": "CHL", "chamber": "Senado", "date": date, "year": int(date[:4]),
+                                   "title_original": (_find(v, "TEMA", "Tema") or meta["title"])[:400], "result": _find(v, "RESULTADO", "Resultado") or None,
+                                   "yes": yes, "no": no, "abstain": abst, "absent": pareo, "total": sum(x or 0 for x in (yes, no, abst, pareo)) if yes is not None or no is not None else None,
+                                   "native_id": vid, "value_type": "reported", "source_record_url": f"{SENADO_WS}/votaciones.php?boletin={boletin.split('-')[0]}"})
+                for voto in [el for el in v.iter() if el.tag.lower() == "voto"]:
+                    nm = _find(voto, "PARLAMENTARIO", "Parlamentario", "NOMBRE")
+                    sel = _find(voto, "SELECCION", "Seleccion", "VOTO")
+                    if not nm:
+                        continue
+                    members.append({"vote_id": vote_id, "country": "CHL", "member_id": event_id(nm), "member_name": nm, "party": None, "region": None,
+                                    "choice": SENADO_CHOICE.get(sel.strip().lower(), "other"), "choice_original": sel or "?",
+                                    "source_record_url": f"{SENADO_WS}/votaciones.php?boletin={boletin.split('-')[0]}"})
+        return {"vote": self.stamp(snap, pd.DataFrame(votes_rows, columns=VOTE_COLUMNS)), "vote_member": self.stamp(snap, pd.DataFrame(members, columns=VOTE_MEMBER_COLUMNS))}

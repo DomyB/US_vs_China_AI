@@ -72,7 +72,12 @@ Dataverse's presigned S3 redirects).
 | ury_parlamento | `ingest/legis_ury.py` | document (bills) | catalogodatos.gub.uy CKAN; no roll-call dataset |
 | col_camara | `ingest/legis_col.py` | document (bills) | Socrata kcxp-nxum paged; votes are PDF only; Senado never fetched (403, terms) |
 | col_anm_anna | `ingest/national_col.py` | concession | Socrata si2v-pbq5 paged |
-| guy_ggmc | `ingest/national_guy.py` | production | direct CSV |
+| chl_senado | `ingest/legis_chl.py` | vote, vote_member | tramitacion.senado.cl votaciones.php for the boletines the Cámara adapter kept |
+| pry_silpy, ecu_asamblea, per_congreso_spley | `ingest/legis_misc.py` | document (bills / votes) | undocumented services: index pages and first bytes recorded; parsers completed from fixtures |
+| ecu_cadastre | `ingest/national_ecu.py` | concession | ArcGIS REST layer query, paged |
+| per_bcrp_api | `ingest/national_per.py` | production | series chosen from BCRPData metadata (annual mine production), JSON API |
+| chl_cochilco | `ingest/national_chl.py` | production | anuario XLSX from the page; sheets with producción and a Chile/total row |
+| guy_ggmc | `ingest/national_guy.py` | production (1979–2024; gold grand total, bauxite, manganese) | direct CSV with a three-row header |
 
 Target groups: `legislature`, `press`, `national` (plus `tier1`, `tier2`, `annual`, `monthly`,
 `all`). `monthly` = tier1 + legislature + national; `press` runs weekly from

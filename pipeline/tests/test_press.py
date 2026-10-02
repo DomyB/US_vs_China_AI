@@ -92,3 +92,47 @@ def test_anm_anna_concessions(snap_factory):
     a = df.set_index("native_id").loc["ABC-123"]
     assert a["mineral"] == "copper" and a["granted_year"] == 2015 and a["expires_year"] == 2045 and a["area_ha"] == 1200.5 and a["holder"] == "Minera X S.A.S."
     assert df.set_index("native_id").loc["DEF-9"]["mineral"] is None or df.set_index("native_id").loc["DEF-9"]["mineral"] != df.set_index("native_id").loc["DEF-9"]["mineral"]
+
+
+def test_ecuador_cadastre_arcgis(snap_factory):
+    from scm.ingest.national_ecu import ECUCadastre
+
+    page = {"features": [{"attributes": {"OBJECTID": 1, "codigo": "500123", "nombre": "LA ESPERANZA", "titular": "EXPLORCOBRES S.A.", "mineral": "METALICO - COBRE", "estado": "INSCRITA",
+                                          "fecha_otorgamiento": 1420070400000, "hectareas": "4998.5"}}]}
+    out = ECUCadastre().parse(snap_factory("ecu_cadastre", {"page_0.json": page}))
+    df = schema.validate("concession", out["concession"].copy())
+    c = df.iloc[0]
+    assert c["native_id"] == "500123" and c["mineral"] == "copper" and c["granted_date"] == "2015-01-01" and c["area_ha"] == 4998.5 and c["holder"] == "EXPLORCOBRES S.A."
+
+
+def test_bcrp_series_selection_and_parse(snap_factory):
+    from scm.ingest.national_per import BCRP
+
+    meta = ("Código de serie,Grupo de serie,Nombre de serie,Frecuencia\n"
+            "PM05267AA,Producción minera metálica (miles de TMF),Cobre,Anual\n"
+            "PM05268AA,Producción minera metálica (miles de TMF),Oro (miles de onzas troy),Anual\n"
+            "PN01234MM,Producción minera metálica,Cobre,Mensual\n"
+            "PM00001AA,PBI por sectores,Agropecuario,Anual\n")
+    payload = {"config": {"title": "x", "series": [{"name": "Producción minera metálica - Cobre (miles de TMF)", "dec": "0"}, {"name": "Producción minera metálica - Oro (miles de onzas troy)", "dec": "0"}]},
+               "periods": [{"name": "2023", "values": ["2,754", "3,300"]}, {"name": "2024", "values": ["2,736", "n.d."]}]}
+    snap = snap_factory("per_bcrp_api", {"metadata.csv": meta, "series_0.json": payload})
+    a = BCRP()
+    assert [c for c, _ in a._select_codes(snap)] == ["PM05267AA", "PM05268AA"]
+    df = schema.validate("production", a.parse(snap)["production"].copy())
+    assert len(df) == 3 and df[(df["mineral"] == "copper") & (df["year"] == 2023)].iloc[0]["qty"] == 2754 and set(df["mineral"]) == {"copper", "gold"}
+
+
+def test_cochilco_sheet_heuristics(snap_factory, tmp_path):
+    from scm.ingest.national_chl import Cochilco
+
+    def write(path):
+        import pandas as pd
+
+        with pd.ExcelWriter(path) as w:
+            pd.DataFrame([["Producción Mundial de Cobre de Mina por País (miles de toneladas métricas de cobre fino)", None, None, None],
+                          [None, None, None, None], ["País", "2022", "2023", "2024"], ["Chile", "5331", "5252", "5510"], ["Perú", "2439", "2754", "2736"]]).to_excel(w, sheet_name="Prod Mina Mundo", header=False, index=False)
+            pd.DataFrame([["Precio del cobre"], ["2022", "3.99"]]).to_excel(w, sheet_name="Precios", header=False, index=False)
+    out = Cochilco().parse(snap_factory("chl_cochilco", {"anuario_0.xlsx": write}))
+    df = schema.validate("production", out["production"].copy())
+    assert len(df) == 3 and set(df["year"]) == {2022, 2023, 2024} and (df["mineral"] == "copper").all() and df[df["year"] == 2024].iloc[0]["qty"] == 5510
+    assert "Chile" in df.iloc[0]["note"]

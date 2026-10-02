@@ -142,3 +142,53 @@ def test_uruguay_and_colombia_bills(snap_factory):
     _validate(out)
     d = out["document"].iloc[0]
     assert len(out["document"]) == 1 and d["native_id"] == "123/2023C" and d["minerals"] == "copper" and d["status"] == "Archivado" and d["date"] == "2023-08-01"
+
+
+def test_chile_senado_votes_from_camara_bills(snap_factory, tmp_path, monkeypatch):
+    from scm.ingest import legis_chl
+    from scm.ingest.legis_chl import SenadoCL
+
+    xml = ('<?xml version="1.0"?><votaciones><votacion><ID>555</ID><SESION>12</SESION><FECHA>2024-05-07</FECHA><TEMA>Proyecto sobre litio, en general</TEMA>'
+           '<QUORUM>Simple</QUORUM><SI>30</SI><NO>5</NO><ABSTENCION>2</ABSTENCION><PAREO>1</PAREO><DETALLE_VOTACION>'
+           '<VOTO><PARLAMENTARIO>Senadora A</PARLAMENTARIO><SELECCION>Si</SELECCION></VOTO><VOTO><PARLAMENTARIO>Senador B</PARLAMENTARIO><SELECCION>Pareo</SELECCION></VOTO>'
+           '</DETALLE_VOTACION></votacion></votaciones>')
+    snap = snap_factory("chl_senado", {"votaciones/15123-08.xml": xml})
+    snap.manifest["boletines"] = {"15123-08": {"doc_id": "docX", "title": "Boletín 15123-08: litio"}}
+    out = SenadoCL().parse(snap)
+    _validate(out)
+    v = out["vote"].iloc[0]
+    assert v["doc_id"] == "docX" and v["yes"] == 30 and v["absent"] == 1 and v["total"] == 38 and v["chamber"] == "Senado"
+    assert list(out["vote_member"]["choice"]) == ["yes", "absent"]
+    monkeypatch.setattr(legis_chl, "WAREHOUSE_DIR", tmp_path, raising=False)
+
+
+def test_ecuador_votes_from_html_table(snap_factory):
+    from scm.ingest.legis_misc import AsambleaEC, tables_from_html
+
+    html = ('<html><body><table><tr><th>Fecha</th><th>Tema</th><th>Afirmativos</th><th>Negativos</th><th>Abstenciones</th><th>Resultado</th></tr>'
+            '<tr><td>12/03/2024</td><td><a href="/votaciones/901">Ley Orgánica de Minería, reforma sobre regalías</a></td><td>98</td><td>20</td><td>7</td><td>Aprobado</td></tr>'
+            '<tr><td>13/03/2024</td><td>Resolución sobre feriados</td><td>100</td><td>1</td><td>0</td><td>Aprobado</td></tr></table></body></html>')
+    tables, links = tables_from_html(html)
+    assert len(tables) == 1 and len(tables[0]) == 3 and links == ["/votaciones/901"]
+    out = AsambleaEC().parse(snap_factory("ecu_asamblea", {"votaciones_0.html": html}))
+    _validate(out)
+    d = out["document"].iloc[0]
+    assert d["doc_type"] == "vote" and d["date"] == "2024-03-12" and d["source_record_url"].endswith("/votaciones/901")
+    v = out["vote"].iloc[0]
+    assert v["doc_id"] == d["doc_id"] and v["yes"] == 98 and v["abstain"] == 7 and v["result"] == "Aprobado"
+
+
+def test_spley_and_silpy_payloads(snap_factory):
+    from scm.ingest.legis_misc import SPLEY, SILpy
+
+    spley = {"data": {"proyectos": [{"pleyId": 12, "pleyNum": "01234/2023-CR", "titulo": "Ley que declara de interés nacional la exploración de litio en Puno", "fecPresentacion": "2023-05-04T00:00:00", "desEstado": "En comisión", "perParId": 2021, "autores": "Congresista X"},
+                                    {"pleyId": 13, "pleyNum": "01235/2023-CR", "titulo": "Ley del día del ceviche", "fecPresentacion": "2023-05-05T00:00:00", "perParId": 2021}]}}
+    out = SPLEY().parse(snap_factory("per_congreso_spley", {"lista_2021_litio.json": spley}))
+    _validate(out)
+    d = out["document"].iloc[0]
+    assert len(out["document"]) == 1 and d["native_id"] == "01234/2023-CR" and d["minerals"] == "lithium" and "/expediente/2021/12" in d["source_record_url"]
+    silpy = [{"expediente": "S-2211", "titulo": "Que regula la minería metálica en el Paraguay", "fecha_ingreso": "2019-08-01", "estado": "En trámite"},
+             {"expediente": "S-2212", "titulo": "Que declara área silvestre", "fecha_ingreso": "2019-08-02"}]
+    out = SILpy().parse(snap_factory("pry_silpy", {"route__proyectos.json": silpy}))
+    _validate(out)
+    assert len(out["document"]) == 1 and out["document"].iloc[0]["native_id"] == "S-2211" and out["document"].iloc[0]["venue"] == "Congreso Nacional"
