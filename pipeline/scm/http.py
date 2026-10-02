@@ -152,7 +152,7 @@ class Snapshot:
         resp = self.session.get(url, params=params, headers=headers, timeout=timeout, stream=True)
         if resp.status_code not in allow_statuses:
             body = resp.text[:500] if resp.content else ""
-            raise FetchError(f"{self.source_id}: GET {resp.url} -> {resp.status_code} {body}")
+            raise FetchError(f"{self.source_id}: HTTP {resp.status_code} on GET {resp.url} {body}")
         target.parent.mkdir(parents=True, exist_ok=True)
         with target.open("wb") as f:
             for chunk in resp.iter_content(1 << 16):
@@ -207,7 +207,7 @@ class Snapshot:
             self._throttle()
             resp = self.session.post(url, json=json_body, headers=headers, timeout=timeout)
             if resp.status_code not in allow_statuses:
-                raise FetchError(f"{self.source_id}: POST {url} -> {resp.status_code} {resp.text[:500]}")
+                raise FetchError(f"{self.source_id}: HTTP {resp.status_code} on POST {url} {resp.text[:500]}")
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(resp.content)
             self.record(name, url, params={"json": json_body}, status=resp.status_code)

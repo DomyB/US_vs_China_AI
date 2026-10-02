@@ -27,17 +27,24 @@ class HCDN(Adapter):
     respect_robots = True
 
     def fetch(self, snap: Snapshot) -> None:
-        wanted = {"proyectos": ["proyectos", "expedientes"], "votaciones": ["votaciones", "votacion"], "votos": ["votos", "voto por diputado", "votos_"]}
+        # datasets observed in the catalogue (October 2026): "Proyectos Parlamentarios" (one CSV with every bill),
+        # "Votaciones Nominales" with CABECERA (one row per roll call) and DETALLES (one row per deputy and roll
+        # call) files covering periods 129 to 137 (2011 onward). CSV only: the JSON copies are large and slow to parse.
+        wanted = {"proyectos": ["proyectos parlamentarios", "proyectos_parlamentarios"], "votaciones": ["cabecera"], "votos": ["detalle"]}
         candidates: dict[str, list[dict]] = {}
         for key, words in wanted.items():
-            pkgs = package_search(snap, BASE, f"search_{key}.json", q=words[0])
-            candidates[key] = pick_resources(pkgs, words)
+            pkgs = package_search(snap, BASE, f"search_{key}.json", q="proyectos" if key == "proyectos" else "votaciones nominales")
+            res = pick_resources(pkgs, words, formats=("csv",))
+            if key != "proyectos":
+                # prefer the file spanning every period over the single-period extracts
+                res.sort(key=lambda r: ("129" not in f"{r.get('name', '')}{r.get('_package', '')}", r.get("name", "")))
+            candidates[key] = res
         snap.manifest["resource_candidates"] = {k: [{"name": r.get("name"), "url": r.get("url"), "package": r.get("_package"), "format": r["_fmt"]} for r in v[:8]] for k, v in candidates.items()}
         snap.save()
         for key, res in candidates.items():
             got = 0
             for r in res:
-                if got >= (6 if key != "votos" else 4):
+                if got >= 1:  # one file per kind is the complete dataset
                     break
                 url = r.get("url")
                 if not url:
@@ -72,7 +79,7 @@ class HCDN(Adapter):
             fmt = name.rsplit(".", 1)[-1]
             if fmt in ("xlsx", "xls"):
                 df = read_table(path, fmt)
-                c = col(df, "votacion_id", "id_votacion", required=False)
+                c = col(df, "votacion_id", "id_votacion", "acta_id", "id_acta", required=False)
                 if c:
                     parts.append(df[df[c].astype(str).isin(kept_ids)])
                 continue
@@ -81,7 +88,7 @@ class HCDN(Adapter):
             first = text.split("\n", 1)[0]
             sep = max([",", ";", "\t", "|"], key=first.count)
             for chunk in pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, chunksize=200_000, on_bad_lines="skip"):
-                c = col(chunk, "votacion_id", "id_votacion", required=False)
+                c = col(chunk, "votacion_id", "id_votacion", "acta_id", "id_acta", required=False)
                 if c is None:
                     break
                 parts.append(chunk[chunk[c].astype(str).isin(kept_ids)])
@@ -123,9 +130,9 @@ class HCDN(Adapter):
         votes = self._frames(snap, "votaciones")
         if not votes.empty:
             snap.manifest["columns_votaciones"] = list(map(str, votes.columns))[:40]
-            c_vid = col(votes, "votacion_id", "id_votacion", "id")
-            c_title = col(votes, "titulo", "asunto", "descripcion")
-            c_date = col(votes, "fecha")
+            c_vid = col(votes, "votacion_id", "id_votacion", "acta_id", "id_acta", "id")
+            c_title = col(votes, "titulo", "asunto", "descripcion", "tema", "nombre")
+            c_date = col(votes, "fecha", "fecha_hora")
             c_res = col(votes, "resultado", required=False)
             c_yes, c_no, c_abs, c_absent = (col(votes, *names, required=False) for names in (("afirmativos", "afirmativo"), ("negativos", "negativo"), ("abstenciones", "abstencion"), ("ausentes", "ausente")))
             c_exp = col(votes, "expediente", "proyecto", required=False)
@@ -160,8 +167,8 @@ class HCDN(Adapter):
             mv = self._member_rows(snap, set(kept))
             if not mv.empty:
                 snap.manifest["columns_votos"] = list(map(str, mv.columns))[:40]
-                c_vid2 = col(mv, "votacion_id", "id_votacion")
-                c_name = col(mv, "diputado", "nombre", "apellido")
+                c_vid2 = col(mv, "votacion_id", "id_votacion", "acta_id", "id_acta")
+                c_name = col(mv, "diputado", "nombre", "apellido", "legislador")
                 c_party = col(mv, "bloque", "partido", required=False)
                 c_prov = col(mv, "provincia", "distrito", required=False)
                 c_choice = col(mv, "voto")

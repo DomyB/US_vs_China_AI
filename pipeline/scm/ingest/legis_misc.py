@@ -70,7 +70,7 @@ class SILpy(Adapter):
     language = "es"
     respect_robots = True
     API = "https://datos.congreso.gov.py/opendata/api"
-    ROUTES = ["/proyectos", "/proyecto", "/data/proyectos", "/v1/proyectos", "/expedientes"]
+    ROUTES = ["/data/proyecto", "/data/proyectos", "/proyecto"]  # the API index page documents /data/proyecto
 
     def fetch(self, snap: Snapshot) -> None:
         try:
@@ -80,8 +80,16 @@ class SILpy(Adapter):
             snap.manifest.setdefault("errors", []).append({"name": "index", "error": str(e)[:200]})
         for r in self.ROUTES:
             try:
-                snap.get_json(self.API + r, f"route{r.replace('/', '_')}.json", params={"fechaDesde": "2008-01-01", "limit": 5000}, timeout=120)
+                payload = snap.get_json(self.API + r, f"route{r.replace('/', '_')}.json", timeout=300)
                 snap.manifest["route_used"] = self.API + r
+                snap.manifest["route_sample"] = json.dumps(payload, ensure_ascii=False)[:1200]
+                # paginated? follow a few pages if the payload says so
+                for page in range(2, 40):
+                    if not isinstance(payload, dict) or not any(k in payload for k in ("next", "nextPage", "siguiente", "totalPages", "total_pages")):
+                        break
+                    payload = snap.get_json(self.API + r, f"route{r.replace('/', '_')}_p{page}.json", params={"page": page}, timeout=300)
+                    if not payload or (isinstance(payload, dict) and not any(isinstance(v, list) and v for v in payload.values())):
+                        break
                 break
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": r, "error": str(e)[:200]})
@@ -124,6 +132,25 @@ class AsambleaEC(Adapter):
     respect_robots = True
     MAX_PAGES = 30
 
+    def _discover_api(self, snap: Snapshot, html: str) -> list[str]:
+        """The page is a single-page app: fetch its main script bundle and record every URL-like string
+        that mentions votes or an API, so the data endpoint can be called directly next time."""
+        from urllib.parse import urljoin
+
+        scripts = [urljoin(self.src.api_url, s) for s in re.findall(r'src="([^"]*main[^"]*\.js)"', html)]
+        found: list[str] = []
+        for i, s in enumerate(scripts[:2]):
+            try:
+                js = snap.get(s, f"bundle_{i}.js", timeout=120).read_text(encoding="utf-8", errors="ignore")
+            except Exception as e:  # noqa: BLE001
+                snap.manifest.setdefault("errors", []).append({"name": s, "error": str(e)[:200]})
+                continue
+            found += [u for u in re.findall(r'["\'](https?://[^"\'\s]{8,160}|/[a-zA-Z0-9_./-]*(?:api|votac|servic)[a-zA-Z0-9_./-]*)["\']', js) if "google" not in u and "w3.org" not in u]
+            snap.discard(f"bundle_{i}.js", "script bundle inspected for API URLs (not kept)")
+        found = list(dict.fromkeys(found))
+        snap.manifest["api_candidates"] = [u for u in found if "votac" in u.lower() or "api" in u.lower()][:40]
+        return snap.manifest["api_candidates"]
+
     def fetch(self, snap: Snapshot) -> None:
         base = self.src.api_url
         for page in range(self.MAX_PAGES):
@@ -137,6 +164,17 @@ class AsambleaEC(Adapter):
             if page == 0:
                 snap.manifest["page_head"] = re.sub(r"\s+", " ", text[:1200])
                 snap.manifest["tables_found"] = len(tables)
+                if not tables:
+                    from urllib.parse import urljoin
+
+                    for j, u in enumerate(self._discover_api(snap, text)[:8]):
+                        url = u if u.startswith("http") else urljoin(base, u)
+                        try:
+                            snap.get(url, f"api_{j}.json", timeout=60, allow_statuses=(200, 401, 403, 404, 405))
+                            head = snap.path(f"api_{j}.json").read_bytes()[:300]
+                            snap.manifest.setdefault("api_probe", []).append({"url": url, "status": snap.files[f"api_{j}.json"]["status"], "head": head.decode("utf-8", "ignore")})
+                        except Exception as e:  # noqa: BLE001
+                            snap.manifest.setdefault("errors", []).append({"name": url, "error": str(e)[:200]})
             if not tables or not any(len(t) > 1 for t in tables):
                 break
         snap.save()

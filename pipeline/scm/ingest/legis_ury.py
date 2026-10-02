@@ -21,7 +21,8 @@ class ParlamentoUY(Adapter):
 
     def fetch(self, snap: Snapshot) -> None:
         pkgs = package_search(snap, BASE, "search.json", fq="organization:parlamento-uruguayo")
-        res = pick_resources(pkgs, ["asunto", "proyecto", "ley", "legislativ"])
+        res = pick_resources(pkgs, ["asuntos entrados", "asuntos-entrados", "proyectos entrados", "proyecto", "asunto"])
+        res.sort(key=lambda r: ("asuntos-entrados" not in str(r.get("url", "")) and "proyecto" not in str(r.get("name", "")).lower(), r.get("name", "")))
         snap.manifest["resource_candidates"] = [{"name": r.get("name"), "url": r.get("url"), "package": r.get("_package"), "format": r["_fmt"]} for r in res[:12]]
         got = 0
         for r in res:

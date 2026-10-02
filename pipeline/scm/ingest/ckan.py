@@ -19,15 +19,18 @@ def package_search(snap: Snapshot, base: str, name: str, **params) -> list[dict]
     return payload.get("result", {}).get("results", []) if isinstance(payload, dict) else []
 
 
-def pick_resources(packages: list[dict], words: list[str], formats: tuple[str, ...] = ("csv", "xlsx", "xls", "json")) -> list[dict]:
+def pick_resources(packages: list[dict], words: list[str], formats: tuple[str, ...] = ("csv", "xlsx", "xls", "json"),
+                   exclude: tuple[str, ...] = ("metadato", "diccionario", "codebook")) -> list[dict]:
     """Resources whose dataset or resource name contains one of `words`, in one of `formats`,
-    most recently modified first."""
+    most recently modified first; data dictionaries are skipped."""
     out = []
     for pkg in packages:
         ptext = f"{pkg.get('title', '')} {pkg.get('name', '')}".lower()
         for r in pkg.get("resources", []) or []:
             rtext = f"{r.get('name', '')} {r.get('description', '')} {r.get('url', '')}".lower()
             fmt = str(r.get("format", "")).lower() or str(r.get("url", "")).rsplit(".", 1)[-1].lower()
+            if any(x in rtext for x in exclude):
+                continue
             if fmt in formats and any(w in ptext or w in rtext for w in words):
                 out.append({**r, "_package": pkg.get("title"), "_fmt": fmt, "_modified": str(r.get("last_modified") or pkg.get("metadata_modified") or "")})
     out.sort(key=lambda r: r["_modified"], reverse=True)

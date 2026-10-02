@@ -56,12 +56,46 @@ class CamaraCL(Adapter):
     respect_robots = True
     min_interval = 1.0
 
+    def _methods(self, snap: Snapshot) -> list[str]:
+        """Operation names listed on the service description page (the first live run showed the
+        method name assumed from older documentation no longer exists)."""
+        try:
+            html = snap.get(WS, "service.html", timeout=60).read_text(encoding="utf-8", errors="ignore")
+        except Exception as e:  # noqa: BLE001
+            snap.manifest.setdefault("errors", []).append({"name": "service.html", "error": str(e)[:200]})
+            return []
+        names = list(dict.fromkeys(re.findall(r"op=([A-Za-z0-9_]+)", html)))
+        snap.manifest["service_methods"] = names[:80]
+        return names
+
     def fetch(self, snap: Snapshot) -> None:
         import datetime as dt
 
-        for y in range(FIRST_YEAR, dt.date.today().year + 1):
+        methods = self._methods(snap)
+        by_year = [m for m in methods if "proyecto" in m.lower() and any(k in m.lower() for k in ("anno", "ano", "year", "periodo", "fecha"))]
+        candidates = by_year + ["retornarProyectosLeyPorAnno", "retornarProyectosLeyIngresadosPorAnno", "retornarProyectosLeyPorPeriodo"]
+        snap.manifest["list_method_candidates"] = candidates[:10]
+        method = None
+        for cand in dict.fromkeys(candidates):
+            for param in ("prmAnno", "prmAno", "prmYear"):
+                try:
+                    snap.get(f"{WS}/{cand}", f"proyectos/{FIRST_YEAR}.xml", params={param: FIRST_YEAR}, timeout=300, force=True)
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": f"{cand}?{param}", "error": str(e)[:200]})
+                    continue
+                if snap.path(f"proyectos/{FIRST_YEAR}.xml").read_bytes()[:400].lstrip().startswith(b"<?xml") and b"ProyectoLey" in snap.path(f"proyectos/{FIRST_YEAR}.xml").read_bytes()[:20000]:
+                    method, self._param = cand, param
+                    break
+                snap.discard(f"proyectos/{FIRST_YEAR}.xml", f"{cand}?{param}: no ProyectoLey elements")
+            if method:
+                break
+        snap.manifest["list_method"] = {"name": method, "param": getattr(self, "_param", None)}
+        snap.save()
+        if method is None:
+            raise RuntimeError("chl_camara: no yearly bill-list method found on WSLegislativo (see service_methods in the manifest)")
+        for y in range(FIRST_YEAR + 1, dt.date.today().year + 1):
             try:
-                snap.get(f"{WS}/retornarProyectosLeyPorAnno", f"proyectos/{y}.xml", params={"prmAnno": y}, timeout=300)
+                snap.get(f"{WS}/{method}", f"proyectos/{y}.xml", params={self._param: y}, timeout=300)
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": f"proyectos/{y}", "error": str(e)[:200]})
         snap.save()
