@@ -5,9 +5,9 @@
    "url": "https://larepublica.pe/",
    "params": {},
    "status": 200,
-   "bytes": 1663401,
-   "sha256": "600e5e4e532ac559c5f0a787b16f083022523647d035d5751151c41893290597",
-   "retrieved_at": "2026-10-02T13:38:43+00:00",
+   "bytes": 1671780,
+   "sha256": "dc27fdd62702f008655de23e38b2ac2d50fdbdb67f3964dcfec445111424080b",
+   "retrieved_at": "2026-10-02T17:11:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,10 +15,10 @@
    "url": "https://larepublica.pe/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 1381284,
+   "bytes": 1378509,
    "final_url": "https://larepublica.pe/rss/home.xml",
-   "sha256": "3e895251b186743feb74326904ecbb2989a5b61674b00d4a8583ba75ec66d01e",
-   "retrieved_at": "2026-10-02T13:38:49+00:00",
+   "sha256": "dad5bf366166f7aa7f5bc592d6fab27a62caf39e1a632ecc76df6ed584fe356c",
+   "retrieved_at": "2026-10-02T17:11:32+00:00",
    "note": null,
    "trimmed": true
   }
@@ -28,11 +28,15 @@
  "errors": [
   {
    "name": "https://larepublica.pe/rss",
-   "error": "per_larepublica: GET https://larepublica.pe/rss -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-head=\""
+   "error": "per_larepublica: HTTP 404 on GET https://larepublica.pe/rss <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-h"
+  },
+  {
+   "name": "https://larepublica.pe/feed/",
+   "error": "per_larepublica: HTTP 404 on GET https://larepublica.pe/feed <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-"
   },
   {
    "name": "https://larepublica.pe/feed",
-   "error": "per_larepublica: GET https://larepublica.pe/feed -> 404 <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-head="
+   "error": "per_larepublica: HTTP 404 on GET https://larepublica.pe/feed <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-"
   }
  ],
  "feed_urls": [
@@ -41,6 +45,7 @@
  "discovered_feeds": [],
  "feeds_tried": [
   "https://larepublica.pe/rss",
+  "https://larepublica.pe/feed/",
   "https://larepublica.pe/feed",
   "https://larepublica.pe/rss.xml"
  ],

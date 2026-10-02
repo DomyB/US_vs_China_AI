@@ -5,9 +5,9 @@
    "url": "https://elcomercio.pe/arc/outboundfeeds/rss/?outputType=xml",
    "params": {},
    "status": 200,
-   "bytes": 1092118,
-   "sha256": "f1e7654cf29d8b91d5e2a671f7b84e4dc9664c9e167018a5f321ca6259ac5168",
-   "retrieved_at": "2026-10-02T13:38:34+00:00",
+   "bytes": 1303131,
+   "sha256": "2d6318cf8f1d05987413668d3eca0b4e14bd3a710e138913be5e1f46a39c0bd2",
+   "retrieved_at": "2026-10-02T17:11:16+00:00",
    "note": null,
    "trimmed": true
   }

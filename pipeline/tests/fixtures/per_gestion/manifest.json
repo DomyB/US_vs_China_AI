@@ -1,24 +1,14 @@
 {
  "source_id": "per_gestion",
  "files": {
-  "home.html": {
-   "url": "https://gestion.pe/",
-   "params": {},
-   "status": 200,
-   "bytes": 326732,
-   "sha256": "2ca564808659a410009abfb920d7c502cf872eb2c1d5515097f22a32bd3324e5",
-   "retrieved_at": "2026-10-02T13:38:35+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
    "url": "https://gestion.pe/arcio/rss/",
    "params": {},
    "status": 200,
-   "bytes": 856930,
+   "bytes": 836632,
    "final_url": "https://gestion.pe/arc/outboundfeeds/rss/?outputType=xml",
-   "sha256": "5438e56d412518cbd10ec98609f9e2431bd6ef4fc86cda29b198adacdebdd3d4",
-   "retrieved_at": "2026-10-02T13:38:37+00:00",
+   "sha256": "482d45b5e404e388e8ce83a29c74369310d4f4e23bf5d13c3b5ab126bf4cb681",
+   "retrieved_at": "2026-10-02T17:11:17+00:00",
    "note": null,
    "trimmed": true
   }
@@ -26,9 +16,6 @@
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_gestion/2026-10-02",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
-  "https://gestion.pe/arcio/rss/"
- ],
- "discovered_feeds": [
   "https://gestion.pe/arcio/rss/"
  ],
  "feeds_tried": [

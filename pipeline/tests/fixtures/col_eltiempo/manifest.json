@@ -5,76 +5,58 @@
    "url": "https://www.eltiempo.com/",
    "params": {},
    "status": 200,
-   "bytes": 887290,
-   "sha256": "09f54d8a1fbdd752016aa48e84b11b7d358ed87fc0c7a56c4ebd3422c40bda54",
-   "retrieved_at": "2026-10-02T13:37:47+00:00",
+   "bytes": 888986,
+   "sha256": "1c6d2f9ccc42ac0c20cc9d4e95ce01aa7f8a2e93433389c15454db29d27c47c8",
+   "retrieved_at": "2026-10-02T17:10:56+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.eltiempo.com/rss/opinion.xml",
+   "params": {},
+   "status": 200,
+   "bytes": 8713,
+   "sha256": "3dd8ddbeaf564d1c553510d79fac16f59828bb80c5cefda2140c141278cb40f4",
+   "retrieved_at": "2026-10-02T17:11:00+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_eltiempo/2026-10-02",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "index_pages": [
+  {
+   "url": "https://www.eltiempo.com/rss",
+   "links": [
+    "https://www.eltiempo.com/rss/opinion.xml",
+    "https://www.eltiempo.com/rss/opinion_editorial.xml",
+    "https://www.eltiempo.com/rss/opinion_mas-opinion.xml",
+    "https://www.eltiempo.com/rss/colombia.xml",
+    "https://www.eltiempo.com/rss/colombia_barranquilla.xml",
+    "https://www.eltiempo.com/rss/colombia_medellin.xml",
+    "https://www.eltiempo.com/rss/colombia_cali.xml",
+    "https://www.eltiempo.com/rss/colombia_otras-ciudades.xml",
+    "https://www.eltiempo.com/rss/bogota.xml",
+    "https://www.eltiempo.com/rss/mundo.xml",
+    "https://www.eltiempo.com/rss/mundo_latinoamerica.xml",
+    "https://www.eltiempo.com/rss/mundo_eeuu-y-canada.xml"
+   ]
+  }
+ ],
  "errors": [
   {
    "name": "feed_0.xml",
-   "error": "https://www.eltiempo.com/rss: not a feed; starts with b'<!DOCTYPE html>\\n    <html lang=\"es\">\\n    <head>\\n                    <meta http-e'"
-  },
-  {
-   "name": "https://www.eltiempo.com/feed",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/feed -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n       "
-  },
-  {
-   "name": "https://www.eltiempo.com/rss.xml",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/rss.xml -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n    "
-  },
-  {
-   "name": "https://www.eltiempo.com/feed.xml",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/feed.xml -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n   "
-  },
-  {
-   "name": "https://www.eltiempo.com/feeds/rss",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/feeds/rss -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n  "
-  },
-  {
-   "name": "https://www.eltiempo.com/rss/portada",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/rss/portada -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"
-  },
-  {
-   "name": "https://www.eltiempo.com/rss/ultimas-noticias",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/rss/ultimas-noticias -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=u"
-  },
-  {
-   "name": "https://www.eltiempo.com/arc/outboundfeeds/rss/?outputType=xml",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/arc/outboundfeeds/rss?outputType=xml -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text"
-  },
-  {
-   "name": "https://www.eltiempo.com/rss/lo-ultimo/",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/rss/lo-ultimo -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /"
-  },
-  {
-   "name": "https://www.eltiempo.com/feeds/articulos",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/feeds/articulos -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\""
-  },
-  {
-   "name": "https://www.eltiempo.com/rss/listado/",
-   "error": "col_eltiempo: GET https://www.eltiempo.com/rss/listado -> 404 <!DOCTYPE html>\n    <html lang=\"es\">\n    <head>\n                    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n"
+   "error": "https://www.eltiempo.com/rss: HTML index, 12 feed-like links"
   }
+ ],
+ "feed_urls": [
+  "https://www.eltiempo.com/rss/opinion.xml"
  ],
  "discovered_feeds": [
   "https://www.eltiempo.com/rss"
  ],
  "feeds_tried": [
-  "https://www.eltiempo.com/rss",
-  "https://www.eltiempo.com/feed",
-  "https://www.eltiempo.com/rss.xml",
-  "https://www.eltiempo.com/feed.xml",
-  "https://www.eltiempo.com/feeds/rss",
-  "https://www.eltiempo.com/rss/portada",
-  "https://www.eltiempo.com/rss/ultimas-noticias",
-  "https://www.eltiempo.com/arc/outboundfeeds/rss/?outputType=xml",
-  "https://www.eltiempo.com/rss/lo-ultimo/",
-  "https://www.eltiempo.com/feeds/articulos",
-  "https://www.eltiempo.com/rss/listado/"
+  "https://www.eltiempo.com/rss"
  ],
- "feeds_found": 0
+ "feeds_found": 1
 }

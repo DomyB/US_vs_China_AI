@@ -2,13 +2,12 @@
  "source_id": "ecu_elcomercio",
  "files": {
   "feed_0.xml": {
-   "url": "https://www.elcomercio.com/feed",
+   "url": "https://www.elcomercio.com/feed/",
    "params": {},
    "status": 200,
-   "bytes": 174574,
-   "final_url": "https://www.elcomercio.com/feed/",
-   "sha256": "70a0b61d5fed8fef536d7af45d996b47fae6977a943b0cfe657358f788370e10",
-   "retrieved_at": "2026-10-02T13:38:13+00:00",
+   "bytes": 132262,
+   "sha256": "9590a4c9a780fef8b3f7192c1baf925cb7d6ec9a4acb33265fe11de24fbb1887",
+   "retrieved_at": "2026-10-02T17:11:04+00:00",
    "note": null,
    "trimmed": true
   }
@@ -18,20 +17,20 @@
  "errors": [
   {
    "name": "home.html",
-   "error": "ecu_elcomercio: GET https://www.elcomercio.com/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta h"
+   "error": "ecu_elcomercio: HTTP 403 on GET https://www.elcomercio.com/ <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><m"
   },
   {
    "name": "https://www.elcomercio.com/rss",
-   "error": "ecu_elcomercio: GET https://www.elcomercio.com/rss/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><me"
+   "error": "ecu_elcomercio: HTTP 403 on GET https://www.elcomercio.com/rss/ <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8"
   }
  ],
  "feed_urls": [
-  "https://www.elcomercio.com/feed"
+  "https://www.elcomercio.com/feed/"
  ],
  "discovered_feeds": [],
  "feeds_tried": [
   "https://www.elcomercio.com/rss",
-  "https://www.elcomercio.com/feed"
+  "https://www.elcomercio.com/feed/"
  ],
  "feeds_found": 1
 }

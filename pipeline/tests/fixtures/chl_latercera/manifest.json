@@ -5,9 +5,9 @@
    "url": "https://www.latercera.com/",
    "params": {},
    "status": 200,
-   "bytes": 1109679,
-   "sha256": "a47b92368de46eb8938c4ce234bd5794250fd0a902043dc6593e33cdcd29c09f",
-   "retrieved_at": "2026-10-02T13:37:38+00:00",
+   "bytes": 1128026,
+   "sha256": "1a8610def65ba4f13c8282ddad17f0264634b6310ff6be50a6c8aabb40fd15ec",
+   "retrieved_at": "2026-10-02T17:10:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,10 +15,10 @@
    "url": "https://www.latercera.com/rss",
    "params": {},
    "status": 200,
-   "bytes": 574860,
+   "bytes": 594788,
    "final_url": "https://www.latercera.com/arc/outboundfeeds/rss/?outputType=xml",
-   "sha256": "188af1d9c0cebb235f7b9cbe0f5a5510b5c493b0761fe5ba08b247e955e5e79e",
-   "retrieved_at": "2026-10-02T13:37:40+00:00",
+   "sha256": "44a962aee3731990319c24ed1d470a98fda77401cf4bae9494333531168bc096",
+   "retrieved_at": "2026-10-02T17:10:49+00:00",
    "note": null,
    "trimmed": true
   }

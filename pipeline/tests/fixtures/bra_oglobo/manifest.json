@@ -5,9 +5,9 @@
    "url": "https://oglobo.globo.com/",
    "params": {},
    "status": 200,
-   "bytes": 990181,
-   "sha256": "da42466a78fe8200170b15a4ffd1f03eba99ef4e4bbbf7c2346e827f892e926a",
-   "retrieved_at": "2026-10-02T13:36:34+00:00",
+   "bytes": 990570,
+   "sha256": "b6317721bbb96322a0b47c53514ed969344ebd2ea73ea707ee9c3bc86d512ce3",
+   "retrieved_at": "2026-10-02T17:09:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,9 +15,9 @@
    "url": "https://oglobo.globo.com/rss/oglobo",
    "params": {},
    "status": 200,
-   "bytes": 439622,
-   "sha256": "046b81597209e60f726629d520358b897de9c6930e8d2d7335af2a566940f9ee",
-   "retrieved_at": "2026-10-02T13:36:36+00:00",
+   "bytes": 488970,
+   "sha256": "5440bcf7f9edfc49ff2f0d7a58cb1d319d0ee81f3e91efd8057c20038c2c4754",
+   "retrieved_at": "2026-10-02T17:09:40+00:00",
    "note": null,
    "trimmed": true
   }

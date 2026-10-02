@@ -5,10 +5,10 @@
    "url": "https://www.infobae.com/",
    "params": {},
    "status": 200,
-   "bytes": 502893,
+   "bytes": 503494,
    "final_url": "https://www.infobae.com/estados-unidos/",
-   "sha256": "5a2d72db5c28ea9c8910189f15180c2ba6fe0844379184049d11c8e6547a6805",
-   "retrieved_at": "2026-10-02T13:35:39+00:00",
+   "sha256": "3e6a01dc001bc798d599c771c34612aedd78bb2f099291f79d830871cc15723e",
+   "retrieved_at": "2026-10-02T17:09:20+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,9 +16,9 @@
    "url": "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/",
    "params": {},
    "status": 200,
-   "bytes": 946497,
-   "sha256": "864d32448b797c2da74163bdb9169d91de7a6eed09a337c429b17f2463c9f05e",
-   "retrieved_at": "2026-10-02T13:35:41+00:00",
+   "bytes": 945248,
+   "sha256": "c80536f4d2ed89e076a8e5af8173abfbbcf516324ac84d0cf6622be261d547c8",
+   "retrieved_at": "2026-10-02T17:09:22+00:00",
    "note": null,
    "trimmed": true
   }
@@ -28,7 +28,7 @@
  "errors": [
   {
    "name": "https://www.infobae.com/feeds/rss",
-   "error": "arg_infobae: GET https://www.infobae.com/feeds/rss/ -> 404 "
+   "error": "arg_infobae: HTTP 404 on GET https://www.infobae.com/feeds/rss/ "
   }
  ],
  "feed_urls": [

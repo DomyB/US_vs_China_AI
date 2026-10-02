@@ -5,20 +5,20 @@
    "url": "https://www.cronista.com/",
    "params": {},
    "status": 200,
-   "bytes": 451670,
+   "bytes": 460017,
    "final_url": "https://www.cronista.com/usa/",
-   "sha256": "07ca599a81902a47e6771e7a44cbb20cde9b4ad76a8485dbabc4ff9e9937a858",
-   "retrieved_at": "2026-10-02T13:35:20+00:00",
+   "sha256": "62a46c893ed040d7310aba687a572382044223be041713f3e0c078bc70afe4a9",
+   "retrieved_at": "2026-10-02T17:08:59+00:00",
    "note": null,
    "trimmed": true
   },
   "feed_0.xml": {
-   "url": "https://www.cronista.com/arc/outboundfeeds/rss/?outputType=xml",
+   "url": "https://www.cronista.com/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 659335,
-   "sha256": "1a643e300c2beb0f62b766c572e6473db96f5d9124bed75aa133a29a96538177",
-   "retrieved_at": "2026-10-02T13:35:36+00:00",
+   "bytes": 650748,
+   "sha256": "41617876408c00cee1c3cac1a52134626739fcdfe873b23d5df339f3a368c73f",
+   "retrieved_at": "2026-10-02T17:09:17+00:00",
    "note": null,
    "trimmed": true
   }
@@ -28,51 +28,82 @@
  "errors": [
   {
    "name": "https://www.cronista.com/rss/feed.xml",
-   "error": "arg_cronista: GET https://www.cronista.com/rss/feed.xml -> 404 Not Found"
+   "error": "arg_cronista: HTTP 404 on GET https://www.cronista.com/rss/feed.xml Not Found"
   },
   {
    "name": "feed_0.xml",
-   "error": "https://www.cronista.com/rss: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+   "error": "https://www.cronista.com/rss: HTML index, 0 feed-like links"
   },
   {
    "name": "feed_0.xml",
-   "error": "https://www.cronista.com/feed: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+   "error": "https://www.cronista.com/feed/: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://www.cronista.com/feed: HTML index, 0 feed-like links"
   },
   {
    "name": "https://www.cronista.com/rss.xml",
-   "error": "arg_cronista: GET https://www.cronista.com/rss.xml -> 404 Not Found"
+   "error": "arg_cronista: HTTP 404 on GET https://www.cronista.com/rss.xml Not Found"
   },
   {
    "name": "https://www.cronista.com/feed.xml",
-   "error": "arg_cronista: GET https://www.cronista.com/feed.xml -> 404 Not Found"
+   "error": "arg_cronista: HTTP 404 on GET https://www.cronista.com/feed.xml Not Found"
   },
   {
    "name": "feed_0.xml",
-   "error": "https://www.cronista.com/feeds/rss: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+   "error": "https://www.cronista.com/feeds/rss: HTML index, 0 feed-like links"
   },
   {
    "name": "feed_0.xml",
-   "error": "https://www.cronista.com/rss/portada: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+   "error": "https://www.cronista.com/rss/portada: HTML index, 0 feed-like links"
   },
   {
    "name": "feed_0.xml",
-   "error": "https://www.cronista.com/rss/ultimas-noticias: not a feed; starts with b'<!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"UTF-8\"/><meta name=\"viewport'"
+   "error": "https://www.cronista.com/rss/ultimas-noticias: HTML index, 0 feed-like links"
+  }
+ ],
+ "index_pages": [
+  {
+   "url": "https://www.cronista.com/rss",
+   "links": []
+  },
+  {
+   "url": "https://www.cronista.com/feed/",
+   "links": []
+  },
+  {
+   "url": "https://www.cronista.com/feed",
+   "links": []
+  },
+  {
+   "url": "https://www.cronista.com/feeds/rss",
+   "links": []
+  },
+  {
+   "url": "https://www.cronista.com/rss/portada",
+   "links": []
+  },
+  {
+   "url": "https://www.cronista.com/rss/ultimas-noticias",
+   "links": []
   }
  ],
  "feed_urls": [
-  "https://www.cronista.com/arc/outboundfeeds/rss/?outputType=xml"
+  "https://www.cronista.com/arc/outboundfeeds/rss/"
  ],
  "discovered_feeds": [],
  "feeds_tried": [
   "https://www.cronista.com/rss/feed.xml",
   "https://www.cronista.com/rss",
+  "https://www.cronista.com/feed/",
   "https://www.cronista.com/feed",
   "https://www.cronista.com/rss.xml",
   "https://www.cronista.com/feed.xml",
   "https://www.cronista.com/feeds/rss",
   "https://www.cronista.com/rss/portada",
   "https://www.cronista.com/rss/ultimas-noticias",
-  "https://www.cronista.com/arc/outboundfeeds/rss/?outputType=xml"
+  "https://www.cronista.com/arc/outboundfeeds/rss/"
  ],
  "feeds_found": 1
 }

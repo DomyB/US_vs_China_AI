@@ -5,10 +5,20 @@
    "url": "https://www.elobservador.com.uy/",
    "params": {},
    "status": 200,
-   "bytes": 384023,
+   "bytes": 384002,
    "final_url": "https://www.elobservador.com.uy/estados-unidos",
-   "sha256": "80cfd0a3b2b5fc57bd89084912ccc2bc6c6e9f8a2fc9bb776a9c908b8e1db2ba",
-   "retrieved_at": "2026-10-02T13:39:32+00:00",
+   "sha256": "f2a60d4d37f991ff0708d6788551d6faefbc2e5fd7d308fd6ad1d7ea2ab11840",
+   "retrieved_at": "2026-10-02T17:12:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://www.elobservador.com.uy/rss/pages/home.xml",
+   "params": {},
+   "status": 200,
+   "bytes": 21420,
+   "sha256": "9426bab0868992c92cfa12a829fdb0466fa7fa754f160285459521dd4f6c772b",
+   "retrieved_at": "2026-10-02T17:12:56+00:00",
    "note": null,
    "trimmed": true
   }
@@ -18,67 +28,86 @@
  "errors": [
   {
    "name": "https://www.elobservador.com.uy/rss",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/rss -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie9 lt-i"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/rss <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie9"
   },
   {
    "name": "https://www.elobservador.com.uy/rss",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/rss -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie9 lt-i"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/rss <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie9"
+  },
+  {
+   "name": "https://www.elobservador.com.uy/feed/",
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/feed <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie"
   },
   {
    "name": "https://www.elobservador.com.uy/feed",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/feed -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie9 lt-"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/feed <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie"
   },
   {
    "name": "https://www.elobservador.com.uy/rss.xml",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/rss.xml -> 404 <?xml version=\"1.0\" encoding=\"utf-8\"?>\n<notfound></notfound>\n"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/rss.xml <?xml version=\"1.0\" encoding=\"utf-8\"?>\n<notfound></notfound>\n"
   },
   {
    "name": "https://www.elobservador.com.uy/feed.xml",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/feed.xml -> 404 <?xml version=\"1.0\" encoding=\"utf-8\"?>\n<notfound></notfound>\n"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/feed.xml <?xml version=\"1.0\" encoding=\"utf-8\"?>\n<notfound></notfound>\n"
   },
   {
    "name": "https://www.elobservador.com.uy/feeds/rss",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/feeds/rss -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-ie"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/feeds/rss <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js "
   },
   {
    "name": "https://www.elobservador.com.uy/rss/portada",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/rss/portada -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/rss/portada <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-j"
   },
   {
    "name": "https://www.elobservador.com.uy/rss/ultimas-noticias",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/rss/ultimas-noticias -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\""
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/rss/ultimas-noticias <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html cl"
+  },
+  {
+   "name": "https://www.elobservador.com.uy/arc/outboundfeeds/rss/",
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/arc/outboundfeeds/rss <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html c"
   },
   {
    "name": "https://www.elobservador.com.uy/arc/outboundfeeds/rss/?outputType=xml",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/arc/outboundfeeds/rss -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class="
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/arc/outboundfeeds/rss <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html c"
+  },
+  {
+   "name": "https://www.elobservador.com.uy/arcio/rss/",
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/arcio/rss <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js "
   },
   {
    "name": "https://www.elobservador.com.uy/rss/lo-ultimo/",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/rss/lo-ultimo -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js l"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/rss/lo-ultimo <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no"
   },
   {
    "name": "https://www.elobservador.com.uy/feeds/articulos",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/feeds/articulos -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/feeds/articulos <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\""
   },
   {
    "name": "https://www.elobservador.com.uy/rss/listado/",
-   "error": "ury_elobservador: GET https://www.elobservador.com.uy/rss/listado -> 404 <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-js lt-"
+   "error": "ury_elobservador: HTTP 404 on GET https://www.elobservador.com.uy/rss/listado <!DOCTYPE html><!--[if lt IE 7]>  <html class=\"no-js lt-ie9 lt-ie8 lt-ie7\"><![endif]--> \n<!--[if IE 7]>  <html class=\"no-j"
   }
+ ],
+ "feed_urls": [
+  "https://www.elobservador.com.uy/rss/pages/home.xml"
  ],
  "discovered_feeds": [],
  "feeds_tried": [
   "https://www.elobservador.com.uy/rss",
   "https://www.elobservador.com.uy/rss",
+  "https://www.elobservador.com.uy/feed/",
   "https://www.elobservador.com.uy/feed",
   "https://www.elobservador.com.uy/rss.xml",
   "https://www.elobservador.com.uy/feed.xml",
   "https://www.elobservador.com.uy/feeds/rss",
   "https://www.elobservador.com.uy/rss/portada",
   "https://www.elobservador.com.uy/rss/ultimas-noticias",
+  "https://www.elobservador.com.uy/arc/outboundfeeds/rss/",
   "https://www.elobservador.com.uy/arc/outboundfeeds/rss/?outputType=xml",
+  "https://www.elobservador.com.uy/arcio/rss/",
   "https://www.elobservador.com.uy/rss/lo-ultimo/",
   "https://www.elobservador.com.uy/feeds/articulos",
-  "https://www.elobservador.com.uy/rss/listado/"
+  "https://www.elobservador.com.uy/rss/listado/",
+  "https://www.elobservador.com.uy/rss/pages/home.xml"
  ],
- "feeds_found": 0
+ "feeds_found": 1
 }

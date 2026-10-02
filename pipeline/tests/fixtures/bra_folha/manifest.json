@@ -1,83 +1,70 @@
 {
  "source_id": "bra_folha",
  "files": {
-  "home.html": {
-   "url": "https://www.folha.uol.com.br/",
+  "feed_0.xml": {
+   "url": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
    "params": {},
    "status": 200,
-   "bytes": 1034486,
-   "sha256": "36b5d78baa0771f2f381e38acbe440bb75bd22c3ec62e7e344b4b306495582c8",
-   "retrieved_at": "2026-10-02T13:36:10+00:00",
+   "bytes": 121067,
+   "sha256": "258721ca2ae0be29f063a007e66c99060b5176b708921492100b470240830b43",
+   "retrieved_at": "2026-10-02T17:09:37+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_folha/2026-10-02",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "index_pages": [
+  {
+   "url": "https://www1.folha.uol.com.br/feed/",
+   "links": [
+    "https://www1.folha.uol.com.br/feed",
+    "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
+    "https://feeds.folha.uol.com.br/opiniao/rss091.xml",
+    "https://feeds.folha.uol.com.br/poder/rss091.xml",
+    "https://feeds.folha.uol.com.br/mundo/rss091.xml",
+    "https://feeds.folha.uol.com.br/mercado/rss091.xml",
+    "https://feeds.folha.uol.com.br/cotidiano/rss091.xml",
+    "https://feeds.folha.uol.com.br/educacao/rss091.xml",
+    "https://feeds.folha.uol.com.br/equilibrio/rss091.xml",
+    "https://feeds.folha.uol.com.br/esporte/rss091.xml",
+    "https://feeds.folha.uol.com.br/ilustrada/rss091.xml",
+    "https://feeds.folha.uol.com.br/ilustrissima/rss091.xml"
+   ]
+  },
+  {
+   "url": "https://www1.folha.uol.com.br/feed",
+   "links": [
+    "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
+    "https://feeds.folha.uol.com.br/opiniao/rss091.xml",
+    "https://feeds.folha.uol.com.br/poder/rss091.xml",
+    "https://feeds.folha.uol.com.br/mundo/rss091.xml",
+    "https://feeds.folha.uol.com.br/mercado/rss091.xml",
+    "https://feeds.folha.uol.com.br/cotidiano/rss091.xml",
+    "https://feeds.folha.uol.com.br/educacao/rss091.xml",
+    "https://feeds.folha.uol.com.br/equilibrio/rss091.xml",
+    "https://feeds.folha.uol.com.br/esporte/rss091.xml",
+    "https://feeds.folha.uol.com.br/ilustrada/rss091.xml",
+    "https://feeds.folha.uol.com.br/ilustrissima/rss091.xml",
+    "https://feeds.folha.uol.com.br/ciencia/rss091.xml"
+   ]
+  }
+ ],
  "errors": [
   {
    "name": "feed_0.xml",
-   "error": "https://www1.folha.uol.com.br/feed/: not a feed; starts with b'\\n\\n\\n\\n\\n\\n\\n\\n    <!doctype html>\\n<html lang=\"pt-BR\" data-version=\"prod@49b81d48\" clas'"
+   "error": "https://www1.folha.uol.com.br/feed/: HTML index, 12 feed-like links"
   },
   {
    "name": "feed_0.xml",
-   "error": "https://www.folha.uol.com.br/rss: not a feed; starts with b'\\n\\n\\n<!doctype html>\\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-defa'"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.folha.uol.com.br/feed: not a feed; starts with b'\\n\\n\\n\\n\\n\\n\\n\\n    <!doctype html>\\n<html lang=\"pt-BR\" data-version=\"prod@49b81d48\" clas'"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/rss.xml",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/rss.xml -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equ"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/feed.xml",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/feed.xml -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-eq"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/feeds/rss",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/feeds/rss -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-e"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/rss/portada",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/rss/portada -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/rss/ultimas-noticias",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/rss/ultimas-noticias -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/arc/outboundfeeds/rss/?outputType=xml",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/arc/outboundfeeds/rss/?outputType=xml -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta chars"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/rss/lo-ultimo/",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/rss/lo-ultimo/ -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta h"
-  },
-  {
-   "name": "https://www.folha.uol.com.br/feeds/articulos",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/feeds/articulos -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta "
-  },
-  {
-   "name": "https://www.folha.uol.com.br/rss/listado/",
-   "error": "bra_folha: GET https://www1.folha.uol.com.br/rss/listado/ -> 404 \n\n\n<!doctype html>\n<html lang=\"pt-BR\" data-version=\"prod@da35384c\" class=\"t-default\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta htt"
+   "error": "https://www1.folha.uol.com.br/feed: HTML index, 12 feed-like links"
   }
  ],
- "discovered_feeds": [],
- "feeds_tried": [
-  "https://www1.folha.uol.com.br/feed/",
-  "https://www.folha.uol.com.br/rss",
-  "https://www.folha.uol.com.br/feed",
-  "https://www.folha.uol.com.br/rss.xml",
-  "https://www.folha.uol.com.br/feed.xml",
-  "https://www.folha.uol.com.br/feeds/rss",
-  "https://www.folha.uol.com.br/rss/portada",
-  "https://www.folha.uol.com.br/rss/ultimas-noticias",
-  "https://www.folha.uol.com.br/arc/outboundfeeds/rss/?outputType=xml",
-  "https://www.folha.uol.com.br/rss/lo-ultimo/",
-  "https://www.folha.uol.com.br/feeds/articulos",
-  "https://www.folha.uol.com.br/rss/listado/"
+ "feed_urls": [
+  "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml"
  ],
- "feeds_found": 0
+ "feeds_tried": [
+  "https://www1.folha.uol.com.br/feed/"
+ ],
+ "feeds_found": 1
 }

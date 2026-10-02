@@ -5,9 +5,9 @@
    "url": "https://www.biobiochile.cl/",
    "params": {},
    "status": 200,
-   "bytes": 1241045,
-   "sha256": "1446a6aff96bf4fbcb0ffccf98c88144731aa35d05c55cc6069e3eaaa3fcef7b",
-   "retrieved_at": "2026-10-02T13:36:43+00:00",
+   "bytes": 1238940,
+   "sha256": "31a39d5e1ce945c2b421fbc1bccd5263bbc95d08cfcdc3112f224707833af9f5",
+   "retrieved_at": "2026-10-02T17:09:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,7 +17,7 @@
    "status": 200,
    "bytes": 189715,
    "sha256": "a2042775d37d871f5a3cee861df71d231378f3108bf53d7b815775b6952bdb99",
-   "retrieved_at": "2026-10-02T13:36:44+00:00",
+   "retrieved_at": "2026-10-02T17:09:48+00:00",
    "note": null,
    "trimmed": true
   }

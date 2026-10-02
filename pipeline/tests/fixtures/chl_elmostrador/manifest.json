@@ -5,9 +5,9 @@
    "url": "https://www.elmostrador.cl/",
    "params": {},
    "status": 200,
-   "bytes": 223251,
-   "sha256": "a60adb7c1a6dd1698f97f765035b4e5287966b2ca67f40fc2a5cf036085f01e5",
-   "retrieved_at": "2026-10-02T13:37:16+00:00",
+   "bytes": 223831,
+   "sha256": "ca83fb60f68568bf8f6d18d35de0a98d35b16a6abbc4ec51337d3af221f512fa",
+   "retrieved_at": "2026-10-02T17:10:18+00:00",
    "note": null,
    "trimmed": true
   }
@@ -17,62 +17,82 @@
  "errors": [
   {
    "name": "https://www.elmostrador.cl/rss",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html lang=\""
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/rss \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html l"
+  },
+  {
+   "name": "https://www.elmostrador.cl/feed/",
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/feed/ \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html"
   },
   {
    "name": "https://www.elmostrador.cl/feed",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feed -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html lang="
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/feed \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html "
   },
   {
    "name": "https://www.elmostrador.cl/rss.xml",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss.xml -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html la"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/rss.xml \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<ht"
   },
   {
    "name": "https://www.elmostrador.cl/feed.xml",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feed.xml -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html l"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/feed.xml \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<h"
   },
   {
    "name": "https://www.elmostrador.cl/feeds/rss",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feeds/rss -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<html "
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/feeds/rss \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<"
   },
   {
    "name": "https://www.elmostrador.cl/rss/portada",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/portada -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<htm"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/rss/portada \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>"
   },
   {
    "name": "https://www.elmostrador.cl/rss/ultimas-noticias",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/ultimas-noticias -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype h"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/rss/ultimas-noticias \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doct"
+  },
+  {
+   "name": "https://www.elmostrador.cl/arc/outboundfeeds/rss/",
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/arc/outboundfeeds/rss/ \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!do"
   },
   {
    "name": "https://www.elmostrador.cl/arc/outboundfeeds/rss/?outputType=xml",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/arc/outboundfeeds/rss/?outputType=xml -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/arc/outboundfeeds/rss/?outputType=xml \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+  },
+  {
+   "name": "https://www.elmostrador.cl/arcio/rss/",
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/arcio/rss/ \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n"
   },
   {
    "name": "https://www.elmostrador.cl/rss/lo-ultimo/",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/lo-ultimo/ -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/rss/lo-ultimo/ \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype ht"
   },
   {
    "name": "https://www.elmostrador.cl/feeds/articulos",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/feeds/articulos -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/feeds/articulos \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype h"
   },
   {
    "name": "https://www.elmostrador.cl/rss/listado/",
-   "error": "chl_elmostrador: GET https://www.elmostrador.cl/rss/listado/ -> 404 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html>\n<ht"
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/rss/listado/ \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctype html"
+  },
+  {
+   "name": "https://www.elmostrador.cl/rss/pages/home.xml",
+   "error": "chl_elmostrador: HTTP 404 on GET https://www.elmostrador.cl/rss/pages/home.xml \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n\n \t\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    <!doctyp"
   }
  ],
  "discovered_feeds": [],
  "feeds_tried": [
   "https://www.elmostrador.cl/rss",
+  "https://www.elmostrador.cl/feed/",
   "https://www.elmostrador.cl/feed",
   "https://www.elmostrador.cl/rss.xml",
   "https://www.elmostrador.cl/feed.xml",
   "https://www.elmostrador.cl/feeds/rss",
   "https://www.elmostrador.cl/rss/portada",
   "https://www.elmostrador.cl/rss/ultimas-noticias",
+  "https://www.elmostrador.cl/arc/outboundfeeds/rss/",
   "https://www.elmostrador.cl/arc/outboundfeeds/rss/?outputType=xml",
+  "https://www.elmostrador.cl/arcio/rss/",
   "https://www.elmostrador.cl/rss/lo-ultimo/",
   "https://www.elmostrador.cl/feeds/articulos",
-  "https://www.elmostrador.cl/rss/listado/"
+  "https://www.elmostrador.cl/rss/listado/",
+  "https://www.elmostrador.cl/rss/pages/home.xml"
  ],
  "feeds_found": 0
 }

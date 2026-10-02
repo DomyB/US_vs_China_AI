@@ -35,8 +35,8 @@
    "parliament_from": 2008,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 1,
-   "media_from": 2026,
+   "media_articles": 2,
+   "media_from": 2021,
    "concessions": 0
   },
   "BOL": {
@@ -110,9 +110,9 @@
    "parliament_votes": 380,
    "parliament_from": 1996,
    "parliament_note": null,
-   "media_available": false,
-   "media_articles": 0,
-   "media_from": null,
+   "media_available": true,
+   "media_articles": 3,
+   "media_from": 2026,
    "concessions": 0
   },
   "CHL": {
@@ -149,7 +149,7 @@
    "parliament_from": 2008,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 2,
+   "media_articles": 3,
    "media_from": 2026,
    "concessions": 0
   },
@@ -262,9 +262,9 @@
    "parliament_votes": 0,
    "parliament_from": null,
    "parliament_note": "The Parliament of Guyana publishes Hansard as PDF only, with no structured bill or vote records.",
-   "media_available": false,
-   "media_articles": 0,
-   "media_from": null,
+   "media_available": true,
+   "media_articles": 6,
+   "media_from": 2026,
    "concessions": 0
   },
   "PRY": {

@@ -5,10 +5,10 @@
    "url": "https://ladiaria.com.uy/feeds/articulos",
    "params": {},
    "status": 200,
-   "bytes": 487341,
+   "bytes": 496413,
    "final_url": "https://ladiaria.com.uy/feeds/articulos/",
-   "sha256": "a360d8c35de47c1f759cbb3547480fe5ebd19a974e88b28182d10755f06dbbed",
-   "retrieved_at": "2026-10-02T13:39:55+00:00",
+   "sha256": "22bf106d4a3c06814d1b0223924dfa7bdba9e37ca0db96a3eb50cde41a2f8efb",
+   "retrieved_at": "2026-10-02T17:12:58+00:00",
    "note": null,
    "trimmed": true
   }
