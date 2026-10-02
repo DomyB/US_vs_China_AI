@@ -51,15 +51,23 @@ class BCRP(Adapter):
         c_name = next((c for c in df.columns if "nombre" in str(c).lower()), df.columns[1])
         c_group = next((c for c in df.columns if "grupo" in str(c).lower()), None)
         c_freq = next((c for c in df.columns if "frecuencia" in str(c).lower()), None)
-        out: list[tuple[str, str]] = []
+        scored: list[tuple[int, str, str]] = []
         for _, r in df.iterrows():
-            full = f"{r[c_group] if c_group else ''} - {r[c_name]}"
-            if not (WANT.search(full) and MINERAL_WORDS.search(full) and ("miner" in full.lower() or "metal" in full.lower())):
+            group = str(r[c_group]) if c_group else ""
+            full = f"{group} - {r[c_name]}"
+            low = full.lower()
+            if not (WANT.search(full) and MINERAL_WORDS.search(full) and ("miner" in low or "metal" in low)):
                 continue
             if c_freq and "anual" not in str(r[c_freq]).lower():
                 continue
-            out.append((str(r[c_code]).strip(), full[:200]))
-        return out[:60]
+            # quantities, not growth rates or indices; national series before departmental ones
+            if any(k in low for k in ("variaci", "porcentual", "índice", "indice", "%")):
+                continue
+            unit_hint = any(k in low for k in ("tmf", "tonelada", "onza", "kg", "gr", "miles", "libras", "tm.f", "t.m."))
+            score = (2 if "principales productos" in low else 0) + (1 if unit_hint else 0) - (2 if "departamento" in low else 0)
+            scored.append((score, str(r[c_code]).strip(), full[:200]))
+        scored.sort(key=lambda x: -x[0])
+        return [(code, name) for _, code, name in scored[:60]]
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         rows: list[dict] = []

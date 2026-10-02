@@ -237,6 +237,13 @@ class SenadoCL(Adapter):
                 if b"<votacion" in snap.path(f"votaciones/{b}.xml").read_bytes()[:5000].lower().replace(b"<votaciones", b""):
                     snap.manifest.setdefault("boletin_form", "full" if "-" in form else "number")
                     break
+            if "sample_response" not in snap.manifest:
+                snap.manifest["sample_response"] = {"boletin": b, "votaciones": snap.path(f"votaciones/{b}.xml").read_text(encoding="utf-8", errors="ignore")[:400]}
+                try:  # the tramitación service may carry the votes when votaciones.php does not
+                    snap.get(f"{SENADO_WS}/tramitacion.php", f"tramitacion/{b}.xml", params={"boletin": b.split("-")[0]}, timeout=120, allow_statuses=(200, 404, 500))
+                    snap.manifest["sample_response"]["tramitacion"] = snap.path(f"tramitacion/{b}.xml").read_text(encoding="utf-8", errors="ignore")[:800]
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": f"tramitacion/{b}", "error": str(e)[:200]})
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:

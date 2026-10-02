@@ -103,6 +103,7 @@ class HCDN(Adapter):
         if not bills.empty:
             snap.manifest["columns_proyectos"] = list(map(str, bills.columns))[:40]
             c_exp = col(bills, "exp_diputados", "expediente", required=False) or col(bills, "exp", "proyecto_id", "id")
+            c_exp2 = col(bills, "exp_senado", required=False)
             c_title = col(bills, "titulo", "título", "sumario", "descripcion")
             c_sum = col(bills, "sumario", required=False)
             c_date = col(bills, "fecha", "publicacion_fecha", "fecha_ingreso", required=False)
@@ -120,13 +121,15 @@ class HCDN(Adapter):
                 yr = year_of(date) or year_of(r[c_exp]) or (year_of(r[c_date]) if c_date else None)
                 if not yr or yr < FIRST_YEAR:
                     continue
-                exp = str(r[c_exp]).strip()
+                exp = str(r[c_exp]).strip() or (str(r[c_exp2]).strip() if c_exp2 else "")
                 tipo = str(r[c_type]).strip() if c_type else ""
                 row = make_document(source_id=self.source_id, country="ARG", doc_type="bill", date=date or f"{yr}-01-01", date_precision="day" if date else "year",
                                     title=f"{tipo + ' ' if tipo else ''}{exp}: {title}", language="es",
                                     venue=f"Cámara de Diputados ({r[c_cam]})" if c_cam and r[c_cam] else "Cámara de Diputados", url=RECORD.format(exp=exp), rel=rel,
                                     native_id=exp, summary=summ[:1000] or None, author=str(r[c_auth])[:300] if c_auth and r[c_auth] else None)
                 docs[exp] = row
+                if c_exp2 and str(r[c_exp2]).strip() and str(r[c_exp2]).strip() != exp:
+                    docs.setdefault(str(r[c_exp2]).strip(), row)  # reachable by either chamber's expediente
         votes_rows: list[dict] = []
         members: list[dict] = []
         votes = self._frames(snap, "votaciones")

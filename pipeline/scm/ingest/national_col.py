@@ -33,16 +33,35 @@ class ANMAnna(Adapter):
         except Exception as e:  # noqa: BLE001
             snap.manifest.setdefault("errors", []).append({"name": "catalog", "error": str(e)[:200]})
             return SOCRATA
-        best, best_score = None, 0
+        # candidates by name (the catalogue lists municipal extracts too); the national table is the largest
+        # one whose rows carry a holder and minerals
+        cands = []
         for r in cat.get("results", []) if isinstance(cat, dict) else []:
             res = r.get("resource", {})
-            cols = " ".join(str(c).lower() for c in res.get("columns_field_name", []) + res.get("columns_name", []))
             name = str(res.get("name", "")).lower()
-            score = sum(w in cols for w in ("titular", "mineral", "estado", "area", "hectareas", "fecha")) + 2 * ("titulo" in name or "título" in name) + ("anna" in name)
-            if score > best_score:
-                best, best_score = res, score
-        snap.manifest["catalog_choice"] = {"name": best.get("name") if best else None, "id": best.get("id") if best else None, "score": best_score}
-        return f"https://www.datos.gov.co/resource/{best['id']}.json" if best and best_score >= 3 else SOCRATA
+            if not any(k in name for k in ("titulos mineros", "títulos mineros", "titulosmin", "catastro minero", "anna")):
+                continue
+            if any(k in name for k in ("municipio", "departamento", "anotaciones", "rucom", "vista")):
+                continue
+            cands.append(res["id"])
+        probes = []
+        for ds in cands[:6]:
+            url = f"https://www.datos.gov.co/resource/{ds}.json"
+            try:
+                sample = snap.get_json(url, f"probe_{ds}.json", params={"$limit": 5}, timeout=120)
+                cnt = snap.get_json(url, f"count_{ds}.json", params={"$select": "count(*) as n"}, timeout=120)
+            except Exception as e:  # noqa: BLE001
+                snap.manifest.setdefault("errors", []).append({"name": ds, "error": str(e)[:200]})
+                continue
+            cols = " ".join(k.lower() for d in (sample if isinstance(sample, list) else []) for k in d)
+            n = int(cnt[0].get("n", 0)) if isinstance(cnt, list) and cnt else 0
+            ok = "titular" in cols and "mineral" in cols
+            probes.append({"id": ds, "rows": n, "has_holder_and_minerals": ok})
+            snap.manifest["catalog_probes"] = probes
+        good = [p for p in probes if p["has_holder_and_minerals"]]
+        best = max(good, key=lambda p: p["rows"]) if good else None
+        snap.manifest["catalog_choice"] = best
+        return f"https://www.datos.gov.co/resource/{best['id']}.json" if best else SOCRATA
 
     def fetch(self, snap: Snapshot) -> None:
         url = self._dataset(snap)
