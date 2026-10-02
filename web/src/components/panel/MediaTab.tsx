@@ -1,7 +1,7 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel, StanceBadge } from "@/components/ui/Badges";
 import { ACTOR_COLOR, LANGUAGE_NAME, prettyMineral } from "@/lib/constants";
@@ -69,6 +69,9 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
 
   const articles = useMemo(() => data.media.articles.filter((a) => Number(a.date.slice(0, 4)) === year && (mineral === "all" || a.topic_minerals.includes(mineral))), [data, year, mineral]);
   const layer = data.layers?.media;
+  const PAGE = 50;
+  const [shown, setShown] = useState(PAGE);
+  useEffect(() => setShown(PAGE), [year, mineral, data]);
   const nearestYear = useMemo(() => {
     const years = data.media.articles.map((a) => Number(a.date.slice(0, 4)));
     if (years.length === 0) return null;
@@ -113,7 +116,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
           </p>
         ) : (
           <ol className="divide-y divide-rule border-y border-rule">
-            {articles.map((a) => (
+            {articles.slice(0, shown).map((a) => (
               <li key={a.id} className="py-2 text-sm">
                 <div className="flex flex-wrap items-baseline gap-x-2 text-xs text-ink-3">
                   <span className="tabular-nums">{fmtDate(a.date)}{a.date_precision === "seen" ? " (indexed)" : ""}</span>
@@ -142,6 +145,11 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
               </li>
             ))}
           </ol>
+        )}
+        {articles.length > shown && (
+          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="mt-2 rounded-sm border border-rule px-2 py-1 text-xs text-ink-2 hover:bg-surface-2">
+            Show {Math.min(PAGE, articles.length - shown)} more of {articles.length - shown} remaining
+          </button>
         )}
       </section>
     </div>

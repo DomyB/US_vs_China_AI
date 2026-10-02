@@ -1,7 +1,7 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel, StanceBadge } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
@@ -41,6 +41,9 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
     [data, year, mineral],
   );
   const layer = data.layers?.parliament;
+  const PAGE = 50;
+  const [shown, setShown] = useState(PAGE);
+  useEffect(() => setShown(PAGE), [year, mineral, data]);
   const total = data.parliament.documents.length;
   const nearestYear = useMemo(() => {
     const years = data.parliament.documents.map((d) => Number(d.date.slice(0, 4)));
@@ -73,6 +76,11 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
             {total} bills, hearings and votes about mining, minerals or the two powers (keyword-selected at ingestion; original language; stance not yet classified).
           </p>
         )}
+        {data.parliament_note && layer !== "facts_only" && (
+          <p className="mb-2 rounded-sm border border-rule bg-surface-2 px-2 py-1.5 text-xs text-ink-2">
+            No machine-readable legislative records for {data.name}: {data.parliament_note} The records below are SAMPLE.
+          </p>
+        )}
         {docs.length === 0 ? (
           <p className="text-sm text-ink-3">
             {data.parliament_note
@@ -83,7 +91,7 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
           </p>
         ) : (
           <ol className="divide-y divide-rule border-y border-rule">
-            {docs.map((d) => (
+            {docs.slice(0, shown).map((d) => (
               <li key={d.id} className="py-2.5 text-sm">
                 <div className="flex flex-wrap items-baseline gap-x-2 text-xs text-ink-3">
                   <span className="tabular-nums">{fmtDate(d.date)}</span>
@@ -97,7 +105,10 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
                 {d.status && <p className="text-xs text-ink-3">Status: {d.status}</p>}
                 {d.vote && (
                   <p className="mt-0.5 text-xs tabular-nums text-ink-2">
-                    Vote{d.vote.date ? ` (${fmtDate(d.vote.date)})` : ""}: {d.vote.yes ?? "–"} yes · {d.vote.no ?? "–"} no · {d.vote.abstain ?? "–"} abstain
+                    Vote{d.vote.date ? ` (${fmtDate(d.vote.date)})` : ""}:{" "}
+                    {(d.vote.yes ?? 0) + (d.vote.no ?? 0) === 0 && !d.vote.members_recorded
+                      ? "symbolic vote, no roll call recorded"
+                      : `${d.vote.yes ?? "–"} yes · ${d.vote.no ?? "–"} no · ${d.vote.abstain ?? "–"} abstain`}
                     {d.vote.result ? ` · ${d.vote.result}` : ""}
                     {d.vote.members_recorded ? ` · ${d.vote.members_recorded} members recorded` : ""}
                   </p>
@@ -111,6 +122,11 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
               </li>
             ))}
           </ol>
+        )}
+        {docs.length > shown && (
+          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="mt-2 rounded-sm border border-rule px-2 py-1 text-xs text-ink-2 hover:bg-surface-2">
+            Show {Math.min(PAGE, docs.length - shown)} more of {docs.length - shown} remaining
+          </button>
         )}
       </section>
     </div>
