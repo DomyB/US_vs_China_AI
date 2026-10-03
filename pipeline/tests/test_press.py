@@ -30,6 +30,16 @@ def test_rss_press_headlines_only(snap_factory):
     assert set(docs.columns) >= {"outlet_source_id", "venue"} and docs.iloc[0]["venue"].startswith("Folha")
 
 
+def test_declared_feed_may_live_on_a_syndication_host():
+    from scm.ingest.press import _declared_feed_ok, _same_site
+
+    site = "https://www.biobiochile.cl"
+    assert _declared_feed_ok("https://feeds.feedburner.com/radiobiobio/NNeJ", site)  # declared in the page head
+    assert _declared_feed_ok("https://www.biobiochile.cl/rss/portada", site)
+    assert not _declared_feed_ok("https://es.wikipedia.org/w/index.php?feed=atom", site)
+    assert not _same_site("https://feeds.feedburner.com/radiobiobio/NNeJ", site)  # anchors stay same-site only
+
+
 def test_rss_adapters_come_from_registry():
     ids = [a.source_id for a in make_rss_adapters()]
     assert "bra_folha" in ids and "arg_clarin" in ids and len(ids) >= 20

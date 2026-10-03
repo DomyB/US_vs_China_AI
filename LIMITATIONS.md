@@ -59,6 +59,11 @@ media layers are still sample.
   dates are indexing dates (`date_precision = seen`), not publication dates.
 - **Outlets without a feed** (and outlets GDELT does not index under the registry's domain)
   have no headlines yet; the manifest of each run lists unmatched domains and failed feed URLs.
+  As of 2026-10-03: El Mostrador and OjoPúblico publish no discoverable feed (15 common paths
+  answer 404, the home page declares none), Emol resets automated connections, De Ware Tijd's
+  robots.txt forbids automated clients. Feeds a publisher declares in its page head on a
+  syndication host (BioBíoChile on FeedBurner) are accepted; feed links found elsewhere on a
+  page must stay on the publisher's own site.
 - **Roll-call votes** are live for Brazil's Câmara (963 roll calls, 22,580 member votes), Brazil's
   Senado (few matters reach the floor) and Chile's Cámara (148 roll calls, 16,432 member votes).
   Argentina's Diputados open-data roll calls stop at period 137 (2019) and name the bill only in

@@ -31,6 +31,16 @@ def _same_site(url: str, site: str) -> bool:
         return False
 
 
+# Syndication hosts a publisher may declare in its page head (<link rel="alternate">); anchors never qualify.
+SYNDICATION_HOSTS = ("feedburner.com", "feedpress.me", "feedblitz.com")
+
+
+def _declared_feed_ok(url: str, site: str) -> bool:
+    """A feed the publisher declares in its own page head: same site, or hosted on a syndication service."""
+    host = urlsplit(url).netloc.lower().split(":")[0]
+    return _same_site(url, site) or any(host == h or host.endswith("." + h) for h in SYNDICATION_HOSTS)
+
+
 def _looks_like_feed_url(url: str | None) -> bool:
     if not url or not url.startswith("http"):
         return False
@@ -63,7 +73,7 @@ class RSSPress(Adapter):
             discovered: list[str] = []
             try:
                 html = snap.get(self.src.url, "home.html", timeout=60).read_text(encoding="utf-8", errors="ignore")
-                discovered = [u for u in discover_feeds(html, self.src.url) if _same_site(u, self.src.url)]
+                discovered = [u for u in discover_feeds(html, self.src.url) if _declared_feed_ok(u, self.src.url)]
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": "home.html", "error": str(e)[:200]})
             base = self.src.url.rstrip("/")
