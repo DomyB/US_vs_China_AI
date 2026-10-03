@@ -146,3 +146,29 @@ def test_cochilco_sheet_heuristics(snap_factory, tmp_path):
     df = schema.validate("production", out["production"].copy())
     assert len(df) == 3 and set(df["year"]) == {2022, 2023, 2024} and (df["mineral"] == "copper").all() and df[df["year"] == 2024].iloc[0]["qty"] == 5510
     assert "Chile" in df.iloc[0]["note"]
+
+
+def test_gdelt_diagnostics_are_recorded_and_not_kept(snap_factory, monkeypatch):
+    import json
+    from datetime import date
+
+    from scm.ingest.gdelt import DIAGNOSTIC_QUERIES, GDELTDoc
+
+    snap = snap_factory("gdelt", {})
+    seen = []
+
+    def fake_get(url, name, params=None, **kw):
+        seen.append(params["query"])
+        p = snap.path(name)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps({"articles": [{"url": "https://x"}]}) if "sourcelang" not in params["query"] else "{}")
+        snap.files[name] = {"url": url}
+        return p
+
+    monkeypatch.setattr(snap, "get", fake_get)
+    GDELTDoc()._diagnostics(snap, date(2026, 10, 3))
+    d = snap.manifest["diagnostics"]
+    assert len(d) == len(DIAGNOSTIC_QUERIES) == len(seen)
+    assert d["es_term_only"].startswith("1 articles") and d["es_sourcelang"].startswith("0 articles (2 bytes)")
+    assert not any(n.startswith("diagnostics/") for n in snap.files) and not snap.path("diagnostics/es_term_only.json").exists()
+    assert "errors" not in snap.manifest or not snap.manifest["errors"]

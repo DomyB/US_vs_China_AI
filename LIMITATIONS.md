@@ -74,12 +74,18 @@ media layers are still sample.
   the vote's title, so few of the 1,233 bills link to a vote. Chile's Senado public services
   answered no votes for any bill kept (both `votaciones.php` and the tramitación document);
   Argentina's Senado, Colombia, Peru and Uruguay publish votes only in PDF minutes or not at all.
-- **GDELT**: its DOC API matches Spanish, Portuguese and Dutch terms only when the language is
-  named in the query (`sourcelang:`); the first runs without it returned nothing for those
-  languages. GitHub runners share egress addresses, so GDELT throttles them (HTTP 429 on about
-  40 percent of calls at 7 s spacing); the adapter now waits 10 s between calls, pauses on a
-  throttle, and stops after a time budget, so the 2017→ backlog (about 1,800 windows) fills over
-  many weekly runs unless a long manual backfill is dispatched when the address is not throttled.
+- **GDELT**: the English (Guyana) and Dutch (Suriname) queries return articles; every Spanish
+  and Portuguese window has answered an empty JSON object (`{}`) in all three forms tried
+  (accented terms, ASCII terms, and both with `sourcelang:`), so there is no Spanish- or
+  Portuguese-language media history yet. The cause is not identified: the sandbox cannot reach
+  GDELT, and the exact request URLs are in the run manifest (`pipeline/tests/fixtures/gdelt/`)
+  for anyone to open in a browser. From 2026-10-03 each press run records eight one-term probes
+  (`diagnostics` in the manifest: term alone, with `sourcelang:`, with `sourcecountry:`, OR
+  group, phrase) to isolate the operator that empties the query. GitHub runners share egress
+  addresses, so GDELT throttles them (12 HTTP 429 responses per run even at 10 s spacing); the
+  adapter pauses on a throttle and stops after a time budget, so the 2017→ backlog (1,783
+  windows) fills over many weekly runs unless a long manual backfill is dispatched when the
+  address is not throttled.
 - **Colombia titles**: the national AnnA cadastre on datos.gov.co is a map layer that the portal
   refuses to export ("Unexportable view"); the registry's dataset id is the title annotations
   table and is never stored as concessions. Colombia's concessions stay missing until the ANM's

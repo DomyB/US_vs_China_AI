@@ -47,6 +47,20 @@ TERMS_FALLBACK = {
     "nl": "(mijnbouw OR goud OR bauxiet) (China OR \"Verenigde Staten\")",
 }
 COUNTRY_LANGS = {"BRA": ["pt"], "GUY": ["en"], "SUR": ["nl", "en"]}
+# One-term probes run at the start of every fetch (last 30 days, 5 records each) and recorded under
+# manifest["diagnostics"]: every Spanish and Portuguese window answered an empty JSON object in the first
+# live runs, with and without accents and with sourcelang, while English and Dutch windows returned
+# articles. The probes isolate which operator or term set empties the query; they cost eight requests.
+DIAGNOSTIC_QUERIES = [
+    ("es_term_only", "cobre"),
+    ("es_sourcelang", "cobre sourcelang:spanish"),
+    ("es_sourcecountry", "cobre sourcecountry:AR"),
+    ("es_two_terms", "litio China sourcelang:spanish"),
+    ("es_or_group", "(litio OR cobre) China sourcelang:spanish"),
+    ("es_phrase", '"Estados Unidos" cobre sourcelang:spanish'),
+    ("pt_sourcelang", "cobre sourcelang:portuguese"),
+    ("pt_sourcecountry", "litio sourcecountry:BR"),
+]
 # registry press hosts that GDELT reports under another domain
 DOMAIN_ALIASES = {"www1.folha.uol.com.br": "bra_folha", "folha.uol.com.br": "bra_folha", "valor.globo.com": "bra_valor", "oglobo.globo.com": "bra_oglobo",
                   "emol.com": "chl_elmercurio", "elmercurio.com": "chl_elmercurio", "larazon.bo": "bol_larazon", "eluniverso.com": "ecu_eluniverso"}
@@ -115,6 +129,7 @@ class GDELTDoc(Adapter):
 
         t0 = time.monotonic()
         time_budget = float(os.environ.get("GDELT_TIME_BUDGET_MIN", str(self.TIME_BUDGET_MIN))) * 60
+        self._diagnostics(snap, today)
         for iso, start, end, _recent in plan:
             if time.monotonic() - t0 > time_budget:
                 snap.manifest["stopped"] = f"time budget of {time_budget / 60:.0f} min exhausted"
@@ -168,6 +183,37 @@ class GDELTDoc(Adapter):
                 except (json.JSONDecodeError, AttributeError):
                     n2 = 0
                 tally["fallback" if n2 else "empty"] += 1
+        snap.save()
+
+    def _diagnostics(self, snap: Snapshot, today: date) -> None:
+        """Record how GDELT answers a few one-term queries (see DIAGNOSTIC_QUERIES); never raises."""
+        import time
+
+        results: dict[str, str] = {}
+        for key, query in DIAGNOSTIC_QUERIES:
+            if snap.manifest.get("throttled", 0) >= self.MAX_THROTTLES:
+                results[key] = "not tried (throttled)"
+                continue
+            name = f"diagnostics/{key}.json"
+            params = {"query": query, "mode": "artlist", "format": "json", "maxrecords": 5, "sort": "datedesc",
+                      "startdatetime": (today - timedelta(days=30)).strftime("%Y%m%d000000"), "enddatetime": today.strftime("%Y%m%d235959")}
+            try:
+                path = snap.get(API, name, params=params, timeout=60, force=True)
+            except Exception as e:  # noqa: BLE001
+                results[key] = f"error: {str(e)[:120]}"
+                if "429" in str(e):
+                    snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
+                    time.sleep(self.THROTTLE_SLEEP)
+                continue
+            body = path.read_bytes()
+            try:
+                n = len(json.loads(body.decode("utf-8")).get("articles", []))
+                results[key] = f"{n} articles ({len(body)} bytes)"
+            except (json.JSONDecodeError, AttributeError, UnicodeDecodeError):
+                results[key] = f"non-JSON ({len(body)} bytes): {body[:100]!r}"
+            path.unlink(missing_ok=True)  # a probe, not data: never parsed, never recorded as a fixture
+            snap.files.pop(name, None)
+        snap.manifest["diagnostics"] = results
         snap.save()
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
