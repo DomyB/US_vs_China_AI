@@ -84,6 +84,10 @@ Target groups: `legislature`, `press`, `national` (plus `tier1`, `tier2`, `annua
 `ingest-press.yml`. Text tables: `document` (bills and news; news rows carry no summary),
 `vote`, `vote_member`, `media_volume`; cadastres go to `concession`.
 
+Each adapter runs under a wall-clock budget (`SCM_ADAPTER_BUDGET_MIN`, default 120 minutes, 0
+disables it) and a memory cap (`SCM_MEM_LIMIT_GB`, default 8); an adapter that overruns either
+is recorded as `failed` with the reason and the run continues with the next source.
+
 Incremental tables (see `schema.KEY_COLUMNS`) merge with the Parquet restored from the previous
 data release; the first-seen row wins. Adapters that fetch HTML, feeds or web services set
 `respect_robots = True`: robots.txt is read once per host and crawl-delays raise the request

@@ -15,6 +15,10 @@ media layers are still sample.
 - **Comtrade keyless mode** uses the public preview endpoint (500 records per call). Annual
   HS6 flows fit; monthly and tariff-line data wait for a free key. Reporters that have not
   submitted a year show as missing, not zero. Venezuela is mirror-only after ~2013.
+  The preview endpoint also rations calls per address and day: a second Comtrade fetch on
+  the same day from the shared runner address is refused (HTTP 429/403). The adapter then
+  stops after three refused calls, reports `failed`, and the previous release's trade flows
+  stay in place until the next run.
 - **Mirror data** (partner-reported) includes freight and insurance and transshipment;
   `trade_discrepancy` flags ratios outside 0.5–2 as `large_discrepancy` rather than
   reconciling them.

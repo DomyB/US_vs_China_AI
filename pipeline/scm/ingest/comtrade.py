@@ -20,6 +20,9 @@ PREVIEW = "https://comtradeapi.un.org/public/v1/preview/C/A/HS"
 KEYED = "https://comtradeapi.un.org/data/v1/get/C/A/HS"
 
 
+MAX_QUOTA_FAILURES = 3
+
+
 class Comtrade(Adapter):
     source_id = "un_comtrade"
     tables = ("trade_flow",)
@@ -31,6 +34,7 @@ class Comtrade(Adapter):
         self.years = years or list(range(2008, last + 1))
         self.codes = sorted(hs6_to_mineral())
         self.key = os.environ.get("COMTRADE_KEY")
+        self._quota_failures = 0  # consecutive calls refused with 429/403/503 after back-off
 
     def _call(self, snap: Snapshot, name: str, reporter: int, periods: list[int], partners: list[int]) -> dict | None:
         """One preview/keyed call; returns the parsed payload (or None on failure). Backs off on 429/403."""
@@ -50,6 +54,7 @@ class Comtrade(Adapter):
         for attempt in range(4):
             try:
                 path = snap.get(url, name, params=params, allow_statuses=(200,))
+                self._quota_failures = 0
                 return _json.loads(path.read_text(encoding="utf-8"))
             except FetchError as e:
                 msg = str(e)
@@ -59,6 +64,14 @@ class Comtrade(Adapter):
                     _time.sleep(65 * (attempt + 1))
                     continue
                 return None
+        # every attempt was refused: count it, and stop once the refusal is clearly the day's quota
+        self._quota_failures += 1
+        if self._quota_failures >= MAX_QUOTA_FAILURES:
+            raise RuntimeError(
+                f"un_comtrade: {self._quota_failures} consecutive calls refused (429/403/503) after back-off; the "
+                "preview API's quota for this address is spent (another run fetched Comtrade earlier today?) - "
+                "the previous release's trade_flow is kept; rerun tomorrow or set COMTRADE_KEY"
+            )
         return None
 
     def _fetch_chunked(self, snap: Snapshot, prefix: str, reporter: int, partners: list[int], years_per_call: int) -> None:

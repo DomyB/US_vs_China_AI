@@ -286,3 +286,33 @@ def test_tier2_skipped_without_secret(sid, tmp_path, monkeypatch):
         monkeypatch.delenv(k, raising=False)
     rec = ADAPTERS[sid]().run(raw_base=tmp_path / "raw", out_dir=tmp_path / "wh")
     assert rec["status"] == "skipped"
+
+
+def test_adapter_time_budget_interrupts_a_stalled_adapter():
+    import time
+
+    from scm.__main__ import with_budget
+    from scm.ingest.base import AdapterTimeout
+
+    with pytest.raises(AdapterTimeout, match="time budget"):
+        with_budget(lambda: time.sleep(5), minutes=0.2 / 60)  # 0.2 s budget
+    assert with_budget(lambda: "done", minutes=0) == "done"  # 0 disables the budget
+
+
+def test_comtrade_stops_after_consecutive_quota_refusals(snap_factory, monkeypatch):
+    from scm.http import FetchError
+    from scm.ingest import comtrade
+
+    monkeypatch.setattr("time.sleep", lambda s: None)
+    snap = snap_factory("un_comtrade", {})
+    calls = []
+
+    def refused(url, name, **kw):
+        calls.append(name)
+        raise FetchError(f"un_comtrade: HTTP 429 on GET {url}")
+
+    monkeypatch.setattr(snap, "get", refused)
+    with pytest.raises(RuntimeError, match="consecutive calls refused"):
+        comtrade.Comtrade(years=[2022]).fetch(snap)
+    assert len(calls) == 4 * comtrade.MAX_QUOTA_FAILURES  # four attempts per call, then stop
+    assert len(snap.manifest["errors"]) == len(calls)

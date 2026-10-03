@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import sys
 
 from . import export_site, liveness, warehouse
@@ -19,6 +20,29 @@ def _rss_mb() -> int:
         return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024)
     except Exception:  # noqa: BLE001
         return -1
+
+
+def with_budget(fn, minutes: float):
+    """Run fn() with a wall-clock budget: when it is spent, SIGALRM raises AdapterTimeout inside the adapter
+    (sleeps and socket waits included), so one stalled source cannot consume the whole workflow run.
+    Budget 0 disables it; platforms without SIGALRM run unbounded."""
+    import signal
+
+    from .ingest.base import AdapterTimeout
+
+    if minutes <= 0 or not hasattr(signal, "SIGALRM"):
+        return fn()
+
+    def _expired(signum, frame):  # noqa: ARG001
+        raise AdapterTimeout(f"time budget of {minutes:g} min exceeded (SCM_ADAPTER_BUDGET_MIN)")
+
+    previous = signal.signal(signal.SIGALRM, _expired)
+    signal.setitimer(signal.ITIMER_REAL, minutes * 60)
+    try:
+        return fn()
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous)
 
 
 def _cap_memory() -> None:
@@ -68,12 +92,14 @@ def main(argv: list[str] | None = None) -> int:
                 ids.append(t)
         results = []
         _cap_memory()
+        budget = float(os.environ.get("SCM_ADAPTER_BUDGET_MIN", "120"))
         for sid in dict.fromkeys(ids):
             if sid not in ADAPTERS:
                 print(f"unknown adapter: {sid}", file=sys.stderr)
                 return 2
             print(json.dumps({"source_id": sid, "status": "starting", "rss_mb": _rss_mb()}), flush=True)
-            rec = ADAPTERS[sid]().run(fetch=not args.parse_only, parse=not args.fetch_only)
+            adapter = ADAPTERS[sid]()
+            rec = with_budget(lambda a=adapter: a.run(fetch=not args.parse_only, parse=not args.fetch_only), budget)
             results.append(rec)
             print(json.dumps({k: rec[k] for k in ("source_id", "status", "rows", "error")} | {"rss_mb": _rss_mb()}), flush=True)
             if args.fail_fast and rec["status"] == "failed":

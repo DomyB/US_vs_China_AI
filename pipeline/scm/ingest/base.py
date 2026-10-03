@@ -19,6 +19,9 @@ from ..registry import Source, source
 log = logging.getLogger("scm")
 
 
+class AdapterTimeout(RuntimeError):
+    """Raised inside an adapter when its wall-clock budget runs out (see scm.__main__.with_budget)."""
+
 class Adapter(ABC):
     """One adapter per registry source.
 
