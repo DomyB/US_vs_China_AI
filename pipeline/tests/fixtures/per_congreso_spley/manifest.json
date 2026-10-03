@@ -13,8 +13,8 @@
    },
    "status": 200,
    "bytes": 59895,
-   "sha256": "a83a7407f7d68715e7178a00b297b7340853ed4a454829601a80ad44ce196a23",
-   "retrieved_at": "2026-10-02T16:09:12+00:00",
+   "sha256": "a327f664a15012e0df0a1c64a79833470f45a4362bac502009e080eb1ad5b01e",
+   "retrieved_at": "2026-10-03T17:54:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -30,8 +30,8 @@
    },
    "status": 200,
    "bytes": 45340,
-   "sha256": "b1fb1d3ac002408a18d555eb70b00e5826d3b0fef0337adb5c0ab61bafacfce7",
-   "retrieved_at": "2026-10-02T16:09:13+00:00",
+   "sha256": "778c3d5733f16ff4fcee93969a8f967a304ffd292a1d054722cf45a8da66befe",
+   "retrieved_at": "2026-10-03T17:54:31+00:00",
    "note": null,
    "trimmed": true
   },
@@ -47,8 +47,8 @@
    },
    "status": 200,
    "bytes": 8926,
-   "sha256": "dccb09e0ee7f9708df93f9b989020639f70fccf611382489b6a975dfbe3c89e8",
-   "retrieved_at": "2026-10-02T16:09:14+00:00",
+   "sha256": "79c82e668980c5a22b796ab5d090ef4acba55d25c6e6d8f18331f20081604ce0",
+   "retrieved_at": "2026-10-03T17:54:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -64,8 +64,8 @@
    },
    "status": 200,
    "bytes": 1798,
-   "sha256": "aedfb522d78415e24267600182462a17ac3e2a86fd7f3286ed56dea9f3ff0f3d",
-   "retrieved_at": "2026-10-02T16:09:15+00:00",
+   "sha256": "c283e8df42403da232c7d57ad2b4bd016d3d5698226beb1e1a3ba4f9afdee444",
+   "retrieved_at": "2026-10-03T17:54:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -81,8 +81,8 @@
    },
    "status": 200,
    "bytes": 3810,
-   "sha256": "396c28efb286129b23f4f6052b0571d00bd6e5983ea27826a76ad93353d8561e",
-   "retrieved_at": "2026-10-02T16:09:16+00:00",
+   "sha256": "39749feafda364d972a979973387ad69cf4054c8bc172c874cda710d98a48ff0",
+   "retrieved_at": "2026-10-03T17:54:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -98,8 +98,8 @@
    },
    "status": 200,
    "bytes": 8927,
-   "sha256": "8b9e0787a860e857442ae5271f7f21cc16d9b799dc0cdaba9b116c8677a29fdc",
-   "retrieved_at": "2026-10-02T16:09:17+00:00",
+   "sha256": "e1855430237b63244a11df3c785d117fe370271dac5f7705a37949067909fce5",
+   "retrieved_at": "2026-10-03T17:54:35+00:00",
    "note": null,
    "trimmed": true
   },
@@ -115,8 +115,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "749ccc94f425b6b13dbeaeeabf3839796fd9d797fdd209204dcb0cc5bf5d4a6a",
-   "retrieved_at": "2026-10-02T16:09:17+00:00",
+   "sha256": "e5f08b1a549b6ae3a5e1b62c473b9701b41c3b77067f2b8da605a9c42eaef229",
+   "retrieved_at": "2026-10-03T17:54:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -132,8 +132,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "942304a99df61ea057a752b728c3a33a2e3f20fc88486af5c4c63fee7ede7433",
-   "retrieved_at": "2026-10-02T16:09:19+00:00",
+   "sha256": "9355a50f87f15e0ab24f67e359c9342c4be0b7de2d3924a08453e271147638a1",
+   "retrieved_at": "2026-10-03T17:54:37+00:00",
    "note": null,
    "trimmed": true
   },
@@ -149,8 +149,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "37dbddc0bded6a4ba50abb06adf958e8b9e1f9ab53606b31bc78ec50f251f890",
-   "retrieved_at": "2026-10-02T16:09:20+00:00",
+   "sha256": "0eeafecb0446086ec18398db840a5ca4f1564c4546730074159fbffd4ea97a7f",
+   "retrieved_at": "2026-10-03T17:54:38+00:00",
    "note": null,
    "trimmed": true
   },
@@ -166,8 +166,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "d154c1877b056be8c15acbab70873ff9e1fe9ab99e5de9286fd07e5e0e4133e3",
-   "retrieved_at": "2026-10-02T16:09:21+00:00",
+   "sha256": "c779ef9758a21feb3f4bd4740cc0225fb2fdd8c6059b0657832388b002226672",
+   "retrieved_at": "2026-10-03T17:54:39+00:00",
    "note": null,
    "trimmed": true
   },
@@ -183,8 +183,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "ffaa05512576fd75dae975453be6e9f531e27ebc6fbe56bda704d7947d497477",
-   "retrieved_at": "2026-10-02T16:09:21+00:00",
+   "sha256": "59283846605911914b5439a8d8951425ab2a052368280a3110aa4ccf717d01ec",
+   "retrieved_at": "2026-10-03T17:54:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -200,8 +200,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "ed8c345de63a81e0cc88315ee0845f30e6c9fb7019f0361a1bab4dc37005a4f7",
-   "retrieved_at": "2026-10-02T16:09:23+00:00",
+   "sha256": "53fc08e61379c41ab142e4bff922adf435fcff33191a7596e91390db5566b7e9",
+   "retrieved_at": "2026-10-03T17:54:41+00:00",
    "note": null,
    "trimmed": true
   },
@@ -217,8 +217,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "966ee372a422da2c2c1609bb558fc69649fd15ed734e422d69d7d34d11b3e865",
-   "retrieved_at": "2026-10-02T16:09:23+00:00",
+   "sha256": "e207c26df626a1d8a6e59dda8277fc820059b51c13cc7ea8a98d73bd3308c790",
+   "retrieved_at": "2026-10-03T17:54:42+00:00",
    "note": null,
    "trimmed": true
   },
@@ -234,8 +234,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "e1d0543da190cf16b9b578d244b7b433a2c6027dac77bd7237346eca98edcfa9",
-   "retrieved_at": "2026-10-02T16:09:25+00:00",
+   "sha256": "cbe97773de136f876968719e76d31cca662806e4fd170823c2f1a55fea2f0382",
+   "retrieved_at": "2026-10-03T17:54:44+00:00",
    "note": null,
    "trimmed": true
   },
@@ -251,8 +251,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "06b9e9e6d75de4e1a68f240b7f0e1604763be5912e283e943f782ef6cc7b5ba2",
-   "retrieved_at": "2026-10-02T16:09:26+00:00",
+   "sha256": "f1a7f024f46f3bfccc34cdb32af6b4b5876578a38186b92e05c1729a1703c940",
+   "retrieved_at": "2026-10-03T17:54:44+00:00",
    "note": null,
    "trimmed": true
   },
@@ -268,8 +268,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "7bdd6b22194bcdc1a09d2b205e74a55989ec2c94fcf457873d9e81b2d75f496a",
-   "retrieved_at": "2026-10-02T16:09:27+00:00",
+   "sha256": "1861c00c988decf4c7fdc60d8879cc1c15744514c8a6936019666e0298f2260d",
+   "retrieved_at": "2026-10-03T17:54:45+00:00",
    "note": null,
    "trimmed": true
   },
@@ -285,8 +285,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "71443b830b37e9df93719466fd44863d9772b5622f9896fc2afefb9dc377c702",
-   "retrieved_at": "2026-10-02T16:09:27+00:00",
+   "sha256": "c49623f871899cf5e988d0d025d7fd04a7177484c56f576b875765a616477141",
+   "retrieved_at": "2026-10-03T17:54:46+00:00",
    "note": null,
    "trimmed": true
   },
@@ -302,8 +302,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "2f744a7860afc80858facc7e968123fff512cc94a8dd675f1a052c48c0f69478",
-   "retrieved_at": "2026-10-02T16:09:28+00:00",
+   "sha256": "b4db065b09959695858dc3c62c3fb02701475185dfee25026bdffef6516f9f2c",
+   "retrieved_at": "2026-10-03T17:54:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -319,8 +319,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "6199e300f4c201a076bc9c8e5b70e69ecb9498ae5475921d94df32e96df27ac0",
-   "retrieved_at": "2026-10-02T16:09:29+00:00",
+   "sha256": "63f00e7c267f7a45103e33d0595b196b2f3feb3581f03b17243dadf283761ee7",
+   "retrieved_at": "2026-10-03T17:54:48+00:00",
    "note": null,
    "trimmed": true
   },
@@ -336,8 +336,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "be435df3c7996ef7665f1a1d858e7b9bf953df2c4d656c9ca2e28870cb5bd7e6",
-   "retrieved_at": "2026-10-02T16:09:31+00:00",
+   "sha256": "686c4217ce7e2b0fc4aa54d7b37005d84bfd4604f651040268d9d21fc5af8e3e",
+   "retrieved_at": "2026-10-03T17:54:49+00:00",
    "note": null,
    "trimmed": true
   },
@@ -353,8 +353,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "e4cd7394307ae15a6c02dfe55995a916a24a0ada15770e6b9d114f4da1fb0d1d",
-   "retrieved_at": "2026-10-02T16:09:32+00:00",
+   "sha256": "2724101dd3334cf51b640175861e030d20e771f0b2cd09ad690d619be6510c1d",
+   "retrieved_at": "2026-10-03T17:54:50+00:00",
    "note": null,
    "trimmed": true
   },
@@ -370,8 +370,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "3f0826e7b31dbdcca1cd58dc664bd2d43f908320600fb395584437ea92c97660",
-   "retrieved_at": "2026-10-02T16:09:33+00:00",
+   "sha256": "70dde29974f5f48c6356571ec7e95a35f76d0f67a7a881c532c9bb5fa335a3e8",
+   "retrieved_at": "2026-10-03T17:54:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -387,8 +387,8 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "564b35f10af70235c4060a16caca6395269aebbe7cf1e4c70749e4bf1c91f7d3",
-   "retrieved_at": "2026-10-02T16:09:34+00:00",
+   "sha256": "ed7e9d21d9fa7a23d1373ece4d2fe23d0d78ba0e4d85686e75f376b6a70ca664",
+   "retrieved_at": "2026-10-03T17:54:52+00:00",
    "note": null,
    "trimmed": true
   },
@@ -404,38 +404,38 @@
    },
    "status": 200,
    "bytes": 113,
-   "sha256": "de8446094d88373135360ce8cd6fb289aa95a674c8dd497e24998de79ac9cb0f",
-   "retrieved_at": "2026-10-02T16:09:35+00:00",
+   "sha256": "7c583b8b62755443f2a5112ec05ed3d2dcdfc19ce00641e496541eaf72d5c1f6",
+   "retrieved_at": "2026-10-03T17:54:53+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_congreso_spley/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_congreso_spley/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
    "name": "https://wb2server.congreso.gob.pe/spley-portal-service lista_2021_miner\u00eda.json",
-   "error": "per_congreso_spley: POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro -> 400 {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to require"
+   "error": "per_congreso_spley: HTTP 400 on POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to re"
   },
   {
    "name": "https://wb2server.congreso.gob.pe/spley-portal-service lista_2021_minero.json",
-   "error": "per_congreso_spley: POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro -> 400 {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to require"
+   "error": "per_congreso_spley: HTTP 400 on POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to re"
   },
   {
    "name": "https://wb2server.congreso.gob.pe/spley-portal-service lista_2021_litio.json",
-   "error": "per_congreso_spley: POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro -> 400 {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to require"
+   "error": "per_congreso_spley: HTTP 400 on POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to re"
   },
   {
    "name": "https://wb2server.congreso.gob.pe/spley-portal-service lista_2021_cobre.json",
-   "error": "per_congreso_spley: POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro -> 400 {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to require"
+   "error": "per_congreso_spley: HTTP 400 on POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to re"
   },
   {
    "name": "https://wb2server.congreso.gob.pe/spley-portal-service lista_2021_China.json",
-   "error": "per_congreso_spley: POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro -> 400 {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to require"
+   "error": "per_congreso_spley: HTTP 400 on POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to re"
   },
   {
    "name": "https://wb2server.congreso.gob.pe/spley-portal-service lista_2021_Estados Unidos.json",
-   "error": "per_congreso_spley: POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro -> 400 {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to require"
+   "error": "per_congreso_spley: HTTP 400 on POST https://wb2server.congreso.gob.pe/spley-portal-service/proyecto-ley/lista-con-filtro {\"code\":400,\"status\":\"Failed to convert value of type 'java.lang.String' to re"
   }
  ],
  "base_used": "https://api.congreso.gob.pe/spley-portal-service",

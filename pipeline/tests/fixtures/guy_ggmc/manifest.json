@@ -7,11 +7,11 @@
    "status": 200,
    "bytes": 9567,
    "sha256": "fc7fa7f1245c5e7be801c7e8538923a6484a1f62429a46b9e9c7aea1a79a2e7d",
-   "retrieved_at": "2026-10-02T16:40:14+00:00",
+   "retrieved_at": "2026-10-03T17:54:59+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/guy_ggmc/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/guy_ggmc/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py"
 }

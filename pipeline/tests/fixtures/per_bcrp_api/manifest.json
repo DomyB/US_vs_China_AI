@@ -7,7 +7,7 @@
    "status": 200,
    "bytes": 6879840,
    "sha256": "254b7480f7eb48a9f768a066280677d4867aca969f4298a340901bc0e1c3096d",
-   "retrieved_at": "2026-10-02T19:06:34+00:00",
+   "retrieved_at": "2026-10-03T17:55:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,7 +17,7 @@
    "status": 200,
    "bytes": 6165,
    "sha256": "1dad6a9c4831d46d41377936666607ecaeb63527bc13b2f1e4f2fd9b75885400",
-   "retrieved_at": "2026-10-02T19:06:36+00:00",
+   "retrieved_at": "2026-10-03T17:55:53+00:00",
    "note": null,
    "trimmed": true
   },
@@ -27,7 +27,7 @@
    "status": 200,
    "bytes": 1255,
    "sha256": "787551db5a8333ee42764dfcae628251195c574acae9c46bc355d7c495819930",
-   "retrieved_at": "2026-10-02T19:06:38+00:00",
+   "retrieved_at": "2026-10-03T17:55:54+00:00",
    "note": null,
    "trimmed": true
   },
@@ -37,7 +37,7 @@
    "status": 200,
    "bytes": 1320,
    "sha256": "05b04c6d7e1ff8387a3abc9e722e26ebc19ab76103f5f88f45d82e6ae56dba88",
-   "retrieved_at": "2026-10-02T19:06:39+00:00",
+   "retrieved_at": "2026-10-03T17:55:56+00:00",
    "note": null,
    "trimmed": true
   },
@@ -47,7 +47,7 @@
    "status": 200,
    "bytes": 5524,
    "sha256": "8d2249ae55acd9fb5639cbecef50809e1e99b991484c1ba2010bdcb7f93f7be4",
-   "retrieved_at": "2026-10-02T19:06:41+00:00",
+   "retrieved_at": "2026-10-03T17:55:57+00:00",
    "note": null,
    "trimmed": true
   },
@@ -57,7 +57,7 @@
    "status": 200,
    "bytes": 5621,
    "sha256": "abb4e1e0d0b8c36843010b81ff48f66256dd988243a19e1365ec8edb93970afd",
-   "retrieved_at": "2026-10-02T19:06:42+00:00",
+   "retrieved_at": "2026-10-03T17:55:59+00:00",
    "note": null,
    "trimmed": true
   },
@@ -67,12 +67,12 @@
    "status": 200,
    "bytes": 5527,
    "sha256": "b7adeee16cd7c99d1077830e8200e41d0b9172244e87184b7134f277f857035d",
-   "retrieved_at": "2026-10-02T19:06:44+00:00",
+   "retrieved_at": "2026-10-03T17:56:00+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_bcrp_api/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_bcrp_api/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "metadata_columns": [
   "C\u00f3digo de serie",

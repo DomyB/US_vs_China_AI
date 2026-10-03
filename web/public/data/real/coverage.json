@@ -107,7 +107,7 @@
    "governance_available": true,
    "parliament_available": true,
    "parliament_documents": 3824,
-   "parliament_votes": 380,
+   "parliament_votes": 386,
    "parliament_from": 1996,
    "parliament_note": null,
    "media_available": true,
@@ -140,7 +140,7 @@
    "events": 79,
    "contracts": 19,
    "governance": 676,
-   "production": 1188,
+   "production": 1135,
    "actions": true,
    "governance_available": true,
    "parliament_available": true,
@@ -227,7 +227,7 @@
    "media_available": false,
    "media_articles": 0,
    "media_from": null,
-   "concessions": 15446
+   "concessions": 15447
   },
   "GUY": {
    "trade_years": [

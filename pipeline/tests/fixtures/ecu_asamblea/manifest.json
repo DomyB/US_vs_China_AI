@@ -7,7 +7,7 @@
    "status": 200,
    "bytes": 1010,
    "sha256": "1cdc05b6749b00d324000b4a321d4686a5131dc4759c4f3865b5b862996b5425",
-   "retrieved_at": "2026-10-02T16:19:14+00:00",
+   "retrieved_at": "2026-10-03T17:54:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,10 +15,10 @@
    "url": "https://apiapp.asambleanacional.gob.ec/",
    "params": {},
    "status": 200,
-   "bytes": 37088,
+   "bytes": 37024,
    "final_url": "https://apiapp.asambleanacional.gob.ec/es",
-   "sha256": "2c99519dee6fc2ee8385710df7fa446e5edf4b1af1293bd1f34479787a13922a",
-   "retrieved_at": "2026-10-02T16:19:28+00:00",
+   "sha256": "e5dea91c86cc628fc7bbcf073d762105708794feda4ef3ab6b546e27c359551b",
+   "retrieved_at": "2026-10-03T17:54:22+00:00",
    "note": null,
    "trimmed": true
   },
@@ -28,7 +28,7 @@
    "status": 200,
    "bytes": 1010,
    "sha256": "1cdc05b6749b00d324000b4a321d4686a5131dc4759c4f3865b5b862996b5425",
-   "retrieved_at": "2026-10-02T16:19:32+00:00",
+   "retrieved_at": "2026-10-03T17:54:22+00:00",
    "note": null,
    "trimmed": true
   },
@@ -37,13 +37,13 @@
    "params": {},
    "status": 200,
    "bytes": 23,
-   "sha256": "ff0a7af587d86da13b718450e5e51ddf16400c472d48ead2afd8c9efb7527c31",
-   "retrieved_at": "2026-10-02T16:19:32+00:00",
+   "sha256": "5471f225bc954ff367c7808939fb582e58c33292febecfe0d28f4b3cfe3fc71a",
+   "retrieved_at": "2026-10-03T17:54:23+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_asamblea/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_asamblea/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "page_head": "<!doctype html> <html lang=\"en\"> <head> <meta charset=\"utf-8\"> <title>Datos parlamentarios</title> <base href=\"/\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\"> <link href=\"https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap\" rel=\"stylesheet\"> <link href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" rel=\"stylesheet\"> <link rel=\"stylesheet\" href=\"styles.ec6a43a7e0ecb38c6998.css\"></head> <body> <app-root></app-root> <script src=\"polyfills-es5.7aaacbf76784c780632a.js\" nomodule defer></script><script src=\"polyfills-es2015.0fe6949bc5ff4b784062.js\" type=\"module\"></script><script src=\"runtime-es2015.85f895af57b038f1e5b4.js\" type=\"module\"></script><script src=\"main-es2015.1f885dee256fd2eca9c0.js\" type=\"module\"></script><script src=\"runtime-es5.85f895af57b038f1e5b4.js\" nomodule defer></script><script src=\"main-es5.1f885dee256fd2eca9c0.js\" nomodule defer></script></body> </html> ",
  "tables_found": 0,
@@ -76,7 +76,7 @@
   {
    "url": "https://api.ipify.org/?format=json",
    "status": 200,
-   "head": "{\"ip\":\"20.172.111.217\"}"
+   "head": "{\"ip\":\"74.235.127.164\"}"
   }
  ]
 }
