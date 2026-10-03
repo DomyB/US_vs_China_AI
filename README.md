@@ -18,7 +18,7 @@ indirect influence, and makes forecasts to 2030 with stated uncertainty.
 |---|---|---|
 | 0 | Plan, source verification, coverage matrix, data model, cost, timeline | Done: [docs/PHASE0_PLAN.md](docs/PHASE0_PLAN.md) |
 | 1 | Full interface with a clearly labelled sample dataset | Done: see [docs/STATUS.md](docs/STATUS.md); deploy by connecting Vercel ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)) |
-| 2 | Reproducible ingestion pipelines (international, US, China, national) | 2a done: 13 international and US sources deliver live data for all 12 countries; EXIM, IDB DPI and AEI CGIT need a hand-supplied file (see [docs/STATUS.md](docs/STATUS.md), [docs/PIPELINE.md](docs/PIPELINE.md)). 2b (national legislatures, press, statistics) in progress: wave 1 built (Brazil Câmara, 27 press feeds, Guyana GGMC), first live run pending |
+| 2 | Reproducible ingestion pipelines (international, US, China, national) | Done with known gaps. 2a: 13 international and US sources deliver live data for all 12 countries; EXIM, IDB DPI and AEI CGIT need a hand-supplied file. 2b: six legislatures (Brazil both chambers, Chile, Argentina, Colombia, Peru, Paraguay), 22 press feeds plus GDELT, four national statistics and cadastre sources deliver real, unclassified records; Chile Senate and Colombia votes, the Colombia cadastre and Uruguay have no machine-readable source yet (see [docs/STATUS.md](docs/STATUS.md), [docs/PIPELINE.md](docs/PIPELINE.md)) |
 | 3 | Multilingual text analysis of parliaments and media, with validation | Not started |
 | 4 | Quantitative analysis (composite index, concentration, event studies, panels, anomaly flags, networks) | Not started |
 | 5 | Forecasting to 2030 with backtests and scenarios | Not started |

@@ -71,8 +71,8 @@ Dataverse's presigned S3 redirects).
 | arg_hcdn | `ingest/legis_arg.py` | document (bills, votes), vote, vote_member | datos.hcdn.gob.ar CKAN; proyectos, votaciones and votos resources found by search (candidates recorded) |
 | ury_parlamento | `ingest/legis_ury.py` | document (bills) | catalogodatos.gub.uy CKAN; no roll-call dataset |
 | col_camara | `ingest/legis_col.py` | document (bills) | Socrata kcxp-nxum paged; votes are PDF only; Senado never fetched (403, terms) |
-| col_anm_anna | `ingest/national_col.py` | concession | Socrata si2v-pbq5 paged |
-| chl_senado | `ingest/legis_chl.py` | vote, vote_member | tramitacion.senado.cl votaciones.php for the boletines the Cámara adapter kept |
+| col_anm_anna | `ingest/national_col.py` | concession | Socrata catalogue discovery; the national titles layer is an unexportable map view, so the adapter records the catalogue choice and stores 0 rows (si2v-pbq5 is the annotations table, never stored) |
+| chl_senado | `ingest/legis_chl.py` | vote, vote_member | tramitacion.senado.cl `votaciones.php` and the tramitación document for the boletines the Cámara adapter kept; both carried no roll calls in October 2026 |
 | pry_silpy, ecu_asamblea, per_congreso_spley | `ingest/legis_misc.py` | document (bills / votes) | undocumented services: index pages and first bytes recorded; parsers completed from fixtures |
 | ecu_cadastre | `ingest/national_ecu.py` | concession | ArcGIS REST layer query, paged |
 | per_bcrp_api | `ingest/national_per.py` | production | series chosen from BCRPData metadata (annual mine production), JSON API |
