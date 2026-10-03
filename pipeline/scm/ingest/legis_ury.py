@@ -34,6 +34,8 @@ class ParlamentoUY(Adapter):
         for i, o in enumerate(orgs[:6]):
             pkgs += package_search(snap, BASE, f"search_org_{i}.json", fq=f"organization:{o.get('name')}")
         pkgs += package_search(snap, BASE, "search.json", q='"asuntos entrados" OR "proyectos de ley" OR parlamento OR legislativo')
+        for i, word in enumerate(("parlamento", "asuntos entrados", "proyectos de ley", "legislativo")):  # plain queries, in case OR syntax is not honoured
+            pkgs += package_search(snap, BASE, f"search_plain_{i}.json", q=word)
         seen: set = set()
         pkgs = [pk for pk in pkgs if not (pk.get("id") in seen or seen.add(pk.get("id")))]
         snap.manifest["packages_seen"] = [{"name": pk.get("name"), "organization": (pk.get("organization") or {}).get("name"), "resources": len(pk.get("resources") or [])} for pk in pkgs[:40]]
