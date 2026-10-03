@@ -38,6 +38,14 @@ class ParlamentoUY(Adapter):
             pkgs += package_search(snap, BASE, f"search_plain_{i}.json", q=word)
         seen: set = set()
         pkgs = [pk for pk in pkgs if not (pk.get("id") in seen or seen.add(pk.get("id")))]
+        # sanity probe: how many public datasets the catalogue serves at all (0 means the API hides datasets from this client)
+        total = package_search(snap, BASE, "search_all.json", q="*:*", rows=3)
+        try:
+            import json as _json
+
+            snap.manifest["catalogue_total"] = _json.loads(snap.path("search_all.json").read_text(encoding="utf-8")).get("result", {}).get("count")
+        except Exception:  # noqa: BLE001
+            snap.manifest["catalogue_total"] = len(total)
         snap.manifest["packages_seen"] = [{"name": pk.get("name"), "organization": (pk.get("organization") or {}).get("name"), "resources": len(pk.get("resources") or [])} for pk in pkgs[:40]]
         res = pick_resources(pkgs, ["asuntos entrados", "asuntos-entrados", "proyectos entrados", "proyecto", "asunto"])
         res.sort(key=lambda r: ("asuntos-entrados" not in str(r.get("url", "")) and "proyecto" not in str(r.get("name", "")).lower(), r.get("name", "")))
