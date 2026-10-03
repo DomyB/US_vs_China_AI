@@ -167,7 +167,7 @@ def test_uruguay_catalogue_search_discovers_the_organisation(snap_factory, monke
     with pytest.raises(RuntimeError, match="no bill dataset|403"):
         ParlamentoUY().fetch(snap)
     assert [o["name"] for o in snap.manifest["organizations"]] == ["poder-legislativo"]
-    assert [c[0] for c in calls] == ["organization_list", "package_search", "package_search"]
+    assert [c[0] for c in calls] == ["organization_list"] + ["package_search"] * 6  # per organisation, OR query, four plain words
     assert [p["name"] for p in snap.manifest["packages_seen"]] == ["asuntos-entrados", "otro"]  # deduplicated across searches
     assert snap.manifest["resource_candidates"][0]["url"].endswith("asuntos.csv")
 
