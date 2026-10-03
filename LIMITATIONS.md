@@ -93,11 +93,13 @@ media layers are still sample.
 - **Bolivia, Guyana, Suriname, Venezuela**: no machine-readable legislative records; the site
   shows the reason, not an empty list.
 - **Uruguay**: parlamento.gub.uy answers HTTP 403 to automated clients and is not reachable
-  from abroad in a browser either (checked 2026-10-03). The adapter searches the national
-  catalogue (catalogodatos.gub.uy) by discovering legislature organisations and by free text,
-  records every organisation and package seen in the manifest, and accepts a hand-supplied
-  export (`data/manual/ury_asuntos.csv` or `URY_PARLAMENTO_FILE`) should one become available;
-  until then the site shows the reason on Uruguay's Parliament tab. **Ecuador**: the
+  from abroad in a browser either (checked 2026-10-03). The national catalogue
+  (catalogodatos.gub.uy) is no alternative: its API lists organisations but answers every
+  dataset search with zero results, and a `*:*` probe returns one public dataset in total, so
+  either the catalogue hides its datasets from automated clients or it has been emptied; the
+  adapter records the organisations, packages and that total on every run and accepts a
+  hand-supplied export (`data/manual/ury_asuntos.csv` or `URY_PARLAMENTO_FILE`) should one
+  become available. Until then the site shows the reason on Uruguay's Parliament tab. **Ecuador**: the
   plenary-votes page is a script-rendered application whose data service is not exposed; votes
   stay missing until a documented endpoint is found. **Paraguay**: the open-data API is documented
   on its index page (`/opendata/api/data/proyecto`) and is used; its reuse terms are listed as
