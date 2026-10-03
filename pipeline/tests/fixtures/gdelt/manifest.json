@@ -1,28 +1,10 @@
 {
  "source_id": "gdelt",
  "files": {
-  "ARG/2026-08-16_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260816000000&enddatetime=20260831235959",
-   "params": {
-    "query": "(litio OR cobre OR mineria OR minera) (China OR \"Estados Unidos\") sourcelang:spanish sourcecountry:AR",
-    "mode": "artlist",
-    "format": "json",
-    "maxrecords": 250,
-    "sort": "datedesc",
-    "startdatetime": "20260816000000",
-    "enddatetime": "20260831235959"
-   },
-   "status": 200,
-   "bytes": 2,
-   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T11:44:38+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "ARG/2026-09-01_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260901000000&enddatetime=20260915235959",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unidos%22+OR+estadounidense%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260901000000&enddatetime=20260915235959",
    "params": {
-    "query": "(litio OR cobre OR mineria OR minera) (China OR \"Estados Unidos\") sourcelang:spanish sourcecountry:AR",
+    "query": "(litio OR cobre OR minería OR minera OR niobio OR \"tierras raras\") (China OR chino OR chinos OR \"Estados Unidos\" OR estadounidense) sourcelang:spanish sourcecountry:AR",
     "mode": "artlist",
     "format": "json",
     "maxrecords": 250,
@@ -33,32 +15,32 @@
    "status": 200,
    "bytes": 2,
    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T11:45:26+00:00",
+   "retrieved_at": "2026-10-03T18:08:25+00:00",
    "note": null,
    "trimmed": true
   },
-  "BOL/2026-08-01_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unidos%22+OR+estadounidense%29+sourcelang:spanish+sourcecountry:BL&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260801000000&enddatetime=20260831235959",
+  "ARG/2026-09-16_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260916000000&enddatetime=20260930235959",
    "params": {
-    "query": "(litio OR cobre OR minería OR minera OR niobio OR \"tierras raras\") (China OR chino OR chinos OR \"Estados Unidos\" OR estadounidense) sourcelang:spanish sourcecountry:BL",
+    "query": "(litio OR cobre OR mineria OR minera) (China OR \"Estados Unidos\") sourcelang:spanish sourcecountry:AR",
     "mode": "artlist",
     "format": "json",
     "maxrecords": 250,
     "sort": "datedesc",
-    "startdatetime": "20260801000000",
-    "enddatetime": "20260831235959"
+    "startdatetime": "20260916000000",
+    "enddatetime": "20260930235959"
    },
    "status": 200,
    "bytes": 2,
    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T11:49:35+00:00",
+   "retrieved_at": "2026-10-03T18:11:08+00:00",
    "note": null,
    "trimmed": true
   },
-  "BOL/2026-10-01_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:BL&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20261001000000&enddatetime=20261003235959",
+  "ARG/2026-10-01_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20261001000000&enddatetime=20261003235959",
    "params": {
-    "query": "(litio OR cobre OR mineria OR minera) (China OR \"Estados Unidos\") sourcelang:spanish sourcecountry:BL",
+    "query": "(litio OR cobre OR mineria OR minera) (China OR \"Estados Unidos\") sourcelang:spanish sourcecountry:AR",
     "mode": "artlist",
     "format": "json",
     "maxrecords": 250,
@@ -69,7 +51,61 @@
    "status": 200,
    "bytes": 2,
    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T11:54:00+00:00",
+   "retrieved_at": "2026-10-03T18:13:16+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "BOL/2026-08-01_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:BL&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260801000000&enddatetime=20260831235959",
+   "params": {
+    "query": "(litio OR cobre OR mineria OR minera) (China OR \"Estados Unidos\") sourcelang:spanish sourcecountry:BL",
+    "mode": "artlist",
+    "format": "json",
+    "maxrecords": 250,
+    "sort": "datedesc",
+    "startdatetime": "20260801000000",
+    "enddatetime": "20260831235959"
+   },
+   "status": 200,
+   "bytes": 2,
+   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+   "retrieved_at": "2026-10-03T18:13:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "BOL/2026-10-01_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unidos%22+OR+estadounidense%29+sourcelang:spanish+sourcecountry:BL&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20261001000000&enddatetime=20261003235959",
+   "params": {
+    "query": "(litio OR cobre OR minería OR minera OR niobio OR \"tierras raras\") (China OR chino OR chinos OR \"Estados Unidos\" OR estadounidense) sourcelang:spanish sourcecountry:BL",
+    "mode": "artlist",
+    "format": "json",
+    "maxrecords": 250,
+    "sort": "datedesc",
+    "startdatetime": "20261001000000",
+    "enddatetime": "20261003235959"
+   },
+   "status": 200,
+   "bytes": 2,
+   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+   "retrieved_at": "2026-10-03T18:16:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "BRA/2026-09-01_pt.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineracao+OR+mineradora+OR+niobio%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:portuguese+sourcecountry:BR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260901000000&enddatetime=20260915235959",
+   "params": {
+    "query": "(litio OR cobre OR mineracao OR mineradora OR niobio) (China OR \"Estados Unidos\") sourcelang:portuguese sourcecountry:BR",
+    "mode": "artlist",
+    "format": "json",
+    "maxrecords": 250,
+    "sort": "datedesc",
+    "startdatetime": "20260901000000",
+    "enddatetime": "20260915235959"
+   },
+   "status": 200,
+   "bytes": 2,
+   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+   "retrieved_at": "2026-10-03T18:21:50+00:00",
    "note": null,
    "trimmed": true
   },
@@ -87,61 +123,25 @@
    "status": 200,
    "bytes": 2,
    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T11:57:44+00:00",
+   "retrieved_at": "2026-10-03T18:22:33+00:00",
    "note": null,
    "trimmed": true
   },
-  "BRA/2026-10-01_pt.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28l%C3%ADtio+OR+cobre+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22%29+%28China+OR+chinesa+OR+chineses+OR+%22Estados+Unidos%22+OR+EUA%29+sourcelang:portuguese+sourcecountry:BR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20261001000000&enddatetime=20261003235959",
-   "params": {
-    "query": "(lítio OR cobre OR mineração OR mineradora OR nióbio OR \"terras raras\") (China OR chinesa OR chineses OR \"Estados Unidos\" OR EUA) sourcelang:portuguese sourcecountry:BR",
-    "mode": "artlist",
-    "format": "json",
-    "maxrecords": 250,
-    "sort": "datedesc",
-    "startdatetime": "20261001000000",
-    "enddatetime": "20261003235959"
-   },
-   "status": 200,
-   "bytes": 2,
-   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T11:59:28+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "CHL/2026-08-16_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unidos%22+OR+estadounidense%29+sourcelang:spanish+sourcecountry:CI&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260816000000&enddatetime=20260831235959",
-   "params": {
-    "query": "(litio OR cobre OR minería OR minera OR niobio OR \"tierras raras\") (China OR chino OR chinos OR \"Estados Unidos\" OR estadounidense) sourcelang:spanish sourcecountry:CI",
-    "mode": "artlist",
-    "format": "json",
-    "maxrecords": 250,
-    "sort": "datedesc",
-    "startdatetime": "20260816000000",
-    "enddatetime": "20260831235959"
-   },
-   "status": 200,
-   "bytes": 2,
-   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T12:02:08+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "CHL/2026-09-01_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:CI&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260901000000&enddatetime=20260915235959",
+  "CHL/2026-09-16_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang:spanish+sourcecountry:CI&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260916000000&enddatetime=20260930235959",
    "params": {
     "query": "(litio OR cobre OR mineria OR minera) (China OR \"Estados Unidos\") sourcelang:spanish sourcecountry:CI",
     "mode": "artlist",
     "format": "json",
     "maxrecords": 250,
     "sort": "datedesc",
-    "startdatetime": "20260901000000",
-    "enddatetime": "20260915235959"
+    "startdatetime": "20260916000000",
+    "enddatetime": "20260930235959"
    },
    "status": 200,
    "bytes": 2,
    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T12:05:49+00:00",
+   "retrieved_at": "2026-10-03T18:31:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -159,38 +159,52 @@
    "status": 200,
    "bytes": 2,
    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-   "retrieved_at": "2026-10-03T12:08:37+00:00",
+   "retrieved_at": "2026-10-03T18:31:16+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "COL/2026-08-16_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unidos%22+OR+estadounidense%29+sourcelang:spanish+sourcecountry:CO&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260816000000&enddatetime=20260831235959",
+   "params": {
+    "query": "(litio OR cobre OR minería OR minera OR niobio OR \"tierras raras\") (China OR chino OR chinos OR \"Estados Unidos\" OR estadounidense) sourcelang:spanish sourcecountry:CO",
+    "mode": "artlist",
+    "format": "json",
+    "maxrecords": 250,
+    "sort": "datedesc",
+    "startdatetime": "20260816000000",
+    "enddatetime": "20260831235959"
+   },
+   "status": 200,
+   "bytes": 2,
+   "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+   "retrieved_at": "2026-10-03T18:33:38+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/gdelt/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "windows_planned": 101,
- "windows_backlog": 1763,
+ "windows_planned": 81,
+ "windows_backlog": 1783,
  "errors": [
   {
-   "name": "ARG/2026-09-16_es.json",
+   "name": "ARG/2026-08-16_es.json",
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unido"
   },
   {
-   "name": "ARG/2026-10-01_es.json",
-   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unido"
-  },
-  {
-   "name": "BOL/2026-08-01_es.json (fallback)",
-   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aspanish+sourcecountry%3ABL&mode=artl"
+   "name": "ARG/2026-09-01_es.json (fallback)",
+   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aspanish+sourcecountry%3AAR&mode=artl"
   },
   {
    "name": "BOL/2026-09-01_es.json",
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unido"
   },
   {
-   "name": "BRA/2026-08-16_pt.json",
-   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28l%C3%ADtio+OR+cobre+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22%29+%28China+OR+chinesa+OR+chin"
+   "name": "BOL/2026-10-01_es.json (fallback)",
+   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aspanish+sourcecountry%3ABL&mode=artl"
   },
   {
-   "name": "BRA/2026-09-01_pt.json",
+   "name": "BRA/2026-08-16_pt.json",
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28l%C3%ADtio+OR+cobre+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22%29+%28China+OR+chinesa+OR+chin"
   },
   {
@@ -198,15 +212,15 @@
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineracao+OR+mineradora+OR+niobio%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aportuguese+sourcecou"
   },
   {
-   "name": "BRA/2026-10-01_pt.json (fallback)",
-   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineracao+OR+mineradora+OR+niobio%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aportuguese+sourcecou"
+   "name": "BRA/2026-10-01_pt.json",
+   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28l%C3%ADtio+OR+cobre+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22%29+%28China+OR+chinesa+OR+chin"
   },
   {
-   "name": "CHL/2026-08-16_es.json (fallback)",
-   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aspanish+sourcecountry%3ACI&mode=artl"
+   "name": "CHL/2026-08-16_es.json",
+   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unido"
   },
   {
-   "name": "CHL/2026-09-16_es.json",
+   "name": "CHL/2026-09-01_es.json",
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unido"
   },
   {
@@ -214,16 +228,20 @@
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aspanish+sourcecountry%3ACI&mode=artl"
   },
   {
-   "name": "COL/2026-08-16_es.json",
+   "name": "COL/2026-08-16_es.json (fallback)",
+   "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+mineria+OR+minera%29+%28China+OR+%22Estados+Unidos%22%29+sourcelang%3Aspanish+sourcecountry%3ACO&mode=artl"
+  },
+  {
+   "name": "COL/2026-09-01_es.json",
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+niobio+OR+%22tierras+raras%22%29+%28China+OR+chino+OR+chinos+OR+%22Estados+Unido"
   }
  ],
+ "throttled": 12,
  "query_variant_hits": {
   "primary": 0,
   "fallback": 0,
-  "empty": 4
+  "empty": 5
  },
- "throttled": 12,
  "stopped": "12 throttle responses; remaining windows left for the next run",
  "unmatched_domains": {}
 }

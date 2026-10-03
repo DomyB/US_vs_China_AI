@@ -5,10 +5,10 @@
    "url": "https://www.cronista.com/",
    "params": {},
    "status": 200,
-   "bytes": 457418,
+   "bytes": 455646,
    "final_url": "https://www.cronista.com/usa/",
-   "sha256": "4a535582405ce1577f30367257c03b25ba94e66150251949e45b771aea28fda7",
-   "retrieved_at": "2026-10-02T19:27:13+00:00",
+   "sha256": "6676f42fb945753df7e00a81459c351d1a7b4ab69f607de9c39315fca24d2360",
+   "retrieved_at": "2026-10-03T18:01:21+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,14 +16,14 @@
    "url": "https://www.cronista.com/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 643901,
-   "sha256": "9b649453c61c3277afa0657935df88e5ed74b9e2cd8ac1f1d38196e0eb6077ed",
-   "retrieved_at": "2026-10-02T19:27:31+00:00",
+   "bytes": 633240,
+   "sha256": "1ef8631043505518baeafd807939102865886c7bc0d43811ac57197153185d1b",
+   "retrieved_at": "2026-10-03T18:01:39+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_cronista/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_cronista/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

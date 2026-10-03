@@ -5,9 +5,9 @@
    "url": "https://www.latercera.com/",
    "params": {},
    "status": 200,
-   "bytes": 1116555,
-   "sha256": "a64ce7bde75302c395bc2345dd8a9747dafd647ac93ec1546de127f9e8e42cbc",
-   "retrieved_at": "2026-10-02T19:29:29+00:00",
+   "bytes": 1129625,
+   "sha256": "8f4816356bba56614e68c8d05e0f9cf94fca873fed58d6d170feab67e04b6b96",
+   "retrieved_at": "2026-10-03T18:03:12+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,15 +15,15 @@
    "url": "https://www.latercera.com/rss",
    "params": {},
    "status": 200,
-   "bytes": 590545,
+   "bytes": 601954,
    "final_url": "https://www.latercera.com/arc/outboundfeeds/rss/?outputType=xml",
-   "sha256": "cd920b4bcc11320054c916ead1b4d97f569082a0283498b63de26ae5e369c281",
-   "retrieved_at": "2026-10-02T19:29:31+00:00",
+   "sha256": "db4722cdba7eae66449d66556e9d4deb138e7dc32860245faa20ef49d3787d90",
+   "retrieved_at": "2026-10-03T18:03:15+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_latercera/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_latercera/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.latercera.com/rss"

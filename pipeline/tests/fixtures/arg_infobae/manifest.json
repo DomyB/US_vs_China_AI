@@ -5,10 +5,10 @@
    "url": "https://www.infobae.com/",
    "params": {},
    "status": 200,
-   "bytes": 502092,
+   "bytes": 505743,
    "final_url": "https://www.infobae.com/estados-unidos/",
-   "sha256": "34dffe15f761d3090a16e0959c8f9f35fed176a8bb9453c1d26a792666bb6f62",
-   "retrieved_at": "2026-10-02T19:27:33+00:00",
+   "sha256": "5d56a578ab2473a253ab8c01a3088afc2ac0286f0df2b279bc8a9aeff1881ad6",
+   "retrieved_at": "2026-10-03T18:01:42+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,14 +16,14 @@
    "url": "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/",
    "params": {},
    "status": 200,
-   "bytes": 962193,
-   "sha256": "3c2cf39d866e40eb5280b885a4ca787c07278125bd5c1d17922242b6f694b534",
-   "retrieved_at": "2026-10-02T19:27:35+00:00",
+   "bytes": 944061,
+   "sha256": "b5e115042a95bd8d45504485d1c71527d480e755f1c51814b39bdcc3d9f1c583",
+   "retrieved_at": "2026-10-03T18:01:44+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_infobae/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_infobae/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

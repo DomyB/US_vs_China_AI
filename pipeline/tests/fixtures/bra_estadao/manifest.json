@@ -5,9 +5,9 @@
    "url": "https://www.estadao.com.br/",
    "params": {},
    "status": 200,
-   "bytes": 1388936,
-   "sha256": "34c73e29bc30141e00569e32a3ee261f09ede6d0fd58aac319a553920bbc071b",
-   "retrieved_at": "2026-10-02T19:27:44+00:00",
+   "bytes": 1318681,
+   "sha256": "39fb853ff25cfa6e67515bc05faf634143dd76109d98c678c572cfc14035c44b",
+   "retrieved_at": "2026-10-03T18:01:52+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,13 +16,13 @@
    "params": {},
    "status": 200,
    "bytes": 109538,
-   "sha256": "60fb4bd2021992696756607ea8e2faf77dc54824abcabc3c6910279161e6338d",
-   "retrieved_at": "2026-10-02T19:27:46+00:00",
+   "sha256": "8936fc6cad5dab7040c31f1c750be56e1c27cb9fa58a4fdce7e10c18f18c0a35",
+   "retrieved_at": "2026-10-03T18:01:54+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_estadao/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_estadao/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.estadao.com.br/arc/outboundfeeds/feeds/rss/sections/geral/?body=%7B%22layout%22:%22google-news%22%7D"

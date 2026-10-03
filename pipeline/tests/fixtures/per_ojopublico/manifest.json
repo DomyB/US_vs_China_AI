@@ -6,13 +6,13 @@
    "params": {},
    "status": 200,
    "bytes": 392774,
-   "sha256": "b7d7c939e378f2d80fcf1b9c66841911308b2c0ce9b895ac7c35d4cdd897a2d3",
-   "retrieved_at": "2026-10-02T19:30:13+00:00",
+   "sha256": "7c1b1bcdecd994b97b78e49ada22bf618e95487500339feca09f3625a49096c7",
+   "retrieved_at": "2026-10-03T18:03:58+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_ojopublico/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_ojopublico/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

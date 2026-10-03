@@ -5,94 +5,33 @@
    "url": "https://www.biobiochile.cl/",
    "params": {},
    "status": 200,
-   "bytes": 1237307,
-   "sha256": "2ce4d2da3fc8edcb5e53dc91649e91a9fa1795aa7f1c88f2eb2d861e0d27db1b",
-   "retrieved_at": "2026-10-02T19:28:01+00:00",
+   "bytes": 1245941,
+   "sha256": "465b4928aa0245e306fa2f51a66ba8e5d2bca99a5ebf7887fd479b29ed1d4d98",
+   "retrieved_at": "2026-10-03T18:02:11+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://feeds.feedburner.com/radiobiobio/NNeJ",
+   "params": {},
+   "status": 200,
+   "bytes": 160468,
+   "sha256": "17e61e1d66ab8be948fe5e0fd34d1d06ec8800d6ce42486c844f301bf3b1a423",
+   "retrieved_at": "2026-10-03T18:02:12+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "errors": [
-  {
-   "name": "https://www.biobiochile.cl/rss",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/rss \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name=\""
-  },
-  {
-   "name": "https://www.biobiochile.cl/feed/",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/feed/ \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name"
-  },
-  {
-   "name": "https://www.biobiochile.cl/feed",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/feed \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta name="
-  },
-  {
-   "name": "https://www.biobiochile.cl/rss.xml",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/rss.xml \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta na"
-  },
-  {
-   "name": "https://www.biobiochile.cl/feed.xml",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/feed.xml \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta n"
-  },
-  {
-   "name": "https://www.biobiochile.cl/feeds/rss",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/feeds/rss \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta "
-  },
-  {
-   "name": "https://www.biobiochile.cl/rss/portada",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/rss/portada \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <met"
-  },
-  {
-   "name": "https://www.biobiochile.cl/rss/ultimas-noticias",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/rss/ultimas-noticias \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />"
-  },
-  {
-   "name": "https://www.biobiochile.cl/arc/outboundfeeds/rss/",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/arc/outboundfeeds/rss/ \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" "
-  },
-  {
-   "name": "https://www.biobiochile.cl/arc/outboundfeeds/rss/?outputType=xml",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/arc/outboundfeeds/rss/?outputType=xml \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" con"
-  },
-  {
-   "name": "https://www.biobiochile.cl/arcio/rss/",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/arcio/rss/ \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <meta"
-  },
-  {
-   "name": "https://www.biobiochile.cl/rss/lo-ultimo/",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/rss/lo-ultimo/ \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <"
-  },
-  {
-   "name": "https://www.biobiochile.cl/feeds/articulos",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/feeds/articulos \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    "
-  },
-  {
-   "name": "https://www.biobiochile.cl/rss/listado/",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/rss/listado/ \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <me"
-  },
-  {
-   "name": "https://www.biobiochile.cl/rss/pages/home.xml",
-   "error": "chl_biobio: HTTP 404 on GET https://www.biobiochile.cl/rss/pages/home.xml \n  \n  <!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n "
-  }
+ "feed_urls": [
+  "https://feeds.feedburner.com/radiobiobio/NNeJ"
  ],
- "discovered_feeds": [],
+ "discovered_feeds": [
+  "https://feeds.feedburner.com/radiobiobio/NNeJ"
+ ],
  "feeds_tried": [
-  "https://www.biobiochile.cl/rss",
-  "https://www.biobiochile.cl/feed/",
-  "https://www.biobiochile.cl/feed",
-  "https://www.biobiochile.cl/rss.xml",
-  "https://www.biobiochile.cl/feed.xml",
-  "https://www.biobiochile.cl/feeds/rss",
-  "https://www.biobiochile.cl/rss/portada",
-  "https://www.biobiochile.cl/rss/ultimas-noticias",
-  "https://www.biobiochile.cl/arc/outboundfeeds/rss/",
-  "https://www.biobiochile.cl/arc/outboundfeeds/rss/?outputType=xml",
-  "https://www.biobiochile.cl/arcio/rss/",
-  "https://www.biobiochile.cl/rss/lo-ultimo/",
-  "https://www.biobiochile.cl/feeds/articulos",
-  "https://www.biobiochile.cl/rss/listado/",
-  "https://www.biobiochile.cl/rss/pages/home.xml"
+  "https://feeds.feedburner.com/radiobiobio/NNeJ"
  ],
- "feeds_found": 0
+ "feeds_found": 1
 }

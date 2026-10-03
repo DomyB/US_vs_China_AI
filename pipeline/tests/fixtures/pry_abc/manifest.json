@@ -5,9 +5,9 @@
    "url": "https://www.abc.com.py/",
    "params": {},
    "status": 200,
-   "bytes": 945581,
-   "sha256": "2e3ecb2a7388e5be6820dca4a90937c22d0c4c2edaf514cce6f592fca5055b78",
-   "retrieved_at": "2026-10-02T19:30:43+00:00",
+   "bytes": 947259,
+   "sha256": "b1664e4304c3a072bc7fd133c217d8150f55fbb617bc815207954e6090041160",
+   "retrieved_at": "2026-10-03T18:04:29+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,14 +15,14 @@
    "url": "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml",
    "params": {},
    "status": 200,
-   "bytes": 464588,
-   "sha256": "99b3cbcb791eb7357b29cb369c9b45f508d907789401a215edc8ef901ad87ee5",
-   "retrieved_at": "2026-10-02T19:31:03+00:00",
+   "bytes": 513519,
+   "sha256": "a0a2141f952f3ccbe1e520f5babde54bf5e59ccb7bd6b231cf64317da27d345e",
+   "retrieved_at": "2026-10-03T18:04:49+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_abc/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_abc/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
