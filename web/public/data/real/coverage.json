@@ -1,5 +1,5 @@
 {
- "generated_on": "2026-10-02",
+ "generated_on": "2026-10-03",
  "countries": {
   "ARG": {
    "trade_years": [
@@ -189,7 +189,7 @@
    "media_available": false,
    "media_articles": 0,
    "media_from": null,
-   "concessions": 6769
+   "concessions": 0
   },
   "ECU": {
    "trade_years": [

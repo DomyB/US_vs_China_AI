@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
- "generated_on": "2026-10-02",
- "generated_at": "2026-10-02T23:34:47+00:00",
+ "generated_on": "2026-10-03",
+ "generated_at": "2026-10-03T12:12:39+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "arg_clarin",
@@ -22,6 +22,7 @@
   "chl_cochilco",
   "chl_latercera",
   "chl_senado",
+  "col_anm_anna",
   "col_camara",
   "col_elespectador",
   "col_eltiempo",
@@ -55,17 +56,17 @@
  ],
  "ingest_runs": [
   {
-   "source_id": "aei_cgit",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:24:13+00:00",
-   "rows": "{}",
-   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+   "source_id": "arg_cronista",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:27:31+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
   },
   {
-   "source_id": "bgs_wms",
+   "source_id": "arg_pagina12",
    "status": "ok",
-   "finished_at": "2026-10-01T21:01:57+00:00",
-   "rows": "{\"production\": 2684}",
+   "finished_at": "2026-10-02T19:27:41+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
    "error": null
   },
   {
@@ -83,17 +84,17 @@
    "error": "RuntimeError: chl_biobio: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
   },
   {
-   "source_id": "chl_elmercurio",
+   "source_id": "chl_elmostrador",
    "status": "failed",
-   "finished_at": "2026-10-02T19:28:57+00:00",
+   "finished_at": "2026-10-02T19:29:29+00:00",
    "rows": "{}",
-   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+   "error": "RuntimeError: chl_elmostrador: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
   },
   {
-   "source_id": "col_camara",
+   "source_id": "col_anm_anna",
    "status": "ok",
-   "finished_at": "2026-10-02T16:08:52+00:00",
-   "rows": "{\"document\": 76}",
+   "finished_at": "2026-10-03T12:12:34+00:00",
+   "rows": "{\"concession\": 0}",
    "error": null
   },
   {
@@ -111,129 +112,17 @@
    "error": null
   },
   {
-   "source_id": "guy_ggmc",
+   "source_id": "per_bcrp_api",
    "status": "ok",
-   "finished_at": "2026-10-02T16:40:14+00:00",
-   "rows": "{\"production\": 95}",
+   "finished_at": "2026-10-02T19:06:44+00:00",
+   "rows": "{\"production\": 817}",
    "error": null
   },
   {
-   "source_id": "per_elcomercio",
+   "source_id": "per_gestion",
    "status": "ok",
-   "finished_at": "2026-10-02T19:29:57+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "per_ojopublico",
-   "status": "failed",
-   "finished_at": "2026-10-02T19:30:43+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "sur_dwt",
-   "status": "failed",
-   "finished_at": "2026-10-02T19:31:03+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "ury_elobservador",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:31:36+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "wb_ids",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:29+00:00",
-   "rows": "{\"governance\": 2268}",
-   "error": null
-  },
-  {
-   "source_id": "arg_clarin",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:27:11+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "arg_hcdn",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:27:10+00:00",
-   "rows": "{\"document\": 1233, \"vote\": 2, \"vote_member\": 514}",
-   "error": null
-  },
-  {
-   "source_id": "arg_pagina12",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:27:41+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "bra_estadao",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:27:46+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "bra_valor",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:27:58+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "chl_camara",
-   "status": "ok",
-   "finished_at": "2026-10-02T16:55:47+00:00",
-   "rows": "{\"document\": 173, \"vote\": 148, \"vote_member\": 16432}",
-   "error": null
-  },
-  {
-   "source_id": "chl_senado",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:26:35+00:00",
-   "rows": "{\"vote\": 0, \"vote_member\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "col_eltiempo",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:29:42+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "ecu_elcomercio",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:29:46+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "gdelt",
-   "status": "ok",
-   "finished_at": "2026-10-02T23:34:42+00:00",
-   "rows": "{\"document\": 11, \"document_new\": 4, \"media_volume\": 173, \"media_volume_new\": 66}",
-   "error": null
-  },
-  {
-   "source_id": "per_congreso_spley",
-   "status": "ok",
-   "finished_at": "2026-10-02T16:09:41+00:00",
-   "rows": "{\"document\": 140}",
-   "error": null
-  },
-  {
-   "source_id": "per_idl_reporteros",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:30:03+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "finished_at": "2026-10-02T19:29:58+00:00",
+   "rows": "{\"document\": 3, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
    "error": null
   },
   {
@@ -251,97 +140,6 @@
    "error": null
   },
   {
-   "source_id": "ury_parlamento",
-   "status": "failed",
-   "finished_at": "2026-10-02T16:19:02+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: ury_parlamento: no bill dataset found in the catalogue (see resource_candidates)"
-  },
-  {
-   "source_id": "wb_pink_sheet",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:31+00:00",
-   "rows": "{\"price\": 3200}",
-   "error": null
-  },
-  {
-   "source_id": "arg_cronista",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:27:31+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "arg_lanacion",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:27:36+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "bra_camara_api",
-   "status": "ok",
-   "finished_at": "2026-10-02T15:52:24+00:00",
-   "rows": "{\"document\": 2931, \"vote\": 963, \"vote_member\": 22580}",
-   "error": null
-  },
-  {
-   "source_id": "bra_senado_api",
-   "status": "ok",
-   "finished_at": "2026-10-02T16:27:06+00:00",
-   "rows": "{\"document\": 893, \"vote\": 2, \"vote_member\": 162}",
-   "error": null
-  },
-  {
-   "source_id": "chl_elmostrador",
-   "status": "failed",
-   "finished_at": "2026-10-02T19:29:29+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: chl_elmostrador: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "col_anm_anna",
-   "status": "failed",
-   "finished_at": "2026-10-02T19:18:44+00:00",
-   "rows": "{}",
-   "error": "FetchError: col_anm_anna: HTTP 400 on GET https://www.datos.gov.co/api/geospatial/47vh-a45z?method=export&format=GeoJSON {\n  \"code\" : \"invalid_request\",\n  \"error\" : true,\n  \"message\" : \"Unexportable view type: href.\"\n}\n"
-  },
-  {
-   "source_id": "ecu_cadastre",
-   "status": "ok",
-   "finished_at": "2026-10-02T17:01:56+00:00",
-   "rows": "{\"concession\": 15446}",
-   "error": null
-  },
-  {
-   "source_id": "exim_authorizations",
-   "status": "failed",
-   "finished_at": "2026-10-01T21:51:57+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: no CSV resource found for EXIM authorizations on data.gov (API and HTML); set EXIM_FILE_URL to the current CSV"
-  },
-  {
-   "source_id": "idb_dpi",
-   "status": "failed",
-   "finished_at": "2026-10-01T21:51:47+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: DPI: every resource download failed (set DPI_FILE_URL to a working link): https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: still 202 (file not ready) after 8 attempts | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True: still 202 (file not ready) after 8 attempts"
-  },
-  {
-   "source_id": "per_gestion",
-   "status": "ok",
-   "finished_at": "2026-10-02T19:29:58+00:00",
-   "rows": "{\"document\": 3, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "resourcecontracts",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:14+00:00",
-   "rows": "{\"contract\": 487}",
-   "error": null
-  },
-  {
    "source_id": "ury_ladiaria",
    "status": "ok",
    "finished_at": "2026-10-02T19:31:36+00:00",
@@ -353,13 +151,6 @@
    "status": "ok",
    "finished_at": "2026-10-01T20:24:47+00:00",
    "rows": "{\"governance\": 2184}",
-   "error": null
-  },
-  {
-   "source_id": "wb_wdi",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:20+00:00",
-   "rows": "{\"governance\": 1872}",
    "error": null
   },
   {
@@ -391,10 +182,10 @@
    "error": null
   },
   {
-   "source_id": "chl_cochilco",
+   "source_id": "chl_camara",
    "status": "ok",
-   "finished_at": "2026-10-02T17:02:15+00:00",
-   "rows": "{\"production\": 762}",
+   "finished_at": "2026-10-02T16:55:47+00:00",
+   "rows": "{\"document\": 173, \"vote\": 148, \"vote_member\": 16432}",
    "error": null
   },
   {
@@ -412,10 +203,10 @@
    "error": null
   },
   {
-   "source_id": "dfc_projects",
+   "source_id": "ecu_cadastre",
    "status": "ok",
-   "finished_at": "2026-10-01T21:00:06+00:00",
-   "rows": "{\"finance_event\": 84}",
+   "finished_at": "2026-10-02T17:01:56+00:00",
+   "rows": "{\"concession\": 15446}",
    "error": null
   },
   {
@@ -426,17 +217,122 @@
    "error": null
   },
   {
-   "source_id": "per_bcrp_api",
+   "source_id": "guy_ggmc",
    "status": "ok",
-   "finished_at": "2026-10-02T19:06:44+00:00",
-   "rows": "{\"production\": 817}",
+   "finished_at": "2026-10-02T16:40:14+00:00",
+   "rows": "{\"production\": 95}",
    "error": null
   },
   {
-   "source_id": "per_larepublica",
+   "source_id": "per_elcomercio",
    "status": "ok",
-   "finished_at": "2026-10-02T19:30:12+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "finished_at": "2026-10-02T19:29:57+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "per_ojopublico",
+   "status": "failed",
+   "finished_at": "2026-10-02T19:30:43+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "sur_dwt",
+   "status": "failed",
+   "finished_at": "2026-10-02T19:31:03+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "ury_parlamento",
+   "status": "failed",
+   "finished_at": "2026-10-02T16:19:02+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: ury_parlamento: no bill dataset found in the catalogue (see resource_candidates)"
+  },
+  {
+   "source_id": "wb_pink_sheet",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:31+00:00",
+   "rows": "{\"price\": 3200}",
+   "error": null
+  },
+  {
+   "source_id": "arg_clarin",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:27:11+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "arg_hcdn",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:27:10+00:00",
+   "rows": "{\"document\": 1233, \"vote\": 2, \"vote_member\": 514}",
+   "error": null
+  },
+  {
+   "source_id": "bgs_wms",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:01:57+00:00",
+   "rows": "{\"production\": 2684}",
+   "error": null
+  },
+  {
+   "source_id": "bra_estadao",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:27:46+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "bra_valor",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:27:58+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "chl_elmercurio",
+   "status": "failed",
+   "finished_at": "2026-10-02T19:28:57+00:00",
+   "rows": "{}",
+   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "source_id": "col_camara",
+   "status": "ok",
+   "finished_at": "2026-10-02T16:08:52+00:00",
+   "rows": "{\"document\": 76}",
+   "error": null
+  },
+  {
+   "source_id": "dfc_projects",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:00:06+00:00",
+   "rows": "{\"finance_event\": 84}",
+   "error": null
+  },
+  {
+   "source_id": "exim_authorizations",
+   "status": "failed",
+   "finished_at": "2026-10-01T21:51:57+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: no CSV resource found for EXIM authorizations on data.gov (API and HTML); set EXIM_FILE_URL to the current CSV"
+  },
+  {
+   "source_id": "idb_dpi",
+   "status": "failed",
+   "finished_at": "2026-10-01T21:51:47+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: DPI: every resource download failed (set DPI_FILE_URL to a working link): https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: still 202 (file not ready) after 8 attempts | https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 404 <!DOCTYPE html>\n    \n    \n  | https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: still 202 (file not ready) after 8 attempts | https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True: still 202 (file not ready) after 8 attempts"
+  },
+  {
+   "source_id": "per_idl_reporteros",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:30:03+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
    "error": null
   },
   {
@@ -461,6 +357,111 @@
    "error": null
   },
   {
+   "source_id": "wb_wdi",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:20+00:00",
+   "rows": "{\"governance\": 1872}",
+   "error": null
+  },
+  {
+   "source_id": "aei_cgit",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:13+00:00",
+   "rows": "{}",
+   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+  },
+  {
+   "source_id": "arg_lanacion",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:27:36+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "bra_camara_api",
+   "status": "ok",
+   "finished_at": "2026-10-02T15:52:24+00:00",
+   "rows": "{\"document\": 2931, \"vote\": 963, \"vote_member\": 22580}",
+   "error": null
+  },
+  {
+   "source_id": "bra_senado_api",
+   "status": "ok",
+   "finished_at": "2026-10-02T16:27:06+00:00",
+   "rows": "{\"document\": 893, \"vote\": 2, \"vote_member\": 162}",
+   "error": null
+  },
+  {
+   "source_id": "chl_cochilco",
+   "status": "ok",
+   "finished_at": "2026-10-02T17:02:15+00:00",
+   "rows": "{\"production\": 762}",
+   "error": null
+  },
+  {
+   "source_id": "chl_senado",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:26:35+00:00",
+   "rows": "{\"vote\": 0, \"vote_member\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "col_eltiempo",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:29:42+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "ecu_elcomercio",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:29:46+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "gdelt",
+   "status": "ok",
+   "finished_at": "2026-10-03T12:12:30+00:00",
+   "rows": "{\"document\": 11, \"document_new\": 0, \"media_volume\": 175, \"media_volume_new\": 2}",
+   "error": null
+  },
+  {
+   "source_id": "per_congreso_spley",
+   "status": "ok",
+   "finished_at": "2026-10-02T16:09:41+00:00",
+   "rows": "{\"document\": 140}",
+   "error": null
+  },
+  {
+   "source_id": "per_larepublica",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:30:12+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "resourcecontracts",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:02:14+00:00",
+   "rows": "{\"contract\": 487}",
+   "error": null
+  },
+  {
+   "source_id": "ury_elobservador",
+   "status": "ok",
+   "finished_at": "2026-10-02T19:31:36+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 1, \"media_volume_new\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "wb_ids",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:29+00:00",
+   "rows": "{\"governance\": 2268}",
+   "error": null
+  },
+  {
    "source_id": "wb_wgi",
    "status": "ok",
    "finished_at": "2026-10-01T22:06:26+00:00",
@@ -479,8 +480,8 @@
   "document": 5472,
   "vote": 1115,
   "vote_member": 39688,
-  "concession": 22215,
-  "media_volume": 196
+  "concession": 15446,
+  "media_volume": 198
  },
  "layers": {
   "facts": "real",
@@ -678,7 +679,7 @@
    "media_available": false,
    "media_articles": 0,
    "media_from": null,
-   "concessions": 6769
+   "concessions": 0
   },
   "ECU": {
    "trade_years": [

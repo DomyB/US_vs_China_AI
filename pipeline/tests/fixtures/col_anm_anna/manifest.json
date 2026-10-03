@@ -9,14 +9,55 @@
     "limit": 50
    },
    "status": 200,
-   "bytes": 77096,
-   "sha256": "ae1b2385fa69a9e1548913eb5a78dcd7b562c4ecb95926a5f79753fb1b052d5b",
-   "retrieved_at": "2026-10-02T19:18:40+00:00",
+   "bytes": 77125,
+   "sha256": "be58a2c9f38910e8a4c0e3d7a5d3c99b940e819c1af34d0d4cd06b94fde3fbef",
+   "retrieved_at": "2026-10-03T12:12:30+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_anm_anna/2026-10-02",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_anm_anna/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "47vh-a45z",
+   "error": "col_anm_anna: HTTP 403 on GET https://www.datos.gov.co/resource/47vh-a45z.json?%24limit=5 {\n  \"error\" : true,\n  \"message\" : \"no row or column access to non-tabular tables\"\n}\n"
+  },
+  {
+   "name": "s6jf-uifs",
+   "error": "col_anm_anna: HTTP 403 on GET https://www.datos.gov.co/resource/s6jf-uifs.json?%24limit=5 {\n  \"error\" : true,\n  \"message\" : \"no row or column access to non-tabular tables\"\n}\n"
+  },
+  {
+   "name": "yruh-hq98",
+   "error": "col_anm_anna: HTTP 403 on GET https://www.datos.gov.co/resource/yruh-hq98.json?%24limit=5 {\n  \"error\" : true,\n  \"message\" : \"no row or column access to non-tabular tables\"\n}\n"
+  },
+  {
+   "name": "export.geojson",
+   "error": "col_anm_anna: HTTP 400 on GET https://www.datos.gov.co/api/geospatial/47vh-a45z?method=export&format=GeoJSON {\n  \"code\" : \"invalid_request\",\n  \"error\" : true,\n  \"message\" : \"Unexportable view type: href.\"\n}\n"
+  }
+ ],
+ "catalog_probes": [
+  {
+   "id": "47vh-a45z",
+   "rows": null,
+   "geospatial": true
+  },
+  {
+   "id": "s6jf-uifs",
+   "rows": null,
+   "geospatial": true
+  },
+  {
+   "id": "yruh-hq98",
+   "rows": null,
+   "geospatial": true
+  }
+ ],
+ "catalog_choice": {
+  "id": "47vh-a45z",
+  "geospatial": true
+ },
+ "dataset_url": "https://www.datos.gov.co/api/geospatial/47vh-a45z?method=export&format=GeoJSON",
+ "parse_note": "the national titles layer cannot be exported from datos.gov.co; no concession rows stored",
  "columns_seen": []
 }
