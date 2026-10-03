@@ -59,9 +59,22 @@ media layers are still sample.
   dates are indexing dates (`date_precision = seen`), not publication dates.
 - **Outlets without a feed** (and outlets GDELT does not index under the registry's domain)
   have no headlines yet; the manifest of each run lists unmatched domains and failed feed URLs.
-- **Roll-call votes** exist for Brazil (both chambers, planned), Chile (planned), Argentina's
-  Diputados (planned) and, where exposed, Paraguay and Ecuador. Argentina's Senado, Colombia,
-  Peru and Uruguay publish votes only in PDF minutes or not at all.
+- **Roll-call votes** are live for Brazil's Câmara (963 roll calls, 22,580 member votes), Brazil's
+  Senado (few matters reach the floor) and Chile's Cámara (148 roll calls, 16,432 member votes).
+  Argentina's Diputados open-data roll calls stop at period 137 (2019) and name the bill only in
+  the vote's title, so few of the 1,233 bills link to a vote. Chile's Senado public services
+  answered no votes for any bill kept (both `votaciones.php` and the tramitación document);
+  Argentina's Senado, Colombia, Peru and Uruguay publish votes only in PDF minutes or not at all.
+- **GDELT**: its DOC API matches Spanish, Portuguese and Dutch terms only when the language is
+  named in the query (`sourcelang:`); the first runs without it returned nothing for those
+  languages. GitHub runners share egress addresses, so GDELT throttles them (HTTP 429 on about
+  40 percent of calls at 7 s spacing); the adapter now waits 10 s between calls, pauses on a
+  throttle, and stops after a time budget, so the 2017→ backlog (about 1,800 windows) fills over
+  many weekly runs unless a long manual backfill is dispatched when the address is not throttled.
+- **Colombia titles**: the national AnnA cadastre on datos.gov.co is a map layer that the portal
+  refuses to export ("Unexportable view"); the registry's dataset id is the title annotations
+  table and is never stored as concessions. Colombia's concessions stay missing until the ANM's
+  own map service is wired.
 - **Bolivia, Guyana, Suriname, Venezuela**: no machine-readable legislative records; the site
   shows the reason, not an empty list.
 - **Uruguay**: the Parlamento's open-data exports answer HTTP 403 to non-browser clients; the

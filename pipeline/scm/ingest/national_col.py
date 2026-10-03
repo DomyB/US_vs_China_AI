@@ -76,7 +76,12 @@ class ANMAnna(Adapter):
         url = self._dataset(snap)
         snap.manifest["dataset_url"] = url
         if "/api/geospatial/" in url:
-            snap.get(url, "export.geojson", timeout=900)  # one file with every title; properties carry the attributes
+            try:
+                snap.get(url, "export.geojson", timeout=900)  # one file with every title; properties carry the attributes
+            except Exception as e:  # noqa: BLE001 - "Unexportable view" in the first live run: nothing is stored, nothing stale is kept
+                snap.manifest.setdefault("errors", []).append({"name": "export.geojson", "error": str(e)[:300]})
+                snap.manifest["parse_note"] = "the national titles layer cannot be exported from datos.gov.co; no concession rows stored"
+                snap.save()
             return
         for page in range(MAX_PAGES):
             payload = snap.get_json(url, f"page_{page}.json", params={"$limit": PAGE, "$offset": page * PAGE, "$order": ":id"}, timeout=300)

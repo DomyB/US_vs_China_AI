@@ -29,18 +29,20 @@ HISTORY_FROM = date(2017, 1, 1)
 RECENT_DAYS = 35
 MAX_RECORDS = 250
 # short term sets (GDELT rejects long queries); the headline is re-filtered with the full keyword module afterwards
+# GDELT's DOC API matches non-English terms only when the language is named (sourcelang); every Spanish and
+# Portuguese window came back empty without it in the first live runs while English windows returned articles
 TERMS = {
-    "es": '(litio OR cobre OR minería OR minera OR niobio OR "tierras raras") (China OR chino OR chinos OR "Estados Unidos" OR estadounidense)',
-    "pt": '(lítio OR cobre OR mineração OR mineradora OR nióbio OR "terras raras") (China OR chinesa OR chineses OR "Estados Unidos" OR EUA)',
+    "es": '(litio OR cobre OR minería OR minera OR niobio OR "tierras raras") (China OR chino OR chinos OR "Estados Unidos" OR estadounidense) sourcelang:spanish',
+    "pt": '(lítio OR cobre OR mineração OR mineradora OR nióbio OR "terras raras") (China OR chinesa OR chineses OR "Estados Unidos" OR EUA) sourcelang:portuguese',
     "en": '(mining OR bauxite OR gold OR lithium OR minerals) (China OR Chinese OR "United States")',
-    "nl": '(mijnbouw OR goud OR bauxiet OR olie) (China OR Chinese OR "Verenigde Staten")',
+    "nl": '(mijnbouw OR goud OR bauxiet OR olie) (China OR Chinese OR "Verenigde Staten") sourcelang:dutch',
 }
 # ASCII-only, shorter variants: in the first live run every Spanish and Portuguese window came back empty while
 # the English and Dutch ones returned articles, so accented or long queries are suspected; the fallback is tried
 # once per empty window and the variant that yields results is recorded in the manifest
 TERMS_FALLBACK = {
-    "es": '(litio OR cobre OR mineria OR minera) (China OR "Estados Unidos")',
-    "pt": '(litio OR cobre OR mineracao OR mineradora OR niobio) (China OR "Estados Unidos")',
+    "es": '(litio OR cobre OR mineria OR minera) (China OR "Estados Unidos") sourcelang:spanish',
+    "pt": '(litio OR cobre OR mineracao OR mineradora OR niobio) (China OR "Estados Unidos") sourcelang:portuguese',
     "en": "(mining OR lithium OR copper) (China OR \"United States\")",
     "nl": "(mijnbouw OR goud OR bauxiet) (China OR \"Verenigde Staten\")",
 }
@@ -85,9 +87,9 @@ class GDELTDoc(Adapter):
     source_id = "gdelt"
     tables = ("document", "media_volume")
     incremental = True
-    min_interval = 7.0  # GDELT asks for at most one request every 5 seconds; runners share egress, so go slower
-    THROTTLE_SLEEP = 30  # seconds to pause after an HTTP 429 before the next window
-    MAX_THROTTLES = 8  # after this many 429s the run stops: the address is being rate-limited for the day
+    min_interval = 10.0  # GDELT asks for one request every 5 s; GitHub runners share egress addresses, so go slower
+    THROTTLE_SLEEP = 45  # seconds to pause after an HTTP 429 before the next window
+    MAX_THROTTLES = 12  # after this many 429s the run stops: the address is being rate-limited
     TIME_BUDGET_MIN = 45  # minutes of fetching per run (GDELT_TIME_BUDGET_MIN); unfetched windows stay in the backlog
 
     def fetch(self, snap: Snapshot) -> None:
@@ -143,7 +145,11 @@ class GDELTDoc(Adapter):
                 tally = snap.manifest.setdefault("query_variant_hits", {"primary": 0, "fallback": 0, "empty": 0})
                 if n_arts:
                     tally["primary"] += 1
+                    snap.manifest.setdefault("primary_works", {})[lang] = True
                     continue
+                if snap.manifest.get("primary_works", {}).get(lang):
+                    tally["empty"] += 1
+                    continue  # the primary form is known to work for this language: an empty window is just empty
                 # empty window: try the ASCII-only short query once
                 try:
                     snap.get(API, name, params={**params, "query": f"{TERMS_FALLBACK[lang]} sourcecountry:{FIPS[iso]}"}, timeout=60, force=True)
