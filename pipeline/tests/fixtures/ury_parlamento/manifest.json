@@ -10,7 +10,7 @@
    "status": 200,
    "bytes": 20564,
    "sha256": "43e9b9ffa551fb0d385b0a9805ce344c94120109053dd4b78aeb591b5bb42932",
-   "retrieved_at": "2026-10-03T22:01:23+00:00",
+   "retrieved_at": "2026-10-03T22:03:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -23,7 +23,7 @@
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-03T22:01:23+00:00",
+   "retrieved_at": "2026-10-03T22:03:48+00:00",
    "note": null,
    "trimmed": true
   },
@@ -36,7 +36,7 @@
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-03T22:01:24+00:00",
+   "retrieved_at": "2026-10-03T22:03:49+00:00",
    "note": null,
    "trimmed": true
   },
@@ -49,7 +49,7 @@
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-03T22:01:25+00:00",
+   "retrieved_at": "2026-10-03T22:03:50+00:00",
    "note": null,
    "trimmed": true
   },
@@ -62,7 +62,7 @@
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-03T22:01:26+00:00",
+   "retrieved_at": "2026-10-03T22:03:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -75,7 +75,20 @@
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-03T22:01:27+00:00",
+   "retrieved_at": "2026-10-03T22:03:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "search_all.json": {
+   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=3&q=%2A:%2A",
+   "params": {
+    "rows": 3,
+    "q": "*:*"
+   },
+   "status": 200,
+   "bytes": 9824,
+   "sha256": "67b993bd223269cb0878a0172b9aff95b19c9cfc3d7b99dbe2fa59776bdd63a7",
+   "retrieved_at": "2026-10-03T22:03:53+00:00",
    "note": null,
    "trimmed": true
   }
@@ -83,6 +96,7 @@
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_parlamento/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "organizations": [],
+ "catalogue_total": 1,
  "packages_seen": [],
  "resource_candidates": []
 }
