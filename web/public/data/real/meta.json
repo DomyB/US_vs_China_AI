@@ -1,13 +1,13 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-03",
- "generated_at": "2026-10-03T21:59:19+00:00",
+ "generated_at": "2026-10-03T22:01:30+00:00",
  "sources_ok": [],
  "ingest_runs": [
   {
    "source_id": "ury_parlamento",
    "status": "failed",
-   "finished_at": "2026-10-03T21:59:16+00:00",
+   "finished_at": "2026-10-03T22:01:27+00:00",
    "rows": "{}",
    "error": "RuntimeError: ury_parlamento: no bill dataset in the national catalogue (0 legislature organisations, 0 packages seen; see the manifest) and parlamento.gub.uy refuses automated clients and foreign visitors; commit an export as data/manual/ury_asuntos.csv or set URY_PARLAMENTO_FILE when one becomes available"
   }

@@ -10,7 +10,7 @@
    "status": 200,
    "bytes": 20564,
    "sha256": "43e9b9ffa551fb0d385b0a9805ce344c94120109053dd4b78aeb591b5bb42932",
-   "retrieved_at": "2026-10-03T21:59:16+00:00",
+   "retrieved_at": "2026-10-03T22:01:23+00:00",
    "note": null,
    "trimmed": true
   },
@@ -23,7 +23,59 @@
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-03T21:59:16+00:00",
+   "retrieved_at": "2026-10-03T22:01:23+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "search_plain_0.json": {
+   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=100&q=parlamento",
+   "params": {
+    "rows": 100,
+    "q": "parlamento"
+   },
+   "status": 200,
+   "bytes": 220,
+   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
+   "retrieved_at": "2026-10-03T22:01:24+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "search_plain_1.json": {
+   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=100&q=asuntos+entrados",
+   "params": {
+    "rows": 100,
+    "q": "asuntos entrados"
+   },
+   "status": 200,
+   "bytes": 220,
+   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
+   "retrieved_at": "2026-10-03T22:01:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "search_plain_2.json": {
+   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=100&q=proyectos+de+ley",
+   "params": {
+    "rows": 100,
+    "q": "proyectos de ley"
+   },
+   "status": 200,
+   "bytes": 220,
+   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
+   "retrieved_at": "2026-10-03T22:01:26+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "search_plain_3.json": {
+   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=100&q=legislativo",
+   "params": {
+    "rows": 100,
+    "q": "legislativo"
+   },
+   "status": 200,
+   "bytes": 220,
+   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
+   "retrieved_at": "2026-10-03T22:01:27+00:00",
    "note": null,
    "trimmed": true
   }
