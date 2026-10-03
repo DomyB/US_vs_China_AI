@@ -1,21 +1,36 @@
 {
  "source_id": "ury_parlamento",
  "files": {
+  "organizations.json": {
+   "url": "https://catalogodatos.gub.uy/api/3/action/organization_list?all_fields=true&limit=1000",
+   "params": {
+    "all_fields": "true",
+    "limit": 1000
+   },
+   "status": 200,
+   "bytes": 20564,
+   "sha256": "43e9b9ffa551fb0d385b0a9805ce344c94120109053dd4b78aeb591b5bb42932",
+   "retrieved_at": "2026-10-03T21:59:16+00:00",
+   "note": null,
+   "trimmed": true
+  },
   "search.json": {
-   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=100&fq=organization:parlamento-uruguayo",
+   "url": "https://catalogodatos.gub.uy/api/3/action/package_search?rows=100&q=%22asuntos+entrados%22+OR+%22proyectos+de+ley%22+OR+parlamento+OR+legislativo",
    "params": {
     "rows": 100,
-    "fq": "organization:parlamento-uruguayo"
+    "q": "\"asuntos entrados\" OR \"proyectos de ley\" OR parlamento OR legislativo"
    },
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-03T17:53:50+00:00",
+   "retrieved_at": "2026-10-03T21:59:16+00:00",
    "note": null,
    "trimmed": true
   }
  },
  "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_parlamento/2026-10-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "organizations": [],
+ "packages_seen": [],
  "resource_candidates": []
 }
