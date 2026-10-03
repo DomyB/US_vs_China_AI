@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import json
 
+import pytest
+
 from scm import schema
 from scm.ingest.legis_bra import CamaraBR
 
@@ -142,6 +144,32 @@ def test_uruguay_and_colombia_bills(snap_factory):
     _validate(out)
     d = out["document"].iloc[0]
     assert len(out["document"]) == 1 and d["native_id"] == "123/2023C" and d["minerals"] == "copper" and d["status"] == "Archivado" and d["date"] == "2023-08-01"
+
+
+def test_uruguay_catalogue_search_discovers_the_organisation(snap_factory, monkeypatch):
+    from scm.ingest.legis_ury import ParlamentoUY
+
+    snap = snap_factory("ury_parlamento", {})
+    calls = []
+    pkg = {"id": "p1", "name": "asuntos-entrados", "organization": {"name": "poder-legislativo"},
+           "resources": [{"name": "Asuntos entrados 2008-2026", "format": "CSV", "url": "https://catalogodatos.gub.uy/x/asuntos.csv"}]}
+
+    def fake_get_json(url, name, params=None, **kw):
+        calls.append((url.rsplit("/", 1)[-1], params))
+        if url.endswith("organization_list"):
+            return {"result": [{"name": "poder-legislativo", "title": "Poder Legislativo", "package_count": 3}, {"name": "mgap", "title": "Ministerio de Ganadería"}]}
+        if params.get("fq") == "organization:poder-legislativo":
+            return {"result": {"results": [pkg]}}
+        return {"result": {"results": [pkg, {"id": "p2", "name": "otro", "resources": []}]}}
+
+    monkeypatch.setattr(snap, "get_json", fake_get_json)
+    monkeypatch.setattr(snap, "get", lambda url, name, **kw: (_ for _ in ()).throw(RuntimeError("HTTP 403")))
+    with pytest.raises(RuntimeError, match="no bill dataset|403"):
+        ParlamentoUY().fetch(snap)
+    assert [o["name"] for o in snap.manifest["organizations"]] == ["poder-legislativo"]
+    assert [c[0] for c in calls] == ["organization_list", "package_search", "package_search"]
+    assert [p["name"] for p in snap.manifest["packages_seen"]] == ["asuntos-entrados", "otro"]  # deduplicated across searches
+    assert snap.manifest["resource_candidates"][0]["url"].endswith("asuntos.csv")
 
 
 def test_chile_senado_votes_from_camara_bills(snap_factory, tmp_path, monkeypatch):

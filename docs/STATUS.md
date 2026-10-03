@@ -14,7 +14,7 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 
 **What is missing**
 - Colombia titles cadastre: the national dataset is a map layer that Socrata marks "unexportable"; the registry's dataset id was the annotations table and is never stored as concessions (0 rows, no fake data).
-- Chile Senate roll calls: `votaciones.php` and the tramitación document both carry none for the bills kept. Argentina: the HCDN roll-call dataset ends with period 137 (2019) and only 2 votes link to a kept bill. Ecuador votes (script-only page), Uruguay (site answers 403 to automated clients; a hand-downloaded export under `data/manual/` is accepted), Paraguay (4 bills; the service pages 50 at a time and stops early).
+- Chile Senate roll calls: `votaciones.php` and the tramitación document both carry none for the bills kept. Argentina: the HCDN roll-call dataset ends with period 137 (2019) and only 2 votes link to a kept bill. Ecuador votes (script-only page), Uruguay (parlamento.gub.uy refuses automated clients and foreign visitors; the national catalogue is searched by organisation discovery and free text, and the site shows the reason until a dataset appears), Paraguay (4 bills; the service pages 50 at a time and stops early).
 - Four outlets without a feed: El Mostrador and OjoPúblico publish none, Emol resets connections, De Ware Tijd forbids automated clients.
 - GDELT history (2017→): 1,783 windows in the backlog; Spanish and Portuguese windows return nothing yet (cause under diagnosis, see above) and the address is throttled, so the Spanish- and Portuguese-language media history is absent until the query form is fixed; the English and Dutch history fills weekly.
 - Hand-supplied files still pending from Phase 2a: EXIM, IDB DPI, AEI CGIT. Stance, tone, translations and narratives: Phase 3.
@@ -27,7 +27,7 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 - GitHub push protection rejected a run that recorded a presigned storage URL: credential-bearing query parameters are stripped from every recorded URL.
 
 **Recommendation**
-- Owner actions: connect Vercel (root `web`, production branch `main`); download the Uruguay export into `data/manual/`; set feed URLs in the registry if El Mostrador or OjoPúblico publish one; add the free keys (Comtrade, Congress.gov, Census) as repository secrets to lift the preview quotas.
+- Owner actions: connect Vercel (root `web`, production branch `main`); commit a Uruguay export under `data/manual/` if one is ever obtainable from inside the country; set feed URLs in the registry if El Mostrador or OjoPúblico publish one; add the free keys (Comtrade, Congress.gov, Census) as repository secrets to lift the preview quotas.
 - Keep the groups on their schedules (monthly on the 3rd, press weekly); dispatch a one-off GDELT backfill (`targets: gdelt`, `gdelt_backfill_windows: 1900`) when a press run shows no throttling.
 - Start Phase 3 on the records now in the warehouse: 5,000+ legislative documents and the headline set are enough to design the stance and tone classifiers with a hand-labelled validation sample.
 

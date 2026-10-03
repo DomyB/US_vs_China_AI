@@ -25,6 +25,7 @@ NO_STRUCTURED_LEGISLATURE = {
     "GUY": "The Parliament of Guyana publishes Hansard as PDF only, with no structured bill or vote records.",
     "SUR": "De Nationale Assemblée publishes bills as Dutch PDFs; debates and roll-calls are not online.",
     "VEN": "Two assemblies claim legitimacy; neither publishes structured bill or vote records.",
+    "URY": "parlamento.gub.uy refuses automated clients and is not reachable from abroad; the national open-data catalogue lists no Parliament dataset yet (candidates are recorded on every run).",
 }
 # fields a news item may carry on the site: headline, date, outlet and URL plus derived flags; never article text
 ARTICLE_KEYS = {"id", "date", "date_precision", "outlet", "outlet_source_id", "orientation", "reliability", "headline_original", "language", "headline_en",
@@ -223,7 +224,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "trade_years": years, "mirror_years": mirror_years, "events": len(events), "contracts": len(c_rows), "governance": len(g_rows), "production": len(p_rows),
             "actions": bool(events or trade_block), "governance_available": bool(g_rows),
             "parliament_available": bool(parl_docs), "parliament_documents": len(parl_docs), "parliament_votes": n_votes,
-            "parliament_from": min((int(d["date"][:4]) for d in parl_docs), default=None), "parliament_note": NO_STRUCTURED_LEGISLATURE.get(iso),
+            "parliament_from": min((int(d["date"][:4]) for d in parl_docs), default=None), "parliament_note": NO_STRUCTURED_LEGISLATURE.get(iso) if not parl_docs else None,
             "media_available": bool(articles), "media_articles": len(articles), "media_from": min((int(a["date"][:4]) for a in articles), default=None),
             "concessions": conc_by_country.get(iso, 0),
         }

@@ -8,7 +8,7 @@ import pandas as pd
 from ..http import Snapshot
 from ..paths import REPO_ROOT
 from .base import Adapter, fetch_manual
-from .ckan import iso_date, package_search, pick_resources, read_table, year_of
+from .ckan import iso_date, organization_list, package_search, pick_resources, read_table, year_of
 from .docs import DOCUMENT_COLUMNS, make_document
 from .keywords import is_relevant, relevance
 from .util import col
@@ -16,6 +16,7 @@ from .util import col
 BASE = "https://catalogodatos.gub.uy"
 FIRST_YEAR = 2008
 MANUAL_FILES = ["data/manual/ury_asuntos.csv", "data/manual/ury_asuntos.json"]  # open data; redistributable
+ORG_WORDS = ("parlamento", "legislativo", "legislatura", "camara de representantes", "cámara de representantes", "senado")
 
 
 class ParlamentoUY(Adapter):
@@ -24,7 +25,18 @@ class ParlamentoUY(Adapter):
     language = "es"
 
     def fetch(self, snap: Snapshot) -> None:
-        pkgs = package_search(snap, BASE, "search.json", fq="organization:parlamento-uruguayo")
+        # the catalogue's organisation slug is not documented (the guessed one answered zero packages):
+        # discover organisations whose name mentions the legislature, search each, then search as free text
+        orgs = [o for o in organization_list(snap, BASE, "organizations.json")
+                if any(w in f"{o.get('name', '')} {o.get('title', '')} {o.get('display_name', '')}".lower() for w in ORG_WORDS)]
+        snap.manifest["organizations"] = [{"name": o.get("name"), "title": o.get("title"), "packages": o.get("package_count")} for o in orgs[:20]]
+        pkgs: list[dict] = []
+        for i, o in enumerate(orgs[:6]):
+            pkgs += package_search(snap, BASE, f"search_org_{i}.json", fq=f"organization:{o.get('name')}")
+        pkgs += package_search(snap, BASE, "search.json", q='"asuntos entrados" OR "proyectos de ley" OR parlamento OR legislativo')
+        seen: set = set()
+        pkgs = [pk for pk in pkgs if not (pk.get("id") in seen or seen.add(pk.get("id")))]
+        snap.manifest["packages_seen"] = [{"name": pk.get("name"), "organization": (pk.get("organization") or {}).get("name"), "resources": len(pk.get("resources") or [])} for pk in pkgs[:40]]
         res = pick_resources(pkgs, ["asuntos entrados", "asuntos-entrados", "proyectos entrados", "proyecto", "asunto"])
         res.sort(key=lambda r: ("asuntos-entrados" not in str(r.get("url", "")) and "proyecto" not in str(r.get("name", "")).lower(), r.get("name", "")))
         snap.manifest["resource_candidates"] = [{"name": r.get("name"), "url": r.get("url"), "package": r.get("_package"), "format": r["_fmt"]} for r in res[:12]]
@@ -46,8 +58,9 @@ class ParlamentoUY(Adapter):
                 snap.manifest["resource_used"] = {"url": manual, "via": "URY_PARLAMENTO_FILE or data/manual"}
                 snap.save()
                 return
-            raise RuntimeError("ury_parlamento: parlamento.gub.uy answers HTTP 403 to automated clients for its open-data exports; "
-                               "download 'asuntos entrados' in a browser and commit it as data/manual/ury_asuntos.csv (or set URY_PARLAMENTO_FILE)")
+            raise RuntimeError(f"ury_parlamento: no bill dataset in the national catalogue ({len(orgs)} legislature organisations, "
+                               f"{len(pkgs)} packages seen; see the manifest) and parlamento.gub.uy refuses automated clients and foreign "
+                               "visitors; commit an export as data/manual/ury_asuntos.csv or set URY_PARLAMENTO_FILE when one becomes available")
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         docs: dict[str, dict] = {}

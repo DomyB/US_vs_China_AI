@@ -120,6 +120,7 @@ def test_export_parliament_and_media_layers(tmp_path):
     cov = json.loads((out / "coverage.json").read_text())["countries"]
     assert cov["BRA"]["parliament_available"] and cov["BRA"]["parliament_votes"] == 1 and cov["BRA"]["media_available"] and cov["BRA"]["media_from"] == 2026
     assert cov["BOL"]["parliament_available"] is False and "Asamblea" in cov["BOL"]["parliament_note"] and cov["BRA"]["parliament_note"] is None
+    assert cov["URY"]["parliament_available"] is False and "catalogue" in cov["URY"]["parliament_note"]
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["parliament"] == "facts_only" and meta["layers"]["media"] == "facts_only" and meta["tables"]["document"] == 3
     assert not (out / "parliament" / "CHL.json").exists()

@@ -19,6 +19,17 @@ def package_search(snap: Snapshot, base: str, name: str, **params) -> list[dict]
     return payload.get("result", {}).get("results", []) if isinstance(payload, dict) else []
 
 
+def organization_list(snap: Snapshot, base: str, name: str) -> list[dict]:
+    """Organisations of a CKAN catalogue (name, title); tolerates a failed call."""
+    try:
+        payload = snap.get_json(f"{base}/api/3/action/organization_list", name, params={"all_fields": "true", "limit": 1000}, timeout=120)
+    except Exception as e:  # noqa: BLE001
+        snap.manifest.setdefault("errors", []).append({"name": name, "error": str(e)[:200]})
+        return []
+    orgs = payload.get("result", []) if isinstance(payload, dict) else []
+    return [o for o in orgs if isinstance(o, dict)]
+
+
 def pick_resources(packages: list[dict], words: list[str], formats: tuple[str, ...] = ("csv", "xlsx", "xls", "json"),
                    exclude: tuple[str, ...] = ("metadato", "diccionario", "codebook")) -> list[dict]:
     """Resources whose dataset or resource name contains one of `words`, in one of `formats`,
