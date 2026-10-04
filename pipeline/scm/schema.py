@@ -292,10 +292,131 @@ ingest_run = DataFrameSchema(
     coerce=True, strict=True, name="ingest_run",
 )
 
+# ---- Phase 3 model outputs: separate tables from facts (docs/PHASE0_PLAN.md section 4.3). They carry the
+# model, run and codebook version instead of source provenance; the exporter labels them as model outputs.
+TEXT_METHODS = ["zero_shot", "trained", "human"]
+CODERS = ["template", "coder1", "coder2", "adjudicated"]
+
+doc_translation = DataFrameSchema(
+    {
+        "doc_id": Column(str),
+        "field": Column(str, Check.isin(["title", "summary"])),
+        "lang_from": Column(str, Check.isin(LANGUAGES)),
+        "lang_to": Column(str),
+        "text": Column(str),
+        "method": Column(str, Check.isin(["mt", "llm", "human"])),
+        "model": Column(str),
+        "created_at": Column(str),
+    },
+    coerce=True, strict=True, name="doc_translation",
+)
+
+doc_classification = DataFrameSchema(
+    {
+        "doc_id": Column(str),
+        "run_id": Column(str),
+        "method": Column(str, Check.isin(TEXT_METHODS)),
+        "model": Column(str),
+        "codebook_version": Column(str),
+        "stance_us": Column("Int64", Check.in_range(-2, 2), nullable=True),  # null = actor not mentioned (not applicable)
+        "stance_us_conf": Column(float, Check.in_range(0, 1), nullable=True),
+        "stance_cn": Column("Int64", Check.in_range(-2, 2), nullable=True),
+        "stance_cn_conf": Column(float, Check.in_range(0, 1), nullable=True),
+        "tone": Column(float, Check.in_range(-1, 1), nullable=True),
+        "tone_conf": Column(float, Check.in_range(0, 1), nullable=True),
+        "frame": Column(str, nullable=True),
+        "created_at": Column(str),
+    },
+    coerce=True, strict=True, name="doc_classification",
+)
+
+doc_embedding = DataFrameSchema(
+    {
+        "doc_id": Column(str),
+        "model": Column(str),
+        "dim": Column(int),
+        "vector": Column(object),  # list[float] of length dim
+    },
+    coerce=True, strict=True, name="doc_embedding",
+)
+
+topic_model_run = DataFrameSchema(
+    {
+        "run_id": Column(str),
+        "corpus": Column(str, Check.isin(["parliament", "media"])),
+        "method": Column(str),
+        "params": Column(str),  # JSON
+        "n_docs": Column(int),
+        "created_at": Column(str),
+    },
+    coerce=True, strict=True, name="topic_model_run",
+)
+
+topic = DataFrameSchema(
+    {
+        "run_id": Column(str),
+        "topic_id": Column(int),
+        "label": Column(str),
+        "keywords": Column(str),  # comma-separated, most specific first
+        "example_doc_ids": Column(str),  # comma-separated doc_ids nearest the centroid
+        "n_docs": Column(int),
+    },
+    coerce=True, strict=True, name="topic",
+)
+
+doc_topic = DataFrameSchema(
+    {
+        "doc_id": Column(str),
+        "run_id": Column(str),
+        "topic_id": Column(int),
+        "prob": Column(float, Check.in_range(0, 1)),
+    },
+    coerce=True, strict=True, name="doc_topic",
+)
+
+validation_sample = DataFrameSchema(
+    {
+        "doc_id": Column(str),
+        "coder": Column(str, Check.isin(CODERS)),
+        "round": Column(str),
+        "applicable_us": Column("boolean", nullable=True),
+        "stance_us": Column("Int64", Check.in_range(-2, 2), nullable=True),
+        "applicable_cn": Column("boolean", nullable=True),
+        "stance_cn": Column("Int64", Check.in_range(-2, 2), nullable=True),
+        "tone": Column("Int64", Check.in_range(-1, 1), nullable=True),
+        "topic": Column(str, nullable=True),
+        "confidence": Column("Int64", Check.in_range(1, 3), nullable=True),
+        "notes": Column(str, nullable=True),
+        "split": Column(str, Check.isin(["train", "held_out"]), nullable=True),
+        "coded_at": Column(str, nullable=True),
+    },
+    coerce=True, strict=True, name="validation_sample",
+)
+
+validation_metric = DataFrameSchema(
+    {
+        "run_id": Column(str),
+        "codebook_version": Column(str),
+        "method": Column(str, Check.isin(["agreement", "zero_shot", "trained"])),
+        "target": Column(str),
+        "class": Column(str),
+        "metric": Column(str),
+        "value": Column(float, nullable=True),
+        "n": Column(int),
+        "split": Column(str),
+        "created_at": Column(str),
+    },
+    coerce=True, strict=True, name="validation_metric",
+)
+
 SCHEMAS: dict[str, DataFrameSchema] = {
     s.name: s for s in [trade_flow, finance_event, deal_event, production, price, governance, contract, policy_document,
-                        document, vote, vote_member, concession, media_volume, ingest_run]
+                        document, vote, vote_member, concession, media_volume, ingest_run,
+                        doc_translation, doc_classification, doc_embedding, topic_model_run, topic, doc_topic,
+                        validation_sample, validation_metric]
 }
+MODEL_OUTPUT_TABLES = ["doc_translation", "doc_classification", "doc_embedding", "topic_model_run", "topic", "doc_topic",
+                       "validation_sample", "validation_metric"]
 
 # Merge keys for tables that accumulate across runs (Adapter.incremental): rows with the same key
 # are kept once, the first-seen row winning so `retrieved_at` records the first observation.
@@ -305,6 +426,15 @@ KEY_COLUMNS: dict[str, list[str]] = {
     "vote_member": ["vote_id", "member_id"],
     "concession": ["concession_id"],
     "media_volume": ["source_id", "country", "period"],
+    # model outputs (warehouse.upsert keeps the LAST row per key: a re-run replaces)
+    "doc_translation": ["doc_id", "field", "lang_to", "model"],
+    "doc_classification": ["doc_id", "method", "model", "codebook_version"],
+    "doc_embedding": ["doc_id", "model"],
+    "topic_model_run": ["run_id"],
+    "topic": ["run_id", "topic_id"],
+    "doc_topic": ["doc_id", "run_id"],
+    "validation_sample": ["doc_id", "coder", "round"],
+    "validation_metric": ["run_id", "method", "target", "class", "metric", "split"],
 }
 
 
@@ -317,4 +447,4 @@ def validate(table: str, df: pd.DataFrame) -> pd.DataFrame:
     return schema.validate(df, lazy=True)
 
 
-__all__ = ["SCHEMAS", "KEY_COLUMNS", "validate", "pa"]
+__all__ = ["SCHEMAS", "KEY_COLUMNS", "MODEL_OUTPUT_TABLES", "validate", "pa"]

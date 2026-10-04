@@ -1,5 +1,6 @@
 """Command line: python -m scm run <source_id|all|tier1|legislature|press|national|annual|monthly> [--fetch-only|--parse-only]
-                 python -m scm build | export | liveness [ids...] | fixtures | stats [--write f] [--not-below f]"""
+                 python -m scm build | export | liveness [ids...] | fixtures | stats [--write f] [--not-below f]
+                 python -m scm classify [--steps translate,classify,embed,topics] [--limit N] [--force] [--codebook-version v1]"""
 from __future__ import annotations
 
 import argparse
@@ -76,6 +77,12 @@ def main(argv: list[str] | None = None) -> int:
     st = sub.add_parser("stats", help="rows per warehouse table; --not-below fails when the warehouse regressed against a reference")
     st.add_argument("--write", help="write the summary as JSON to this path")
     st.add_argument("--not-below", help="reference summary JSON (from the restored release); exit 1 on regression")
+    cl = sub.add_parser("classify", help="Phase 3 text steps: machine translation, zero-shot stance and tone, embeddings, topics")
+    cl.add_argument("--steps", default="translate,classify,embed,topics", help="comma-separated subset, in this order")
+    cl.add_argument("--limit", type=int, default=None, help="documents per step (smoke runs)")
+    cl.add_argument("--force", action="store_true", help="recompute documents that already have rows")
+    cl.add_argument("--codebook-version", default="v1")
+    cl.add_argument("--fields", default="title", help="translation fields: title or title,summary")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
 
@@ -112,6 +119,17 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if failed else 0
     if args.cmd == "build":
         print(warehouse.build())
+        return 0
+    if args.cmd == "classify":
+        from .text.pipeline import run_steps
+
+        steps = tuple(x.strip() for x in args.steps.split(",") if x.strip())
+        fields = tuple(x.strip() for x in args.fields.split(",") if x.strip())
+        try:
+            run_steps(steps, limit=args.limit, force=args.force, codebook_version=args.codebook_version, fields=fields)
+        except Exception as e:  # noqa: BLE001
+            print(json.dumps({"status": "failed", "error": f"{type(e).__name__}: {e}"}), flush=True)
+            raise
         return 0
     if args.cmd == "stats":
         from pathlib import Path

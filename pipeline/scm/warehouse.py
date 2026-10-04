@@ -19,6 +19,53 @@ def table_frames(table: str, warehouse: Path = WAREHOUSE_DIR) -> pd.DataFrame:
     return pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
 
 
+def slot_path(table: str, slot: str, warehouse: Path = WAREHOUSE_DIR) -> Path:
+    return warehouse / table / f"{slot}.parquet"
+
+
+def load_slot(table: str, slot: str, warehouse: Path = WAREHOUSE_DIR) -> pd.DataFrame:
+    """One Parquet file of a table (empty frame with the schema's columns when absent)."""
+    p = slot_path(table, slot, warehouse)
+    if not p.exists():
+        return pd.DataFrame({c: pd.Series(dtype=object) for c in SCHEMAS[table].columns})
+    return pd.read_parquet(p)
+
+
+def upsert(table: str, slot: str, df: pd.DataFrame, warehouse: Path = WAREHOUSE_DIR) -> int:
+    """Validate `df` and merge it into warehouse/<table>/<slot>.parquet on schema.KEY_COLUMNS, the NEW row
+    winning (model outputs are recomputed, unlike facts where the first observation is kept). Returns rows stored."""
+    from .schema import KEY_COLUMNS, validate
+
+    keys = KEY_COLUMNS[table]
+    new = validate(table, df.copy()) if not df.empty else df
+    prev = load_slot(table, slot, warehouse)
+    if not prev.empty and not new.empty:
+        merged = pd.concat([prev, new], ignore_index=True).drop_duplicates(subset=keys, keep="last")
+    elif new.empty:
+        merged = prev
+    else:
+        merged = new
+    merged = merged.reset_index(drop=True)
+    p = slot_path(table, slot, warehouse)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    if not merged.empty:
+        validate(table, merged.copy()).to_parquet(p, index=False)
+    return int(len(merged))
+
+
+def replace_slot(table: str, slot: str, df: pd.DataFrame, warehouse: Path = WAREHOUSE_DIR) -> int:
+    """Overwrite warehouse/<table>/<slot>.parquet (topic models are refitted wholesale)."""
+    from .schema import validate
+
+    p = slot_path(table, slot, warehouse)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    if df.empty:
+        p.unlink(missing_ok=True)
+        return 0
+    validate(table, df.copy()).to_parquet(p, index=False)
+    return int(len(df))
+
+
 def summary(warehouse: Path = WAREHOUSE_DIR) -> dict[str, int]:
     """Rows per table (from Parquet metadata, no data read) plus the Parquet file count under `_files`."""
     import pyarrow.parquet as pq

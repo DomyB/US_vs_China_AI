@@ -17,12 +17,25 @@ dependencies = [
     "pandera>=0.20",
     "pyreadr>=0.5",
     "python-dateutil>=2.9",
+    "numpy>=1.26",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0",
     "ruff>=0.6",
+]
+# Phase 3 text analysis (open-weight models on CPU). Install torch first from the CPU index so the
+# CUDA build is never pulled: pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -e ".[dev,ml]"
+ml = [
+    "torch>=2.4,<3",
+    "transformers>=4.44,<5",
+    "sentence-transformers>=3.0,<4",
+    "sentencepiece>=0.2",
+    "sacremoses>=0.1",
+    "safetensors>=0.4",
+    "scikit-learn>=1.5,<2",
+    "joblib>=1.4",
 ]
 
 [tool.setuptools.packages.find]
