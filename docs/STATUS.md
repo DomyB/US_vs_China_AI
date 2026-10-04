@@ -13,7 +13,7 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 - The first live run (counts, run time, GDELT-less media corpus), the codebook, the 300-document sample, coding by both coders, the trained head and the validation metrics (Phase 3b).
 
 **What broke and was fixed**
-- See Phase 2b: the overwritten data release (DECISIONS 36) had to be repaired before any model output could reach the site.
+- See Phase 2b: the overwritten data release (DECISIONS 36) had to be repaired before any model output could reach the site. The first recovery run was then stopped by the new guard itself: the 2 October release still carried Colombia's 6,769 annotation rows as concessions, which the fixed adapter correctly clears, so `concession` fell by more than a quarter. A dispatch input `allow_regression` now turns the guard into a warning for intentional drops.
 
 **Recommendation**
 - Run the text workflow with `limit: 200` first, then in full; review the codebook before coding starts.
