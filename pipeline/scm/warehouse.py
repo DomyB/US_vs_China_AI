@@ -19,6 +19,42 @@ def table_frames(table: str, warehouse: Path = WAREHOUSE_DIR) -> pd.DataFrame:
     return pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
 
 
+def summary(warehouse: Path = WAREHOUSE_DIR) -> dict[str, int]:
+    """Rows per table (from Parquet metadata, no data read) plus the Parquet file count under `_files`."""
+    import pyarrow.parquet as pq
+
+    out: dict[str, int] = {}
+    files = 0
+    for table in SCHEMAS:
+        d = warehouse / table
+        parts = sorted(d.glob("*.parquet")) if d.exists() else []
+        if parts:
+            out[table] = sum(pq.ParquetFile(f).metadata.num_rows for f in parts)
+            files += len(parts)
+    out["_files"] = files
+    return out
+
+
+MAX_SHRINK = 0.25  # a table may lose a quarter of its rows between releases (sources are re-fetched); more is a broken run
+
+
+def check_not_below(current: dict[str, int], reference: dict[str, int]) -> list[str]:
+    """Problems that mean the current warehouse must not replace the reference release: a table that vanished,
+    a table that shrank by more than MAX_SHRINK, or fewer Parquet files. ingest_run is operational and exempt."""
+    problems = []
+    for table, ref_rows in reference.items():
+        if table in ("ingest_run", "_files"):
+            continue
+        cur = current.get(table)
+        if cur is None:
+            problems.append(f"{table}: present in the restored release ({ref_rows} rows), missing now")
+        elif ref_rows and cur < ref_rows * (1 - MAX_SHRINK):
+            problems.append(f"{table}: {ref_rows} rows in the restored release, {cur} now (more than {int(MAX_SHRINK * 100)}% lost)")
+    if current.get("_files", 0) < reference.get("_files", 0):
+        problems.append(f"parquet files: {reference.get('_files')} in the restored release, {current.get('_files', 0)} now")
+    return problems
+
+
 def trade_discrepancies(trade: pd.DataFrame) -> pd.DataFrame:
     """Reported vs mirror values for the same reporter/partner/hs6/year/flow (annual only)."""
     if trade.empty:

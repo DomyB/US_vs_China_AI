@@ -124,3 +124,18 @@ def test_export_parliament_and_media_layers(tmp_path):
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["parliament"] == "facts_only" and meta["layers"]["media"] == "facts_only" and meta["tables"]["document"] == 3
     assert not (out / "parliament" / "CHL.json").exists()
+
+
+def test_stats_guard_catches_a_regressed_warehouse(tmp_path):
+    wh = tmp_path / "wh"
+    (wh / "trade_flow").mkdir(parents=True)
+    (wh / "document").mkdir()
+    schema.validate("trade_flow", pd.DataFrame([_trade("ARG", "CHN", "ARG", 2022, 100.0, "reported")] * 4)).to_parquet(wh / "trade_flow" / "a.parquet", index=False)
+    schema.validate("document", pd.DataFrame([_doc("ARG", "bill", "2024-01-01", "Minería y litio", "arg_hcdn", "https://x.test/1")])).to_parquet(wh / "document" / "a.parquet", index=False)
+    cur = warehouse.summary(wh)
+    assert cur == {"trade_flow": 4, "document": 1, "_files": 2}
+    assert warehouse.check_not_below(cur, cur) == []
+    assert warehouse.check_not_below(cur, {"trade_flow": 5, "document": 1, "_files": 2}) == []  # within the 25% tolerance
+    probs = warehouse.check_not_below(cur, {"trade_flow": 10, "document": 1, "production": 3, "ingest_run": 50, "_files": 3})
+    assert len(probs) == 3 and any("production" in p for p in probs) and any("parquet files" in p for p in probs)
+    assert warehouse.check_not_below({"_files": 0}, cur)  # an empty warehouse never replaces a full one

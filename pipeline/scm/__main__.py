@@ -1,5 +1,5 @@
 """Command line: python -m scm run <source_id|all|tier1|legislature|press|national|annual|monthly> [--fetch-only|--parse-only]
-                 python -m scm build | export | liveness [ids...] | fixtures"""
+                 python -m scm build | export | liveness [ids...] | fixtures | stats [--write f] [--not-below f]"""
 from __future__ import annotations
 
 import argparse
@@ -73,6 +73,9 @@ def main(argv: list[str] | None = None) -> int:
     lv.add_argument("ids", nargs="*")
     fx = sub.add_parser("fixtures", help="write trimmed copies of the latest snapshots into pipeline/tests/fixtures")
     fx.add_argument("ids", nargs="*")
+    st = sub.add_parser("stats", help="rows per warehouse table; --not-below fails when the warehouse regressed against a reference")
+    st.add_argument("--write", help="write the summary as JSON to this path")
+    st.add_argument("--not-below", help="reference summary JSON (from the restored release); exit 1 on regression")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
 
@@ -109,6 +112,23 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if failed else 0
     if args.cmd == "build":
         print(warehouse.build())
+        return 0
+    if args.cmd == "stats":
+        from pathlib import Path
+
+        cur = warehouse.summary()
+        print(json.dumps(cur, indent=1))
+        if args.write:
+            Path(args.write).write_text(json.dumps(cur), encoding="utf-8")
+        if args.not_below:
+            ref_path = Path(args.not_below)
+            if not ref_path.exists():
+                print(f"no reference summary at {ref_path}; nothing to compare", file=sys.stderr)
+                return 0
+            problems = warehouse.check_not_below(cur, json.loads(ref_path.read_text(encoding="utf-8")))
+            for pr in problems:
+                print(f"::error::warehouse regression: {pr}", file=sys.stderr)
+            return 1 if problems else 0
         return 0
     if args.cmd == "export":
         print(json.dumps(export_site.run(), indent=1)[:2000])

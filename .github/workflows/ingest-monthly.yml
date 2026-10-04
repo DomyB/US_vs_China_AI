@@ -15,6 +15,10 @@ on:
       gdelt_backfill_windows:
         description: "GDELT: how many missing historical windows to fetch this run (about 5 s each)"
         default: "60"
+      allow_empty_warehouse:
+        description: "Start from an empty warehouse when no usable data release exists (first run only)"
+        type: boolean
+        default: false
   workflow_call:
     inputs:
       targets:
@@ -26,6 +30,9 @@ on:
       gdelt_backfill_windows:
         type: string
         default: "60"
+      allow_empty_warehouse:
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -64,13 +71,8 @@ jobs:
         working-directory: ${{ github.workspace }}
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          tag=$(gh release list --limit 20 --json tagName --jq '[.[] | select(.tagName | startswith("data-v"))][0].tagName' 2>/dev/null || true)
-          if [ -n "$tag" ]; then
-            gh release download "$tag" --pattern 'warehouse-*.tar.gz' --dir /tmp/prev && mkdir -p data && tar xzf /tmp/prev/warehouse-*.tar.gz -C data && echo "restored $tag" && ls data/warehouse
-          else
-            echo "no previous data release"
-          fi
+          ALLOW_EMPTY_WAREHOUSE: ${{ inputs.allow_empty_warehouse && 'true' || 'false' }}
+        run: .github/scripts/restore_release.sh
       - name: Runner resources before ingestion
         run: df -h / && free -m
       - name: Run adapters
@@ -93,6 +95,8 @@ jobs:
         run: pytest -q
       - name: Regenerate SOURCES.md and sources.json
         run: python scripts/build_sources.py
+      - name: Guard - the warehouse must not have regressed against the restored release
+        run: python -m scm stats --not-below /tmp/restored.json
       - name: Commit data
         run: |
           cd ..
@@ -103,18 +107,14 @@ jobs:
           git pull --rebase --autostash origin "${{ github.ref_name }}"
           git push origin HEAD:"${{ github.ref_name }}"
       - name: Package Parquet release
-        run: |
-          cd ..
-          tag="data-v$(date -u +%Y.%m.%d)"
-          tar czf warehouse-$tag.tar.gz -C data warehouse
-          echo "TAG=$tag" >> $GITHUB_ENV
+        working-directory: ${{ github.workspace }}
+        run: .github/scripts/package_release.sh
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.TAG }}
           name: Data release ${{ env.TAG }}
-          body: "Parquet warehouse and DuckDB views produced by the ingestion workflow. Every table carries source, URL, retrieval date and reliability columns."
+          body: "Parquet warehouse and DuckDB views produced by the ingestion workflow (restored from ${{ env.RESTORED_TAG || 'an empty warehouse' }}). Every table carries source, URL, retrieval date and reliability columns."
           files: warehouse-${{ env.TAG }}.tar.gz
-        continue-on-error: true
       - name: Upload raw snapshots and logs (debugging)
         uses: actions/upload-artifact@v4
         if: always()
