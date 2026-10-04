@@ -14,7 +14,7 @@
   "method": "zero_shot",
   "model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
   "codebook_version": "v1",
-  "run_id": "zero_shot-20261004T125424Z",
+  "run_id": "zero_shot-20261004T140545Z",
   "validated": false,
   "kappa_stance_pooled": null,
   "alpha_stance_pooled": null,
