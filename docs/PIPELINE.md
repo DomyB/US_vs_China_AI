@@ -8,7 +8,8 @@ fetch(snapshot)  -> data/raw/<source_id>/<YYYY-MM-DD>/...   (+ manifest.json: UR
 parse(snapshot)  -> {table_name: DataFrame}                 (pure; validated against scm/schema.py)
 load(tables)     -> data/warehouse/<table>/<source_id>.parquet
 build            -> data/warehouse/scm.duckdb (views over Parquet + trade_discrepancy + finance_event_dedup)
-export           -> web/public/data/real/ (meta, coverage, country/<ISO3>.json, region, prices, policy)
+export           -> web/public/data/real/ (meta, coverage, country/<ISO3>.json, parliament/, media/, validation.json, region, prices, policy)
+classify         -> data/warehouse/{doc_translation,doc_classification,doc_embedding,topic*}/<slot>.parquet (Phase 3 model outputs)
 ```
 
 ## Running
@@ -105,6 +106,26 @@ matched terms, which are stored with each row.
 `api_url` (orientation and paywall are required for press); the adapter class is created
 automatically. XML feeds are recorded as fixtures (first 60 items per element).
 
+## Phase 3: text analysis (`scm/text/`)
+
+| Step | Module | Writes | Notes |
+|---|---|---|---|
+| translate | `text/translate.py` | `doc_translation` (slot `opus_mt`) | opus-mt ROMANCE→en (es, pt) and nl→en; titles by default, `--fields title,summary` for summaries; English records are not translated |
+| classify | `text/zero_shot.py` | `doc_classification` (slot `zero_shot`) | mDeBERTa-xnli with three full-sentence hypotheses per actor, scored only when `mentions_us`/`mentions_cn`; tone from the cardiffnlp multilingual sentiment model; one row per document, method `zero_shot`, codebook version recorded |
+| embed | `text/embed.py` | `doc_embedding` (slot `minilm`) | paraphrase-multilingual-MiniLM, L2-normalised |
+| topics | `text/topics.py` | `topic_model_run`, `topic`, `doc_topic` (slots `parliament`, `media`) | k-means (numpy) + class-based TF-IDF labels; stop-words in `config/stopwords/`; optional labels in `config/topic_labels.yaml`; refitted wholesale each run |
+
+`python -m scm classify [--steps …] [--limit N] [--force] [--codebook-version v1] [--fields …]`
+runs the steps in order and prints one JSON line per step. Steps are incremental: a document is
+processed once per (model, codebook version); `--force` recomputes. `text/models.py` loads the
+models lazily and `SCM_TEXT_FAKE=1` substitutes deterministic fakes (keyword scoring, hashed
+embeddings) so tests and CI never download weights. `text/series.py` builds the per-year stance,
+attention/tone and narrative series the exporter writes into the parliament and media files;
+`export_site._pick_classifications` chooses the trained head over the baseline only when the
+validation metrics show it beating the baseline on the held-out split.
+
+Install for real runs: `pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -e ".[dev,ml]"`.
+
 ## Hand-supplied files
 
 Three sources broke in the first live runs and may need a file the owner downloads in a
@@ -139,6 +160,7 @@ provenance shown on the site stays honest.
 |---|---|---|
 | `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 adapters, fixtures, build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD`, opens an issue on failure |
 | `ingest-annual.yml` | 15 March | USGS, V-Dem, UNGA, DPI, BGS via the same job |
+| `text-analysis.yml` | Thursdays, and on demand | Phase 3: restores the release, installs the `[ml]` extra (CPU torch), caches model weights, runs `scm classify` (translate, classify, embed, topics), build, export, tests, guard, commits site data, publishes a release; inputs `steps`, `limit`, `force`, `codebook_version`, `fields` |
 | `liveness.yml` | Mondays | HEAD/GET of every registry URL → `data/liveness.json`, regenerates SOURCES.md |
 | `ci.yml` | every push | lint, typecheck, unit tests, build (web and pipeline) |
 

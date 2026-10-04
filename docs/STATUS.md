@@ -2,6 +2,22 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
+## Phase 3a — Text analysis infrastructure and zero-shot baseline (started 2026-10-04; first live run pending)
+
+**What runs**
+- `scm/text/`: machine translation of titles (opus-mt), zero-shot stance toward the US and China (mDeBERTa-xnli, scored only when the actor is named) and tone (multilingual sentiment), sentence embeddings, k-means narratives labelled by class-based TF-IDF, per-year series; `python -m scm classify`; eight model-output tables with model, run and codebook version; `warehouse.upsert` (newest row wins). Deterministic fakes (`SCM_TEXT_FAKE=1`) cover the code paths in 6 new tests; 126 pipeline tests pass.
+- Exporter: translations, stance, tone, `classifier` and `translation` blocks per record, `stance_series` / `volume` / `narratives` / `text_model` per layer file, `validation.json`, layers `real` once labelled; site: Parliament and Media tabs show the model outputs tagged "Zero-shot baseline · not yet validated" (or "Validated · κ=…"), null stance on a coded record reads "not applicable", English titles are labelled machine translation, the methodology page reads the validation metrics live.
+- `text-analysis.yml` (Thursdays and on demand; CPU torch, cached weights, same release restore and guard as ingestion).
+
+**What is missing**
+- The first live run (counts, run time, GDELT-less media corpus), the codebook, the 300-document sample, coding by both coders, the trained head and the validation metrics (Phase 3b).
+
+**What broke and was fixed**
+- See Phase 2b: the overwritten data release (DECISIONS 36) had to be repaired before any model output could reach the site.
+
+**Recommendation**
+- Run the text workflow with `limit: 200` first, then in full; review the codebook before coding starts.
+
 ## Phase 2b — National adapters (2026-10-02 → 2026-10-03, done with known gaps)
 
 **What runs (live, committed to `main`; counts from the 2026-10-03 runs)**

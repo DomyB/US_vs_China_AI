@@ -104,7 +104,8 @@ media layers are still sample.
   stay missing until a documented endpoint is found. **Paraguay**: the open-data API is documented
   on its index page (`/opendata/api/data/proyecto`) and is used; its reuse terms are listed as
   "to confirm" in the registry.
-- **No translations or stance** until Phase 3; records are shown in the original language.
+- **Translations, stance, tone and narratives are model outputs** (Phase 3, see below); the original
+  text is always shown and every value carries the model and codebook version that produced it.
 - **Incremental tables** (documents, votes, concessions) merge with the previous data release; a
   failed run publishes no release, so one press week can be lost.
 - **National trade series by mineral** (Argentina SIACAM, Uruguay XXI) and sources that answer
@@ -162,12 +163,40 @@ the registry.
 - **ACLED** covers Latin America only from 2018.
 - **USGS Minerals Yearbook** country chapters lag two to three years.
 
+## Phase 3 text-analysis caveats
+
+- **Unit of analysis is short text.** Legislative records are coded from the title plus the
+  summary a legislature publishes (Brazil's ementa, Colombia's objeto); most Argentine, Chilean,
+  Peruvian and Paraguayan records are a title of up to 400 characters, often truncated. Headlines
+  are coded alone. Nothing is inferred from full text, which is not stored.
+- **Zero-shot baseline until validated.** Stance comes from a multilingual NLI model choosing
+  between three hypotheses per actor (favourable, critical, neutral mention); ±2 versus ±1 is a
+  probability threshold (0.75), not a learned distinction. Tone comes from a sentiment model trained
+  on tweets. Until the hand-coded sample exists every value is tagged "not yet validated" and should
+  be read as indicative.
+- **Applicability is a keyword rule.** A stance toward an actor is scored only when the ingestion
+  keyword filter flagged the actor; the filter matches surface forms (so "US$" and "Bank of
+  America" can flag the United States) and misses indirect references. The hand-coded sample
+  measures this rule's precision and recall.
+- **Selection bias into the series.** The corpus is keyword-selected at ingestion (mining and
+  mineral terms, actor terms); mean stance per year describes the selected records, not a
+  legislature's whole agenda.
+- **Validation is one human and one LLM coder** (the owner and Claude in development sessions,
+  blind to each other), 300 documents, one third held out; agreement statistics are published with
+  n. This is not a multi-human coding team.
+- **Trained head on few labels.** The embeddings-plus-logistic-regression classifier learns from
+  about 200 adjudicated records; it replaces the baseline on the site only if it beats it on the
+  held-out split, and the methodology page shows both.
+- **Narratives** are automatic clusters labelled by keywords; labels can be overridden in
+  `pipeline/config/topic_labels.yaml`. Press narratives need at least 100 headlines per corpus,
+  which no country has until the GDELT Spanish/Portuguese history arrives.
+- **Machine translation** of titles (opus-mt) is unmeasured for quality; summaries are not
+  translated by default.
+
 ## Method limitations (to be expanded in later phases)
 
-- Stance and topic classification will be done by an open-weight model fine-tuned
-  on a sample coded by one human and one LLM coder (Claude, inside development
-  sessions). Agreement statistics will be published; this is not the same as a
-  multi-human coding team.
+- Stance and topic classification: see "Phase 3 text-analysis caveats" above (one human and one
+  LLM coder, 300 documents, zero-shot baseline, linear head on frozen embeddings).
 - The influence index is a composite indicator; its ranking is sensitive to
   weighting choices, which is why a sensitivity analysis will be shown alongside.
 - Event studies and difference-in-differences designs cannot establish causality
