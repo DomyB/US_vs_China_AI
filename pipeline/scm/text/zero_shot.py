@@ -85,7 +85,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, limit: int | None = None, force: bool =
             rec = {"doc_id": r["doc_id"], "run_id": run_id, "method": "zero_shot", "model": model, "codebook_version": codebook_version,
                    "stance_us": pd.NA, "stance_us_conf": None, "stance_cn": pd.NA, "stance_cn_conf": None,
                    "tone": tone, "tone_conf": tconf, "frame": f"tone:{sent_model}", "created_at": stamp}
-            for actor, flag in (("US", "mentions_us"), ("CN", "mentions_cn")):
+            for actor, flag in (("US", "actor_us"), ("CN", "actor_cn")):
                 if bool(r.get(flag)):
                     st, conf = score_actor(nli_fn, str(r["text"]), r["lang"], actor)
                     rec[f"stance_{actor.lower()}"], rec[f"stance_{actor.lower()}_conf"] = st, round(conf, 4)

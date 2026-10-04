@@ -91,7 +91,7 @@ def training_examples(adjudicated: pd.DataFrame, docs: pd.DataFrame, warehouse: 
             if not app or st is None or pd.isna(st):
                 continue
             d = meta.loc[r["doc_id"]]
-            xs.append(features(vec_of[r["doc_id"]][None, :], np.array([actor]), np.array([bool(d["mentions_us"])]), np.array([bool(d["mentions_cn"])]))[0])
+            xs.append(features(vec_of[r["doc_id"]][None, :], np.array([actor]), np.array([bool(d["actor_us"])]), np.array([bool(d["actor_cn"])]))[0])
             ys.append(int(st))
             keys.append(f"{r['doc_id']}:{actor}")
     return (np.array(xs, dtype="float32") if xs else np.zeros((0, 0), dtype="float32")), np.array(ys, dtype=int), keys
@@ -141,9 +141,9 @@ def apply_head(head: dict, warehouse: Path = WAREHOUSE_DIR) -> dict:
         rec = {"doc_id": d, "run_id": run_id, "method": "trained", "model": f"logreg-on-{head['embedding_model']}", "codebook_version": head["codebook_version"],
                "stance_us": pd.NA, "stance_us_conf": None, "stance_cn": pd.NA, "stance_cn_conf": None,
                "tone": tone_of.get(d, (None, None))[0], "tone_conf": tone_of.get(d, (None, None))[1], "frame": "trained head; tone from zero_shot", "created_at": stamp}
-        for actor, flag in (("US", "mentions_us"), ("CN", "mentions_cn")):
+        for actor, flag in (("US", "actor_us"), ("CN", "actor_cn")):
             if bool(m[flag]):
-                p = predict_proba(features(vecs[i][None, :], np.array([actor]), np.array([bool(m["mentions_us"])]), np.array([bool(m["mentions_cn"])])), w, b)[0]
+                p = predict_proba(features(vecs[i][None, :], np.array([actor]), np.array([bool(m["actor_us"])]), np.array([bool(m["actor_cn"])])), w, b)[0]
                 rec[f"stance_{actor.lower()}"], rec[f"stance_{actor.lower()}_conf"] = int(classes[int(p.argmax())]), round(float(p.max()), 4)
         rows.append(rec)
     stored = upsert("doc_classification", "trained", pd.DataFrame(rows), warehouse)

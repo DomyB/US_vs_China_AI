@@ -104,3 +104,16 @@ def test_incremental_load_merges_on_key(tmp_path, snap_factory):
     assert rows["document"] == 2 and rows["document_new"] == 1
     assert stored.sort_values("date").iloc[0]["date"] == "2026-10-01"  # first-seen row kept
     schema.validate("document", stored)
+
+
+def test_us_actor_match_ignores_currency_mexico_and_firm_names():
+    from scm.ingest.keywords import relevance
+
+    assert not relevance("autorizada a contratação de operação de crédito externo no valor de US$ 35,000,000.00 (trinta e cinco milhões de dólares dos Estados Unidos da América)").mentions_us
+    assert not relevance("préstamo por 47 millones de dólares de los Estados Unidos de América").mentions_us
+    assert not relevance("Tratado de extradición entre Colombia y los Estados Unidos Mexicanos").mentions_us
+    assert not relevance("venda das minas de níquel da Anglo American").mentions_us
+    assert not relevance("Bank of América estima que el cobre superará los US$ 7").mentions_us
+    assert relevance("Acordo entre o Brasil e os Estados Unidos da América sobre salvaguardas tecnológicas").mentions_us
+    assert relevance("pedido de informes sobre el acuerdo con EE.UU.").mentions_us
+    assert relevance("Washington restringe el ingreso de biocombustibles").mentions_us

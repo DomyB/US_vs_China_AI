@@ -44,6 +44,12 @@ def corpus(warehouse: Path = WAREHOUSE_DIR) -> pd.DataFrame:
     docs = docs.copy()
     docs["text"] = [doc_text(t, s) for t, s in zip(docs["title_original"], docs["summary"], strict=True)]
     docs["lang"] = [lang if lang in ("es", "pt", "en", "nl") else COUNTRY_LANG.get(c, "es") for lang, c in zip(docs["language"], docs["country"], strict=True)]
+    # applicability for stance uses the current keyword rule on the text (stored flags are the filter's at ingestion time)
+    from ..ingest.keywords import relevance
+
+    rel = [relevance(t) for t in docs["text"]]
+    docs["actor_us"] = [r.mentions_us for r in rel]
+    docs["actor_cn"] = [r.mentions_cn for r in rel]
     return docs
 
 

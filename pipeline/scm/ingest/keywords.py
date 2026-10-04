@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from ..registry import minerals
 from .util import _KEYWORDS
 
-KEYWORDS_VERSION = "2026.10"
+KEYWORDS_VERSION = "2026.10.2"
 
 MINING_TERMS = [
     # es
@@ -35,7 +35,7 @@ CN_TERMS = [
 ]
 US_TERMS = [
     r"estados unidos", r"ee\.?\s?uu\.?", r"eua", r"estadounidenses?", r"norteamerican[oa]s?", r"washington", r"casa blanca",
-    r"united states", r"u\.s\.", r"american", r"trump", r"biden", r"dfc", r"ex-?im ?bank", r"eximbank", r"albemarle", r"freeport",
+    r"united states", r"u\.s\.", r"north american", r"trump", r"biden", r"dfc", r"ex-?im ?bank", r"eximbank", r"albemarle", r"freeport",
     r"southern copper", r"newmont", r"minerals security partnership", r"departamento de estado", r"pent[aá]gono", r"comando sur",
     r"verenigde staten", r"amerikaans[e]?", r"departamento de energ[ií]a", r"usgs",
 ]
@@ -54,6 +54,22 @@ def _compile(terms: list[str]) -> re.Pattern:
 MINING_RE = _compile(MINING_TERMS)
 CN_RE = _compile(CN_TERMS)
 US_RE = _compile(US_TERMS)
+# Surface forms that name a country without making it an actor (codebook section 2): the US dollar as a currency,
+# Mexico's official name, firms and regions whose names contain "America". Blanked before the actor match. The
+# hand-coded sample showed the earlier rule flagged the United States in 170 of 300 records while a coder found
+# it applicable in 60, mostly loan authorisations "em dólares dos Estados Unidos da América".
+NON_ACTOR_US = [
+    r"d[oó]lares?\s+(?:de\s+los\s+|dos\s+|de\s+|americanos\s+de\s+los\s+)?estados\s+unidos(?:\s+d[ea]\s+am[eé]rica)?",
+    r"us\s?\$", r"\busd\b", r"u\$s", r"estados\s+unidos\s+mexicanos", r"anglo[\s-]+american", r"bank\s+of\s+am[eé]rica",
+    r"latin\s+american?", r"am[eé]rica\s+latina", r"latinoamerican[oa]s?", r"sul-?american[oa]s?", r"sudamerican[oa]s?",
+    r"am[eé]rica\s+do\s+sul", r"am[eé]rica\s+del\s+sur", r"south\s+american?", r"central\s+american?",
+]
+NON_ACTOR_US_RE = re.compile("|".join(f"(?:{p})" for p in NON_ACTOR_US), re.IGNORECASE)
+
+
+def actor_text(folded: str) -> str:
+    """The folded text with non-actor surface forms blanked, for the US/China actor match."""
+    return NON_ACTOR_US_RE.sub(" ", folded)
 INVEST_RE = _compile(INVESTMENT_TERMS)
 MINERAL_RE: dict[str, re.Pattern] = {m: _compile(ws) for m, ws in _KEYWORDS.items()}
 _NL_MINERALS = {"lithium": [r"lithium"], "copper": [r"koper"], "gold": [r"goud", r"goudmijn\w*"], "nickel": [r"nikkel"], "bauxite_aluminum": [r"bauxiet"]}
@@ -81,8 +97,9 @@ def relevance(text: object) -> Relevance:
             if hit:
                 rel.minerals.append(m)
                 rel.matched.append(hit.group(0))
+    at = actor_text(t)
     for flag, pat in (("mining", MINING_RE), ("mentions_cn", CN_RE), ("mentions_us", US_RE)):
-        hit = pat.search(t)
+        hit = pat.search(at if flag != "mining" else t)
         if hit:
             setattr(rel, flag, True)
             rel.matched.append(hit.group(0))

@@ -13,8 +13,12 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 - Exporter: translations, stance, tone, `classifier` and `translation` blocks per record, `stance_series` / `volume` / `narratives` / `text_model` per layer file, `validation.json`, layers `real` once labelled; site: Parliament and Media tabs show the model outputs tagged "Zero-shot baseline · not yet validated" (or "Validated · κ=…"), null stance on a coded record reads "not applicable", English titles are labelled machine translation, the methodology page reads the validation metrics live.
 - `text-analysis.yml` (Thursdays and on demand; CPU torch, cached weights, same release restore and guard as ingestion).
 
+**Validation so far (Phase 3b)**
+- The 300-document sample is drawn (BRA 196, ARG 57, CHL 18, COL 12, PER 8, GUY 6, PRY 3; 221 bills, 57 hearings, 22 headlines; 19 name both actors, 87 neither) and coder 2 (Claude, in session) has coded all of it (`data/manual/validation/coder2_v1.csv`). Coder 2's reading: the United States applicable in 60 records (stance −1: 7, 0: 27, +1: 25, +2: 1), China in 43 (−1: 14, 0: 18, +1: 11); dominant topics regulation/procedure (109), geopolitics and security (46), trade (36), environment (35), investment (32).
+- That reading exposed the ingestion flag's low precision for the United States (60 of 170 flagged records; loan authorisations in dollars) and led to the refined applicability rule (DECISIONS 43), followed by a forced reclassification.
+
 **What is missing**
-- Validation: the 300-document sample has to be drawn (`draw_sample: true`), coded by both coders and adjudicated; then the trained head and the published metrics (Phase 3b). Press narratives and tone series need a longer headline record (GDELT Spanish/Portuguese still empty). Summaries are not translated (titles only).
+- The owner's coding (`coder1_v1.csv`), adjudication, the agreement statistics, the trained head and the published metrics; a longer headline record for press narratives and tone; summaries are not translated (titles only); the NLI step should batch its hypothesis pairs (111 minutes for 5,472 records). Press narratives and tone series need a longer headline record (GDELT Spanish/Portuguese still empty). Summaries are not translated (titles only).
 
 **What broke and was fixed**
 - See Phase 2b: the overwritten data release (DECISIONS 36) had to be repaired before any model output could reach the site. The first recovery run was then stopped by the new guard itself: the 2 October release still carried Colombia's 6,769 annotation rows as concessions, which the fixed adapter correctly clears, so `concession` fell by more than a quarter. A dispatch input `allow_regression` now turns the guard into a warning for intentional drops.

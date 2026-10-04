@@ -177,10 +177,14 @@ the registry.
   largely treaty, loan and cooperation records that the codebook also reads as positive but not
   necessarily strongly so. Tone comes from a sentiment model trained on tweets. Until the hand-coded
   sample exists every value is tagged "not yet validated" and should be read as indicative.
-- **Applicability is a keyword rule.** A stance toward an actor is scored only when the ingestion
-  keyword filter flagged the actor; the filter matches surface forms (so "US$" and "Bank of
-  America" can flag the United States) and misses indirect references. The hand-coded sample
-  measures this rule's precision and recall.
+- **Applicability is a keyword rule.** A stance toward an actor is scored only when the keyword
+  rule finds the actor in the text. The first rule flagged the United States in 170 of the 300
+  sampled records where a coder found it applicable in 60 (mostly loan authorisations in US
+  dollars), so currency phrases, Mexico's official name and firm or region names containing
+  "America" are now blanked before matching (precision 0.82, recall 0.92 against coder 2;
+  China 0.72 and 1.0, the misses being Beijing as a signing place and Chinese nationals). The
+  site's `mentions` flags still show the ingestion filter's reading; stance applicability uses the
+  refined rule. The adjudicated sample will give the definitive figures.
 - **Selection bias into the series.** The corpus is keyword-selected at ingestion (mining and
   mineral terms, actor terms); mean stance per year describes the selected records, not a
   legislature's whole agenda.

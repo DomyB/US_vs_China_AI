@@ -31,7 +31,8 @@ def draw(docs: pd.DataFrame, n: int = 300, seed: int = SEED, held_out_share: flo
     tops up the largest stratum. Deterministic for a given seed and doc_id set. Adds `split`."""
     rng = np.random.default_rng(seed)
     d = docs.copy().sort_values("doc_id").reset_index(drop=True)
-    d["bucket"] = [bucket(bool(u), bool(c)) for u, c in zip(d["mentions_us"], d["mentions_cn"], strict=True)]
+    us_col, cn_col = ("actor_us", "actor_cn") if "actor_us" in d.columns else ("mentions_us", "mentions_cn")
+    d["bucket"] = [bucket(bool(u), bool(c)) for u, c in zip(d[us_col], d[cn_col], strict=True)]
     chosen: list[int] = []
 
     def take(frame: pd.DataFrame, k: int) -> None:
