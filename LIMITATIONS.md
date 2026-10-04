@@ -171,9 +171,12 @@ the registry.
   are coded alone. Nothing is inferred from full text, which is not stored.
 - **Zero-shot baseline until validated.** Stance comes from a multilingual NLI model choosing
   between three hypotheses per actor (favourable, critical, neutral mention); ±2 versus ±1 is a
-  probability threshold (0.75), not a learned distinction. Tone comes from a sentiment model trained
-  on tweets. Until the hand-coded sample exists every value is tagged "not yet validated" and should
-  be read as indicative.
+  probability threshold (0.75) and a winning probability below 0.5 is read as 0, not learned
+  distinctions. The first full run (2026-10-04) showed the baseline's bias: the neutral hypothesis
+  never won, and three quarters of the records naming the United States came out strongly positive,
+  largely treaty, loan and cooperation records that the codebook also reads as positive but not
+  necessarily strongly so. Tone comes from a sentiment model trained on tweets. Until the hand-coded
+  sample exists every value is tagged "not yet validated" and should be read as indicative.
 - **Applicability is a keyword rule.** A stance toward an actor is scored only when the ingestion
   keyword filter flagged the actor; the filter matches surface forms (so "US$" and "Bank of
   America" can flag the United States) and misses indirect references. The hand-coded sample

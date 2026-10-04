@@ -2,7 +2,11 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
-## Phase 3a — Text analysis infrastructure and zero-shot baseline (started 2026-10-04; first live run pending)
+## Phase 3a — Text analysis infrastructure and zero-shot baseline (2026-10-04; first full run live)
+
+**First full run (text-analysis.yml, 2026-10-04 12:25–14:01 UTC, 96 minutes of text steps on the 4-vCPU runner, 3.7 GB of model weights now cached)**
+- 5,466 titles machine-translated (6 English records skipped), 5,472 documents classified (1,194 actor stances scored, the rest "not applicable"), 5,472 embeddings, 12 parliament topics; press narratives not estimated (22 de-duplicated headlines, fewer than the 100 required). Site layers `parliament` and `media` are `real`, tagged "Zero-shot baseline · not yet validated"; release `data-v2026.10.04.2` (16 MB) carries the model-output tables.
+- Stance distribution before calibration: US −2: 36, −1: 59, +1: 143, +2: 723; China −2: 24, −1: 31, +1: 59, +2: 119; no zeros, because the "neutral mention" hypothesis never won. A third threshold (winning probability below 0.5 → 0) was added (DECISIONS 42) and the classification re-run.
 
 **What runs**
 - `scm/text/`: machine translation of titles (opus-mt), zero-shot stance toward the US and China (mDeBERTa-xnli, scored only when the actor is named) and tone (multilingual sentiment), sentence embeddings, k-means narratives labelled by class-based TF-IDF, per-year series; `python -m scm classify`; eight model-output tables with model, run and codebook version; `warehouse.upsert` (newest row wins). Deterministic fakes (`SCM_TEXT_FAKE=1`) cover the code paths in 6 new tests; 126 pipeline tests pass.
@@ -10,7 +14,7 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 - `text-analysis.yml` (Thursdays and on demand; CPU torch, cached weights, same release restore and guard as ingestion).
 
 **What is missing**
-- The first live run (counts, run time, GDELT-less media corpus), the codebook, the 300-document sample, coding by both coders, the trained head and the validation metrics (Phase 3b).
+- Validation: the 300-document sample has to be drawn (`draw_sample: true`), coded by both coders and adjudicated; then the trained head and the published metrics (Phase 3b). Press narratives and tone series need a longer headline record (GDELT Spanish/Portuguese still empty). Summaries are not translated (titles only).
 
 **What broke and was fixed**
 - See Phase 2b: the overwritten data release (DECISIONS 36) had to be repaired before any model output could reach the site. The first recovery run was then stopped by the new guard itself: the 2 October release still carried Colombia's 6,769 annotation rows as concessions, which the fixed adapter correctly clears, so `concession` fell by more than a quarter. A dispatch input `allow_regression` now turns the guard into a warning for intentional drops.

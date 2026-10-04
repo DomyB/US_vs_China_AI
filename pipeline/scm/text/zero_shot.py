@@ -15,6 +15,8 @@ from .store import corpus, new_run_id, now_iso, pending
 SLOT = "zero_shot"
 CODEBOOK_VERSION = "v1"
 STRONG = 0.75  # pos/neg probability at or above which the stance is ±2 rather than ±1 (stated on the methodology page)
+UNCERTAIN = 0.5  # below this winning probability the model has no clear reading: neutral (0). In the first full run the neutral
+# hypothesis never won outright, so without this rule the baseline produced no zeros at all (DECISIONS 42)
 
 ACTOR = {"es": {"US": "Estados Unidos", "CN": "China"}, "pt": {"US": "os Estados Unidos", "CN": "a China"},
          "en": {"US": "the United States", "CN": "China"}, "nl": {"US": "the United States", "CN": "China"}}
@@ -46,7 +48,7 @@ def score_actor(nli_fn, text: str, lang: str, actor: str) -> tuple[int, float]:
     by_role = {role: res["scores"][res["labels"].index(h)] for role, h in hyp.items()}
     role = max(by_role, key=by_role.get)
     p = float(by_role[role])
-    if role == "neu":
+    if role == "neu" or p < UNCERTAIN:
         return 0, p
     sign = 1 if role == "pos" else -1
     return sign * (2 if p >= STRONG else 1), p

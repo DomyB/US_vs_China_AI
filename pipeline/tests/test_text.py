@@ -46,6 +46,24 @@ def test_text_package_does_not_import_torch():
     assert "torch" not in sys.modules and "transformers" not in sys.modules
 
 
+def test_zero_shot_mapping_thresholds():
+    from scm.text.zero_shot import hypotheses, score_actor
+
+    hyp = hypotheses("es", "CN")
+
+    def nli(scores):
+        def fn(text, labels):
+            order = sorted(labels, key=lambda h: -scores[[k for k, v in hyp.items() if v == h][0]])
+            return {"labels": order, "scores": [scores[[k for k, v in hyp.items() if v == h][0]] for h in order]}
+        return fn
+
+    assert score_actor(nli({"pos": 0.8, "neg": 0.1, "neu": 0.1}), "x", "es", "CN") == (2, 0.8)
+    assert score_actor(nli({"pos": 0.6, "neg": 0.3, "neu": 0.1}), "x", "es", "CN") == (1, 0.6)
+    assert score_actor(nli({"pos": 0.45, "neg": 0.3, "neu": 0.25}), "x", "es", "CN") == (0, 0.45)  # no clear reading -> neutral
+    assert score_actor(nli({"pos": 0.1, "neg": 0.2, "neu": 0.7}), "x", "es", "CN") == (0, 0.7)
+    assert score_actor(nli({"pos": 0.1, "neg": 0.85, "neu": 0.05}), "x", "es", "CN") == (-2, 0.85)
+
+
 def test_doc_text_avoids_doubling_the_brazilian_ementa():
     from scm.text.store import doc_text
 
