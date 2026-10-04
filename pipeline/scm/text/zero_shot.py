@@ -41,10 +41,7 @@ def hypotheses(lang: str, actor: str) -> dict[str, str]:
     return {role: h.format(actor=name) for role, h in HYPOTHESES[lang].items()}
 
 
-def score_actor(nli_fn, text: str, lang: str, actor: str) -> tuple[int, float]:
-    """(stance in -2..2, confidence = probability of the winning hypothesis)."""
-    hyp = hypotheses(lang, actor)
-    res = nli_fn(text, list(hyp.values()))
+def _map(res: dict, hyp: dict[str, str]) -> tuple[int, float]:
     by_role = {role: res["scores"][res["labels"].index(h)] for role, h in hyp.items()}
     role = max(by_role, key=by_role.get)
     p = float(by_role[role])
@@ -52,6 +49,21 @@ def score_actor(nli_fn, text: str, lang: str, actor: str) -> tuple[int, float]:
         return 0, p
     sign = 1 if role == "pos" else -1
     return sign * (2 if p >= STRONG else 1), p
+
+
+def score_actor(nli_fn, text: str, lang: str, actor: str) -> tuple[int, float]:
+    """(stance in -2..2, confidence = probability of the winning hypothesis)."""
+    hyp = hypotheses(lang, actor)
+    return _map(nli_fn(text, list(hyp.values())), hyp)
+
+
+def score_actors(nli_fn, texts: list[str], lang: str, actor: str) -> list[tuple[int, float]]:
+    """Batched form of score_actor for texts sharing a language and actor (same hypotheses)."""
+    if not texts:
+        return []
+    hyp = hypotheses(lang, actor)
+    results = nli_fn(list(texts), list(hyp.values()))
+    return [_map(r, hyp) for r in results]
 
 
 def tone_of(sent_fn, texts: list[str]) -> list[tuple[float, float]]:
@@ -81,16 +93,20 @@ def run(warehouse: Path = WAREHOUSE_DIR, limit: int | None = None, force: bool =
         tones = tone_of(sent_fn, [str(t) for t in chunk["text"]])
         rows = []
         stamp = now_iso()
+        recs = {}
         for (_, r), (tone, tconf) in zip(chunk.iterrows(), tones, strict=True):
-            rec = {"doc_id": r["doc_id"], "run_id": run_id, "method": "zero_shot", "model": model, "codebook_version": codebook_version,
-                   "stance_us": pd.NA, "stance_us_conf": None, "stance_cn": pd.NA, "stance_cn_conf": None,
-                   "tone": tone, "tone_conf": tconf, "frame": f"tone:{sent_model}", "created_at": stamp}
-            for actor, flag in (("US", "actor_us"), ("CN", "actor_cn")):
-                if bool(r.get(flag)):
-                    st, conf = score_actor(nli_fn, str(r["text"]), r["lang"], actor)
-                    rec[f"stance_{actor.lower()}"], rec[f"stance_{actor.lower()}_conf"] = st, round(conf, 4)
+            recs[r["doc_id"]] = {"doc_id": r["doc_id"], "run_id": run_id, "method": "zero_shot", "model": model, "codebook_version": codebook_version,
+                                 "stance_us": pd.NA, "stance_us_conf": None, "stance_cn": pd.NA, "stance_cn_conf": None,
+                                 "tone": tone, "tone_conf": tconf, "frame": f"tone:{sent_model}", "created_at": stamp}
+        # stance: one batched NLI call per (language, actor) group of the chunk
+        for actor, flag in (("US", "actor_us"), ("CN", "actor_cn")):
+            sub = chunk[chunk[flag].astype(bool)] if flag in chunk.columns else chunk.iloc[0:0]
+            for lang, group in sub.groupby("lang"):
+                scored = score_actors(nli_fn, [str(t) for t in group["text"]], str(lang), actor)
+                for doc_id, (st, conf) in zip(group["doc_id"], scored, strict=True):
+                    recs[doc_id][f"stance_{actor.lower()}"], recs[doc_id][f"stance_{actor.lower()}_conf"] = st, round(conf, 4)
                     stats["stance_scored"] += 1
-            rows.append(rec)
+        rows = list(recs.values())
         stats["stored"] = upsert("doc_classification", SLOT, pd.DataFrame(rows), warehouse)
         stats["classified"] += len(rows)
         if progress:

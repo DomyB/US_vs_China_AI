@@ -112,7 +112,7 @@ automatically. XML feeds are recorded as fixtures (first 60 items per element).
 | Step | Module | Writes | Notes |
 |---|---|---|---|
 | translate | `text/translate.py` | `doc_translation` (slot `opus_mt`) | opus-mt ROMANCE→en (es, pt) and nl→en; titles by default, `--fields title,summary` for summaries; English records are not translated |
-| classify | `text/zero_shot.py` | `doc_classification` (slot `zero_shot`) | mDeBERTa-xnli with three full-sentence hypotheses per actor, scored only when `mentions_us`/`mentions_cn`; tone from the cardiffnlp multilingual sentiment model; one row per document, method `zero_shot`, codebook version recorded |
+| classify | `text/zero_shot.py` | `doc_classification` (slot `zero_shot`) | mDeBERTa-xnli with three full-sentence hypotheses per actor, scored only when the current keyword rule finds the actor in the text (`actor_us`/`actor_cn`), batched per language and actor; tone from the cardiffnlp multilingual sentiment model; one row per document, method `zero_shot`, codebook version recorded |
 | embed | `text/embed.py` | `doc_embedding` (slot `minilm`) | paraphrase-multilingual-MiniLM, L2-normalised |
 | topics | `text/topics.py` | `topic_model_run`, `topic`, `doc_topic` (slots `parliament`, `media`) | k-means (numpy) + class-based TF-IDF labels; stop-words in `config/stopwords/`; optional labels in `config/topic_labels.yaml`; refitted wholesale each run |
 

@@ -68,9 +68,10 @@ class FakeTranslator:
 
 
 class FakeNLI:
-    """Scores the pos/neg/neu hypotheses from keyword counts; the hypothesis texts carry a role marker."""
+    """Scores the pos/neg/neu hypotheses from keyword counts; the hypothesis texts carry a role marker.
+    Accepts one text or a list of texts (like the real batched scorer)."""
 
-    def __call__(self, text: str, candidate_labels: list[str]) -> dict:
+    def _one(self, text: str, candidate_labels: list[str]) -> dict:
         toks = set(_tokens(text))
         pos, neg = len(toks & POSITIVE_WORDS), len(toks & NEGATIVE_WORDS)
         raw = {}
@@ -81,6 +82,11 @@ class FakeNLI:
         scores = {k: v / z for k, v in raw.items()}
         order = sorted(scores, key=scores.get, reverse=True)
         return {"labels": order, "scores": [scores[k] for k in order]}
+
+    def __call__(self, text, candidate_labels: list[str]):
+        if isinstance(text, (list, tuple)):
+            return [self._one(t, candidate_labels) for t in text]
+        return self._one(text, candidate_labels)
 
 
 class FakeSentiment:
@@ -172,7 +178,16 @@ def nli():
 
     pipe = pipeline("zero-shot-classification", model=MODEL_IDS["nli"], device=-1)
 
-    def score(text: str, candidate_labels: list[str]) -> dict:
+    def score(text, candidate_labels: list[str], batch_size: int = 16):
+        """One text -> {labels, scores}; a list of texts -> list of those (batched: every (text, hypothesis)
+        pair of the list goes through the model together, which is several times faster on CPU than one call per text)."""
+        if isinstance(text, (list, tuple)):
+            texts = [t[:1200] for t in text]
+            if not texts:
+                return []
+            res = pipe(texts, candidate_labels=candidate_labels, hypothesis_template="{}", multi_label=False, batch_size=batch_size)
+            res = res if isinstance(res, list) else [res]
+            return [{"labels": r["labels"], "scores": r["scores"]} for r in res]
         res = pipe(text[:1200], candidate_labels=candidate_labels, hypothesis_template="{}", multi_label=False)
         return {"labels": res["labels"], "scores": res["scores"]}
 
