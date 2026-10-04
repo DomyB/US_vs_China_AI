@@ -5,9 +5,9 @@
    "url": "https://larepublica.pe/",
    "params": {},
    "status": 200,
-   "bytes": 1660053,
-   "sha256": "8f6a7fd0b41f66ab295be0a8ab663476898ed6a8ea886f240f47ae1b88ea917e",
-   "retrieved_at": "2026-10-03T18:03:48+00:00",
+   "bytes": 1633020,
+   "sha256": "f148916e41d847259d5dcf89c1aea6b3cb70295cffdf56cfa362e4d5ddf7294e",
+   "retrieved_at": "2026-10-04T10:51:09+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,15 +15,15 @@
    "url": "https://larepublica.pe/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 1416824,
+   "bytes": 1400907,
    "final_url": "https://larepublica.pe/rss/home.xml",
-   "sha256": "5b5ca4fc3249b593bacad95de041e1e73f09e67e80ad8db97bd91d9e56354a33",
-   "retrieved_at": "2026-10-03T18:03:57+00:00",
+   "sha256": "28ca653c7daa178e0548b7089924c9ac7b20bf656a14816256f81981907c3122",
+   "retrieved_at": "2026-10-04T10:51:17+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_larepublica/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_larepublica/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

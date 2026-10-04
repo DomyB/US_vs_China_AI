@@ -1,7 +1,7 @@
 {
  "source_id": "sur_dwt",
  "files": {},
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/sur_dwt/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/sur_dwt/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "robots_blocked": [
   "https://dwtonline.com",

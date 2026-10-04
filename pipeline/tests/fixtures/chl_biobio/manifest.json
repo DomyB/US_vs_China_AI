@@ -5,9 +5,9 @@
    "url": "https://www.biobiochile.cl/",
    "params": {},
    "status": 200,
-   "bytes": 1245941,
-   "sha256": "465b4928aa0245e306fa2f51a66ba8e5d2bca99a5ebf7887fd479b29ed1d4d98",
-   "retrieved_at": "2026-10-03T18:02:11+00:00",
+   "bytes": 1243533,
+   "sha256": "ccc59968676b2fb01cdd58f260b5ec4bc078fb4f438f75247925dcb0e0e93eba",
+   "retrieved_at": "2026-10-04T10:49:35+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,14 +15,14 @@
    "url": "https://feeds.feedburner.com/radiobiobio/NNeJ",
    "params": {},
    "status": 200,
-   "bytes": 160468,
-   "sha256": "17e61e1d66ab8be948fe5e0fd34d1d06ec8800d6ce42486c844f301bf3b1a423",
-   "retrieved_at": "2026-10-03T18:02:12+00:00",
+   "bytes": 136906,
+   "sha256": "7df01fa319a8a67e05af2b4e6188003fdc682c7f50a4d4bff894461fba9798a5",
+   "retrieved_at": "2026-10-04T10:49:36+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://feeds.feedburner.com/radiobiobio/NNeJ"

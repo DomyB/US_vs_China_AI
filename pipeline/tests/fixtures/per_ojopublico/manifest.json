@@ -7,12 +7,12 @@
    "status": 200,
    "bytes": 392774,
    "sha256": "7c1b1bcdecd994b97b78e49ada22bf618e95487500339feca09f3625a49096c7",
-   "retrieved_at": "2026-10-03T18:03:58+00:00",
+   "retrieved_at": "2026-10-04T10:51:18+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_ojopublico/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_ojopublico/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

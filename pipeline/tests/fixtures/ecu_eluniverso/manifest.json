@@ -5,14 +5,14 @@
    "url": "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml",
    "params": {},
    "status": 200,
-   "bytes": 153172,
-   "sha256": "a7dc91170642bdff79ac8417e0e1c2d009a90e8eb013e9f55af92acceb1e2f43",
-   "retrieved_at": "2026-10-03T18:03:40+00:00",
+   "bytes": 152286,
+   "sha256": "3eda270795d79d113721ceae462a5aaabb672465859e9da6134d5c0d6dbee70d",
+   "retrieved_at": "2026-10-04T10:51:02+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_eluniverso/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_eluniverso/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "index_pages": [
   {
