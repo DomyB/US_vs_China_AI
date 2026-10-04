@@ -11,7 +11,7 @@
    "status": 200,
    "bytes": 6576626,
    "sha256": "43d5f4d2db5aab664f0757635e6f6a52a55d7a2679784560109630f5e24eb5df",
-   "retrieved_at": "2026-10-03T17:53:52+00:00",
+   "retrieved_at": "2026-10-04T12:06:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -25,12 +25,12 @@
    "status": 200,
    "bytes": 1351697,
    "sha256": "08d300f0aff2b5302dacfcd18f9e81e9cc896ea005ba6efe0cce55168009f95e",
-   "retrieved_at": "2026-10-03T17:53:53+00:00",
+   "retrieved_at": "2026-10-04T12:06:35+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_camara/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_camara/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "columns_seen": [
   "autores",

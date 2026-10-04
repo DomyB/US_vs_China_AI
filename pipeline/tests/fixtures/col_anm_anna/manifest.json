@@ -9,14 +9,14 @@
     "limit": 50
    },
    "status": 200,
-   "bytes": 77123,
-   "sha256": "c8b7a441a44ad8684505d8fecf588e0292d8b82bffbedc6b6723f7b34146efa2",
-   "retrieved_at": "2026-10-03T17:55:00+00:00",
+   "bytes": 77112,
+   "sha256": "2845685478f99b6c405e25e026fe3cb59c601716bdc16c99c84cb88f55ebac4e",
+   "retrieved_at": "2026-10-04T12:07:44+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_anm_anna/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_anm_anna/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

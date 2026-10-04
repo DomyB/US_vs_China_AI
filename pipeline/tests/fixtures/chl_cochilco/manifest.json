@@ -6,8 +6,8 @@
    "params": {},
    "status": 200,
    "bytes": 135338,
-   "sha256": "d02315753531ca384f73e1bbc4e1012549765f4d0f3fff2a51688bb9f237e372",
-   "retrieved_at": "2026-10-03T17:55:27+00:00",
+   "sha256": "c5f547ed65ab090b2440e6f0141d261eddbf7b13210f2c50aa3a4abf989cd1c8",
+   "retrieved_at": "2026-10-04T12:08:11+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,7 +17,7 @@
    "status": 200,
    "bytes": 911313,
    "sha256": "80d620da33f59f5913802b9eea924fd895c6e4f4534103afad7107e8c26c1b45",
-   "retrieved_at": "2026-10-03T17:55:30+00:00",
+   "retrieved_at": "2026-10-04T12:08:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -27,7 +27,7 @@
    "status": 200,
    "bytes": 1330111,
    "sha256": "2dbb240838a97ce67c2f7a89f4e310a5293be8d14028867f94b717d1a046ab8a",
-   "retrieved_at": "2026-10-03T17:55:33+00:00",
+   "retrieved_at": "2026-10-04T12:08:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -37,12 +37,12 @@
    "status": 200,
    "bytes": 1564375,
    "sha256": "4541f12c75bfabb27964a649b04f63873aca73671e0b5181fbd4947252d9021b",
-   "retrieved_at": "2026-10-03T17:55:35+00:00",
+   "retrieved_at": "2026-10-04T12:08:19+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_cochilco/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_cochilco/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "spreadsheet_links": [
   "https://www.cochilco.cl/web/download/1036/2026/16850/base-de-datos-anuario-de-estadisticas-cochilco-2000-2025.xlsx",

@@ -6,8 +6,8 @@
    "params": {},
    "status": 200,
    "bytes": 37649,
-   "sha256": "8a5c4d78fa2b857e86cc6a9b1e91f17d49c352b5b1f6495c8d090d7bda66df8b",
-   "retrieved_at": "2026-10-03T17:53:58+00:00",
+   "sha256": "9b57935a68dce022326e38b4718e508ad6991764bc39f6e678d85cf23b729e55",
+   "retrieved_at": "2026-10-04T12:06:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,7 +17,7 @@
    "status": 200,
    "bytes": 37505,
    "sha256": "f8de99e939f0b9a432f1e3fff7c4345fda3e809ff55051dc2d5d3797b25403a3",
-   "retrieved_at": "2026-10-03T17:53:58+00:00",
+   "retrieved_at": "2026-10-04T12:06:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -31,7 +31,7 @@
    "status": 200,
    "bytes": 37505,
    "sha256": "f8de99e939f0b9a432f1e3fff7c4345fda3e809ff55051dc2d5d3797b25403a3",
-   "retrieved_at": "2026-10-03T17:53:59+00:00",
+   "retrieved_at": "2026-10-04T12:06:42+00:00",
    "note": null,
    "trimmed": true
   },
@@ -45,7 +45,7 @@
    "status": 200,
    "bytes": 37505,
    "sha256": "f8de99e939f0b9a432f1e3fff7c4345fda3e809ff55051dc2d5d3797b25403a3",
-   "retrieved_at": "2026-10-03T17:54:00+00:00",
+   "retrieved_at": "2026-10-04T12:06:42+00:00",
    "note": null,
    "trimmed": true
   },
@@ -59,7 +59,7 @@
    "status": 200,
    "bytes": 31091,
    "sha256": "bccd20e7a37ed1a3c36af037a21981fd90538e532ce0c1fa1648a2069b53be4f",
-   "retrieved_at": "2026-10-03T17:54:01+00:00",
+   "retrieved_at": "2026-10-04T12:06:43+00:00",
    "note": null,
    "trimmed": true
   },
@@ -73,7 +73,7 @@
    "status": 200,
    "bytes": 35226,
    "sha256": "7951d8ef06f103c63792f9b49c45c87890a0687eb811215cf53c0357e84b6ca6",
-   "retrieved_at": "2026-10-03T17:54:02+00:00",
+   "retrieved_at": "2026-10-04T12:06:45+00:00",
    "note": null,
    "trimmed": true
   },
@@ -87,7 +87,7 @@
    "status": 200,
    "bytes": 35149,
    "sha256": "92bf9397f49b88d55103dbcba9d456d6c4ed0396bbe6ae5c9eec58083e9ec2b8",
-   "retrieved_at": "2026-10-03T17:54:03+00:00",
+   "retrieved_at": "2026-10-04T12:06:45+00:00",
    "note": null,
    "trimmed": true
   },
@@ -101,7 +101,7 @@
    "status": 200,
    "bytes": 34078,
    "sha256": "9c3900dc38957f886cf4b76fa7e1961fe5ba6ad64e42735b2ce2a4001fe89214",
-   "retrieved_at": "2026-10-03T17:54:04+00:00",
+   "retrieved_at": "2026-10-04T12:06:46+00:00",
    "note": null,
    "trimmed": true
   },
@@ -115,7 +115,7 @@
    "status": 200,
    "bytes": 36583,
    "sha256": "9e8169e5e4078532c19525715df74c8803b7745ae7a690c27434bd2ef9bba40e",
-   "retrieved_at": "2026-10-03T17:54:06+00:00",
+   "retrieved_at": "2026-10-04T12:06:48+00:00",
    "note": null,
    "trimmed": true
   },
@@ -129,7 +129,7 @@
    "status": 200,
    "bytes": 33740,
    "sha256": "7affb544a5f48b5099e9e45f9adda32911665c65332fe8e038da5b1c0cd29fec",
-   "retrieved_at": "2026-10-03T17:54:06+00:00",
+   "retrieved_at": "2026-10-04T12:06:48+00:00",
    "note": null,
    "trimmed": true
   },
@@ -143,7 +143,7 @@
    "status": 200,
    "bytes": 32873,
    "sha256": "155a911fc3ed880a65aecff685fbdb36596b003a6b6469e943f88bfd989dfe6a",
-   "retrieved_at": "2026-10-03T17:54:08+00:00",
+   "retrieved_at": "2026-10-04T12:06:49+00:00",
    "note": null,
    "trimmed": true
   },
@@ -157,7 +157,7 @@
    "status": 200,
    "bytes": 28269,
    "sha256": "7ad35c825ba8e77415b17f27c620db3e397d48a8241ceabfbeb174784ecda7e8",
-   "retrieved_at": "2026-10-03T17:54:08+00:00",
+   "retrieved_at": "2026-10-04T12:06:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -171,7 +171,7 @@
    "status": 200,
    "bytes": 31595,
    "sha256": "750e09eb8022e7355fa9a010a88337a15ec992e812fa351dfaa46867586ce1bc",
-   "retrieved_at": "2026-10-03T17:54:09+00:00",
+   "retrieved_at": "2026-10-04T12:06:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -185,7 +185,7 @@
    "status": 200,
    "bytes": 40149,
    "sha256": "40ef6222df9e8c3c74cd8a3823bd9e9e137ffb5c0ce6c397cfc58c9d872c2622",
-   "retrieved_at": "2026-10-03T17:54:11+00:00",
+   "retrieved_at": "2026-10-04T12:06:53+00:00",
    "note": null,
    "trimmed": true
   },
@@ -199,7 +199,7 @@
    "status": 200,
    "bytes": 2,
    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-   "retrieved_at": "2026-10-03T17:54:11+00:00",
+   "retrieved_at": "2026-10-04T12:06:53+00:00",
    "note": null,
    "trimmed": true
   },
@@ -208,15 +208,15 @@
    "params": {},
    "status": 200,
    "bytes": 35853,
-   "sha256": "e72fb1169b5166dea89c971cc8f1b97c11f0f56358ddad08e299c68962a0aae2",
-   "retrieved_at": "2026-10-03T17:54:13+00:00",
+   "sha256": "35d5d9d2cdd2942ca55a8eba3c7fe54451b139214a2404bab179d40192567a19",
+   "retrieved_at": "2026-10-04T12:06:55+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_silpy/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_silpy/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "index_head": "<?xml version='1.0' encoding='UTF-8' ?>\n<!DOCTYPE composition>\n<html xmlns=\"http://www.w3.org/1999/xhtml\"><head id=\"j_idt2\"><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/theme.css.pmf?ln=primefaces-bootstrap\" /><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/css/default.css.pmf;jsessionid=2e6bb75709ef5f1a379dc4457d27\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery.js.pmf;jsessionid=2e6bb75709ef5f1a379dc4457d27?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery-plugins.js.pmf;jsessionid=2e6bb75709ef5f1a379dc4457d27?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/core.js.pmf;jsessionid=2e6bb75709ef5f1a379dc4457d27?ln=primefaces&amp;v=6.2\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/components.css.pmf;jsessionid=2e6bb75709ef5f1a379dc4457d27?ln=primefaces&amp;v=6.2\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/components.js.pmf;jsessionid=2e6bb75709ef5f1a379dc4457d27?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\">if(window.PrimeFaces){PrimeFaces.settings.locale='es';PrimeFaces.settings.projectStage='Development';}</script>\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n        <meta http-equiv=\"refresh\" content=\"1800;url=https://datos.congreso.gov.py/opendata/i",
+ "index_head": "<?xml version='1.0' encoding='UTF-8' ?>\n<!DOCTYPE composition>\n<html xmlns=\"http://www.w3.org/1999/xhtml\"><head id=\"j_idt2\"><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/theme.css.pmf?ln=primefaces-bootstrap\" /><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/css/default.css.pmf;jsessionid=6cf211b41a50e6200f60ce7dd7aa\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery.js.pmf;jsessionid=6cf211b41a50e6200f60ce7dd7aa?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/jquery/jquery-plugins.js.pmf;jsessionid=6cf211b41a50e6200f60ce7dd7aa?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/core.js.pmf;jsessionid=6cf211b41a50e6200f60ce7dd7aa?ln=primefaces&amp;v=6.2\"></script><link type=\"text/css\" rel=\"stylesheet\" href=\"/opendata/javax.faces.resource/components.css.pmf;jsessionid=6cf211b41a50e6200f60ce7dd7aa?ln=primefaces&amp;v=6.2\" /><script type=\"text/javascript\" src=\"/opendata/javax.faces.resource/components.js.pmf;jsessionid=6cf211b41a50e6200f60ce7dd7aa?ln=primefaces&amp;v=6.2\"></script><script type=\"text/javascript\">if(window.PrimeFaces){PrimeFaces.settings.locale='es';PrimeFaces.settings.projectStage='Development';}</script>\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n        <meta http-equiv=\"refresh\" content=\"1800;url=https://datos.congreso.gov.py/opendata/i",
  "route_used": "https://datos.congreso.gov.py/opendata/api/data/proyecto",
  "route_sample": "[{\"acapite\": \"QUE DESAFECTA DEL DOMINIO P\u00daBLICO MUNICIPAL AL DOMINIO PRIVADO MUNICIPAL LA FRACCI\u00d3N CON CTA. CTE. CTRAL. N\u00ba 15-0062-01 (PARTE) DEL DISTRITO DE SANT\u00cdSIMA TRINIDAD - presentado por el Diputado Antonio Buzarquis.\", \"appURL\": \"http://silpy.congreso.gov.py/expediente/129338\", \"descripcionEtapa\": \"PRIMER TR\u00c1MITE CONSTITUCIONAL\", \"descripcionSubEtapa\": \"DICTAMEN DE COMISI\u00d3N\", \"estadoProyecto\": \"EN TRAMITE\", \"expedienteCamara\": \"D-2163904\", \"fechaIngresoExpediente\": \"01/09/2021\", \"idProyecto\": 129338, \"iniciativa\": \"PARLAMENTARIA\", \"origenProyecto\": \"CAMARA DE DIPUTADOS\", \"tipoProyecto\": \"PROYECTO DE LEY\", \"urgencia\": \"ORDINARIO\"}, {\"acapite\": \"\u00d1E-EASA, \u00d1E-ENDY HA \u00d1E-E OJEHEKOVEJOPYVA REHEGUA AMANDAJE PYTAGUA \u201cJAGUEROJERA \u00d1ANE \u00d1E-E GUARANI\u201d, OITAHAPE TET\u00c3YGUA HA\u201d, OMBOSAKO-IVA FUNDACION YVY MAR\u00c3E-Y, CONSEJO NACIONAL DE CIENCIA Y TECNOLOGIA \u2013 CONACYT PYTYV\u00d5ME\u201d (QUE DECLARA DE INTER\u00c9S NACIONAL EL SEMINARIO INTERNACIONAL SOBRE TRADUCCI\u00d3N, TERMINOLOG\u00cdA Y LENGUAS MINORIZADAS \u201cJAGUEROJERA \u00d1ANE \u00d1E-E GUARANI\u201d, ORGANIZADO POR LA FUNDACI\u00d3N YVY MAR\u00c3E-Y, CON EL APOYO DEL CONSEJO NACIONAL DE CIENCIA Y TECNOLOGIA \u2013 CONACYT. Presentado por el Diputado Ramon Duarte.\", \"appURL\": \"http://silp",
  "paging_param": "offset",

@@ -7,7 +7,7 @@
    "status": 200,
    "bytes": 25075468,
    "sha256": "11c1bdf459632ea1b2aa745cce6d0029b1ec766145b7d5847f45ee04153c9d27",
-   "retrieved_at": "2026-10-03T17:17:41+00:00",
+   "retrieved_at": "2026-10-04T11:30:07+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,7 +17,7 @@
    "status": 200,
    "bytes": 26982139,
    "sha256": "b83efd3ca257f6dd3a0a3a1a485041e3157563bd2b8593574b99e9a2fc254c69",
-   "retrieved_at": "2026-10-03T17:17:43+00:00",
+   "retrieved_at": "2026-10-04T11:30:08+00:00",
    "note": null,
    "trimmed": true
   },
@@ -27,7 +27,7 @@
    "status": 200,
    "bytes": 15888349,
    "sha256": "0f9089c96f95e49bbea12da1d79027813170102b584e2f37400aee4e3e835958",
-   "retrieved_at": "2026-10-03T17:17:43+00:00",
+   "retrieved_at": "2026-10-04T11:30:09+00:00",
    "note": null,
    "trimmed": true
   },
@@ -37,7 +37,7 @@
    "status": 200,
    "bytes": 28580070,
    "sha256": "e12909dd21e6d0b29ba631200b899725a85bfc1be659816a2b2dbbb19a8148b1",
-   "retrieved_at": "2026-10-03T17:17:44+00:00",
+   "retrieved_at": "2026-10-04T11:30:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -47,7 +47,7 @@
    "status": 200,
    "bytes": 19585199,
    "sha256": "8b3c06c64177cc598c810f85df055c43d9e5ba941c797f0611eeaca1c04ab936",
-   "retrieved_at": "2026-10-03T17:17:45+00:00",
+   "retrieved_at": "2026-10-04T11:30:11+00:00",
    "note": null,
    "trimmed": true
   },
@@ -57,7 +57,7 @@
    "status": 200,
    "bytes": 24332528,
    "sha256": "a6891ce12a41fdc0ba7778156ca03652f5e5c34f68c6d72358cb070db9f7dfe8",
-   "retrieved_at": "2026-10-03T17:17:46+00:00",
+   "retrieved_at": "2026-10-04T11:30:12+00:00",
    "note": null,
    "trimmed": true
   },
@@ -67,7 +67,7 @@
    "status": 200,
    "bytes": 14590520,
    "sha256": "beed74afe66d21ee0d5c51cf4176c94a65fe9e79017e03c5620d5bcc447127d7",
-   "retrieved_at": "2026-10-03T17:17:47+00:00",
+   "retrieved_at": "2026-10-04T11:30:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -77,7 +77,7 @@
    "status": 200,
    "bytes": 34170528,
    "sha256": "c28e15a4b97569821f4862c272f9e97176fc7ad94fc8aac8f340d658718bae50",
-   "retrieved_at": "2026-10-03T17:17:48+00:00",
+   "retrieved_at": "2026-10-04T11:30:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -87,7 +87,7 @@
    "status": 200,
    "bytes": 21375725,
    "sha256": "ae0bde5e38074c3aafc691d7c83c9dece851cfca96da97cd9ca76e8fc29bc0a1",
-   "retrieved_at": "2026-10-03T17:17:49+00:00",
+   "retrieved_at": "2026-10-04T11:30:15+00:00",
    "note": null,
    "trimmed": true
   },
@@ -97,7 +97,7 @@
    "status": 200,
    "bytes": 27697571,
    "sha256": "c70dd8c5320a667fb1c4b0b3c947882cf3fdb78a58ba721bf0e2dcb2826b8529",
-   "retrieved_at": "2026-10-03T17:17:50+00:00",
+   "retrieved_at": "2026-10-04T11:30:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -107,7 +107,7 @@
    "status": 200,
    "bytes": 16246521,
    "sha256": "96ef742479360b379bc479f48b3e3c662d26c439177fcb0d9ec2d0baf3c93717",
-   "retrieved_at": "2026-10-03T17:17:51+00:00",
+   "retrieved_at": "2026-10-04T11:30:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -117,7 +117,7 @@
    "status": 200,
    "bytes": 33295861,
    "sha256": "0201db5375056f5fcc8168124c23ac275a1e6de0231fe27d05e4c5f15da6ba15",
-   "retrieved_at": "2026-10-03T17:17:52+00:00",
+   "retrieved_at": "2026-10-04T11:30:19+00:00",
    "note": null,
    "trimmed": true
   },
@@ -127,7 +127,7 @@
    "status": 200,
    "bytes": 114,
    "sha256": "48f7075de5b7bf4ebcf604a14b6f62edac533af3e9cc9b323368e1b1bdf698e8",
-   "retrieved_at": "2026-10-03T17:21:01+00:00",
+   "retrieved_at": "2026-10-04T11:33:25+00:00",
    "note": null,
    "trimmed": true
   },
@@ -137,7 +137,7 @@
    "status": 200,
    "bytes": 114,
    "sha256": "72940a566c6a973a1826d4db044c36813dfdb9a6067790788a0e3b296528a0fe",
-   "retrieved_at": "2026-10-03T17:21:01+00:00",
+   "retrieved_at": "2026-10-04T11:33:25+00:00",
    "note": null,
    "trimmed": true
   },
@@ -147,7 +147,7 @@
    "status": 200,
    "bytes": 113,
    "sha256": "07658cdb11fd33b36f54aa3f7ce6765c2db658084352800accbde8b38c10f95a",
-   "retrieved_at": "2026-10-03T17:21:01+00:00",
+   "retrieved_at": "2026-10-04T11:33:26+00:00",
    "note": null,
    "trimmed": true
   },
@@ -157,7 +157,7 @@
    "status": 200,
    "bytes": 113,
    "sha256": "99ef348e044bedadbcbf63c23ab6ab4b9f0f966ab5f95a1cf9ced3b223a08c69",
-   "retrieved_at": "2026-10-03T17:21:02+00:00",
+   "retrieved_at": "2026-10-04T11:33:27+00:00",
    "note": null,
    "trimmed": true
   },
@@ -167,7 +167,7 @@
    "status": 200,
    "bytes": 113,
    "sha256": "013d13cf7cd8d21a4c045458f7152f7bb70452727b3f2710c5e49f69f94bb88e",
-   "retrieved_at": "2026-10-03T17:21:03+00:00",
+   "retrieved_at": "2026-10-04T11:33:27+00:00",
    "note": null,
    "trimmed": true
   },
@@ -177,7 +177,7 @@
    "status": 200,
    "bytes": 113,
    "sha256": "8ad7b7928759d90f76d2047a295b5aa89d4ced2a52848147fe2aa8ca98f7cd14",
-   "retrieved_at": "2026-10-03T17:21:03+00:00",
+   "retrieved_at": "2026-10-04T11:33:28+00:00",
    "note": null,
    "trimmed": true
   },
@@ -187,7 +187,7 @@
    "status": 200,
    "bytes": 113,
    "sha256": "9600bb24ebacf893c7b61a21251b69312cbd6e0609ed3d169269c3139ef3339b",
-   "retrieved_at": "2026-10-03T17:21:04+00:00",
+   "retrieved_at": "2026-10-04T11:33:29+00:00",
    "note": null,
    "trimmed": true
   },
@@ -197,7 +197,7 @@
    "status": 200,
    "bytes": 114,
    "sha256": "977fb091b3e8289edfb215da0f2c5804a91871b32f7df5cde0f6903486388d32",
-   "retrieved_at": "2026-10-03T17:21:05+00:00",
+   "retrieved_at": "2026-10-04T11:33:29+00:00",
    "note": null,
    "trimmed": true
   },
@@ -207,7 +207,7 @@
    "status": 200,
    "bytes": 114,
    "sha256": "937945175658ec06210f12918255c6cc76c9b67828b1c7983ae7de09e93199ac",
-   "retrieved_at": "2026-10-03T17:21:05+00:00",
+   "retrieved_at": "2026-10-04T11:33:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -217,7 +217,7 @@
    "status": 200,
    "bytes": 114,
    "sha256": "082c68e15e0034fddd3e4981fda541b3c4b9ed911969e95d977ecc86f47c40f0",
-   "retrieved_at": "2026-10-03T17:21:06+00:00",
+   "retrieved_at": "2026-10-04T11:33:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -227,7 +227,7 @@
    "status": 200,
    "bytes": 114,
    "sha256": "9459e081589c1183a5bda55d42a3ae9b80b55a3f118832a18d899333cb881222",
-   "retrieved_at": "2026-10-03T17:21:06+00:00",
+   "retrieved_at": "2026-10-04T11:33:31+00:00",
    "note": null,
    "trimmed": true
   },
@@ -237,12 +237,12 @@
    "status": 200,
    "bytes": 114,
    "sha256": "7b426eb4c0526fcad557d709df76cafd854e3db466b8dd3dc9bd69f667906a21",
-   "retrieved_at": "2026-10-03T17:21:07+00:00",
+   "retrieved_at": "2026-10-04T11:33:31+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_camara_api/2026-10-03",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_camara_api/2026-10-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "kept_votes": 963,
  "omitted": [
