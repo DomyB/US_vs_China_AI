@@ -26,13 +26,17 @@ export function SampleBanner() {
   const countriesWithFacts = Object.values(real.coverage).filter((c) => c.actions).length;
   const withParliament = Object.values(real.coverage).filter((c) => c.parliament_available).length;
   const withMedia = Object.values(real.coverage).filter((c) => c.media_available).length;
-  const textLayers = withParliament || withMedia
-    ? ` Parliament and media: real records for ${withParliament} and ${withMedia} countries, not yet classified; stance series and narratives remain SAMPLE until Phase 3.`
-    : " Parliament and media: SAMPLE until Phase 2b/3.";
+  const tm = real.text_model;
+  const classified = Object.values(real.coverage).reduce((n, c) => n + (c.parliament_classified ?? 0) + (c.media_classified ?? 0), 0);
+  const textLayers = classified > 0 && tm?.method
+    ? ` Parliament and media: real records for ${withParliament} and ${withMedia} countries; stance, tone, translations and narratives are MODEL OUTPUTS (${tm.validated && tm.kappa_stance_pooled !== null ? `validated, κ=${tm.kappa_stance_pooled.toFixed(2)} on ${tm.n_coded} hand-coded records` : "zero-shot baseline, not yet validated"}).`
+    : withParliament || withMedia
+      ? ` Parliament and media: real records for ${withParliament} and ${withMedia} countries, not yet classified; stance series and narratives remain SAMPLE.`
+      : " Parliament and media: SAMPLE until Phase 2b/3.";
   return (
     <div role="status" className="bg-sample px-3 py-1.5 text-center text-xs font-semibold tracking-wide text-white">
       MIXED DATA · Facts layer (actions, trade, governance): real data from {real.sources_ok.length} sources, ingested {real.generated_on}, covering {countriesWithFacts} of 12 countries; blocks are labelled per panel.
-      Model outputs and forecasts: SAMPLE until Phases 4–5.{textLayers}
+      Indices and forecasts: SAMPLE until Phases 4–5.{textLayers}
     </div>
   );
 }

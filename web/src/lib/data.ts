@@ -1,4 +1,4 @@
-import type { CountryCoverage, CountryData, IndexFile, IndexRow, Meta, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
+import type { ValidationFile, CountryCoverage, CountryData, IndexFile, IndexRow, Meta, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -45,8 +45,9 @@ export async function loadCountry(iso3: string): Promise<CountryData> {
 
 /**
  * Pure merge of the real layers into the sample country file. Actions and governance are replaced
- * wholesale; for parliament and media only the record lists are replaced (stance series, volume
- * and narratives stay sample until Phase 3) and the layer is marked "facts_only".
+ * wholesale. For parliament and media the record lists are replaced; when the real file also carries
+ * the model-output series (stance series, volume, narratives: Phase 3) they replace the sample series
+ * and the layer is "real", otherwise the series stay sample and the layer is "facts_only".
  */
 export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | undefined, real: RealCountryData | null, parliament: RealParliamentFile | null, media: RealMediaFile | null): CountryData {
   sample.layers = { actions: "sample", governance: "none", parliament: "sample", media: "sample", analysis: "sample", forecast: "sample" };
@@ -62,15 +63,23 @@ export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | unde
     sample.freshness = { ...sample.freshness, governance: real.freshness.governance };
     sample.layers.governance = "real";
   }
+  sample.text_model = null;
   if (parliament && cov.parliament_available) {
-    sample.parliament = { ...sample.parliament, documents: parliament.documents };
+    const coded = Array.isArray(parliament.stance_series);
+    sample.parliament = { ...sample.parliament, documents: parliament.documents, ...(coded ? { stance_series: parliament.stance_series! } : {}) };
     sample.freshness = { ...sample.freshness, parliament: parliament.freshness };
-    sample.layers.parliament = "facts_only";
+    sample.layers.parliament = coded ? "real" : "facts_only";
+    if (coded) sample.text_model = parliament.text_model ?? null;
   }
   if (media && cov.media_available) {
-    sample.media = { ...sample.media, articles: media.articles };
+    const coded = Array.isArray(media.volume);
+    sample.media = { ...sample.media, articles: media.articles, ...(coded ? { volume: media.volume!, narratives: media.narratives ?? [] } : {}) };
     sample.freshness = { ...sample.freshness, media: media.freshness };
-    sample.layers.media = "facts_only";
+    sample.layers.media = coded ? "real" : "facts_only";
+    if (coded) {
+      sample.text_model = sample.text_model ?? media.text_model ?? null;
+      sample.media_volume_basis = media.volume_basis;
+    }
   }
   sample.parliament_note = cov.parliament_note ?? null;
   return sample;
@@ -113,4 +122,13 @@ export function mapValue(lookup: IndexLookup, iso3: string, year: number, mode: 
   }
   const r = lookup.get(indexKey(iso3, year, mode, mineral));
   return r ? r.value : null;
+}
+
+/** Validation metrics for the methodology page (absent until the text workflow has run). */
+export async function loadValidation(): Promise<ValidationFile | null> {
+  try {
+    return await getJSON<ValidationFile>(`${REAL}/validation.json`);
+  } catch {
+    return null;
+  }
 }

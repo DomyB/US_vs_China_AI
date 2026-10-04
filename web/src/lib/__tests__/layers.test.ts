@@ -37,9 +37,30 @@ describe("mergeRealLayers", () => {
     expect(out.parliament.documents[0].id).toBe("s1");
     expect(out.parliament_note).toBe("PDF only");
   });
+  it("marks a layer real and replaces its series when the real file carries model outputs", () => {
+    const status = { method: "zero_shot", model: "nli", codebook_version: "v1", run_id: "r", validated: false, kappa_stance_pooled: null, alpha_stance_pooled: null, macro_f1_held_out: null, beats_baseline: null, n_coded: 0, n_total: 2, n_classified: 2, label: "zero-shot baseline, not yet validated" } as const;
+    const parlReal = { ...parliament, stance_series: [{ year: 2024, stance_us_mean: null, stance_cn_mean: 1, n_docs: 1 }], text_model: status } as unknown as RealParliamentFile;
+    const mediaReal = { ...media, volume: [{ year: 2026, articles_us: 0, articles_cn: 1, total_articles: 40, tone_us: null, tone_cn: -0.3 }], volume_basis: "feed_totals", narratives: [], text_model: status } as unknown as RealMediaFile;
+    const out = mergeRealLayers(sample(), cov, null, parlReal, mediaReal);
+    expect(out.layers?.parliament).toBe("real");
+    expect(out.layers?.media).toBe("real");
+    expect(out.parliament.stance_series).toEqual([{ year: 2024, stance_us_mean: null, stance_cn_mean: 1, n_docs: 1 }]);
+    expect(out.media.volume[0].total_articles).toBe(40);
+    expect(out.media.narratives).toEqual([]);
+    expect(out.media_volume_basis).toBe("feed_totals");
+    expect(out.text_model?.method).toBe("zero_shot");
+  });
+  it("keeps facts_only when only one layer carries model outputs", () => {
+    const parlReal = { ...parliament, stance_series: [], text_model: { method: "zero_shot", validated: false } } as unknown as RealParliamentFile;
+    const out = mergeRealLayers(sample(), cov, null, parlReal, media);
+    expect(out.layers?.parliament).toBe("real");
+    expect(out.layers?.media).toBe("facts_only");
+    expect(out.media.narratives[0].label).toBe("x");
+  });
   it("returns the sample untouched without coverage", () => {
     const out = mergeRealLayers(sample(), undefined, null, null, null);
     expect(out.layers?.parliament).toBe("sample");
     expect(out.parliament_note).toBeUndefined();
+    expect(out.text_model).toBeUndefined();
   });
 });

@@ -1,0 +1,130 @@
+name: Text analysis (Phase 3)
+
+on:
+  schedule:
+    - cron: "17 5 * * 4"   # Thursdays 05:17 UTC, after Wednesday's press run and the monthly run on the 3rd
+  workflow_dispatch:
+    inputs:
+      steps:
+        description: "Comma-separated steps in order: translate,classify,embed,topics"
+        default: "translate,classify,embed,topics"
+      limit:
+        description: "Documents per step (leave empty for all; use 200 for a smoke run)"
+        default: ""
+      force:
+        description: "Recompute documents that already have rows"
+        type: boolean
+        default: false
+      codebook_version:
+        description: "Codebook version recorded with every classification"
+        default: "v1"
+      fields:
+        description: "Translation fields: title or title,summary"
+        default: "title"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: ingest-${{ github.ref }}   # never runs beside an ingestion job (both restore and publish the data release)
+  cancel-in-progress: false
+
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: pipeline
+    env:
+      SCM_MEM_LIMIT_GB: "0"
+      HF_HOME: /home/runner/.cache/huggingface
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      TOKENIZERS_PARALLELISM: "false"
+      OMP_NUM_THREADS: "4"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install the pipeline with the ML extra (CPU torch wheel first)
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -e ".[dev,ml]"
+      - name: Cache the model weights
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/.cache/huggingface/hub
+          key: hf-${{ hashFiles('pipeline/scm/text/models.py') }}
+      - name: Restore the previous warehouse release
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/restore_release.sh
+      - name: Runner resources before the text steps
+        run: df -h / && free -m
+      - name: Text steps
+        id: classify
+        continue-on-error: true
+        run: |
+          python -u -m scm classify --steps "${{ inputs.steps || 'translate,classify,embed,topics' }}" ${{ inputs.limit && format('--limit {0}', inputs.limit) || '' }} ${{ inputs.force && '--force' || '' }} --codebook-version "${{ inputs.codebook_version || 'v1' }}" --fields "${{ inputs.fields || 'title' }}" 2> ../classify.log | tee ../classify-progress.jsonl
+      - name: Runner resources after the text steps
+        if: always()
+        run: df -h / && free -m && du -sh /home/runner/.cache/huggingface/hub 2>/dev/null || true
+      - name: Build warehouse and export site data
+        run: |
+          python -m scm build
+          python -m scm export
+      - name: Tests
+        id: tests
+        continue-on-error: true
+        run: pytest -q
+      - name: Guard - the warehouse must not have regressed against the restored release
+        run: python -m scm stats --not-below /tmp/restored.json
+      - name: Commit site data
+        run: |
+          cd ..
+          git config user.name "scm-bot"
+          git config user.email "scm-bot@users.noreply.github.com"
+          git add web/public/data/real
+          git diff --cached --quiet || git commit -m "data: text analysis $(date -u +%Y-%m-%d) [skip ci]"
+          git pull --rebase --autostash origin "${{ github.ref_name }}"
+          git push origin HEAD:"${{ github.ref_name }}"
+      - name: Package Parquet release
+        working-directory: ${{ github.workspace }}
+        run: .github/scripts/package_release.sh
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          name: Data release ${{ env.TAG }}
+          body: "Parquet warehouse with text-model outputs (restored from ${{ env.RESTORED_TAG || 'an empty warehouse' }}). Model-output tables carry model, run and codebook version."
+          files: warehouse-${{ env.TAG }}.tar.gz
+      - name: Upload logs (debugging)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: text-analysis-${{ github.run_id }}
+          path: |
+            classify.log
+            classify-progress.jsonl
+          retention-days: 14
+      - name: Open or update an issue on failure
+        if: failure() || steps.classify.outcome == 'failure' || steps.tests.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = "Text analysis workflow needs attention";
+            const body = `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}\n\nText steps: ${{ steps.classify.outcome }} · tests: ${{ steps.tests.outcome }}. See the classify.log artifact.`;
+            const { data: issues } = await github.rest.issues.listForRepo({ ...context.repo, state: "open", labels: "text-analysis" });
+            if (issues.length) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issues[0].number, body });
+            } else {
+              await github.rest.issues.create({ ...context.repo, title, body, labels: ["text-analysis"] });
+            }
+      - name: Fail the job if the text steps or tests failed
+        if: steps.classify.outcome == 'failure' || steps.tests.outcome == 'failure'
+        run: exit 1

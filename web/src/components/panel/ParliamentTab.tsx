@@ -3,7 +3,7 @@
 import * as Plot from "@observablehq/plot";
 import { useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
-import { DataLayerTag, LayerLabel, StanceBadge } from "@/components/ui/Badges";
+import { DataLayerTag, LayerLabel, ModelStatusTag, StanceBadge } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { ACTOR_COLOR, LANGUAGE_NAME, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtDate } from "@/lib/format";
@@ -13,8 +13,8 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
   const series = useMemo(() => {
     const long: { year: number; actor: string; stance: number; n: number }[] = [];
     for (const r of data.parliament.stance_series) {
-      long.push({ year: r.year, actor: "US", stance: r.stance_us_mean, n: r.n_docs });
-      long.push({ year: r.year, actor: "CN", stance: r.stance_cn_mean, n: r.n_docs });
+      if (r.stance_us_mean !== null && r.stance_us_mean !== undefined) long.push({ year: r.year, actor: "US", stance: r.stance_us_mean, n: r.n_docs });
+      if (r.stance_cn_mean !== null && r.stance_cn_mean !== undefined) long.push({ year: r.year, actor: "CN", stance: r.stance_cn_mean, n: r.n_docs });
     }
     return long;
   }, [data]);
@@ -56,13 +56,14 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
       <section aria-labelledby="stance-h">
         <div className="mb-1 flex items-center justify-between">
           <h3 id="stance-h" className="text-sm font-semibold">Legislative stance over time</h3>
-          <span className="flex items-center gap-1.5"><LayerLabel layer="model" /><DataLayerTag layer="sample" /></span>
+          <span className="flex items-center gap-1.5"><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</span>
         </div>
         <p className="mb-2 text-xs text-ink-3">
-          Mean coded stance of bills, debates and votes that mention each actor. Coding method and validation scores are on the methodology page.
-          {layer === "facts_only" && " This series is SAMPLE until Phase 3 classifies the real records listed below."}
+          Mean stance of bills, hearings and votes that name each actor (records that name neither are not scored). Coding method and validation scores are on the methodology page.
+          {layer === "facts_only" && " This series is SAMPLE until the text workflow classifies the real records listed below."}
+          {layer === "real" && !data.text_model?.validated && " Values come from a zero-shot baseline that has not yet been checked against hand-coded records: read them as indicative."}
         </p>
-        <PlotFigure options={options} ariaLabel={`Mean parliamentary stance toward the United States and China in ${data.name}, 2008 to 2026, sample data`} />
+        <PlotFigure options={options} ariaLabel={`Mean parliamentary stance toward the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
         <DataTable rows={series} caption="Mean stance by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Toward" }, { key: "stance", label: "Mean stance" }, { key: "n", label: "Documents" }]} />
       </section>
 
@@ -71,9 +72,10 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
           <h3 id="docs-h" className="text-sm font-semibold">Records in {year}</h3>
           <span className="flex items-center gap-1.5"><LayerLabel layer="facts" /><DataLayerTag layer={layer} /></span>
         </div>
-        {layer === "facts_only" && (
+        {(layer === "facts_only" || layer === "real") && (
           <p className="mb-1 text-xs text-ink-3">
-            {total} bills, hearings and votes about mining, minerals or the two powers (keyword-selected at ingestion; original language; stance not yet classified).
+            {total} bills, hearings and votes about mining, minerals or the two powers (keyword-selected at ingestion; original language
+            {layer === "real" ? "; stance and tone are model outputs, English titles are machine translations" : "; stance not yet classified"}).
           </p>
         )}
         {data.parliament_note && layer !== "facts_only" && (
@@ -99,9 +101,12 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
                   <span>{prettyLabel(d.type)}</span>
                 </div>
                 <p className="mt-0.5 font-medium" lang={d.language}>{d.title_original}</p>
-                <p className="text-xs text-ink-2">
-                  <span className="text-ink-3">{LANGUAGE_NAME[d.language] ?? d.language} original · English:</span> {d.title_en ?? <span className="text-ink-3">translation in Phase 3</span>}
-                </p>
+                {d.language !== "en" && (
+                  <p className="text-xs text-ink-2">
+                    <span className="text-ink-3">{LANGUAGE_NAME[d.language] ?? d.language} original · English{d.translation?.method === "mt" ? " (machine translation)" : d.translation?.method === "human" ? " (human translation)" : ""}:</span>{" "}
+                    {d.title_en ?? <span className="text-ink-3">{layer === "real" ? "translation pending" : "not yet translated"}</span>}
+                  </p>
+                )}
                 {d.status && <p className="text-xs text-ink-3">Status: {d.status}</p>}
                 {d.vote && (
                   <p className="mt-0.5 text-xs tabular-nums text-ink-2">
@@ -114,8 +119,8 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
                   </p>
                 )}
                 <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                  <StanceBadge value={d.stance_us} toward="US" />
-                  <StanceBadge value={d.stance_cn} toward="CN" />
+                  <StanceBadge value={d.stance_us} toward="US" coded={d.classification === "coded"} />
+                  <StanceBadge value={d.stance_cn} toward="CN" coded={d.classification === "coded"} />
                   <span className="text-[11px] text-ink-3">{d.topic_minerals.map(prettyMineral).join(", ")}</span>
                   <span className="ml-auto"><SourceLink source={d.source} compact /></span>
                 </div>

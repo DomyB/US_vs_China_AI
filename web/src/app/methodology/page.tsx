@@ -1,3 +1,4 @@
+import { ValidationMetrics } from "@/components/methodology/ValidationMetrics";
 import Link from "next/link";
 import { LayerLabel } from "@/components/ui/Badges";
 
@@ -42,18 +43,10 @@ export default function MethodologyPage() {
       <p>Herfindahl–Hirschman Index of export destinations and of investor origin per mineral; US and Chinese shares of exports, investment and finance; revealed comparative advantage.</p>
 
       <h2>Text analysis (Phase 3)</h2>
-      <p>Multilingual pipeline (Spanish, Portuguese, English, Dutch). Documents are classified by topic (mineral, project, actor) and by stance toward the United States and toward China on a five-point scale, plus tone, following a written codebook that is published before any run at scale.</p>
-      <p>Classification uses open-weight models only: a multilingual encoder (XLM-RoBERTa or mDeBERTa) fine-tuned on a hand-coded stratified sample, bootstrapped with a zero-shot natural-language-inference model as the baseline it must beat. Narratives are tracked with BERTopic, kept interpretable with labelled topics and example documents. Media attention is measured as volume normalised by total coverage.</p>
-      <p><strong>Validation.</strong> A stratified random sample is coded by two coders (the project owner and an LLM coder inside development sessions). Inter-coder agreement (Cohen&apos;s kappa, Krippendorff&apos;s alpha) and per-class precision, recall and F1 of the model against the adjudicated labels will be published here.</p>
-      <table>
-        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
-        <tbody>
-          <tr><td>Inter-coder agreement (kappa / alpha)</td><td>not yet measured</td></tr>
-          <tr><td>Stance toward US: precision / recall / F1</td><td>not yet measured</td></tr>
-          <tr><td>Stance toward China: precision / recall / F1</td><td>not yet measured</td></tr>
-          <tr><td>Topic (mineral): precision / recall / F1</td><td>not yet measured</td></tr>
-        </tbody>
-      </table>
+      <p>Multilingual pipeline (Spanish, Portuguese, English, Dutch). The unit of analysis is the title of a legislative record plus its summary where the legislature publishes one, or a headline; no article text is stored. Documents are coded for stance toward the United States and toward China on a five-point scale (−2 to +2), scored only when the actor is named (otherwise the stance is “not applicable”, never zero), plus tone (−1 to +1) and topic, following the written codebook in <code>pipeline/config/codebook.md</code>.</p>
+      <p>Classification uses open-weight models on CPU only. <strong>Baseline:</strong> a multilingual natural-language-inference model (mDeBERTa-v3-base-xnli) scores three hypotheses per actor (favourable, critical, neutral mention); the winning hypothesis gives the sign and its probability the strength (≥0.75 → ±2, else ±1). Tone is the positive-minus-negative score of a multilingual sentiment model. <strong>Trained model:</strong> multilingual sentence embeddings (paraphrase-multilingual-MiniLM) with a logistic-regression head trained on the adjudicated sample inside the same workflow; it replaces the baseline on the site only if it beats it on the held-out split. Machine translations of titles (opus-mt) are labelled as such and the original is always shown. Narratives are clusters of headline embeddings (k-means) labelled by class-based TF-IDF keywords, with example documents. Media attention is the share of each year&apos;s coverage naming an actor.</p>
+      <p><strong>Validation.</strong> A stratified random sample of 300 documents (country × document type × whether an actor is named) is coded by two coders: the project owner and an LLM coder inside development sessions, blind to each other and to the model, then adjudicated. Inter-coder agreement (Cohen&apos;s kappa, Krippendorff&apos;s alpha) and per-class precision, recall and F1 of the baseline and the trained model against the adjudicated labels are published below as soon as they exist. Until then every stance and tone value on the site is tagged “zero-shot baseline, not yet validated”.</p>
+      <ValidationMetrics />
 
       <h2>Event studies and panels (Phase 4)</h2>
       <p>Event studies and difference-in-differences designs around dated events (elections; Chile&apos;s National Lithium Strategy; Bolivia&apos;s YLB contracts; Argentina&apos;s RIGI; Peru&apos;s Chancay port; US IRA sourcing rules and 2025 Section 232 copper tariff; Chinese export controls of 2023–2025; Brazil&apos;s 2026 critical-minerals law). Panel regressions with country and year fixed effects and clustered standard errors, with robustness checks. Causal language is used only where the design supports it.</p>

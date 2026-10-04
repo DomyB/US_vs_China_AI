@@ -1,9 +1,10 @@
 """Export the warehouse into web/public/data/real/ using the JSON contract the UI already reads.
 
-Only *facts* are exported (actions, trade, contracts, governance, prices, policy, and from Phase 2b
-the legislative records and press headlines, unclassified). Model outputs stay in the sample dataset
-until Phases 3-5. A coverage file tells the UI
-which countries and tables have real data so it can fall back to sample per layer.
+Facts (actions, trade, contracts, governance, prices, policy, legislative records, headlines) and, from
+Phase 3, the text-model outputs (machine translations, stance, tone, narratives) are exported side by side
+but labelled apart: every model value carries the method, model name and codebook version, and `text_model`
+says whether the classifier is a zero-shot baseline or validated against the hand-coded sample. A coverage
+file tells the UI which countries and tables have real data so it can fall back to sample per layer.
 """
 from __future__ import annotations
 
@@ -29,7 +30,88 @@ NO_STRUCTURED_LEGISLATURE = {
 }
 # fields a news item may carry on the site: headline, date, outlet and URL plus derived flags; never article text
 ARTICLE_KEYS = {"id", "date", "date_precision", "outlet", "outlet_source_id", "orientation", "reliability", "headline_original", "language", "headline_en",
-                "url", "stance_us", "stance_cn", "tone", "classification", "topic_minerals", "mentions", "via", "also_reported_by", "source"}
+                "url", "stance_us", "stance_cn", "tone", "classification", "classifier", "translation", "topic_minerals", "mentions", "via",
+                "also_reported_by", "source"}
+METHOD_PRIORITY = ["trained", "zero_shot"]  # a trained head is used only once it is validated and beats the baseline (see _pick_classifications)
+
+
+def _pick_classifications(cls_rows: list[dict], metrics: list[dict], n_total: int) -> tuple[dict[str, dict], dict]:
+    """Choose one classification row per document and describe the classifier for the UI.
+
+    Method: `trained` when validation metrics show it beating the zero-shot baseline on the held-out split
+    (macro F1 of the pooled stance), else `zero_shot`. Within a method the latest codebook version wins, then the
+    latest row. The status block reports whether any agreement statistics exist (validated) and the headline numbers."""
+    def metric(method: str, target: str, cls: str, name: str, split: str) -> float | None:
+        for m in metrics:
+            if (m["method"], m["target"], m["class"], m["metric"], m["split"]) == (method, target, cls, name, split):
+                return m["value"]
+        return None
+
+    f1_trained = metric("trained", "stance_pooled", "macro", "f1", "held_out")
+    f1_zero = metric("zero_shot", "stance_pooled", "macro", "f1", "held_out")
+    beats = f1_trained is not None and (f1_zero is None or f1_trained >= f1_zero)
+    method = "trained" if beats and any(r["method"] == "trained" for r in cls_rows) else "zero_shot"
+    chosen: dict[str, dict] = {}
+    for r in sorted((r for r in cls_rows if r["method"] == method), key=lambda r: (r["codebook_version"], r["created_at"])):
+        chosen[r["doc_id"]] = r  # later (newer) rows overwrite
+    agreement = [m for m in metrics if m["method"] == "agreement"]
+    kappa = metric("agreement", "stance_pooled", "all", "kappa_quadratic", "all")
+    alpha = metric("agreement", "stance_pooled", "all", "alpha_ordinal", "all")
+    n_coded = next((int(m["n"]) for m in agreement if m["target"] == "stance_pooled"), 0) if agreement else 0
+    any_row = next(iter(chosen.values()), None)
+    status = {
+        "method": method if any_row else None,
+        "model": any_row["model"] if any_row else None,
+        "codebook_version": any_row["codebook_version"] if any_row else None,
+        "run_id": any_row["run_id"] if any_row else None,
+        "validated": bool(agreement),
+        "kappa_stance_pooled": kappa, "alpha_stance_pooled": alpha,
+        "macro_f1_held_out": f1_trained if method == "trained" else f1_zero,
+        "beats_baseline": beats if f1_trained is not None else None,
+        "n_coded": n_coded, "n_total": n_total, "n_classified": len(chosen),
+        "label": None,
+    }
+    if any_row:
+        status["label"] = (f"validated against {n_coded} hand-coded documents (κ={kappa:.2f})" if agreement and kappa is not None
+                           else "zero-shot baseline, not yet validated" if method == "zero_shot" else "trained, not yet validated")
+    return chosen, status
+
+
+def _translations(tr_rows: list[dict]) -> dict[tuple[str, str], dict]:
+    """(doc_id, field) -> {text, method, model}; a human translation beats machine translation."""
+    rank = {"human": 2, "llm": 1, "mt": 0}
+    out: dict[tuple[str, str], dict] = {}
+    for r in sorted(tr_rows, key=lambda r: (rank.get(r["method"], -1), r["created_at"])):
+        if r["lang_to"] == "en":
+            out[(r["doc_id"], r["field"])] = {"text": r["text"], "method": r["method"], "model": r["model"]}
+    return out
+
+
+def _classifier_block(row: dict | None) -> dict | None:
+    if not row:
+        return None
+    confs = [row[k] for k in ("stance_us_conf", "stance_cn_conf") if row.get(k) is not None]
+    return {"method": row["method"], "model": row["model"], "codebook_version": row["codebook_version"],
+            "confidence": round(min(confs), 3) if confs else None, "tone_model": (row.get("frame") or "").removeprefix("tone:") or None}
+
+
+def _validation_file(metrics: list[dict], sample_rows: list[dict], status: dict, today: str) -> dict:
+    """Everything the methodology page shows: sample composition, agreement statistics, per-class model metrics."""
+    by_coder: dict[str, int] = {}
+    for r in sample_rows:
+        by_coder[r["coder"]] = by_coder.get(r["coder"], 0) + 1
+    agreement: dict[str, dict] = {}
+    models: dict[str, dict] = {}
+    for m in metrics:
+        if m["method"] == "agreement":
+            agreement.setdefault(m["target"], {})[m["metric"]] = {"value": m["value"], "n": int(m["n"])}
+        else:
+            models.setdefault(m["method"], {}).setdefault(m["split"], {}).setdefault(m["target"], {}).setdefault(m["class"], {})[m["metric"]] = {"value": m["value"], "n": int(m["n"])}
+    return {"generated_on": today, "codebook_version": status.get("codebook_version"),
+            "status": "measured" if agreement or models else "not_yet_measured",
+            "sample": {"n": by_coder.get("adjudicated", by_coder.get("template", 0)), "by_coder": by_coder},
+            "agreement": agreement, "models": models, "selected_method": status.get("method"), "beats_baseline": status.get("beats_baseline"),
+            "text_model": status}
 
 
 def _src(sid: str, record_url: str | None = None) -> dict:
@@ -78,6 +160,26 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     policy = _rows(con, "SELECT * FROM policy_document ORDER BY date DESC")
     disc = _rows(con, "SELECT * FROM trade_discrepancy")
     docs = _rows(con, "SELECT * FROM document_dedup ORDER BY date DESC")
+    # Phase 3 model outputs (empty lists until the text workflow has run)
+    cls_rows = _rows(con, "SELECT * FROM doc_classification")
+    metrics = _rows(con, "SELECT * FROM validation_metric")
+    sample_rows = _rows(con, "SELECT doc_id, coder, round FROM validation_sample")
+    chosen, text_status = _pick_classifications(cls_rows, metrics, len(docs))
+    translations = _translations(_rows(con, "SELECT * FROM doc_translation"))
+    topic_rows = _rows(con, "SELECT * FROM topic")
+    doc_topic_rows = _rows(con, "SELECT * FROM doc_topic")
+    mv_rows = _rows(con, "SELECT country, period, items_total FROM media_volume")
+    from .text import series as text_series
+
+    docs_df = pd.DataFrame(docs) if docs else pd.DataFrame(columns=["doc_id", "country", "year", "doc_type", "mentions_us", "mentions_cn"])
+    cls_df = pd.DataFrame(list(chosen.values())) if chosen else pd.DataFrame(columns=["doc_id", "stance_us", "stance_cn", "tone"])
+    stance_by_iso = text_series.stance_series(docs_df, cls_df)
+    volume_by_iso, volume_basis = text_series.media_series(docs_df, cls_df, pd.DataFrame(mv_rows) if mv_rows else None)
+    news_ids = {d["doc_id"] for d in docs if d["doc_type"] == "news"}
+    media_topics = [r for r in doc_topic_rows if r["doc_id"] in news_ids]  # the Media tab shows press narratives only
+    narratives_by_iso = text_series.narratives(docs_df, pd.DataFrame(media_topics) if media_topics else pd.DataFrame(),
+                                               pd.DataFrame(topic_rows) if topic_rows else pd.DataFrame())
+    n_parl_coded = n_media_coded = n_parl_translated = 0
     votes = _rows(con, "SELECT * FROM vote")
     member_counts = _rows(con, "SELECT vote_id, choice, count(*) AS n FROM vote_member GROUP BY 1, 2")
     concessions = _rows(con, "SELECT country, count(*) AS n FROM concession GROUP BY 1")
@@ -168,20 +270,33 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                               "yes": v["yes"] if v["yes"] is not None else mc.get("yes"), "no": v["no"] if v["no"] is not None else mc.get("no"),
                               "abstain": v["abstain"] if v["abstain"] is not None else mc.get("abstain"),
                               "members_recorded": sum(mc.values()) if mc else None, "n_votes": len(vlist), "url": v["source_record_url"]}
+            c = chosen.get(r["doc_id"])
+            tr = translations.get((r["doc_id"], "title"))
+            if r["language"] == "en":
+                title_en, tr_block = r["title_original"], {"method": "none", "model": None}
+            else:
+                title_en, tr_block = (tr["text"], {"method": tr["method"], "model": tr["model"]}) if tr else (None, None)
             parl_docs.append({
                 "id": r["doc_id"], "date": r["date"], "date_precision": r["date_precision"], "chamber": r["venue"], "type": r["doc_type"],
-                "title_original": r["title_original"], "language": r["language"], "title_en": None, "summary": r["summary"], "status": r["status"],
-                "author": r["author"], "stance_us": None, "stance_cn": None, "classification": "not_yet_classified",
+                "title_original": r["title_original"], "language": r["language"], "title_en": title_en, "translation": tr_block,
+                "summary": r["summary"], "status": r["status"], "author": r["author"],
+                "stance_us": _json_safe(c["stance_us"]) if c else None, "stance_cn": _json_safe(c["stance_cn"]) if c else None,
+                "classification": "coded" if c else "not_yet_classified", "classifier": _classifier_block(c),
                 "topic_minerals": [m for m in str(r["minerals"] or "").split(",") if m], "mentions": {"us": bool(r["mentions_us"]), "cn": bool(r["mentions_cn"])},
                 "vote": vote_block, "url": r["source_record_url"] or "", "source": _src(r["source_id"], r["source_record_url"]),
             })
+            n_parl_coded += 1 if c else 0
+            n_parl_translated += 1 if title_en else 0
         parl_docs.sort(key=lambda d: d["date"], reverse=True)
         parl_src = sorted({d["source"]["id"] for d in parl_docs})
         n_votes = sum(1 for d in parl_docs if d["vote"])
         if parl_docs:
-            (out / "parliament" / f"{iso}.json").write_text(json.dumps({"dataset": "REAL", "iso3": iso, "generated_on": today, "documents": parl_docs,
-                                                                          "freshness": {"last_updated": today, "source_ids": parl_src, "schedule": "monthly"}},
-                                                                         ensure_ascii=False, default=str), encoding="utf-8")
+            parl_file = {"dataset": "REAL", "iso3": iso, "generated_on": today, "documents": parl_docs,
+                         "freshness": {"last_updated": today, "source_ids": parl_src, "schedule": "monthly"}}
+            if any(d["classification"] == "coded" for d in parl_docs):
+                parl_file["stance_series"] = stance_by_iso.get(iso, [])
+                parl_file["text_model"] = text_status
+            (out / "parliament" / f"{iso}.json").write_text(json.dumps(parl_file, ensure_ascii=False, default=str), encoding="utf-8")
 
         # media: headline, date, outlet and URL only
         articles = []
@@ -190,10 +305,18 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                 continue
             outlet_id = r["outlet_source_id"] or r["source_id"]
             o = reg.get(outlet_id)
+            c = chosen.get(r["doc_id"])
+            tr = translations.get((r["doc_id"], "title"))
+            if r["language"] == "en":
+                headline_en, tr_block = r["title_original"], {"method": "none", "model": None}
+            else:
+                headline_en, tr_block = (tr["text"], {"method": tr["method"], "model": tr["model"]}) if tr else (None, None)
             articles.append({
                 "id": r["doc_id"], "date": r["date"], "date_precision": r["date_precision"], "outlet": o.name if o else r["venue"], "outlet_source_id": outlet_id,
                 "orientation": o.orientation if o else None, "reliability": r["reliability"], "headline_original": r["title_original"], "language": r["language"],
-                "headline_en": None, "url": r["source_record_url"] or "", "stance_us": None, "stance_cn": None, "tone": None, "classification": "not_yet_classified",
+                "headline_en": headline_en, "translation": tr_block, "url": r["source_record_url"] or "",
+                "stance_us": _json_safe(c["stance_us"]) if c else None, "stance_cn": _json_safe(c["stance_cn"]) if c else None,
+                "tone": _json_safe(c["tone"]) if c else None, "classification": "coded" if c else "not_yet_classified", "classifier": _classifier_block(c),
                 "topic_minerals": [m for m in str(r["minerals"] or "").split(",") if m], "mentions": {"us": bool(r["mentions_us"]), "cn": bool(r["mentions_cn"])},
                 "via": "gdelt" if r["source_id"] == "gdelt" else "rss", "also_reported_by": [s for s in str(r.get("source_ids") or "").split(",") if s and s != r["source_id"]],
                 "source": _src(r["source_id"], r["source_record_url"]),
@@ -203,11 +326,17 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
         assert all(set(a) <= ARTICLE_KEYS for a in articles), "article export carries an unexpected field"
         outlets = {sid: {"name": s.name, "orientation": s.orientation, "reliability": s.reliability, "paywall": s.paywall}
                    for sid, s in reg.items() if s.category == "press" and iso in s.countries}
+        n_media_coded += sum(1 for a in articles if a["classification"] == "coded")
         if articles:
-            (out / "media" / f"{iso}.json").write_text(json.dumps({"dataset": "REAL", "iso3": iso, "generated_on": today, "articles": articles, "outlets": outlets,
-                                                                     "freshness": {"last_updated": today, "source_ids": sorted({a["source"]["id"] for a in articles}),
-                                                                                   "schedule": "weekly (RSS) and monthly windows (GDELT)"}},
-                                                                    ensure_ascii=False, default=str), encoding="utf-8")
+            media_file = {"dataset": "REAL", "iso3": iso, "generated_on": today, "articles": articles, "outlets": outlets,
+                          "freshness": {"last_updated": today, "source_ids": sorted({a["source"]["id"] for a in articles}),
+                                        "schedule": "weekly (RSS) and monthly windows (GDELT)"}}
+            if any(a["classification"] == "coded" for a in articles):
+                media_file["volume"] = volume_by_iso.get(iso, [])
+                media_file["volume_basis"] = volume_basis
+                media_file["narratives"] = narratives_by_iso.get(iso, [])
+                media_file["text_model"] = text_status
+            (out / "media" / f"{iso}.json").write_text(json.dumps(media_file, ensure_ascii=False, default=str), encoding="utf-8")
 
         country = {
             "dataset": "REAL", "iso3": iso, "name": COUNTRIES[iso], "generated_on": today,
@@ -227,6 +356,10 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "parliament_from": min((int(d["date"][:4]) for d in parl_docs), default=None), "parliament_note": NO_STRUCTURED_LEGISLATURE.get(iso) if not parl_docs else None,
             "media_available": bool(articles), "media_articles": len(articles), "media_from": min((int(a["date"][:4]) for a in articles), default=None),
             "concessions": conc_by_country.get(iso, 0),
+            "parliament_classified": sum(1 for d in parl_docs if d["classification"] == "coded"),
+            "parliament_translated": sum(1 for d in parl_docs if d["title_en"]),
+            "media_classified": sum(1 for a in articles if a["classification"] == "coded"),
+            "narratives_available": bool(narratives_by_iso.get(iso)),
         }
 
     # region: mineral shares from reported exports summed over the 12 countries
@@ -250,14 +383,19 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     meta = {
         "dataset": "REAL", "generated_on": today, "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "sources_ok": ok_sources, "ingest_runs": runs,
-        "tables": {t: int(con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]) for t in ("trade_flow", "finance_event", "deal_event", "governance", "contract", "production", "price", "policy_document", "document", "vote", "vote_member", "concession", "media_volume") if _table_exists(con, t)},
-        # "facts_only": real records are shown, the layer's model outputs (stance, tone, narratives) remain sample until Phase 3
-        "layers": {"facts": "real", "model_outputs": "sample",
-                   "parliament": "facts_only" if any(c["parliament_available"] for c in coverage.values()) else "sample",
-                   "media": "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample", "forecast": "sample"},
+        "tables": {t: int(con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]) for t in ("trade_flow", "finance_event", "deal_event", "governance", "contract", "production", "price", "policy_document", "document", "vote", "vote_member", "concession", "media_volume",
+                                                                                           "doc_translation", "doc_classification", "doc_embedding", "topic", "doc_topic", "validation_sample", "validation_metric") if _table_exists(con, t)},
+        # layers: "facts_only" = real records without model outputs; "real" = records plus labelled model outputs
+        # (text_model says whether the classifier is a zero-shot baseline or validated); charts labelled accordingly
+        "layers": {"facts": "real",
+                   "model_outputs": ("validated" if text_status["validated"] else "zero_shot_baseline") if n_parl_coded or n_media_coded else "sample",
+                   "parliament": "real" if n_parl_coded else "facts_only" if any(c["parliament_available"] for c in coverage.values()) else "sample",
+                   "media": "real" if n_media_coded else "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample", "forecast": "sample"},
+        "text_model": text_status,
         "coverage": coverage,
     }
     (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, default=str, indent=1), encoding="utf-8")
+    (out / "validation.json").write_text(json.dumps(_validation_file(metrics, sample_rows, text_status, today), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "coverage.json").write_text(json.dumps({"generated_on": today, "countries": coverage}, indent=1), encoding="utf-8")
     con.close()
     return {"countries": len(coverage), "tables": meta["tables"], "sources_ok": ok_sources}

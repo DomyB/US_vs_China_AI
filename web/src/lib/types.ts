@@ -130,8 +130,52 @@ export interface TradeDiscrepancy {
   flag: string;
 }
 
-/** "facts_only": real records are shown while the layer's model outputs (stance, tone) remain sample. */
+/** "facts_only": real records are shown while the layer's model outputs (stance, tone) remain sample;
+ *  "real": records plus labelled model outputs (see TextModelStatus for whether they are validated). */
 export type LayerSource = "real" | "sample" | "none" | "facts_only";
+
+/** How the text classifier that produced stance and tone values stands (exported in meta.json and per layer file). */
+export interface TextModelStatus {
+  method: "zero_shot" | "trained" | "human" | null;
+  model: string | null;
+  codebook_version: string | null;
+  run_id: string | null;
+  validated: boolean;
+  kappa_stance_pooled: number | null;
+  alpha_stance_pooled: number | null;
+  macro_f1_held_out: number | null;
+  beats_baseline: boolean | null;
+  n_coded: number;
+  n_total: number;
+  n_classified: number;
+  label: string | null;
+}
+
+export interface ClassifierRef {
+  method: "zero_shot" | "trained" | "human";
+  model: string;
+  codebook_version: string;
+  confidence: number | null;
+  tone_model?: string | null;
+}
+
+export interface TranslationRef {
+  method: "mt" | "llm" | "human" | "none";
+  model: string | null;
+}
+
+/** web/public/data/real/validation.json: what the methodology page shows. */
+export interface ValidationFile {
+  generated_on: string;
+  codebook_version: string | null;
+  status: "not_yet_measured" | "measured";
+  sample: { n: number; by_coder: Record<string, number> };
+  agreement: Record<string, Record<string, { value: number | null; n: number }>>;
+  models: Record<string, Record<string, Record<string, Record<string, Record<string, { value: number | null; n: number }>>>>>;
+  selected_method: string | null;
+  beats_baseline: boolean | null;
+  text_model: TextModelStatus;
+}
 
 export interface CountryCoverage {
   trade_years: number[];
@@ -151,6 +195,10 @@ export interface CountryCoverage {
   media_articles?: number;
   media_from?: number | null;
   concessions?: number;
+  parliament_classified?: number;
+  parliament_translated?: number;
+  media_classified?: number;
+  narratives_available?: boolean;
 }
 
 export interface RealMeta {
@@ -160,7 +208,8 @@ export interface RealMeta {
   sources_ok: string[];
   ingest_runs: { source_id: string; status: string; finished_at: string; rows: string; error: string | null }[];
   tables: Record<string, number>;
-  layers: Record<string, "real" | "sample" | "facts_only">;
+  layers: Record<string, string>;
+  text_model?: TextModelStatus;
   coverage: Record<string, CountryCoverage>;
 }
 
@@ -182,6 +231,9 @@ export interface RealParliamentFile {
   generated_on: string;
   documents: ParliamentDoc[];
   freshness: Freshness;
+  /** present once the text workflow has classified records (Phase 3) */
+  stance_series?: StanceRow[];
+  text_model?: TextModelStatus;
 }
 
 /** web/public/data/real/media/<ISO3>.json */
@@ -192,6 +244,11 @@ export interface RealMediaFile {
   articles: Article[];
   outlets: Record<string, { name: string; orientation: string | null; reliability: Reliability; paywall: string | null }>;
   freshness: Freshness;
+  /** present once the text workflow has classified headlines (Phase 3) */
+  volume?: MediaVolumeRow[];
+  volume_basis?: "feed_totals" | "kept_headlines";
+  narratives?: NarrativeRow[];
+  text_model?: TextModelStatus;
 }
 
 export interface ParliamentDoc {
@@ -202,9 +259,11 @@ export interface ParliamentDoc {
   title_original: string;
   language: string;
   title_en: string | null;
+  translation?: TranslationRef | null;
   stance_us: number | null;
   stance_cn: number | null;
   classification?: "not_yet_classified" | "sample" | "coded";
+  classifier?: ClassifierRef | null;
   date_precision?: "day" | "month" | "year" | "seen";
   summary?: string | null;
   status?: string | null;
@@ -218,8 +277,9 @@ export interface ParliamentDoc {
 
 export interface StanceRow {
   year: number;
-  stance_us_mean: number;
-  stance_cn_mean: number;
+  /** null when no record applied to that actor in the year */
+  stance_us_mean: number | null;
+  stance_cn_mean: number | null;
   n_docs: number;
 }
 
@@ -228,8 +288,8 @@ export interface MediaVolumeRow {
   articles_us: number;
   articles_cn: number;
   total_articles: number;
-  tone_us: number;
-  tone_cn: number;
+  tone_us: number | null;
+  tone_cn: number | null;
 }
 
 export interface NarrativeRow {
@@ -245,11 +305,13 @@ export interface Article {
   headline_original: string;
   language: string;
   headline_en: string | null;
+  translation?: TranslationRef | null;
   url: string;
   stance_us: number | null;
   stance_cn: number | null;
   tone: number | null;
   classification?: "not_yet_classified" | "sample" | "coded";
+  classifier?: ClassifierRef | null;
   date_precision?: "day" | "month" | "year" | "seen";
   outlet_source_id?: string;
   orientation?: string | null;
@@ -314,6 +376,9 @@ export interface CountryData {
   layers?: Record<"actions" | "governance" | "parliament" | "media" | "analysis" | "forecast", LayerSource>;
   /** why a legislature has no structured records (BOL, GUY, SUR, VEN), from the exporter */
   parliament_note?: string | null;
+  /** status of the text classifier behind stance, tone and narratives (Phase 3); null while they are sample */
+  text_model?: TextModelStatus | null;
+  media_volume_basis?: "feed_totals" | "kept_headlines";
   actions: { events: ActionEvent[]; trade: TradeRow[]; contracts?: ContractRow[]; production?: ProductionRow[] };
   governance?: GovernanceRow[];
   trade_discrepancies?: TradeDiscrepancy[];

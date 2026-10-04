@@ -139,3 +139,48 @@ def test_stats_guard_catches_a_regressed_warehouse(tmp_path):
     probs = warehouse.check_not_below(cur, {"trade_flow": 10, "document": 1, "production": 3, "ingest_run": 50, "_files": 3})
     assert len(probs) == 3 and any("production" in p for p in probs) and any("parquet files" in p for p in probs)
     assert warehouse.check_not_below({"_files": 0}, cur)  # an empty warehouse never replaces a full one
+
+
+def test_export_with_model_outputs(tmp_path):
+    wh = tmp_path / "wh"
+    docs = pd.DataFrame([
+        _doc("BRA", "bill", "2024-07-04", "PL 2780/2024: Política Nacional de Minerais Críticos", "bra_camara_api", "https://www.camara.leg.br/p?id=1", native="1", cn=True),
+        _doc("BRA", "bill", "2023-02-01", "PL 1/2023: Acordo com os Estados Unidos", "bra_camara_api", "https://www.camara.leg.br/p?id=2", native="2", us=True),
+        _doc("BRA", "news", "2026-10-01", "China amplia compras de nióbio", "bra_folha", "https://www1.folha.uol.com.br/x.shtml", outlet="bra_folha", minerals="niobium", cn=True),
+    ])
+    (wh / "document").mkdir(parents=True)
+    schema.validate("document", docs.copy()).to_parquet(wh / "document" / "x.parquet", index=False)
+    ids = list(docs["doc_id"])
+    base = {"run_id": "zero_shot-1", "method": "zero_shot", "model": "nli-model", "codebook_version": "v1", "frame": "tone:sent-model", "created_at": "2026-10-04T00:00:00+00:00"}
+    cls = pd.DataFrame([
+        {"doc_id": ids[0], "stance_us": pd.NA, "stance_us_conf": None, "stance_cn": 1, "stance_cn_conf": 0.81, "tone": 0.2, "tone_conf": 0.6, **base},
+        {"doc_id": ids[1], "stance_us": 2, "stance_us_conf": 0.9, "stance_cn": pd.NA, "stance_cn_conf": None, "tone": 0.5, "tone_conf": 0.7, **base},
+        {"doc_id": ids[2], "stance_us": pd.NA, "stance_us_conf": None, "stance_cn": -1, "stance_cn_conf": 0.55, "tone": -0.3, "tone_conf": 0.5, **base},
+    ])
+    warehouse.upsert("doc_classification", "zero_shot", cls, wh)
+    warehouse.upsert("doc_translation", "opus_mt", pd.DataFrame([{"doc_id": ids[0], "field": "title", "lang_from": "pt", "lang_to": "en", "text": "PL 2780/2024: National Critical Minerals Policy", "method": "mt", "model": "opus", "created_at": "t"}]), wh)
+    warehouse.replace_slot("topic", "parliament", pd.DataFrame([{"run_id": "tp", "topic_id": 0, "label": "minerais · política", "keywords": "minerais,politica", "example_doc_ids": ids[0], "n_docs": 2}]), wh)
+    warehouse.replace_slot("doc_topic", "parliament", pd.DataFrame([{"doc_id": ids[0], "run_id": "tp", "topic_id": 0, "prob": 0.9}, {"doc_id": ids[1], "run_id": "tp", "topic_id": 0, "prob": 0.8}]), wh)
+    (wh / "ingest_run").mkdir()
+    schema.validate("ingest_run", pd.DataFrame([{"run_id": "r", "source_id": "bra_camara_api", "started_at": "t", "finished_at": "t", "status": "ok", "rows": "{}", "error": None, "snapshot_dir": None}])).to_parquet(wh / "ingest_run" / "x.parquet", index=False)
+
+    warehouse.build(wh)
+    out = tmp_path / "site"
+    export_site.run(wh, out)
+    parl = json.loads((out / "parliament" / "BRA.json").read_text())
+    by_id = {d["id"]: d for d in parl["documents"]}
+    d0, d1 = by_id[ids[0]], by_id[ids[1]]
+    assert d0["classification"] == "coded" and d0["stance_cn"] == 1 and d0["stance_us"] is None and d0["classifier"]["method"] == "zero_shot" and d0["classifier"]["confidence"] == 0.81
+    assert d0["title_en"].startswith("PL 2780/2024: National") and d0["translation"] == {"method": "mt", "model": "opus"} and d1["title_en"] is None and d1["translation"] is None
+    assert parl["stance_series"] == [{"year": 2023, "stance_us_mean": 2.0, "stance_cn_mean": None, "n_docs": 1}, {"year": 2024, "stance_us_mean": None, "stance_cn_mean": 1.0, "n_docs": 1}]
+    assert parl["text_model"]["validated"] is False and "not yet validated" in parl["text_model"]["label"] and parl["text_model"]["n_classified"] == 3
+    media = json.loads((out / "media" / "BRA.json").read_text())
+    a = media["articles"][0]
+    assert a["tone"] == -0.3 and a["stance_cn"] == -1 and a["classification"] == "coded" and a["headline_en"] is None
+    assert media["volume"] == [{"year": 2026, "articles_us": 0, "articles_cn": 1, "total_articles": 1, "tone_us": None, "tone_cn": -0.3}] and media["volume_basis"] == "kept_headlines"
+    assert media["narratives"] == [] and "narratives" in media  # parliament topics never feed the press narratives chart
+    meta = json.loads((out / "meta.json").read_text())
+    assert meta["layers"]["parliament"] == "real" and meta["layers"]["media"] == "real" and meta["layers"]["model_outputs"] == "zero_shot_baseline"
+    assert meta["coverage"]["BRA"]["parliament_classified"] == 2 and meta["coverage"]["BRA"]["parliament_translated"] == 1 and not meta["coverage"]["BRA"]["narratives_available"]
+    val = json.loads((out / "validation.json").read_text())
+    assert val["status"] == "not_yet_measured" and val["selected_method"] == "zero_shot" and val["text_model"]["method"] == "zero_shot"
