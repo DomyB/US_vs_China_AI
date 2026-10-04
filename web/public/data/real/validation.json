@@ -3,8 +3,10 @@
  "codebook_version": "v1",
  "status": "not_yet_measured",
  "sample": {
-  "n": 0,
-  "by_coder": {}
+  "n": 300,
+  "by_coder": {
+   "template": 300
+  }
  },
  "agreement": {},
  "models": {},
