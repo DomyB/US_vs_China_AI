@@ -19,6 +19,10 @@ on:
         description: "Start from an empty warehouse when no usable data release exists (first run only)"
         type: boolean
         default: false
+      allow_regression:
+        description: "Accept a warehouse with fewer rows than the restored release (intentional: a source was cleared or re-scoped)"
+        type: boolean
+        default: false
   workflow_call:
     inputs:
       targets:
@@ -31,6 +35,9 @@ on:
         type: string
         default: "60"
       allow_empty_warehouse:
+        type: boolean
+        default: false
+      allow_regression:
         type: boolean
         default: false
 
@@ -96,7 +103,7 @@ jobs:
       - name: Regenerate SOURCES.md and sources.json
         run: python scripts/build_sources.py
       - name: Guard - the warehouse must not have regressed against the restored release
-        run: python -m scm stats --not-below /tmp/restored.json
+        run: python -m scm stats --not-below /tmp/restored.json ${{ inputs.allow_regression && '--allow-regression' || '' }}
       - name: Commit data
         run: |
           cd ..

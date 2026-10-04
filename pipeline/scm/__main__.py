@@ -77,6 +77,7 @@ def main(argv: list[str] | None = None) -> int:
     st = sub.add_parser("stats", help="rows per warehouse table; --not-below fails when the warehouse regressed against a reference")
     st.add_argument("--write", help="write the summary as JSON to this path")
     st.add_argument("--not-below", help="reference summary JSON (from the restored release); exit 1 on regression")
+    st.add_argument("--allow-regression", action="store_true", help="report regressions as warnings and exit 0 (intentional drops, e.g. a source cleared)")
     cl = sub.add_parser("classify", help="Phase 3 text steps: machine translation, zero-shot stance and tone, embeddings, topics")
     cl.add_argument("--steps", default="translate,classify,embed,topics", help="comma-separated subset, in this order")
     cl.add_argument("--limit", type=int, default=None, help="documents per step (smoke runs)")
@@ -164,9 +165,10 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"no reference summary at {ref_path}; nothing to compare", file=sys.stderr)
                 return 0
             problems = warehouse.check_not_below(cur, json.loads(ref_path.read_text(encoding="utf-8")))
+            level = "warning" if args.allow_regression else "error"
             for pr in problems:
-                print(f"::error::warehouse regression: {pr}", file=sys.stderr)
-            return 1 if problems else 0
+                print(f"::{level}::warehouse regression: {pr}", file=sys.stderr)
+            return 1 if problems and not args.allow_regression else 0
         return 0
     if args.cmd == "export":
         print(json.dumps(export_site.run(), indent=1)[:2000])

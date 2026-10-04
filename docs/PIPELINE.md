@@ -89,7 +89,8 @@ Every ingestion job restores the warehouse from the newest usable data release
 (`.github/scripts/restore_release.sh`: tag `data-v*`, asset ≥ 100 KB; an API error fails the job;
 releases with an empty asset are deleted), and before committing site data or publishing a release it
 runs `python -m scm stats --not-below /tmp/restored.json`, which fails when a table vanished, lost more
-than 25% of its rows or the Parquet file count fell. Releases are tagged per run
+than 25% of its rows or the Parquet file count fell; the dispatch input `allow_regression` turns
+that into a warning when the drop is intentional (a source cleared or re-scoped). Releases are tagged per run
 (`data-vYYYY.MM.DD.<run number>`) and never overwritten.
 
 Each adapter runs under a wall-clock budget (`SCM_ADAPTER_BUDGET_MIN`, default 120 minutes, 0
