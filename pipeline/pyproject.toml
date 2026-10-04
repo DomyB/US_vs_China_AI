@@ -34,8 +34,6 @@ ml = [
     "sentencepiece>=0.2",
     "sacremoses>=0.1",
     "safetensors>=0.4",
-    "scikit-learn>=1.5,<2",
-    "joblib>=1.4",
 ]
 
 [tool.setuptools.packages.find]

@@ -21,6 +21,17 @@ on:
       fields:
         description: "Translation fields: title or title,summary"
         default: "title"
+      draw_sample:
+        description: "Draw the 300-document validation sample into data/manual/validation/sample_<round>.csv (once)"
+        type: boolean
+        default: false
+      train:
+        description: "Load the coder files, compute agreement and accuracy metrics, train the stance head (needs adjudicated_<round>.csv)"
+        type: boolean
+        default: false
+      round:
+        description: "Validation round"
+        default: "v1"
 
 permissions:
   contents: write
@@ -75,6 +86,16 @@ jobs:
       - name: Runner resources after the text steps
         if: always()
         run: df -h / && free -m && du -sh /home/runner/.cache/huggingface/hub 2>/dev/null || true
+      - name: Draw the validation sample
+        if: inputs.draw_sample
+        run: python -m scm validation draw --round "${{ inputs.round || 'v1' }}" --n 300
+      - name: Validation metrics and trained head
+        if: inputs.train
+        run: |
+          python -m scm validation load --round "${{ inputs.round || 'v1' }}"
+          python -m scm validation metrics --round "${{ inputs.round || 'v1' }}" --codebook-version "${{ inputs.codebook_version || 'v1' }}"
+          python -m scm train --round "${{ inputs.round || 'v1' }}" --codebook-version "${{ inputs.codebook_version || 'v1' }}"
+          python -m scm validation metrics --round "${{ inputs.round || 'v1' }}" --codebook-version "${{ inputs.codebook_version || 'v1' }}"
       - name: Build warehouse and export site data
         run: |
           python -m scm build
@@ -90,7 +111,7 @@ jobs:
           cd ..
           git config user.name "scm-bot"
           git config user.email "scm-bot@users.noreply.github.com"
-          git add web/public/data/real
+          git add web/public/data/real data/manual/validation data/models
           git diff --cached --quiet || git commit -m "data: text analysis $(date -u +%Y-%m-%d) [skip ci]"
           git pull --rebase --autostash origin "${{ github.ref_name }}"
           git push origin HEAD:"${{ github.ref_name }}"

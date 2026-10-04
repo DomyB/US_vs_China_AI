@@ -83,6 +83,14 @@ def main(argv: list[str] | None = None) -> int:
     cl.add_argument("--force", action="store_true", help="recompute documents that already have rows")
     cl.add_argument("--codebook-version", default="v1")
     cl.add_argument("--fields", default="title", help="translation fields: title or title,summary")
+    va = sub.add_parser("validation", help="hand-coded sample: draw | adjudicate | load | metrics")
+    va.add_argument("action", choices=["draw", "adjudicate", "load", "metrics"])
+    va.add_argument("--round", default="v1")
+    va.add_argument("--n", type=int, default=300)
+    va.add_argument("--codebook-version", default="v1")
+    tr = sub.add_parser("train", help="fit the stance head on the adjudicated sample and label every document (method trained)")
+    tr.add_argument("--round", default="v1")
+    tr.add_argument("--codebook-version", default="v1")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
 
@@ -130,6 +138,18 @@ def main(argv: list[str] | None = None) -> int:
         except Exception as e:  # noqa: BLE001
             print(json.dumps({"status": "failed", "error": f"{type(e).__name__}: {e}"}), flush=True)
             raise
+        return 0
+    if args.cmd == "validation":
+        from .text import evaluate, sample
+
+        fn = {"draw": lambda: sample.command_draw(args.round, args.n), "adjudicate": lambda: sample.command_adjudicate(args.round),
+              "load": lambda: sample.command_load(args.round), "metrics": lambda: evaluate.command_metrics(args.round, args.codebook_version)}[args.action]
+        print(json.dumps(fn(), indent=1, default=str))
+        return 0
+    if args.cmd == "train":
+        from .text import train
+
+        print(json.dumps(train.command_train(args.codebook_version, args.round), indent=1, default=str))
         return 0
     if args.cmd == "stats":
         from pathlib import Path

@@ -124,6 +124,16 @@ attention/tone and narrative series the exporter writes into the parliament and 
 `export_site._pick_classifications` chooses the trained head over the baseline only when the
 validation metrics show it beating the baseline on the held-out split.
 
+Validation and training (Phase 3b): `python -m scm validation draw` writes the stratified 300-document
+template `data/manual/validation/sample_<round>.csv` (and the `template` rows with the held-out split
+into `validation_sample`); the coders fill `coder1_<round>.csv` and `coder2_<round>.csv`;
+`validation adjudicate` writes the side-by-side `adjudicated_<round>.csv`; after the adjudication
+session `validation load` stores every coding, `validation metrics` writes agreement (`validation_metric`,
+method `agreement`) and the accuracy of each classifier against the adjudicated labels, and `train` fits
+the logistic-regression head (`text/train.py`, numpy) on the training split, saves
+`data/models/stance_head_<codebook>.json` and labels every document with method `trained`. The
+workflow inputs `draw_sample` and `train` run these steps; the codebook is `pipeline/config/codebook.md`.
+
 Install for real runs: `pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -e ".[dev,ml]"`.
 
 ## Hand-supplied files
