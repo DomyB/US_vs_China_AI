@@ -1,6 +1,6 @@
 {
  "generated_on": "2026-10-04",
- "codebook_version": null,
+ "codebook_version": "v1",
  "status": "not_yet_measured",
  "sample": {
   "n": 0,
@@ -8,13 +8,13 @@
  },
  "agreement": {},
  "models": {},
- "selected_method": null,
+ "selected_method": "zero_shot",
  "beats_baseline": null,
  "text_model": {
-  "method": null,
-  "model": null,
-  "codebook_version": null,
-  "run_id": null,
+  "method": "zero_shot",
+  "model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+  "codebook_version": "v1",
+  "run_id": "zero_shot-20261004T125424Z",
   "validated": false,
   "kappa_stance_pooled": null,
   "alpha_stance_pooled": null,
@@ -22,7 +22,7 @@
   "beats_baseline": null,
   "n_coded": 0,
   "n_total": 5472,
-  "n_classified": 0,
-  "label": null
+  "n_classified": 5472,
+  "label": "zero-shot baseline, not yet validated"
  }
 }

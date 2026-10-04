@@ -38,9 +38,9 @@
    "media_articles": 6,
    "media_from": 2021,
    "concessions": 0,
-   "parliament_classified": 0,
-   "parliament_translated": 0,
-   "media_classified": 0,
+   "parliament_classified": 1233,
+   "parliament_translated": 1233,
+   "media_classified": 6,
    "narratives_available": false
   },
   "BOL": {
@@ -122,9 +122,9 @@
    "media_articles": 3,
    "media_from": 2026,
    "concessions": 0,
-   "parliament_classified": 0,
-   "parliament_translated": 0,
-   "media_classified": 0,
+   "parliament_classified": 3824,
+   "parliament_translated": 3824,
+   "media_classified": 3,
    "narratives_available": false
   },
   "CHL": {
@@ -164,9 +164,9 @@
    "media_articles": 3,
    "media_from": 2026,
    "concessions": 0,
-   "parliament_classified": 0,
-   "parliament_translated": 0,
-   "media_classified": 0,
+   "parliament_classified": 173,
+   "parliament_translated": 173,
+   "media_classified": 3,
    "narratives_available": false
   },
   "COL": {
@@ -206,8 +206,8 @@
    "media_articles": 0,
    "media_from": null,
    "concessions": 0,
-   "parliament_classified": 0,
-   "parliament_translated": 0,
+   "parliament_classified": 76,
+   "parliament_translated": 76,
    "media_classified": 0,
    "narratives_available": false
   },
@@ -292,7 +292,7 @@
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
-   "media_classified": 0,
+   "media_classified": 6,
    "narratives_available": false
   },
   "PRY": {
@@ -329,8 +329,8 @@
    "media_articles": 0,
    "media_from": null,
    "concessions": 0,
-   "parliament_classified": 0,
-   "parliament_translated": 0,
+   "parliament_classified": 4,
+   "parliament_translated": 4,
    "media_classified": 0,
    "narratives_available": false
   },
@@ -370,9 +370,9 @@
    "media_articles": 4,
    "media_from": 2026,
    "concessions": 0,
-   "parliament_classified": 0,
-   "parliament_translated": 0,
-   "media_classified": 0,
+   "parliament_classified": 140,
+   "parliament_translated": 140,
+   "media_classified": 4,
    "narratives_available": false
   },
   "SUR": {
