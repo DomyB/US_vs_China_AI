@@ -23,7 +23,7 @@
    "python_package": "comtradeapicall",
    "notes": "Primary trade source for all 12 countries (HS6, annual and monthly). China-reported data here is the proxy for GACC. Venezuela's own reports end around 2013; partner mirror data used after that.",
    "liveness": {
-    "checked_at": "2026-10-01T19:57:06+00:00",
+    "checked_at": "2026-10-05T12:23:37+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -53,7 +53,7 @@
    "python_package": "sdmx1",
    "notes": "Legacy DOTS portal retired Nov 2025; dataservices.imf.org no longer resolves. Bilateral totals used for cross-checks against Comtrade.",
    "liveness": {
-    "checked_at": "2026-10-01T19:57:09+00:00",
+    "checked_at": "2026-10-05T12:23:40+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -82,7 +82,7 @@
    "status": "live",
    "notes": "Tariffs and trade by product group; secondary.",
    "liveness": {
-    "checked_at": "2026-10-01T19:57:14+00:00",
+    "checked_at": "2026-10-05T12:23:46+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -110,7 +110,7 @@
    "status": "live",
    "notes": "2026 edition (data year 2025) released Feb 2026 with CSV/XLSX data release. World mine production and reserves by country; annual average prices (used for lithium).",
    "liveness": {
-    "checked_at": "2026-10-01T19:57:17+00:00",
+    "checked_at": "2026-10-05T12:23:49+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -138,7 +138,7 @@
    "status": "live",
    "notes": "Country chapters with ownership structure; two to three year lag (2022 tables released, 2023 partial).",
    "liveness": {
-    "checked_at": "2026-10-01T19:57:20+00:00",
+    "checked_at": "2026-10-05T12:23:52+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -166,7 +166,7 @@
    "status": "live",
    "notes": "60 minerals; copper, silver, potash, phosphate, uranium and others added in 2025.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:09+00:00",
+    "checked_at": "2026-10-05T12:24:00+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -195,7 +195,7 @@
    "status": "live",
    "notes": "Independent cross-check for USGS production figures; OGC API in beta.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:10+00:00",
+    "checked_at": "2026-10-05T12:24:01+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -223,7 +223,7 @@
    "status": "live",
    "notes": "FDI totals only; bilateral FDI series discontinued after 2012.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:21+00:00",
+    "checked_at": "2026-10-05T12:24:04+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -252,7 +252,7 @@
    "status": "live",
    "python_package": "wbgapi",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:23+00:00",
+    "checked_at": "2026-10-05T12:24:06+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -282,7 +282,7 @@
    "python_package": "wbgapi",
    "notes": "Public and publicly guaranteed debt by creditor country (China = counterpart 730). Covers 10 of 12 countries; Chile and Uruguay are not IDS reporters.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:25+00:00",
+    "checked_at": "2026-10-05T12:24:09+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -312,7 +312,7 @@
    "python_package": "sdmx1",
    "notes": "Chinese FDI is often routed through Hong Kong and offshore centres; paired with MOFCOM and AEI CGIT.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:28+00:00",
+    "checked_at": "2026-10-05T12:24:11+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -348,7 +348,7 @@
    "status": "live",
    "notes": "Six South American implementing countries. Suriname suspended Mar 2025, lifted mid-2025. Brazil, Chile, Bolivia, Venezuela, Paraguay, Uruguay are not members. Beneficial ownership disclosures via Opening Extractives.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:33+00:00",
+    "checked_at": "2026-10-05T12:24:15+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -377,7 +377,7 @@
    "status": "live",
    "notes": "3,343 published contracts across 107 countries, including Peru, Colombia, Ecuador, Guyana and Argentine provinces.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:34+00:00",
+    "checked_at": "2026-10-05T12:24:16+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -405,7 +405,7 @@
    "language": "en",
    "status": "live",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:37+00:00",
+    "checked_at": "2026-10-05T12:24:18+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -433,7 +433,7 @@
    "status": "live",
    "notes": "No Python package; CSV loaded directly. v16 released March 2026.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:39+00:00",
+    "checked_at": "2026-10-05T12:24:22+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -461,7 +461,7 @@
    "status": "live",
    "notes": "2023 edition published March 2026 (the brief assumed 2020). Government ideology; extended 2024-2026 by hand from sourced election outcomes.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:41+00:00",
+    "checked_at": "2026-10-05T12:24:24+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -489,7 +489,7 @@
    "status": "live",
    "notes": "Ideal points and dyadic agreement with the US and China. Raw votes for recent sessions via UNGA-DM (unvotes.unige.ch).",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:43+00:00",
+    "checked_at": "2026-10-05T12:24:27+00:00",
     "status": 202,
     "ok": true,
     "error": null,
@@ -519,11 +519,11 @@
    "python_package": "gdeltdoc",
    "notes": "Machine-coded and noisy; used for volume and tone context, never as a primary count. Raw files used instead of BigQuery to stay at $0. Events 1.0 from 1979 is cruder.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:44+00:00",
+    "checked_at": "2026-10-05T12:24:28+00:00",
     "status": 200,
     "ok": true,
     "error": null,
-    "api_status": null,
+    "api_status": 429,
     "api_ok": false
    }
   },
@@ -548,7 +548,7 @@
    "python_package": "acled",
    "notes": "Latin America coverage starts 2018.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:56+00:00",
+    "checked_at": "2026-10-05T12:24:42+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -578,7 +578,7 @@
    "python_package": "mediacloud",
    "notes": "National collections for Spanish and Portuguese outlets; density varies by country and year.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:57+00:00",
+    "checked_at": "2026-10-05T12:24:43+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -606,7 +606,7 @@
    "status": "live",
    "notes": "No API; scraping discouraged. Bulk request to be submitted in Phase 2.",
    "liveness": {
-    "checked_at": "2026-10-01T19:58:59+00:00",
+    "checked_at": "2026-10-05T12:24:45+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -634,7 +634,7 @@
    "status": "live",
    "notes": "Activist network; labeled partisan. Complement to EJAtlas.",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:00+00:00",
+    "checked_at": "2026-10-05T12:24:47+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -666,7 +666,7 @@
    "notes": "Mineral exports by mineral and destination, lithium exports, project portfolio, employment, royalties. Monthly export reports also as PDF/XLSX.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:02+00:00",
+    "checked_at": "2026-10-05T12:24:48+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -697,7 +697,7 @@
    "notes": "WMS/WFS layers of deposits and geology; not a production source.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:04+00:00",
+    "checked_at": "2026-10-05T12:25:02+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -728,7 +728,7 @@
    "notes": "NCM8 x country x month. Full database download 2002-2020; later months via monthly report files. No REST API; Comtrade used for programmatic pulls.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:07+00:00",
+    "checked_at": "2026-10-05T12:25:04+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -759,7 +759,7 @@
    "notes": "21-22 approvals, about US$47bn by Aug 2026, roughly half mining (lithium: Rincón, Sal de Oro, Exar, Tres Quebradas; copper: Los Azules). Authoritative dates and amounts from resolutions.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:08+00:00",
+    "checked_at": "2026-10-05T12:25:06+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -790,7 +790,7 @@
    "notes": "GIS viewers and WMS/WFS; no bulk concession tables; contract terms rarely published.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:09+00:00",
+    "checked_at": "2026-10-05T12:25:08+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -822,7 +822,7 @@
    "notes": "Roll-call votes per deputy from 2011, bills, sessions, Diarios de Sesiones dataset.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:10+00:00",
+    "checked_at": "2026-10-05T12:25:11+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -853,7 +853,7 @@
    "notes": "Bills, sessions, senators; no structured roll-call dataset confirmed (vote pages scraped).",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:14+00:00",
+    "checked_at": "2026-10-05T12:25:14+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -884,10 +884,10 @@
    "notes": "No API or RSS; full-text search on site; community scrapers exist.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:16+00:00",
-    "status": null,
-    "ok": false,
-    "error": "ConnectionError: HTTPSConnectionPool(host='www.boletinoficial.gob.ar', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='www.boletinoficial.gob.ar', port=443): Failed to",
+    "checked_at": "2026-10-05T12:25:17+00:00",
+    "status": 200,
+    "ok": true,
+    "error": null,
     "api_status": null,
     "api_ok": null
    }
@@ -917,12 +917,12 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:42+00:00",
+    "checked_at": "2026-10-05T12:25:19+00:00",
     "status": 200,
     "ok": true,
     "error": null,
-    "api_status": 404,
-    "api_ok": false
+    "api_status": 200,
+    "api_ok": true
    }
   },
   {
@@ -950,7 +950,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:44+00:00",
+    "checked_at": "2026-10-05T12:25:21+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -983,7 +983,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:46+00:00",
+    "checked_at": "2026-10-05T12:25:24+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1015,7 +1015,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:49+00:00",
+    "checked_at": "2026-10-05T12:25:26+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1048,7 +1048,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:50+00:00",
+    "checked_at": "2026-10-05T12:25:27+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1079,7 +1079,7 @@
    "notes": "State company. CBC (CATL consortium) contract published; Uranium One contract referenced; neither ratified; court suspension May 2025; new lithium law announced Jan 2026; Sept 2026 SOE reorganisation decree affects YLB.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:53+00:00",
+    "checked_at": "2026-10-05T12:25:30+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1110,9 +1110,9 @@
    "notes": "PDF only; tables extracted.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:56+00:00",
-    "status": 200,
-    "ok": true,
+    "checked_at": "2026-10-05T12:25:34+00:00",
+    "status": 523,
+    "ok": false,
     "error": null,
     "api_status": null,
     "api_ok": null
@@ -1141,7 +1141,7 @@
    "notes": "State mining corporation; site not verifiable from the sandbox.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T19:59:58+00:00",
+    "checked_at": "2026-10-05T12:25:41+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1172,7 +1172,7 @@
    "notes": "XLSX by destination x product (monthly 2017-, annual 2010-); no API.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:01+00:00",
+    "checked_at": "2026-10-05T12:25:43+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1203,7 +1203,7 @@
    "notes": "No open-data API, no roll-call or transcript datasets; HTML news on bills only.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:03+00:00",
+    "checked_at": "2026-10-05T12:25:45+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1235,7 +1235,7 @@
    "notes": "Only free paths are used (decision 1).",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:10+00:00",
+    "checked_at": "2026-10-05T12:25:50+00:00",
     "status": null,
     "ok": false,
     "error": "ConnectionError: HTTPSConnectionPool(host='gacetaoficialdebolivia.gob.bo', port=443): Max retries exceeded with url: /normas/busquedaAvanzada (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, '",
@@ -1268,7 +1268,7 @@
    "notes": "RSS unverified.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:33+00:00",
+    "checked_at": "2026-10-05T12:26:13+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1300,7 +1300,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:35+00:00",
+    "checked_at": "2026-10-05T12:26:15+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1332,7 +1332,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:36+00:00",
+    "checked_at": "2026-10-05T12:26:16+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -1365,7 +1365,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:38+00:00",
+    "checked_at": "2026-10-05T12:26:18+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1396,7 +1396,7 @@
    "notes": "Address changed from anm.gov.br/acesso-a-informacao/dados-abertos. Mining rights shapefiles, production by substance and municipality, royalties.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:40+00:00",
+    "checked_at": "2026-10-05T12:26:20+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1426,7 +1426,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:42+00:00",
+    "checked_at": "2026-10-05T12:26:22+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1459,7 +1459,7 @@
    "notes": "NCM x country x state x month; bulk CSV also available.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:48+00:00",
+    "checked_at": "2026-10-05T12:26:28+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -1489,7 +1489,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:50+00:00",
+    "checked_at": "2026-10-05T12:26:30+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1520,7 +1520,7 @@
    "notes": "Corporate source; cross-checked with ANM and Comex Stat.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:52+00:00",
+    "checked_at": "2026-10-05T12:26:32+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1553,12 +1553,12 @@
    "notes": "Bills, nominal votes, speeches, bulk files per year.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:55+00:00",
+    "checked_at": "2026-10-05T12:26:34+00:00",
     "status": 200,
     "ok": true,
     "error": null,
-    "api_status": 204,
-    "api_ok": true
+    "api_status": 504,
+    "api_ok": false
    }
   },
   {
@@ -1585,7 +1585,7 @@
    "notes": "Nominal votes, speeches, matters. Lei 15.506/2026 (critical minerals policy) tracked here.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:00:58+00:00",
+    "checked_at": "2026-10-05T12:27:38+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1616,7 +1616,7 @@
    "notes": "Undocumented JSON search used by Ro-DOU; INLABS bulk needs registration. Querido Diário covers municipal gazettes only.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:03+00:00",
+    "checked_at": "2026-10-05T12:27:44+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -1649,7 +1649,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:05+00:00",
+    "checked_at": "2026-10-05T12:27:46+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1681,7 +1681,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:08+00:00",
+    "checked_at": "2026-10-05T12:27:49+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1713,7 +1713,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:09+00:00",
+    "checked_at": "2026-10-05T12:27:50+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1746,7 +1746,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:11+00:00",
+    "checked_at": "2026-10-05T12:27:53+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1777,7 +1777,7 @@
    "notes": "XLSX incl. exports by destination; lithium and investment catastro.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:15+00:00",
+    "checked_at": "2026-10-05T12:27:58+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1807,7 +1807,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:19+00:00",
+    "checked_at": "2026-10-05T12:28:02+00:00",
     "status": null,
     "ok": false,
     "error": "SSLError: HTTPSConnectionPool(host='repositorio.sernageomin.cl', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify ",
@@ -1838,7 +1838,7 @@
    "notes": "State-owned enterprises. NovaAndino Litio (Codelco-SQM JV) formalised Dec 2025.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:20+00:00",
+    "checked_at": "2026-10-05T12:28:04+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1869,7 +1869,7 @@
    "notes": "No single official repository; SQM and Albemarle contracts via BCN reports, Cámara documents and Albemarle 8-K exhibit; CEOL process from Dec 2024.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:22+00:00",
+    "checked_at": "2026-10-05T12:28:05+00:00",
     "status": null,
     "ok": false,
     "error": "SSLError: HTTPSConnectionPool(host='www.minmineria.cl', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: u",
@@ -1900,7 +1900,7 @@
    "python_package": "bcchapi",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:24+00:00",
+    "checked_at": "2026-10-05T12:28:07+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1930,7 +1930,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:25+00:00",
+    "checked_at": "2026-10-05T12:28:08+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -1961,7 +1961,7 @@
    "notes": "SOAP/XML web services; per-deputy votes, sessions, transcripts.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:26+00:00",
+    "checked_at": "2026-10-05T12:28:10+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -1992,7 +1992,7 @@
    "notes": "XML web services: bills, votes by boletín, diario de sesiones.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:28+00:00",
+    "checked_at": "2026-10-05T12:28:12+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2023,7 +2023,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:31+00:00",
+    "checked_at": "2026-10-05T12:28:15+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2054,7 +2054,7 @@
    "notes": "Electronic-only and free since Aug 2016; earlier via BCN.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:34+00:00",
+    "checked_at": "2026-10-05T12:28:18+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2086,7 +2086,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:36+00:00",
+    "checked_at": "2026-10-05T12:28:20+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2118,7 +2118,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:38+00:00",
+    "checked_at": "2026-10-05T12:28:22+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2150,7 +2150,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:41+00:00",
+    "checked_at": "2026-10-05T12:28:24+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2182,7 +2182,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:43+00:00",
+    "checked_at": "2026-10-05T12:28:26+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2214,7 +2214,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:45+00:00",
+    "checked_at": "2026-10-05T12:28:28+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2245,7 +2245,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:47+00:00",
+    "checked_at": "2026-10-05T12:28:30+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2275,7 +2275,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:54+00:00",
+    "checked_at": "2026-10-05T12:28:34+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2306,7 +2306,7 @@
    "notes": "Monthly PDFs and Power BI; no API.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:55+00:00",
+    "checked_at": "2026-10-05T12:28:35+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2338,7 +2338,7 @@
    "notes": "Subheading x destination x department x FOB US$ x kg.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:01:57+00:00",
+    "checked_at": "2026-10-05T12:28:42+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2370,7 +2370,7 @@
    "notes": "Bills metadata and status; roll-call votes only inside PDF actas.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:00+00:00",
+    "checked_at": "2026-10-05T12:28:45+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2401,7 +2401,7 @@
    "notes": "Website returns HTTP 403 to automated access; not scraped. Gaceta and Congreso Visible used instead.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:03+00:00",
+    "checked_at": "2026-10-05T12:28:49+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2432,7 +2432,7 @@
    "notes": "PDF gazettes with actas and votes; search by number and date; exact search URL to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:05+00:00",
+    "checked_at": "2026-10-05T12:28:51+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2463,7 +2463,7 @@
    "notes": "Structured secondary source for votes and bills.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:08+00:00",
+    "checked_at": "2026-10-05T12:28:54+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2495,7 +2495,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:16+00:00",
+    "checked_at": "2026-10-05T12:28:58+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2527,7 +2527,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:17+00:00",
+    "checked_at": "2026-10-05T12:28:59+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2560,7 +2560,7 @@
    "notes": "Treated as two outlets (pre/post 2020) in stance analysis.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:18+00:00",
+    "checked_at": "2026-10-05T12:29:02+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2592,7 +2592,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:19+00:00",
+    "checked_at": "2026-10-05T12:29:03+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2623,7 +2623,7 @@
    "notes": "Regulator re-split in 2025 (ARCOM); domain to re-verify.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:20+00:00",
+    "checked_at": "2026-10-05T12:29:04+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2654,7 +2654,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:23+00:00",
+    "checked_at": "2026-10-05T12:29:07+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2685,7 +2685,7 @@
    "notes": "State mining company.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:26+00:00",
+    "checked_at": "2026-10-05T12:29:13+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2717,7 +2717,7 @@
    "notes": "HTML only; actas archive to 1979; per-member vote detail to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:30+00:00",
+    "checked_at": "2026-10-05T12:29:17+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2748,7 +2748,7 @@
    "notes": "Pre-2020 editions only via paid aggregators (excluded).",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:36+00:00",
+    "checked_at": "2026-10-05T12:29:22+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2782,7 +2782,7 @@
    "notes": "Ownership change in 2025 flagged for stance analysis.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:38+00:00",
+    "checked_at": "2026-10-05T12:29:24+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2814,7 +2814,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:40+00:00",
+    "checked_at": "2026-10-05T12:29:27+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -2846,7 +2846,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:41+00:00",
+    "checked_at": "2026-10-05T12:29:28+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2878,7 +2878,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:42+00:00",
+    "checked_at": "2026-10-05T12:29:30+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -2908,7 +2908,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:44+00:00",
+    "checked_at": "2026-10-05T12:29:31+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -2938,7 +2938,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:45+00:00",
+    "checked_at": "2026-10-05T12:29:33+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -2969,7 +2969,7 @@
    "notes": "Suspended Feb 2023, lifted Jun 2024; 2026 validation outcome to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:46+00:00",
+    "checked_at": "2026-10-05T12:29:34+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3000,7 +3000,7 @@
    "notes": "PDF only; no structured votes; digitised start year to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:48+00:00",
+    "checked_at": "2026-10-05T12:29:36+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3033,7 +3033,7 @@
    "notes": "Ceased publication 15 March 2026; archive at risk, snapshot early in Phase 2.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:49+00:00",
+    "checked_at": "2026-10-05T12:29:37+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3065,7 +3065,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:50+00:00",
+    "checked_at": "2026-10-05T12:29:38+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3097,7 +3097,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:52+00:00",
+    "checked_at": "2026-10-05T12:29:39+00:00",
     "status": 307,
     "ok": true,
     "error": null,
@@ -3129,7 +3129,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:53+00:00",
+    "checked_at": "2026-10-05T12:29:41+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3160,7 +3160,7 @@
    "notes": "Query tool with XLS export; no documented API.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:54+00:00",
+    "checked_at": "2026-10-05T12:29:42+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -3190,7 +3190,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:55+00:00",
+    "checked_at": "2026-10-05T12:29:44+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3221,7 +3221,7 @@
    "notes": "Exploration-stage critical minerals only (titanium, uranium, rare earths).",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:57+00:00",
+    "checked_at": "2026-10-05T12:29:46+00:00",
     "status": null,
     "ok": false,
     "error": "ConnectionError: HTTPSConnectionPool(host='www.ssme.gov.py', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='www.ssme.gov.py', port=443): Failed to resolve 'www.ssme.g",
@@ -3253,7 +3253,7 @@
    "notes": "Bills, votes, sessions, commissions.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:02:59+00:00",
+    "checked_at": "2026-10-05T12:29:47+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3283,10 +3283,10 @@
    "status": "uncertain",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:03:03+00:00",
+    "checked_at": "2026-10-05T12:29:51+00:00",
     "status": null,
     "ok": false,
-    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.gacetaoficial.gov.py', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gacetaoficial.gov.py', port=443) at 0x7efd46d",
+    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.gacetaoficial.gov.py', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gacetaoficial.gov.py', port=443) at 0x7fbbc70",
     "api_status": null,
     "api_ok": null
    }
@@ -3315,7 +3315,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:05+00:00",
+    "checked_at": "2026-10-05T12:30:53+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3347,7 +3347,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:06+00:00",
+    "checked_at": "2026-10-05T12:30:54+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3379,7 +3379,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:08+00:00",
+    "checked_at": "2026-10-05T12:30:56+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3410,7 +3410,7 @@
    "notes": "PDF + XLSX annexes; cartera gives owner and country of capital per project.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:09+00:00",
+    "checked_at": "2026-10-05T12:30:58+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3441,7 +3441,7 @@
    "notes": "Shapefile download and ArcGIS REST.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:11+00:00",
+    "checked_at": "2026-10-05T12:31:00+00:00",
     "status": null,
     "ok": false,
     "error": "SSLError: HTTPSConnectionPool(host='geocatmin.ingemmet.gob.pe', port=443): Max retries exceeded with url: /geocatmin/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificat",
@@ -3472,7 +3472,7 @@
    "notes": "HTML forms, firm-level; bulletins XLS.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:14+00:00",
+    "checked_at": "2026-10-05T12:31:03+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3504,7 +3504,7 @@
    "notes": "Exports by product (copper, gold, zinc...), JSON/CSV, no auth.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:15+00:00",
+    "checked_at": "2026-10-05T12:31:04+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3535,7 +3535,7 @@
    "notes": "Autonomous constitutional body; mining conflicts by region and company; PDF tables extracted.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:21+00:00",
+    "checked_at": "2026-10-05T12:31:08+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3565,10 +3565,10 @@
    "status": "uncertain",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:04:23+00:00",
+    "checked_at": "2026-10-05T12:31:10+00:00",
     "status": null,
     "ok": false,
-    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.proinversion.gob.pe', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.proinversion.gob.pe', port=443) at 0x7efd46d31",
+    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.proinversion.gob.pe', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.proinversion.gob.pe', port=443) at 0x7fbbc70ce",
     "api_status": null,
     "api_ok": null
    }
@@ -3596,7 +3596,7 @@
    "notes": "Chancay port (COSCO) throughput; statistics page to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:25+00:00",
+    "checked_at": "2026-10-05T12:32:11+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3628,7 +3628,7 @@
    "notes": "Undocumented REST JSON; bills keyed by chamber (D/S) after the bicameral switch of 24 July 2026. Votes and attendance PDF only; Diario de los Debates PDF.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:27+00:00",
+    "checked_at": "2026-10-05T12:32:13+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3659,7 +3659,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:30+00:00",
+    "checked_at": "2026-10-05T12:32:18+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3692,7 +3692,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:34+00:00",
+    "checked_at": "2026-10-05T12:32:22+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3724,7 +3724,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:36+00:00",
+    "checked_at": "2026-10-05T12:32:24+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3757,12 +3757,12 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:37+00:00",
+    "checked_at": "2026-10-05T12:32:26+00:00",
     "status": 200,
     "ok": true,
     "error": null,
-    "api_status": null,
-    "api_ok": null
+    "api_status": 200,
+    "api_ok": true
    }
   },
   {
@@ -3789,7 +3789,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:39+00:00",
+    "checked_at": "2026-10-05T12:32:28+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3821,7 +3821,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:40+00:00",
+    "checked_at": "2026-10-05T12:32:29+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3852,7 +3852,7 @@
    "notes": "PDF only; Comtrade partner mirror used for series.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:42+00:00",
+    "checked_at": "2026-10-05T12:32:32+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3883,7 +3883,7 @@
    "notes": "Site moved from eiti.sr. Suspended Mar 2025, lifted mid-2025.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:43+00:00",
+    "checked_at": "2026-10-05T12:32:33+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3913,7 +3913,7 @@
    "status": "uncertain",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:46+00:00",
+    "checked_at": "2026-10-05T12:32:36+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3944,7 +3944,7 @@
    "notes": "Bills and committee reports in Dutch; verbatim debates and roll-calls not found online.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:48+00:00",
+    "checked_at": "2026-10-05T12:32:38+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -3977,7 +3977,7 @@
    "notes": "robots.txt disallows automated clients (checked 2026-10-02); feed not fetched, headlines via GDELT only.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:50+00:00",
+    "checked_at": "2026-10-05T12:32:40+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4009,7 +4009,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:51+00:00",
+    "checked_at": "2026-10-05T12:32:41+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4039,7 +4039,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:52+00:00",
+    "checked_at": "2026-10-05T12:32:43+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4069,7 +4069,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:53+00:00",
+    "checked_at": "2026-10-05T12:32:44+00:00",
     "status": null,
     "ok": false,
     "error": "SSLError: HTTPSConnectionPool(host='www.bcu.gub.uy', port=443): Max retries exceeded with url: /Estadisticas-e-Indicadores/Paginas/Comercio-Exterior.aspx (Caused by SSLError(SSLCertVerificationError(1, '[SSL: C",
@@ -4099,7 +4099,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:56+00:00",
+    "checked_at": "2026-10-05T12:32:48+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4131,7 +4131,7 @@
    "notes": "Bills since 1985, Diarios de Sesiones, full-text search; structured roll-call dataset to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:05:58+00:00",
+    "checked_at": "2026-10-05T12:32:50+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -4163,7 +4163,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:04+00:00",
+    "checked_at": "2026-10-05T12:32:56+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -4196,7 +4196,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:06+00:00",
+    "checked_at": "2026-10-05T12:32:57+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4229,7 +4229,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:09+00:00",
+    "checked_at": "2026-10-05T12:33:00+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4261,7 +4261,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:12+00:00",
+    "checked_at": "2026-10-05T12:33:02+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4292,7 +4292,7 @@
    "notes": "No production time series; claims only. Arco Minero decree 2016.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:13+00:00",
+    "checked_at": "2026-10-05T12:33:04+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4323,7 +4323,7 @@
    "notes": "Publication resumed Mar-Apr 2026 after a ten-year gap (2015-2025).",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:20+00:00",
+    "checked_at": "2026-10-05T12:33:07+00:00",
     "status": null,
     "ok": false,
     "error": "SSLError: HTTPSConnectionPool(host='www.bcv.org.ve', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unab",
@@ -4354,7 +4354,7 @@
    "notes": "Venezuela's own reports end around 2013; all later rows are mirror data and labeled.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:23+00:00",
+    "checked_at": "2026-10-05T12:33:09+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4385,7 +4385,7 @@
    "notes": "NGO in exile.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:24+00:00",
+    "checked_at": "2026-10-05T12:33:11+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4416,7 +4416,7 @@
    "notes": "Satellite monitoring of illegal mining; geolocated.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:26+00:00",
+    "checked_at": "2026-10-05T12:33:12+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4447,7 +4447,7 @@
    "notes": "Contested legitimacy flag recorded (brief section 7h). Transcripts to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:27+00:00",
+    "checked_at": "2026-10-05T12:33:13+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4478,7 +4478,7 @@
    "notes": "Contested legitimacy flag; holds 2016-2020 gacetas and acuerdos (incl. on the Arco Minero); post-2025 activity to confirm.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:33+00:00",
+    "checked_at": "2026-10-05T12:33:18+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4511,9 +4511,9 @@
    "notes": "Blocked inside Venezuela until Sept 2026.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:36+00:00",
-    "status": 403,
-    "ok": false,
+    "checked_at": "2026-10-05T12:33:20+00:00",
+    "status": 200,
+    "ok": true,
     "error": null,
     "api_status": null,
     "api_ok": null
@@ -4543,7 +4543,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:37+00:00",
+    "checked_at": "2026-10-05T12:33:21+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4576,7 +4576,7 @@
    "notes": "Still blocked inside Venezuela as of Sept 2026.",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:39+00:00",
+    "checked_at": "2026-10-05T12:33:23+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -4608,7 +4608,7 @@
    "status": "live",
    "scope": "country",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:40+00:00",
+    "checked_at": "2026-10-05T12:33:24+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4635,7 +4635,7 @@
    "language": "en",
    "status": "live",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:42+00:00",
+    "checked_at": "2026-10-05T12:33:26+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4664,7 +4664,7 @@
    "status": "live",
    "notes": "Monthly HS10 by partner country; the US-side mirror for every South American reporter.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:43+00:00",
+    "checked_at": "2026-10-05T12:33:27+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4692,7 +4692,7 @@
    "status": "live",
    "notes": "Quarterly XLSX linked from the active-projects page (no API); the file includes OPIC-era commitments back to FY1960 with an 'Originating Agency' column. Snapshots are diffed.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:46+00:00",
+    "checked_at": "2026-10-05T12:33:30+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4720,7 +4720,7 @@
    "status": "moved",
    "notes": "data.exim.gov closed Sept 2023. The dataset id changes with each refresh (the old 'thru-12-31-2022' id returned 404 on 2026-10-01), so the adapter discovers the current package through the data.gov search API.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:47+00:00",
+    "checked_at": "2026-10-05T12:33:31+00:00",
     "status": 404,
     "ok": false,
     "error": null,
@@ -4749,7 +4749,7 @@
    "status": "live",
    "notes": "Limited minerals relevance; DoD and DOE awards with foreign place of performance.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:48+00:00",
+    "checked_at": "2026-10-05T12:33:32+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4777,7 +4777,7 @@
    "status": "moved",
    "notes": "MSP superseded in Feb 2026 by the Forum on Resource Geostrategic Engagement (FORGE); MSP pages live only in the 2021-2025 archive.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:51+00:00",
+    "checked_at": "2026-10-05T12:33:35+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4805,7 +4805,7 @@
    "status": "uncertain",
    "notes": "WordPress platform, so /feed/ RSS is likely but unverified; tested in the first Actions run.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:52+00:00",
+    "checked_at": "2026-10-05T12:33:36+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -4834,7 +4834,7 @@
    "status": "live",
    "notes": "Bills, hearings, CRS reports, House votes (beta).",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:53+00:00",
+    "checked_at": "2026-10-05T12:33:38+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4863,7 +4863,7 @@
    "status": "live",
    "notes": "Executive orders, Section 232 proclamations (critical minerals Apr 2025; copper Jul 2025), list notices.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:56+00:00",
+    "checked_at": "2026-10-05T12:33:40+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4891,7 +4891,7 @@
    "status": "live",
    "notes": "State source. Most outward FDI is attributed to Hong Kong and offshore centres; English edition lags.",
    "liveness": {
-    "checked_at": "2026-10-01T20:06:58+00:00",
+    "checked_at": "2026-10-05T12:33:43+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4919,7 +4919,7 @@
    "status": "live",
    "notes": "State source; query UI with XLSX export per query, no API or bulk. China-reported data in UN Comtrade is the primary proxy; GACC used for spot cross-checks.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:03+00:00",
+    "checked_at": "2026-10-05T12:33:46+00:00",
     "status": null,
     "ok": false,
     "error": "SSLError: HTTPSConnectionPool(host='stats.customs.gov.cn', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed",
@@ -4947,7 +4947,7 @@
    "status": "live",
    "notes": "State source. Each control and each suspension is recorded as a dated event.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:09+00:00",
+    "checked_at": "2026-10-05T12:33:49+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -4975,7 +4975,7 @@
    "status": "live",
    "notes": "URL pattern confirmed for Argentina; Portuguese (/por/) for Brazil, English (/eng/) for Guyana and Suriname assumed and tested in Phase 2.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:10+00:00",
+    "checked_at": "2026-10-05T12:33:51+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5004,7 +5004,7 @@
    "status": "live",
    "notes": "State-controlled media. RSS feeds include China-Iberoamérica.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:12+00:00",
+    "checked_at": "2026-10-05T12:33:54+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5032,7 +5032,7 @@
    "status": "uncertain",
    "notes": "State-controlled media. RSS availability unverified.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:16+00:00",
+    "checked_at": "2026-10-05T12:34:02+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5060,7 +5060,7 @@
    "status": "live",
    "notes": "Replaces the archived BU/Inter-American Dialogue 'Chinese Loans to Latin America' database (last data 2023). CDB and China Exim loans to sovereign and public borrowers only.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:20+00:00",
+    "checked_at": "2026-10-05T12:34:04+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5088,7 +5088,7 @@
    "status": "dead",
    "notes": "Archived Feb 2025. Historical file retained for 2005-2023; superseded by bu_codf.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:21+00:00",
+    "checked_at": "2026-10-05T12:34:06+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5116,7 +5116,7 @@
    "status": "live",
    "notes": "20,985 projects; commitments 2000-2021, implementation to 2023; geospatial companion dataset.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:22+00:00",
+    "checked_at": "2026-10-05T12:34:07+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5144,7 +5144,7 @@
    "status": "live",
    "notes": "Think-tank compiled from press and filings; US$100m threshold. Labeled analysis-sourced data.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:23+00:00",
+    "checked_at": "2026-10-05T12:34:08+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -5172,7 +5172,7 @@
    "status": "live",
    "notes": "678 transactions 2000-2024 in the 2025 edition; 2026 edition exists. Transaction table format to confirm.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:24+00:00",
+    "checked_at": "2026-10-05T12:34:10+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5200,7 +5200,7 @@
    "status": "live",
    "notes": "Rebranded 2024; RSS likely at /es/feed/.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:28+00:00",
+    "checked_at": "2026-10-05T12:34:13+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5228,10 +5228,10 @@
    "status": "live",
    "notes": "Georeferenced; eight countries (AR, BO, BR, CL, EC, PY, PE, UY). Candidate for the project map.",
    "liveness": {
-    "checked_at": "2026-10-01T20:07:29+00:00",
-    "status": null,
-    "ok": false,
-    "error": "ConnectionError: HTTPSConnectionPool(host='thedialogue.org', port=443): Max retries exceeded with url: /analysis/launch-of-the-regional-repository-of-chinese-investments-in-latin-america (Caused by ReadTimeoutError(\"H",
+    "checked_at": "2026-10-05T12:34:14+00:00",
+    "status": 200,
+    "ok": true,
+    "error": null,
     "api_status": null,
     "api_ok": null
    }
@@ -5256,7 +5256,7 @@
    "status": "live",
    "notes": "Qualitative context only; labeled analysis.",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:30+00:00",
+    "checked_at": "2026-10-05T12:34:17+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5284,7 +5284,7 @@
    "status": "live",
    "notes": "Copper, nickel, tin, silver, aluminium, iron ore, lead, zinc. No lithium, cobalt, rare earths or graphite.",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:31+00:00",
+    "checked_at": "2026-10-05T12:34:18+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5313,9 +5313,9 @@
    "python_package": "sdmx1",
    "notes": "Includes cobalt and uranium; lithium inclusion to confirm. The IMF.STA:PCPS path returned 404 on the first direct check (2026-10-01); IMF.RES:PCPS is the current dataset id to confirm.",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:33+00:00",
-    "status": 404,
-    "ok": false,
+    "checked_at": "2026-10-05T12:34:19+00:00",
+    "status": 200,
+    "ok": true,
     "error": null,
     "api_status": null,
     "api_ok": null
@@ -5341,7 +5341,7 @@
    "status": "live",
    "notes": "Spot-check only (lithium hydroxide CIF CJK); not stored or redistributed.",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:38+00:00",
+    "checked_at": "2026-10-05T12:34:22+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -5369,7 +5369,7 @@
    "status": "live",
    "notes": "No free licensed lithium benchmark exists. Unit values (value / quantity for HS 2836.91 and 2825.20) are labeled 'implicit realized price'.",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:39+00:00",
+    "checked_at": "2026-10-05T12:34:23+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5397,7 +5397,7 @@
    "language": "multi",
    "status": "live",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:46+00:00",
+    "checked_at": "2026-10-05T12:34:26+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5425,7 +5425,7 @@
    "status": "live",
    "notes": "2025 edition includes a critical-minerals chapter.",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:50+00:00",
+    "checked_at": "2026-10-05T12:34:30+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5453,7 +5453,7 @@
    "status": "moved",
    "notes": "INTrade replaced by INTEGRA; CSV export; API uncertain.",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:52+00:00",
+    "checked_at": "2026-10-05T12:34:32+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5481,7 +5481,7 @@
    "status": "live",
    "notes": "PDBA was decommissioned in 2010 (static archive).",
    "liveness": {
-    "checked_at": "2026-10-01T20:08:53+00:00",
+    "checked_at": "2026-10-05T12:34:34+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5508,7 +5508,7 @@
    "language": "en",
    "status": "live",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:00+00:00",
+    "checked_at": "2026-10-05T12:34:35+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5538,7 +5538,7 @@
    "python_package": "edgartools",
    "notes": "Albemarle, Freeport-McMoRan, SQM (20-F), Lithium Argentina (40-F) and other cross-listed issuers.",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:01+00:00",
+    "checked_at": "2026-10-05T12:34:37+00:00",
     "status": 403,
     "ok": false,
     "error": null,
@@ -5566,7 +5566,7 @@
    "status": "live",
    "notes": "Never scraped. Canadian juniors covered through SEC cross-listings and company investor pages.",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:04+00:00",
+    "checked_at": "2026-10-05T12:34:39+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5594,7 +5594,7 @@
    "status": "live",
    "notes": "Never scraped. Zijin, Ganfeng, CMOC, COSCO Shipping Ports announcements taken from company investor pages.",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:05+00:00",
+    "checked_at": "2026-10-05T12:34:41+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5622,7 +5622,7 @@
    "status": "live",
    "notes": "Spot use for A-share announcements (Tianqi, Ganfeng); undocumented endpoints.",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:13+00:00",
+    "checked_at": "2026-10-05T12:34:48+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5651,7 +5651,7 @@
    "status": "live",
    "notes": "Public-benefit application to be filed in Phase 2.",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:16+00:00",
+    "checked_at": "2026-10-05T12:34:52+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5680,7 +5680,7 @@
    "status": "live",
    "notes": "Leads only, always corroborated. Snapshot July 2026.",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:19+00:00",
+    "checked_at": "2026-10-05T12:34:54+00:00",
     "status": 200,
     "ok": true,
     "error": null,
@@ -5709,7 +5709,7 @@
    "status": "live",
    "notes": "map_units keeps French Guiana as its own polygon (GUF).",
    "liveness": {
-    "checked_at": "2026-10-01T20:09:21+00:00",
+    "checked_at": "2026-10-05T12:34:57+00:00",
     "status": 200,
     "ok": true,
     "error": null,
