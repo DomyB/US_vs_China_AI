@@ -1,0 +1,87 @@
+{
+ "source_id": "congress_gov",
+ "files": {
+  "bills_0.json": {
+   "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=critical+minerals",
+   "params": {
+    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "format": "json",
+    "limit": 250,
+    "fromDateTime": "2008-01-01T00:00:00Z",
+    "q": "critical minerals"
+   },
+   "status": 200,
+   "bytes": 190657,
+   "sha256": "3a25f736ea6de524457dcae1421d13a7c17381c7b32fa850618962e7b45b7d0b",
+   "retrieved_at": "2026-10-05T11:47:01+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "bills_1.json": {
+   "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=lithium",
+   "params": {
+    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "format": "json",
+    "limit": 250,
+    "fromDateTime": "2008-01-01T00:00:00Z",
+    "q": "lithium"
+   },
+   "status": 200,
+   "bytes": 190647,
+   "sha256": "ed363b6e7f14d8bcd481126135eaa49bffc9697c87ea4009b819d327fe0bc8b5",
+   "retrieved_at": "2026-10-05T11:47:05+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "bills_2.json": {
+   "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=rare+earth",
+   "params": {
+    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "format": "json",
+    "limit": 250,
+    "fromDateTime": "2008-01-01T00:00:00Z",
+    "q": "rare earth"
+   },
+   "status": 200,
+   "bytes": 190650,
+   "sha256": "6b3fd1db6cdeb51250e5d758b2d7d9c6b641862a578929b4bc40f04057333327",
+   "retrieved_at": "2026-10-05T11:47:08+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "bills_3.json": {
+   "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=Chinese+influence+Latin+America",
+   "params": {
+    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "format": "json",
+    "limit": 250,
+    "fromDateTime": "2008-01-01T00:00:00Z",
+    "q": "Chinese influence Latin America"
+   },
+   "status": 200,
+   "bytes": 190671,
+   "sha256": "48ab77cb383411e77553a518e167d7bd8fd0e56e4ece57d2fd815f2aa7423a4c",
+   "retrieved_at": "2026-10-05T11:47:12+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "bills_4.json": {
+   "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=minerals+security+partnership",
+   "params": {
+    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "format": "json",
+    "limit": 250,
+    "fromDateTime": "2008-01-01T00:00:00Z",
+    "q": "minerals security partnership"
+   },
+   "status": 200,
+   "bytes": 190669,
+   "sha256": "dbdf753a3b37d73428e6a5b1024db0383e1592f484f74f7c4c6a7e1d5e322758",
+   "retrieved_at": "2026-10-05T11:47:16+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/congress_gov/2026-10-05",
+ "note": "trimmed copy of a real response; see scm/fixtures.py"
+}
