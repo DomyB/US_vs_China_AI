@@ -27,6 +27,13 @@ HEMISPHERE_RE = re.compile(
     r"paraguay|peru|suriname|uruguay|venezuela|lithium triangle|panama)")
 
 
+# Titles that match a mineral or mining word without being about minerals policy: medals and honours ("Congressional Gold
+# Medal" made up 607 of the first 1,576 matches), "data mining", and the many miscellaneous tariff bills that suspend the
+# duty on a named chemical ("... aluminum hydroxide carbonate", "... calcium chloride phosphate").
+NOISE_RE = re.compile(r"(?i)gold medal|gold star|golden|data mining|text mining")
+DUTY_SUSPENSION_RE = re.compile(r"(?i)\bsuspen\w*\b.*\b(duty|duties)\b|\b(duty|duties)\b.*\bsuspen\w*\b")
+
+
 def first_congress() -> int:
     return 110  # 2007-2008, the first Congress after the period starts
 
@@ -66,6 +73,9 @@ class CongressGov(Adapter):
     @staticmethod
     def on_topic(title: str) -> list[str] | None:
         """Matched terms when the title is about minerals or mining, or names China together with the hemisphere."""
+        if DUTY_SUSPENSION_RE.search(title):
+            return None
+        title = NOISE_RE.sub(" ", title)
         rel = relevance(title)
         if rel.mining or rel.minerals:
             return rel.matched
@@ -87,7 +97,9 @@ class CongressGov(Adapter):
                 if not matched:
                     continue
                 key = f"{b.get('congress')}-{b.get('type')}-{b.get('number')}"
-                date_ = (b.get("updateDate") or b.get("latestAction", {}).get("actionDate") or "")[:10]
+                # date of the latest action: when the bill was last alive. updateDate is when the record was last touched
+                # (bills from 2008 carry 2025 update dates), so it is only the fallback.
+                date_ = ((b.get("latestAction") or {}).get("actionDate") or b.get("updateDate") or "")[:10]
                 rows[key] = {"doc_id": event_id("congress", key), "jurisdiction": "US", "date": date_, "year": int(date_[:4]) if date_ else 0,
                              "doc_type": f"bill:{b.get('type')}", "title": title or key, "agency": "US Congress",
                              "abstract": (b.get("latestAction") or {}).get("text"), "topics": ",".join(dict.fromkeys(matched)),

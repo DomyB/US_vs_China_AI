@@ -264,7 +264,7 @@ def test_finance_event_parsers_return_schema_columns_when_empty(snap_factory):
 
 def test_tier2_parsers(snap_factory, monkeypatch):
     def bill(n, title, typ="S", congress=118):
-        return {"congress": congress, "type": typ, "number": str(n), "title": title, "updateDate": "2024-05-01",
+        return {"congress": congress, "type": typ, "number": str(n), "title": title, "updateDate": "2025-09-01",
                 "url": f"https://api.congress.gov/v3/bill/{congress}/{typ.lower()}/{n}", "latestAction": {"actionDate": "2024-05-01", "text": "Referred"}}
 
     snap = snap_factory("congress_gov", {
@@ -275,6 +275,14 @@ def test_tier2_parsers(snap_factory, monkeypatch):
     out = _check(CongressGov(), snap, ["policy_document"])
     docs = out["policy_document"]
     assert sorted(docs["title"]) == ["Critical Minerals Act", "Rare earth magnet supply chain", "To counter the influence of the People's Republic of China in Latin America"]
+    assert set(docs["date"]) == {"2024-05-01"}  # the latest action's date, not the record's update date
+
+    on_topic = CongressGov.on_topic
+    assert on_topic("Doris Miller Congressional Gold Medal Act") is None
+    assert on_topic("To suspend temporarily the duty on magnesium zinc aluminum hydroxide carbonate") is None
+    assert on_topic("A bill to extend the temporary suspension of duty on calcium chloride phosphate.") is None
+    assert on_topic("Gold Reserve Transparency Act") is not None  # gold itself is still a mineral
+    assert on_topic("Hardrock Mining Reform and Reclamation Act of 2015") is not None
     assert set(docs["doc_type"]) == {"bill:S", "bill:HR"} and snap.manifest["bills_scanned"] == 6
 
     census = [["CTY_CODE", "CTY_NAME", "I_COMMODITY", "GEN_VAL_MO", "GEN_QY1_MO", "UNIT_QY1", "time"], ["3370", "CHILE", "2603000000", "1500000", "900", "KG", "2024-03"]]

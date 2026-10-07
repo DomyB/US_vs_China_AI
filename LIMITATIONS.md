@@ -227,4 +227,5 @@ the registry.
 
 - Bills only, titles and the latest action text (no bill text), from the 110th Congress (2007) on, selected by
   title keywords: a bill about critical minerals whose title does not say so is missed. Votes, amendments and
-  committee records are not collected.
+  committee records are not collected. The date shown is the date of the bill's latest action. Titles about
+  medals and honours, "data mining" and tariff-duty suspensions are excluded by rule.
