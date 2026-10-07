@@ -2,7 +2,7 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
-**Note, 2026-10-07 (credential leak):** the first Congress.gov run recorded its API key in a fixture manifest committed to the public repository (the recorder cleaned URLs but not the params dict). Fixed in code (params masked, a test scans every fixture) and the adapter was rewritten to list bills per Congress and filter on title (DECISIONS 44). The key must be rotated at api.congress.gov and the `CONGRESS_GOV_KEY` secret replaced; the old value remains in git history until then.
+**Note, 2026-10-07 (credential leak):** the first Congress.gov run recorded its API key in a fixture manifest committed to the public repository (the recorder cleaned URLs but not the params dict). Fixed in code (params masked, a test scans every fixture) and the adapter was rewritten to list bills per Congress and filter on title (DECISIONS 44). The first run of the rewritten adapter failed after about 40 pages with "Response ended prematurely" (a dropped connection); downloads now retry cut-off responses four times before failing. The key must be rotated at api.congress.gov and the `CONGRESS_GOV_KEY` secret replaced; the old value remains in git history until then.
 
 ## Phase 3a — Text analysis infrastructure and zero-shot baseline (2026-10-04; first full run live)
 

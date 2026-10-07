@@ -34,3 +34,35 @@ def test_fixtures_carry_no_credentials():
             if any(f"{k}=" in str(meta.get("url", "")).lower() for k in ("api_key", "subscription-key", "access_token", "token", "&key=", "?key=")):
                 bad.append(f"{manifest.parent.name}/{name}: url")
     assert not bad, bad
+
+
+def test_get_retries_a_response_cut_off_mid_body(snap_factory, monkeypatch):
+    import requests
+
+    monkeypatch.setattr("time.sleep", lambda s: None)
+    snap = snap_factory("x", {})
+    snap.min_interval = 0
+    attempts = []
+
+    class Resp:
+        status_code = 200
+        url = "https://api.example.test/p"
+        history: list = []
+        content = b"x"
+
+        def __init__(self, ok):
+            self.ok = ok
+
+        def iter_content(self, n):
+            if not self.ok:
+                raise requests.exceptions.ChunkedEncodingError("Response ended prematurely")
+            yield b'{"ok": 1}'
+
+    class Session:
+        def get(self, *a, **kw):
+            attempts.append(1)
+            return Resp(ok=len(attempts) >= 3)
+
+    snap.session = Session()
+    path = snap.get("https://api.example.test/p", "p.json")
+    assert len(attempts) == 3 and path.read_text() == '{"ok": 1}' and snap.has("p.json")

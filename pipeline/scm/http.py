@@ -41,6 +41,7 @@ def make_session(retries: int = 4, backoff: float = 1.5) -> requests.Session:
 _SECRET_PARAM = re.compile(r"(?i)^(x-amz-.*|awsaccesskeyid|signature|expires|sig|se|sv|sp|sr|st|token|access_token|"
                            r"api[_-]?key|key|apikey|subscription-key|password|passwd|secret|client_secret|x-goog-.*|response-content-.*)$")
 MASK = "***"
+STREAM_ATTEMPTS = 4
 
 
 def scrub_params(params: dict | None) -> dict:
@@ -157,14 +158,24 @@ class Snapshot:
             self.session = make_session()
         self._check_robots(url)
         self._throttle()
-        resp = self.session.get(url, params=params, headers=headers, timeout=timeout, stream=True)
-        if resp.status_code not in allow_statuses:
-            body = resp.text[:500] if resp.content else ""
-            raise FetchError(f"{self.source_id}: HTTP {resp.status_code} on GET {resp.url} {body}")
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with target.open("wb") as f:
-            for chunk in resp.iter_content(1 << 16):
-                f.write(chunk)
+        # transient network failures (a dropped connection or a response cut off mid-body, seen on a 700-request
+        # Congress.gov listing) are retried here; HTTP error statuses are not (the session's retry policy handles 5xx)
+        for attempt in range(1, STREAM_ATTEMPTS + 1):
+            try:
+                resp = self.session.get(url, params=params, headers=headers, timeout=timeout, stream=True)
+                if resp.status_code not in allow_statuses:
+                    body = resp.text[:500] if resp.content else ""
+                    raise FetchError(f"{self.source_id}: HTTP {resp.status_code} on GET {resp.url} {body}")
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with target.open("wb") as f:
+                    for chunk in resp.iter_content(1 << 16):
+                        f.write(chunk)
+                break
+            except (requests.exceptions.ChunkedEncodingError, requests.exceptions.ConnectionError, requests.exceptions.ReadTimeout):
+                target.unlink(missing_ok=True)
+                if attempt == STREAM_ATTEMPTS:
+                    raise
+                time.sleep(2.0 * attempt)
         # Provenance keeps the URL we asked for (stable, citable); a redirect target (often a signed storage
         # link) is kept separately with its signature removed.
         requested = requests.Request("GET", url, params=params).prepare().url or url
