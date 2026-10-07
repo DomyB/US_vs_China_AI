@@ -5,9 +5,9 @@
    "url": "https://oglobo.globo.com/",
    "params": {},
    "status": 200,
-   "bytes": 861571,
-   "sha256": "4875dbe1ed78e5a947a05d57694ec5eff667f0f5e736525e46cf8692fa1b1d7f",
-   "retrieved_at": "2026-10-04T10:49:28+00:00",
+   "bytes": 1126020,
+   "sha256": "f9b1d55f2bbc3643f0abfea75a903f535ed7117e26dc2e44d35b9ee0a154f781",
+   "retrieved_at": "2026-10-07T11:20:01+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,14 +15,14 @@
    "url": "https://oglobo.globo.com/rss/oglobo",
    "params": {},
    "status": 200,
-   "bytes": 462467,
-   "sha256": "adde42af3b3ba3205b7970f9a3794e55b09d80671c0703b78d647dba0c4fa080",
-   "retrieved_at": "2026-10-04T10:49:29+00:00",
+   "bytes": 469765,
+   "sha256": "9423ce408eafca702e266d3e12968150324106d9b9c671193016b90419e37bc2",
+   "retrieved_at": "2026-10-07T11:20:01+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_oglobo/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_oglobo/2026-10-07",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://oglobo.globo.com/rss/oglobo"

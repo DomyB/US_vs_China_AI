@@ -5,9 +5,9 @@
    "url": "https://www.eltiempo.com/",
    "params": {},
    "status": 200,
-   "bytes": 895915,
-   "sha256": "2066a98a580164beacde1cc7f3039cc5174f316f0a9bfb2c7cd13d55d0b8bfba",
-   "retrieved_at": "2026-10-04T10:50:43+00:00",
+   "bytes": 884552,
+   "sha256": "2baeacf3a88097923b62c4268270ea6a58f16f71af65c01c9d44be941ecfb1c3",
+   "retrieved_at": "2026-10-07T11:21:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,14 +15,14 @@
    "url": "https://www.eltiempo.com/rss/opinion.xml",
    "params": {},
    "status": 200,
-   "bytes": 8568,
-   "sha256": "db9a67317b96b69d9595533310b765ab0ee0ae176c407f110f4c1d8ebeb40cf8",
-   "retrieved_at": "2026-10-04T10:50:47+00:00",
+   "bytes": 8621,
+   "sha256": "058ca1306bf8c0d444faa46cbbec0554d0a3d2e25470b2fbeec562ef833dabed",
+   "retrieved_at": "2026-10-07T11:21:21+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_eltiempo/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_eltiempo/2026-10-07",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "index_pages": [
   {

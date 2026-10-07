@@ -5,14 +5,14 @@
    "url": "https://www.elmostrador.cl/",
    "params": {},
    "status": 200,
-   "bytes": 220681,
-   "sha256": "743ecb4ce390341b32b127c6b42c2f378a2345b5bdc7f1bfd91b9262d2f24dcb",
-   "retrieved_at": "2026-10-04T10:50:04+00:00",
+   "bytes": 222162,
+   "sha256": "3141b296f594206f345ac9bd88125de4f5a6430ccc51b78b82c80e93f072ea05",
+   "retrieved_at": "2026-10-07T11:20:38+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmostrador/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmostrador/2026-10-07",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

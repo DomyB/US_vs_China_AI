@@ -5,14 +5,14 @@
    "url": "https://ojo-publico.com/",
    "params": {},
    "status": 200,
-   "bytes": 392774,
-   "sha256": "7c1b1bcdecd994b97b78e49ada22bf618e95487500339feca09f3625a49096c7",
-   "retrieved_at": "2026-10-04T10:51:18+00:00",
+   "bytes": 392529,
+   "sha256": "976f8a8055ae91a34e07a2ddf44392677598f5cbc4b61c3f528d937cf8198fd6",
+   "retrieved_at": "2026-10-07T11:21:56+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_ojopublico/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_ojopublico/2026-10-07",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

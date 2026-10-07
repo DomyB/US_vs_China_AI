@@ -1,5 +1,5 @@
 {
- "generated_on": "2026-10-05",
+ "generated_on": "2026-10-07",
  "codebook_version": "v1",
  "status": "not_yet_measured",
  "sample": {
@@ -23,7 +23,7 @@
   "macro_f1_held_out": null,
   "beats_baseline": null,
   "n_coded": 0,
-  "n_total": 5472,
+  "n_total": 5478,
   "n_classified": 5472,
   "label": "zero-shot baseline, not yet validated"
  }

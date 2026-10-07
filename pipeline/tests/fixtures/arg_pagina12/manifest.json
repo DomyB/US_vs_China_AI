@@ -5,9 +5,9 @@
    "url": "https://www.pagina12.com.ar/",
    "params": {},
    "status": 200,
-   "bytes": 903098,
-   "sha256": "116701e357be0b705a1ef9bb0b1d894c9005ea8f274ca8d719612a6ce9f93ff1",
-   "retrieved_at": "2026-10-04T10:49:11+00:00",
+   "bytes": 941771,
+   "sha256": "f8c4959a25b335bdab9ca036908278b63d80e6ff0d2369b4241f6c54ebfde9a1",
+   "retrieved_at": "2026-10-07T11:19:43+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,15 +15,15 @@
    "url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada",
    "params": {},
    "status": 200,
-   "bytes": 5055,
+   "bytes": 5439,
    "final_url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada/",
-   "sha256": "c15b222e177906b9c905eb893a276bee4eff242264be5448cdc8f017e3fa3f2d",
-   "retrieved_at": "2026-10-04T10:49:15+00:00",
+   "sha256": "c20af1ed4db06f1254678e353dc8aa182a899bd13f9a17de00de0054305e04e8",
+   "retrieved_at": "2026-10-07T11:19:47+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_pagina12/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_pagina12/2026-10-07",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "index_pages": [
   {

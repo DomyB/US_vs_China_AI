@@ -5,10 +5,10 @@
    "url": "https://www.elobservador.com.uy/",
    "params": {},
    "status": 200,
-   "bytes": 384852,
+   "bytes": 379966,
    "final_url": "https://www.elobservador.com.uy/estados-unidos",
-   "sha256": "bcc54b750673f6c8151d10b76834b75c3f13f80173c05e4806ab7fe53f373df7",
-   "retrieved_at": "2026-10-04T10:52:13+00:00",
+   "sha256": "e68cb21d44369d0a21abc455274d1e7120c36bb19b29e859cf19249b3123f372",
+   "retrieved_at": "2026-10-07T11:22:50+00:00",
    "note": null,
    "trimmed": true
   },
@@ -16,14 +16,14 @@
    "url": "https://www.elobservador.com.uy/rss/pages/home.xml",
    "params": {},
    "status": 200,
-   "bytes": 21541,
-   "sha256": "f49c5ef35fb511da4501f65d120a8404b04dff398387d93f0e27d2369b49e233",
-   "retrieved_at": "2026-10-04T10:52:43+00:00",
+   "bytes": 20864,
+   "sha256": "dd858703cb290426aa8fe114c6dee4decf55c29884744654ed07fb6df484f62c",
+   "retrieved_at": "2026-10-07T11:23:20+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_elobservador/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_elobservador/2026-10-07",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
