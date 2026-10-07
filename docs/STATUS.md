@@ -2,6 +2,8 @@
 
 One entry per phase: what runs, what is missing, what broke, recommendation.
 
+**Note, 2026-10-07 (credential leak):** the first Congress.gov run recorded its API key in a fixture manifest committed to the public repository (the recorder cleaned URLs but not the params dict). Fixed in code (params masked, a test scans every fixture) and the adapter was rewritten to list bills per Congress and filter on title (DECISIONS 44). The key must be rotated at api.congress.gov and the `CONGRESS_GOV_KEY` secret replaced; the old value remains in git history until then.
+
 ## Phase 3a — Text analysis infrastructure and zero-shot baseline (2026-10-04; first full run live)
 
 **First full run (text-analysis.yml, 2026-10-04 12:25–14:01 UTC, 96 minutes of text steps on the 4-vCPU runner, 3.7 GB of model weights now cached)**

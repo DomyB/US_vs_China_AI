@@ -49,9 +49,13 @@ which the tests run on real data.
 | unga_votes | `ingest/unga.py` | governance | — |
 | idb_dpi | `ingest/dpi.py` | governance | optional `DPI_FILE_URL` (data.iadb.org file downloads answered 404 in October 2026) |
 | bgs_wms | `ingest/bgs.py` | production (cross-check) | — |
-| congress_gov | `ingest/tier2.py` | policy_document | `CONGRESS_GOV_KEY` |
+| congress_gov | `ingest/tier2.py` | policy_document | `CONGRESS_GOV_KEY`; lists every bill of each Congress from the 110th (about 700 requests, 250 per page) and keeps titles about minerals or mining, or naming China with a Western Hemisphere term; the API has no keyword search |
 | us_census_trade | `ingest/tier2.py` | trade_flow (monthly HS10 mirror) | `CENSUS_KEY` |
 | bu_codf | `ingest/tier2.py` | finance_event | `CODF_DOWNLOAD_URL` (signed data-use agreement; file never committed) |
+
+Recorded request parameters are masked (`scm.http.scrub_params`): any parameter named like a credential
+is stored as `***` in manifests and fixtures, and `tests/test_http.py` fails if a recorded fixture
+carries an unmasked one.
 
 Adapters gated by a secret report `skipped` until the secret exists in the repository
 settings (Settings → Secrets and variables → Actions). No secret is ever written to the

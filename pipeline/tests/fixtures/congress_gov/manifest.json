@@ -4,7 +4,7 @@
   "bills_0.json": {
    "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=critical+minerals",
    "params": {
-    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "api_key": "***",
     "format": "json",
     "limit": 250,
     "fromDateTime": "2008-01-01T00:00:00Z",
@@ -20,7 +20,7 @@
   "bills_1.json": {
    "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=lithium",
    "params": {
-    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "api_key": "***",
     "format": "json",
     "limit": 250,
     "fromDateTime": "2008-01-01T00:00:00Z",
@@ -36,7 +36,7 @@
   "bills_2.json": {
    "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=rare+earth",
    "params": {
-    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "api_key": "***",
     "format": "json",
     "limit": 250,
     "fromDateTime": "2008-01-01T00:00:00Z",
@@ -52,7 +52,7 @@
   "bills_3.json": {
    "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=Chinese+influence+Latin+America",
    "params": {
-    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "api_key": "***",
     "format": "json",
     "limit": 250,
     "fromDateTime": "2008-01-01T00:00:00Z",
@@ -68,7 +68,7 @@
   "bills_4.json": {
    "url": "https://api.congress.gov/v3/bill?format=json&limit=250&fromDateTime=2008-01-01T00:00:00Z&q=minerals+security+partnership",
    "params": {
-    "api_key": "03Oa02w01BqMyQrQA3zZnMfeq1zg3EQejDh0lszu",
+    "api_key": "***",
     "format": "json",
     "limit": 250,
     "fromDateTime": "2008-01-01T00:00:00Z",

@@ -6,6 +6,8 @@ which then replace these synthetic payloads.
 """
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 import pytest
 
@@ -261,10 +263,19 @@ def test_finance_event_parsers_return_schema_columns_when_empty(snap_factory):
 
 
 def test_tier2_parsers(snap_factory, monkeypatch):
-    bills = {"bills": [{"congress": 118, "type": "S", "number": "1871", "title": "Critical Minerals Act", "updateDate": "2024-05-01", "url": "https://api.congress.gov/v3/bill/118/s/1871", "latestAction": {"actionDate": "2024-05-01", "text": "Referred"}}]}
-    snap = snap_factory("congress_gov", {"bills_0.json": bills})
+    def bill(n, title, typ="S", congress=118):
+        return {"congress": congress, "type": typ, "number": str(n), "title": title, "updateDate": "2024-05-01",
+                "url": f"https://api.congress.gov/v3/bill/{congress}/{typ.lower()}/{n}", "latestAction": {"actionDate": "2024-05-01", "text": "Referred"}}
+
+    snap = snap_factory("congress_gov", {
+        "bills_118_0.json": {"bills": [bill(1871, "Critical Minerals Act"), bill(2, "National Teen Driver Safety Week"), bill(3, "Expressing support for Taiwan"),
+                                       bill(4, "To counter the influence of the People's Republic of China in Latin America")]},
+        "bills_118_250.json": {"bills": [bill(5, "Rare earth magnet supply chain", "HR"), bill(6, "A bill about school lunches", "HR")]},
+    })
     out = _check(CongressGov(), snap, ["policy_document"])
-    assert out["policy_document"].iloc[0]["doc_type"] == "bill:S"
+    docs = out["policy_document"]
+    assert sorted(docs["title"]) == ["Critical Minerals Act", "Rare earth magnet supply chain", "To counter the influence of the People's Republic of China in Latin America"]
+    assert set(docs["doc_type"]) == {"bill:S", "bill:HR"} and snap.manifest["bills_scanned"] == 6
 
     census = [["CTY_CODE", "CTY_NAME", "I_COMMODITY", "GEN_VAL_MO", "GEN_QY1_MO", "UNIT_QY1", "time"], ["3370", "CHILE", "2603000000", "1500000", "900", "KG", "2024-03"]]
     snap = snap_factory("us_census_trade", {"imports_260300.json": census})
@@ -316,3 +327,30 @@ def test_comtrade_stops_after_consecutive_quota_refusals(snap_factory, monkeypat
         comtrade.Comtrade(years=[2022]).fetch(snap)
     assert len(calls) == 4 * comtrade.MAX_QUOTA_FAILURES  # four attempts per call, then stop
     assert len(snap.manifest["errors"]) == len(calls)
+
+
+def test_congress_fetch_pages_through_each_congress_and_masks_the_key(snap_factory, monkeypatch):
+    import scm.ingest.tier2 as t2
+
+    monkeypatch.setenv("CONGRESS_GOV_KEY", "SECRET-VALUE")
+    monkeypatch.setattr(t2, "first_congress", lambda: 118)
+    monkeypatch.setattr(t2, "current_congress", lambda today=None: 119)
+    monkeypatch.setattr(CongressGov, "PAGE", 2)
+    snap = snap_factory("congress_gov", {})
+    pages = {("118", 0): 2, ("118", 2): 1, ("119", 0): 2, ("119", 2): 0}
+    calls = []
+
+    def fake_get_json(url, name, params=None, **kw):
+        congress = url.rsplit("/", 1)[-1]
+        calls.append((congress, params["offset"]))
+        n = pages[(congress, params["offset"])]
+        snap.path(name).write_text(json.dumps({"bills": [{"congress": int(congress), "type": "S", "number": str(i), "title": "t"} for i in range(n)]}))
+        snap.record(name, url, params=params, status=200)
+        return {"bills": [{}] * n}
+
+    monkeypatch.setattr(snap, "get_json", fake_get_json)
+    CongressGov().fetch(snap)
+    assert calls == [("118", 0), ("118", 2), ("119", 0), ("119", 2)]  # pages until a short page, per Congress
+    assert snap.manifest["bills_listed_per_congress"] == {118: 3, 119: 2}
+    recorded = json.dumps(snap.files)
+    assert "SECRET-VALUE" not in recorded and snap.files["bills_118_0.json"]["params"]["api_key"] == "***"

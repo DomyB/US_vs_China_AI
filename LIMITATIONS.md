@@ -222,3 +222,9 @@ the registry.
 - AEI's China Global Investment Tracker is compiled by a think tank; its data is
   widely used but is labeled "analysis-sourced".
 - OCMAL is an activist network; its conflict database is labeled partisan.
+
+## Congress.gov (added 2026-10-07)
+
+- Bills only, titles and the latest action text (no bill text), from the 110th Congress (2007) on, selected by
+  title keywords: a bill about critical minerals whose title does not say so is missed. Votes, amendments and
+  committee records are not collected.

@@ -4,12 +4,15 @@ from __future__ import annotations
 
 import json
 import os
+import re
+from datetime import date
 
 import pandas as pd
 
 from ..http import Snapshot
 from ..registry import IN_SCOPE, iso3_from_name
 from .base import Adapter, event_id, to_float
+from .keywords import relevance
 from .util import col, read_any, tag_mineral
 
 CONGRESS_API = "https://api.congress.gov/v3"
@@ -17,29 +20,81 @@ CENSUS_API = "https://api.census.gov/data/timeseries/intltrade"
 CENSUS_CTY = {"ARG": "3570", "BOL": "3350", "BRA": "3510", "CHL": "3370", "COL": "3010", "ECU": "3310", "GUY": "3120", "PRY": "3530", "PER": "3330", "SUR": "3150", "URY": "3550", "VEN": "3070"}
 
 
+# Western Hemisphere framing: a bill naming China only counts when it is also about this region (the 12 countries
+# or the region itself), otherwise every bill mentioning Taiwan or trade with China would qualify.
+HEMISPHERE_RE = re.compile(
+    r"(?i)\b(latin america|south america|western hemisphere|caribbean|andean|argentin|bolivia|brazil|chile|colombia|ecuador|guyana|"
+    r"paraguay|peru|suriname|uruguay|venezuela|lithium triangle|panama)")
+
+
+def first_congress() -> int:
+    return 110  # 2007-2008, the first Congress after the period starts
+
+
+def current_congress(today: date | None = None) -> int:
+    return ((today or date.today()).year - 1789) // 2 + 1
+
+
 class CongressGov(Adapter):
+    """US bills, by listing every bill of each Congress and filtering the titles here: the API's bill endpoint has
+    no keyword search (a `q` parameter is ignored and every query returned the same 250 recent bills)."""
+
     source_id = "congress_gov"
     tables = ("policy_document",)
     requires_env = ("CONGRESS_GOV_KEY",)
-    terms = ["critical minerals", "lithium", "rare earth", "Chinese influence Latin America", "minerals security partnership"]
+    min_interval = 0.8
+    PAGE = 250
 
     def fetch(self, snap: Snapshot) -> None:
         key = os.environ["CONGRESS_GOV_KEY"]
-        for i, term in enumerate(self.terms):
-            snap.get_json(f"{CONGRESS_API}/bill", f"bills_{i}.json", params={"api_key": key, "format": "json", "limit": 250, "fromDateTime": "2008-01-01T00:00:00Z", "q": term})
+        pages = {}
+        for congress in range(first_congress(), current_congress() + 1):
+            offset, n = 0, 0
+            while True:
+                name = f"bills_{congress}_{offset}.json"
+                payload = snap.get_json(f"{CONGRESS_API}/bill/{congress}", name,
+                                        params={"api_key": key, "format": "json", "limit": self.PAGE, "offset": offset, "sort": "updateDate+desc"})
+                got = len((payload or {}).get("bills") or []) if isinstance(payload, dict) else 0
+                n += got
+                if got < self.PAGE:
+                    break
+                offset += self.PAGE
+            pages[congress] = n
+        snap.manifest["bills_listed_per_congress"] = pages
+        snap.save()
+
+    @staticmethod
+    def on_topic(title: str) -> list[str] | None:
+        """Matched terms when the title is about minerals or mining, or names China together with the hemisphere."""
+        rel = relevance(title)
+        if rel.mining or rel.minerals:
+            return rel.matched
+        if rel.mentions_cn and HEMISPHERE_RE.search(title):
+            return rel.matched + [m.group(0).lower() for m in HEMISPHERE_RE.finditer(title)][:2]
+        return None
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         rows: dict[str, dict] = {}
-        for name in snap.files:
+        listed = 0
+        for name in sorted(snap.files):
             if not name.startswith("bills_") or not snap.has(name):
                 continue
             payload = json.loads(snap.path(name).read_text())
             for b in payload.get("bills", []):
+                listed += 1
+                title = b.get("title") or ""
+                matched = self.on_topic(title)
+                if not matched:
+                    continue
                 key = f"{b.get('congress')}-{b.get('type')}-{b.get('number')}"
-                date = (b.get("updateDate") or b.get("latestAction", {}).get("actionDate") or "")[:10]
-                rows[key] = {"doc_id": event_id("congress", key), "jurisdiction": "US", "date": date, "year": int(date[:4]) if date else 0, "doc_type": f"bill:{b.get('type')}", "title": b.get("title") or key,
-                             "agency": "US Congress", "abstract": (b.get("latestAction") or {}).get("text"), "topics": self.terms[int(name.split('_')[1].split('.')[0])], "value_type": "reported", "source_record_url": b.get("url")}
-        df = pd.DataFrame(list(rows.values()))
+                date_ = (b.get("updateDate") or b.get("latestAction", {}).get("actionDate") or "")[:10]
+                rows[key] = {"doc_id": event_id("congress", key), "jurisdiction": "US", "date": date_, "year": int(date_[:4]) if date_ else 0,
+                             "doc_type": f"bill:{b.get('type')}", "title": title or key, "agency": "US Congress",
+                             "abstract": (b.get("latestAction") or {}).get("text"), "topics": ",".join(dict.fromkeys(matched)),
+                             "value_type": "reported", "source_record_url": b.get("url")}
+        snap.manifest["bills_scanned"] = listed
+        columns = ["doc_id", "jurisdiction", "date", "year", "doc_type", "title", "agency", "abstract", "topics", "value_type", "source_record_url"]
+        df = pd.DataFrame(list(rows.values()), columns=columns)
         return {"policy_document": self.stamp(snap, df)}
 
 

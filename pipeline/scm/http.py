@@ -39,7 +39,15 @@ def make_session(retries: int = 4, backoff: float = 1.5) -> requests.Session:
 # They are stripped from every recorded URL so manifests and site JSON never contain a secret-looking
 # token; GitHub push protection rejects commits that do (observed with Harvard Dataverse's S3 redirects).
 _SECRET_PARAM = re.compile(r"(?i)^(x-amz-.*|awsaccesskeyid|signature|expires|sig|se|sv|sp|sr|st|token|access_token|"
-                           r"api[_-]?key|subscription-key|x-goog-.*|response-content-.*)$")
+                           r"api[_-]?key|key|apikey|subscription-key|password|passwd|secret|client_secret|x-goog-.*|response-content-.*)$")
+MASK = "***"
+
+
+def scrub_params(params: dict | None) -> dict:
+    """Copy of a request's params with the value of every credential-bearing parameter masked.
+    Manifests, fixtures and site JSON record params verbatim otherwise: the Congress.gov key was committed
+    that way (2026-10-05) because only the URL, not the params dict, was cleaned."""
+    return {k: (MASK if _SECRET_PARAM.match(str(k)) else v) for k, v in (params or {}).items()}
 
 
 def clean_url(url: str | None) -> str | None:
@@ -122,7 +130,7 @@ class Snapshot:
                final_url: str | None = None) -> None:
         p = self.path(name)
         self.files[name] = {
-            "url": clean_url(url), "params": params or {}, "status": status, "bytes": p.stat().st_size if p.exists() else 0,
+            "url": clean_url(url), "params": scrub_params(params), "status": status, "bytes": p.stat().st_size if p.exists() else 0,
             **({"final_url": clean_url(final_url)} if final_url and final_url != url else {}),
             "sha256": sha256_of(p) if p.exists() else None,
             "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"), "note": note,
