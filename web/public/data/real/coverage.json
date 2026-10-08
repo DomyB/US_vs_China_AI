@@ -1,5 +1,5 @@
 {
- "generated_on": "2026-10-07",
+ "generated_on": "2026-10-08",
  "countries": {
   "ARG": {
    "trade_years": [
@@ -40,7 +40,7 @@
    "concessions": 0,
    "parliament_classified": 1233,
    "parliament_translated": 1233,
-   "media_classified": 6,
+   "media_classified": 7,
    "narratives_available": false
   },
   "BOL": {
@@ -124,7 +124,7 @@
    "concessions": 0,
    "parliament_classified": 3824,
    "parliament_translated": 3824,
-   "media_classified": 3,
+   "media_classified": 4,
    "narratives_available": false
   },
   "CHL": {
@@ -166,7 +166,7 @@
    "concessions": 0,
    "parliament_classified": 173,
    "parliament_translated": 173,
-   "media_classified": 3,
+   "media_classified": 4,
    "narratives_available": false
   },
   "COL": {
@@ -331,7 +331,7 @@
    "concessions": 0,
    "parliament_classified": 4,
    "parliament_translated": 4,
-   "media_classified": 0,
+   "media_classified": 1,
    "narratives_available": false
   },
   "PER": {
@@ -372,7 +372,7 @@
    "concessions": 0,
    "parliament_classified": 140,
    "parliament_translated": 140,
-   "media_classified": 4,
+   "media_classified": 6,
    "narratives_available": false
   },
   "SUR": {
