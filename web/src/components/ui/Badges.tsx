@@ -1,5 +1,5 @@
 import { EVIDENCE_LABEL, RELIABILITY_LABEL, STANCE_LABEL } from "@/lib/constants";
-import type { QuantModelStatus, Reliability, TextModelStatus } from "@/lib/types";
+import type { LayerSource, QuantModelStatus, Reliability, TextModelStatus } from "@/lib/types";
 
 export function ReliabilityBadge({ value }: { value: Reliability }) {
   const style: Record<Reliability, string> = {
@@ -63,8 +63,9 @@ export function SampleTag() {
   return <span className="inline-block rounded-sm bg-sample/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sample">Sample</span>;
 }
 
-export function DataLayerTag({ layer }: { layer: "real" | "sample" | "none" | "facts_only" | undefined }) {
+export function DataLayerTag({ layer }: { layer: LayerSource | undefined }) {
   if (layer === "real") return <span className="inline-block rounded-sm bg-facts/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-facts">Real data</span>;
+  if (layer === "generated" || layer === "generated+human") return <span className="inline-block rounded-sm bg-interp/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-interp">{layer === "generated+human" ? "Generated + owner's text" : "Generated from indicators"}</span>;
   if (layer === "facts_only") return <span className="inline-block rounded-sm bg-facts/10 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-facts">Real records · unclassified</span>;
   if (layer === "none") return <span className="inline-block rounded-sm bg-surface-2 px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink-3">No data yet</span>;
   return <SampleTag />;

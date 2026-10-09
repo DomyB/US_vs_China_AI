@@ -9,7 +9,8 @@ Phases 2, 3a, 4 and 5 live (2026-10-09). The facts layer (actions, trade, govern
 the banner says so; parliament and media records are real with text-model outputs tagged by validation
 status; the influence index, concentration, say–do gap, flags, event studies, regressions and finance
 network are computed from the warehouse and labelled per block; forecasts come from backtested models
-and are labelled with their scores. Phase 6 (written analysis) is not started.
+and are labelled with their scores; the written analysis is generated from named indicators, with the
+owner's own text shown apart where it exists. All six phases are live.
 
 ## Phase 2a data caveats
 
@@ -258,6 +259,19 @@ the registry.
   the paths and nothing more.
 - **Coverage:** ten countries have index forecasts and nine have share forecasts (Uruguay's trade stops in
   2011, Venezuela reports none, Paraguay's shares are too erratic for the share target).
+
+## Phase 6 written-analysis caveats (added 2026-10-09)
+
+- **Generated briefs restate indicators; they do not interpret.** Every sentence is a template bound to
+  the ids it cites, so it inherits every caveat above (three trade partners, finance ending in 2021,
+  the zero-shot stance baseline, draft events, narrow forecast bands). A fluent sentence is not a
+  stronger finding than the number behind it.
+- **No causal language is generated.** Event results are called associations and regressions
+  conditional correlations; the templates cannot say why anything happened.
+- **Thresholds are conventions.** "Broadly flat" means under 2 index points or 3 share points over five
+  years; "sudden" and "large" follow the flag rules of DECISIONS 48.
+- **The human layer is opinion, labelled as such,** and exists only where the owner has written a file;
+  as of this release none exists.
 
 ## Method limitations
 

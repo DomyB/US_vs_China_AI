@@ -124,6 +124,20 @@ def _event_rows(iso: str, effect_rows: list[dict]) -> list[dict]:
     return sorted(out, key=lambda r: (r["year"], r["event_id"], r["actor"], r["design"]))
 
 
+def _interpretation_block(text_rows: list[dict], scope: str, iso: str | None) -> dict | None:
+    rows = [r for r in text_rows if r["scope"] == scope and (r["country"] == iso if iso else r["country"] is None)]
+    if not rows:
+        return None
+    generated = [{"section": r["section"], "title": r["title"], "sentences": json.loads(r["sentences_json"] or "[]"), "indicators": [x for x in str(r["supporting_indicator_ids"] or "").split(",") if x],
+                  "changed_since_previous": bool(r["changed_since_previous"]), "previous_date": r["previous_date"]}
+                 for r in sorted((r for r in rows if r["model"] != "human"), key=lambda r: int(r["position"]))]
+    human = next(({"title": r["title"], "author": r["author"], "date": r["generated_on"], "reviewed": bool(r["reviewed_by_human"]), "text_md": r["text_md"],
+                   "changed_since_previous": bool(r["changed_since_previous"])} for r in rows if r["model"] == "human"), None)
+    first = rows[0]
+    return {"generated": generated, "human": human, "template_version": first["template_version"], "generated_on": max(r["generated_on"] for r in rows if r["model"] != "human") if generated else first["generated_on"],
+            "label": "Generated from named indicators by fixed templates; each sentence lists the indicators it rests on. The owner's writing, where present, is shown apart."}
+
+
 SCENARIO_TEXT = {s["id"]: {"id": s["id"], "name": s["name"], "assumptions": s["assumptions"],
                            "description": "Monte Carlo paths of the selected model with the stated yearly shift added; a scenario, not a forecast." if s["id"] != "baseline"
                            else "The selected model's simulated paths; the published forecast."} for s in SCENARIOS}
@@ -325,6 +339,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     reg_rows = _rows(con, "SELECT * FROM regression_result")
     fc_rows = _rows(con, "SELECT * FROM forecast")
     bt_rows = _rows(con, "SELECT * FROM backtest ORDER BY target, actor, model, h")
+    text_rows = _rows(con, "SELECT * FROM analysis_text ORDER BY scope, country, position")
     qrun = _rows(con, "SELECT * FROM quant_run ORDER BY created_at DESC LIMIT 1")
     quant_status = _quant_status(qrun, idx_rows, text_status)
     from .text import series as text_series
@@ -517,6 +532,9 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
         if fc_block:
             country["forecast"] = fc_block
             country["freshness"]["forecast"] = {"last_updated": today, "source_ids": ["un_comtrade"], "schedule": "monthly (refitted with each ingestion run)"}
+        interp = _interpretation_block(text_rows, "country", iso)
+        if interp:
+            country["interpretation"] = interp
         (out / "country" / f"{iso}.json").write_text(json.dumps(country, ensure_ascii=False, default=str), encoding="utf-8")
         coverage[iso] = {
             "trade_years": years, "mirror_years": mirror_years, "events": len(events), "contracts": len(c_rows), "governance": len(g_rows), "production": len(p_rows),
@@ -532,6 +550,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "analysis_available": bool(analysis_years), "analysis_years": [analysis_years[0], analysis_years[-1]] if analysis_years else None,
             "flags": len(analysis["flags"]) if analysis else 0,
             "forecast_available": bool(fc_block),
+            "interpretation_available": bool(interp), "human_interpretation": bool(interp and interp["human"]),
         }
 
     # region: mineral shares from reported exports summed over the 12 countries
@@ -549,7 +568,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
         if s["WLD"] > 0:
             cn, us = s["CN"] / s["WLD"], s["US"] / s["WLD"]
             mineral_shares.append({"year": s["year"], "mineral": s["mineral"], "share_cn": round(cn, 4), "share_us": round(us, 4), "share_other": round(max(0.0, 1 - cn - us), 4), "exports_wld_musd": round(s["WLD"] / 1e6, 1)})
-    (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade")}, ensure_ascii=False), encoding="utf-8")
+    regional_interp = _interpretation_block(text_rows, "regional", None)
+    (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade"), "interpretation": regional_interp}, ensure_ascii=False), encoding="utf-8")
     influence = [{"iso3": r["country"], "year": int(r["year"]), "actor": r["actor"], "mineral": r["mineral"], "value": r["value"], "lower": r["lower"], "upper": r["upper"], "n_components": int(r["n_components"])}
                  for r in idx_rows if r["index_name"] == "influence" and r["value"] is not None]
     (out / "index.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "layer": "real" if influence else "none",
@@ -568,7 +588,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                    "model_outputs": ("validated" if text_status["validated"] else "zero_shot_baseline") if n_parl_coded or n_media_coded else "sample",
                    "parliament": "real" if n_parl_coded else "facts_only" if any(c["parliament_available"] for c in coverage.values()) else "sample",
                    "media": "real" if n_media_coded else "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample",
-                   "analysis": "real" if influence else "sample", "forecast": "real" if fc_rows else "sample"},
+                   "analysis": "real" if influence else "sample", "forecast": "real" if fc_rows else "sample",
+                   "interpretation": ("generated+human" if any(r["model"] == "human" for r in text_rows) else "generated") if text_rows else "sample"},
         "text_model": text_status,
         "quant_model": quant_status,
         "coverage": coverage,

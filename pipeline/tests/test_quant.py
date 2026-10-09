@@ -331,3 +331,69 @@ def test_run_exports_forecast_block(tmp_path):
     assert meta["layers"]["forecast"] == "real" and meta["coverage"]["CHL"]["forecast_available"] and not meta["coverage"]["ARG"]["forecast_available"]
     q = json.loads((out / "quant.json").read_text())["forecast"]
     assert q["status"] == "computed" and q["countries"] == ["CHL"] and any(r["selected"] for r in q["backtest"])
+
+
+def test_briefs_sentences_cite_indicators_and_missing_data_is_said(tmp_path):
+    from scm.quant import briefs
+
+    wh = _synthetic_warehouse(tmp_path)
+    rows = []
+    for i, year in enumerate(range(2014, 2026)):
+        wld = 2.0e9
+        rows += [_trade("CHL", "WLD", "CHL", year, wld, "reported"), _trade("CHL", "CHN", "CHL", year, wld * (0.3 + 0.02 * i), "reported"), _trade("CHL", "USA", "CHL", year, wld * 0.1, "reported")]
+    _write(wh, "trade_flow", "un_comtrade", rows)
+    human_dir = tmp_path / "interp"
+    human_dir.mkdir()
+    (human_dir / "CHL.md").write_text("---\ntitle: Chile, my reading\nauthor: Owner\ndate: 2026-10-10\nreviewed: true\n---\n\n## Alignment\n\nMy own view, with a claim.\n", encoding="utf-8")
+    (human_dir / "BRA.md").write_text("---\nreviewed: false\n---\n", encoding="utf-8")  # empty body: ignored
+    res = quant_run.run(wh, draws=20, seed=3, release="t", n_boot=19, n_sims=200, n_backtest=50, human_dir=human_dir)
+    assert res["briefs"]["sections"] == 12 * 7 + 7 + 1 and res["briefs"]["human"] == 1 and res["briefs"]["changed"] == res["briefs"]["sections"]
+    text = warehouse.load_slot("analysis_text", "quant", wh)
+    gen = text[text["model"] != "human"]
+    assert set(gen["scope"]) == {"country", "regional"} and (gen["template_version"] == briefs.TEMPLATE_VERSION).all()
+    # every generated sentence carries at least one indicator id
+    for r in gen.itertuples(index=False):
+        for s in json.loads(r.sentences_json):
+            assert s["ids"], (r.section, s["text"])
+    chl = gen[(gen["country"] == "CHL")].set_index("section")
+    assert "52%" in chl.loc["trade", "text_md"]  # the 2025 share to China (0.3 + 0.02*11)
+    assert "concentration:share_cn_x:all:2025" in chl.loc["trade", "supporting_indicator_ids"]
+    assert "swap-line" in chl.loc["finance_and_debt", "text_md"].lower()
+    ven = gen[(gen["country"] == "VEN")].set_index("section")
+    assert "No reported mineral trade" in ven.loc["trade", "text_md"] and "No influence index" in ven.loc["where_it_stands", "text_md"]
+    assert "%" not in ven.loc["trade", "text_md"]  # nothing invented
+    regional = gen[gen["scope"] == "regional"].set_index("section")
+    assert "Herfindahl" in regional.loc["trade_pattern", "text_md"]
+    human = text[text["model"] == "human"]
+    assert len(human) == 1 and human.iloc[0]["country"] == "CHL" and human.iloc[0]["reviewed_by_human"] and human.iloc[0]["author"] == "Owner" and human.iloc[0]["title"] == "Chile, my reading"
+    assert human.iloc[0]["text_md"].startswith("## Alignment")
+    # an identical re-run changes nothing; the diff flags turn false
+    res2 = quant_run.run(wh, draws=20, seed=3, release="t", n_boot=19, n_sims=200, n_backtest=50, human_dir=human_dir)
+    assert res2["briefs"]["changed"] == 0
+    text2 = warehouse.load_slot("analysis_text", "quant", wh)
+    assert not text2["changed_since_previous"].any() and text2["previous_date"].notna().all()
+
+    warehouse.build(wh)
+    out = tmp_path / "site"
+    export_site.run(wh, out)
+    c = json.loads((out / "country" / "CHL.json").read_text())
+    interp = c["interpretation"]
+    assert [g["section"] for g in interp["generated"]] == ["where_it_stands", "trade", "finance_and_debt", "politics", "events", "outlook", "data_caveats"]
+    assert interp["generated"][1]["sentences"][0]["ids"] and interp["human"]["author"] == "Owner" and interp["human"]["reviewed"] is True
+    assert not interp["generated"][1]["changed_since_previous"] and interp["generated"][1]["previous_date"]
+    v = json.loads((out / "country" / "VEN.json").read_text())["interpretation"]
+    assert v["human"] is None and "No reported mineral trade" in v["generated"][1]["sentences"][0]["text"]
+    region = json.loads((out / "region.json").read_text())["interpretation"]
+    assert region["generated"][0]["section"] == "ranking" and region["human"] is None
+    meta = json.loads((out / "meta.json").read_text())
+    assert meta["layers"]["interpretation"] == "generated+human" and meta["coverage"]["CHL"]["human_interpretation"] and not meta["coverage"]["VEN"]["human_interpretation"]
+
+
+def test_load_human_front_matter(tmp_path):
+    from scm.quant.briefs import load_human
+
+    assert load_human(tmp_path / "missing.md") is None
+    p = tmp_path / "x.md"
+    p.write_text("Just a paragraph, no front matter.\n", encoding="utf-8")
+    h = load_human(p)
+    assert h["text_md"] == "Just a paragraph, no front matter." and h["reviewed"] is False and h["author"] == "project owner"

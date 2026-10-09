@@ -1,4 +1,4 @@
-import type { ValidationFile, CountryCoverage, CountryData, IndexFile, IndexRow, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
+import type { ValidationFile, CountryCoverage, CountryData, IndexFile, IndexRow, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -70,7 +70,7 @@ export async function loadCountry(iso3: string): Promise<CountryData> {
  * file carries an `analysis` block (Phase 4) it replaces the sample analysis and the layer is "real".
  */
 export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | undefined, real: RealCountryData | null, parliament: RealParliamentFile | null, media: RealMediaFile | null): CountryData {
-  sample.layers = { actions: "sample", governance: "none", parliament: "sample", media: "sample", analysis: "sample", forecast: "sample" };
+  sample.layers = { actions: "sample", governance: "none", parliament: "sample", media: "sample", analysis: "sample", forecast: "sample", interpretation: "sample" };
   if (!cov) return sample;
   if (real && cov.actions) {
     sample.actions = { events: real.actions.events, trade: real.actions.trade, contracts: real.actions.contracts, production: real.actions.production };
@@ -113,8 +113,22 @@ export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | unde
     if (real.freshness.forecast) sample.freshness = { ...sample.freshness, forecast: real.freshness.forecast };
     sample.layers.forecast = "real";
   }
+  if (real?.interpretation) {
+    sample.interpretation = real.interpretation;
+    sample.layers.interpretation = real.interpretation.human ? "generated+human" : "generated";
+  }
   sample.parliament_note = cov.parliament_note ?? null;
   return sample;
+}
+
+/** The regional synthesis (Phase 6) from the real region file, or null before the briefs exist. */
+export async function loadRegionInterpretation(): Promise<InterpretationBlock | null> {
+  try {
+    const real = await getJSON<{ interpretation?: InterpretationBlock | null }>(`${REAL}/region.json`);
+    return real.interpretation ?? null;
+  } catch {
+    return null;
+  }
 }
 
 /** Region mineral shares from real trade data when available, else sample. */

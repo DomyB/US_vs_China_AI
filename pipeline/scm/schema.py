@@ -628,6 +628,28 @@ backtest = DataFrameSchema(
     coerce=True, strict=True, name="backtest",
 )
 
+analysis_text = DataFrameSchema(
+    {
+        "scope": Column(str, Check.isin(["country", "regional"])),
+        "country": Column(str, Check.isin(IN_SCOPE), nullable=True),
+        "section": Column(str),
+        "position": Column(int),
+        "title": Column(str),
+        "text_md": Column(str),
+        "sentences_json": Column(str),  # [{text, ids}] for the generated sections, [] for the human layer
+        "supporting_indicator_ids": Column(str),  # comma-separated indicator ids behind the section
+        "template_version": Column(str),
+        "model": Column(str),  # template-<version> or human
+        "author": Column(str, nullable=True),
+        "reviewed_by_human": Column(bool),
+        "changed_since_previous": Column(bool),
+        "previous_date": Column(str, nullable=True),
+        "generated_on": Column(str),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="analysis_text",
+)
+
 quant_run = DataFrameSchema(
     {
         "created_at": Column(str),
@@ -645,11 +667,11 @@ SCHEMAS: dict[str, DataFrameSchema] = {
                         document, vote, vote_member, concession, media_volume, ingest_run,
                         doc_translation, doc_classification, doc_embedding, topic_model_run, topic, doc_topic,
                         validation_sample, validation_metric,
-                        concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, event_effect, regression_result, forecast, backtest, quant_run]
+                        concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, event_effect, regression_result, forecast, backtest, analysis_text, quant_run]
 }
 MODEL_OUTPUT_TABLES = ["doc_translation", "doc_classification", "doc_embedding", "topic_model_run", "topic", "doc_topic",
                        "validation_sample", "validation_metric"]
-QUANT_TABLES = ["concentration", "index_value", "index_component", "say_do_gap", "anomaly_flag", "network_metric", "network_edge", "event_effect", "regression_result", "forecast", "backtest", "quant_run"]
+QUANT_TABLES = ["concentration", "index_value", "index_component", "say_do_gap", "anomaly_flag", "network_metric", "network_edge", "event_effect", "regression_result", "forecast", "backtest", "analysis_text", "quant_run"]
 
 # Merge keys for tables that accumulate across runs (Adapter.incremental): rows with the same key
 # are kept once, the first-seen row winning so `retrieved_at` records the first observation.
@@ -680,6 +702,7 @@ KEY_COLUMNS: dict[str, list[str]] = {
     "regression_result": ["spec", "variant", "term"],
     "forecast": ["country", "actor", "target", "mineral", "horizon_year", "scenario_id"],
     "backtest": ["target", "actor", "model", "h"],
+    "analysis_text": ["scope", "country", "section"],
     "quant_run": ["run_id"],
 }
 

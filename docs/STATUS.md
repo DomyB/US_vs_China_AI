@@ -4,6 +4,19 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 
 **Note, 2026-10-07 (credential leak):** the first Congress.gov run recorded its API key in a fixture manifest committed to the public repository (the recorder cleaned URLs but not the params dict). Fixed in code (params masked, a test scans every fixture) and the adapter was rewritten to list bills per Congress and filter on title (DECISIONS 44). The first run of the rewritten adapter failed after about 40 pages with "Response ended prematurely" (a dropped connection); downloads now retry cut-off responses four times before failing. The completed run scanned 10 Congresses (about 150,000 bills) and kept 1,576 titles, of which 607 were Congressional Gold Medal bills and dozens were tariff-suspension bills on chemicals; both are now excluded, and the date is the latest action's date (the update date put 2008 bills in 2025). The key must be rotated at api.congress.gov and the `CONGRESS_GOV_KEY` secret replaced; the old value remains in git history until then.
 
+## Phase 6 — Written analysis from named indicators (2026-10-09)
+
+**What runs**
+- `scm/quant/briefs.py` (inside `scm analyse`): fixed templates generate seven sections per country (where it stands, trade, finance and debt, politics, dated events, outlook to 2030, what the data cannot say) and seven for the region (ranking, movers, trade pattern, finance pattern, statistical evidence, outlook, caveats) from the computed tables; a template fires only when every indicator it cites exists, otherwise the section states what is missing (Venezuela: "No reported mineral trade … absent, not zero"). Every sentence stores the indicator ids behind it and the site shows them on click; model outputs are named as such; a diff against the previous release marks sections whose text changed. 91 sections per run; the owner's Markdown under `data/manual/interpretation/` (README and template committed, no text yet) is loaded apart as `model = human`.
+- Site: the Analysis tab's Interpretation block now shows the generated brief (click a sentence for its indicators, "updated" marks) and the owner's box ("No human-written interpretation yet" until a file exists); the region page gets the regional synthesis; the methodology page documents the templates, thresholds, diff and the human layer; the banner names the layer. 152 pipeline tests (2 new) and 21 site tests pass; DECISIONS 54–55.
+- Reading the first briefs: Chile 2025 sends 48% of mineral exports to China and 14% to the United States; its index lean is +30.5 points toward China from three and four components; the brief says the stance series is absent (fewer than five scored records a year) and that AidData ends in 2021. The regional synthesis ranks Suriname, Peru and Bolivia as leaning most toward China in 2024, names lithium, iron ore and manganese as the minerals going most to China, and reports the one regression coefficient that passes the bootstrap.
+
+**What is missing**
+- The owner's own interpretation (none written yet); every upstream gap is restated in the briefs' caveat sections. The templates are English only.
+
+**Recommendation**
+- Write `data/manual/interpretation/<ISO3>.md` for the countries you know best, starting from `_TEMPLATE.md`, and set `reviewed: true` when you stand behind the text. All six phases are now live; the remaining work is the owner's items (event list review, keys and files, coder 1) and the data gaps in LIMITATIONS.md.
+
 ## Phase 5 — Forecasting with backtests and scenarios (2026-10-09)
 
 **What runs**

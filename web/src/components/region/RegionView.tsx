@@ -12,9 +12,10 @@ import { YearControl } from "@/components/controls/YearControl";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Freshness } from "@/components/ui/Freshness";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
-import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionShares } from "@/lib/data";
+import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionInterpretation, loadRegionShares } from "@/lib/data";
 import { fmtPct, fmtSigned } from "@/lib/format";
-import type { IndexFile, Meta, RegionData } from "@/lib/types";
+import type { IndexFile, InterpretationBlock, Meta, RegionData } from "@/lib/types";
+import { Interpretation } from "@/components/panel/Interpretation";
 
 type FC = FeatureCollection<Geometry, { iso3: string; name: string; in_scope: boolean }>;
 
@@ -29,13 +30,15 @@ export function RegionView() {
   const [region, setRegion] = useState<RegionData | null>(null);
   const [geo, setGeo] = useState<FC | null>(null);
   const [shareRows, setShareRows] = useState<{ rows: RegionData["mineral_shares"]; layer: "real" | "sample" } | null>(null);
+  const [interp, setInterp] = useState<InterpretationBlock | null | undefined>(undefined);
 
   useEffect(() => {
-    Promise.all([loadMeta(), loadIndex(), loadRegion(), loadRegionShares()]).then(([m, i, r, s]) => {
+    Promise.all([loadMeta(), loadIndex(), loadRegion(), loadRegionShares(), loadRegionInterpretation()]).then(([m, i, r, s, t]) => {
       setMeta(m);
       setIndex(i);
       setRegion(r);
       setShareRows(s);
+      setInterp(t);
     });
     fetch("/data/south-america.topo.json")
       .then((r) => r.json())
@@ -196,6 +199,11 @@ export function RegionView() {
           )}
         </section>
       </div>
+      <section className="mt-4 rounded-md border border-rule bg-surface p-3" aria-labelledby="syn-h">
+        <div className="mb-1 flex items-center justify-between gap-2"><h2 id="syn-h" className="text-base font-semibold">Regional synthesis</h2><LayerLabel layer="interpretation" /></div>
+        <p className="mb-2 text-xs text-ink-3">Written analysis of the region generated from the computed indicators (each sentence names what it rests on), and the project owner&apos;s own synthesis where one exists.</p>
+        {interp === undefined ? <p className="text-sm text-ink-3">Loading…</p> : <Interpretation block={interp} scopeLabel="the region" />}
+      </section>
       {meta && (
         <div className="mt-4">
           <Freshness f={meta.freshness.analysis} />

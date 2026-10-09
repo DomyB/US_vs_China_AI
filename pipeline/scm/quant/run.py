@@ -10,9 +10,11 @@ import pandas as pd
 
 from ..paths import WAREHOUSE_DIR
 from ..schema import QUANT_TABLES
-from ..warehouse import replace_slot
+from ..warehouse import load_slot, replace_slot
 from . import METHOD_VERSION, WEIGHTS_VERSION
 from .anomalies import anomalies
+from .briefs import HUMAN_DIR
+from .briefs import generate as generate_briefs
 from .concentration import concentration, wide
 from .events import EVENTS_FILE, event_effects, load_events
 from .forecast import forecasts
@@ -40,7 +42,7 @@ def inputs_release() -> str:
 
 
 def run(warehouse: Path = WAREHOUSE_DIR, draws: int = 500, seed: int = 20261009, release: str | None = None, n_boot: int = 999,
-        events_path: Path = EVENTS_FILE, n_sims: int = 2000, n_backtest: int = 500) -> dict:
+        events_path: Path = EVENTS_FILE, n_sims: int = 2000, n_backtest: int = 500, human_dir: Path = HUMAN_DIR) -> dict:
     run_id = f"quant-{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}"
     release = release or inputs_release()
     stamp = {"method_version": METHOD_VERSION, "run_id": run_id, "inputs_release": release}
@@ -60,14 +62,20 @@ def run(warehouse: Path = WAREHOUSE_DIR, draws: int = 500, seed: int = 20261009,
     k = len(COMPONENTS)
     comp_out = comp.drop(columns=["rank_value"]).assign(weight=1.0 / k, weights_version=WEIGHTS_VERSION)
     idx_out = idx.assign(weights_version=WEIGHTS_VERSION)
+    today = datetime.now(UTC).date().isoformat()
+    briefs = generate_briefs({"concentration": conc, "conc_x": ex_all, "index_component": comp_out, "index_value": idx_out, "anomaly_flag": flags, "say_do_gap": sd,
+                              "network_metric": nodes, "network_edge": edges, "event_effect": effects, "regression_result": regressions, "forecast": fc},
+                             inp.finance, inp.last_year, inp.text_status.get("label"), fc_status, load_slot("analysis_text", SLOT, warehouse), today, human_dir=human_dir)
     notes = {"unattributed_finance_events": int(unattributed), "last_year": inp.last_year, "text_model": inp.text_status.get("label"),
              "countries_with_trade": sorted(inp.trade["reporter"].unique().tolist()) if not inp.trade.empty else [],
              "events": {"total": len(events), "reviewed": sum(1 for e in events if e["status"] == "reviewed"), "draft": sum(1 for e in events if e["status"] != "reviewed")},
-             "n_boot": int(n_boot), "forecast": fc_status}
+             "n_boot": int(n_boot), "forecast": fc_status,
+             "briefs": {"sections": int(len(briefs)), "human": int((briefs["model"] == "human").sum()) if not briefs.empty else 0,
+                        "changed": int(briefs["changed_since_previous"].sum()) if not briefs.empty else 0}}
     qrun = pd.DataFrame([{"created_at": datetime.now(UTC).isoformat(timespec="seconds"), "weights_version": WEIGHTS_VERSION, "draws": int(draws),
                           "rank_stability": stability, "notes": json.dumps(notes, default=str)}])
     frames = {"concentration": conc, "index_value": idx_out, "index_component": comp_out, "say_do_gap": sd, "anomaly_flag": flags,
-              "network_metric": nodes, "network_edge": edges, "event_effect": effects, "regression_result": regressions, "forecast": fc, "backtest": bt, "quant_run": qrun}
+              "network_metric": nodes, "network_edge": edges, "event_effect": effects, "regression_result": regressions, "forecast": fc, "backtest": bt, "analysis_text": briefs, "quant_run": qrun}
     written: dict[str, int] = {}
     for table in QUANT_TABLES:
         df = frames[table]

@@ -88,6 +88,20 @@ describe("mergeRealLayers", () => {
     expect(out.forecast.model_status?.["export_share:CN"].beats_naive).toBe(true);
     expect(out.freshness.forecast?.source_ids).toEqual(["un_comtrade"]);
   });
+  it("attaches the interpretation block and names the layer by whether the owner's text exists", () => {
+    const gen = [{ section: "trade", title: "Trade", sentences: [{ text: "In 2025, 48% went to China.", ids: ["concentration:share_cn_x:all:2025"] }], indicators: ["concentration:share_cn_x:all:2025"], changed_since_previous: true, previous_date: null }];
+    const base = { dataset: "REAL", freshness: { actions: { last_updated: "x", source_ids: [], schedule: "m" } }, actions: { events: [], trade: [], contracts: [], production: [] }, governance: [], trade_discrepancies: [] };
+    const generatedOnly = { ...base, interpretation: { generated: gen, human: null, template_version: "2026.10", generated_on: "2026-10-09", label: "l" } } as unknown as RealCountryData;
+    const out1 = mergeRealLayers(sample(), { ...cov, actions: true }, generatedOnly, null, null);
+    expect(out1.layers?.interpretation).toBe("generated");
+    expect(out1.interpretation?.generated[0].sentences[0].ids).toEqual(["concentration:share_cn_x:all:2025"]);
+    const withHuman = { ...base, interpretation: { generated: gen, human: { title: "t", author: "owner", date: "2026-10-10", reviewed: true, text_md: "My reading." }, template_version: "2026.10", generated_on: "2026-10-09", label: "l" } } as unknown as RealCountryData;
+    const out2 = mergeRealLayers(sample(), { ...cov, actions: true }, withHuman, null, null);
+    expect(out2.layers?.interpretation).toBe("generated+human");
+    expect(out2.interpretation?.human?.text_md).toBe("My reading.");
+    const none = mergeRealLayers(sample(), { ...cov, actions: true }, base as unknown as RealCountryData, null, null);
+    expect(none.layers?.interpretation).toBe("sample");
+  });
   it("keeps the analysis sample when the real country file has no analysis block", () => {
     const real = { dataset: "REAL", freshness: { actions: { last_updated: "x", source_ids: [], schedule: "m" } }, actions: { events: [], trade: [], contracts: [], production: [] }, governance: [], trade_discrepancies: [] } as unknown as RealCountryData;
     const s = sample();

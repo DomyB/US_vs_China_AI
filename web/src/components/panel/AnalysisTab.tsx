@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, EvidenceBadge, LayerLabel, QuantStatusTag } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
+import { Interpretation } from "./Interpretation";
 import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtPct, fmtSigned } from "@/lib/format";
 import type { ComponentValue, CountryData, IndexRow } from "@/lib/types";
@@ -348,10 +349,8 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
           <h3 id="interp-h" className="text-sm font-semibold">Interpretation</h3>
           <LayerLabel layer="interpretation" />
         </div>
-        <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3 text-sm text-ink-2">
-          <p>Written country analysis (alignment, trajectory, risks, likely next moves by each actor, and the indicators each statement rests on) is produced in Phase 6. Until then this block is a placeholder so the three layers stay visually separate.</p>
-          <p className="mt-2 text-xs text-ink-3">Context note from the registry: {data.note}</p>
-        </div>
+        <Interpretation block={data.interpretation} scopeLabel={data.name} />
+        <p className="mt-2 text-xs text-ink-3">Context note from the registry: {data.note}</p>
       </section>
     </div>
   );

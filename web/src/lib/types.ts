@@ -153,7 +153,7 @@ export interface TradeDiscrepancy {
 
 /** "facts_only": real records are shown while the layer's model outputs (stance, tone) remain sample;
  *  "real": records plus labelled model outputs (see TextModelStatus for whether they are validated). */
-export type LayerSource = "real" | "sample" | "none" | "facts_only";
+export type LayerSource = "real" | "sample" | "none" | "facts_only" | "generated" | "generated+human";
 
 /** How the text classifier that produced stance and tone values stands (exported in meta.json and per layer file). */
 export interface TextModelStatus {
@@ -262,6 +262,8 @@ export interface CountryCoverage {
   analysis_years?: [number, number] | null;
   flags?: number;
   forecast_available?: boolean;
+  interpretation_available?: boolean;
+  human_interpretation?: boolean;
 }
 
 export interface RealMeta {
@@ -290,6 +292,8 @@ export interface RealCountryData {
   analysis?: RealAnalysis;
   /** present once the forecasting step has run for the country (Phase 5) */
   forecast?: RealForecast;
+  /** present once the briefs have been generated (Phase 6) */
+  interpretation?: InterpretationBlock;
 }
 
 /** web/public/data/real/parliament/<ISO3>.json */
@@ -533,6 +537,39 @@ export interface RegressionRow {
   r2_within: number | null;
 }
 
+/** One generated sentence of the written analysis with the indicator ids it rests on (Phase 6). */
+export interface GeneratedSentence {
+  text: string;
+  ids: string[];
+}
+
+export interface GeneratedSection {
+  section: string;
+  title: string;
+  sentences: GeneratedSentence[];
+  indicators: string[];
+  changed_since_previous: boolean;
+  previous_date: string | null;
+}
+
+/** The project owner's own text, read from data/manual/interpretation/. */
+export interface HumanText {
+  title: string;
+  author: string | null;
+  date: string;
+  reviewed: boolean;
+  text_md: string;
+  changed_since_previous?: boolean;
+}
+
+export interface InterpretationBlock {
+  generated: GeneratedSection[];
+  human: HumanText | null;
+  template_version: string;
+  generated_on: string;
+  label: string;
+}
+
 /** The `analysis` block of a real country file (Phase 4). */
 export interface RealAnalysis {
   index: CountryIndexRow[];
@@ -620,7 +657,7 @@ export interface CountryData {
   eiti_member: boolean;
   language: string;
   freshness: Meta["freshness"] & { governance?: Freshness };
-  layers?: Record<"actions" | "governance" | "parliament" | "media" | "analysis" | "forecast", LayerSource>;
+  layers?: Record<"actions" | "governance" | "parliament" | "media" | "analysis" | "forecast" | "interpretation", LayerSource>;
   /** why a legislature has no structured records (BOL, GUY, SUR, VEN), from the exporter */
   parliament_note?: string | null;
   /** status of the text classifier behind stance, tone and narratives (Phase 3); null while they are sample */
@@ -644,6 +681,8 @@ export interface CountryData {
     quant_model?: QuantModelStatus;
   };
   forecast: { series: ForecastRow[]; scenarios: Scenario[]; model_status?: Record<string, ForecastModelStatus>; horizon_year?: number; models?: Record<string, string> | null; label?: string };
+  /** real only (Phase 6) */
+  interpretation?: InterpretationBlock;
 }
 
 export interface Project {
@@ -672,6 +711,7 @@ export interface RegionData {
   dataset: string;
   projects: Project[];
   mineral_shares: MineralShareRow[];
+  interpretation?: InterpretationBlock | null;
 }
 
 export interface SourceEntry {
