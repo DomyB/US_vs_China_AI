@@ -46,7 +46,7 @@ export function EvidenceMeter({ level, basis }: { level: EvidenceLevel; basis: s
 /** A labelled lever: title, value readout and the control. */
 export function Lever({ label, value, hint, children }: { label: string; value: ReactNode; hint?: ReactNode; children: ReactNode }) {
   return (
-    <div className="min-w-0 rounded-md border-2 border-outline bg-card px-3 py-2">
+    <div className="min-w-0 rounded-md border-2 border-outline bg-card px-3 py-2 shadow-[2px_2px_0_var(--shadow-hard)]">
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-xs font-semibold text-ink">{label}</span>
         <span className="text-xs tabular-nums text-ink-2">{value}</span>

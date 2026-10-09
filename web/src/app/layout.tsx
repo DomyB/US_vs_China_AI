@@ -5,15 +5,29 @@ import { NavLinks } from "@/components/ui/NavLinks";
 import { ChromeMeasure } from "@/components/ui/ChromeMeasure";
 import { SampleBanner } from "@/components/ui/SampleBanner";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LogoTile } from "@/components/ui/LogoTile";
+import { ReleaseLine } from "@/components/ui/ReleaseLine";
 import { THEME_BOOTSTRAP } from "@/lib/theme";
 import { Suspense } from "react";
 import { PageFade } from "@/components/layout/PageFade";
 import { Tour } from "@/components/tour/Tour";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
+const TITLE = "US–China Critical Minerals Tracker: South America 2008–2026";
+const DESCRIPTION = "Tracks, analyses and forecasts the competition between the United States and China for critical minerals in South America: actions, parliaments and media, by country and year.";
+
 export const metadata: Metadata = {
-  title: "US–China Critical Minerals Tracker: South America 2008–2026",
-  description:
-    "Tracks, analyses and forecasts the competition between the United States and China for critical minerals in South America: actions, parliaments and media, by country and year.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: "US–China Critical Minerals Tracker",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Illustrated South America with mineral crystals and routes from the United States and China" }],
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og.png"] },
 };
 
 export const viewport: Viewport = {
@@ -36,13 +50,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ChromeMeasure>
         <header className="border-b-2 border-outline bg-card">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 sm:gap-x-6">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 sm:gap-x-6">
             <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 no-underline sm:flex-none">
-              <span aria-hidden="true" className="sticker grid h-9 w-9 shrink-0 grid-cols-2 overflow-hidden rounded-lg bg-card">
-                <span className="bg-us" /><span className="bg-surface-2" /><span className="bg-surface-2" /><span className="bg-cn" />
-              </span>
+              <LogoTile size={36} />
               <span className="leading-tight">
-                <span className="serif block text-base font-bold tracking-tight text-ink sm:text-lg">US–China Critical Minerals Tracker</span>
+                <span className="serif block text-[15px] font-bold tracking-tight text-ink sm:text-base">US–China Critical Minerals Tracker</span>
                 <span className="block text-[11px] text-ink-3">South America · 12 countries · 2008–2026</span>
               </span>
             </Link>
@@ -63,10 +75,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Tour />
         </Suspense>
         <footer className="mt-8 border-t-2 border-outline bg-surface-2 text-xs text-ink-3">
-          <div className="mx-auto grid max-w-7xl gap-4 px-4 py-5 sm:grid-cols-[1fr_auto]">
-            <p className="max-w-2xl leading-relaxed">
+          <div className="mx-auto grid max-w-7xl gap-5 px-4 py-5 sm:grid-cols-[auto_1fr_auto]">
+            <LogoTile size={36} className="hidden sm:grid" />
+            <div className="max-w-2xl space-y-1.5 leading-relaxed">
+              <p className="serif text-sm font-bold text-ink">US–China Critical Minerals Tracker</p>
+              <p>
               Open research project. Every number links to its source and every source carries a reliability rating. Facts, model outputs and interpretation are shown as three separate layers, labelled on every block. Nothing is estimated silently: missing data is shown as missing.
-            </p>
+              </p>
+              <p><ReleaseLine /></p>
+            </div>
             <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-1 sm:flex-col sm:text-right">
               <Link href="/methodology" className="underline">Methodology</Link>
               <Link href="/sources" className="underline">Sources</Link>

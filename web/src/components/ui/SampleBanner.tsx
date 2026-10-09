@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { loadRealMeta } from "@/lib/data";
-import type { RealMeta } from "@/lib/types";
+import { useRealMeta } from "@/lib/useRealMeta";
 
 /**
  * Data-status strip under the header. Reads the real-data metadata (absent until the first ingestion run) and
@@ -11,11 +9,8 @@ import type { RealMeta } from "@/lib/types";
  * The full explanation sits behind a "details" toggle so the strip stays one line.
  */
 export function SampleBanner() {
-  const [real, setReal] = useState<RealMeta | null | undefined>(undefined);
-  useEffect(() => {
-    loadRealMeta().then(setReal);
-  }, []);
-  if (real === undefined) return <div role="status" className="h-8 border-b border-rule bg-surface-2" aria-label="Checking data status" />;
+  const real = useRealMeta();
+  if (real === undefined) return <div role="status" className="h-8 border-b-2 border-outline bg-surface-2" aria-label="Checking data status" />;
   if (!real) {
     return (
       <div role="status" className="border-b border-sample/40 bg-sample/10 px-4 py-1.5 text-center text-xs font-semibold text-sample">
@@ -41,12 +36,12 @@ export function SampleBanner() {
   ];
   const toneCls = { facts: "border-facts/40 text-facts", model: "border-model/40 text-model", interp: "border-interp/40 text-interp", sample: "border-sample/50 text-sample" };
   return (
-    <div role="status" className="border-b border-rule bg-surface-2">
+    <div role="status" className="border-b-2 border-outline bg-surface-2">
       <details className="mx-auto max-w-7xl px-4">
-        <summary className="flex list-none flex-wrap items-center gap-x-3 gap-y-1 py-1.5 text-[11px] text-ink-2 [&::-webkit-details-marker]:hidden">
-          <span className="eyebrow">Data status</span>
-          <span className="text-ink-3">ingested {real.generated_on} · {real.sources_ok.length} sources</span>
-          <span className="hidden flex-wrap gap-1 sm:flex">
+        <summary className="scroll-x flex h-8 list-none items-center gap-x-3 whitespace-nowrap text-[11px] text-ink-2 [&::-webkit-details-marker]:hidden">
+          <span className="eyebrow shrink-0">Data status</span>
+          <span className="shrink-0 text-ink-3">ingested {real.generated_on} · {real.sources_ok.length} sources</span>
+          <span className="hidden shrink-0 gap-1 sm:flex">
             {chips.map((c) => (
               <span key={c.label} className={`chip border bg-card normal-case tracking-normal ${toneCls[c.tone]}`} title={`${c.label}: ${c.value}`}>
                 <span className="font-semibold">{c.label}</span>
@@ -54,9 +49,9 @@ export function SampleBanner() {
               </span>
             ))}
           </span>
-          <span className="text-ink-3 underline decoration-dotted">what is real?</span>
+          <span className="ml-auto shrink-0 text-ink-3 underline decoration-dotted">What is real?</span>
         </summary>
-        <p className="flex flex-wrap gap-1 pb-1 sm:hidden">
+        <p className="flex flex-wrap gap-1 pb-1 pt-1 sm:hidden">
           {chips.map((c) => (
             <span key={c.label} className={`chip border bg-card normal-case tracking-normal ${toneCls[c.tone]}`}><span className="font-semibold">{c.label}</span><span className="font-normal text-ink-2">{c.value}</span></span>
           ))}

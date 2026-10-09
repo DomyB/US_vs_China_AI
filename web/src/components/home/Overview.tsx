@@ -48,7 +48,7 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, ranked, 
     <div className="flex h-full flex-col gap-4 overflow-y-auto p-4">
       <div>
         <p className="eyebrow">{compareMode ? "Compare" : "Overview"}</p>
-        <p className="serif mt-0.5 text-xl text-ink">{compareMode ? "Pick up to four countries" : "Select a country"}</p>
+        <h2 className="mt-0.5 text-lg leading-tight">{compareMode ? "Pick up to four countries" : "Select a country"}</h2>
         <p className="mt-1 text-sm text-ink-2">
           {compareMode
             ? `Click countries on the map or in the ranking; ${selection.length ? `${selection.length} picked so far.` : "two or more open the comparison."}`
@@ -58,15 +58,15 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, ranked, 
       </div>
       {real && (
         <div className="grid grid-cols-2 gap-2">
-          <StatTile label="Data as of" value={kpis.asOf ? new Date(kpis.asOf + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "–"} note="monthly refresh" />
-          <StatTile label="Live sources" value={kpis.sources !== null ? <AnimatedNumber value={kpis.sources} /> : "–"} note="of 187 registered" href="/sources" />
-          <StatTile label="Countries with facts" value={<><AnimatedNumber value={kpis.facts} /> / 12</>} note="trade, finance, governance" />
-          <StatTile label="Countries indexed" value={<><AnimatedNumber value={kpis.indexed} /> / 12</>} note="≥ 3 of 6 components" href="/methodology#index" />
+          <StatTile icon="calendar" label="Data as of" value={kpis.asOf ? new Date(kpis.asOf + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "–"} note="monthly refresh" />
+          <StatTile icon="sources" label="Live sources" value={kpis.sources !== null ? <AnimatedNumber value={kpis.sources} /> : "–"} note={`of ${Object.keys(sourceNames).length} registered`} href="/sources" />
+          <StatTile icon="facts" label="Countries with facts" value={<><AnimatedNumber value={kpis.facts} /> / 12</>} note="trade, finance, governance" />
+          <StatTile icon="index" label="Countries indexed" value={<><AnimatedNumber value={kpis.indexed} /> / 12</>} note="≥ 3 of 6 components" href="/methodology#index" />
         </div>
       )}
       <section aria-labelledby="rk-h">
         <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
-          <h2 id="rk-h" className="text-base">Ranking in {year}{mineral !== "all" ? ` · ${mineral.replace(/_/g, " ")}` : ""}</h2>
+          <h3 id="rk-h" className="text-base font-semibold">Ranking in {year}{mineral !== "all" ? ` · ${mineral.replace(/_/g, " ")}` : ""}</h3>
           <span className="text-[11px] text-ink-3">{mode === "both" ? "net lean, China minus United States" : `${mode === "US" ? "United States" : "China"} index, 0–100`}{indexLayer === "real" ? " · computed" : " · sample"}</span>
         </div>
         {ranked.length === 0 ? (
@@ -78,7 +78,7 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, ranked, 
       </section>
       {view !== "index" && (
         <section aria-labelledby="fl-h">
-          <h2 id="fl-h" className="text-base">{view === "money" ? "Money flows" : "Trade flows"} on the map</h2>
+          <h3 id="fl-h" className="text-base font-semibold">{view === "money" ? "Money flows" : "Trade flows"} on the map</h3>
           <p className="mt-0.5 text-[11px] text-ink-3">{aggs.length} arcs drawn. Every arc&apos;s numbers and sources are in the table; hover an arc for the same.</p>
           {view === "money" && window && flowsLastYear && (
             <>

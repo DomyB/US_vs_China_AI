@@ -21,7 +21,7 @@ export function ThemeToggle() {
         applySetting(next);
         setSetting(next);
       }}
-      className="btn h-9 shrink-0 gap-1.5 px-3 text-xs"
+      className="btn btn-sm shrink-0 gap-1.5"
       aria-label={`${LABEL[setting]}. Switch to ${next}`}
       title={`${LABEL[setting]} · click for ${next}`}
     >

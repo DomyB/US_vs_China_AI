@@ -28,7 +28,7 @@ export function WeightsPlayground({ rows, labels, year, published }: { rows: Com
   if (rows.length === 0 || names.length === 0) return null;
   return (
     <details className="mt-2 rounded-md border border-dashed border-model/40 bg-model/5 px-2.5 py-1.5 text-xs">
-      <summary className="!text-model">Try your own weights for {year} <span className="font-normal text-ink-3">(a what-if, not the published index)</span></summary>
+      <summary className="text-model">Try your own weights for {year} <span className="font-normal text-ink-3">(a what-if, not the published index)</span></summary>
       <div className="mt-2 grid gap-x-4 gap-y-1 sm:grid-cols-2">
         {names.map((n) => (
           <label key={n} className="grid grid-cols-[1fr_auto] items-center gap-2 text-ink-2">
@@ -47,7 +47,7 @@ export function WeightsPlayground({ rows, labels, year, published }: { rows: Com
             {r.pub !== null && r.value !== null && <span className="text-ink-3"> vs published {r.pub.toFixed(1)}</span>}
           </span>
         ))}
-        {changed && <button type="button" className="underline decoration-dotted text-ink-3" onClick={() => setWeights({})}>reset to equal weights</button>}
+        {changed && <button type="button" className="underline decoration-dotted text-ink-3" onClick={() => setWeights({})}>Reset to equal weights</button>}
       </div>
       <p className="mt-1 text-[11px] leading-snug text-ink-3">Weighted mean of the normalised components available in {year} (a weight of 0 drops a component; at least {MIN_COMPONENTS} must remain). The published index uses equal weights and reports a band across weight and normalisation draws; your choice is shown here only and is not saved.</p>
     </details>

@@ -39,7 +39,7 @@ export function ValidationMetrics() {
         {val?.beats_baseline !== null && val?.beats_baseline !== undefined ? ` · trained head ${val.beats_baseline ? "beats" : "does not beat"} the zero-shot baseline on the held-out split` : ""}
       </p>
       <div className="scroll-x max-h-[28rem] overflow-y-auto rounded-md border border-rule">
-      <table className="w-full border-collapse text-xs">
+      <table className="w-full border-collapse">
         <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Metric</th><th className="py-1 pr-2">Value</th><th className="py-1">n</th></tr></thead>
         <tbody>
           {agreementRows.length === 0 && (

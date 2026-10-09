@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Icon, type IconName } from "@/components/ui/Icons";
 
 /** Title row of a panel block: title on the left, layer tags on the right, an optional one-line intro. */
 export function SectionHeader({ id, title, tags, intro }: { id: string; title: ReactNode; tags?: ReactNode; intro?: ReactNode }) {
@@ -21,17 +22,17 @@ export function Callout({ tone = "model", summary, children }: { tone?: "model" 
   }
   return (
     <details className={`rounded-md border px-2.5 py-1.5 text-xs ${cls}`}>
-      <summary className="!text-inherit">{summary} <span className="underline decoration-dotted opacity-80">details</span></summary>
+      <summary className="text-inherit">{summary} <span className="underline decoration-dotted opacity-80">details</span></summary>
       <div className="mt-1 leading-relaxed text-ink-2">{children}</div>
     </details>
   );
 }
 
 /** A headline number with its label and an optional note; the number uses proportional figures. */
-export function StatTile({ label, value, note, href }: { label: string; value: ReactNode; note?: ReactNode; href?: string }) {
+export function StatTile({ label, value, note, href, icon }: { label: string; value: ReactNode; note?: ReactNode; href?: string; icon?: IconName }) {
   const body = (
     <>
-      <p className="eyebrow">{label}</p>
+      <p className="flex items-start justify-between gap-2"><span className="eyebrow">{label}</span>{icon && <Icon name={icon} className="sticker h-7 w-7 justify-center rounded-lg bg-surface-2 text-ink-2" />}</p>
       <p className="mt-0.5 text-lg font-semibold leading-tight text-ink sm:text-xl">{value}</p>
       {note && <p className="mt-0.5 text-[11px] leading-snug text-ink-3">{note}</p>}
     </>

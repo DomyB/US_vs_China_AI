@@ -215,7 +215,7 @@ function LegislativeRecords({ data, year, mineral }: { data: CountryData; year: 
         ))
       )}
       {docs.length > shown && (
-        <button type="button" onClick={() => setShown((n) => n + PAGE)} className="btn mt-2 h-8 px-3 text-xs">
+        <button type="button" onClick={() => setShown((n) => n + PAGE)} className="btn btn-sm mt-2">
           Show {Math.min(PAGE, docs.length - shown)} more of {docs.length - shown} remaining
         </button>
       )}
@@ -242,7 +242,7 @@ function RecordItem({ d, layer }: { d: ParliamentDoc; layer: LayerSource | undef
         {title}
         {d.language !== "en" && (
           <button type="button" onClick={() => setEnglish((e) => !e)} className="ml-2 text-[11px] font-normal text-ink-3 underline decoration-dotted hover:text-ink">
-            {english ? `${LANGUAGE_NAME[d.language] ?? d.language} original` : d.title_en ? `English${d.translation?.method === "mt" ? " (machine)" : ""}` : layer === "real" ? "translation pending" : "not yet translated"}
+            {english ? `${LANGUAGE_NAME[d.language] ?? d.language} original` : d.title_en ? `English${d.translation?.method === "mt" ? " (machine)" : ""}` : layer === "real" ? "Translation pending" : "Not yet translated"}
           </button>
         )}
       </p>

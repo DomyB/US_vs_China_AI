@@ -9,7 +9,7 @@ export const metadata = { title: "Methodology · US–China Critical Minerals Tr
 export default function MethodologyPage() {
   return (
     <div className="prose-doc mx-auto max-w-3xl px-4 py-6">
-      <h1 className="text-2xl font-semibold">Methodology</h1>
+      <h1 className="text-2xl font-semibold sm:text-[1.75rem]">Methodology</h1>
       <p>
         This page documents every index, model, data source and known limitation, with validation scores as they become available. It is regenerated with each data release. Sections marked pending describe planned methods; everything else is live and labelled per block on the site.
       </p>

@@ -98,11 +98,11 @@ export function Tour() {
           </button>
           <span className="flex gap-2">
             {n > 1 && (
-              <button type="button" className="btn h-8 px-3 text-xs" onClick={() => go(n - 1)}>
+              <button type="button" className="btn btn-sm" onClick={() => go(n - 1)}>
                 Back
               </button>
             )}
-            <button type="button" className="btn h-8 px-3 text-xs" onClick={() => go(n + 1)}>
+            <button type="button" className="btn btn-sm" onClick={() => go(n + 1)}>
               {n === TOUR_STEPS.length ? "Finish" : "Next"}
             </button>
           </span>

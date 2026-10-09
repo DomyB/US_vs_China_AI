@@ -66,17 +66,17 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
       <div className="flex items-start justify-between gap-2 border-b border-rule bg-surface-2/60 px-4 pt-3 pb-2.5">
         <div>
           <p className="eyebrow">{iso3} · country panel</p>
-          <h2 className="mt-0.5 text-xl leading-tight">{country?.name ?? iso3}</h2>
+          {standalone ? <h1 className="mt-0.5 text-2xl leading-tight">{country?.name ?? iso3}</h1> : <h2 className="mt-0.5 text-xl leading-tight">{country?.name ?? iso3}</h2>}
           <p className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-3">
             <span className="rounded-full border border-rule-2 bg-card px-2 py-0.5">{year}</span>
             <span className="rounded-full border border-rule-2 bg-card px-2 py-0.5">{mineral === "all" ? "all minerals" : mineral.replace(/_/g, " ")}</span>
             {country?.eiti_member && <span className="rounded-full border border-rule-2 bg-card px-2 py-0.5">EITI member</span>}
-            {!standalone && <Link href={`/country/${iso3}?year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">open full page</Link>}
+            {!standalone && <Link href={`/country/${iso3}?year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">Open the full page</Link>}
           </p>
         </div>
         {onClose && (
-          <button type="button" onClick={onClose} aria-label="Close country panel" className="btn h-7 w-7 p-0 text-sm">
-            ×
+          <button type="button" onClick={onClose} aria-label="Close country panel" className="btn btn-sm btn-icon">
+            <Icon name="close" />
           </button>
         )}
       </div>
@@ -98,7 +98,7 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
         {underline && <span className="tab-underline" style={{ transform: `translateX(${underline.x}px)`, width: underline.w, left: 0 }} aria-hidden="true" />}
       </div>
       <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`} className="flex-1 overflow-y-auto px-4 py-3">
-        {error && <p className="text-sm text-cn">Could not load data: {error}</p>}
+        {error && <p className="text-sm text-danger">Could not load data: {error}</p>}
         {!data && !error && <PanelSkeleton />}
         {data && tab === "actions" && <ActionsTab data={data} year={year} mineral={mineral} />}
         {data && tab === "parliament" && <PoliticsTab data={data} year={year} mineral={mineral} />}

@@ -1,5 +1,7 @@
 "use client";
 
+import { Icon } from "@/components/ui/Icons";
+
 import * as Plot from "@observablehq/plot";
 import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
@@ -124,7 +126,7 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
           <p className="eyebrow">Compare · {isos.length} countries</p>
           <p className="serif mt-0.5 text-xl text-ink">Side by side</p>
         </div>
-        <button type="button" className="btn h-8 px-3 text-xs" onClick={onClear}>Clear</button>
+        <button type="button" className="btn btn-sm" onClick={onClear}>Clear</button>
       </div>
       <ul className="flex flex-wrap gap-1.5">
         {isos.map((iso, i) => (
@@ -132,11 +134,11 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
             <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-outline bg-card px-2 py-0.5 text-xs font-medium" onMouseEnter={() => onHover(iso)} onMouseLeave={() => onHover(null)}>
               <svg width="26" height="8" aria-hidden="true"><line x1="1" y1="4" x2="25" y2="4" stroke="currentColor" strokeWidth="2" strokeDasharray={DASH[i]} /></svg>
               {names[iso] ?? iso}
-              <button type="button" onClick={() => onRemove(iso)} aria-label={`Remove ${names[iso] ?? iso} from the comparison`} className="ml-0.5 text-ink-3 hover:text-ink">×</button>
+              <button type="button" onClick={() => onRemove(iso)} aria-label={`Remove ${names[iso] ?? iso} from the comparison`} className="ml-0.5 inline-flex text-ink-3 hover:text-ink"><Icon name="close" size={12} /></button>
             </span>
           </li>
         ))}
-        {isos.length < 4 && <li className="self-center text-[11px] text-ink-3">click the map or the ranking to add up to four</li>}
+        {isos.length < 4 && <li className="self-center text-[11px] text-ink-3">Click the map or the ranking to add up to four</li>}
       </ul>
       <section aria-labelledby="cmp-h">
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2">

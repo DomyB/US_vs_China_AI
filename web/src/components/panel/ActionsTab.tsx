@@ -170,7 +170,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
           </ol>
         )}
         {events.length > eventsShown && (
-          <button type="button" onClick={() => setEventsShown((n) => n + 30)} className="btn mt-2 h-8 px-3 text-xs">
+          <button type="button" onClick={() => setEventsShown((n) => n + 30)} className="btn btn-sm mt-2">
             Show {Math.min(30, events.length - eventsShown)} more of {events.length - eventsShown} remaining
           </button>
         )}
@@ -221,7 +221,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
             ))}
           </ul>
           {contracts.length > contractsShown && (
-            <button type="button" onClick={() => setContractsShown((n) => n + 40)} className="mt-2 rounded-full border border-rule px-3 py-1 text-xs text-ink-2 hover:bg-surface-2">
+            <button type="button" onClick={() => setContractsShown((n) => n + 40)} className="btn btn-sm mt-2">
               Show more ({contracts.length - contractsShown} remaining)
             </button>
           )}

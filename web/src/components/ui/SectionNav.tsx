@@ -9,7 +9,7 @@ export function SectionNav({ items, label = "Sections" }: { items: { id: string;
     const heads = items.map((it) => document.getElementById(it.id)).filter((el): el is HTMLElement => !!el);
     if (!heads.length) return;
     const pick = () => {
-      const top = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--chrome-h")) || 96) + 72;
+      const top = 56; // the nav sticks at the top of the viewport; a heading counts as current once it passes under it
       let cur = heads[0].id;
       for (const h of heads) if (h.getBoundingClientRect().top <= top) cur = h.id;
       setActive(cur);
@@ -23,11 +23,11 @@ export function SectionNav({ items, label = "Sections" }: { items: { id: string;
     };
   }, [items]);
   return (
-    <nav aria-label={label} className="section-nav -mx-4 mb-2 border-b border-rule bg-surface/95 px-4 py-1.5 backdrop-blur sm:mx-0 sm:rounded-md sm:border sm:px-2">
+    <nav aria-label={label} className="section-nav -mx-4 mb-2 border-b border-rule bg-surface/95 px-4 py-1.5 backdrop-blur sm:mx-0 sm:rounded-full sm:border-2 sm:border-outline sm:bg-card sm:px-2 sm:shadow-[3px_3px_0_var(--shadow-hard)]">
       <ul className="scroll-x flex max-w-full gap-1 text-[11px]">
         {items.map((it) => (
           <li key={it.id} className="shrink-0">
-            <a href={`#${it.id}`} aria-current={active === it.id ? "location" : undefined} className={`inline-block rounded-full px-2.5 py-1 no-underline ${active === it.id ? "bg-ink text-card" : "text-ink-2 hover:bg-surface-2"}`}>
+            <a href={`#${it.id}`} aria-current={active === it.id ? "location" : undefined} className="pill pill-sm">
               {it.label}
             </a>
           </li>

@@ -1,5 +1,7 @@
 "use client";
 
+import { Icon } from "@/components/ui/Icons";
+
 import { useEffect, useRef } from "react";
 import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 
@@ -35,11 +37,11 @@ export function YearControl({ year, onChange, playing, onTogglePlay }: { year: n
         }}
         aria-pressed={playing}
         aria-label={playing ? "Pause animation over years" : "Play animation over years"}
-        className="btn h-9 w-9 shrink-0 p-0 text-sm"
+        className="btn btn-md btn-icon shrink-0"
       >
-        {playing ? "❚❚" : "▶"}
+        <Icon name={playing ? "pause" : "play"} />
       </button>
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <label htmlFor="year-slider" className="sr-only">Year</label>
         <input
           id="year-slider"

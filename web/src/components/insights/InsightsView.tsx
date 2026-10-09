@@ -96,7 +96,7 @@ export function InsightsView() {
   if (file === null) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">
-        <h1 className="serif text-3xl font-bold">Insights and scenarios</h1>
+        <h1 className="serif text-2xl font-bold">Insights and scenarios</h1>
         <p className="mt-3 rounded-md border border-dashed border-rule-2 bg-surface-2 p-4 text-sm leading-relaxed text-ink-2">
           Nothing to show yet: the file this page reads, <code className="font-mono text-xs">insights.json</code>, is written by the pipeline&apos;s export step and appears with the next data run. The contrasts, the scenario studio and the findings then come from the same tables as the rest of the site. See the <Link href="/methodology#insights" className="underline">methodology</Link>.
         </p>
@@ -113,7 +113,7 @@ export function InsightsView() {
       <header className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
           <p className="eyebrow">Insights</p>
-          <h1 className="serif mt-1 text-3xl font-bold leading-tight sm:text-4xl">What the words, the money and the minerals say together</h1>
+          <h1 className="serif mt-1 text-2xl font-bold leading-tight sm:text-4xl">What the words, the money and the minerals say together</h1>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-2">
             Every other page shows one layer at a time. This one sets them against each other: what governments say (the owner&apos;s coded statements), what legislatures and the press say (text-model outputs), what the money and the ore actually do (documented commitments, reported trade) and what the backtested models expect to 2030. Move the levers to build your own scenario; every number stays traceable and nothing you set is stored.
           </p>
@@ -134,10 +134,10 @@ export function InsightsView() {
       </Block>
 
       <Block id="studio" n={2} title={<>Scenario studio{country ? <span className="text-ink-3"> · {country.name}</span> : null}</>} lead="Five levers, all arithmetic on published numbers: blend the scenarios, add a shock history has seen, redirect a mineral, change the money, move a price." layer="model"
-        tags={<button type="button" className="btn h-7 px-2 text-[11px]" onClick={copyLink}>{copied ? "link copied" : "Copy link to this scenario"}</button>}>
+        tags={<button type="button" className="btn btn-sm" onClick={copyLink}>{copied ? "Link copied" : "Copy link to this scenario"}</button>}>
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
           <label className="text-ink-2">Country <select className="input ml-1 text-xs" value={levers?.country ?? defaultCountry} onChange={(e) => selectCountry(e.target.value)} aria-label="Country of the scenario studio">{forecastCountries.map((c) => <option key={c.iso3} value={c.iso3}>{c.name}</option>)}</select></label>
-          {levers && (levers.pull !== 0 || levers.shock || levers.divertPct > 0 || levers.cnFin !== 1 || levers.usFin !== 1 || levers.pricePct !== 0) && <button type="button" className="underline decoration-dotted text-ink-3" onClick={() => update({ ...DEFAULT_LEVERS })}>reset the levers</button>}
+          {levers && (levers.pull !== 0 || levers.shock || levers.divertPct > 0 || levers.cnFin !== 1 || levers.usFin !== 1 || levers.pricePct !== 0) && <button type="button" className="underline decoration-dotted text-ink-3" onClick={() => update({ ...DEFAULT_LEVERS })}>Reset the levers</button>}
         </div>
         {country && levers && index ? <ScenarioStudio country={country} region={file.region} indexRows={index.rows} levers={levers} onChange={update} horizon={horizon} /> : <p className="text-sm text-ink-3">No forecast for this country.</p>}
       </Block>

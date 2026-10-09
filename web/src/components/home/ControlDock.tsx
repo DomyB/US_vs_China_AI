@@ -54,14 +54,14 @@ function flowNote(view: FlowView, m: FlowsFile["meta"] | null | undefined, layer
 export function ControlDock(p: Props) {
   const note = flowNote(p.view, p.flowsMeta, p.flowsLayer);
   const compareButton = (
-    <button type="button" className="btn h-8 shrink-0 px-3 text-xs" aria-pressed={p.compareMode} onClick={() => p.onCompareMode(!p.compareMode)} title="Pick up to four countries on the map or in the list to compare them">
+    <button type="button" className="btn btn-sm shrink-0" aria-pressed={p.compareMode} onClick={() => p.onCompareMode(!p.compareMode)} title="Pick up to four countries on the map or in the list to compare them">
       Compare{p.selectionCount > 1 ? ` · ${p.selectionCount}` : ""}
     </button>
   );
   const viewSwitch = <Segmented label="Map view" value={p.view} options={VIEW_OPTIONS} onChange={p.onView} />;
   const spanSwitch = p.view !== "index" ? <Segmented label="Window" value={p.span} options={SPAN_OPTIONS} onChange={p.onSpan} /> : null;
-  const actor = <div className="w-64 max-w-full"><ActorToggle value={p.mode} onChange={p.onMode} /></div>;
-  const mineral = <div className="min-w-[14rem]"><MineralFilter value={p.mineral} minerals={p.minerals} onChange={p.onMineral} /></div>;
+  const actor = <div className="min-w-[13rem] flex-1"><ActorToggle value={p.mode} onChange={p.onMode} /></div>;
+  const mineral = <div className="min-w-[12rem] flex-1"><MineralFilter value={p.mineral} minerals={p.minerals} onChange={p.onMineral} /></div>;
 
   if (p.compact) {
     return (
@@ -72,7 +72,7 @@ export function ControlDock(p: Props) {
           {compareButton}
         </div>
         <details className="mt-1 text-xs">
-          <summary>More: actor, mineral{p.view !== "index" ? ", window" : ""}, legend</summary>
+          <summary className="text-xs font-medium text-ink-2">More: actor, mineral{p.view !== "index" ? ", window" : ""}, legend</summary>
           <div className="mt-2 space-y-2">
             {spanSwitch}
             {actor}
@@ -85,8 +85,8 @@ export function ControlDock(p: Props) {
     );
   }
   return (
-    <div className="card p-3">
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_15rem]">
+    <div className="card @container p-3">
+      <div className="grid gap-3 @min-[30rem]:grid-cols-[minmax(0,1fr)_15rem]">
         <div className="space-y-2.5">
           <YearControl year={p.year} onChange={p.onYear} playing={p.playing} onTogglePlay={p.onTogglePlay} />
           <div className="flex flex-wrap items-center gap-2">
@@ -100,7 +100,7 @@ export function ControlDock(p: Props) {
           </div>
           {note && <p className="text-[11px] leading-snug text-ink-3">{note}</p>}
         </div>
-        <div className="border-l border-rule pl-3">{p.legend}</div>
+        <div className="border-t border-rule pt-2 @min-[30rem]:border-t-0 @min-[30rem]:border-l @min-[30rem]:pl-3 @min-[30rem]:pt-0">{p.legend}</div>
       </div>
     </div>
   );

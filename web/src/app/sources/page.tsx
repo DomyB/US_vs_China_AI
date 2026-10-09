@@ -11,7 +11,7 @@ export default function SourcesPage() {
     <div className="mx-auto max-w-7xl px-4 py-5">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <div>
-          <h1>Sources</h1>
+          <h1 className="text-2xl font-semibold sm:text-[1.75rem]">Sources</h1>
           <p className="mt-1 max-w-3xl text-sm text-ink-2">
             Generated from the source registry (<code className="rounded bg-surface-2 px-1 font-mono text-xs">pipeline/config/sources/*.yaml</code>); every URL is tested each week from a GitHub Actions runner, last on {SOURCES.generated_on}. Statuses with method &ldquo;search&rdquo; were established from search-engine results and package-index mirrors. &ldquo;Blocks automated clients&rdquo; means the site answered 403 to a generic client (bot protection), not that it is down.
           </p>

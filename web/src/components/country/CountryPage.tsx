@@ -50,11 +50,11 @@ export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: 
       <p className="mb-2 text-xs text-ink-3">
         <Link href={`/?country=${iso3}&year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">← Back to the map</Link>
       </p>
-      <div className="mb-3 grid gap-3 rounded-md border border-rule bg-surface p-3 md:grid-cols-[1fr_16rem]">
+      <div className="card mb-3 grid gap-3 p-3 md:grid-cols-[minmax(0,1fr)_16rem] [&>*]:min-w-0">
         <YearControl year={year} onChange={setYear} playing={playing} onTogglePlay={togglePlay} />
         {meta && <MineralFilter value={mineral} minerals={meta.minerals} onChange={(m) => setParam({ mineral: m === "all" ? null : m })} />}
       </div>
-      <div className="min-h-[70vh] rounded-md border border-rule">
+      <div className="card min-h-[70vh] overflow-hidden">
         {meta && index ? (
           <CountryPanel iso3={iso3} year={year} mineral={mineral} meta={meta} indexRows={index.rows} indexLayer={index.layer} tab={tab} onTab={(t) => setParam({ tab: t })} sourceNames={sourceNames} standalone />
         ) : (

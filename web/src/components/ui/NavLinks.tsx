@@ -18,7 +18,7 @@ export function NavLinks() {
       {NAV.map((n) => {
         const active = n.href === "/" ? path === "/" || path.startsWith("/country") : path.startsWith(n.href);
         return (
-          <Link key={n.href} href={n.href} aria-current={active ? "page" : undefined} className={`rounded-full px-3 py-1 font-medium no-underline transition-colors ${active ? "bg-ink text-surface" : "text-ink-2 hover:bg-surface-2 hover:text-ink"}`}>
+          <Link key={n.href} href={n.href} aria-current={active ? "page" : undefined} className={`pill ${active ? "" : "hover:bg-surface-2 hover:text-ink"}`}>
             {n.label}
           </Link>
         );

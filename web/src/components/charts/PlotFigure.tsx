@@ -92,7 +92,7 @@ function ExpandedFigure({ options, ariaLabel, onClose }: { options: PlotOptions;
     <dialog ref={dlg} className="plot-dialog" aria-label={`${ariaLabel} (expanded)`} onClose={onClose}>
       <div className="mb-2 flex items-start justify-between gap-3">
         <p className="text-sm leading-snug text-ink-2">{ariaLabel}</p>
-        <button type="button" className="btn h-8 shrink-0 px-3 text-xs" onClick={onClose}>Close</button>
+        <button type="button" className="btn btn-sm shrink-0" onClick={onClose}>Close</button>
       </div>
       <PlotFigure options={big} ariaLabel={ariaLabel} expandable={false} />
       <p className="mt-2 text-[11px] text-ink-3">Press Esc to close. The table alternative sits under the chart on the page.</p>

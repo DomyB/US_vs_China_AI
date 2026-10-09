@@ -114,13 +114,13 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
                 <td className="border-b border-rule px-2 py-1.5">{s.access}{s.auth && s.auth !== "none" ? <div className="text-[10px] text-ink-3">{s.auth}</div> : null}</td>
                 <td className="border-b border-rule px-2 py-1.5">{s.refresh_schedule}</td>
                 <td className="border-b border-rule px-2 py-1.5">
-                  <span className={s.status === "dead" ? "text-cn" : s.status === "uncertain" ? "text-interp" : ""}>{s.status}</span>
+                  <span className={s.status === "dead" ? "text-danger" : s.status === "uncertain" ? "text-interp" : ""}>{s.status}</span>
                   <div className="text-[10px] text-ink-3">{s.verified_on} · {s.verified_method}</div>
                 </td>
                 <td className="border-b border-rule px-2 py-1.5">
                   {s.liveness ? (
                     <>
-                      <span className={s.liveness.ok || s.liveness.api_ok ? "text-facts" : s.liveness.status === 403 ? "text-interp" : "text-cn"}>{livenessLabel(s.liveness)}</span>
+                      <span className={s.liveness.ok || s.liveness.api_ok ? "text-facts" : s.liveness.status === 403 ? "text-interp" : "text-danger"}>{livenessLabel(s.liveness)}</span>
                       <div className="text-[10px] text-ink-3">{s.liveness.checked_at?.slice(0, 10)}</div>
                     </>
                   ) : (
@@ -140,7 +140,7 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
         {filtered.length > shown && (
           <div className="flex items-center justify-between gap-3 border-t border-rule px-2 py-2 text-xs text-ink-3">
             <span>Showing {shown} of {filtered.length} sources</span>
-            <button type="button" onClick={() => setShown((n) => n + 60)} className="rounded-full border border-rule px-3 py-1 text-ink-2 hover:bg-surface-2">Show more</button>
+            <button type="button" onClick={() => setShown((n) => n + 60)} className="btn btn-sm">Show more</button>
           </div>
         )}
       </div>

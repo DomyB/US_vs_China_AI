@@ -170,7 +170,7 @@ export function RegionView() {
 
   return (
     <div ref={revealRoot} className="mx-auto max-w-7xl px-4 py-3">
-      <h1 className="text-2xl font-semibold leading-tight">Regional overview</h1>
+      <h1 className="text-2xl font-semibold leading-tight sm:text-[1.75rem]">Regional overview</h1>
       <p className="mb-3 max-w-3xl text-sm text-ink-2">Rankings, comparisons over time, mineral-by-mineral shares and the map of major projects. <LayerLabel layer="model" />{index?.layer === "real" ? <DataLayerTag layer="real" /> : <DataLayerTag layer="sample" />}</p>
 
       <SectionNav items={REGION_SECTIONS} />
@@ -180,7 +180,7 @@ export function RegionView() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="card region-card p-3" aria-labelledby="rk-h">
-          <h2 id="rk-h" className="mb-1 text-base font-semibold">Ranking in {year}</h2>
+          <h2 id="rk-h" className="mb-1 text-lg font-semibold">Ranking in {year}</h2>
           <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a row to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
           <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={80} href={(iso) => `/?country=${iso}&year=${year}`} onHover={setHoverIso} hover={focus} />
           <p className="mt-1 text-[11px] text-ink-3">Bars run from the centre: left toward the United States, right toward China, on a ±80 scale. Rows slide when the year changes.</p>
@@ -203,7 +203,7 @@ export function RegionView() {
 
         <section className="card region-card p-3" aria-labelledby="mm-h">
           <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
-            <h2 id="mm-h" className="text-base font-semibold">Comparison over time</h2>
+            <h2 id="mm-h" className="text-lg font-semibold">Comparison over time</h2>
             <span className="flex items-center gap-1"><DataLayerTag layer={index?.layer === "real" ? "real" : "sample"} /><LayerLabel layer="model" /></span>
           </div>
           <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -226,14 +226,14 @@ export function RegionView() {
         </section>
 
         <section className="card region-card p-3" aria-labelledby="min-h">
-          <div className="mb-1 flex items-center justify-between gap-2"><h2 id="min-h" className="text-base font-semibold">Mineral by mineral in {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer={shareRows?.layer} /><LayerLabel layer="facts" /></span></div>
+          <div className="mb-1 flex items-center justify-between gap-2"><h2 id="min-h" className="text-lg font-semibold">Mineral by mineral in {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer={shareRows?.layer} /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each mineral going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the 12 countries that reported)." : "."} Click a bar to open that mineral&apos;s trade flows on the map.</p>
           {shares.length === 0 ? <p className="text-sm text-ink-3">No reported trade for {year} yet.</p> : <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />}
           <DataTable rows={shares} caption="Export shares by mineral and destination" columns={[{ key: "mineral", label: "Mineral" }, { key: "partner", label: "Destination" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }]} />
         </section>
 
         <section className="card region-card p-3" aria-labelledby="pr-h">
-          <div className="mb-1 flex items-center justify-between"><h2 id="pr-h" className="text-base font-semibold">Major projects active by {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer="sample" /><LayerLabel layer="facts" /></span></div>
+          <div className="mb-1 flex items-center justify-between"><h2 id="pr-h" className="text-lg font-semibold">Major projects active by {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer="sample" /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">Mines, processing plants and ports. Real project names and approximate locations; operator origin, stage and start year are sample values until Phase 2.</p>
           {projectsOptions ? <PlotFigure options={projectsOptions} ariaLabel={`Map of major mining projects, plants and ports in South America active by ${year}, sample attributes`} /> : <p className="text-sm text-ink-3">Loading map…</p>}
           {region && (
@@ -243,7 +243,7 @@ export function RegionView() {
       </div>
       {regionStm && (
         <section className="card region-card mt-4 p-3" aria-labelledby="stm-h">
-          <div className="mb-1 flex flex-wrap items-center justify-between gap-2"><h2 id="stm-h" className="text-base font-semibold">What leaders say about minerals</h2><span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span></div>
+          <div className="mb-1 flex flex-wrap items-center justify-between gap-2"><h2 id="stm-h" className="text-lg font-semibold">What leaders say about minerals</h2><span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">
             {regionStm.n_in_scope} statements and acts about the twelve countries ({regionStm.records.length} of them region-wide) from the project owner&apos;s dataset of {regionStm.n_total} records (2019–2026), collected with web search under a fixed codebook, every record with its source; {Object.entries(regionStm.excluded).map(([k, v]) => `${v} on ${k}`).join(" and ")} lie outside this site&apos;s scope and are not shown. The stance coding is the dataset&apos;s own (interpretive, not validated) and never enters the index.
           </p>
@@ -279,7 +279,7 @@ export function RegionView() {
         </section>
       )}
       <section className="card region-card mt-4 p-3" aria-labelledby="syn-h">
-        <div className="mb-1 flex items-center justify-between gap-2"><h2 id="syn-h" className="text-base font-semibold">Regional synthesis</h2><LayerLabel layer="interpretation" /></div>
+        <div className="mb-1 flex items-center justify-between gap-2"><h2 id="syn-h" className="text-lg font-semibold">Regional synthesis</h2><LayerLabel layer="interpretation" /></div>
         <p className="mb-2 text-xs text-ink-3">Written analysis of the region generated from the computed indicators (each sentence names what it rests on), and the project owner&apos;s own synthesis where one exists.</p>
         {interp === undefined ? <p className="text-sm text-ink-3">Loading…</p> : <Interpretation block={interp} scopeLabel="the region" />}
       </section>

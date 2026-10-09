@@ -154,7 +154,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
               {langs.map((l) => <option key={l} value={l}>{LANGUAGE_NAME[l] ?? l}</option>)}
             </select>
           )}
-          <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={onlyYear} onChange={(e) => setOnlyYear(e.target.checked)} /> only {year}</label>
+          <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={onlyYear} onChange={(e) => setOnlyYear(e.target.checked)} /> Only {year}</label>
           <span className="ml-auto text-ink-3">{articles.length} headline{articles.length === 1 ? "" : "s"}</span>
         </div>
         {articles.length === 0 ? (
@@ -181,7 +181,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
                 {a.language !== "en" && (
                   <p className="text-xs text-ink-2">
                     <span className="text-ink-3">{LANGUAGE_NAME[a.language] ?? a.language} original · English{a.translation?.method === "mt" ? " (machine translation)" : ""}:</span>{" "}
-                    {a.headline_en ?? <span className="text-ink-3">{layer === "real" ? "translation pending" : "not yet translated"}</span>}
+                    {a.headline_en ?? <span className="text-ink-3">{layer === "real" ? "Translation pending" : "Not yet translated"}</span>}
                   </p>
                 )}
                 <div className="mt-1 flex flex-wrap items-center gap-1.5">
@@ -197,7 +197,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
           </ol>
         )}
         {articles.length > shown && (
-          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="btn mt-2 h-8 px-3 text-xs">
+          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="btn btn-sm mt-2">
             Show {Math.min(PAGE, articles.length - shown)} more of {articles.length - shown} remaining
           </button>
         )}

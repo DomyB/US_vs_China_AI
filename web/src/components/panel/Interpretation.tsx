@@ -33,7 +33,7 @@ export function Interpretation({ block, scopeLabel, hideGenerated = false }: { b
   const [open, setOpen] = useState<string | null>(null);
   if (!block) {
     return (
-      <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3 text-sm text-ink-2">
+      <div className="rounded-lg border-2 border-dotted border-interp/70 bg-card p-3 shadow-[3px_3px_0_var(--shadow-hard)] text-sm text-ink-2">
         <p>No written analysis for {scopeLabel} yet: the briefs are generated once the quant step has run on a data release.</p>
       </div>
     );
@@ -41,7 +41,7 @@ export function Interpretation({ block, scopeLabel, hideGenerated = false }: { b
   const ai = block.human?.drafted_by === "ai";
   return (
     <div className="space-y-3">
-      {!hideGenerated && <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3">
+      {!hideGenerated && <div className="rounded-lg border-2 border-dotted border-interp/70 bg-card p-3 shadow-[3px_3px_0_var(--shadow-hard)]">
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-interp">Generated from indicators · templates {block.template_version} · {block.generated_on}</p>
           <LayerLabel layer="interpretation" />
@@ -71,7 +71,7 @@ export function Interpretation({ block, scopeLabel, hideGenerated = false }: { b
           </section>
         ))}
       </div>}
-      <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3">
+      <div className="rounded-lg border-2 border-dotted border-interp/70 bg-card p-3 shadow-[3px_3px_0_var(--shadow-hard)]">
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-interp">{ai ? "AI-drafted from the indicators" : "Written by the project owner"}</p>
           <LayerLabel layer="interpretation" />

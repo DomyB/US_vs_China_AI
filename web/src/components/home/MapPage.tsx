@@ -203,7 +203,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
         )}
       </div>
       <div className="pointer-events-none absolute inset-0 z-10">
-        <div className="pointer-events-auto absolute left-14 top-3 max-w-[22rem]">
+        <div className="pointer-events-auto absolute left-14 right-3 top-3 lg:right-auto lg:w-[22rem] xl:w-[24rem]">
           <IntroCard indexLayer={indexLayer} open={introOpen} onToggle={setIntroOpen} />
         </div>
         <div className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-16"}`} style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : undefined} data-tour="dock">

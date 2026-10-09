@@ -34,7 +34,8 @@ export function QuantMethods() {
         {q.index.years ? ` · index for ${q.index.countries.length} countries, ${q.index.years[0]}–${q.index.years[1]} (${q.index.with_value} of ${q.index.rows} country-year-actor cells have a value; the rest have fewer than ${q.rules.min_components} components)` : ""}
         {q.index.per_mineral.length ? ` · also per mineral (${q.index.per_mineral.length}) where the country traded it` : ""}.
       </p>
-      <table className="w-full border-collapse text-xs">
+      <div className="scroll-x">
+      <table className="w-full border-collapse">
         <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Component</th><th className="py-1 pr-2">Definition</th><th className="py-1 pr-2">Sources</th><th className="py-1 pr-2">US coverage</th><th className="py-1">China coverage</th></tr></thead>
         <tbody>
           {q.components.map((c) => (
@@ -54,6 +55,7 @@ export function QuantMethods() {
           ))}
         </tbody>
       </table>
+      </div>
       <p className="mt-2 text-xs text-ink-2">
         <strong>Normalisation:</strong> {q.rules.normalisation}. <strong>Weights:</strong> {q.rules.weights}; a composite needs at least {q.rules.min_components} components, a stance component at least {q.rules.min_docs_stance} scored records.{" "}
         <strong>Sensitivity:</strong> {sens.draws} draws of weights from a Dirichlet (α = {sens.dirichlet_alpha}) around equal weights, with {Math.round(sens.rank_share * 100)}% of the draws using percentile-rank normalisation instead of min–max; the band on every value is the {sens.band}. Rank stability (mean Spearman correlation between the baseline ranking and the perturbed rankings, latest year with enough countries): <strong>{sens.rank_stability !== null ? sens.rank_stability.toFixed(2) : "n/a"}</strong>.
@@ -72,7 +74,7 @@ export function QuantMethods() {
           </p>
           {q.regressions.rows.length > 0 && (
             <div className="scroll-x max-h-[28rem] overflow-y-auto rounded-md border border-rule">
-            <table className="w-full border-collapse text-xs">
+            <table className="w-full border-collapse">
               <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Outcome · spec</th><th className="py-1 pr-2">Term</th><th className="py-1 pr-2 text-right">Coef.</th><th className="py-1 pr-2 text-right">SE</th><th className="py-1 pr-2 text-right">p (cluster)</th><th className="py-1 pr-2 text-right">p (wild)</th><th className="py-1 pr-2 text-right">Drop-one range</th><th className="py-1 text-right">n · countries · within R²</th></tr></thead>
               <tbody>
                 {q.regressions.rows.map((r) => (
@@ -111,7 +113,8 @@ export function QuantMethods() {
         </ul>
       )}
       {Object.keys(q.flags_by_type).length > 0 && (
-        <table className="mt-2 w-full border-collapse text-xs">
+        <div className="scroll-x">
+        <table className="mt-2 w-full border-collapse">
           <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Flag rule</th><th className="py-1 pr-2">Evidence level</th><th className="py-1">Flags</th></tr></thead>
           <tbody>
             {Object.entries(q.flags_by_type).flatMap(([type, levels]) =>
@@ -125,6 +128,7 @@ export function QuantMethods() {
             )}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );

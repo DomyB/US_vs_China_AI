@@ -31,7 +31,8 @@ export function ForecastMetrics() {
         Status: <strong>computed</strong> · forecasts to {f.horizon_year} for {f.countries.length} countries from {f.n_sims} simulated paths per model · expanding-window backtests pooled over countries, origins and horizons 1–3 years.{" "}
         {Object.entries(f.targets).map(([k, t]) => `${prettyLabel(k.split(":")[0])} toward ${k.endsWith("US") ? ACTOR_LABEL.US : ACTOR_LABEL.CN}: ${t.model ? `${t.model} (CRPS ${t.crps} vs naive ${t.crps_naive}${t.beats_naive ? ", published" : "; nothing beat naive, persistence published"})` : "no series long enough"}`).join(" · ")}.
       </p>
-      <table className="w-full border-collapse text-xs">
+      <div className="scroll-x">
+      <table className="w-full border-collapse">
         <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Target · actor</th><th className="py-1 pr-2">Model</th><th className="py-1 pr-2 text-right">CRPS</th><th className="py-1 pr-2 text-right">vs naive</th><th className="py-1 pr-2 text-right">MAE</th><th className="py-1 pr-2 text-right">80% cov.</th><th className="py-1 pr-2 text-right">95% cov.</th><th className="py-1 text-right">n</th></tr></thead>
         <tbody>
           {pooled.map((r) => (
@@ -48,6 +49,7 @@ export function ForecastMetrics() {
           ))}
         </tbody>
       </table>
+      </div>
       <p className="mt-1 text-[11px] text-ink-3">Bold: the model published on the Forecast tab. Coverage below the nominal level means the bands are too narrow; the 80% bands of the published share forecasts covered {Math.round(Math.min(...pooled.filter((r) => r.selected && r.target === "export_share").map((r) => r.coverage_80), 1) * 100)}% of outcomes at best, so read them as indicative.</p>
     </div>
   );

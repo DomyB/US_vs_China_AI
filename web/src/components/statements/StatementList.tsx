@@ -52,9 +52,9 @@ export function StatementList({ records, year, showCountry = false, names }: { r
           {channels.map((c) => <option key={c.value} value={c.value}>{prettyLabel(c.value)} ({c.n})</option>)}
         </select>
         {year !== undefined && (
-          <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={f.year === year} onChange={(e) => set({ year: e.target.checked ? year : null })} /> only {year}</label>
+          <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={f.year === year} onChange={(e) => set({ year: e.target.checked ? year : null })} /> Only {year}</label>
         )}
-        {active && <button type="button" className="text-ink-3 underline decoration-dotted" onClick={() => setF(EMPTY_FILTERS)}>clear</button>}
+        {active && <button type="button" className="text-ink-3 underline decoration-dotted" onClick={() => setF(EMPTY_FILTERS)}>Clear</button>}
         <span className="ml-auto text-ink-3">{filtered.length} of {records.length}</span>
       </div>
       {filtered.length === 0 ? (
@@ -65,7 +65,7 @@ export function StatementList({ records, year, showCountry = false, names }: { r
         </ol>
       )}
       {filtered.length > shown && (
-        <button type="button" onClick={() => setShown((n) => n + PAGE)} className="btn mt-2 h-8 px-3 text-xs">
+        <button type="button" onClick={() => setShown((n) => n + PAGE)} className="btn btn-sm mt-2">
           Show {Math.min(PAGE, filtered.length - shown)} more of {filtered.length - shown} remaining
         </button>
       )}
