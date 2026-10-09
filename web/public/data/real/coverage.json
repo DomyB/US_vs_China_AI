@@ -47,7 +47,8 @@
     2008,
     2025
    ],
-   "flags": 14
+   "flags": 14,
+   "forecast_available": true
   },
   "BOL": {
    "trade_years": [
@@ -95,7 +96,8 @@
     2008,
     2024
    ],
-   "flags": 9
+   "flags": 9,
+   "forecast_available": true
   },
   "BRA": {
    "trade_years": [
@@ -143,7 +145,8 @@
     2008,
     2025
    ],
-   "flags": 5
+   "flags": 5,
+   "forecast_available": true
   },
   "CHL": {
    "trade_years": [
@@ -191,7 +194,8 @@
     2008,
     2024
    ],
-   "flags": 10
+   "flags": 10,
+   "forecast_available": true
   },
   "COL": {
    "trade_years": [
@@ -239,7 +243,8 @@
     2008,
     2024
    ],
-   "flags": 5
+   "flags": 5,
+   "forecast_available": true
   },
   "ECU": {
    "trade_years": [
@@ -287,7 +292,8 @@
     2008,
     2024
    ],
-   "flags": 11
+   "flags": 11,
+   "forecast_available": true
   },
   "GUY": {
    "trade_years": [
@@ -335,7 +341,8 @@
     2008,
     2024
    ],
-   "flags": 18
+   "flags": 18,
+   "forecast_available": true
   },
   "PRY": {
    "trade_years": [
@@ -380,7 +387,8 @@
     2008,
     2024
    ],
-   "flags": 0
+   "flags": 0,
+   "forecast_available": true
   },
   "PER": {
    "trade_years": [
@@ -427,7 +435,8 @@
     2008,
     2024
    ],
-   "flags": 8
+   "flags": 8,
+   "forecast_available": true
   },
   "SUR": {
    "trade_years": [
@@ -475,7 +484,8 @@
     2008,
     2024
    ],
-   "flags": 23
+   "flags": 23,
+   "forecast_available": true
   },
   "URY": {
    "trade_years": [
@@ -509,7 +519,8 @@
     2008,
     2011
    ],
-   "flags": 0
+   "flags": 0,
+   "forecast_available": false
   },
   "VEN": {
    "trade_years": [],
@@ -535,7 +546,8 @@
    "narratives_available": false,
    "analysis_available": false,
    "analysis_years": null,
-   "flags": 9
+   "flags": 9,
+   "forecast_available": false
   }
  }
 }
