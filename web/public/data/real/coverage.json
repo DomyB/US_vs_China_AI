@@ -1,5 +1,5 @@
 {
- "generated_on": "2026-10-08",
+ "generated_on": "2026-10-09",
  "countries": {
   "ARG": {
    "trade_years": [
@@ -41,7 +41,13 @@
    "parliament_classified": 1233,
    "parliament_translated": 1233,
    "media_classified": 7,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2025
+   ],
+   "flags": 14
   },
   "BOL": {
    "trade_years": [
@@ -83,7 +89,13 @@
    "parliament_classified": 0,
    "parliament_translated": 0,
    "media_classified": 0,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 9
   },
   "BRA": {
    "trade_years": [
@@ -125,7 +137,13 @@
    "parliament_classified": 3824,
    "parliament_translated": 3824,
    "media_classified": 4,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2025
+   ],
+   "flags": 5
   },
   "CHL": {
    "trade_years": [
@@ -167,7 +185,13 @@
    "parliament_classified": 173,
    "parliament_translated": 173,
    "media_classified": 4,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 10
   },
   "COL": {
    "trade_years": [
@@ -209,7 +233,13 @@
    "parliament_classified": 76,
    "parliament_translated": 76,
    "media_classified": 0,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 5
   },
   "ECU": {
    "trade_years": [
@@ -251,7 +281,13 @@
    "parliament_classified": 0,
    "parliament_translated": 0,
    "media_classified": 0,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 11
   },
   "GUY": {
    "trade_years": [
@@ -293,7 +329,13 @@
    "parliament_classified": 0,
    "parliament_translated": 0,
    "media_classified": 6,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 18
   },
   "PRY": {
    "trade_years": [
@@ -332,7 +374,13 @@
    "parliament_classified": 4,
    "parliament_translated": 4,
    "media_classified": 1,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 0
   },
   "PER": {
    "trade_years": [
@@ -373,7 +421,13 @@
    "parliament_classified": 140,
    "parliament_translated": 140,
    "media_classified": 6,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 8
   },
   "SUR": {
    "trade_years": [
@@ -415,7 +469,13 @@
    "parliament_classified": 0,
    "parliament_translated": 0,
    "media_classified": 0,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2024
+   ],
+   "flags": 23
   },
   "URY": {
    "trade_years": [
@@ -443,7 +503,13 @@
    "parliament_classified": 0,
    "parliament_translated": 0,
    "media_classified": 0,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2008,
+    2011
+   ],
+   "flags": 0
   },
   "VEN": {
    "trade_years": [],
@@ -466,7 +532,10 @@
    "parliament_classified": 0,
    "parliament_translated": 0,
    "media_classified": 0,
-   "narratives_available": false
+   "narratives_available": false,
+   "analysis_available": false,
+   "analysis_years": null,
+   "flags": 9
   }
  }
 }

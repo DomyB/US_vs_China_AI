@@ -1,0 +1,445 @@
+{
+ "generated_on": "2026-10-09",
+ "status": "computed",
+ "quant_model": {
+  "status": "computed",
+  "method_version": "2026.10",
+  "weights_version": "2026.10.eq",
+  "run_id": "quant-20261009T101904Z",
+  "inputs_release": "data-v2026.10.08.6",
+  "created_at": "2026-10-09T10:19:30+00:00",
+  "draws": 500,
+  "rank_stability": 0.685,
+  "text_model_label": "zero-shot baseline, not yet validated",
+  "last_year": {
+   "trade": 2025,
+   "gdp": 2025,
+   "unga": 2024,
+   "debt_CN": 2024,
+   "stance": 2026,
+   "finance_US": 2024,
+   "finance_CN": 2021
+  },
+  "unattributed_finance_events": 846,
+  "label": "Computed from sourced data · method 2026.10 · band: 5th–95th percentile of 500 weight and normalisation draws"
+ },
+ "components": [
+  {
+   "name": "trade_export_share",
+   "group": "economic_ties",
+   "definition": "Share of the country's mineral exports (reported to UN Comtrade) that go to the actor.",
+   "source_ids": [
+    "un_comtrade"
+   ],
+   "availability": {
+    "US": {
+     "rows": 216,
+     "available": 180,
+     "years": [
+      2008,
+      2025
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY"
+     ]
+    },
+    "CN": {
+     "rows": 216,
+     "available": 180,
+     "years": [
+      2008,
+      2025
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY"
+     ]
+    }
+   }
+  },
+  {
+   "name": "trade_import_share",
+   "group": "economic_ties",
+   "definition": "Share of the country's mineral imports that come from the actor.",
+   "source_ids": [
+    "un_comtrade"
+   ],
+   "availability": {
+    "US": {
+     "rows": 216,
+     "available": 183,
+     "years": [
+      2008,
+      2025
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY"
+     ]
+    },
+    "CN": {
+     "rows": 216,
+     "available": 183,
+     "years": [
+      2008,
+      2025
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY"
+     ]
+    }
+   }
+  },
+  {
+   "name": "finance_flow",
+   "group": "economic_ties",
+   "definition": "Documented official-finance commitments from the actor's institutions over the last three years, relative to GDP; central-bank swap-line drawdowns excluded.",
+   "source_ids": [
+    "aiddata_gcdf",
+    "dfc_projects",
+    "wb_wdi"
+   ],
+   "availability": {
+    "US": {
+     "rows": 216,
+     "available": 204,
+     "years": [
+      2008,
+      2024
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY",
+      "VEN"
+     ]
+    },
+    "CN": {
+     "rows": 216,
+     "available": 168,
+     "years": [
+      2008,
+      2021
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY",
+      "VEN"
+     ]
+    }
+   }
+  },
+  {
+   "name": "debt_stock",
+   "group": "economic_ties",
+   "definition": "Public and publicly guaranteed external debt owed to the actor, relative to GDP (World Bank IDS reports China as a creditor; no equivalent source exists for the United States).",
+   "source_ids": [
+    "wb_ids",
+    "wb_wdi"
+   ],
+   "availability": {
+    "US": {
+     "rows": 216,
+     "available": 0,
+     "years": null,
+     "countries": []
+    },
+    "CN": {
+     "rows": 216,
+     "available": 97,
+     "years": [
+      2008,
+      2024
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR"
+     ]
+    }
+   }
+  },
+  {
+   "name": "diplomatic_alignment",
+   "group": "political_alignment",
+   "definition": "UN General Assembly voting agreement with the actor in the year.",
+   "source_ids": [
+    "unga_votes"
+   ],
+   "availability": {
+    "US": {
+     "rows": 216,
+     "available": 201,
+     "years": [
+      2008,
+      2024
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY",
+      "VEN"
+     ]
+    },
+    "CN": {
+     "rows": 216,
+     "available": 201,
+     "years": [
+      2008,
+      2024
+     ],
+     "countries": [
+      "ARG",
+      "BOL",
+      "BRA",
+      "CHL",
+      "COL",
+      "ECU",
+      "GUY",
+      "PER",
+      "PRY",
+      "SUR",
+      "URY",
+      "VEN"
+     ]
+    }
+   }
+  },
+  {
+   "name": "legislative_stance",
+   "group": "political_alignment",
+   "definition": "Mean stance toward the actor (−2 to +2) in the legislature's mineral-related records, years with at least five scored records; a text-model output carried with its validation status.",
+   "source_ids": [
+    "arg_hcdn",
+    "bra_camara_api",
+    "bra_senado_api",
+    "chl_camara",
+    "col_camara",
+    "per_congreso_spley",
+    "pry_silpy"
+   ],
+   "availability": {
+    "US": {
+     "rows": 216,
+     "available": 19,
+     "years": [
+      2009,
+      2025
+     ],
+     "countries": [
+      "ARG",
+      "BRA"
+     ]
+    },
+    "CN": {
+     "rows": 216,
+     "available": 13,
+     "years": [
+      2009,
+      2025
+     ],
+     "countries": [
+      "ARG",
+      "BRA"
+     ]
+    }
+   }
+  }
+ ],
+ "rules": {
+  "min_components": 3,
+  "min_docs_stance": 5,
+  "normalisation": "winsorised (2.5–97.5 pct) min–max over the pooled panel, both actors on one scale",
+  "weights": "equal, renormalised over the available components",
+  "sensitivity": {
+   "draws": 500,
+   "dirichlet_alpha": 10.0,
+   "rank_share": 0.5,
+   "band": "5th–95th percentile",
+   "rank_stability": 0.685
+  }
+ },
+ "index": {
+  "rows": 423,
+  "with_value": 351,
+  "years": [
+   2008,
+   2025
+  ],
+  "countries": [
+   "ARG",
+   "BOL",
+   "BRA",
+   "CHL",
+   "COL",
+   "ECU",
+   "GUY",
+   "PER",
+   "PRY",
+   "SUR",
+   "URY"
+  ],
+  "per_mineral": [
+   "copper",
+   "graphite",
+   "lithium",
+   "molybdenum",
+   "nickel",
+   "niobium",
+   "rare_earths",
+   "silver",
+   "tin"
+  ]
+ },
+ "say_do": {
+  "rows": 35,
+  "countries": [
+   "ARG",
+   "BRA"
+  ]
+ },
+ "flags_by_type": {
+  "finance_without_trade_response": {
+   "strongly_indicated": 19
+  },
+  "large_commitment": {
+   "documented": 41
+  },
+  "rescue_lending": {
+   "documented": 15
+  },
+  "say_do_divergence": {
+   "speculative": 3
+  },
+  "sudden_trade_shift": {
+   "documented": 34
+  }
+ },
+ "concentration": {
+  "rows": 26667,
+  "hhi": "not computed: partner flows for the United States, China and the world total only"
+ },
+ "network": {
+  "nodes": 857,
+  "edges": 992,
+  "unattributed_events": 846,
+  "top_lenders": [
+   {
+    "label": "China Development Bank (CDB)",
+    "origin": "CN",
+    "degree": 161,
+    "weighted_degree_musd": 159988.3
+   },
+   {
+    "label": "People's Bank of China (PBC)",
+    "origin": "CN",
+    "degree": 65,
+    "weighted_degree_musd": 113710.6
+   },
+   {
+    "label": "Industrial and Commercial Bank of China (ICBC)",
+    "origin": "CN",
+    "degree": 73,
+    "weighted_degree_musd": 25673.4
+   },
+   {
+    "label": "Export-Import Bank of China (China Eximbank)",
+    "origin": "CN",
+    "degree": 90,
+    "weighted_degree_musd": 19293.2
+   },
+   {
+    "label": "Bank of China (BOC)",
+    "origin": "CN",
+    "degree": 33,
+    "weighted_degree_musd": 5339.7
+   },
+   {
+    "label": "US International Development Finance Corporation",
+    "origin": "US",
+    "degree": 47,
+    "weighted_degree_musd": 4272.5
+   },
+   {
+    "label": "China CITIC Bank Corporation Limited",
+    "origin": "CN",
+    "degree": 5,
+    "weighted_degree_musd": 2809.4
+   },
+   {
+    "label": "Unspecified Chinese Government Institution",
+    "origin": "CN",
+    "degree": 125,
+    "weighted_degree_musd": 2420.9
+   }
+  ]
+ }
+}
