@@ -5716,6 +5716,27 @@
     "api_status": 200,
     "api_ok": true
    }
+  },
+  {
+   "verified_on": "2026-10-09",
+   "verified_method": "direct",
+   "auth": "none",
+   "id": "manual_statements",
+   "name": "Political statements on critical minerals in Latin America (project dataset)",
+   "url": "https://github.com/DomyB/US_vs_China_AI/blob/main/data/manual/statements/political_statements_minerals.csv",
+   "category": "statements",
+   "scope": "international",
+   "reliability": "analysis",
+   "license": "project dataset supplied by the owner; each record cites its own public source",
+   "access": "bulk",
+   "update_frequency": "ad hoc",
+   "refresh_schedule": "on update",
+   "coverage_from": 2019,
+   "coverage_to": 2026,
+   "language": "multi",
+   "status": "live",
+   "notes": "395 statements and acts (2019-03 to 2026-10) by Latin American executives, legislators, courts and state companies and by US and Chinese officials, collected by AI research agents under a fixed codebook for the 'Investigating with AI' project (Sciences Po), every record with the source URL consulted, a verification level and the dataset's own stance coding toward China and the United States. Read as a coded layer, not a validated measurement; see data/manual/statements/README.md.",
+   "liveness": null
   }
  ]
 }

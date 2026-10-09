@@ -662,9 +662,49 @@ quant_run = DataFrameSchema(
     coerce=True, strict=True, name="quant_run",
 )
 
+STANCE_CODES = ["positive", "neutral", "mixed", "negative", "not_mentioned"]
+statement = DataFrameSchema(
+    {
+        "statement_id": Column(str, unique=True),
+        "country": Column(str, Check.str_length(3, 3)),  # focus country ISO3, or REG for region-wide
+        "date": Column(str, Check.str_matches(r"^\d{4}-\d{2}-\d{2}$")),
+        "date_precision": Column(str, Check.isin(["day", "month"])),
+        "year": Column(int, Check.in_range(1990, 2100)),
+        "speaker_name": Column(str),
+        "speaker_role": Column(str, nullable=True),
+        "speaker_type": Column(str),
+        "speaker_bloc": Column(str),
+        "speaker_country": Column(str, nullable=True),
+        "party": Column(str, nullable=True),
+        "channel": Column(str),
+        "event_context": Column(str, nullable=True),
+        "minerals": Column(str, nullable=True),
+        "hs6_links": Column(str, nullable=True),
+        "themes": Column(str, nullable=True),
+        "counterparts": Column(str, nullable=True),
+        "stance_cn": Column(str, Check.isin(STANCE_CODES)),
+        "stance_us": Column(str, Check.isin(STANCE_CODES)),
+        "stance_cn_score": Column(float, Check.in_range(-1, 1), nullable=True),
+        "stance_us_score": Column(float, Check.in_range(-1, 1), nullable=True),
+        "related_entities": Column(str, nullable=True),
+        "summary_en": Column(str),
+        "quote_original": Column(str, nullable=True),
+        "quote_en": Column(str, nullable=True),
+        "language": Column(str),
+        "source_name": Column(str),
+        "source_type": Column(str),
+        "verification": Column(str, Check.isin(["primary_verified", "secondary_reported", "unverified"])),
+        "notes": Column(str, nullable=True),
+        "batch": Column(str, nullable=True),
+        "value_type": Column(str, Check.isin(VALUE_TYPE)),
+        **PROVENANCE,
+    },
+    coerce=True, strict=True, name="statement",
+)
+
 SCHEMAS: dict[str, DataFrameSchema] = {
     s.name: s for s in [trade_flow, finance_event, deal_event, production, price, governance, contract, policy_document,
-                        document, vote, vote_member, concession, media_volume, ingest_run,
+                        document, vote, vote_member, concession, media_volume, statement, ingest_run,
                         doc_translation, doc_classification, doc_embedding, topic_model_run, topic, doc_topic,
                         validation_sample, validation_metric,
                         concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, event_effect, regression_result, forecast, backtest, analysis_text, quant_run]

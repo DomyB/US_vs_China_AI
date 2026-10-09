@@ -295,6 +295,55 @@ def _rows(con: duckdb.DuckDBPyConnection, sql: str) -> list[dict]:
     return [{k: _json_safe(v) for k, v in r.items()} for r in df.to_dict("records")]
 
 
+STANCE_CODES = ("positive", "neutral", "mixed", "negative", "not_mentioned")
+
+
+def _statement_record(r: dict) -> dict:
+    split = lambda v: [x for x in str(v or "").split(",") if x]  # noqa: E731
+    return {
+        "id": r["statement_id"], "date": r["date"], "date_precision": r["date_precision"], "year": int(r["year"]), "country": r["country"],
+        "speaker": {"name": r["speaker_name"], "role": r["speaker_role"], "type": r["speaker_type"], "bloc": r["speaker_bloc"], "country": r["speaker_country"], "party": r["party"]},
+        "channel": r["channel"], "event_context": r["event_context"], "minerals": split(r["minerals"]), "themes": split(r["themes"]), "counterparts": split(r["counterparts"]),
+        "stance": {"cn": r["stance_cn"], "us": r["stance_us"], "cn_score": _json_safe(r["stance_cn_score"]), "us_score": _json_safe(r["stance_us_score"])},
+        "related_entities": r["related_entities"], "summary_en": r["summary_en"], "quote_original": r["quote_original"], "quote_en": r["quote_en"], "language": r["language"],
+        "source": {"name": r["source_name"], "url": r["source_record_url"], "type": r["source_type"], "verification": r["verification"], "reliability": r["reliability"], "confidence": r["confidence"]},
+        "notes": r["notes"],
+    }
+
+
+def _stance_counts(rows: list[dict]) -> dict:
+    out = {"cn": dict.fromkeys(STANCE_CODES, 0), "us": dict.fromkeys(STANCE_CODES, 0)}
+    for r in rows:
+        out["cn"][r["stance_cn"] if r["stance_cn"] in STANCE_CODES else "not_mentioned"] += 1
+        out["us"][r["stance_us"] if r["stance_us"] in STANCE_CODES else "not_mentioned"] += 1
+    return out
+
+
+def _statements_block(rows: list[dict], iso: str | None) -> dict:
+    """A country's (or the region's) statements: the records, the coded stance of domestic speakers by year toward
+    each actor (mean of +1 / 0 / −1 over statements that take a position, with the count), and counts by speaker
+    bloc. The stance is the dataset's own coding, exported as a coded layer, never as a measurement."""
+    domestic = [r for r in rows if (iso and r["speaker_country"] == iso) or str(r["speaker_bloc"]).startswith("LatAm")]
+    by_year: dict[int, dict] = {}
+    for r in domestic:
+        y = int(r["year"])
+        b = by_year.setdefault(y, {"year": y, "n": 0, "cn": [], "us": []})
+        b["n"] += 1
+        if r["stance_cn_score"] is not None:
+            b["cn"].append(float(r["stance_cn_score"]))
+        if r["stance_us_score"] is not None:
+            b["us"].append(float(r["stance_us_score"]))
+    stance_by_year = [{"year": b["year"], "n_statements": b["n"],
+                       "stance_cn_mean": round(sum(b["cn"]) / len(b["cn"]), 3) if b["cn"] else None, "n_cn": len(b["cn"]),
+                       "stance_us_mean": round(sum(b["us"]) / len(b["us"]), 3) if b["us"] else None, "n_us": len(b["us"])} for b in sorted(by_year.values(), key=lambda x: x["year"])]
+    blocs: dict[str, list[dict]] = {}
+    for r in rows:
+        blocs.setdefault(r["speaker_bloc"], []).append(r)
+    by_bloc = [{"bloc": k, "n": len(v), "stance": _stance_counts(v)} for k, v in sorted(blocs.items(), key=lambda kv: -len(kv[1]))]
+    return {"records": [_statement_record(r) for r in sorted(rows, key=lambda r: r["date"], reverse=True)], "n": len(rows), "n_domestic": len(domestic),
+            "stance_by_year": stance_by_year, "by_bloc": by_bloc, "coding": "dataset codebook (AI-assisted, interpretive; not validated)", "dataset_source": _src("manual_statements")}
+
+
 FLOW_PARTNER = {"CHN": "CN", "USA": "US", "WLD": "WLD"}
 
 
@@ -389,6 +438,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     prices = _rows(con, "SELECT mineral, series, date, year, month, price, unit, source_id, source_record_url FROM price")
     policy = _rows(con, "SELECT * FROM policy_document ORDER BY date DESC")
     disc = _rows(con, "SELECT * FROM trade_discrepancy")
+    stm = _rows(con, "SELECT * FROM statement")  # owner-supplied political statements (empty until the file is ingested)
     docs = _rows(con, "SELECT * FROM document_dedup ORDER BY date DESC")
     # Phase 3 model outputs (empty lists until the text workflow has run)
     cls_rows = _rows(con, "SELECT * FROM doc_classification")
@@ -607,6 +657,10 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
         interp = _interpretation_block(text_rows, "country", iso)
         if interp:
             country["interpretation"] = interp
+        s_rows = [r for r in stm if r["country"] == iso]
+        if s_rows:
+            country["statements"] = _statements_block(s_rows, iso)
+            country["freshness"]["statements"] = {"last_updated": today, "source_ids": ["manual_statements"], "schedule": "on update (file supplied by the project owner)"}
         (out / "country" / f"{iso}.json").write_text(json.dumps(country, ensure_ascii=False, default=str), encoding="utf-8")
         coverage[iso] = {
             "trade_years": years, "mirror_years": mirror_years, "events": len(events), "contracts": len(c_rows), "governance": len(g_rows), "production": len(p_rows),
@@ -623,6 +677,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "flags": len(analysis["flags"]) if analysis else 0,
             "forecast_available": bool(fc_block),
             "interpretation_available": bool(interp), "human_interpretation": bool(interp and interp["human"]),
+            "statements": len(s_rows),
         }
 
     # region: mineral shares from reported exports summed over the 12 countries
@@ -643,7 +698,21 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     flows = build_flows(fin, trade, core, quant_status.get("last_year") or {}, today)
     (out / "flows.json").write_text(json.dumps(flows, ensure_ascii=False, default=str), encoding="utf-8")
     regional_interp = _interpretation_block(text_rows, "regional", None)
-    (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade"), "interpretation": regional_interp}, ensure_ascii=False), encoding="utf-8")
+    region_stm = None
+    if stm:
+        kept = [r for r in stm if r["country"] in IN_SCOPE or r["country"] == "REG"]
+        excluded: dict[str, int] = {}
+        for r in stm:
+            if r["country"] not in IN_SCOPE and r["country"] != "REG":
+                excluded[r["country"]] = excluded.get(r["country"], 0) + 1
+        yb: dict[tuple[int, str], int] = {}
+        for r in kept:
+            yb[(int(r["year"]), r["speaker_bloc"])] = yb.get((int(r["year"]), r["speaker_bloc"]), 0) + 1
+        region_stm = {**_statements_block([r for r in kept if r["country"] == "REG"], None), "n_total": len(stm), "n_in_scope": len(kept),
+                      "by_year_bloc": [{"year": y, "bloc": b, "n": n} for (y, b), n in sorted(yb.items())],
+                      "by_bloc_all": _statements_block(kept, None)["by_bloc"],
+                      "countries": {iso: sum(1 for r in kept if r["country"] == iso) for iso in IN_SCOPE}, "excluded": excluded}
+    (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade"), "interpretation": regional_interp, "statements": region_stm}, ensure_ascii=False), encoding="utf-8")
     influence = [{"iso3": r["country"], "year": int(r["year"]), "actor": r["actor"], "mineral": r["mineral"], "value": r["value"], "lower": r["lower"], "upper": r["upper"], "n_components": int(r["n_components"])}
                  for r in idx_rows if r["index_name"] == "influence" and r["value"] is not None]
     (out / "index.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "layer": "real" if influence else "none",
@@ -663,7 +732,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                    "parliament": "real" if n_parl_coded else "facts_only" if any(c["parliament_available"] for c in coverage.values()) else "sample",
                    "media": "real" if n_media_coded else "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample",
                    "analysis": "real" if influence else "sample", "forecast": "real" if fc_rows else "sample",
-                   "interpretation": ("generated+human" if any(r["model"] == "human" for r in text_rows) else "generated") if text_rows else "sample"},
+                   "interpretation": ("generated+human" if any(r["model"] == "human" for r in text_rows) else "generated") if text_rows else "sample",
+                   "statements": "real" if stm else "none"},
         "text_model": text_status,
         "quant_model": quant_status,
         "coverage": coverage,

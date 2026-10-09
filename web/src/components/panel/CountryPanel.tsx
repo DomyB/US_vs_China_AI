@@ -10,12 +10,12 @@ import { ActionsTab } from "./ActionsTab";
 import { AnalysisTab } from "./AnalysisTab";
 import { ForecastTab } from "./ForecastTab";
 import { MediaTab } from "./MediaTab";
-import { ParliamentTab } from "./ParliamentTab";
+import { PoliticsTab } from "./PoliticsTab";
 
 export type TabId = "actions" | "parliament" | "media" | "analysis" | "forecast";
 const TABS: { id: TabId; label: string }[] = [
   { id: "actions", label: "Actions" },
-  { id: "parliament", label: "Parliament" },
+  { id: "parliament", label: "Politics" },
   { id: "media", label: "Media" },
   { id: "analysis", label: "Analysis" },
   { id: "forecast", label: "Forecast" },
@@ -93,7 +93,7 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
         {error && <p className="text-sm text-cn">Could not load data: {error}</p>}
         {!data && !error && <p className="text-sm text-ink-3">Loading…</p>}
         {data && tab === "actions" && <ActionsTab data={data} year={year} mineral={mineral} />}
-        {data && tab === "parliament" && <ParliamentTab data={data} year={year} mineral={mineral} />}
+        {data && tab === "parliament" && <PoliticsTab data={data} year={year} mineral={mineral} />}
         {data && tab === "media" && <MediaTab data={data} year={year} mineral={mineral} />}
         {data && tab === "analysis" && <AnalysisTab data={data} year={year} indexRows={countryIndex} indexLayer={indexLayer} />}
         {data && tab === "forecast" && <ForecastTab data={data} indexRows={countryIndex} indexLayer={indexLayer} />}

@@ -16,9 +16,12 @@ import { FocusChart, MEASURE_LABEL, type MeasureRow, type RegionMeasure } from "
 import { Heatmap } from "./Heatmap";
 import { Freshness } from "@/components/ui/Freshness";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
-import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionInterpretation, loadRegionShares } from "@/lib/data";
+import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionInterpretation, loadRegionShares, loadRegionStatements } from "@/lib/data";
 import { fmtPct, fmtSigned } from "@/lib/format";
-import type { IndexFile, InterpretationBlock, Meta, RegionData } from "@/lib/types";
+import type { IndexFile, InterpretationBlock, Meta, RegionData, RegionStatements } from "@/lib/types";
+import { StatementsByYear } from "@/components/statements/StatementCharts";
+import { StatementList } from "@/components/statements/StatementList";
+import { blocShort } from "@/components/statements/blocs";
 import { Interpretation } from "@/components/panel/Interpretation";
 
 type FC = FeatureCollection<Geometry, { iso3: string; name: string; in_scope: boolean }>;
@@ -35,6 +38,7 @@ export function RegionView() {
   const [geo, setGeo] = useState<FC | null>(null);
   const [shareRows, setShareRows] = useState<{ rows: RegionData["mineral_shares"]; layer: "real" | "sample" } | null>(null);
   const [interp, setInterp] = useState<InterpretationBlock | null | undefined>(undefined);
+  const [regionStm, setRegionStm] = useState<RegionStatements | null>(null);
   const [measure, setMeasure] = useState<RegionMeasure>("net");
   const [chartMode, setChartMode] = useState<"lines" | "heatmap">("lines");
   const [hoverIso, setHoverIso] = useState<string | null>(null);
@@ -43,12 +47,13 @@ export function RegionView() {
   const theme = useTheme();
 
   useEffect(() => {
-    Promise.all([loadMeta(), loadIndex(), loadRegion(), loadRegionShares(), loadRegionInterpretation()]).then(([m, i, r, s, t]) => {
+    Promise.all([loadMeta(), loadIndex(), loadRegion(), loadRegionShares(), loadRegionInterpretation(), loadRegionStatements()]).then(([m, i, r, s, t, st]) => {
       setMeta(m);
       setIndex(i);
       setRegion(r);
       setShareRows(s);
       setInterp(t);
+      setRegionStm(st);
     });
     fetch("/data/south-america.topo.json")
       .then((r) => r.json())
@@ -235,6 +240,43 @@ export function RegionView() {
           )}
         </section>
       </div>
+      {regionStm && (
+        <section className="card region-card mt-4 p-3" aria-labelledby="stm-h">
+          <div className="mb-1 flex flex-wrap items-center justify-between gap-2"><h2 id="stm-h" className="text-base font-semibold">What leaders say about minerals</h2><span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span></div>
+          <p className="mb-2 text-xs text-ink-3">
+            {regionStm.n_in_scope} statements and acts about the twelve countries ({regionStm.records.length} of them region-wide) from the project owner&apos;s dataset of {regionStm.n_total} records (2019–2026), collected with web search under a fixed codebook, every record with its source; {Object.entries(regionStm.excluded).map(([k, v]) => `${v} on ${k}`).join(" and ")} lie outside this site&apos;s scope and are not shown. The stance coding is the dataset&apos;s own (interpretive, not validated) and never enters the index.
+          </p>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <div>
+              <h3 className="mb-1">Statements per year, by who speaks</h3>
+              <StatementsByYear rows={regionStm.by_year_bloc} ariaLabel="Statements about minerals in the twelve countries per year by speaker bloc" />
+            </div>
+            <div>
+              <h3 className="mb-1">Who takes which position, by speaker bloc</h3>
+              <div className="scroll-x">
+                <table className="w-full min-w-[30rem] text-xs">
+                  <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Speakers</th><th className="py-1 text-right">Statements</th><th className="py-1 text-right">+ China</th><th className="py-1 text-right">− China</th><th className="py-1 text-right">+ US</th><th className="py-1 text-right">− US</th></tr></thead>
+                  <tbody>
+                    {regionStm.by_bloc_all.map((b) => (
+                      <tr key={b.bloc} className="border-t border-rule">
+                        <td className="py-1">{blocShort(b.bloc)}</td>
+                        <td className="py-1 text-right tabular-nums">{b.n}</td>
+                        <td className="py-1 text-right tabular-nums">{b.stance.cn.positive}</td>
+                        <td className="py-1 text-right tabular-nums">{b.stance.cn.negative}</td>
+                        <td className="py-1 text-right tabular-nums">{b.stance.us.positive}</td>
+                        <td className="py-1 text-right tabular-nums">{b.stance.us.negative}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-1 text-[11px] text-ink-3">Counts of statements coded positive or negative toward each actor; neutral, mixed and &ldquo;not mentioned&rdquo; are left out of these columns. Coded under the dataset&apos;s codebook, not validated.</p>
+            </div>
+          </div>
+          <h3 className="mt-4 mb-1">Region-wide statements ({regionStm.records.length})</h3>
+          <StatementList records={regionStm.records} showCountry names={COUNTRY_NAMES} />
+        </section>
+      )}
       <section className="card region-card mt-4 p-3" aria-labelledby="syn-h">
         <div className="mb-1 flex items-center justify-between gap-2"><h2 id="syn-h" className="text-base font-semibold">Regional synthesis</h2><LayerLabel layer="interpretation" /></div>
         <p className="mb-2 text-xs text-ink-3">Written analysis of the region generated from the computed indicators (each sentence names what it rests on), and the project owner&apos;s own synthesis where one exists.</p>

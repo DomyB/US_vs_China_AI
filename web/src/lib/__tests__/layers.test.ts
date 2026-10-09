@@ -116,4 +116,14 @@ describe("mergeRealLayers", () => {
     expect(out.parliament_note).toBeUndefined();
     expect(out.text_model).toBeUndefined();
   });
+  it("carries the statements block when the real file has one and says none otherwise", () => {
+    const stm = { records: [], n: 0, n_domestic: 0, stance_by_year: [], by_bloc: [], coding: "dataset codebook", dataset_source: { id: "manual_statements", name: "x", url: "u", reliability: "analysis" as const } };
+    const real = { actions: { events: [], trade: [], contracts: [], production: [] }, freshness: { actions: { last_updated: "d", source_ids: [], schedule: "m" }, governance: { last_updated: "d", source_ids: [], schedule: "a" } }, governance: [], trade_discrepancies: [], statements: stm } as unknown as RealCountryData;
+    const out = mergeRealLayers(sample(), cov, real, null, null);
+    expect(out.layers?.statements).toBe("real");
+    expect(out.statements?.dataset_source.id).toBe("manual_statements");
+    const none = mergeRealLayers(sample(), cov, null, null, null);
+    expect(none.layers?.statements).toBe("none");
+    expect(none.statements).toBeNull();
+  });
 });

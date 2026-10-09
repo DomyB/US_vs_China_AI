@@ -263,6 +263,8 @@ export interface CountryCoverage {
   flags?: number;
   forecast_available?: boolean;
   interpretation_available?: boolean;
+  /** records in the owner's statements dataset (0 when none) */
+  statements?: number;
   human_interpretation?: boolean;
 }
 
@@ -294,6 +296,8 @@ export interface RealCountryData {
   forecast?: RealForecast;
   /** present once the briefs have been generated (Phase 6) */
   interpretation?: InterpretationBlock;
+  /** present when the owner's statements dataset has records for the country */
+  statements?: StatementsBlock;
 }
 
 /** web/public/data/real/parliament/<ISO3>.json */
@@ -657,7 +661,7 @@ export interface CountryData {
   eiti_member: boolean;
   language: string;
   freshness: Meta["freshness"] & { governance?: Freshness };
-  layers?: Record<"actions" | "governance" | "parliament" | "media" | "analysis" | "forecast" | "interpretation", LayerSource>;
+  layers?: Record<"actions" | "governance" | "parliament" | "media" | "analysis" | "forecast" | "interpretation", LayerSource> & { statements?: LayerSource };
   /** why a legislature has no structured records (BOL, GUY, SUR, VEN), from the exporter */
   parliament_note?: string | null;
   /** status of the text classifier behind stance, tone and narratives (Phase 3); null while they are sample */
@@ -683,6 +687,8 @@ export interface CountryData {
   forecast: { series: ForecastRow[]; scenarios: Scenario[]; model_status?: Record<string, ForecastModelStatus>; horizon_year?: number; models?: Record<string, string> | null; label?: string };
   /** real only (Phase 6) */
   interpretation?: InterpretationBlock;
+  /** the owner's political-statements dataset (DECISIONS 58); null when the country has no records */
+  statements?: StatementsBlock | null;
 }
 
 export interface Project {
@@ -712,6 +718,8 @@ export interface RegionData {
   projects: Project[];
   mineral_shares: MineralShareRow[];
   interpretation?: InterpretationBlock | null;
+  /** owner's statements dataset: region-wide records and summaries (real file only) */
+  statements?: RegionStatements | null;
 }
 
 export interface SourceEntry {
@@ -775,4 +783,59 @@ export interface FlowsFile {
   meta: { last_year: { finance_CN: number | null; finance_US: number | null; trade: number | null }; note?: string };
   finance: FlowFinanceRow[];
   trade: FlowTradeRow[];
+}
+
+/** One record of the owner's political-statements dataset (DECISIONS 58). */
+export type StanceCode = "positive" | "neutral" | "mixed" | "negative" | "not_mentioned";
+export interface StatementRecord {
+  id: string;
+  date: string;
+  date_precision: "day" | "month";
+  year: number;
+  country: string;
+  speaker: { name: string; role: string | null; type: string; bloc: string; country: string | null; party: string | null };
+  channel: string;
+  event_context: string | null;
+  minerals: string[];
+  themes: string[];
+  counterparts: string[];
+  /** the dataset's own coding (interpretive, not validated) */
+  stance: { cn: StanceCode; us: StanceCode; cn_score: number | null; us_score: number | null };
+  related_entities: string | null;
+  summary_en: string;
+  quote_original: string | null;
+  quote_en: string | null;
+  language: string;
+  source: { name: string; url: string | null; type: string; verification: "primary_verified" | "secondary_reported" | "unverified"; reliability: Reliability; confidence: string };
+  notes: string | null;
+}
+export interface StatementStanceYear {
+  year: number;
+  n_statements: number;
+  stance_cn_mean: number | null;
+  n_cn: number;
+  stance_us_mean: number | null;
+  n_us: number;
+}
+export interface StatementBloc {
+  bloc: string;
+  n: number;
+  stance: { cn: Record<StanceCode, number>; us: Record<StanceCode, number> };
+}
+export interface StatementsBlock {
+  records: StatementRecord[];
+  n: number;
+  n_domestic: number;
+  stance_by_year: StatementStanceYear[];
+  by_bloc: StatementBloc[];
+  coding: string;
+  dataset_source: SourceRef;
+}
+export interface RegionStatements extends StatementsBlock {
+  n_total: number;
+  n_in_scope: number;
+  by_year_bloc: { year: number; bloc: string; n: number }[];
+  by_bloc_all: StatementBloc[];
+  countries: Record<string, number>;
+  excluded: Record<string, number>;
 }

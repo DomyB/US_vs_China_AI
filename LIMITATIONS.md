@@ -282,6 +282,13 @@ the registry.
 - The world basemap is Natural Earth 1:10m simplified to about 3% of its vertices; it is a backdrop, not a boundary reference. Country labels are hidden when the map is zoomed out to the world view.
 - The comparison panel uses the same inputs as the rest of the site (index values are model outputs; shares and finance totals are facts) and shows a dash where a value is missing.
 
+## Political statements dataset caveats (added 2026-10-09)
+
+- The statements block comes from a hand-supplied dataset (DECISIONS 58) collected by AI research agents with web search under a fixed codebook. Every record carries the source URL consulted and a verification level, but 339 of 395 records are `secondary_reported` (a media report of the statement) and 2 are `unverified`; only 54 were seen on a primary page.
+- The stance codes toward China and the United States (and the themes) are the dataset's own interpretive coding, not validated by a second coder and not a model output of this project. The site labels them "coded under the dataset's codebook" and keeps them out of the influence index and the say–do gap. The yearly stance means rest on few statements in most country-years (the count is shown next to every mean).
+- Coverage is uneven: Chile, Peru, Brazil, Argentina and Bolivia have 49–65 records each, Ecuador 16 and Colombia 12; Guyana, Paraguay, Suriname, Uruguay and Venezuela have none, and the dataset's own notes list Chinese embassy statements and several US ambassadors as under-represented. Records before 2022 are few (23 in 2019–2021). Mexico (43) and Panama (13) records are outside this site's twelve countries and are not shown; 23 region-wide records appear on the region page.
+- 100 records carry no quote (only a summary); quotes are at most 30 words and translations may be the dataset's own. Speaker roles are as at the statement date.
+
 ## Method limitations
 
 - Stance and topic classification: see "Phase 3 text-analysis caveats" above (one human and one

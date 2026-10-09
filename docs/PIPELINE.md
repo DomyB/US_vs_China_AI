@@ -179,6 +179,8 @@ flags) and the owner's text where a file exists; `meta.json` sets `layers.interp
 
 `flows.json` (one file for all twelve countries, read by the map's flow view) holds finance commitments by country, origin and year from the de-duplicated finance events (documented amounts in `amount_musd`; swap drawdowns and lower-confidence amounts reported apart) and reported exports to the United States, China and the rest of the world for all minerals and each core mineral, plus `meta.last_year` per source (DECISIONS 56). `make_sample_data.py` writes the sample counterpart from the same sample events and trade rows.
 
+The owner's political-statements dataset (`data/manual/statements/`, DECISIONS 58) is ingested by the `manual_statements` adapter into the `statement` table and exported as each country file's `statements` block (records, the coded stance of domestic speakers by year, counts by speaker bloc) and as `region.json`'s `statements` (region-wide records and summaries); `meta.layers.statements` and `coverage[iso].statements` say what exists.
+
 ## Hand-supplied files
 
 Three sources broke in the first live runs and may need a file the owner downloads in a

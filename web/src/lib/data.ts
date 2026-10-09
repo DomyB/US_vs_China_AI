@@ -1,4 +1,4 @@
-import type { ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
+import type { ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData, RegionStatements } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -117,6 +117,9 @@ export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | unde
     sample.interpretation = real.interpretation;
     sample.layers.interpretation = real.interpretation.human ? "generated+human" : "generated";
   }
+  // the owner's statements dataset has no sample counterpart: real records or an honest "none"
+  sample.statements = real?.statements ?? null;
+  sample.layers.statements = real?.statements ? "real" : "none";
   sample.parliament_note = cov.parliament_note ?? null;
   return sample;
 }
@@ -126,6 +129,16 @@ export async function loadRegionInterpretation(): Promise<InterpretationBlock | 
   try {
     const real = await getJSON<{ interpretation?: InterpretationBlock | null }>(`${REAL}/region.json`);
     return real.interpretation ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** The owner's statements dataset, region-wide records and summaries (real file only; null when absent). */
+export async function loadRegionStatements(): Promise<RegionStatements | null> {
+  try {
+    const real = await getJSON<{ statements?: RegionStatements | null }>(`${REAL}/region.json`);
+    return real.statements ?? null;
   } catch {
     return null;
   }
