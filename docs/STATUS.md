@@ -16,7 +16,10 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 - An HHI over all destinations and mirror comparisons need all-partner Comtrade flows, fetchable once `COMTRADE_KEY` exists; the US finance side stays DFC-only until the EXIM, CGIT and DPI files are supplied; the legislative-stance component is the zero-shot baseline until the sample is adjudicated; media stance is absent (28 headlines).
 - Ownership links in the network (contracts carry no company names, cadastres exist for Ecuador only).
 
+**First workflow run (Ingest (monthly) 37916783589, dispatched with `targets: none`, 2026-10-09 10:18–10:22 UTC):** restored `data-v2026.10.08.6`, computed the eight quant tables in under a minute, exported and committed the site data (`meta.json` `layers.analysis = real`, 2,962 index rows in `index.json`, eleven countries with an index), published release `data-v2026.10.09.41`; the numbers match the sandbox computation above.
+
 **What broke and was fixed**
+- CI failed on the push: `build_sources.py` stamped `sources.json` with the current date, so the "generated files must be committed" check failed on any push made on a day without an ingestion commit; the stamp now comes from the last liveness check (deterministic), and CI is green.
 - First local run: eigenvector centrality failed to converge on the disconnected graph (now computed on the largest connected component) and the trade-shift rule fired on Suriname's and Paraguay's near-zero export years (both years must now reach US$100 m). The sensitivity band came out wide and skewed upward for high-ranked small values: it reflects the rank-normalisation alternative and is documented rather than narrowed.
 
 **Recommendation**
