@@ -85,7 +85,7 @@ export function Interpretation({ block, scopeLabel, hideGenerated = false }: { b
           <div>
             <p className="text-sm font-semibold">{block.human.title}{!block.human.reviewed && <span className="ml-1 rounded-sm border border-dotted border-ink-3 px-1 text-[9px] uppercase text-ink-3">draft</span>}</p>
             <p className="mb-1 text-[11px] text-ink-3">{block.human.author ?? "project owner"}{block.human.date ? ` · ${block.human.date}` : ""}{block.human.reviewed ? " · reviewed" : " · not yet reviewed"}</p>
-            <div className="space-y-1">{renderMarkdown(block.human.text_md)}</div>
+            <div className="space-y-1 [overflow-wrap:anywhere]">{renderMarkdown(block.human.text_md)}</div>
           </div>
         ) : (
           <p className="text-sm text-ink-3">No human-written interpretation for {scopeLabel} yet. The project owner adds one as a Markdown file under <code className="font-mono text-xs">data/manual/interpretation/</code>; it is shown here, apart from the generated text, and nothing is written in its place.</p>

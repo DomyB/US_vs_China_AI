@@ -247,11 +247,11 @@ export function RegionView() {
             {regionStm.n_in_scope} statements and acts about the twelve countries ({regionStm.records.length} of them region-wide) from the project owner&apos;s dataset of {regionStm.n_total} records (2019–2026), collected with web search under a fixed codebook, every record with its source; {Object.entries(regionStm.excluded).map(([k, v]) => `${v} on ${k}`).join(" and ")} lie outside this site&apos;s scope and are not shown. The stance coding is the dataset&apos;s own (interpretive, not validated) and never enters the index.
           </p>
           <div className="grid gap-4 lg:grid-cols-2">
-            <div>
+            <div className="min-w-0">
               <h3 className="mb-1">Statements per year, by who speaks</h3>
               <StatementsByYear rows={regionStm.by_year_bloc} ariaLabel="Statements about minerals in the twelve countries per year by speaker bloc" />
             </div>
-            <div>
+            <div className="min-w-0">
               <h3 className="mb-1">Who takes which position, by speaker bloc</h3>
               <div className="scroll-x">
                 <table className="w-full min-w-[30rem] text-xs">

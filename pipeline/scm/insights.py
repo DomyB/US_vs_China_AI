@@ -366,8 +366,11 @@ def talk_vs_money(stm: list[dict], flow_finance: list[dict], fin: list[dict], la
             total += float(r["amount_usd"]) / 1e6
         return round(total, 2)
 
-    finance = {"CN": {"years": list(CN_WINDOW), "musd": window("CN", *CN_WINDOW), "mineral_tagged_musd": tagged("CN", *CN_WINDOW)},
-               "US": {"years": list(CN_WINDOW), "musd": window("US", *CN_WINDOW), "mineral_tagged_musd": tagged("US", *CN_WINDOW)},
+    def sources(origin: str) -> list[str]:
+        return sorted({str(r["source_id"]) for r in fin if r.get("actor_from_origin") == origin and r.get("country") in IN_SCOPE and r.get("source_id")})
+
+    finance = {"CN": {"years": list(CN_WINDOW), "musd": window("CN", *CN_WINDOW), "mineral_tagged_musd": tagged("CN", *CN_WINDOW), "sources": sources("CN")},
+               "US": {"years": list(CN_WINDOW), "musd": window("US", *CN_WINDOW), "mineral_tagged_musd": tagged("US", *CN_WINDOW), "sources": sources("US")},
                "US_after": {"years": list(US_WINDOW), "musd": window("US", *US_WINDOW), "mineral_tagged_musd": tagged("US", *US_WINDOW)}}
     n_us, n_cn = len(blocs.get(BLOC_US, [])), len(blocs.get(BLOC_CN, []))
     ratios = {"statements_us_over_cn": round(n_us / n_cn, 2) if n_cn else None,
@@ -531,6 +534,20 @@ def _contrast(c: dict, cid: str) -> dict | None:
     return next((x for x in c["contrasts"] if x["id"] == cid), None)
 
 
+SOURCE_NAME = {"dfc_projects": "the DFC", "exim_authorizations": "EXIM", "aiddata_gcdf": "AidData", "aei_cgit": "AEI's investment tracker", "bu_codf": "BU's CODF"}
+
+
+def us_finance_sources(tm: dict) -> str:
+    """'the DFC is the only US finance source' or 'US finance comes from the DFC and EXIM', from the sources behind the rows."""
+    ids = (tm.get("finance") or {}).get("US", {}).get("sources") or []
+    names = [SOURCE_NAME.get(i, i) for i in ids]
+    if len(names) == 1:
+        return f"{names[0]} is the only US finance source"
+    if names:
+        return f"US finance comes from {', '.join(names[:-1])} and {names[-1]}"
+    return "no US finance source is loaded"
+
+
 def build_findings(countries: list[dict], region: dict, today: str) -> list[dict]:
     out: list[dict] = []
     tm = region["talk_vs_money"]
@@ -553,7 +570,7 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
               ["statement:count:bloc=United States", "statement:count:bloc=China", f"flow_finance:CN:{CN_WINDOW[0]}-{CN_WINDOW[1]}", f"flow_finance:US:{CN_WINDOW[0]}-{CN_WINDOW[1]}"])
         out.append(_finding("who_talks_who_pays", "Who talks, who pays", f"Washington out-talks Beijing {r_s:.1f} to 1; Beijing out-lends Washington {r_m:.1f} to 1", s, "moderate",
                             "statement counts from the owner's dataset (dozens per bloc) against documented commitments; both finance sources record every sector",
-                            "AidData ends in 2021 and the DFC is the only US finance source, so the comparison runs on the years both cover; the statements were gathered by web search, which favours prominent US voices.",
+                            f"AidData ends in 2021 and {us_finance_sources(tm)}, so the comparison runs on the years both sides cover; the statements were gathered by web search, which favours prominent US voices.",
                             IN_SCOPE))
     # F2 warm words, cold trade (per country)
     for c in countries:
@@ -748,7 +765,7 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
     statuses = [w["status"] for e in region["event_echoes"] for w in e["windows"]]
     n_draft = sum(1 for st in statuses if st != "reviewed")
     events_part = ("the dated events are all in draft" if statuses and n_draft == len(statuses) else f"{n_draft} of the event windows come from draft events" if n_draft else "the dated events are reviewed") if statuses else "no event study has been computed"
-    s.add(f"The legislative stance is a zero-shot model output not yet validated, media tone exists for a few country-years, Chinese lending (AidData) ends in 2021, the DFC is the only US finance source and {events_part}.",
+    s.add(f"The legislative stance is a zero-shot model output not yet validated, media tone exists for a few country-years, Chinese lending (AidData) ends in 2021, {us_finance_sources(tm)} and {events_part}.",
           ["quant_run:last_year", "quant_run:text_model", "event_effect:status"])
     s.add("Scales differ (statements −1..+1, legislative stance −2..+2, media tone −1..+1, the index 0–100) and are never added together here.", ["insights:scales"])
     out.append(_finding("cannot_see", "What this page cannot see", "The contrasts rest on thin overlaps and four different scales", s, "strong", "coverage counts", "", IN_SCOPE))

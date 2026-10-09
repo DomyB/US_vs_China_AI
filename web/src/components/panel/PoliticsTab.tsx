@@ -12,6 +12,9 @@ import { ACTOR_COLOR, LANGUAGE_NAME, prettyLabel, prettyMineral } from "@/lib/co
 import { fmtDate, fmtSigned } from "@/lib/format";
 import type { CountryData, LayerSource, ParliamentDoc } from "@/lib/types";
 
+/** The dataset as committed in the repository (the CSV the pipeline reads and the owner's readable workbook regenerated from it). */
+const STATEMENTS_FILES = "https://github.com/DomyB/US_vs_China_AI/raw/main/data/manual/statements/political_statements_minerals";
+
 /** Politics: what leaders say (the owner's statements dataset) and what the legislature does (records and the model's stance series). */
 export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: number; mineral: string }) {
   const stm = data.statements ?? null;
@@ -84,6 +87,9 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
             <p className="mb-2 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-3">
               <span className="chip border border-dashed border-ink-3 text-ink-2" title={stm.coding}>Stance: coded under the dataset&apos;s codebook · not validated</span>
               <SourceLink source={stm.dataset_source} compact />
+              <span>
+                Download: <a href={`${STATEMENTS_FILES}.csv`} className="underline decoration-dotted">CSV</a> · <a href={`${STATEMENTS_FILES}.xlsx`} className="underline decoration-dotted">readable workbook</a>
+              </span>
             </p>
             <div className="grid gap-3 md:grid-cols-2">
               <div>

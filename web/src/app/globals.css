@@ -523,3 +523,15 @@ body:has(dialog[open]) { overflow: hidden; }
 .evidence[data-level="moderate"] > span.on { background: var(--interp); }
 .evidence[data-level="thin"] > span.on { background: var(--sample); }
 input[type="range"]:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* touch screens: the controls people tap most get 40px targets; pointer sizes on desktop are unchanged */
+@media (pointer: coarse) {
+  .btn { min-height: 40px; min-width: 40px; }
+  .input { min-height: 40px; }
+  input[type="range"] { height: 2.5rem; }
+  .plot-expand { width: 40px; height: 40px; opacity: 0.8; }
+  .maplibregl-ctrl-group > button { width: 40px !important; height: 40px !important; } /* MapLibre's own sheet loads later and sets 29px */
+  summary { padding-block: 0.4rem; }
+  .sheet-handle { min-height: 44px; }
+  .drawer-toggle { width: 40px; }
+}

@@ -24,6 +24,15 @@ VARS = {"execrlc": "Chief executive party orientation (1 right, 2 centre, 3 left
         "system": "System (0 presidential, 1 assembly-elected president, 2 parliamentary)"}
 
 
+
+def _year(v) -> float | None:
+    """The year from a number or from a date string: the 2023 CSV writes `2023-01-01` where earlier editions wrote 2023."""
+    y = to_float(v)
+    if y is not None:
+        return y
+    m = re.match(r"\s*(\d{4})", str(v) if v is not None else "")
+    return float(m.group(1)) if m else None
+
 class DPI(Adapter):
     source_id = "idb_dpi"
     tables = ("governance",)
@@ -86,7 +95,7 @@ class DPI(Adapter):
             time.sleep(READY_WAIT_S)
         return False
 
-    def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
+    def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:  # noqa: D102
         path = next(snap.path(n) for n in snap.files if n.startswith("dpi."))
         df = read_any(path)
         c_name = col(df, "countryname", "country")
@@ -97,7 +106,7 @@ class DPI(Adapter):
             iso = (str(r[c_iso]).upper() if c_iso and pd.notna(r[c_iso]) else None) or iso3_from_name(r[c_name])
             if iso not in IN_SCOPE:
                 continue
-            y = to_float(r[c_year])
+            y = _year(r[c_year])
             if y is None or y < 2000:
                 continue
             for var, name in VARS.items():

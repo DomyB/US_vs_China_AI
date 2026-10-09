@@ -85,9 +85,9 @@ function ExpandedFigure({ options, ariaLabel, onClose }: { options: PlotOptions;
 
 export function DataTable<T extends object>({ rows, columns, caption }: { rows: T[]; columns: { key: keyof T; label: string; format?: (v: unknown) => string }[]; caption: string }) {
   return (
-    <details className="mt-1 text-xs">
+    <details className="mt-1 min-w-0 text-xs [&:not([open])>div]:hidden">
       <summary className="cursor-pointer text-ink-3 hover:text-ink-2">Show as table</summary>
-      <div className="max-h-64 overflow-auto">
+      <div className="max-h-64 max-w-full overflow-auto">
         <table className="mt-1 w-full border-collapse">
           <caption className="sr-only">{caption}</caption>
           <thead>

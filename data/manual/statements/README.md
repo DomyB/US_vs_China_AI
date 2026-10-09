@@ -49,6 +49,14 @@ records plus summary sheets, a codebook and an HS6 join key to the trade data.
   re-read by an AI, not a validation against human judgement; the site's wording ("coded under the dataset's
   codebook, not validated") stays.
 
+## The readable workbook
+
+`political_statements_minerals.xlsx` is the owner's formatted copy of the dataset (supplied 2026-10-09): a README
+sheet, a `Statements` sheet with country names, labels without underscores and the source as a link, a `Coverage`
+sheet of count formulas, and the raw `Data` sheet. `pipeline/scripts/statements_workbook.py` regenerates its rows
+from the CSV (keeping the layout, styles and formulas; one row per country and mineral present) so it stays in step
+with the dataset; run it after editing the CSV. The site's Politics tab links both files.
+
 ## How the pipeline uses it
 
 The adapter `manual_statements` (`pipeline/scm/ingest/statements.py`) copies this file into a snapshot, normalises
