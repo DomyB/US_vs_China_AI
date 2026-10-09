@@ -35,7 +35,7 @@ export function YearControl({ year, onChange, playing, onTogglePlay }: { year: n
         }}
         aria-pressed={playing}
         aria-label={playing ? "Pause animation over years" : "Play animation over years"}
-        className="h-8 w-8 shrink-0 rounded-full border border-rule bg-surface text-sm hover:bg-surface-2"
+        className="btn h-9 w-9 shrink-0 p-0 text-sm"
       >
         {playing ? "❚❚" : "▶"}
       </button>
@@ -50,7 +50,7 @@ export function YearControl({ year, onChange, playing, onTogglePlay }: { year: n
           value={year}
           onChange={(e) => onChange(Number(e.target.value))}
           list="year-ticks"
-          className="w-full accent-ink"
+          className="w-full"
           aria-valuetext={year === YEAR_MAX ? `${year} (partial year)` : String(year)}
         />
         <datalist id="year-ticks">

@@ -67,7 +67,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
     return Array.from(groups.entries()).map(([k, rows]) => ({ key: k, mineral: rows[0].mineral, measure: rows[0].measure, rows })).sort((a, b) => a.mineral.localeCompare(b.mineral) || a.measure.localeCompare(b.measure));
   }, [production]);
   const [contractsShown, setContractsShown] = useState(20);
-  const sideColor = { US: ACTOR_COLOR.US, CN: ACTOR_COLOR.CN, other: OTHER_COLOR } as const;
+  const sideColor = { US: "var(--us)", CN: "var(--cn)", other: "var(--other)" } as const;
 
   return (
     <div className="space-y-5">

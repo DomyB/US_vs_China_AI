@@ -11,10 +11,12 @@ import { Legend } from "@/components/map/Legend";
 import { divergingScale, sequentialScale } from "@/components/map/scales";
 import { CountryPanel, type TabId } from "@/components/panel/CountryPanel";
 import { LayerLabel } from "@/components/ui/Badges";
+import { HeroArt } from "@/components/ui/HeroArt";
 import { StatTile } from "@/components/ui/Section";
-import { ACTOR_COLOR, IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { buildIndexLookup, loadIndex, loadMeta, loadRealMeta, mapValue } from "@/lib/data";
 import { fmtSigned } from "@/lib/format";
+import { useTheme } from "@/lib/theme";
 import type { ActorMode, IndexFile, Meta, RealMeta } from "@/lib/types";
 
 const SouthAmericaMap = dynamic(() => import("@/components/map/SouthAmericaMap").then((m) => m.SouthAmericaMap), {
@@ -41,6 +43,7 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
   const [real, setReal] = useState<RealMeta | null>(null);
   const [playing, setPlaying] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     Promise.all([loadMeta(), loadIndex(), loadRealMeta()]).then(([m, i, r]) => {
@@ -72,14 +75,14 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
     return v;
   }, [lookup, year, mode, mineral]);
   const fills = useMemo(() => {
-    const scale = mode === "both" ? divergingScale() : sequentialScale(mode);
+    const scale = mode === "both" ? divergingScale(theme) : sequentialScale(mode, theme);
     const f: Record<string, string | undefined> = {};
     for (const iso of IN_SCOPE) {
       const v = values[iso];
       f[iso] = v === null ? undefined : scale(v);
     }
     return f;
-  }, [values, mode]);
+  }, [values, mode, theme]);
 
   const indexLayer = index?.layer ?? "sample";
   const describeValue = useCallback(
@@ -120,11 +123,14 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
   return (
     <div className="mx-auto max-w-7xl px-4 py-4">
       <div className="mb-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <div>
-          <h1>Who is gaining ground, where, and in which minerals?</h1>
-          <p className="mt-1 max-w-3xl text-sm text-ink-2">
-            The map colours each country by the influence index for the selected actor and year{index?.layer === "real" ? ", computed from sourced trade, finance, debt, UN-vote and legislative data" : " (sample data until the first computation)"}. Pick a country for its actions, parliament, media, analysis and forecast. <LayerLabel layer="model" />
-          </p>
+        <div className="flex items-center gap-5">
+          <HeroArt className="hidden h-28 w-36 shrink-0 xl:block" />
+          <div>
+            <h1>Who is gaining ground, where, and in which minerals?</h1>
+            <p className="mt-1 max-w-3xl text-sm text-ink-2">
+              The map colours each country by the influence index for the selected actor and year{index?.layer === "real" ? ", computed from sourced trade, finance, debt, UN-vote and legislative data" : " (sample data until the first computation)"}. Pick a country for its actions, parliament, media, analysis and forecast. <LayerLabel layer="model" />
+            </p>
+          </div>
         </div>
         {real && (
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:w-[34rem]">
@@ -149,12 +155,12 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
 
           <div className="card relative h-[520px] overflow-hidden md:h-[600px]">
             {meta && (
-              <SouthAmericaMap fills={fills} values={values} countries={meta.countries} selected={selected} onSelect={(c) => setParam({ country: c })} onHover={setHover} describeValue={describeValue} />
+              <SouthAmericaMap fills={fills} values={values} countries={meta.countries} selected={selected} theme={theme} onSelect={(c) => setParam({ country: c })} onHover={setHover} describeValue={describeValue} />
             )}
-            <div className="pointer-events-none absolute bottom-2 left-2 w-56 rounded-lg border border-rule bg-card/95 p-2 shadow-sm">
-              <Legend mode={mode} />
+            <div className="card pointer-events-none absolute bottom-2 left-2 w-56 p-2">
+              <Legend mode={mode} theme={theme} />
             </div>
-            <div className="pointer-events-none absolute right-2 top-2 rounded-full border border-rule bg-card/95 px-2.5 py-1 text-[11px] text-ink-3">
+            <div className="pointer-events-none absolute right-2 top-2 rounded-full border-2 border-outline bg-card px-2.5 py-1 text-[11px] font-medium text-ink-2">
               {hover ? `${meta?.countries.find((c) => c.iso3 === hover)?.name ?? hover}` : "Hover a country"}
             </div>
           </div>
@@ -173,7 +179,7 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
                 {ranked.map((r, i) => {
                   const v = r.v as number;
                   const w = Math.round((Math.abs(v) / maxAbs) * 100);
-                  const color = mode === "both" ? (v >= 0 ? ACTOR_COLOR.CN : ACTOR_COLOR.US) : mode === "US" ? ACTOR_COLOR.US : ACTOR_COLOR.CN;
+                  const color = mode === "both" ? (v >= 0 ? "var(--cn)" : "var(--us)") : mode === "US" ? "var(--us)" : "var(--cn)";
                   return (
                     <li key={r.iso}>
                       <button type="button" onClick={() => setParam({ country: r.iso })} className={`grid w-full grid-cols-[1.5rem_7.5rem_1fr_3rem] items-center gap-2 rounded px-1 py-0.5 text-left hover:bg-surface-2 ${selected === r.iso ? "bg-surface-2 font-semibold" : ""}`}>
@@ -195,21 +201,22 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
             <CountryPanel iso3={selected} year={year} mineral={mineral} meta={meta} indexRows={index.rows} indexLayer={index.layer} tab={tab} onTab={(t) => setParam({ tab: t })} onClose={() => setParam({ country: null })} sourceNames={sourceNames} />
           ) : (
             <div className="flex h-full flex-col gap-4 overflow-y-auto p-5">
-              <div>
+              <HeroArt className="mx-auto h-40 w-full max-w-[15rem]" />
+              <div className="text-center">
                 <p className="eyebrow">Country panel</p>
                 <p className="serif mt-1 text-xl text-ink">Select a country</p>
                 <p className="mt-1 text-sm text-ink-2">Click the map, the ranking or the country list to open the five tabs: actions, parliament, media, analysis and forecast.</p>
               </div>
               {snapshot && (
-                <div className="rounded-lg border border-rule bg-surface-2 p-3">
+                <div className="rounded-xl border-2 border-outline bg-surface-2 p-3">
                   <p className="eyebrow">Snapshot {year} · net lean of the index</p>
                   <div className="mt-2 grid grid-cols-2 gap-3 text-sm">
                     <div>
-                      <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-ink-2"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: ACTOR_COLOR.CN }} />Leaning to China</p>
+                      <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-ink-2"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "var(--cn)" }} />Leaning to China</p>
                       <ol className="space-y-0.5">{snapshot.cn.map((r) => <li key={r.iso} className="flex justify-between"><button type="button" className="underline decoration-dotted hover:decoration-solid" onClick={() => setParam({ country: r.iso })}>{r.name}</button><span className="tabular-nums text-ink-3">{fmtSigned(r.v, 0)}</span></li>)}</ol>
                     </div>
                     <div>
-                      <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-ink-2"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: ACTOR_COLOR.US }} />Leaning to the United States</p>
+                      <p className="mb-1 flex items-center gap-1.5 text-xs font-medium text-ink-2"><span className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: "var(--us)" }} />Leaning to the United States</p>
                       <ol className="space-y-0.5">{snapshot.us.map((r) => <li key={r.iso} className="flex justify-between"><button type="button" className="underline decoration-dotted hover:decoration-solid" onClick={() => setParam({ country: r.iso })}>{r.name}</button><span className="tabular-nums text-ink-3">{fmtSigned(r.v, 0)}</span></li>)}</ol>
                     </div>
                   </div>

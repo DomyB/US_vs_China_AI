@@ -8,7 +8,7 @@ export function MineralFilter({ value, minerals, onChange }: { value: string; mi
   return (
     <div className="flex items-center gap-2 text-xs">
       <label htmlFor="mineral-select" className="text-ink-2">Mineral</label>
-      <select id="mineral-select" value={value} onChange={(e) => onChange(e.target.value)} className="flex-1 rounded border border-rule bg-surface px-2 py-1">
+      <select id="mineral-select" value={value} onChange={(e) => onChange(e.target.value)} className="input flex-1">
         <option value="all">All minerals</option>
         <optgroup label="Core list">
           {core.map((m) => (

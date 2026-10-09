@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
+/* ---- tokens ------------------------------------------------------------
+   Light values first. The dark set appears twice: once for an explicit choice
+   (html[data-theme="dark"], written by the theme toggle and restored before
+   paint by the inline bootstrap in layout.tsx), once for the system preference
+   when nothing is stored. Keep the two dark blocks identical.
+   Actor hues pass the colour-vision checks in both schemes (US blue, China
+   vermilion); "rest of world" stays a neutral grey by design. */
 :root {
+  color-scheme: light;
   --surface: #faf9f6;
   --surface-2: #f1efe9;
   --card: #ffffff;
@@ -9,18 +17,98 @@
   --ink-3: #777d86;
   --rule: #e2dfd7;
   --rule-2: #cfcbc1;
+  --outline: #26292e;
+  --shadow-hard: #d9d3c4;
   --accent: #1f5fa8;
   --us: #1f5fa8;
   --cn: #c8441c;
   --other: #9a9890;
+  --cat-3: #6a4fb8;
+  --cat-4: #1d8f6e;
   --sample: #b45309;
   --facts: #2b6a4a;
   --model: #5b4a9e;
   --interp: #8a5a1c;
+  --sea: #d7e5ef;
+  --land: #efe3c4;
+  --land-2: #d9c89c;
+  --shine: #ffffff;
+  --map-sea: #e9eef2;
+  --map-land: #f0efec;
+  --map-out: #e4e2dc;
+  --ctrl-filter: none;
   --shadow: 0 1px 2px rgba(27, 29, 32, 0.04), 0 4px 16px rgba(27, 29, 32, 0.05);
   --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #141516;
+  --surface-2: #1c1e21;
+  --card: #1a1c1f;
+  --ink: #ecebe6;
+  --ink-2: #c3c1b8;
+  --ink-3: #8f8d85;
+  --rule: #2c2f34;
+  --rule-2: #3b3f46;
+  --outline: #4a4f57;
+  --shadow-hard: #0a0b0c;
+  --accent: #4f8fdc;
+  --us: #4f8fdc;
+  --cn: #e2682f;
+  --other: #8d8b84;
+  --cat-3: #8f78e0;
+  --cat-4: #39a987;
+  --sample: #e39a4a;
+  --facts: #5fbf93;
+  --model: #a996f0;
+  --interp: #d9a35c;
+  --sea: #223344;
+  --land: #6b5f48;
+  --land-2: #857760;
+  --shine: #ecebe6;
+  --map-sea: #121417;
+  --map-land: #2a2d32;
+  --map-out: #1f2226;
+  --ctrl-filter: invert(0.85);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: #141516;
+    --surface-2: #1c1e21;
+    --card: #1a1c1f;
+    --ink: #ecebe6;
+    --ink-2: #c3c1b8;
+    --ink-3: #8f8d85;
+    --rule: #2c2f34;
+    --rule-2: #3b3f46;
+    --outline: #4a4f57;
+    --shadow-hard: #0a0b0c;
+    --accent: #4f8fdc;
+    --us: #4f8fdc;
+    --cn: #e2682f;
+    --other: #8d8b84;
+    --cat-3: #8f78e0;
+    --cat-4: #39a987;
+    --sample: #e39a4a;
+    --facts: #5fbf93;
+    --model: #a996f0;
+    --interp: #d9a35c;
+    --sea: #223344;
+    --land: #6b5f48;
+    --land-2: #857760;
+    --shine: #ecebe6;
+    --map-sea: #121417;
+    --map-land: #2a2d32;
+    --map-out: #1f2226;
+    --ctrl-filter: invert(0.85);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.35);
+  }
 }
 
 @theme inline {
@@ -32,6 +120,7 @@
   --color-ink-3: var(--ink-3);
   --color-rule: var(--rule);
   --color-rule-2: var(--rule-2);
+  --color-outline: var(--outline);
   --color-accent: var(--accent);
   --color-us: var(--us);
   --color-cn: var(--cn);
@@ -63,7 +152,7 @@ h1, h2, .serif {
   letter-spacing: -0.012em;
 }
 
-h1 { font-size: 1.75rem; line-height: 1.15; font-weight: 600; }
+h1 { font-size: 1.8rem; line-height: 1.15; font-weight: 700; }
 h2 { font-size: 1.25rem; line-height: 1.25; font-weight: 600; }
 
 a {
@@ -76,21 +165,81 @@ a {
   outline-offset: 2px;
 }
 
-/* ---- building blocks ------------------------------------------------- */
+::selection { background: color-mix(in oklab, var(--accent) 25%, transparent); }
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: 0.75rem;
-  box-shadow: var(--shadow);
-}
+/* ---- building blocks: the "sticker" look (2px outline, hard offset shadow) ---- */
+@layer components {
+  .card {
+    background: var(--card);
+    border: 2px solid var(--outline);
+    border-radius: 0.9rem;
+    box-shadow: 4px 4px 0 var(--shadow-hard);
+  }
+  a.card {
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  a.card:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 var(--shadow-hard);
+  }
 
-.eyebrow {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-3);
+  .sticker {
+    border: 2px solid var(--outline);
+    box-shadow: 3px 3px 0 var(--outline);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    border: 2px solid var(--outline);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--outline);
+    transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.12s ease;
+  }
+  .btn:hover { background: var(--surface-2); }
+  .btn:active, .btn[aria-pressed="true"] {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 var(--outline);
+  }
+
+  .input {
+    border: 2px solid var(--outline);
+    border-radius: 0.6rem;
+    background: var(--card);
+    color: var(--ink);
+    padding: 0.3rem 0.5rem;
+    font: inherit;
+    font-size: 0.75rem;
+  }
+
+  .eyebrow {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 999px;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
 }
 
 /* every chart/text block inside a tab panel or a page card is a section with a title row, an intro and a body */
@@ -119,20 +268,6 @@ a {
   padding-top: 1rem;
 }
 
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  border-radius: 999px;
-  padding: 0.1rem 0.5rem;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  line-height: 1.5;
-  white-space: nowrap;
-}
-
 /* tables inside panels */
 [role="tabpanel"] table, .region-card table, .prose-doc table, .data-table {
   border-collapse: collapse;
@@ -158,8 +293,45 @@ details > summary { cursor: pointer; color: var(--ink-3); font-size: 0.75rem; }
 details > summary:hover { color: var(--ink-2); }
 details[open] > summary { margin-bottom: 0.35rem; }
 
-/* range slider */
-input[type="range"] { accent-color: var(--ink); height: 1.25rem; }
+/* range slider: chunky track and a round outlined thumb */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 12px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 2px solid var(--outline);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--outline);
+  box-shadow: 2px 2px 0 var(--outline);
+}
+input[type="range"]::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 2px solid var(--outline);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--outline);
+  box-shadow: 2px 2px 0 var(--outline);
+}
 
 /* horizontal scroll areas */
 .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -182,15 +354,88 @@ input[type="range"] { accent-color: var(--ink); height: 1.25rem; }
 .prose-doc .toc a { color: var(--ink-2); text-decoration: none; }
 .prose-doc .toc a:hover { color: var(--ink); text-decoration: underline; }
 
-/* Observable Plot figure text: recessive axes, hairline grid */
+/* ---- Observable Plot figures ------------------------------------------
+   Recessive axes and hairline grid. Plot writes colours as attributes with the
+   light-theme hex values from lib/constants; the attribute rules below bind each
+   one to its token so the same figure reads in both colour schemes, including
+   tooltips and legend swatches that Plot creates after the first render. */
 figure.plot, .plot-figure svg { font-family: var(--font-sans); }
+.plot-figure svg { --plot-background: var(--card); }
 .plot-figure svg [aria-label="y-grid"] line, .plot-figure svg [aria-label="x-grid"] line { stroke: var(--rule-2); stroke-opacity: 0.7; }
 .plot-figure svg [aria-label="y-axis tick label"], .plot-figure svg [aria-label="x-axis tick label"] { fill: var(--ink-3); }
 .plot-figure svg [aria-label="y-axis label"], .plot-figure svg [aria-label="x-axis label"] { fill: var(--ink-2); }
+.plot-figure svg [aria-label="tip"] { font-size: 12px; }
+.plot-figure svg [aria-label="tip"] path { stroke: var(--outline); stroke-width: 1.5; }
 .plot-figure { margin: 0.25rem 0; }
 .plot-figure + details { margin-top: 0.25rem; }
+
+.plot-figure [fill="#1f5fa8"] { fill: var(--us); }
+.plot-figure [stroke="#1f5fa8"] { stroke: var(--us); }
+.plot-figure [fill="#c8441c"] { fill: var(--cn); }
+.plot-figure [stroke="#c8441c"] { stroke: var(--cn); }
+.plot-figure [fill="#8a8f98"], .plot-figure [fill="#9a9890"] { fill: var(--other); }
+.plot-figure [stroke="#8a8f98"], .plot-figure [stroke="#9a9890"] { stroke: var(--other); }
+.plot-figure [fill="#6a4fb8"] { fill: var(--cat-3); }
+.plot-figure [stroke="#6a4fb8"] { stroke: var(--cat-3); }
+.plot-figure [fill="#1d8f6e"] { fill: var(--cat-4); }
+.plot-figure [stroke="#1d8f6e"] { stroke: var(--cat-4); }
+.plot-figure [fill="#1b1d20"] { fill: var(--ink); }
+.plot-figure [stroke="#1b1d20"] { stroke: var(--ink); }
+.plot-figure [fill="#4a4f57"] { fill: var(--ink-2); }
+.plot-figure [stroke="#c9c7c0"], .plot-figure [stroke="#d9d7d0"] { stroke: var(--rule-2); }
+.plot-figure [stroke="#9a9fa8"] { stroke: var(--ink-3); }
+.plot-figure [fill="#f3f2ee"] { fill: var(--map-land); }
+.plot-figure [fill="#e4e2dc"] { fill: var(--map-out); }
+.plot-figure [fill="#fff"], .plot-figure [fill="#ffffff"] { fill: var(--card); }
+.plot-figure [stroke="#fff"], .plot-figure [stroke="#ffffff"] { stroke: var(--card); }
+
+/* ---- MapLibre: labels, popup, controls follow the theme ---------------- */
+.country-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  pointer-events: none;
+  text-shadow: 0 0 3px var(--map-sea), 0 0 3px var(--map-sea), 0 0 2px var(--map-sea);
+  white-space: nowrap;
+}
+.country-label.out-of-scope { color: var(--ink-3); font-weight: 500; font-style: italic; text-transform: none; }
+.maplibregl-map { font-family: var(--font-sans); }
+.maplibregl-popup .maplibregl-popup-content {
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--outline);
+  border-radius: 0.6rem;
+  box-shadow: 3px 3px 0 var(--shadow-hard);
+  padding: 0.45rem 0.65rem;
+}
+.maplibregl-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip,
+.maplibregl-popup.maplibregl-popup-anchor-top-left .maplibregl-popup-tip,
+.maplibregl-popup.maplibregl-popup-anchor-top-right .maplibregl-popup-tip { border-bottom-color: var(--outline); }
+.maplibregl-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip,
+.maplibregl-popup.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip,
+.maplibregl-popup.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip { border-top-color: var(--outline); }
+.maplibregl-popup.maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--outline); }
+.maplibregl-popup.maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--outline); }
+.maplibregl-map .maplibregl-ctrl-group {
+  background: var(--card);
+  border: 2px solid var(--outline);
+  border-radius: 0.6rem;
+  box-shadow: 2px 2px 0 var(--shadow-hard);
+}
+.maplibregl-map .maplibregl-ctrl-group button + button { border-top: 1px solid var(--rule); }
+.maplibregl-map .maplibregl-ctrl button .maplibregl-ctrl-icon { filter: var(--ctrl-filter); }
+.maplibregl-map .maplibregl-ctrl.maplibregl-ctrl-attrib { font-size: 10px; background: color-mix(in oklab, var(--card) 88%, transparent); color: var(--ink-3); }
+.maplibregl-map .maplibregl-ctrl.maplibregl-ctrl-attrib a { color: var(--ink-2); }
+.maplibregl-map .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button { filter: var(--ctrl-filter); }
 
 @media (max-width: 640px) {
   body { font-size: 14.5px; }
   h1 { font-size: 1.45rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
 }

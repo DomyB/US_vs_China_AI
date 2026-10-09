@@ -37,7 +37,7 @@ export function StatTile({ label, value, note, href }: { label: string; value: R
     </>
   );
   return href ? (
-    <a href={href} className="card block px-3 py-2.5 no-underline hover:border-rule-2">{body}</a>
+    <a href={href} className="card block px-3 py-2.5 no-underline">{body}</a>
   ) : (
     <div className="card px-3 py-2.5">{body}</div>
   );

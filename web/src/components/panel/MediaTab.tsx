@@ -8,7 +8,8 @@ import { ACTOR_COLOR, LANGUAGE_NAME, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtPct } from "@/lib/format";
 import type { CountryData } from "@/lib/types";
 
-const NARRATIVE_COLORS = ["#1f5fa8", "#c8441c", "#2b6a4a", "#5b4a9e", "#8a8f98"];
+/** Fixed categorical order (validated for colour vision in both schemes; the fifth is the neutral "other"); globals.css binds each hex to its theme token. */
+const NARRATIVE_COLORS = ["#1f5fa8", "#c8441c", "#6a4fb8", "#1d8f6e", "#8a8f98"];
 
 export function MediaTab({ data, year, mineral }: { data: CountryData; year: number; mineral: string }) {
   const volume = useMemo(() => {

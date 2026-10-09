@@ -41,7 +41,7 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
     [sources, q, country, category, reliability, status],
   );
 
-  const sel = "rounded border border-rule bg-surface px-2 py-1 text-xs";
+  const sel = "input";
   return (
     <div className="mt-3">
       <div className="mb-3 flex flex-wrap gap-2">

@@ -7,6 +7,8 @@ import { useEffect, useRef } from "react";
 import { feature as topoFeature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
 import type { FeatureCollection, Geometry } from "geojson";
+import { MAP_PALETTE, type MapPalette } from "./scales";
+import type { Theme } from "@/lib/theme";
 import type { CountryMeta } from "@/lib/types";
 
 export interface CountryFeatureProps {
@@ -22,8 +24,6 @@ export interface CountryFeatureProps {
 type FC = FeatureCollection<Geometry, CountryFeatureProps>;
 
 const BOUNDS: [[number, number], [number, number]] = [[-84, -57], [-33, 14]];
-const OUT_OF_SCOPE_FILL = "#e4e2dc";
-const NO_DATA_FILL = "#f0efec";
 /** Label anchors that differ from the data centroid, to avoid collisions in the Guianas. */
 const LABEL_POS: Record<string, [number, number]> = { GUY: [-59.4, 5.9], SUR: [-55.9, 3.9], GUF: [-53.2, 2.3] };
 
@@ -36,9 +36,11 @@ interface Props {
   onSelect: (iso3: string | null) => void;
   onHover?: (iso3: string | null) => void;
   describeValue: (iso3: string, v: number | null) => string;
+  /** colour scheme in effect; the canvas cannot read CSS variables, so the palette is painted from here */
+  theme?: Theme;
 }
 
-export function SouthAmericaMap({ fills, values, countries, selected, onSelect, onHover, describeValue }: Props) {
+export function SouthAmericaMap({ fills, values, countries, selected, onSelect, onHover, describeValue, theme = "light" }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MLMap | null>(null);
   const dataRef = useRef<FC | null>(null);
@@ -47,6 +49,8 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
   const popupRef = useRef<maplibregl.Popup | null>(null);
   const callbacks = useRef({ onSelect, onHover, describeValue, values, fills });
   callbacks.current = { onSelect, onHover, describeValue, values, fills };
+  const paletteRef = useRef<MapPalette>(MAP_PALETTE[theme]);
+  paletteRef.current = MAP_PALETTE[theme];
 
   // Initialise the map once.
   useEffect(() => {
@@ -59,7 +63,7 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
       style: {
         version: 8,
         sources: {},
-        layers: [{ id: "bg", type: "background", paint: { "background-color": "#e9eef2" } }],
+        layers: [{ id: "bg", type: "background", paint: { "background-color": paletteRef.current.sea } }],
       },
       bounds: BOUNDS,
       fitBoundsOptions: { padding: 24 },
@@ -82,14 +86,15 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
       const objName = Object.keys(topo.objects)[0];
       const fc = topoFeature(topo, topo.objects[objName] as GeometryCollection<CountryFeatureProps>) as unknown as FC;
       dataRef.current = fc;
-      applyFills(fc, callbacks.current.values, callbacks.current.fills);
+      const pal = paletteRef.current;
+      applyFills(fc, callbacks.current.values, callbacks.current.fills, pal);
       map.addSource("countries", { type: "geojson", data: fc, promoteId: "iso3" });
       map.addLayer({
         id: "countries-fill",
         type: "fill",
         source: "countries",
         paint: {
-          "fill-color": ["coalesce", ["get", "fill"], NO_DATA_FILL],
+          "fill-color": ["coalesce", ["get", "fill"], pal.noData],
           "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.85, 1],
         },
       });
@@ -98,7 +103,7 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
         type: "line",
         source: "countries",
         paint: {
-          "line-color": ["case", ["boolean", ["feature-state", "selected"], false], "#1b1d20", "#ffffff"],
+          "line-color": ["case", ["boolean", ["feature-state", "selected"], false], pal.selected, pal.line],
           "line-width": ["case", ["boolean", ["feature-state", "selected"], false], 2.5, ["boolean", ["feature-state", "hover"], false], 2, 1],
         },
       });
@@ -107,8 +112,10 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
         type: "line",
         source: "countries",
         filter: ["==", ["get", "in_scope"], false],
-        paint: { "line-color": "#9a9fa8", "line-width": 1, "line-dasharray": [2, 2] },
+        paint: { "line-color": pal.outScopeLine, "line-width": 1, "line-dasharray": [2, 2] },
       });
+      // The scheme may have changed while the boundaries were loading.
+      if (paletteRef.current !== pal) paintTheme(map, paletteRef.current);
 
       // Labels as HTML markers (no glyph server needed).
       for (const c of countries) {
@@ -138,7 +145,7 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
         setHover(p.iso3);
         const v = callbacks.current.values[p.iso3] ?? null;
         const text = p.in_scope ? callbacks.current.describeValue(p.iso3, v) : p.status === "french_territory" ? "French territory, outside the analysis" : "Disputed territory, outside the analysis";
-        popup.setLngLat(e.lngLat).setHTML(`<div style="font: 12px/1.4 var(--font-sans); color:#1b1d20"><strong>${p.name}</strong><br/>${text}</div>`).addTo(map);
+        popup.setLngLat(e.lngLat).setHTML(`<div style="font: 12px/1.4 var(--font-sans); color: var(--ink)"><strong>${p.name}</strong><br/>${text}</div>`).addTo(map);
       });
       map.on("mouseleave", "countries-fill", () => {
         map.getCanvas().style.cursor = "";
@@ -169,10 +176,22 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
     const map = mapRef.current;
     const fc = dataRef.current;
     if (!map || !fc) return;
-    applyFills(fc, values, fills);
+    applyFills(fc, values, fills, paletteRef.current);
     const src = map.getSource("countries") as maplibregl.GeoJSONSource | undefined;
     src?.setData(fc);
   }, [fills, values]);
+
+  // Repaint the sea, outlines and neutral fills when the colour scheme changes.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !map.getLayer("countries-fill")) return;
+    paintTheme(map, MAP_PALETTE[theme]);
+    const fc = dataRef.current;
+    if (fc) {
+      applyFills(fc, callbacks.current.values, callbacks.current.fills, MAP_PALETTE[theme]);
+      (map.getSource("countries") as maplibregl.GeoJSONSource | undefined)?.setData(fc);
+    }
+  }, [theme]);
 
   // Update selection state.
   useEffect(() => {
@@ -184,16 +203,23 @@ export function SouthAmericaMap({ fills, values, countries, selected, onSelect, 
   return <div ref={containerRef} className="h-full w-full" />;
 }
 
-function applyFills(fc: FC, vals: Record<string, number | null>, fills: Record<string, string | undefined>) {
+function paintTheme(map: MLMap, pal: MapPalette) {
+  map.setPaintProperty("bg", "background-color", pal.sea);
+  map.setPaintProperty("countries-fill", "fill-color", ["coalesce", ["get", "fill"], pal.noData]);
+  map.setPaintProperty("countries-line", "line-color", ["case", ["boolean", ["feature-state", "selected"], false], pal.selected, pal.line]);
+  map.setPaintProperty("countries-outscope-line", "line-color", pal.outScopeLine);
+}
+
+function applyFills(fc: FC, vals: Record<string, number | null>, fills: Record<string, string | undefined>, pal: MapPalette) {
   for (const f of fc.features) {
     const p = f.properties;
     if (!p.in_scope) {
-      p.fill = OUT_OF_SCOPE_FILL;
+      p.fill = pal.outScope;
       p.value = null;
       continue;
     }
     const v = vals[p.iso3];
     p.value = v ?? null;
-    p.fill = v === null || v === undefined ? NO_DATA_FILL : fills[p.iso3] ?? NO_DATA_FILL;
+    p.fill = v === null || v === undefined ? pal.noData : fills[p.iso3] ?? pal.noData;
   }
 }

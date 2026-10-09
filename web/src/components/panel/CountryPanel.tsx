@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { loadCountry } from "@/lib/data";
 import type { CountryData, IndexRow, Meta } from "@/lib/types";
 import { Freshness } from "@/components/ui/Freshness";
+import { Icon } from "@/components/ui/Icons";
 import { ActionsTab } from "./ActionsTab";
 import { AnalysisTab } from "./AnalysisTab";
 import { ForecastTab } from "./ForecastTab";
@@ -60,14 +61,14 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
           <p className="eyebrow">{iso3} · country panel</p>
           <h2 className="mt-0.5 text-xl leading-tight">{country?.name ?? iso3}</h2>
           <p className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-3">
-            <span className="rounded-full bg-card px-2 py-0.5 ring-1 ring-rule">{year}</span>
-            <span className="rounded-full bg-card px-2 py-0.5 ring-1 ring-rule">{mineral === "all" ? "all minerals" : mineral.replace(/_/g, " ")}</span>
-            {country?.eiti_member && <span className="rounded-full bg-card px-2 py-0.5 ring-1 ring-rule">EITI member</span>}
+            <span className="rounded-full border border-rule-2 bg-card px-2 py-0.5">{year}</span>
+            <span className="rounded-full border border-rule-2 bg-card px-2 py-0.5">{mineral === "all" ? "all minerals" : mineral.replace(/_/g, " ")}</span>
+            {country?.eiti_member && <span className="rounded-full border border-rule-2 bg-card px-2 py-0.5">EITI member</span>}
             {!standalone && <Link href={`/country/${iso3}?year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">open full page</Link>}
           </p>
         </div>
         {onClose && (
-          <button type="button" onClick={onClose} aria-label="Close country panel" className="rounded border border-rule px-2 py-0.5 text-sm hover:bg-surface-2">
+          <button type="button" onClick={onClose} aria-label="Close country panel" className="btn h-7 w-7 p-0 text-sm">
             ×
           </button>
         )}
@@ -81,8 +82,9 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
             aria-selected={tab === t.id}
             aria-controls={`panel-${t.id}`}
             onClick={() => onTab(t.id)}
-            className={`-mb-px border-b-2 px-2.5 py-2.5 text-[13px] whitespace-nowrap transition-colors sm:px-3 sm:text-sm ${tab === t.id ? "border-accent font-semibold text-ink" : "border-transparent text-ink-2 hover:border-rule-2 hover:text-ink"}`}
+            className={`-mb-px flex items-center gap-1.5 border-b-[3px] px-2.5 py-2.5 text-[13px] whitespace-nowrap transition-colors sm:px-3 sm:text-sm ${tab === t.id ? "border-accent font-semibold text-ink" : "border-transparent text-ink-2 hover:border-rule-2 hover:text-ink"}`}
           >
+            <Icon name={t.id} className={tab === t.id ? "text-accent" : "text-ink-3"} />
             {t.label}
           </button>
         ))}
