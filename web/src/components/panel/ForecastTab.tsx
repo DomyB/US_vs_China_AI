@@ -3,51 +3,114 @@
 import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
-import { LayerLabel } from "@/components/ui/Badges";
-import { ACTOR_COLOR } from "@/lib/constants";
-import type { CountryData, IndexRow } from "@/lib/types";
+import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
+import { ACTOR_COLOR, ACTOR_LABEL } from "@/lib/constants";
+import { fmtPct } from "@/lib/format";
+import type { CountryData, ForecastModelStatus, ForecastRow, IndexRow } from "@/lib/types";
+
+const actorName = (a: string) => (a === "US" ? ACTOR_LABEL.US : ACTOR_LABEL.CN);
+type Hist = { year: number; actor: string; value: number };
+
+function statusLine(st: ForecastModelStatus | undefined): string {
+  if (!st || !st.model) return "no series long enough to forecast";
+  const vs = st.beats_naive ? `beats naive persistence by ${Math.round((1 - (st.crps_ratio ?? 1)) * 100)}% CRPS` : "no model beat naive persistence, so persistence is shown";
+  return `${st.label ?? st.model}: ${vs} over ${st.n_tests} backtest cases (origins ${st.origins}); the 80% band covered ${Math.round((st.coverage_80 ?? 0) * 100)}% and the 95% band ${Math.round((st.coverage_95 ?? 0) * 100)}% of outcomes`;
+}
+
+function chartOptions(baseline: ForecastRow[], scenarios: ForecastRow[], hist: Hist[], yLabel: string, domain: [number, number], fmt: (v: number) => string) {
+  const lastYear = baseline[0]?.last_observed_year ?? 2026;
+  return {
+    height: 240,
+    marginLeft: 44,
+    x: { label: null, tickFormat: (d: number) => String(d), domain: [2008, 2030] },
+    y: { label: yLabel, domain, grid: true, tickFormat: fmt },
+    color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => actorName(d) },
+    marks: [
+      Plot.areaY(baseline, { x: "year", y1: "p05", y2: "p95", fill: "actor", fillOpacity: 0.12, curve: "monotone-x" }),
+      Plot.areaY(baseline, { x: "year", y1: "p25", y2: "p75", fill: "actor", fillOpacity: 0.22, curve: "monotone-x" }),
+      Plot.lineY(hist, { x: "year", y: "value", stroke: "actor", strokeWidth: 2, curve: "monotone-x" }),
+      Plot.lineY(scenarios, { x: "year", y: "point", stroke: "actor", strokeWidth: 1, strokeOpacity: 0.6, strokeDasharray: "1,3", z: (d: ForecastRow) => `${d.actor}-${d.scenario_id}`, curve: "monotone-x", tip: true, title: (d: ForecastRow) => `${d.year} ${actorName(d.actor)} · scenario ${d.scenario_id}: ${fmt(d.point)}` }),
+      Plot.lineY(baseline, { x: "year", y: "point", stroke: "actor", strokeWidth: 2, strokeDasharray: "4,3", curve: "monotone-x", tip: true, title: (d: ForecastRow) => `${d.year} ${actorName(d.actor)}: ${fmt(d.point)} (90% band ${fmt(d.p05)}–${fmt(d.p95)}) · ${d.model}` }),
+      Plot.ruleX([lastYear], { stroke: "#1b1d20", strokeDasharray: "3,2" }),
+      Plot.text([{ x: lastYear + 0.2, y: domain[1] * 0.97, t: "forecast →" }], { x: "x", y: "y", text: "t", textAnchor: "start", fill: "#4a4f57", fontSize: 11 }),
+    ],
+  };
+}
 
 export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: CountryData; indexRows: IndexRow[]; indexLayer?: "real" | "sample" | "none" }) {
-  const history = useMemo(() => indexRows.filter((r) => r.year <= 2026), [indexRows]);
-  const fc = data.forecast.series;
-  const options = useMemo(
-    () => ({
-      height: 240,
-      marginLeft: 40,
-      x: { label: null, tickFormat: (d: number) => String(d), domain: [2008, 2030] },
-      y: { label: "Influence index (0–100)", domain: [0, 100], grid: true },
-      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => (d === "US" ? "United States" : "China") },
-      marks: [
-        Plot.areaY(fc, { x: "year", y1: "p05", y2: "p95", fill: "actor", fillOpacity: 0.12, curve: "monotone-x" }),
-        Plot.areaY(fc, { x: "year", y1: "p25", y2: "p75", fill: "actor", fillOpacity: 0.22, curve: "monotone-x" }),
-        Plot.lineY(history, { x: "year", y: "value", stroke: "actor", strokeWidth: 2, curve: "monotone-x" }),
-        Plot.lineY(fc, { x: "year", y: "point", stroke: "actor", strokeWidth: 2, strokeDasharray: "4,3", curve: "monotone-x", tip: true, title: (d: { year: number; actor: string; point: number; p05: number; p95: number }) => `${d.year} ${d.actor}: ${d.point} (90% band ${d.p05}–${d.p95})` }),
-        Plot.ruleX([2026], { stroke: "#1b1d20", strokeDasharray: "3,2" }),
-        Plot.text([{ x: 2026.2, y: 97, t: "forecast →" }], { x: "x", y: "y", text: "t", textAnchor: "start", fill: "#4a4f57", fontSize: 11 }),
-      ],
-    }),
-    [history, fc],
+  const real = data.layers?.forecast === "real";
+  const history = useMemo<Hist[]>(() => indexRows.filter((r) => r.year <= 2026).map((r) => ({ year: r.year, actor: r.actor, value: r.value })), [indexRows]);
+  const all = data.forecast.series;
+  const baseline = useMemo(() => all.filter((r) => (r.scenario_id ?? "baseline") === "baseline"), [all]);
+  const scenarioRows = useMemo(() => all.filter((r) => r.scenario_id && r.scenario_id !== "baseline"), [all]);
+  const shareHistory = useMemo<Hist[]>(() => {
+    const rows: Hist[] = [];
+    for (const c of data.analysis.concentration ?? []) {
+      if (c.mineral !== "all") continue;
+      if (c.share_us_x !== undefined && c.share_us_x !== null) rows.push({ year: c.year, actor: "US", value: c.share_us_x });
+      if (c.share_cn_x !== undefined && c.share_cn_x !== null) rows.push({ year: c.year, actor: "CN", value: c.share_cn_x });
+    }
+    return rows.sort((a, b) => a.year - b.year);
+  }, [data]);
+
+  const indexOptions = useMemo(
+    () => chartOptions(baseline.filter((r) => r.target === "influence_index"), scenarioRows.filter((r) => r.target === "influence_index"), history, "Influence index (0–100)", [0, 100], (v) => v.toFixed(0)),
+    [baseline, scenarioRows, history],
   );
+  const shareOptions = useMemo(
+    () => chartOptions(baseline.filter((r) => r.target === "export_share"), scenarioRows.filter((r) => r.target === "export_share"), shareHistory, "Share of mineral exports", [0, 1], (v) => fmtPct(v)),
+    [baseline, scenarioRows, shareHistory],
+  );
+  const hasShares = baseline.some((r) => r.target === "export_share");
+  const ms = data.forecast.model_status ?? {};
+  const tag = real ? <DataLayerTag layer="real" /> : <DataLayerTag layer="sample" />;
 
   return (
     <div className="space-y-5">
+      {real && (
+        <p className="rounded border border-dashed border-model/60 bg-surface-2 px-2 py-1.5 text-xs text-ink-2">
+          {data.forecast.label}. Five simple models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) are backtested on expanding windows across the twelve countries; the published model is the one with the lowest CRPS if it beats persistence, else persistence itself. Dashed line: median path; bands: 50% and 90% of simulated paths; dotted lines: scenarios with a stated yearly shift. Method and backtest table on the methodology page.
+        </p>
+      )}
       <section aria-labelledby="fc-h">
-        <div className="mb-1 flex items-center justify-between">
+        <div className="mb-1 flex items-center justify-between gap-2">
           <h3 id="fc-h" className="text-sm font-semibold">Influence index to 2030</h3>
-          <LayerLabel layer="model" />
+          <span className="flex items-center gap-1">{tag}<LayerLabel layer="model" /></span>
         </div>
-        <p className="mb-2 text-xs text-ink-3">Solid line: the influence index to date{indexLayer === "real" ? " (computed, Phase 4)" : " (sample)"}. Dashed line: point forecast, SAMPLE until Phase 5. Bands: 50% and 90% intervals. A model is shown only if it beats naive baselines out of sample; backtest scores (CRPS, interval coverage) will appear on the methodology page.</p>
-        <PlotFigure options={options} ariaLabel={`Forecast of the influence index for the United States and China in ${data.name} to 2030 with 50 and 90 percent intervals, sample forecast${indexLayer === "real" ? " on the computed index history" : ""}`} />
-        <DataTable rows={fc} caption="Forecast by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Point" }, { key: "p05", label: "5%" }, { key: "p25", label: "25%" }, { key: "p75", label: "75%" }, { key: "p95", label: "95%" }]} />
-        <p className="mt-1 text-[11px] text-ink-3">Model: {fc[0]?.model}</p>
+        <p className="mb-2 text-xs text-ink-3">
+          {real
+            ? `Solid line: the computed index to date${indexLayer === "real" ? "" : " (sample history)"}. ${["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`influence_index:${a}`])}`).join(". ")}.`
+            : "Dashed line: point forecast (SAMPLE). Bands: 50% and 90% intervals. A model is shown only if it beats naive baselines out of sample; backtest scores (CRPS, interval coverage) will appear on the methodology page."}
+        </p>
+        <PlotFigure options={indexOptions} ariaLabel={`Forecast of the influence index for the United States and China in ${data.name} to 2030 with 50 and 90 percent intervals, ${real ? "computed" : "sample data"}`} />
+        <DataTable rows={baseline.filter((r) => r.target === "influence_index")} caption="Index forecast by year and actor (baseline)" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Median" }, { key: "p05", label: "5%" }, { key: "p25", label: "25%" }, { key: "p75", label: "75%" }, { key: "p95", label: "95%" }, { key: "model", label: "Model" }]} />
+        {!real && <p className="mt-1 text-[11px] text-ink-3">Model: {all[0]?.model}</p>}
       </section>
 
+      {real && hasShares && (
+        <section aria-labelledby="fcs-h">
+          <div className="mb-1 flex items-center justify-between gap-2">
+            <h3 id="fcs-h" className="text-sm font-semibold">Share of mineral exports to each actor, to 2030</h3>
+            <span className="flex items-center gap-1">{tag}<LayerLabel layer="model" /></span>
+          </div>
+          <p className="mb-2 text-xs text-ink-3">
+            Solid line: reported shares (UN Comtrade). {["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`export_share:${a}`])}`).join(". ")}.
+          </p>
+          <PlotFigure options={shareOptions} ariaLabel={`Forecast of ${data.name}'s share of mineral exports going to the United States and China to 2030, computed`} />
+          <DataTable rows={baseline.filter((r) => r.target === "export_share")} caption="Export-share forecast by year and actor (baseline)" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Median", format: (v) => fmtPct(Number(v), 1) }, { key: "p05", label: "5%", format: (v) => fmtPct(Number(v), 1) }, { key: "p95", label: "95%", format: (v) => fmtPct(Number(v), 1) }, { key: "model", label: "Model" }]} />
+        </section>
+      )}
+
       <section aria-labelledby="sc-h">
-        <div className="mb-1 flex items-center justify-between">
+        <div className="mb-1 flex items-center justify-between gap-2">
           <h3 id="sc-h" className="text-sm font-semibold">Scenarios</h3>
-          <LayerLabel layer="model" />
+          <span className="flex items-center gap-1">{tag}<LayerLabel layer="model" /></span>
         </div>
-        <p className="mb-2 text-xs text-ink-3">Monte Carlo simulation over explicit assumptions. Each scenario will show its own interval and the assumptions behind it.</p>
+        <p className="mb-2 text-xs text-ink-3">
+          {real
+            ? "Monte Carlo paths of the published model with an explicit yearly shift added to every path; the assumptions are stated, the shift is a what-if, not a prediction. Scenario medians are the dotted lines above."
+            : "Monte Carlo simulation over explicit assumptions. Each scenario will show its own interval and the assumptions behind it."}
+        </p>
         <ul className="divide-y divide-rule border-y border-rule">
           {data.forecast.scenarios.map((s) => (
             <li key={s.id} className="py-2 text-sm">

@@ -1,3 +1,4 @@
+import { ForecastMetrics } from "@/components/methodology/ForecastMetrics";
 import { QuantMethods } from "@/components/methodology/QuantMethods";
 import { ValidationMetrics } from "@/components/methodology/ValidationMetrics";
 import Link from "next/link";
@@ -61,14 +62,8 @@ export default function MethodologyPage() {
       <p>The finance records give a lender–recipient graph: funding institutions (policy banks, central banks, ministries, agencies, companies) linked to the receiving agencies named in each record, weighted by the amounts committed. Degree, weighted degree, betweenness, eigenvector centrality (on the largest connected component) and greedy-modularity communities are computed on the twelve-country graph and shown per country. Events that name no recipient are left out and counted. Ownership chains through third-country subsidiaries are not in the graph yet: the contracts database carries no company names and cadastres exist for one country.</p>
 
       <h2>Forecasting (Phase 5)</h2>
-      <p>Bayesian structural time series and hierarchical models pooling information across countries, in an ensemble with ARIMA and naive persistence baselines. Backtests train through 2019 or 2020 and test on 2021–2026. A model is shown only if it beats the baselines out of sample. Scenarios are Monte Carlo simulations over explicit assumptions.</p>
-      <table>
-        <thead><tr><th>Backtest metric</th><th>Value</th></tr></thead>
-        <tbody>
-          <tr><td>CRPS vs naive baseline</td><td>not yet measured</td></tr>
-          <tr><td>80% / 95% interval coverage</td><td>not yet measured</td></tr>
-        </tbody>
-      </table>
+      <p>Two targets per country and actor are forecast to 2030: the influence index and the share of mineral exports going to the actor. The series are annual and at most eighteen points long, so only simple models are fitted and they are made to compete: naive persistence (last value, with uncertainty from bootstrapped yearly changes), a random walk with drift, the same drift partially pooled across countries by empirical-Bayes shrinkage (the hierarchical element), an AR(1) on yearly changes, and a damped local linear trend fitted by maximum likelihood with a Kalman filter (the state-space element). Each model produces simulated paths; on expanding-window backtests from 2015 onward every model is scored at horizons of one to three years by the continuous ranked probability score (CRPS), the absolute error of the median and the coverage of its 80% and 95% bands, pooled over the countries. The model published for a target is the one with the lowest pooled CRPS if it beats naive persistence; otherwise persistence itself is published and labelled. Bands are the 5th–95th and 25th–75th percentiles of the simulated paths. Scenarios are Monte Carlo paths of the published model with an explicit, stated yearly shift (for example &ldquo;the share to China grows 2 points a year faster&rdquo;); they are what-ifs, not forecasts. A five-year horizon on seventeen annual observations is a long reach: the bands are wide, coverage in the backtests is below nominal for the share forecasts, and the methodology table below is regenerated with every data release.</p>
+      <ForecastMetrics />
 
       <h2>Refresh schedule</h2>
       <table>

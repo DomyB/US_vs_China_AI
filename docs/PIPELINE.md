@@ -10,7 +10,7 @@ load(tables)     -> data/warehouse/<table>/<source_id>.parquet
 build            -> data/warehouse/scm.duckdb (views over Parquet + trade_discrepancy + finance_event_dedup)
 export           -> web/public/data/real/ (meta, coverage, country/<ISO3>.json, parliament/, media/, validation.json, region, prices, policy)
 classify         -> data/warehouse/{doc_translation,doc_classification,doc_embedding,topic*}/<slot>.parquet (Phase 3 model outputs)
-analyse          -> data/warehouse/{concentration,index_value,index_component,say_do_gap,anomaly_flag,network_metric,network_edge,event_effect,regression_result,quant_run}/quant.parquet (Phase 4)
+analyse          -> data/warehouse/{concentration,index_value,index_component,say_do_gap,anomaly_flag,network_metric,network_edge,event_effect,regression_result,forecast,backtest,quant_run}/quant.parquet (Phases 4-5)
 ```
 
 ## Running
@@ -160,6 +160,7 @@ Every row carries `method_version`, `run_id` and `inputs_release` (the restored 
 | `quant/network.py` | `network_metric`, `network_edge` | lender–recipient graph (networkx): degree, weighted degree, betweenness, eigenvector (largest component), greedy-modularity communities |
 | `quant/events.py` | `event_effect` | event windows (t+1..t+2 vs t−2..t−1 on export shares, placebo from the series' other years) and difference-in-differences with a permutation placebo for scoped events, from `config/events.yaml` (every row carries the event's review status, title, type and source) |
 | `quant/panel.py` | `regression_result` | two-way fixed-effects OLS (numpy) on export and import shares with standardised regressors; CR1 cluster SE, wild cluster bootstrap p (`--boot`, default 999), drop-one-country range; country-FE variant |
+| `quant/forecast.py` | `forecast`, `backtest` | Phase 5: five models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) backtested on expanding windows (CRPS, MAE, 80/95% coverage, horizons 1–3), the best published only if it beats persistence; forecasts to 2030 for the index and the export shares with 5/25/75/95 percentiles of 2,000 simulated paths; three scenarios as stated yearly shifts |
 | `quant/run.py` | `quant_run` | orchestration; one row with the draws, the rank stability and the notes (source coverage, unattributed events) |
 
 The exporter writes the per-country `analysis` block (index with sub-indices, drivers with availability
@@ -168,7 +169,9 @@ notes, concentration, say–do, flags with source references, the top network no
 availability, rules and counts for the methodology page); `meta.json` sets `layers.analysis` to `real`.
 `pipeline/config/events.yaml` is the dated event list (draft until the owner marks events `reviewed`;
 the results carry the status). The country file's `analysis.event_effects` holds the country's event rows,
-`quant.json` the regression table and the event list summary.
+`quant.json` the regression table and the event list summary. The country file's `forecast` block holds the
+forecast rows (baseline and scenarios), the scenario texts and the backtest status of each published model;
+`quant.json` holds the full backtest table; `meta.json` sets `layers.forecast` to `real`.
 
 ## Hand-supplied files
 

@@ -107,6 +107,12 @@ export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | unde
     if (real.freshness.analysis) sample.freshness = { ...sample.freshness, analysis: real.freshness.analysis };
     sample.layers.analysis = "real";
   }
+  if (real?.forecast) {
+    const f = real.forecast;
+    sample.forecast = { series: f.series, scenarios: f.scenarios, model_status: f.model_status, horizon_year: f.horizon_year, models: f.models, label: f.label };
+    if (real.freshness.forecast) sample.freshness = { ...sample.freshness, forecast: real.freshness.forecast };
+    sample.layers.forecast = "real";
+  }
   sample.parliament_note = cov.parliament_note ?? null;
   return sample;
 }

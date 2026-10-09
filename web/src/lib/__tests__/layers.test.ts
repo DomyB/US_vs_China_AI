@@ -74,6 +74,20 @@ describe("mergeRealLayers", () => {
     expect(out.analysis.quant_model?.status).toBe("computed");
     expect(out.freshness.analysis?.source_ids).toEqual(["un_comtrade", "aiddata_gcdf"]);
   });
+  it("replaces the forecast block and marks the layer real when the real country file carries one", () => {
+    const real = {
+      dataset: "REAL", freshness: { actions: { last_updated: "x", source_ids: [], schedule: "m" }, forecast: { last_updated: "2026-10-09", source_ids: ["un_comtrade"], schedule: "monthly" } },
+      actions: { events: [], trade: [], contracts: [], production: [] }, governance: [], trade_discrepancies: [],
+      forecast: { series: [{ target: "export_share", actor: "CN", year: 2026, point: 0.48, p05: 0.43, p25: 0.45, p75: 0.52, p95: 0.62, model: "drift", scenario_id: "baseline", last_observed_year: 2025 }], scenarios: [{ id: "baseline", name: "Baseline", assumptions: "a", description: "d" }], model_status: { "export_share:CN": { countries: ["CHL"], model: "drift", beats_naive: true } }, horizon_year: 2030, n_sims: 2000, models: { drift: "random walk with drift" }, label: "Computed" },
+    } as unknown as RealCountryData;
+    const s = sample();
+    s.forecast = { series: [{ target: "influence_index", actor: "US", year: 2026, point: 1, p05: 0, p25: 0, p75: 2, p95: 3, model: "SAMPLE" }], scenarios: [] };
+    const out = mergeRealLayers(s, { ...cov, actions: true }, real, null, null);
+    expect(out.layers?.forecast).toBe("real");
+    expect(out.forecast.series[0].model).toBe("drift");
+    expect(out.forecast.model_status?.["export_share:CN"].beats_naive).toBe(true);
+    expect(out.freshness.forecast?.source_ids).toEqual(["un_comtrade"]);
+  });
   it("keeps the analysis sample when the real country file has no analysis block", () => {
     const real = { dataset: "REAL", freshness: { actions: { last_updated: "x", source_ids: [], schedule: "m" } }, actions: { events: [], trade: [], contracts: [], production: [] }, governance: [], trade_discrepancies: [] } as unknown as RealCountryData;
     const s = sample();

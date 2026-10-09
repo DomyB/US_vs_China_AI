@@ -15,6 +15,7 @@ from . import METHOD_VERSION, WEIGHTS_VERSION
 from .anomalies import anomalies
 from .concentration import concentration, wide
 from .events import EVENTS_FILE, event_effects, load_events
+from .forecast import forecasts
 from .index import COMPONENTS, components, index, normalise
 from .inputs import load_inputs
 from .network import network
@@ -39,7 +40,7 @@ def inputs_release() -> str:
 
 
 def run(warehouse: Path = WAREHOUSE_DIR, draws: int = 500, seed: int = 20261009, release: str | None = None, n_boot: int = 999,
-        events_path: Path = EVENTS_FILE) -> dict:
+        events_path: Path = EVENTS_FILE, n_sims: int = 2000, n_backtest: int = 500) -> dict:
     run_id = f"quant-{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}"
     release = release or inputs_release()
     stamp = {"method_version": METHOD_VERSION, "run_id": run_id, "inputs_release": release}
@@ -54,17 +55,19 @@ def run(warehouse: Path = WAREHOUSE_DIR, draws: int = 500, seed: int = 20261009,
     ex_all = wide(conc, "x")
     effects = event_effects(events, ex_all[ex_all["mineral"] == "all"][["country", "year", "share_us", "share_cn"]] if not ex_all.empty else ex_all, seed=seed)
     regressions = panel_regressions(build_panel(conc, comp, inp.controls), n_boot=n_boot, seed=seed)
+    shares_all = ex_all[ex_all["mineral"] == "all"][["country", "year", "share_us", "share_cn"]] if not ex_all.empty else pd.DataFrame(columns=["country", "year", "share_us", "share_cn"])
+    fc, bt, fc_status = forecasts(idx, shares_all, seed=seed, n_sims=n_sims, n_backtest=n_backtest)
     k = len(COMPONENTS)
     comp_out = comp.drop(columns=["rank_value"]).assign(weight=1.0 / k, weights_version=WEIGHTS_VERSION)
     idx_out = idx.assign(weights_version=WEIGHTS_VERSION)
     notes = {"unattributed_finance_events": int(unattributed), "last_year": inp.last_year, "text_model": inp.text_status.get("label"),
              "countries_with_trade": sorted(inp.trade["reporter"].unique().tolist()) if not inp.trade.empty else [],
              "events": {"total": len(events), "reviewed": sum(1 for e in events if e["status"] == "reviewed"), "draft": sum(1 for e in events if e["status"] != "reviewed")},
-             "n_boot": int(n_boot)}
+             "n_boot": int(n_boot), "forecast": fc_status}
     qrun = pd.DataFrame([{"created_at": datetime.now(UTC).isoformat(timespec="seconds"), "weights_version": WEIGHTS_VERSION, "draws": int(draws),
                           "rank_stability": stability, "notes": json.dumps(notes, default=str)}])
     frames = {"concentration": conc, "index_value": idx_out, "index_component": comp_out, "say_do_gap": sd, "anomaly_flag": flags,
-              "network_metric": nodes, "network_edge": edges, "event_effect": effects, "regression_result": regressions, "quant_run": qrun}
+              "network_metric": nodes, "network_edge": edges, "event_effect": effects, "regression_result": regressions, "forecast": fc, "backtest": bt, "quant_run": qrun}
     written: dict[str, int] = {}
     for table in QUANT_TABLES:
         df = frames[table]

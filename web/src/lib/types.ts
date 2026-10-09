@@ -223,6 +223,7 @@ export interface QuantFile {
   concentration: { rows: number; hhi: string };
   network: { nodes: number; edges: number; unattributed_events: number | null; top_lenders: { label: string; origin: string | null; degree: number; weighted_degree_musd: number }[] };
   regressions?: { rows: RegressionRow[]; terms: string[]; min_obs: number; min_countries: number; n_boot: number | null; note: string | null };
+  forecast?: { status: "computed" | "not_yet_computed"; targets: Record<string, ForecastModelStatus>; horizon_year: number; n_sims: number | null; models: Record<string, string>; scenarios: Scenario[]; backtest: BacktestRow[]; countries: string[] };
   events?: {
     total: number;
     reviewed: number;
@@ -260,6 +261,7 @@ export interface CountryCoverage {
   analysis_available?: boolean;
   analysis_years?: [number, number] | null;
   flags?: number;
+  forecast_available?: boolean;
 }
 
 export interface RealMeta {
@@ -280,12 +282,14 @@ export interface RealCountryData {
   iso3: string;
   name: string;
   generated_on: string;
-  freshness: { actions: Freshness; governance: Freshness; analysis?: Freshness };
+  freshness: { actions: Freshness; governance: Freshness; analysis?: Freshness; forecast?: Freshness };
   actions: { events: ActionEvent[]; trade: TradeRow[]; contracts: ContractRow[]; production: ProductionRow[] };
   governance: GovernanceRow[];
   trade_discrepancies: TradeDiscrepancy[];
   /** present once `scm analyse` has run (Phase 4) */
   analysis?: RealAnalysis;
+  /** present once the forecasting step has run for the country (Phase 5) */
+  forecast?: RealForecast;
 }
 
 /** web/public/data/real/parliament/<ISO3>.json */
@@ -551,6 +555,54 @@ export interface ForecastRow {
   p75: number;
   p95: number;
   model: string;
+  /** real forecasts: which scenario the row belongs to ("baseline" is the published forecast) */
+  scenario_id?: string;
+  last_observed_year?: number;
+}
+
+/** Backtest result of the model published for one target and actor (Phase 5). */
+export interface ForecastModelStatus {
+  countries: string[];
+  model: string | null;
+  label?: string;
+  crps?: number;
+  crps_naive?: number;
+  crps_ratio?: number;
+  beats_naive?: boolean;
+  coverage_80?: number;
+  coverage_95?: number;
+  n_tests?: number;
+  origins?: string;
+  note?: string;
+}
+
+/** The `forecast` block of a real country file (Phase 5). */
+export interface RealForecast {
+  series: ForecastRow[];
+  scenarios: Scenario[];
+  model_status: Record<string, ForecastModelStatus>;
+  horizon_year: number;
+  n_sims: number | null;
+  models: Record<string, string> | null;
+  label: string;
+}
+
+export interface BacktestRow {
+  target: string;
+  actor: Actor;
+  model: string;
+  h: number;
+  crps: number;
+  mae: number;
+  coverage_80: number;
+  coverage_95: number;
+  n: number;
+  crps_naive: number;
+  crps_ratio: number;
+  beats_naive: boolean;
+  selected: boolean;
+  origins: string;
+  countries: number;
 }
 
 export interface Scenario {
@@ -591,7 +643,7 @@ export interface CountryData {
     event_effects?: EventEffectRow[];
     quant_model?: QuantModelStatus;
   };
-  forecast: { series: ForecastRow[]; scenarios: Scenario[] };
+  forecast: { series: ForecastRow[]; scenarios: Scenario[]; model_status?: Record<string, ForecastModelStatus>; horizon_year?: number; models?: Record<string, string> | null; label?: string };
 }
 
 export interface Project {

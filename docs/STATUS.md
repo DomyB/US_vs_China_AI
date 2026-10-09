@@ -4,6 +4,19 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 
 **Note, 2026-10-07 (credential leak):** the first Congress.gov run recorded its API key in a fixture manifest committed to the public repository (the recorder cleaned URLs but not the params dict). Fixed in code (params masked, a test scans every fixture) and the adapter was rewritten to list bills per Congress and filter on title (DECISIONS 44). The first run of the rewritten adapter failed after about 40 pages with "Response ended prematurely" (a dropped connection); downloads now retry cut-off responses four times before failing. The completed run scanned 10 Congresses (about 150,000 bills) and kept 1,576 titles, of which 607 were Congressional Gold Medal bills and dozens were tariff-suspension bills on chemicals; both are now excluded, and the date is the latest action's date (the update date put 2008 bills in 2025). The key must be rotated at api.congress.gov and the `CONGRESS_GOV_KEY` secret replaced; the old value remains in git history until then.
 
+## Phase 5 — Forecasting with backtests and scenarios (2026-10-09)
+
+**What runs**
+- `scm/quant/forecast.py` (numpy, inside `scm analyse`): for the influence index and the export share to each actor, per country, five models compete on expanding-window backtests from 2015 (naive persistence with bootstrapped yearly changes, random walk with drift, drift partially pooled across countries by empirical-Bayes shrinkage, AR(1) on yearly changes, damped local linear trend by Kalman-filter maximum likelihood), scored by CRPS, median absolute error and 80/95% band coverage at horizons 1–3 (240–246 test cases per target and actor); the model with the lowest pooled CRPS is published only if it beats persistence, else persistence is published and labelled. Forecasts to 2030 (median and 5/25/75/95 percentiles of 2,000 simulated paths) and three scenarios (baseline; accelerated China pull; US sourcing rules bite) as stated yearly shifts. Tables `forecast` (627 rows) and `backtest` (80 rows); the country file's `forecast` block replaces the sample; `quant.json` carries the backtest table; `meta.json` `layers.forecast = real`.
+- Site: the Forecast tab shows the computed index history with the published model's fan, a second chart for the export shares, scenario medians as dotted lines, the backtest sentence per target ("beats naive persistence by 7% CRPS over 246 cases; the 80% band covered 77%"), and the scenario assumptions; the methodology page's forecasting section is rewritten and its table reads the backtests live. 150 pipeline tests (3 new: CRPS identity, model selection on a trending series, export) and 20 site tests pass; DECISIONS 52–53.
+- First results on the 9 October release: the damped local linear trend beats persistence for the US index (CRPS 4.73 vs 5.09, −7%), the drift model for the share of exports to China (−5%); nothing beats persistence for the China index or the US export share, so persistence is published there. Ten countries have index forecasts, nine share forecasts. Chile's share of mineral exports to China: 48% in 2025, median path 54% by 2030 (90% band 39–75%).
+
+**What is missing**
+- Coverage of the bands is below nominal for the share forecasts (69% / 78% for the published model); a longer record or monthly trade would narrow and calibrate them. No price or policy elasticity feeds the scenarios (Phase 4b found none robust). Phase 6 (template-driven written analysis) remains.
+
+**Recommendation**
+- Read every forecast with its backtest sentence; prefer the export-share forecast (facts-based) to the index forecast (a model of a model). Add `COMTRADE_KEY` for all-partner flows, which would also give the forecasts more targets.
+
 ## Phase 4b — Event studies and panel regressions (2026-10-09)
 
 **What runs**

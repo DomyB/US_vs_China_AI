@@ -248,3 +248,86 @@ def test_run_exports_event_effects_and_regressions(tmp_path):
     assert e["title"] == "Chile event" and e["status"] == "draft" and e["verify"] is True and e["source"]["id"] == "chl_corfo_lithium" and abs(e["diff"] - 0.3) < 1e-9
     q = json.loads((out / "quant.json").read_text())
     assert q["events"]["total"] == 1 and q["events"]["with_window"] >= 2 and q["regressions"]["rows"] == [] and "not computed" in q["regressions"]["note"]
+
+
+def test_forecast_models_backtest_and_selection():
+    import numpy as np
+
+    from scm.quant import forecast as fc
+
+    rng = np.random.default_rng(0)
+    # CRPS identity: a point mass at the outcome scores zero, a point mass away scores the distance
+    assert fc.crps(np.full(500, 3.0), 3.0) == 0.0 and abs(fc.crps(np.full(500, 3.0), 5.0) - 2.0) < 1e-12
+    # simulators respect the horizon and the bounds
+    y = np.array([0.30, 0.32, 0.35, 0.37, 0.40, 0.42, 0.45, 0.47, 0.50, 0.52, 0.55, 0.57, 0.60])
+    for name, sim in fc.SIMULATORS.items():
+        paths = sim(y, 3, 200, rng)
+        assert paths.shape == (200, 3), name
+    pooled = fc.pooled_drift({"CHL": y, "PER": y[::-1], "ARG": y * 0.5}, "CHL")
+    assert 0 <= pooled <= float(np.diff(y).mean())  # shrunk toward the (lower) cross-country mean
+    # a steadily trending series: the drift family beats naive persistence in the expanding-window backtest
+    years = {"CHL": np.arange(2010, 2010 + len(y)), "PER": np.arange(2010, 2010 + len(y))}
+    series = {"CHL": y, "PER": y + 0.05}
+    bt = fc.backtest(series, years, (0.0, 1.0), rng, n=200)
+    summary = fc.summarise(bt)
+    assert set(summary["model"]) == set(fc.MODELS) and (summary[summary["h"] == 0]["n"] > 0).all()
+    pooled_scores = summary[summary["h"] == 0].set_index("model")["crps"]
+    assert pooled_scores["drift"] < pooled_scores["naive"]
+    assert fc.select_model(summary) != "naive"
+    # no model beats naive -> naive is selected and labelled as such
+    flat = summary.copy()
+    flat.loc[flat["model"] != "naive", "crps"] = flat["crps_naive"] * 1.5
+    assert fc.select_model(flat) == "naive"
+
+
+def test_forecasts_rows_scenarios_and_no_series_too_short():
+    import numpy as np
+
+    from scm.quant import forecast as fc
+
+    years = list(range(2012, 2026))
+    rows = []
+    for iso, start in [("CHL", 0.3), ("PER", 0.4), ("ARG", 0.1)]:
+        for i, y in enumerate(years):
+            rows.append({"country": iso, "year": y, "share_us": 0.1, "share_cn": start + 0.015 * i})
+    rows += [{"country": "URY", "year": y, "share_us": 0.0, "share_cn": 0.0} for y in (2008, 2009, 2010, 2011)]  # too short, not current
+    shares = pd.DataFrame(rows)
+    idx = pd.DataFrame(columns=["country", "year", "actor", "mineral", "index_name", "value"])
+    out, bt, status = fc.forecasts(idx, shares, seed=1, n_sims=300, n_backtest=100)
+    assert set(out["country"]) == {"CHL", "PER", "ARG"} and set(out["scenario_id"]) == {"baseline", "china_pull", "us_reshoring"}
+    chl = out[(out["country"] == "CHL") & (out["actor"] == "CN") & (out["scenario_id"] == "baseline")].sort_values("horizon_year")
+    assert list(chl["horizon_year"]) == [2026, 2027, 2028, 2029, 2030] and (chl["last_observed_year"] == 2025).all()
+    assert ((chl["p05"] <= chl["p25"]) & (chl["p25"] <= chl["point"]) & (chl["point"] <= chl["p75"]) & (chl["p75"] <= chl["p95"])).all()
+    assert chl["p95"].between(0, 1).all()
+    pull = out[(out["country"] == "CHL") & (out["actor"] == "CN") & (out["scenario_id"] == "china_pull")].sort_values("horizon_year")
+    assert float(pull["point"].iloc[-1]) > float(chl["point"].iloc[-1])  # the stated shift moves the scenario path
+    assert status["targets"]["export_share:CN"]["model"] in fc.MODELS and status["targets"]["influence_index:CN"]["model"] is None
+    assert not bt[(bt["target"] == "export_share") & (bt["actor"] == "CN") & bt["selected"]].empty
+    assert np.isclose(bt[(bt["model"] == "naive") & (bt["h"] == 0)]["crps_ratio"], 1.0).all()
+
+
+def test_run_exports_forecast_block(tmp_path):
+    wh = _synthetic_warehouse(tmp_path)
+    # extend Chile's trade to a series long enough to forecast (2014–2025), China's share drifting up
+    rows = []
+    for i, year in enumerate(range(2014, 2026)):
+        wld = 2.0e9
+        rows += [_trade("CHL", "WLD", "CHL", year, wld, "reported"), _trade("CHL", "CHN", "CHL", year, wld * (0.3 + 0.02 * i), "reported"), _trade("CHL", "USA", "CHL", year, wld * 0.1, "reported")]
+    _write(wh, "trade_flow", "un_comtrade", rows)
+    res = quant_run.run(wh, draws=20, seed=3, release="t", n_boot=19, n_sims=200, n_backtest=50)
+    assert res["rows"]["forecast"] > 0 and res["rows"]["backtest"] > 0
+    assert res["forecast"]["targets"]["export_share:CN"]["countries"] == ["CHL"]
+    warehouse.build(wh)
+    out = tmp_path / "site"
+    export_site.run(wh, out)
+    chl = json.loads((out / "country" / "CHL.json").read_text())
+    f = chl["forecast"]
+    base = [r for r in f["series"] if r["scenario_id"] == "baseline" and r["target"] == "export_share" and r["actor"] == "CN"]
+    assert [r["year"] for r in base] == [2026, 2027, 2028, 2029, 2030] and base[0]["model"] in f["models"]
+    assert f["model_status"]["export_share:CN"]["n_tests"] > 0 and len(f["scenarios"]) == 3 and f["scenarios"][1]["assumptions"]
+    assert chl["freshness"]["forecast"]["schedule"].startswith("monthly")
+    assert "forecast" not in json.loads((out / "country" / "ARG.json").read_text())
+    meta = json.loads((out / "meta.json").read_text())
+    assert meta["layers"]["forecast"] == "real" and meta["coverage"]["CHL"]["forecast_available"] and not meta["coverage"]["ARG"]["forecast_available"]
+    q = json.loads((out / "quant.json").read_text())["forecast"]
+    assert q["status"] == "computed" and q["countries"] == ["CHL"] and any(r["selected"] for r in q["backtest"])

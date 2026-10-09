@@ -586,6 +586,48 @@ regression_result = DataFrameSchema(
     coerce=True, strict=True, name="regression_result",
 )
 
+forecast = DataFrameSchema(
+    {
+        "country": Column(str, Check.isin(IN_SCOPE)),
+        "actor": Column(str, Check.isin(ACTORS)),
+        "target": Column(str, Check.isin(["influence_index", "export_share"])),
+        "mineral": Column(str),
+        "horizon_year": Column(int),
+        "last_observed_year": Column(int),
+        "model": Column(str),
+        "scenario_id": Column(str),
+        "point": Column(float),  # median of the simulated paths
+        "p05": Column(float),
+        "p25": Column(float),
+        "p75": Column(float),
+        "p95": Column(float),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="forecast",
+)
+
+backtest = DataFrameSchema(
+    {
+        "target": Column(str),
+        "actor": Column(str, Check.isin(ACTORS)),
+        "model": Column(str),
+        "h": Column(int),  # horizon in years; 0 = pooled over horizons
+        "crps": Column(float),
+        "mae": Column(float),
+        "coverage_80": Column(float, Check.in_range(0, 1)),
+        "coverage_95": Column(float, Check.in_range(0, 1)),
+        "n": Column(int),
+        "crps_naive": Column(float),
+        "crps_ratio": Column(float),
+        "beats_naive": Column(bool),
+        "selected": Column(bool),
+        "origins": Column(str),
+        "countries": Column(int),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="backtest",
+)
+
 quant_run = DataFrameSchema(
     {
         "created_at": Column(str),
@@ -603,11 +645,11 @@ SCHEMAS: dict[str, DataFrameSchema] = {
                         document, vote, vote_member, concession, media_volume, ingest_run,
                         doc_translation, doc_classification, doc_embedding, topic_model_run, topic, doc_topic,
                         validation_sample, validation_metric,
-                        concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, event_effect, regression_result, quant_run]
+                        concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, event_effect, regression_result, forecast, backtest, quant_run]
 }
 MODEL_OUTPUT_TABLES = ["doc_translation", "doc_classification", "doc_embedding", "topic_model_run", "topic", "doc_topic",
                        "validation_sample", "validation_metric"]
-QUANT_TABLES = ["concentration", "index_value", "index_component", "say_do_gap", "anomaly_flag", "network_metric", "network_edge", "event_effect", "regression_result", "quant_run"]
+QUANT_TABLES = ["concentration", "index_value", "index_component", "say_do_gap", "anomaly_flag", "network_metric", "network_edge", "event_effect", "regression_result", "forecast", "backtest", "quant_run"]
 
 # Merge keys for tables that accumulate across runs (Adapter.incremental): rows with the same key
 # are kept once, the first-seen row winning so `retrieved_at` records the first observation.
@@ -636,6 +678,8 @@ KEY_COLUMNS: dict[str, list[str]] = {
     "network_edge": ["run_id", "source_node", "target_node"],
     "event_effect": ["event_id", "country", "actor", "design"],
     "regression_result": ["spec", "variant", "term"],
+    "forecast": ["country", "actor", "target", "mineral", "horizon_year", "scenario_id"],
+    "backtest": ["target", "actor", "model", "h"],
     "quant_run": ["run_id"],
 }
 

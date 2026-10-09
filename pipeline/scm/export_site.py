@@ -19,6 +19,7 @@ import duckdb
 import pandas as pd
 
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
+from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
 from .quant.panel import MIN_COUNTRIES, MIN_OBS, TERMS
 from .registry import COUNTRIES, IN_SCOPE, core_minerals, sources
@@ -100,7 +101,7 @@ def _quant_status(qrun: list[dict], idx_rows: list[dict], text_status: dict) -> 
               "weights_version": r["weights_version"] if r else None, "run_id": r["run_id"] if r else None, "inputs_release": r["inputs_release"] if r else None,
               "created_at": r["created_at"] if r else None, "draws": int(r["draws"]) if r else None, "rank_stability": r["rank_stability"] if r else None,
               "text_model_label": text_status.get("label"), "last_year": notes.get("last_year", {}), "unattributed_finance_events": notes.get("unattributed_finance_events"),
-              "n_boot": notes.get("n_boot"), "events": notes.get("events"), "label": None}
+              "n_boot": notes.get("n_boot"), "events": notes.get("events"), "forecast": notes.get("forecast"), "label": None}
     if computed:
         status["label"] = f"Computed from sourced data · method {r['method_version']} · band: 5th–95th percentile of {int(r['draws'])} weight and normalisation draws"
     return status
@@ -121,6 +122,25 @@ def _event_rows(iso: str, effect_rows: list[dict]) -> list[dict]:
                     "treated_countries": treated, "control_countries": [c for c in str(r["control_countries"] or "").split(",") if c], "note": r["note"],
                     "source": _src(r["event_source_id"]) if r.get("event_source_id") in reg else None})
     return sorted(out, key=lambda r: (r["year"], r["event_id"], r["actor"], r["design"]))
+
+
+SCENARIO_TEXT = {s["id"]: {"id": s["id"], "name": s["name"], "assumptions": s["assumptions"],
+                           "description": "Monte Carlo paths of the selected model with the stated yearly shift added; a scenario, not a forecast." if s["id"] != "baseline"
+                           else "The selected model's simulated paths; the published forecast."} for s in SCENARIOS}
+
+
+def _forecast_block(iso: str, fc_rows: list[dict], status: dict) -> dict | None:
+    rows = [{"target": r["target"], "actor": r["actor"], "year": int(r["horizon_year"]), "last_observed_year": int(r["last_observed_year"]), "model": r["model"],
+             "scenario_id": r["scenario_id"], "point": r["point"], "p05": r["p05"], "p25": r["p25"], "p75": r["p75"], "p95": r["p95"]}
+            for r in fc_rows if r["country"] == iso]
+    if not rows:
+        return None
+    fs = (status.get("forecast") or {})
+    targets = fs.get("targets") or {}
+    model_status = {k: v for k, v in targets.items() if iso in (v.get("countries") or [])}
+    return {"series": sorted(rows, key=lambda r: (r["target"], r["actor"], r["scenario_id"], r["year"])), "scenarios": list(SCENARIO_TEXT.values()),
+            "model_status": model_status, "horizon_year": fs.get("horizon_year", HORIZON_YEAR), "n_sims": fs.get("n_sims"), "models": fs.get("models"),
+            "label": "Computed · backtested models; naive persistence published where no model beat it"}
 
 
 def _events_from_rows(effect_rows: list[dict]) -> dict[str, dict]:
@@ -185,7 +205,8 @@ def _analysis_block(iso: str, idx_rows: list[dict], comp_rows: list[dict], sd_ro
 
 
 def _quant_file(status: dict, idx_rows: list[dict], comp_rows: list[dict], sd_rows: list[dict], flag_rows: list[dict], conc_rows: list[dict],
-                node_rows: list[dict], edge_rows: list[dict], today: str, reg_rows: list[dict] | None = None, effect_rows: list[dict] | None = None) -> dict:
+                node_rows: list[dict], edge_rows: list[dict], today: str, reg_rows: list[dict] | None = None, effect_rows: list[dict] | None = None,
+                fc_rows: list[dict] | None = None, bt_rows: list[dict] | None = None) -> dict:
     """What the methodology page shows about the Phase 4 methods: components and their availability, the index
     coverage, the sensitivity settings, flag counts by type and level, the network size."""
     comps = []
@@ -208,7 +229,12 @@ def _quant_file(status: dict, idx_rows: list[dict], comp_rows: list[dict], sd_ro
         flags_by[r["type"]][r["evidence_level"]] = flags_by[r["type"]].get(r["evidence_level"], 0) + 1
     lenders = sorted((n for n in node_rows if n["node_type"] == "lender"), key=lambda n: -float(n["weighted_degree"]))[:8]
     events = _events_from_rows(effect_rows or [])
+    fs = status.get("forecast") or {}
     return {
+        "forecast": {"status": "computed" if fc_rows else "not_yet_computed", "targets": fs.get("targets", {}), "horizon_year": fs.get("horizon_year", HORIZON_YEAR),
+                     "n_sims": fs.get("n_sims"), "models": fs.get("models", {}), "scenarios": list(SCENARIO_TEXT.values()),
+                     "backtest": [{k: r[k] for k in ("target", "actor", "model", "h", "crps", "mae", "coverage_80", "coverage_95", "n", "crps_naive", "crps_ratio", "beats_naive", "selected", "origins", "countries")} for r in (bt_rows or [])],
+                     "countries": sorted({r["country"] for r in (fc_rows or [])})},
         "generated_on": today, "status": status["status"], "quant_model": status,
         "components": comps,
         "rules": {"min_components": MIN_COMPONENTS, "min_docs_stance": MIN_DOCS, "normalisation": "winsorised (2.5–97.5 pct) min–max over the pooled panel, both actors on one scale",
@@ -297,6 +323,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     edge_rows = _rows(con, "SELECT * FROM network_edge")
     effect_rows = _rows(con, "SELECT * FROM event_effect")
     reg_rows = _rows(con, "SELECT * FROM regression_result")
+    fc_rows = _rows(con, "SELECT * FROM forecast")
+    bt_rows = _rows(con, "SELECT * FROM backtest ORDER BY target, actor, model, h")
     qrun = _rows(con, "SELECT * FROM quant_run ORDER BY created_at DESC LIMIT 1")
     quant_status = _quant_status(qrun, idx_rows, text_status)
     from .text import series as text_series
@@ -485,6 +513,10 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             country["analysis"] = analysis
             a_src = {s for c in analysis["components"] for comp in c["components"] for s in comp["source_ids"]}
             country["freshness"]["analysis"] = {"last_updated": today, "source_ids": sorted(a_src), "schedule": "monthly (recomputed with each ingestion run)"}
+        fc_block = _forecast_block(iso, fc_rows, quant_status)
+        if fc_block:
+            country["forecast"] = fc_block
+            country["freshness"]["forecast"] = {"last_updated": today, "source_ids": ["un_comtrade"], "schedule": "monthly (refitted with each ingestion run)"}
         (out / "country" / f"{iso}.json").write_text(json.dumps(country, ensure_ascii=False, default=str), encoding="utf-8")
         coverage[iso] = {
             "trade_years": years, "mirror_years": mirror_years, "events": len(events), "contracts": len(c_rows), "governance": len(g_rows), "production": len(p_rows),
@@ -499,6 +531,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "narratives_available": bool(narratives_by_iso.get(iso)),
             "analysis_available": bool(analysis_years), "analysis_years": [analysis_years[0], analysis_years[-1]] if analysis_years else None,
             "flags": len(analysis["flags"]) if analysis else 0,
+            "forecast_available": bool(fc_block),
         }
 
     # region: mineral shares from reported exports summed over the 12 countries
@@ -522,7 +555,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     (out / "index.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "layer": "real" if influence else "none",
                                                 "method": f"Composite influence index, method {quant_status.get('method_version')}, weights {quant_status.get('weights_version')}; band = 5th–95th percentile over {quant_status.get('draws')} weight and normalisation draws",
                                                 "quant_model": quant_status, "rows": influence}, ensure_ascii=False, default=str), encoding="utf-8")
-    (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today, reg_rows, effect_rows), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
+    (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today, reg_rows, effect_rows, fc_rows, bt_rows), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
     meta = {
@@ -535,7 +568,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                    "model_outputs": ("validated" if text_status["validated"] else "zero_shot_baseline") if n_parl_coded or n_media_coded else "sample",
                    "parliament": "real" if n_parl_coded else "facts_only" if any(c["parliament_available"] for c in coverage.values()) else "sample",
                    "media": "real" if n_media_coded else "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample",
-                   "analysis": "real" if influence else "sample", "forecast": "sample"},
+                   "analysis": "real" if influence else "sample", "forecast": "real" if fc_rows else "sample"},
         "text_model": text_status,
         "quant_model": quant_status,
         "coverage": coverage,

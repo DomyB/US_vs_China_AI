@@ -5,10 +5,11 @@ listed here is also surfaced on the methodology page.
 
 ## Status
 
-Phases 2 and 3a live, Phase 4a live (2026-10-09). The facts layer (actions, trade, governance)
-is real where the banner says so; parliament and media records are real with text-model outputs
-tagged by validation status; the influence index, concentration, say–do gap, flags and finance
-network are computed from the warehouse and labelled per block; forecasts are still sample.
+Phases 2, 3a, 4 and 5 live (2026-10-09). The facts layer (actions, trade, governance) is real where
+the banner says so; parliament and media records are real with text-model outputs tagged by validation
+status; the influence index, concentration, say–do gap, flags, event studies, regressions and finance
+network are computed from the warehouse and labelled per block; forecasts come from backtested models
+and are labelled with their scores. Phase 6 (written analysis) is not started.
 
 ## Phase 2a data caveats
 
@@ -241,6 +242,23 @@ the registry.
   first run (imports from the United States rise with electoral democracy, two-way fixed effects) is a
   conditional correlation across a handful of democratic transitions, not a mechanism.
 
+## Phase 5 forecasting caveats (added 2026-10-09)
+
+- **Seventeen annual points, five-year horizon.** Only simple models are fitted; the published one is
+  chosen by backtest CRPS against naive persistence, and for two of the four targets (the China index,
+  the US export share) nothing beat persistence, so persistence is what is shown. Improvements where a
+  model does win are modest (5–7% CRPS).
+- **Bands are too narrow for the share forecasts:** in the backtests the 80% bands of the published
+  share-to-China model covered 69% of outcomes and the 95% bands 78%; the index bands covered 77–85%
+  and 86–91%. Read every band as indicative and widen it mentally.
+- **The index forecast compounds model layers:** it forecasts a composite that is itself a model output
+  with its own sensitivity band; the export-share forecast rests on facts and is the one to prefer.
+- **Scenarios are stated shifts, not causal simulations:** no elasticity or policy response is estimated
+  (Phase 4b found no robust causal handle), so a scenario shows what a given yearly shift would do to
+  the paths and nothing more.
+- **Coverage:** ten countries have index forecasts and nine have share forecasts (Uruguay's trade stops in
+  2011, Venezuela reports none, Paraguay's shares are too erratic for the share target).
+
 ## Method limitations
 
 - Stance and topic classification: see "Phase 3 text-analysis caveats" above (one human and one
@@ -251,8 +269,9 @@ the registry.
 - Event studies and difference-in-differences designs cannot establish causality
   where treatment timing is endogenous to politics; results will be labeled as
   associations.
-- Forecasts beyond 2026 are conditional on stated scenarios and are shown only
-  when a model beats naive baselines out of sample.
+- Forecasts to 2030 come from the model that beat naive persistence in the backtests, or from
+  persistence itself where none did; scenarios are stated yearly shifts (see "Phase 5 forecasting
+  caveats").
 
 ## Known biases in sources
 
