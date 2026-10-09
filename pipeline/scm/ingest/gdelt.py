@@ -101,9 +101,11 @@ class GDELTDoc(Adapter):
     source_id = "gdelt"
     tables = ("document", "media_volume")
     incremental = True
-    min_interval = 10.0  # GDELT asks for one request every 5 s; GitHub runners share egress addresses, so go slower
-    THROTTLE_SLEEP = 45  # seconds to pause after an HTTP 429 before the next window
-    MAX_THROTTLES = 12  # after this many 429s the run stops: the address is being rate-limited
+    min_interval = 15.0  # GDELT asks for one request every 5 s; GitHub runners share egress addresses, so go slower
+    THROTTLE_SLEEP = 45  # seconds to pause after an HTTP 429; doubled on every consecutive 429 up to THROTTLE_MAX_SLEEP
+    THROTTLE_MAX_SLEEP = 480
+    THROTTLE_RETRIES = 2  # a throttled window is retried this many times after the pause before it is left for the next run
+    MAX_THROTTLES = 12  # after this many consecutive 429s the run stops: the address is being rate-limited
     TIME_BUDGET_MIN = 45  # minutes of fetching per run (GDELT_TIME_BUDGET_MIN); unfetched windows stay in the backlog
 
     def fetch(self, snap: Snapshot) -> None:
@@ -134,20 +136,14 @@ class GDELTDoc(Adapter):
             if time.monotonic() - t0 > time_budget:
                 snap.manifest["stopped"] = f"time budget of {time_budget / 60:.0f} min exhausted"
                 break
-            if snap.manifest.get("throttled", 0) >= self.MAX_THROTTLES:
-                snap.manifest["stopped"] = f"{self.MAX_THROTTLES} throttle responses; remaining windows left for the next run"
+            if snap.manifest.get("throttled_run", 0) >= self.MAX_THROTTLES:
+                snap.manifest["stopped"] = f"{self.MAX_THROTTLES} consecutive throttle responses; remaining windows left for the next run"
                 break
             for lang in COUNTRY_LANGS.get(iso, ["es"]):
                 name = f"{iso}/{start.isoformat()}_{lang}.json"
                 params = {"query": f"{TERMS[lang]} sourcecountry:{FIPS[iso]}", "mode": "artlist", "format": "json", "maxrecords": MAX_RECORDS, "sort": "datedesc",
                           "startdatetime": start.strftime("%Y%m%d000000"), "enddatetime": end.strftime("%Y%m%d235959")}
-                try:
-                    snap.get(API, name, params=params, timeout=60, force=True)
-                except Exception as e:  # noqa: BLE001 - keep going; the window stays missing and is retried next run
-                    snap.manifest["errors"].append({"name": name, "error": str(e)[:200]})
-                    if "429" in str(e):
-                        snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
-                        time.sleep(self.THROTTLE_SLEEP)
+                if not self._get_window(snap, name, params):
                     continue
                 head = snap.path(name).open("rb").read(200).lstrip()
                 if not head.startswith((b"{", b"[")):
@@ -166,13 +162,7 @@ class GDELTDoc(Adapter):
                     tally["empty"] += 1
                     continue  # the primary form is known to work for this language: an empty window is just empty
                 # empty window: try the ASCII-only short query once
-                try:
-                    snap.get(API, name, params={**params, "query": f"{TERMS_FALLBACK[lang]} sourcecountry:{FIPS[iso]}"}, timeout=60, force=True)
-                except Exception as e:  # noqa: BLE001
-                    snap.manifest["errors"].append({"name": name + " (fallback)", "error": str(e)[:200]})
-                    if "429" in str(e):
-                        snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
-                        time.sleep(self.THROTTLE_SLEEP)
+                if not self._get_window(snap, name, {**params, "query": f"{TERMS_FALLBACK[lang]} sourcecountry:{FIPS[iso]}"}, label=name + " (fallback)"):
                     continue
                 head = snap.path(name).open("rb").read(200).lstrip()
                 if not head.startswith((b"{", b"[")):
@@ -184,6 +174,34 @@ class GDELTDoc(Adapter):
                     n2 = 0
                 tally["fallback" if n2 else "empty"] += 1
         snap.save()
+
+    def _get_window(self, snap: Snapshot, name: str, params: dict, label: str | None = None) -> bool:
+        """One window with the throttle rules: on a 429, pause (doubling on consecutive throttles) and retry the same
+        window up to THROTTLE_RETRIES times; any other error leaves the window for the next run. True when a response
+        was stored."""
+        import time
+
+        label = label or name
+        for attempt in range(self.THROTTLE_RETRIES + 1):
+            try:
+                snap.get(API, name, params=params, timeout=60, force=True)
+                snap.manifest["throttled_run"] = 0
+                return True
+            except Exception as e:  # noqa: BLE001 - keep going; the window stays missing and is retried next run
+                err = str(e)
+                if "429" not in err:
+                    snap.manifest["errors"].append({"name": label, "error": err[:200]})
+                    return False
+                snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
+                run = snap.manifest.get("throttled_run", 0) + 1
+                snap.manifest["throttled_run"] = run
+                if run >= self.MAX_THROTTLES:
+                    snap.manifest["errors"].append({"name": label, "error": err[:200]})
+                    return False
+                time.sleep(min(self.THROTTLE_MAX_SLEEP, self.THROTTLE_SLEEP * 2 ** (run - 1)))
+                if attempt == self.THROTTLE_RETRIES:
+                    snap.manifest["errors"].append({"name": label, "error": err[:200]})
+        return False
 
     def _diagnostics(self, snap: Snapshot, today: date) -> None:
         """Record how GDELT answers a few one-term queries (see DIAGNOSTIC_QUERIES); never raises."""
