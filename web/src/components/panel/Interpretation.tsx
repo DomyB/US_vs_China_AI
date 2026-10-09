@@ -29,7 +29,7 @@ function renderMarkdown(md: string) {
  * The third layer: text generated from named indicators (each sentence can show the indicator ids it rests on)
  * and, apart from it, the project owner's own writing. Used by the country Analysis tab and the region page.
  */
-export function Interpretation({ block, scopeLabel }: { block: InterpretationBlock | null | undefined; scopeLabel: string }) {
+export function Interpretation({ block, scopeLabel, hideGenerated = false }: { block: InterpretationBlock | null | undefined; scopeLabel: string; hideGenerated?: boolean }) {
   const [open, setOpen] = useState<string | null>(null);
   if (!block) {
     return (
@@ -38,9 +38,10 @@ export function Interpretation({ block, scopeLabel }: { block: InterpretationBlo
       </div>
     );
   }
+  const ai = block.human?.drafted_by === "ai";
   return (
     <div className="space-y-3">
-      <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3">
+      {!hideGenerated && <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3">
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-interp">Generated from indicators · templates {block.template_version} · {block.generated_on}</p>
           <LayerLabel layer="interpretation" />
@@ -69,12 +70,17 @@ export function Interpretation({ block, scopeLabel }: { block: InterpretationBlo
             </p>
           </section>
         ))}
-      </div>
+      </div>}
       <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3">
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-interp">Written by the project owner</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-interp">{ai ? "AI-drafted from the indicators" : "Written by the project owner"}</p>
           <LayerLabel layer="interpretation" />
         </div>
+        {ai && (
+          <p className={`mb-2 rounded-sm border px-2 py-1 text-[11px] font-medium ${block.human?.reviewed ? "border-facts/60 bg-facts/5 text-facts" : "border-interp/60 bg-interp/10 text-interp"}`}>
+            {block.human?.reviewed ? `AI-drafted from the indicators and reviewed by the project owner${block.human.date ? ` on ${block.human.date}` : ""}.` : "AI-drafted from the indicators · not yet reviewed by the owner. Every claim names the finding or indicator it rests on; read it as a reading to argue with, not a result."}
+          </p>
+        )}
         {block.human ? (
           <div>
             <p className="text-sm font-semibold">{block.human.title}{!block.human.reviewed && <span className="ml-1 rounded-sm border border-dotted border-ink-3 px-1 text-[9px] uppercase text-ink-3">draft</span>}</p>

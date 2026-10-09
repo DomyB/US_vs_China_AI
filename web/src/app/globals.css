@@ -497,3 +497,29 @@ body:has(dialog[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ---------------------------------------------------------------- Insights page: the 2030 board, the ledger, the evidence meter */
+.board-head { display: grid; grid-template-columns: 7rem 1fr; gap: 0.75rem; padding: 0 0.5rem 0.35rem; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+.board-row { display: grid; grid-template-columns: 7rem 1fr; gap: 0.75rem; align-items: center; width: 100%; padding: 0.45rem 0.5rem; border: 2px solid transparent; border-radius: 0.5rem; text-align: left; background: transparent; color: inherit; cursor: pointer; }
+.board-row:hover { background: var(--surface-2); }
+.board-row-active { border-color: var(--outline); background: var(--surface-2); box-shadow: 3px 3px 0 var(--shadow-hard); }
+.board-name { min-width: 0; font-size: 0.8rem; line-height: 1.15; }
+.board-bars { display: grid; gap: 3px; min-width: 0; }
+.board-bar { display: flex; height: 18px; overflow: hidden; border-radius: 4px; border: 1.5px solid var(--outline); background: var(--surface-2); }
+.board-bar-then { height: 14px; opacity: 0.8; border-style: dashed; }
+.board-seg { display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 10px; font-weight: 700; color: var(--card); white-space: nowrap; transition: width 650ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.board-seg + .board-seg { border-left: 1.5px solid var(--card); }
+.board-seg.bg-other { color: var(--ink); }
+.board-dumbbell { transition: cx 650ms cubic-bezier(0.2, 0.7, 0.2, 1), x1 650ms cubic-bezier(0.2, 0.7, 0.2, 1), x2 650ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (min-width: 640px) {
+  .board-head, .board-row { grid-template-columns: 7rem 1fr 7.5rem; }
+}
+.ledger-track { position: relative; display: block; height: 14px; overflow: hidden; border-radius: 4px; border: 1.5px solid var(--outline); background: var(--surface-2); }
+.ledger-fill { position: absolute; inset: 0 auto 0 0; display: block; border-radius: 2px; transition: width 650ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.evidence { display: inline-flex; gap: 2px; }
+.evidence > span { width: 6px; height: 10px; border-radius: 2px; background: var(--rule-2); }
+.evidence > span.on { background: var(--ink-3); }
+.evidence[data-level="strong"] > span.on { background: var(--facts); }
+.evidence[data-level="moderate"] > span.on { background: var(--interp); }
+.evidence[data-level="thin"] > span.on { background: var(--sample); }
+input[type="range"]:disabled { opacity: 0.4; cursor: not-allowed; }

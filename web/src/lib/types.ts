@@ -564,6 +564,8 @@ export interface HumanText {
   reviewed: boolean;
   text_md: string;
   changed_since_previous?: boolean;
+  /** "ai" for a draft generated from the indicators that the owner has not yet reviewed (DECISIONS 61); absent or "owner" otherwise */
+  drafted_by?: "ai" | "owner";
 }
 
 export interface InterpretationBlock {
@@ -838,4 +840,235 @@ export interface RegionStatements extends StatementsBlock {
   by_bloc_all: StatementBloc[];
   countries: Record<string, number>;
   excluded: Record<string, number>;
+}
+
+/* ---------------------------------------------------------------- insights.json (DECISIONS 59): cross-layer contrasts, scenario inputs, findings */
+
+export interface ForecastPoint {
+  year: number;
+  point: number;
+  p05: number;
+  p25: number;
+  p75: number;
+  p95: number;
+}
+export type ScenarioId = "baseline" | "china_pull" | "us_reshoring";
+export interface InsightTradeMineral {
+  mineral: string;
+  exports_musd: { US: number | null; CN: number | null; ROW: number | null };
+  total_musd: number | null;
+}
+export interface InsightTradeLatest {
+  year: number;
+  exports_musd: { US: number | null; CN: number | null; ROW: number | null };
+  total_musd: number | null;
+  share_cn: number | null;
+  share_us: number | null;
+  minerals: InsightTradeMineral[];
+  source_id: string | null;
+}
+export interface InsightTradeYear {
+  year: number;
+  share_cn: number;
+  share_us: number;
+  total_musd: number;
+}
+export interface InsightFinanceYear {
+  year: number;
+  US: number | null;
+  CN: number | null;
+  n_US: number;
+  n_CN: number;
+}
+export interface InsightFinance {
+  by_year: InsightFinanceYear[];
+  cn_2015_21: number;
+  us_2015_21: number;
+  us_2022_24: number;
+  windows: { CN: [number, number]; US_after: [number, number] };
+}
+export interface InsightComponent {
+  name: string;
+  raw_value: number | null;
+  normalized_value: number | null;
+  available: boolean;
+  note: string | null;
+}
+export interface InsightComponentsActor {
+  year: number;
+  components: InsightComponent[];
+  published: { value: number | null; lower: number | null; upper: number | null; n_components: number };
+}
+export interface InsightForecast {
+  /** target -> actor -> scenario -> yearly points */
+  paths: Record<string, Partial<Record<Actor, Partial<Record<ScenarioId, ForecastPoint[]>>>>>;
+  status: Record<string, { last_observed_year: number; model: string }>;
+}
+export interface WordsYear {
+  year: number;
+  n: number;
+  stance_cn: number | null;
+  n_cn: number;
+  stance_us: number | null;
+  n_us: number;
+}
+export interface StanceCounts {
+  cn: Record<StanceCode, number>;
+  us: Record<StanceCode, number>;
+}
+export interface PooledStance {
+  mean: number;
+  n: number;
+  years: [number, number];
+  n_statements: number;
+}
+export interface InsightWords {
+  n_statements: number;
+  n_executive: number;
+  executive: WordsYear[];
+  executive_pooled: { CN: PooledStance | null; US: PooledStance | null };
+  executive_counts: StanceCounts;
+  legislature: { n: number; counts: StanceCounts };
+  us_officials: { n: number; counts: StanceCounts; by_year: WordsYear[] };
+  china_officials: { n: number; counts: StanceCounts; by_year: WordsYear[] };
+  parliament: StanceRow[];
+  media: MediaVolumeRow[];
+  minerals_talked: Record<string, number>;
+}
+/** A contrast indicator; the fields beyond the common ones depend on `id` (see pipeline/scm/insights.py). */
+export interface Contrast {
+  id: string;
+  kind: string;
+  inputs: string[];
+  caveat: string;
+  [key: string]: unknown;
+}
+export interface InsightCountry {
+  iso3: string;
+  name: string;
+  trade: InsightTradeLatest | null;
+  trade_series: InsightTradeYear[];
+  finance: InsightFinance;
+  gdp_latest: { year: number; usd: number; source_id: string | null } | null;
+  components_latest: Partial<Record<Actor, InsightComponentsActor>>;
+  forecast: InsightForecast | null;
+  words: InsightWords;
+  say_do: { year: number; actor: Actor; rhetoric: number | null; action: number | null; gap: number | null; n_docs: number }[];
+  flags: { n: number; items: { id: string; year: number; actor: Actor; evidence_level: string; score: number | null; description: string }[] };
+  contrasts: Contrast[];
+}
+export interface EventEcho {
+  family: string;
+  event_actor: string;
+  event_type: string;
+  label: string;
+  actor: Actor;
+  n: number;
+  mean: number;
+  median: number;
+  p25: number;
+  p75: number;
+  events: string[];
+  countries: string[];
+  all_draft: boolean;
+  windows: { event_id: string; country: string; year: number; diff: number; placebo_p: number | null; status: string }[];
+}
+export interface InsightRegression {
+  spec: string;
+  outcome: string;
+  actor: Actor;
+  term: string;
+  coef: number | null;
+  se: number | null;
+  p_cluster: number | null;
+  p_wild: number | null;
+  jk_min: number | null;
+  jk_max: number | null;
+  n_obs: number;
+  n_countries: number;
+  years: string;
+  r2_within: number | null;
+}
+export interface RegressorSd {
+  sd: number;
+  mean: number;
+  n: number;
+  min: { value: number; country: string; year: number };
+  max: { value: number; country: string; year: number };
+  note: string;
+}
+export interface PriceSeries {
+  source_id: string;
+  series: string;
+  unit: string;
+  span: [number, number];
+  latest: { year: number; avg: number; n_obs: number };
+  min_10y: { year: number; avg: number; n_obs: number };
+  max_10y: { year: number; avg: number; n_obs: number };
+  annual: { year: number; avg: number; n_obs: number }[];
+}
+export interface AttentionYear {
+  year: number;
+  policy_docs: number;
+  policy_by_source: Record<string, number>;
+  statements: number;
+  us_statements: number;
+  /** null beyond the source's coverage, never zero */
+  dfc_musd: number | null;
+  cn_musd: number | null;
+}
+export interface FinanceWindow {
+  years: [number, number];
+  musd: number;
+  mineral_tagged_musd: number;
+}
+export interface InsightRegion {
+  talk_vs_money: {
+    n_statements: number;
+    by_bloc: StatementBloc[];
+    finance: { CN: FinanceWindow; US: FinanceWindow; US_after: FinanceWindow };
+    ratios: { statements_us_over_cn: number | null; money_cn_over_us_2015_21: number | null };
+    by_year: { year: number; statements: number; us_statements: number; dfc_musd: number | null; cn_musd: number | null }[];
+    note: string;
+  };
+  hedgers: { iso3: string; pos_cn: number; pos_us: number; neg_cn: number; neg_us: number; balance: number; n_executive: number }[];
+  event_echoes: EventEcho[];
+  event_titles: Record<string, string>;
+  regressions: { rows: InsightRegression[]; regressor_sd: Record<string, RegressorSd>; note: string };
+  prices: Record<string, PriceSeries>;
+  attention: AttentionYear[];
+  scenarios: { id: ScenarioId; name: string; assumptions: string; delta: Record<string, Record<Actor, number>> }[];
+  scales: Record<string, { lo: number; hi: number; n: number }>;
+  index_rules: { weight: number; min_components: number; winsor: [number, number]; components: { name: string; group: string; definition: string; source_ids: string[] }[]; formula: string };
+}
+export type EvidenceLevel = "strong" | "moderate" | "thin";
+export interface Finding {
+  id: string;
+  title: string;
+  headline: string;
+  sentences: GeneratedSentence[];
+  strength: { level: EvidenceLevel; basis: string };
+  caveat: string;
+  countries: string[];
+}
+export interface InsightsFile {
+  dataset: string;
+  generated_on: string;
+  version: string;
+  label: string;
+  meta: {
+    last_year: Record<string, number | null>;
+    horizon_year: number;
+    scales: Record<string, string>;
+    forecast_countries: string[];
+    countries_with_statements: string[];
+    text_model: string | null;
+    method_version: string | null;
+    inputs_release: string | null;
+    n_statements: number;
+  };
+  countries: InsightCountry[];
+  region: InsightRegion;
+  findings: Finding[];
+  human: HumanText | null;
 }

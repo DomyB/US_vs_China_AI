@@ -1,4 +1,4 @@
-import type { ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData, RegionStatements } from "./types";
+import type { ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InsightsFile, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData, RegionStatements } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -210,6 +210,18 @@ export async function loadQuant(): Promise<QuantFile | null> {
 export async function loadValidation(): Promise<ValidationFile | null> {
   try {
     return await getJSON<ValidationFile>(`${REAL}/validation.json`);
+  } catch {
+    return null;
+  }
+}
+
+/** The Insights page's file (DECISIONS 59): real only, null until the export has written it (the page states the absence). */
+export async function loadInsights(): Promise<InsightsFile | null> {
+  try {
+    const res = await fetch(`${REAL}/insights.json`, { cache: "force-cache" });
+    if (!res.ok) return null;
+    const file = (await res.json()) as InsightsFile;
+    return Array.isArray(file.countries) && file.countries.length > 0 ? file : null;
   } catch {
     return null;
   }

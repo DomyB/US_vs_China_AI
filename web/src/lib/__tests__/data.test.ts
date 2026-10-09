@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildIndexLookup, indexKey, mapValue } from "@/lib/data";
+import { buildIndexLookup, indexKey, loadInsights, mapValue } from "@/lib/data";
 import type { IndexRow } from "@/lib/types";
 
 const rows: IndexRow[] = [
@@ -23,5 +23,17 @@ describe("index lookup", () => {
   it("returns null when either side is missing instead of estimating", () => {
     expect(mapValue(lookup, "ARG", 2020, "both", "lithium")).toBeNull();
     expect(mapValue(lookup, "BRA", 2020, "US", "all")).toBeNull();
+  });
+});
+
+describe("loadInsights", () => {
+  it("returns null when the real file is absent instead of a sample", async () => {
+    const orig = globalThis.fetch;
+    globalThis.fetch = (async () => ({ ok: false, status: 404, json: async () => ({}) })) as unknown as typeof fetch;
+    try {
+      expect(await loadInsights()).toBeNull();
+    } finally {
+      globalThis.fetch = orig;
+    }
   });
 });
