@@ -161,7 +161,7 @@ def test_gdelt_diagnostics_are_recorded_and_not_kept(snap_factory, monkeypatch):
         seen.append(params["query"])
         p = snap.path(name)
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps({"articles": [{"url": "https://x"}]}) if "sourcelang" not in params["query"] else "{}")
+        p.write_text(json.dumps({"articles": [{"url": "https://x"}]}) if "spanish" in params["query"] else "{}")
         snap.files[name] = {"url": url}
         return p
 
@@ -169,6 +169,6 @@ def test_gdelt_diagnostics_are_recorded_and_not_kept(snap_factory, monkeypatch):
     GDELTDoc()._diagnostics(snap, date(2026, 10, 3))
     d = snap.manifest["diagnostics"]
     assert len(d) == len(DIAGNOSTIC_QUERIES) == len(seen)
-    assert d["es_term_only"].startswith("1 articles") and d["es_sourcelang"].startswith("0 articles (2 bytes)")
-    assert not any(n.startswith("diagnostics/") for n in snap.files) and not snap.path("diagnostics/es_term_only.json").exists()
+    assert d["es_english_term"].startswith("1 articles") and d["pt_english_term"].startswith("0 articles (2 bytes)")
+    assert not any(n.startswith("diagnostics/") for n in snap.files) and not snap.path("diagnostics/es_english_term.json").exists()
     assert "errors" not in snap.manifest or not snap.manifest["errors"]
