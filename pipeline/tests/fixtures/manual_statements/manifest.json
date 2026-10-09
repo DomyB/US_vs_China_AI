@@ -5,9 +5,9 @@
    "url": "https://github.com/DomyB/US_vs_China_AI/blob/main/data/manual/statements/political_statements_minerals.csv",
    "params": {},
    "status": null,
-   "bytes": 363510,
-   "sha256": "7cffcc8da74c253fc0e8f212f9ce5c3257d26bfedf11e9583ba0e7fab89553a9",
-   "retrieved_at": "2026-10-09T13:58:38+00:00",
+   "bytes": 389408,
+   "sha256": "53e8ebb8f1e71a9a74849557f836517b3492b5db65c416bb0f5e9e1db59b8328",
+   "retrieved_at": "2026-10-09T16:47:17+00:00",
    "note": "copied from a file supplied by the project owner (data/manual/statements/political_statements_minerals.csv)",
    "trimmed": true
   }

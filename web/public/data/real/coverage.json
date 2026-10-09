@@ -23,7 +23,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 192,
+   "events": 450,
    "contracts": 46,
    "governance": 928,
    "production": 248,
@@ -75,7 +75,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 147,
+   "events": 154,
    "contracts": 50,
    "governance": 928,
    "production": 321,
@@ -97,13 +97,13 @@
    "analysis_available": true,
    "analysis_years": [
     2008,
-    2024
+    2025
    ],
    "flags": 9,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
-   "statements": 49
+   "statements": 51
   },
   "BRA": {
    "trade_years": [
@@ -127,7 +127,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 214,
+   "events": 1442,
    "contracts": 49,
    "governance": 928,
    "production": 841,
@@ -179,7 +179,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 79,
+   "events": 269,
    "contracts": 19,
    "governance": 676,
    "production": 1135,
@@ -201,13 +201,13 @@
    "analysis_available": true,
    "analysis_years": [
     2008,
-    2024
+    2025
    ],
    "flags": 10,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
-   "statements": 65
+   "statements": 67
   },
   "COL": {
    "trade_years": [
@@ -231,7 +231,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 138,
+   "events": 351,
    "contracts": 100,
    "governance": 928,
    "production": 219,
@@ -253,7 +253,7 @@
    "analysis_available": true,
    "analysis_years": [
     2008,
-    2024
+    2025
    ],
    "flags": 5,
    "forecast_available": true,
@@ -283,7 +283,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 253,
+   "events": 373,
    "contracts": 37,
    "governance": 928,
    "production": 74,
@@ -305,7 +305,7 @@
    "analysis_available": true,
    "analysis_years": [
     2008,
-    2024
+    2025
    ],
    "flags": 11,
    "forecast_available": true,
@@ -335,7 +335,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 125,
+   "events": 133,
    "contracts": 39,
    "governance": 928,
    "production": 145,
@@ -357,13 +357,13 @@
    "analysis_available": true,
    "analysis_years": [
     2008,
-    2024
+    2025
    ],
    "flags": 18,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
-   "statements": 0
+   "statements": 5
   },
   "PRY": {
    "trade_years": [
@@ -384,7 +384,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 8,
+   "events": 68,
    "contracts": 16,
    "governance": 928,
    "production": 0,
@@ -406,13 +406,13 @@
    "analysis_available": true,
    "analysis_years": [
     2008,
-    2024
+    2025
    ],
    "flags": 0,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
-   "statements": 0
+   "statements": 4
   },
   "PER": {
    "trade_years": [
@@ -435,7 +435,7 @@
     2024
    ],
    "mirror_years": [],
-   "events": 169,
+   "events": 419,
    "contracts": 100,
    "governance": 928,
    "production": 1177,
@@ -463,7 +463,7 @@
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
-   "statements": 63
+   "statements": 64
   },
   "SUR": {
    "trade_years": [
@@ -487,7 +487,7 @@
     2025
    ],
    "mirror_years": [],
-   "events": 106,
+   "events": 114,
    "contracts": 5,
    "governance": 928,
    "production": 57,
@@ -509,13 +509,13 @@
    "analysis_available": true,
    "analysis_years": [
     2008,
-    2024
+    2025
    ],
    "flags": 23,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
-   "statements": 0
+   "statements": 3
   },
   "URY": {
    "trade_years": [
@@ -525,7 +525,7 @@
     2011
    ],
    "mirror_years": [],
-   "events": 89,
+   "events": 143,
    "contracts": 25,
    "governance": 676,
    "production": 31,
@@ -583,7 +583,7 @@
    "forecast_available": false,
    "interpretation_available": true,
    "human_interpretation": true,
-   "statements": 0
+   "statements": 5
   }
  }
 }

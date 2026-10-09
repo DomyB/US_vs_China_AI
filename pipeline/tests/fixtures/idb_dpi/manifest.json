@@ -7,9 +7,9 @@
     "id": "the-database-of-political-institutions-dpi-2023"
    },
    "status": 200,
-   "bytes": 43603,
-   "sha256": "49779fec38f70282a62676e4718e500c29efe7c2b673dc8cfd23409eb73a5aaa",
-   "retrieved_at": "2026-10-01T21:31:52+00:00",
+   "bytes": 146700,
+   "sha256": "2a17b8c42067b7fc4dfad376e42b17a6b4a043d7d45458bd9daf7940748e1471",
+   "retrieved_at": "2026-10-09T16:47:15+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,53 +17,28 @@
    "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06",
    "params": {},
    "status": 200,
-   "bytes": 159582,
-   "sha256": "e1d9b5ffb214dd0e8ae8a0374b5b4fffcd7b40e5e4f0520b118134202245fa77",
-   "retrieved_at": "2026-10-01T21:31:56+00:00",
+   "bytes": 160990,
+   "sha256": "b91eb0102080056036316bd072ac547c0fab07a35f1748c70b5bb32c3186477b",
+   "retrieved_at": "2026-10-09T16:47:16+00:00",
    "note": null,
    "trimmed": true
   },
-  "resource_xlsx.html": {
-   "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47",
+  "dpi.csv": {
+   "url": "https://data.iadb.org/files/download/30f45628-8608-4c0c-ad55-bc4c870dd62d",
    "params": {},
    "status": 200,
-   "bytes": 159356,
-   "sha256": "a978dbb8e5a11f8fabfe96dabe60a1122384bd30fa0ad90b51506f0a0dfdb76b",
-   "retrieved_at": "2026-10-01T21:42:06+00:00",
+   "bytes": 5626170,
+   "sha256": "5b5b047b88bdb659fefc73a36764de0fc8ca9f74cbeb20a8d06d74445881d1a2",
+   "retrieved_at": "2026-10-09T16:47:17+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-01",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-09",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "not_ready_bodies": [
-  {
-   "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download",
-   "status": 202,
-   "body": ""
-  },
-  {
-   "url": "https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True",
-   "status": 202,
-   "body": ""
-  },
-  {
-   "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download",
-   "status": 202,
-   "body": ""
-  },
-  {
-   "url": "https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True",
-   "status": 202,
-   "body": ""
-  }
- ],
- "errors": [
-  "https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d: idb_dpi: GET https://data.iadb.org/file/download/30f45628-8608-4c0c-ad55-bc4c870dd62d -> 404 <!DOCTYPE html>\n    \n    \n ",
-  "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06/download: still 202 (file not ready) after 8 attempts",
-  "https://data.iadb.org/dataset/download/3ff2fcd2-40ed-45d4-a255-128224afae06/csv?is_resource=True: still 202 (file not ready) after 8 attempts",
-  "https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf: idb_dpi: GET https://data.iadb.org/file/download/c7834ae4-91ff-4108-b476-edbe024cb6cf -> 404 <!DOCTYPE html>\n    \n    \n ",
-  "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/7b195308-e2e1-4e70-989f-c132d5c1da47/download: still 202 (file not ready) after 8 attempts",
-  "https://data.iadb.org/dataset/download/7b195308-e2e1-4e70-989f-c132d5c1da47/csv?is_resource=True: still 202 (file not ready) after 8 attempts"
- ]
+ "resource_used": {
+  "id": "3ff2fcd2-40ed-45d4-a255-128224afae06",
+  "name": "DPI 2023 (CSV Version)",
+  "url": "https://data.iadb.org/files/download/30f45628-8608-4c0c-ad55-bc4c870dd62d"
+ }
 }

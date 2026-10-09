@@ -1,61 +1,75 @@
 {
  "source_id": "exim_authorizations",
  "files": {
-  "page_2.html": {
-   "url": "https://catalog.data.gov/dataset/?q=exim+authorizations&organization=exim-gov",
+  "page_0.html": {
+   "url": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-06-30-2025",
    "params": {},
    "status": 200,
-   "bytes": 215473,
-   "final_url": "https://catalog.data.gov/",
-   "sha256": "8d42779c0e85de8933086a419a82544bc973450aaa7200864a4bab1ab1970170",
-   "retrieved_at": "2026-10-01T21:51:57+00:00",
+   "bytes": 121961,
+   "sha256": "1d5bc283bfbf7be5074b5481a51d528d1146f30683fb4a4095bc6a0a9823611d",
+   "retrieved_at": "2026-10-09T16:47:10+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "exim.csv": {
+   "url": "https://img.exim.gov/s3fs-public/dataset/vbhv-d8am/data-gov_fy26-q3.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 19406477,
+   "sha256": "27941e3a60181f973cea53c1c371073376405ff35cb650fd32d807349f30e20a",
+   "retrieved_at": "2026-10-09T16:47:12+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-10-01",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-10-09",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
-   "name": "https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022",
-   "error": "exim_authorizations: GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+   "name": "https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-06-30-2025",
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-06-30-2025 {\"detail\":{},\"message\":\"Not Found\"}\n"
   },
   {
    "name": "https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025",
-   "error": "exim_authorizations: GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022",
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/3/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 {\"detail\":{},\"message\":\"Not Found\"}\n"
   },
   {
    "name": "https://catalog.data.gov/api/3/action/package_search",
-   "error": "exim_authorizations: GET https://catalog.data.gov/api/3/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/3/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 {\"detail\":{},\"message\":\"Not Found\"}\n"
   },
   {
-   "name": "https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022",
-   "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+   "name": "https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-06-30-2025",
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-06-30-2025 {\"detail\":{},\"message\":\"Not Found\"}\n"
   },
   {
    "name": "https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025",
-   "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-9-30-2025 {\"detail\":{},\"message\":\"Not Found\"}\n"
+  },
+  {
+   "name": "https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022",
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/action/package_show?id=authorizations-from-10-01-2006-thru-12-31-2022 {\"detail\":{},\"message\":\"Not Found\"}\n"
   },
   {
    "name": "https://catalog.data.gov/api/action/package_search",
-   "error": "exim_authorizations: GET https://catalog.data.gov/api/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 -> 404 {\"detail\":{},\"message\":\"Not Found\"}\n"
+   "error": "exim_authorizations: HTTP 404 on GET https://catalog.data.gov/api/action/package_search?q=exim+authorizations&fq=organization%3Aexim-gov&rows=20 {\"detail\":{},\"message\":\"Not Found\"}\n"
   },
   {
    "name": "https://www.exim.gov/data.json",
-   "error": "exim_authorizations: GET https://www.exim.gov/data.json -> 404 <!DOCTYPE html><html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: "
+   "error": "exim_authorizations: HTTP 404 on GET https://www.exim.gov/data.json <!DOCTYPE html><html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  f"
   },
   {
    "name": "https://exim.gov/data.json",
-   "error": "exim_authorizations: GET https://exim.gov/data.json -> 404 <!DOCTYPE html><html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http"
-  },
-  {
-   "name": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-12-31-2022",
-   "error": "exim_authorizations: GET https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-12-31-2022 -> 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <!-- datalayer injection -->\n  \n  \n  <!-- end "
-  },
-  {
-   "name": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-9-30-2025",
-   "error": "exim_authorizations: GET https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-9-30-2025 -> 404 <!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <!-- datalayer injection -->\n  \n  \n  <!-- end d"
+   "error": "exim_authorizations: HTTP 404 on GET https://exim.gov/data.json <!DOCTYPE html><html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf:"
   }
  ],
- "dataset_links": []
+ "csv_links": [
+  "https://img.exim.gov/s3fs-public/dataset/vbhv-d8am/data-gov_fy26-q3.csv"
+ ],
+ "resource_used": {
+  "url": "https://img.exim.gov/s3fs-public/dataset/vbhv-d8am/data-gov_fy26-q3.csv"
+ }
 }
