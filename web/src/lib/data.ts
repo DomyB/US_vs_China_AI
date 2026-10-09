@@ -3,11 +3,33 @@ import type { ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile
 const BASE = "/data/sample";
 const REAL = "/data/real";
 
-async function getJSON<T>(path: string): Promise<T> {
-  const res = await fetch(path, { cache: "force-cache" });
-  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
-  return (await res.json()) as T;
+/**
+ * Every data file is requested once per page load and parsed once (the promise is memoised by path). The request
+ * uses the browser's default cache mode, so a copy the browser holds is revalidated against the server (Vercel
+ * answers 304 while the file is unchanged and sends the new file after a data release). The former `force-cache`
+ * served the held copy without ever asking, so a returning visitor kept the data, and the data status, of the day
+ * they first opened the site. Failures are not memoised: the next call asks again.
+ */
+const inflight = new Map<string, Promise<unknown>>();
+
+function fetchOnce<T>(path: string): Promise<T> {
+  const hit = inflight.get(path);
+  if (hit) return hit as Promise<T>;
+  const p = fetch(path).then(async (res) => {
+    if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+    return (await res.json()) as T;
+  });
+  p.catch(() => inflight.delete(path));
+  inflight.set(path, p);
+  return p;
 }
+
+/** Forgets the memoised files (tests). */
+export function clearDataCache() {
+  inflight.clear();
+}
+
+const getJSON = <T,>(path: string): Promise<T> => fetchOnce<T>(path);
 
 export const loadMeta = () => getJSON<Meta>(`${BASE}/meta.json`);
 export const loadRegion = () => getJSON<RegionData>(`${BASE}/region.json`);
@@ -35,9 +57,7 @@ export async function loadIndex(): Promise<IndexFile> {
 /** Real-data metadata, or null when no ingestion has run yet (file absent). */
 export async function loadRealMeta(): Promise<RealMeta | null> {
   try {
-    const res = await fetch(`${REAL}/meta.json`, { cache: "force-cache" });
-    if (!res.ok) return null;
-    return (await res.json()) as RealMeta;
+    return await fetchOnce<RealMeta>(`${REAL}/meta.json`);
   } catch {
     return null;
   }
@@ -218,9 +238,7 @@ export async function loadValidation(): Promise<ValidationFile | null> {
 /** The Insights page's file (DECISIONS 59): real only, null until the export has written it (the page states the absence). */
 export async function loadInsights(): Promise<InsightsFile | null> {
   try {
-    const res = await fetch(`${REAL}/insights.json`, { cache: "force-cache" });
-    if (!res.ok) return null;
-    const file = (await res.json()) as InsightsFile;
+    const file = await fetchOnce<InsightsFile>(`${REAL}/insights.json`);
     return Array.isArray(file.countries) && file.countries.length > 0 ? file : null;
   } catch {
     return null;

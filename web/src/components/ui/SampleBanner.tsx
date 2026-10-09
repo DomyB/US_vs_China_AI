@@ -26,12 +26,18 @@ export function SampleBanner() {
   const classified = cov.reduce((n, c) => n + (c.parliament_classified ?? 0) + (c.media_classified ?? 0), 0);
   const statements = cov.reduce((n, c) => n + (c.statements ?? 0), 0);
   const textLabel = classified > 0 && tm?.method ? (tm.validated && tm.kappa_stance_pooled !== null ? `validated κ=${tm.kappa_stance_pooled.toFixed(2)}` : "zero-shot baseline") : "not classified";
+  // The written analysis: generated text exists for every country once the quant step has run; the owner's slot
+  // holds briefs that are AI-drafted until the owner reviews them, and the chip says how many are reviewed.
+  const interp = real.layers?.interpretation;
+  const briefs = real.interpretation_briefs;
+  const interpReal = interp === "generated" || interp === "generated+human";
+  const interpLabel = !interpReal ? "not in this release" : interp === "generated+human" ? (briefs ? `generated · briefs ${briefs.reviewed}/${briefs.total} reviewed` : "generated + briefs") : "generated";
   const chips: { label: string; value: string; tone: "facts" | "model" | "interp" | "sample" }[] = [
     { label: "Facts", value: `real · ${withFacts}/12`, tone: "facts" },
     { label: "Text", value: `records ${withParliament}/${withMedia} · stance ${textLabel}`, tone: classified > 0 ? "model" : "facts" },
     { label: "Indices", value: real.layers?.analysis === "real" ? `computed ${real.quant_model?.method_version ?? ""}` : "sample", tone: real.layers?.analysis === "real" ? "model" : "sample" },
     { label: "Forecasts", value: real.layers?.forecast === "real" ? "backtested" : "sample", tone: real.layers?.forecast === "real" ? "model" : "sample" },
-    { label: "Analysis", value: real.layers?.interpretation ? (real.layers.interpretation === "generated+human" ? "generated + owner" : "generated") : "pending", tone: real.layers?.interpretation ? "interp" : "sample" },
+    { label: "Analysis", value: interpLabel, tone: interpReal ? "interp" : "sample" },
     ...(real.layers?.statements === "real" ? [{ label: "Statements", value: `${statements} records · dataset coding`, tone: "facts" as const }] : []),
   ];
   const toneCls = { facts: "border-facts/40 text-facts", model: "border-model/40 text-model", interp: "border-interp/40 text-interp", sample: "border-sample/50 text-sample" };
@@ -39,8 +45,8 @@ export function SampleBanner() {
     <div role="status" className="border-b-2 border-outline bg-surface-2">
       <details className="mx-auto max-w-7xl px-4">
         <summary className="scroll-x flex h-8 list-none items-center gap-x-3 whitespace-nowrap text-[11px] text-ink-2 [&::-webkit-details-marker]:hidden">
-          <span className="eyebrow shrink-0">Data status</span>
-          <span className="shrink-0 text-ink-3">ingested {real.generated_on} · {real.sources_ok.length} sources</span>
+          <span className="eyebrow shrink-0"><span className="sm:hidden">Status</span><span className="hidden sm:inline">Data status</span></span>
+          <span className="shrink-0 text-ink-3">ingested {real.generated_on}<span className="hidden sm:inline"> · {real.sources_ok.length} sources</span></span>
           <span className="hidden shrink-0 gap-1 sm:flex">
             {chips.map((c) => (
               <span key={c.label} className={`chip border bg-card normal-case tracking-normal ${toneCls[c.tone]}`} title={`${c.label}: ${c.value}`}>
@@ -57,7 +63,7 @@ export function SampleBanner() {
           ))}
         </p>
         <p className="pb-2 text-[11px] leading-relaxed text-ink-2">
-          Facts (actions, trade, governance) are real data from {real.sources_ok.length} sources, ingested {real.generated_on}, covering {withFacts} of 12 countries; every block is labelled per panel. Parliament and media carry real records for {withParliament} and {withMedia} countries; stance, tone, translations and narratives are model outputs ({textLabel}). The influence index, concentration measures, say–do gap, flags, event studies, regressions and the finance network are computed from the sourced data (method {real.quant_model?.method_version ?? "–"}); forecasts come from backtested models (naive persistence where nothing beat it) and scenarios are labelled as such; the written analysis is generated from named indicators{real.layers?.interpretation === "generated+human" ? ", with the project owner's own text shown apart" : "; no human-written text exists yet"}{real.layers?.statements === "real" ? `; the Politics tab adds ${statements} political statements from the owner's dataset, whose stance coding is shown as the dataset's own, not validated` : ""}. Details on the <Link href="/methodology" className="underline">methodology page</Link>.
+          Facts (actions, trade, governance) are real data from {real.sources_ok.length} sources, ingested {real.generated_on}, covering {withFacts} of 12 countries; every block is labelled per panel. Parliament and media carry real records for {withParliament} and {withMedia} countries; stance, tone, translations and narratives are model outputs ({textLabel}). The influence index, concentration measures, say–do gap, flags, event studies, regressions and the finance network are computed from the sourced data (method {real.quant_model?.method_version ?? "–"}); forecasts come from backtested models (naive persistence where nothing beat it) and scenarios are labelled as such; the written analysis is generated from named indicators{interp === "generated+human" ? (briefs && briefs.ai_drafted > 0 ? `, with a brief in the owner's slot shown apart (${briefs.reviewed} of ${briefs.total} reviewed by the project owner; the others AI-drafted from the indicators and marked so)` : ", with the project owner's own text shown apart") : "; no human-written text exists yet"}{real.layers?.statements === "real" ? `; the Politics tab adds ${statements} political statements from the owner's dataset, whose stance coding is shown as the dataset's own, not validated` : ""}. Details on the <Link href="/methodology" className="underline">methodology page</Link>.
         </p>
       </details>
     </div>

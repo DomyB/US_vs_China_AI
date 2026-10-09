@@ -728,6 +728,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today, reg_rows, effect_rows, fc_rows, bt_rows), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
+    briefs = [r for r in text_rows if r["model"] == "human"]
     meta = {
         "dataset": "REAL", "generated_on": today, "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "sources_ok": ok_sources, "ingest_runs": runs,
@@ -742,6 +743,10 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                    "interpretation": ("generated+human" if any(r["model"] == "human" for r in text_rows) else "generated") if text_rows else "sample",
                    "statements": "real" if stm else "none",
                    "insights": "real" if insights["findings"] else "none"},
+        # the owner's slot of the written analysis: how many briefs exist, how many the owner has reviewed, how many an
+        # AI session drafted (shown as such on the site until the owner reviews them)
+        "interpretation_briefs": {"total": len(briefs), "reviewed": sum(1 for r in briefs if r["reviewed_by_human"]),
+                                  "ai_drafted": sum(1 for r in briefs if (r.get("drafted_by") or "owner") == "ai")},
         "text_model": text_status,
         "quant_model": quant_status,
         "coverage": coverage,

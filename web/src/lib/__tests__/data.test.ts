@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildIndexLookup, indexKey, loadInsights, mapValue } from "@/lib/data";
+import { buildIndexLookup, clearDataCache, indexKey, loadInsights, mapValue } from "@/lib/data";
 import type { IndexRow } from "@/lib/types";
 
 const rows: IndexRow[] = [
@@ -31,9 +31,32 @@ describe("loadInsights", () => {
     const orig = globalThis.fetch;
     globalThis.fetch = (async () => ({ ok: false, status: 404, json: async () => ({}) })) as unknown as typeof fetch;
     try {
+      clearDataCache();
       expect(await loadInsights()).toBeNull();
     } finally {
       globalThis.fetch = orig;
+    }
+  });
+
+  it("asks the server once per page load, revalidating rather than forcing the cache, and does not memoise a failure", async () => {
+    const orig = globalThis.fetch;
+    const calls: { path: string; init: RequestInit | undefined }[] = [];
+    let status = 500;
+    globalThis.fetch = (async (path: string, init?: RequestInit) => {
+      calls.push({ path, init });
+      return { ok: status === 200, status, json: async () => ({ countries: [{ iso3: "CHL" }], findings: [] }) };
+    }) as unknown as typeof fetch;
+    try {
+      clearDataCache();
+      expect(await loadInsights()).toBeNull();
+      status = 200;
+      expect((await loadInsights())?.countries).toHaveLength(1);
+      await loadInsights();
+      expect(calls.map((c) => c.path)).toEqual(["/data/real/insights.json", "/data/real/insights.json"]);
+      expect(calls.every((c) => c.init?.cache === undefined)).toBe(true);
+    } finally {
+      globalThis.fetch = orig;
+      clearDataCache();
     }
   });
 });

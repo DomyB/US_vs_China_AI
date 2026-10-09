@@ -276,6 +276,8 @@ export interface RealMeta {
   ingest_runs: { source_id: string; status: string; finished_at: string; rows: string; error: string | null }[];
   tables: Record<string, number>;
   layers: Record<string, string>;
+  /** the owner's slot of the written analysis: briefs that exist, briefs the owner reviewed, briefs an AI session drafted */
+  interpretation_briefs?: { total: number; reviewed: number; ai_drafted: number };
   text_model?: TextModelStatus;
   quant_model?: QuantModelStatus;
   coverage: Record<string, CountryCoverage>;

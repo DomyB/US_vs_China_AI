@@ -391,6 +391,7 @@ def test_briefs_sentences_cite_indicators_and_missing_data_is_said(tmp_path):
     assert interp["human"]["drafted_by"] == "owner"
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["interpretation"] == "generated+human" and meta["coverage"]["CHL"]["human_interpretation"] and not meta["coverage"]["VEN"]["human_interpretation"]
+    assert meta["interpretation_briefs"] == {"total": 2, "reviewed": 1, "ai_drafted": 1}
 
 
 def test_load_human_front_matter(tmp_path):
