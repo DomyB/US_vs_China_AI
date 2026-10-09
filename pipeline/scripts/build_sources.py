@@ -228,6 +228,16 @@ def render_markdown(sources: list[dict], liveness: dict | None = None) -> str:
     return "\n".join(lines)
 
 
+def generated_on(sources: list[dict], liveness: dict) -> str:
+    """Date stamp of the generated files, derived from their inputs (the last liveness check, else the newest
+    registry verification) rather than today's clock, so regenerating them on another day changes nothing and
+    CI's "generated files must be committed" check stays meaningful."""
+    checked = [str(v.get("checked_at") or "")[:10] for v in liveness.values() if v.get("checked_at")]
+    if checked:
+        return max(checked)
+    return max((str(s.get("verified_on") or "") for s in sources), default=str(date.today())) or str(date.today())
+
+
 def main() -> int:
     sources = load_registry()
     errors = validate(sources)
@@ -241,7 +251,7 @@ def main() -> int:
     SITE_JSON.parent.mkdir(parents=True, exist_ok=True)
     public = [{**{k: v for k, v in s.items() if not k.startswith("_")}, "liveness": liveness.get(s["id"])} for s in sources]
     SITE_JSON.write_text(
-        json.dumps({"generated_on": str(date.today()), "sources": public}, ensure_ascii=False, indent=1, default=str),
+        json.dumps({"generated_on": generated_on(sources, liveness), "sources": public}, ensure_ascii=False, indent=1, default=str),
         encoding="utf-8",
     )
     print(f"{len(sources)} sources -> {SOURCES_MD.relative_to(ROOT)}, {SITE_JSON.relative_to(ROOT)}")

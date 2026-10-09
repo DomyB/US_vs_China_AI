@@ -10,7 +10,7 @@ export default function SourcesPage() {
     <div className="mx-auto max-w-7xl px-4 py-6">
       <h1 className="text-2xl font-semibold">Sources</h1>
       <p className="max-w-3xl text-sm text-ink-2">
-        Generated from the source registry (<code className="font-mono text-xs">pipeline/config/sources/*.yaml</code>) on {SOURCES.generated_on}. {SOURCES.sources.length} sources:
+        Generated from the source registry (<code className="font-mono text-xs">pipeline/config/sources/*.yaml</code>); last direct check of every URL on {SOURCES.generated_on}. {SOURCES.sources.length} sources:
         {" "}{counts.live} live, {counts.moved} moved, {counts.dead} dead, {counts.uncertain} uncertain. Statuses with method &ldquo;search&rdquo; were established from search-engine results and GitHub or package-index mirrors; the &ldquo;Direct check&rdquo; column is the weekly liveness workflow&apos;s HTTP test of each URL from a GitHub Actions runner. &ldquo;Blocks automated clients&rdquo; means the site answered 403 to a generic client (bot protection), not that it is down.
       </p>
       <SourcesTable sources={SOURCES.sources} />
