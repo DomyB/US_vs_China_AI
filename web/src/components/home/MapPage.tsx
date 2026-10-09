@@ -19,10 +19,16 @@ import { ControlDock } from "./ControlDock";
 import { Drawer } from "./Drawer";
 import { IntroCard } from "./IntroCard";
 import { Overview } from "./Overview";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 const SouthAmericaMap = dynamic(() => import("@/components/map/SouthAmericaMap").then((m) => m.SouthAmericaMap), {
   ssr: false,
-  loading: () => <div className="flex h-full items-center justify-center text-sm text-ink-3">Loading map…</div>,
+  loading: () => (
+    <div className="flex h-full items-center justify-center" aria-busy="true">
+      <Skeleton className="h-48 w-72 max-w-[80%]" />
+      <span className="sr-only">Loading map…</span>
+    </div>
+  ),
 });
 
 const TABS: TabId[] = ["actions", "parliament", "media", "analysis", "forecast"];
@@ -177,7 +183,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
 
   return (
     <div className="map-page relative w-full overflow-hidden bg-surface" style={{ height: "calc(100svh - var(--chrome-h, 96px))", minHeight: 560 }}>
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" data-tour="map">
         {meta && (
           <SouthAmericaMap
             fills={fills}
@@ -200,7 +206,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
         <div className="pointer-events-auto absolute left-14 top-3 max-w-[22rem]">
           <IntroCard indexLayer={indexLayer} open={introOpen} onToggle={setIntroOpen} />
         </div>
-        <div className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-16"}`} style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : undefined}>
+        <div className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-16"}`} style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : undefined} data-tour="dock">
           {meta && (
             <ControlDock
               year={year}

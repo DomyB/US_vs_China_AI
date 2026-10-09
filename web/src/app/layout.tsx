@@ -6,6 +6,9 @@ import { ChromeMeasure } from "@/components/ui/ChromeMeasure";
 import { SampleBanner } from "@/components/ui/SampleBanner";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { THEME_BOOTSTRAP } from "@/lib/theme";
+import { Suspense } from "react";
+import { PageFade } from "@/components/layout/PageFade";
+import { Tour } from "@/components/tour/Tour";
 
 export const metadata: Metadata = {
   title: "US–China Critical Minerals Tracker: South America 2008–2026",
@@ -54,8 +57,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SampleBanner />
         </ChromeMeasure>
         <main id="main" className="flex-1">
-          {children}
+          <PageFade>{children}</PageFade>
         </main>
+        <Suspense fallback={null}>
+          <Tour />
+        </Suspense>
         <footer className="mt-8 border-t-2 border-outline bg-surface-2 text-xs text-ink-3">
           <div className="mx-auto grid max-w-7xl gap-4 px-4 py-5 sm:grid-cols-[1fr_auto]">
             <p className="max-w-2xl leading-relaxed">

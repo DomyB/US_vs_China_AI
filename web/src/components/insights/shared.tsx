@@ -17,7 +17,7 @@ export const fmtPts = (v: number, digits = 1) => `${v > 0 ? "+" : ""}${(v * 100)
 /** A page block: numbered eyebrow, big title, one-line lead, layer tags on the right. */
 export function Block({ id, n, title, lead, layer, tags, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; children: ReactNode }) {
   return (
-    <section aria-labelledby={`${id}-h`} className="card mt-6 px-4 py-4 sm:px-6 sm:py-5">
+    <section aria-labelledby={`${id}-h`} data-tour={id} className="insights-block card mt-6 px-4 py-4 sm:px-6 sm:py-5">
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
         <div className="min-w-0">
           <p className="eyebrow">{String(n).padStart(2, "0")}</p>

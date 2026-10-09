@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { PanelSkeleton } from "@/components/ui/Skeleton";
 import { notFound } from "next/navigation";
 import { CountryPage } from "@/components/country/CountryPage";
 import { COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
@@ -17,7 +18,7 @@ export default async function Page({ params }: { params: Promise<{ iso3: string 
   const { iso3 } = await params;
   if (!IN_SCOPE.includes(iso3)) notFound();
   return (
-    <Suspense fallback={<div className="p-6 text-sm text-ink-3">Loading…</div>}>
+    <Suspense fallback={<div className="mx-auto max-w-7xl p-6"><PanelSkeleton /></div>}>
       <CountryPage iso3={iso3} sourceNames={sourceNameMap()} />
     </Suspense>
   );

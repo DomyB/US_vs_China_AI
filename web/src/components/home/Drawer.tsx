@@ -8,7 +8,7 @@ export function Drawer({ lg, open, onToggle, width, collapsedHeight, label, chil
     return (
       <>
         <div className={`pointer-events-auto absolute top-3 right-3 bottom-3 transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-[calc(100%+1rem)]"}`} style={{ width }} aria-hidden={!open}>
-          <div className="card flex h-full flex-col overflow-hidden">{children}</div>
+          <div className="card flex h-full flex-col overflow-hidden" data-tour="panel">{children}</div>
         </div>
         <button
           type="button"
@@ -30,7 +30,7 @@ export function Drawer({ lg, open, onToggle, width, collapsedHeight, label, chil
         <span className="h-1.5 w-12 rounded-full bg-rule-2" />
         <span className="mt-0.5 text-[11px] text-ink-3">{label} · tap to {open ? "collapse" : "expand"}</span>
       </button>
-      <div className="min-h-0 flex-1 overflow-hidden">{children}</div>
+      <div className="min-h-0 flex-1 overflow-hidden" data-tour="panel">{children}</div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { feature as topoFeature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
 import type { FeatureCollection, Geometry, LineString } from "geojson";
 import { hexToRgba, type FlowProps } from "./flows";
+import { reducedMotion } from "@/lib/motion";
 import { MAP_PALETTE, type MapPalette } from "./scales";
 import { ACTOR_ANCHOR } from "@/lib/constants";
 import type { Theme } from "@/lib/theme";
@@ -35,6 +36,7 @@ export interface Padding {
 }
 
 export const CONTINENT_BOUNDS: [[number, number], [number, number]] = [[-84, -57], [-33, 14]];
+const EMPTY_FC: FC = { type: "FeatureCollection", features: [] };
 const EMPTY_FLOWS: FlowFC = { type: "FeatureCollection", features: [] };
 /** Label anchors that differ from the data centroid, to avoid collisions in the Guianas. */
 const LABEL_POS: Record<string, [number, number]> = { GUY: [-59.4, 5.9], SUR: [-55.9, 3.9], GUF: [-53.2, 2.3] };
@@ -145,6 +147,9 @@ export function SouthAmericaMap({ fills, values, countries, selection, onSelect,
           "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.85, 1],
         },
       });
+      // the previous indicator's colours, shown on top and faded out when the fills change (MapLibre does not transition data-driven colours)
+      map.addSource("countries-prev", { type: "geojson", data: EMPTY_FC });
+      map.addLayer({ id: "countries-fill-prev", type: "fill", source: "countries-prev", paint: { "fill-color": ["coalesce", ["get", "fill"], pal.noData], "fill-opacity": 0 } });
       map.addLayer({
         id: "countries-line",
         type: "line",
@@ -177,6 +182,14 @@ export function SouthAmericaMap({ fills, values, countries, selection, onSelect,
           },
         });
       }
+      map.addLayer({
+        id: "flows-selected",
+        type: "line",
+        source: "flows",
+        filter: ["in", ["get", "iso3"], ["literal", []]],
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: { "line-width": ["+", ["get", "width"], 4], "line-color": ["case", ["==", ["get", "actor"], "US"], pal.us, pal.cn], "line-opacity": 0, "line-blur": 2 },
+      });
       map.addLayer({ id: "flows-hit", type: "line", source: "flows", paint: { "line-width": 16, "line-opacity": 0 } });
       // The scheme may have changed while the boundaries were loading.
       if (paletteRef.current !== pal) paintTheme(map, paletteRef.current);
@@ -284,21 +297,53 @@ export function SouthAmericaMap({ fills, values, countries, selection, onSelect,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Update fills when the indicator changes.
+  // Update fills when the indicator changes: the old colours stay on top for a moment and fade out (no fade under reduced motion).
   useEffect(() => {
     const map = mapRef.current;
     const fc = dataRef.current;
     if (!map || !fc) return;
+    const prev = map.getSource("countries-prev") as GeoJSONSource | undefined;
+    const fade = !!prev && map.getLayer("countries-fill-prev") && loadedRef.current && !reducedMotion();
+    if (fade) {
+      prev.setData(JSON.parse(JSON.stringify(fc)) as FC);
+      map.setPaintProperty("countries-fill-prev", "fill-opacity-transition", { duration: 0, delay: 0 });
+      map.setPaintProperty("countries-fill-prev", "fill-opacity", 1);
+    }
     applyFills(fc, values, fills, paletteRef.current);
     (map.getSource("countries") as GeoJSONSource | undefined)?.setData(fc);
+    if (fade) {
+      requestAnimationFrame(() => {
+        if (!map.getLayer("countries-fill-prev")) return;
+        map.setPaintProperty("countries-fill-prev", "fill-opacity-transition", { duration: 460, delay: 0 });
+        map.setPaintProperty("countries-fill-prev", "fill-opacity", 0);
+      });
+    }
   }, [fills, values]);
 
-  // Replace the arcs and show or hide the anchor badges.
+  // Replace the arcs (growing from nothing to their width unless motion is reduced) and show or hide the anchor badges.
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !loadedRef.current) return;
-    (map.getSource("flows") as GeoJSONSource | undefined)?.setData(flows ?? EMPTY_FLOWS);
+    const src = map.getSource("flows") as GeoJSONSource | undefined;
+    if (!src) return;
     for (const el of anchorsRef.current) el.style.display = hasFlows ? "" : "none";
+    if (!flows || !flows.features.length || reducedMotion()) {
+      src.setData(flows ?? EMPTY_FLOWS);
+      return;
+    }
+    const t0 = performance.now();
+    let raf = 0;
+    const frame = (t: number) => {
+      const p = Math.min(1, (t - t0) / 420);
+      const e = 1 - (1 - p) ** 3;
+      src.setData(p >= 1 ? flows : { type: "FeatureCollection", features: flows.features.map((f) => ({ ...f, properties: { ...f.properties, width: Math.max(0.3, f.properties.width * e) } })) });
+      if (p < 1) raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(raf);
+      src.setData(flows);
+    };
   }, [flows, hasFlows]);
 
   // Repaint the sea, outlines, neutral fills and arc hues when the colour scheme changes.
@@ -318,6 +363,7 @@ export function SouthAmericaMap({ fills, values, countries, selection, onSelect,
     const map = mapRef.current;
     if (!map || !map.getSource("countries")) return;
     for (const c of countries) map.setFeatureState({ source: "countries", id: c.iso3 }, { selected: selection.includes(c.iso3) });
+    if (map.getLayer("flows-selected")) map.setFilter("flows-selected", ["in", ["get", "iso3"], ["literal", selection]]);
   }, [selection, countries, fills]);
 
   // Hover from outside the map (ranking rows, compare chips).
@@ -358,6 +404,7 @@ export function SouthAmericaMap({ fills, values, countries, selection, onSelect,
       if (t - last > 66) {
         last = t;
         paint((t / 2800) % 1);
+        if (map.getLayer("flows-selected")) map.setPaintProperty("flows-selected", "line-opacity", 0.12 + 0.3 * (0.5 + 0.5 * Math.sin(t / 420)), { validate: false });
       }
       raf = requestAnimationFrame(tick);
     };
@@ -365,6 +412,7 @@ export function SouthAmericaMap({ fills, values, countries, selection, onSelect,
     return () => {
       cancelAnimationFrame(raf);
       paint(null);
+      if (map.getLayer("flows-selected")) map.setPaintProperty("flows-selected", "line-opacity", 0);
     };
   }, [animateFlows, hasFlows, theme]);
 
@@ -395,6 +443,8 @@ function paintTheme(map: MLMap, pal: MapPalette) {
     map.setPaintProperty("world-fill", "fill-color", pal.outScope);
     map.setPaintProperty("world-line", "line-color", pal.outScopeLine);
   }
+  if (map.getLayer("countries-fill-prev")) map.setPaintProperty("countries-fill-prev", "fill-color", ["coalesce", ["get", "fill"], pal.noData]);
+  if (map.getLayer("flows-selected")) map.setPaintProperty("flows-selected", "line-color", ["case", ["==", ["get", "actor"], "US"], pal.us, pal.cn]);
   if (map.getLayer("flows-us")) {
     map.setPaintProperty("flows-us", "line-gradient", gradient(pal.us, null));
     map.setPaintProperty("flows-cn", "line-gradient", gradient(pal.cn, null));

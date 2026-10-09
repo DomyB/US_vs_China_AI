@@ -8,9 +8,12 @@ import { feature as topoFeature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
 import type { FeatureCollection, Geometry } from "geojson";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
+import { RankingRace } from "@/components/charts/RankingRace";
 import { YearControl } from "@/components/controls/YearControl";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Segmented } from "@/components/ui/Segmented";
+import { SectionNav } from "@/components/ui/SectionNav";
+import { useRevealChildren } from "@/lib/motion";
 import { useTheme } from "@/lib/theme";
 import { FocusChart, MEASURE_LABEL, type MeasureRow, type RegionMeasure } from "./FocusChart";
 import { Heatmap } from "./Heatmap";
@@ -26,8 +29,17 @@ import { Interpretation } from "@/components/panel/Interpretation";
 
 type FC = FeatureCollection<Geometry, { iso3: string; name: string; in_scope: boolean }>;
 
+const REGION_SECTIONS = [
+  { id: "rk-h", label: "Ranking" },
+  { id: "mm-h", label: "Over time" },
+  { id: "min-h", label: "Minerals" },
+  { id: "pr-h", label: "Projects" },
+  { id: "stm-h", label: "Statements" },
+  { id: "syn-h", label: "Synthesis" },
+];
+
 export function RegionView() {
-  const router = useRouter();
+    const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const year = Math.min(YEAR_MAX, Math.max(YEAR_MIN, Number(params.get("year")) || 2024));
@@ -39,6 +51,7 @@ export function RegionView() {
   const [shareRows, setShareRows] = useState<{ rows: RegionData["mineral_shares"]; layer: "real" | "sample" } | null>(null);
   const [interp, setInterp] = useState<InterpretationBlock | null | undefined>(undefined);
   const [regionStm, setRegionStm] = useState<RegionStatements | null>(null);
+  const revealRoot = useRevealChildren<HTMLDivElement>(".region-card", regionStm);
   const [measure, setMeasure] = useState<RegionMeasure>("net");
   const [chartMode, setChartMode] = useState<"lines" | "heatmap">("lines");
   const [hoverIso, setHoverIso] = useState<string | null>(null);
@@ -84,20 +97,6 @@ export function RegionView() {
     }).sort((a, b) => (b.net ?? -999) - (a.net ?? -999));
   }, [lookup, year]);
 
-  const rankingOptions = useMemo(
-    () => ({
-      height: 40 + 24 * ranking.length,
-      marginLeft: 90,
-      x: { label: "Net lean of the influence index (China minus US)", domain: [-80, 80], grid: true },
-      y: { label: null },
-      color: { domain: ["US-leaning", "China-leaning"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true },
-      marks: [
-        Plot.barX(ranking, { x: "net", y: "name", fill: (d: { net: number | null }) => ((d.net ?? 0) >= 0 ? "China-leaning" : "US-leaning"), sort: { y: "-x" }, rx: 2, tip: true, href: (d: { iso: string }) => `/?country=${d.iso}&year=${year}`, title: (d: { name: string; us: number | null; cn: number | null; net: number | null }) => `${d.name}: US ${d.us?.toFixed(0)}, China ${d.cn?.toFixed(0)}, net ${fmtSigned(d.net ?? 0, 0)}` }),
-        Plot.ruleX([0]),
-      ],
-    }),
-    [ranking, year],
-  );
 
   const measureRows = useMemo<MeasureRow[]>(() => {
     if (!index) return [];
@@ -170,10 +169,11 @@ export function RegionView() {
   }, [geo, region, year]);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-3">
+    <div ref={revealRoot} className="mx-auto max-w-7xl px-4 py-3">
       <h1 className="text-2xl font-semibold leading-tight">Regional overview</h1>
       <p className="mb-3 max-w-3xl text-sm text-ink-2">Rankings, comparisons over time, mineral-by-mineral shares and the map of major projects. <LayerLabel layer="model" />{index?.layer === "real" ? <DataLayerTag layer="real" /> : <DataLayerTag layer="sample" />}</p>
 
+      <SectionNav items={REGION_SECTIONS} />
       <div className="card mb-4 p-3">
         <YearControl year={year} onChange={setYear} playing={playing} onTogglePlay={togglePlay} />
       </div>
@@ -181,8 +181,9 @@ export function RegionView() {
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="card region-card p-3" aria-labelledby="rk-h">
           <h2 id="rk-h" className="mb-1 text-base font-semibold">Ranking in {year}</h2>
-          <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a bar to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
-          <PlotFigure options={rankingOptions} ariaLabel={`Ranking of countries by net lean of the influence index in ${year}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
+          <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a row to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
+          <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={80} href={(iso) => `/?country=${iso}&year=${year}`} onHover={setHoverIso} hover={focus} />
+          <p className="mt-1 text-[11px] text-ink-3">Bars run from the centre: left toward the United States, right toward China, on a ±80 scale. Rows slide when the year changes.</p>
           <table className="mt-4 w-full text-xs">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US</th><th className="py-1 text-right">China</th><th className="py-1 text-right">Net</th></tr>

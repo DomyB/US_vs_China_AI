@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import { SectionNav } from "@/components/ui/SectionNav";
+import { Toast } from "@/components/ui/Toast";
+import { useRevealChildren } from "@/lib/motion";
 import { Interpretation } from "@/components/panel/Interpretation";
 import { Segmented } from "@/components/ui/Segmented";
 import { COUNTRY_NAMES } from "@/lib/constants";
@@ -23,6 +27,20 @@ import { Block } from "./shared";
 
 type LevelFilter = "all" | EvidenceLevel;
 
+const INSIGHT_SECTIONS = [
+  { id: "board-h", label: "2030 board" },
+  { id: "studio-h", label: "Scenario studio" },
+  { id: "words-h", label: "Words and money" },
+  { id: "ledger-h", label: "Who talks, who pays" },
+  { id: "minerals-h", label: "Minerals" },
+  { id: "parity-h", label: "What it would take" },
+  { id: "shocks-h", label: "After the shock" },
+  { id: "panel-h", label: "Panel" },
+  { id: "attention-h", label: "Attention" },
+  { id: "findings-h", label: "Findings" },
+  { id: "reading-h", label: "Reading" },
+];
+
 export function InsightsView() {
   const router = useRouter();
   const pathname = usePathname();
@@ -33,6 +51,7 @@ export function InsightsView() {
   const [level, setLevel] = useState<LevelFilter>("all");
   const [onlyCountry, setOnlyCountry] = useState<string>("");
   const [copied, setCopied] = useState(false);
+  const revealRoot = useRevealChildren<HTMLDivElement>(".insights-block", file);
 
   useEffect(() => {
     Promise.all([loadInsights(), loadIndex()]).then(([f, i]) => {
@@ -89,7 +108,8 @@ export function InsightsView() {
   const forecastCountries = file.countries.filter((c) => c.forecast);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 pb-10 pt-6">
+    <div ref={revealRoot} className="mx-auto max-w-7xl px-4 pb-10 pt-6">
+      <Toast message={copied ? "Link copied" : null} />
       <header className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
           <p className="eyebrow">Insights</p>
@@ -100,11 +120,14 @@ export function InsightsView() {
         </div>
         <ul className="flex flex-wrap gap-1.5 text-[11px] text-ink-3">
           <li className="chip border border-rule">computed {file.generated_on}</li>
-          <li className="chip border border-rule">{file.meta.n_statements} statements · {file.meta.countries_with_statements.length} countries</li>
+          <li className="chip border border-rule"><AnimatedNumber value={file.meta.n_statements} /> statements · {file.meta.countries_with_statements.length} countries</li>
           <li className="chip border border-rule">forecasts for {file.meta.forecast_countries.length} countries</li>
           <li className="chip border border-rule">trade to {file.meta.last_year.trade ?? "—"} · China finance to {file.meta.last_year.finance_CN ?? "—"} · US to {file.meta.last_year.finance_US ?? "—"}</li>
         </ul>
       </header>
+      <div className="mt-4">
+        <SectionNav items={INSIGHT_SECTIONS} />
+      </div>
 
       <Block id="board" n={1} title={`Where will the minerals go in ${horizon}?`} lead="The split of each country's mineral exports today and under your scenario. Pick a country to open the studio." layer="model">
         <Board rows={rows} selected={levers?.country ?? defaultCountry} onSelect={selectCountry} horizon={horizon} />

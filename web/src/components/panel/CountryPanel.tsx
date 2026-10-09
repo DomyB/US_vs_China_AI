@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { loadCountry } from "@/lib/data";
 import type { CountryData, IndexRow, Meta } from "@/lib/types";
 import { Freshness } from "@/components/ui/Freshness";
 import { Icon } from "@/components/ui/Icons";
+import { PanelSkeleton } from "@/components/ui/Skeleton";
 import { ActionsTab } from "./ActionsTab";
 import { AnalysisTab } from "./AnalysisTab";
 import { ForecastTab } from "./ForecastTab";
@@ -38,6 +39,12 @@ interface Props {
 export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer = "sample", tab, onTab, onClose, sourceNames, standalone = false }: Props) {
   const [data, setData] = useState<CountryData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const [underline, setUnderline] = useState<{ x: number; w: number } | null>(null);
+  useLayoutEffect(() => {
+    const active = stripRef.current?.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+    if (active) setUnderline({ x: active.offsetLeft, w: active.offsetWidth });
+  }, [tab]);
 
   useEffect(() => {
     let alive = true;
@@ -73,7 +80,7 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
           </button>
         )}
       </div>
-      <div role="tablist" aria-label="Country sections" className="scroll-x flex border-b border-rule px-2 text-sm">
+      <div ref={stripRef} role="tablist" aria-label="Country sections" className="tab-strip scroll-x flex border-b border-rule px-2 text-sm" data-tour="tabs">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -82,16 +89,17 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
             aria-selected={tab === t.id}
             aria-controls={`panel-${t.id}`}
             onClick={() => onTab(t.id)}
-            className={`-mb-px flex items-center gap-1.5 border-b-[3px] px-2.5 py-2.5 text-[13px] whitespace-nowrap transition-colors sm:px-3 sm:text-sm ${tab === t.id ? "border-accent font-semibold text-ink" : "border-transparent text-ink-2 hover:border-rule-2 hover:text-ink"}`}
+            className={`-mb-px flex items-center gap-1.5 border-b-[3px] border-transparent px-2.5 py-2.5 text-[13px] whitespace-nowrap transition-colors sm:px-3 sm:text-sm ${tab === t.id ? "font-semibold text-ink" : "text-ink-2 hover:border-rule-2 hover:text-ink"}`}
           >
             <Icon name={t.id} className={tab === t.id ? "text-accent" : "text-ink-3"} />
             {t.label}
           </button>
         ))}
+        {underline && <span className="tab-underline" style={{ transform: `translateX(${underline.x}px)`, width: underline.w, left: 0 }} aria-hidden="true" />}
       </div>
       <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`} className="flex-1 overflow-y-auto px-4 py-3">
         {error && <p className="text-sm text-cn">Could not load data: {error}</p>}
-        {!data && !error && <p className="text-sm text-ink-3">Loading…</p>}
+        {!data && !error && <PanelSkeleton />}
         {data && tab === "actions" && <ActionsTab data={data} year={year} mineral={mineral} />}
         {data && tab === "parliament" && <PoliticsTab data={data} year={year} mineral={mineral} />}
         {data && tab === "media" && <MediaTab data={data} year={year} mineral={mineral} />}

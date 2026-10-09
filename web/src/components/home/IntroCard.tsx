@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 
 export function IntroCard({ indexLayer, open, onToggle }: { indexLayer: "real" | "sample" | "none"; open: boolean; onToggle: (open: boolean) => void }) {
@@ -23,6 +24,7 @@ export function IntroCard({ indexLayer, open, onToggle }: { indexLayer: "real" |
         Countries are coloured by the influence index{indexLayer === "real" ? ", computed from sourced trade, finance, debt, UN-vote and legislative data" : " (sample data until the first computation)"}. Switch to money or trade flows to see where commitments and exports go, click a country for its five tabs, or turn on Compare and pick up to four.{" "}
         <LayerLabel layer="model" /> <DataLayerTag layer={indexLayer === "real" ? "real" : "sample"} />
       </p>
+      <Link href="/?tour=1" className="btn mt-2 h-8 px-3 text-xs no-underline">Take the tour</Link>
     </div>
   );
 }

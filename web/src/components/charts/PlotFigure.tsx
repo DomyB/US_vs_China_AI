@@ -2,6 +2,7 @@
 
 import * as Plot from "@observablehq/plot";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { reducedMotion } from "@/lib/motion";
 
 export type PlotOptions = NonNullable<Parameters<typeof Plot.plot>[0]>;
 
@@ -26,14 +27,30 @@ export function PlotFigure({ options, ariaLabel, className = "", expandable = tr
     return () => ro.disconnect();
   }, []);
 
+  const lastWidth = useRef(0);
   useEffect(() => {
     const el = ref.current;
     if (!el || width === 0) return;
     const fig = Plot.plot({ ...options, width, style: { background: "transparent", fontSize: "13px", ...(options.style as object) } });
     fig.setAttribute("role", "img");
     fig.setAttribute("aria-label", ariaLabel);
-    el.replaceChildren(fig);
-    return () => fig.remove();
+    const old = el.firstElementChild as HTMLElement | null;
+    const sameWidth = lastWidth.current === width;
+    lastWidth.current = width;
+    // a data change crossfades into the new figure (the old one fades out on top); a resize or the first draw replaces at once
+    if (old && sameWidth && !reducedMotion() && "animate" in old) {
+      old.style.position = "absolute";
+      old.style.inset = "0";
+      old.style.pointerEvents = "none";
+      old.setAttribute("aria-hidden", "true");
+      el.style.position = "relative";
+      el.appendChild(fig);
+      fig.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, easing: "ease-out" });
+      const fade = old.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, easing: "ease-out" });
+      fade.onfinish = () => old.remove();
+    } else {
+      el.replaceChildren(fig);
+    }
   }, [options, width, ariaLabel]);
 
   return (
