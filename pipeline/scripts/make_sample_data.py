@@ -298,7 +298,9 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    # ---------- per-country files
+    # ---------- per-country files (flows.json is accumulated from the same events and trade rows)
+    flow_finance: dict[tuple[str, int, str], dict] = {}
+    flow_trade: list[dict] = []
     for iso, name, _lat, _lon, eiti, note in COUNTRIES:
         lang = LANG.get(iso, "es")
         # Actions
@@ -358,6 +360,26 @@ def main() -> None:
                         "source": src(reg, "un_comtrade"),
                     }
                 )
+        for e in events:
+            if e["actor_side"] not in ("US", "CN"):
+                continue
+            k = (iso, e["year"], e["actor_side"])
+            b = flow_finance.setdefault(k, {"iso3": iso, "year": e["year"], "origin": e["actor_side"], "amount_musd": 0.0, "n_events": 0, "n_with_amount": 0,
+                                            "n_undocumented": 0, "undocumented_musd": 0.0, "n_swap": 0, "swap_musd": 0.0, "source_ids": set()})
+            b["n_events"] += 1
+            b["source_ids"].add(e["source"]["id"])
+            if e["confidence"] != "documented":
+                b["n_undocumented"] += 1
+                b["undocumented_musd"] += e["amount_musd"] or 0.0
+            elif e["amount_musd"] is not None:
+                b["amount_musd"] += e["amount_musd"]
+                b["n_with_amount"] += 1
+        for year in YEARS:
+            rows = [t for t in trade if t["year"] == year]
+            for t in rows:
+                flow_trade.append({"iso3": iso, "year": year, "mineral": t["mineral"], "exports_musd": dict(t["exports_musd"]), "source_id": "un_comtrade"})
+            flow_trade.append({"iso3": iso, "year": year, "mineral": "all",
+                               "exports_musd": {k: round(sum(t["exports_musd"][k] for t in rows), 1) for k in ("US", "CN", "ROW")}, "source_id": "un_comtrade"})
         # Parliament
         docs = []
         stance_series = []
@@ -576,6 +598,19 @@ def main() -> None:
         }
         (OUT / "country").mkdir(exist_ok=True)
         (OUT / "country" / f"{iso}.json").write_text(json.dumps(country, ensure_ascii=False), encoding="utf-8")
+
+    # ---------- flows (what the map draws as arcs)
+    flows = {
+        "dataset": LABEL,
+        "generated_on": today,
+        "meta": {"last_year": {"finance_CN": YEARS[-1], "finance_US": YEARS[-1], "trade": YEARS[-1]}, "note": "SAMPLE totals accumulated from the sample events and trade rows."},
+        "finance": [
+            {**b, "amount_musd": round(b["amount_musd"], 2), "undocumented_musd": round(b["undocumented_musd"], 2), "source_ids": sorted(b["source_ids"])}
+            for b in sorted(flow_finance.values(), key=lambda x: (x["iso3"], x["year"], x["origin"]))
+        ],
+        "trade": sorted(flow_trade, key=lambda r: (r["iso3"], r["year"], r["mineral"])),
+    }
+    (OUT / "flows.json").write_text(json.dumps(flows, ensure_ascii=False), encoding="utf-8")
 
     # ---------- region
     projects = []

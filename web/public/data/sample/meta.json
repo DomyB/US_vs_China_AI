@@ -1,6 +1,6 @@
 {
  "dataset": "SAMPLE DATA",
- "generated_on": "2026-10-01",
+ "generated_on": "2026-10-09",
  "seed": 20261001,
  "generator": "pipeline/scripts/make_sample_data.py",
  "years": [
@@ -279,7 +279,7 @@
  ],
  "freshness": {
   "actions": {
-   "last_updated": "2026-10-01",
+   "last_updated": "2026-10-09",
    "source_ids": [
     "un_comtrade",
     "bu_codf",
@@ -288,7 +288,7 @@
    "schedule": "monthly"
   },
   "parliament": {
-   "last_updated": "2026-10-01",
+   "last_updated": "2026-10-09",
    "source_ids": [
     "bra_camara_api",
     "chl_camara",
@@ -297,7 +297,7 @@
    "schedule": "weekly"
   },
   "media": {
-   "last_updated": "2026-10-01",
+   "last_updated": "2026-10-09",
    "source_ids": [
     "mediacloud",
     "gdelt"
@@ -305,12 +305,12 @@
    "schedule": "daily"
   },
   "analysis": {
-   "last_updated": "2026-10-01",
+   "last_updated": "2026-10-09",
    "source_ids": [],
    "schedule": "with each data refresh"
   },
   "forecast": {
-   "last_updated": "2026-10-01",
+   "last_updated": "2026-10-09",
    "source_ids": [],
    "schedule": "quarterly"
   }

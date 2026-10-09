@@ -12,6 +12,7 @@ data so it can fall back to sample per layer.
 from __future__ import annotations
 
 import json
+import re
 from datetime import UTC, date, datetime
 from pathlib import Path
 
@@ -21,6 +22,7 @@ import pandas as pd
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
 from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
+from .quant.inputs import SWAP_RE
 from .quant.panel import MIN_COUNTRIES, MIN_OBS, TERMS
 from .registry import COUNTRIES, IN_SCOPE, core_minerals, sources
 from .schema import SCHEMAS
@@ -291,6 +293,76 @@ def _rows(con: duckdb.DuckDBPyConnection, sql: str) -> list[dict]:
     except duckdb.CatalogException:
         return []
     return [{k: _json_safe(v) for k, v in r.items()} for r in df.to_dict("records")]
+
+
+FLOW_PARTNER = {"CHN": "CN", "USA": "US", "WLD": "WLD"}
+
+
+def build_flows(fin: list[dict], trade: list[dict], core: list[str], last_year: dict, today: str) -> dict:
+    """Per-country yearly totals the map draws as arcs, in one small file for all twelve countries.
+
+    Finance: the de-duplicated finance events (the same rows as each country's Actions list) summed by origin and
+    year. `amount_musd` holds documented commitments only; swap-line drawdowns (`swap_musd`) and amounts from
+    lower-confidence records (`undocumented_musd`) are reported apart, never mixed in. A year with events but no
+    published amount keeps `amount_musd = 0` with `n_with_amount = 0`, so the site can say so instead of drawing
+    nothing silently. Trade: reported exports to the United States, China and the rest of the world, for all minerals
+    together and for each core mineral; ROW is world minus the two and is null when the world total is missing.
+    """
+    swap = re.compile(SWAP_RE)
+    finance: dict[tuple[str, int, str], dict] = {}
+    for r in fin:
+        origin = r.get("actor_from_origin")
+        if origin not in ("US", "CN") or r.get("country") not in IN_SCOPE or r.get("year") is None:
+            continue
+        key = (r["country"], int(r["year"]), origin)
+        b = finance.setdefault(key, {"iso3": key[0], "year": key[1], "origin": origin, "amount_musd": 0.0, "n_events": 0, "n_with_amount": 0,
+                                     "n_undocumented": 0, "undocumented_musd": 0.0, "n_swap": 0, "swap_musd": 0.0, "source_ids": set()})
+        b["n_events"] += 1
+        for sid in str(r.get("source_ids") or r.get("source_id") or "").split(","):
+            if sid:
+                b["source_ids"].add(sid)
+        amt = float(r["amount_usd"]) / 1e6 if r.get("amount_usd") is not None else None
+        if swap.search(f"{r.get('description') or ''} {r.get('type') or ''}"):
+            b["n_swap"] += 1
+            b["swap_musd"] += amt or 0.0
+        elif r.get("confidence") != "documented":
+            b["n_undocumented"] += 1
+            b["undocumented_musd"] += amt or 0.0
+        elif amt is not None:
+            b["amount_musd"] += amt
+            b["n_with_amount"] += 1
+    finance_rows = []
+    for b in sorted(finance.values(), key=lambda x: (x["iso3"], x["year"], x["origin"])):
+        finance_rows.append({**b, "amount_musd": round(b["amount_musd"], 2), "undocumented_musd": round(b["undocumented_musd"], 2),
+                             "swap_musd": round(b["swap_musd"], 2), "source_ids": sorted(b["source_ids"])})
+
+    agg: dict[tuple[str, int, str], dict] = {}
+    for r in trade:
+        if r.get("value_type") != "reported" or r.get("reporter") not in IN_SCOPE:
+            continue
+        slot = FLOW_PARTNER.get(r["partner"])
+        if not slot:
+            continue
+        for mineral in ((r["mineral"], "all") if r["mineral"] in core else ("all",)):
+            key = (r["reporter"], int(r["year"]), mineral)
+            a = agg.setdefault(key, {"CN": None, "US": None, "WLD": None, "source_id": r["source_id"]})
+            a[slot] = (a[slot] or 0.0) + float(r["value_usd"])
+    trade_rows = []
+    for (iso, year, mineral), a in sorted(agg.items()):
+        cn = round(a["CN"] / 1e6, 3) if a["CN"] is not None else None
+        us = round(a["US"] / 1e6, 3) if a["US"] is not None else None
+        row = round((a["WLD"] - (a["CN"] or 0.0) - (a["US"] or 0.0)) / 1e6, 3) if a["WLD"] is not None else None
+        trade_rows.append({"iso3": iso, "year": year, "mineral": mineral, "exports_musd": {"US": us, "CN": cn, "ROW": row}, "source_id": a["source_id"]})
+
+    def _max_year(rows: list[dict], pred) -> int | None:
+        ys = [r["year"] for r in rows if pred(r)]
+        return max(ys) if ys else None
+
+    meta = {"last_year": {"finance_CN": last_year.get("finance_CN") or _max_year(finance_rows, lambda r: r["origin"] == "CN"),
+                          "finance_US": last_year.get("finance_US") or _max_year(finance_rows, lambda r: r["origin"] == "US"),
+                          "trade": last_year.get("trade") or _max_year(trade_rows, lambda r: True)},
+            "note": "Finance: documented commitments from the de-duplicated finance events, summed by origin and year; swap-line drawdowns and lower-confidence amounts are reported apart. Trade: reported exports (UN Comtrade); the rest of the world is the world total minus the two actors."}
+    return {"dataset": "REAL", "generated_on": today, "meta": meta, "finance": finance_rows, "trade": trade_rows}
 
 
 def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
@@ -568,6 +640,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
         if s["WLD"] > 0:
             cn, us = s["CN"] / s["WLD"], s["US"] / s["WLD"]
             mineral_shares.append({"year": s["year"], "mineral": s["mineral"], "share_cn": round(cn, 4), "share_us": round(us, 4), "share_other": round(max(0.0, 1 - cn - us), 4), "exports_wld_musd": round(s["WLD"] / 1e6, 1)})
+    flows = build_flows(fin, trade, core, quant_status.get("last_year") or {}, today)
+    (out / "flows.json").write_text(json.dumps(flows, ensure_ascii=False, default=str), encoding="utf-8")
     regional_interp = _interpretation_block(text_rows, "regional", None)
     (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade"), "interpretation": regional_interp}, ensure_ascii=False), encoding="utf-8")
     influence = [{"iso3": r["country"], "year": int(r["year"]), "actor": r["actor"], "mineral": r["mineral"], "value": r["value"], "lower": r["lower"], "upper": r["upper"], "n_components": int(r["n_components"])}
@@ -598,7 +672,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     (out / "validation.json").write_text(json.dumps(_validation_file(metrics, sample_rows, text_status, today), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "coverage.json").write_text(json.dumps({"generated_on": today, "countries": coverage}, indent=1), encoding="utf-8")
     con.close()
-    return {"countries": len(coverage), "tables": meta["tables"], "sources_ok": ok_sources}
+    return {"countries": len(coverage), "tables": meta["tables"], "sources_ok": ok_sources, "flows": {"finance_rows": len(flows["finance"]), "trade_rows": len(flows["trade"])}}
 
 
 def _table_exists(con: duckdb.DuckDBPyConnection, name: str) -> bool:

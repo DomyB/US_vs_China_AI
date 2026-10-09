@@ -1,4 +1,4 @@
-import type { ValidationFile, CountryCoverage, CountryData, IndexFile, IndexRow, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
+import type { ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -144,6 +144,20 @@ export async function loadRegionShares(): Promise<{ rows: RegionData["mineral_sh
   }
   const sample = await loadRegion();
   return { rows: sample.mineral_shares, layer: "sample" };
+}
+
+/** Finance and trade flow totals for the map (real when the ingestion has written flows.json, else sample). */
+export async function loadFlows(): Promise<{ data: FlowsFile; layer: "real" | "sample" }> {
+  const realMeta = await loadRealMeta();
+  if (realMeta?.layers?.facts === "real") {
+    try {
+      const real = await getJSON<FlowsFile>(`${REAL}/flows.json`);
+      if (real.finance.length > 0 || real.trade.length > 0) return { data: real, layer: "real" };
+    } catch {
+      // fall through to the sample flows (the real file appears with the first ingestion run after this release)
+    }
+  }
+  return { data: await getJSON<FlowsFile>(`${BASE}/flows.json`), layer: "sample" };
 }
 
 export type IndexLookup = Map<string, IndexRow>;

@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { CountryData, IndexFile, Meta, SourcesFile } from "@/lib/types";
+import type { CountryData, FlowsFile, IndexFile, Meta, SourcesFile } from "@/lib/types";
 
 const DATA = path.resolve(__dirname, "../../../public/data");
 const read = <T,>(p: string) => JSON.parse(readFileSync(path.join(DATA, p), "utf-8")) as T;
@@ -43,6 +43,20 @@ describe("sample dataset contract", () => {
       for (const fl of c.analysis.flags) for (const ev of fl.evidence) expect(sourceIds.has(ev.id)).toBe(true);
       for (const d of c.parliament.documents) expect(d.title_original.length).toBeGreaterThan(0);
     }
+  });
+  it("flows totals agree with the sample events and trade rows", () => {
+    const flows = read<FlowsFile>("sample/flows.json");
+    expect(flows.dataset).toBe("SAMPLE DATA");
+    const arg = read<CountryData>("sample/country/ARG.json");
+    const expected = new Map<string, number>();
+    for (const e of arg.actions.events) {
+      if ((e.actor_side === "US" || e.actor_side === "CN") && e.confidence === "documented" && e.amount_musd !== null) expected.set(`${e.year}|${e.actor_side}`, (expected.get(`${e.year}|${e.actor_side}`) ?? 0) + e.amount_musd);
+    }
+    for (const r of flows.finance.filter((r) => r.iso3 === "ARG")) expect(r.amount_musd).toBeCloseTo(expected.get(`${r.year}|${r.origin}`) ?? 0, 1);
+    const all2020 = flows.trade.find((r) => r.iso3 === "ARG" && r.year === 2020 && r.mineral === "all")!;
+    const sum = arg.actions.trade.filter((t) => t.year === 2020).reduce((n, t) => n + (t.exports_musd.CN ?? 0), 0);
+    expect(all2020.exports_musd.CN).toBeCloseTo(sum, 0);
+    for (const r of flows.finance) expect(r.source_ids.every((id) => sourceIds.has(id))).toBe(true);
   });
   it("freshness entries reference known sources", () => {
     for (const f of Object.values(meta.freshness)) for (const id of f.source_ids) expect(sourceIds.has(id)).toBe(true);

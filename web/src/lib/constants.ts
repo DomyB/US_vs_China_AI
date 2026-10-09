@@ -9,6 +9,9 @@ export const ACTOR_LABEL: Record<"US" | "CN", string> = { US: "United States", C
 export const ACTOR_COLOR: Record<"US" | "CN", string> = { US: "#1f5fa8", CN: "#c8441c" };
 export const OTHER_COLOR = "#8a8f98";
 
+/** Where the flow arcs end: Washington and Beijing (schematic anchors, not the location of any lender or buyer). */
+export const ACTOR_ANCHOR: Record<"US" | "CN", [number, number]> = { US: [-77.04, 38.9], CN: [116.4, 39.9] };
+
 export const RELIABILITY_LABEL: Record<Reliability, string> = {
   official: "Official",
   independent_academic: "Independent / academic",

@@ -43,7 +43,12 @@ def test_build_and_export_end_to_end(tmp_path):
     trade = pd.DataFrame([_trade("CHL", "CHN", "CHL", 2022, 2.0e9, "reported"), _trade("CHL", "USA", "CHL", 2022, 5.0e8, "reported"), _trade("CHL", "WLD", "CHL", 2022, 4.0e9, "reported"), _trade("CHL", "CHN", "CHN", 2022, 2.1e9, "mirror")])
     (wh / "trade_flow").mkdir(parents=True)
     schema.validate("trade_flow", trade).to_parquet(wh / "trade_flow" / "un_comtrade.parquet", index=False)
-    fin = pd.DataFrame([{"event_id": "e1", "country": "CHL", "date": "2018-12-03", "year": 2018, "actor_from": "Tianqi", "actor_from_origin": "CN", "actor_to": "SQM", "type": "equity", "amount_usd": 4.07e9, "currency": "USD", "sector": "Metals", "mineral": "lithium", "description": "stake", "value_type": "reported", **_prov("aiddata_gcdf", rel="independent_academic")}])
+    fin = pd.DataFrame([
+        {"event_id": "e1", "country": "CHL", "date": "2018-12-03", "year": 2018, "actor_from": "Tianqi", "actor_from_origin": "CN", "actor_to": "SQM", "type": "equity", "amount_usd": 4.07e9, "currency": "USD", "sector": "Metals", "mineral": "lithium", "description": "stake", "value_type": "reported", **_prov("aiddata_gcdf", rel="independent_academic")},
+        # a swap-line drawdown and a lower-confidence record: both reported apart from the documented commitments in flows.json
+        {"event_id": "e2", "country": "CHL", "date": "2020-06-01", "year": 2020, "actor_from": "People's Bank of China", "actor_from_origin": "CN", "actor_to": "Banco Central", "type": "loan", "amount_usd": 1.0e9, "currency": "USD", "sector": None, "mineral": None, "description": "currency swap drawdown", "value_type": "reported", **_prov("aiddata_gcdf", rel="independent_academic")},
+        {"event_id": "e3", "country": "CHL", "date": "2021-02-01", "year": 2021, "actor_from": "DFC", "actor_from_origin": "US", "actor_to": "Minera X", "type": "loan", "amount_usd": 2.0e8, "currency": "USD", "sector": None, "mineral": "copper", "description": "project finance", "value_type": "reported", **{**_prov("dfc_projects"), "confidence": "strongly_indicated"}},
+    ])
     (wh / "finance_event").mkdir()
     schema.validate("finance_event", fin).to_parquet(wh / "finance_event" / "aiddata_gcdf.parquet", index=False)
     gov = pd.DataFrame([{"country": "CHL", "year": 2022, "indicator": "CC.EST", "indicator_name": "Control of corruption", "value": 1.0, "value_type": "reported", **_prov("wb_wgi")}])
@@ -69,6 +74,15 @@ def test_build_and_export_end_to_end(tmp_path):
     assert region["mineral_shares"][0]["share_cn"] == 0.5
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["facts"] == "real" and meta["layers"]["model_outputs"] == "sample"
+    flows = json.loads((out / "flows.json").read_text())
+    assert flows["dataset"] == "REAL" and res["flows"] == {"finance_rows": 3, "trade_rows": 2}
+    by = {(r["year"], r["origin"]): r for r in flows["finance"] if r["iso3"] == "CHL"}
+    assert by[(2018, "CN")] == {"iso3": "CHL", "year": 2018, "origin": "CN", "amount_musd": 4070.0, "n_events": 1, "n_with_amount": 1, "n_undocumented": 0, "undocumented_musd": 0.0, "n_swap": 0, "swap_musd": 0.0, "source_ids": ["aiddata_gcdf"]}
+    assert by[(2020, "CN")]["amount_musd"] == 0.0 and by[(2020, "CN")]["swap_musd"] == 1000.0 and by[(2020, "CN")]["n_swap"] == 1 and by[(2020, "CN")]["n_with_amount"] == 0
+    assert by[(2021, "US")]["amount_musd"] == 0.0 and by[(2021, "US")]["undocumented_musd"] == 200.0 and by[(2021, "US")]["n_undocumented"] == 1
+    tr = {r["mineral"]: r for r in flows["trade"] if r["iso3"] == "CHL"}
+    assert tr["all"]["exports_musd"] == {"US": 500.0, "CN": 2000.0, "ROW": 1500.0} and tr["lithium"]["exports_musd"]["CN"] == 2000.0 and tr["all"]["source_id"] == "un_comtrade"
+    assert flows["meta"]["last_year"]["finance_CN"] == 2020 and flows["meta"]["last_year"]["trade"] == 2022
 
 
 def _doc(country, doc_type, date, title, sid, url, prec="day", summary=None, outlet=None, native=None, minerals=None, cn=False, us=False):

@@ -745,3 +745,34 @@ export interface SourcesFile {
   generated_on: string;
   sources: SourceEntry[];
 }
+
+/** flows.json: per-country yearly totals the map draws as arcs (one small file for all twelve countries). */
+export interface FlowFinanceRow {
+  iso3: string;
+  year: number;
+  origin: "US" | "CN";
+  /** documented commitments, million US$; 0 when the year's events carry no published amount */
+  amount_musd: number;
+  n_events: number;
+  n_with_amount: number;
+  n_undocumented: number;
+  undocumented_musd: number;
+  n_swap: number;
+  swap_musd: number;
+  source_ids: string[];
+}
+export interface FlowTradeRow {
+  iso3: string;
+  year: number;
+  /** "all" or a core mineral id */
+  mineral: string;
+  exports_musd: { US: number | null; CN: number | null; ROW: number | null };
+  source_id: string;
+}
+export interface FlowsFile {
+  dataset: string;
+  generated_on: string;
+  meta: { last_year: { finance_CN: number | null; finance_US: number | null; trade: number | null }; note?: string };
+  finance: FlowFinanceRow[];
+  trade: FlowTradeRow[];
+}
