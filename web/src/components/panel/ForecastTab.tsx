@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
+import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL } from "@/lib/constants";
 import { fmtPct } from "@/lib/format";
 import type { CountryData, ForecastModelStatus, ForecastRow, IndexRow } from "@/lib/types";
@@ -68,15 +69,12 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
   return (
     <div className="space-y-5">
       {real && (
-        <p className="rounded border border-dashed border-model/60 bg-surface-2 px-2 py-1.5 text-xs text-ink-2">
-          {data.forecast.label}. Five simple models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) are backtested on expanding windows across the twelve countries; the published model is the one with the lowest CRPS if it beats persistence, else persistence itself. Dashed line: median path; bands: 50% and 90% of simulated paths; dotted lines: scenarios with a stated yearly shift. Method and backtest table on the methodology page.
-        </p>
+        <Callout tone="model" summary={<>Backtested models; naive persistence is published where no model beat it. Dashed: median path · bands: 50% and 90% of simulated paths · dotted: scenarios.</>}>
+          {data.forecast.label}. Five simple models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) are backtested on expanding windows across the twelve countries; the published model is the one with the lowest CRPS if it beats persistence, else persistence itself. Method and the backtest table are on the methodology page.
+        </Callout>
       )}
       <section aria-labelledby="fc-h">
-        <div className="mb-1 flex items-center justify-between gap-2">
-          <h3 id="fc-h" className="text-sm font-semibold">Influence index to 2030</h3>
-          <span className="flex items-center gap-1">{tag}<LayerLabel layer="model" /></span>
-        </div>
+        <SectionHeader id="fc-h" title="Influence index to 2030" tags={<>{tag}<LayerLabel layer="model" /></>} />
         <p className="mb-2 text-xs text-ink-3">
           {real
             ? `Solid line: the computed index to date${indexLayer === "real" ? "" : " (sample history)"}. ${["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`influence_index:${a}`])}`).join(". ")}.`
@@ -89,10 +87,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
 
       {real && hasShares && (
         <section aria-labelledby="fcs-h">
-          <div className="mb-1 flex items-center justify-between gap-2">
-            <h3 id="fcs-h" className="text-sm font-semibold">Share of mineral exports to each actor, to 2030</h3>
-            <span className="flex items-center gap-1">{tag}<LayerLabel layer="model" /></span>
-          </div>
+          <SectionHeader id="fcs-h" title="Share of mineral exports to each actor, to 2030" tags={<>{tag}<LayerLabel layer="model" /></>} />
           <p className="mb-2 text-xs text-ink-3">
             Solid line: reported shares (UN Comtrade). {["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`export_share:${a}`])}`).join(". ")}.
           </p>
@@ -102,10 +97,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
       )}
 
       <section aria-labelledby="sc-h">
-        <div className="mb-1 flex items-center justify-between gap-2">
-          <h3 id="sc-h" className="text-sm font-semibold">Scenarios</h3>
-          <span className="flex items-center gap-1">{tag}<LayerLabel layer="model" /></span>
-        </div>
+        <SectionHeader id="sc-h" title="Scenarios" tags={<>{tag}<LayerLabel layer="model" /></>} />
         <p className="mb-2 text-xs text-ink-3">
           {real
             ? "Monte Carlo paths of the published model with an explicit yearly shift added to every path; the assumptions are stated, the shift is a what-if, not a prediction. Scenario medians are the dotted lines above."

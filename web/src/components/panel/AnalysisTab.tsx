@@ -6,6 +6,7 @@ import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, EvidenceBadge, LayerLabel, QuantStatusTag } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { Interpretation } from "./Interpretation";
+import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtPct, fmtSigned } from "@/lib/format";
 import type { ComponentValue, CountryData, IndexRow } from "@/lib/types";
@@ -143,18 +144,15 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
   }, [data, year]);
 
   const header = (id: string, title: string) => (
-    <div className="mb-1 flex items-center justify-between gap-2">
-      <h3 id={id} className="text-sm font-semibold">{title}</h3>
-      <span className="flex items-center gap-1">{real ? <QuantStatusTag status={status} /> : <DataLayerTag layer="sample" />}<LayerLabel layer="model" /></span>
-    </div>
+    <SectionHeader id={id} title={title} tags={<>{real ? <QuantStatusTag status={status} /> : <DataLayerTag layer="sample" />}<LayerLabel layer="model" /></>} />
   );
 
   return (
     <div className="space-y-5">
       {real && status && (
-        <p className="rounded border border-dashed border-model/60 bg-surface-2 px-2 py-1.5 text-xs text-ink-2">
-          {status.label}. Computed from the data release {status.inputs_release} on {status.created_at?.slice(0, 10)}; nothing is imputed, a missing input leaves a component unavailable and the index rests on the rest (never fewer than three). Rank stability across the draws: {status.rank_stability !== null ? status.rank_stability.toFixed(2) : "n/a"}. Method details on the methodology page.
-        </p>
+        <Callout tone="model" summary={<>Computed from the data release {status.inputs_release} · method {status.method_version} · rank stability {status.rank_stability !== null ? status.rank_stability.toFixed(2) : "n/a"}.</>}>
+          {status.label}. Nothing is imputed: a missing input leaves a component unavailable and the index rests on the rest, never on fewer than three. The band on every value is the 5th–95th percentile across {status.draws} draws of weights and normalisations. Method details and the sensitivity settings are on the methodology page.
+        </Callout>
       )}
       <section aria-labelledby="idx-h">
         {header("idx-h", "Influence index with uncertainty")}
@@ -204,10 +202,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
 
       {real && (
         <section aria-labelledby="conc-h">
-          <div className="mb-1 flex items-center justify-between gap-2">
-            <h3 id="conc-h" className="text-sm font-semibold">Export concentration in {year}</h3>
-            <span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span>
-          </div>
+          <SectionHeader id="conc-h" title={`Export concentration in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} />
           <p className="mb-2 text-xs text-ink-3">
             Shares of the country&apos;s reported exports going to the United States, China and the rest of the world (UN Comtrade, reporter&apos;s own data).
             {concentrationAll ? ` All minerals together: ${fmtPct(concentrationAll.share_us_x ?? 0)} to the United States, ${fmtPct(concentrationAll.share_cn_x ?? 0)} to China, two-power share ${fmtPct(concentrationAll.big2_share_x ?? 0)}.` : ""}
@@ -324,10 +319,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
 
       {governance.length > 0 && (
         <section aria-labelledby="gov-h">
-          <div className="mb-1 flex items-center justify-between gap-2">
-            <h3 id="gov-h" className="text-sm font-semibold">Governance and alignment indicators, {year}</h3>
-            <span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span>
-          </div>
+          <SectionHeader id="gov-h" title={`Governance and alignment indicators, ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} />
           <p className="mb-1 text-xs text-ink-3">Inputs to the influence index and context: governance (World Bank WGI, V-Dem), UN General Assembly alignment with the US and China, debt by creditor, macro context.</p>
           <table className="w-full text-xs">
             <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 pr-4 text-right">Value</th><th className="py-1">Source</th></tr></thead>
@@ -345,10 +337,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
       )}
 
       <section aria-labelledby="interp-h">
-        <div className="mb-1 flex items-center justify-between">
-          <h3 id="interp-h" className="text-sm font-semibold">Interpretation</h3>
-          <LayerLabel layer="interpretation" />
-        </div>
+        <SectionHeader id="interp-h" title="Interpretation" tags={<LayerLabel layer="interpretation" />} />
         <Interpretation block={data.interpretation} scopeLabel={data.name} />
         <p className="mt-2 text-xs text-ink-3">Context note from the registry: {data.note}</p>
       </section>

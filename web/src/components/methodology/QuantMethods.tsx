@@ -71,6 +71,7 @@ export function QuantMethods() {
               : q.regressions.note}
           </p>
           {q.regressions.rows.length > 0 && (
+            <div className="scroll-x max-h-[28rem] overflow-y-auto rounded-md border border-rule">
             <table className="w-full border-collapse text-xs">
               <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Outcome · spec</th><th className="py-1 pr-2">Term</th><th className="py-1 pr-2 text-right">Coef.</th><th className="py-1 pr-2 text-right">SE</th><th className="py-1 pr-2 text-right">p (cluster)</th><th className="py-1 pr-2 text-right">p (wild)</th><th className="py-1 pr-2 text-right">Drop-one range</th><th className="py-1 text-right">n · countries · within R²</th></tr></thead>
               <tbody>
@@ -88,6 +89,7 @@ export function QuantMethods() {
                 ))}
               </tbody>
             </table>
+            </div>
           )}
           <p className="mt-1 text-[11px] text-ink-3">Coefficients and errors are shown in share points (×100).</p>
         </div>

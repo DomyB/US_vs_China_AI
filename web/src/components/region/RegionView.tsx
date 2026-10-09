@@ -87,7 +87,7 @@ export function RegionView() {
   const multiples = useMemo(() => (index ? index.rows.filter((r) => r.mineral === "all").map((r) => ({ ...r, name: COUNTRY_NAMES[r.iso3] })) : []), [index]);
   const multiplesOptions = useMemo(
     () => ({
-      height: 460,
+      height: 520,
       marginLeft: 30,
       marginRight: 10,
       x: { label: null, ticks: [] as number[] },
@@ -150,12 +150,12 @@ export function RegionView() {
       <h1 className="text-2xl font-semibold leading-tight">Regional overview</h1>
       <p className="mb-3 max-w-3xl text-sm text-ink-2">Rankings, comparisons over time, mineral-by-mineral shares and the map of major projects. <LayerLabel layer="model" />{index?.layer === "real" ? <DataLayerTag layer="real" /> : <DataLayerTag layer="sample" />}</p>
 
-      <div className="mb-4 rounded-md border border-rule bg-surface p-3">
+      <div className="card mb-4 p-3">
         <YearControl year={year} onChange={setYear} playing={playing} onTogglePlay={togglePlay} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="rounded-md border border-rule bg-surface p-3" aria-labelledby="rk-h">
+        <section className="card region-card p-3" aria-labelledby="rk-h">
           <h2 id="rk-h" className="mb-1 text-base font-semibold">Ranking in {year}</h2>
           <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a name in the table for the country page.</p>
           <PlotFigure options={rankingOptions} ariaLabel={`Ranking of countries by net lean of the influence index in ${year}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
@@ -176,21 +176,21 @@ export function RegionView() {
           </table>
         </section>
 
-        <section className="rounded-md border border-rule bg-surface p-3" aria-labelledby="mm-h">
+        <section className="card region-card p-3" aria-labelledby="mm-h">
           <h2 id="mm-h" className="mb-1 text-base font-semibold">Comparison over time</h2>
           <p className="mb-2 text-xs text-ink-3">Small multiples, one per country (ISO codes), same axes, 2008–2026 left to right. Dotted line: selected year.</p>
           <PlotFigure options={multiplesOptions} ariaLabel={`Influence index over time for each of the twelve countries, small multiples, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           <DataTable rows={multiples} caption="Influence index by country, year and actor" columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }]} />
         </section>
 
-        <section className="rounded-md border border-rule bg-surface p-3" aria-labelledby="min-h">
+        <section className="card region-card p-3" aria-labelledby="min-h">
           <div className="mb-1 flex items-center justify-between gap-2"><h2 id="min-h" className="text-base font-semibold">Mineral by mineral in {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer={shareRows?.layer} /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each mineral going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the 12 countries that reported)." : "."}</p>
           {shares.length === 0 ? <p className="text-sm text-ink-3">No reported trade for {year} yet.</p> : <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />}
           <DataTable rows={shares} caption="Export shares by mineral and destination" columns={[{ key: "mineral", label: "Mineral" }, { key: "partner", label: "Destination" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }]} />
         </section>
 
-        <section className="rounded-md border border-rule bg-surface p-3" aria-labelledby="pr-h">
+        <section className="card region-card p-3" aria-labelledby="pr-h">
           <div className="mb-1 flex items-center justify-between"><h2 id="pr-h" className="text-base font-semibold">Major projects active by {year}</h2><LayerLabel layer="facts" /></div>
           <p className="mb-2 text-xs text-ink-3">Mines, processing plants and ports. Real project names and approximate locations; operator origin, stage and start year are sample values until Phase 2.</p>
           {projectsOptions ? <PlotFigure options={projectsOptions} ariaLabel={`Map of major mining projects, plants and ports in South America active by ${year}, sample attributes`} /> : <p className="text-sm text-ink-3">Loading map…</p>}
@@ -199,7 +199,7 @@ export function RegionView() {
           )}
         </section>
       </div>
-      <section className="mt-4 rounded-md border border-rule bg-surface p-3" aria-labelledby="syn-h">
+      <section className="card region-card mt-4 p-3" aria-labelledby="syn-h">
         <div className="mb-1 flex items-center justify-between gap-2"><h2 id="syn-h" className="text-base font-semibold">Regional synthesis</h2><LayerLabel layer="interpretation" /></div>
         <p className="mb-2 text-xs text-ink-3">Written analysis of the region generated from the computed indicators (each sentence names what it rests on), and the project owner&apos;s own synthesis where one exists.</p>
         {interp === undefined ? <p className="text-sm text-ink-3">Loading…</p> : <Interpretation block={interp} scopeLabel="the region" />}

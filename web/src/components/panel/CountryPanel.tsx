@@ -55,18 +55,15 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
 
   return (
     <aside className="flex h-full flex-col bg-surface" aria-label={`${country?.name ?? iso3} details`}>
-      <div className="flex items-start justify-between gap-2 border-b border-rule px-4 pt-3 pb-2">
+      <div className="flex items-start justify-between gap-2 border-b border-rule bg-surface-2/60 px-4 pt-3 pb-2.5">
         <div>
-          <h2 className="text-xl font-semibold leading-tight">{country?.name ?? iso3}</h2>
-          <p className="text-xs text-ink-3">
-            {year} · {mineral === "all" ? "all minerals" : mineral.replace(/_/g, " ")}
-            {country?.eiti_member ? " · EITI member" : ""}
-            {!standalone && (
-              <>
-                {" · "}
-                <Link href={`/country/${iso3}?year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">full page</Link>
-              </>
-            )}
+          <p className="eyebrow">{iso3} · country panel</p>
+          <h2 className="mt-0.5 text-xl leading-tight">{country?.name ?? iso3}</h2>
+          <p className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-3">
+            <span className="rounded-full bg-card px-2 py-0.5 ring-1 ring-rule">{year}</span>
+            <span className="rounded-full bg-card px-2 py-0.5 ring-1 ring-rule">{mineral === "all" ? "all minerals" : mineral.replace(/_/g, " ")}</span>
+            {country?.eiti_member && <span className="rounded-full bg-card px-2 py-0.5 ring-1 ring-rule">EITI member</span>}
+            {!standalone && <Link href={`/country/${iso3}?year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">open full page</Link>}
           </p>
         </div>
         {onClose && (
@@ -75,7 +72,7 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
           </button>
         )}
       </div>
-      <div role="tablist" aria-label="Country sections" className="flex overflow-x-auto border-b border-rule px-2 text-sm">
+      <div role="tablist" aria-label="Country sections" className="scroll-x flex border-b border-rule px-2 text-sm">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -84,7 +81,7 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
             aria-selected={tab === t.id}
             aria-controls={`panel-${t.id}`}
             onClick={() => onTab(t.id)}
-            className={`-mb-px border-b-2 px-3 py-2 whitespace-nowrap ${tab === t.id ? "border-ink font-semibold text-ink" : "border-transparent text-ink-2 hover:text-ink"}`}
+            className={`-mb-px border-b-2 px-2.5 py-2.5 text-[13px] whitespace-nowrap transition-colors sm:px-3 sm:text-sm ${tab === t.id ? "border-accent font-semibold text-ink" : "border-transparent text-ink-2 hover:border-rule-2 hover:text-ink"}`}
           >
             {t.label}
           </button>

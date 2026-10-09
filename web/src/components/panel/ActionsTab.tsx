@@ -1,10 +1,11 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
+import { SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, OTHER_COLOR, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtMusd } from "@/lib/format";
 import type { CountryData } from "@/lib/types";
@@ -56,15 +57,22 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
   const events = useMemo(() => data.actions.events.filter((e) => e.year === year && (mineral === "all" || e.mineral === mineral)).sort((a, b) => a.date.localeCompare(b.date)), [data, year, mineral]);
   const contracts = useMemo(() => (data.actions.contracts ?? []).filter((c) => mineral === "all" || c.mineral === mineral), [data, mineral]);
   const production = useMemo(() => (data.actions.production ?? []).filter((p) => (mineral === "all" || p.mineral === mineral) && p.year === year), [data, mineral, year]);
+  // one line per mineral and measure; the other series (other sources, other units) sit behind a toggle
+  const productionGroups = useMemo(() => {
+    const groups = new Map<string, typeof production>();
+    for (const p of production) {
+      const k = `${p.mineral}|${p.measure}`;
+      groups.set(k, [...(groups.get(k) ?? []), p]);
+    }
+    return Array.from(groups.entries()).map(([k, rows]) => ({ key: k, mineral: rows[0].mineral, measure: rows[0].measure, rows })).sort((a, b) => a.mineral.localeCompare(b.mineral) || a.measure.localeCompare(b.measure));
+  }, [production]);
+  const [contractsShown, setContractsShown] = useState(20);
   const sideColor = { US: ACTOR_COLOR.US, CN: ACTOR_COLOR.CN, other: OTHER_COLOR } as const;
 
   return (
     <div className="space-y-5">
       <section aria-labelledby="trade-h">
-        <div className="mb-1 flex items-center justify-between gap-2">
-          <h3 id="trade-h" className="text-sm font-semibold">Mineral exports by destination</h3>
-          <span className="flex items-center gap-1"><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></span>
-        </div>
+        <SectionHeader id="trade-h" title="Mineral exports by destination" tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} />
         <p className="mb-2 text-xs text-ink-3">
           {mineral === "all" ? "All core minerals" : prettyMineral(mineral)}, annual, reported by {data.name}.
           {hasMirror ? " Lighter narrow bars: the same flow as reported by the partner (mirror data, includes freight and insurance)." : " Mirror data appears here once the partner-reported series is ingested."}
@@ -97,10 +105,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
       </section>
 
       <section aria-labelledby="events-h">
-        <div className="mb-1 flex items-center justify-between gap-2">
-          <h3 id="events-h" className="text-sm font-semibold">Deals, loans, investments and agreements in {year}</h3>
-          <span className="flex items-center gap-1"><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></span>
-        </div>
+        <SectionHeader id="events-h" title={`Deals, loans, investments and agreements in ${year}`} tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} />
         {events.length === 0 ? (
           <p className="text-sm text-ink-3">No recorded events for this selection. Absence of a record is not evidence of absence.</p>
         ) : (
@@ -131,20 +136,29 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
 
       {production.length > 0 && (
         <section aria-labelledby="prod-h">
-          <div className="mb-1 flex items-center justify-between gap-2">
-            <h3 id="prod-h" className="text-sm font-semibold">Production and reserves in {year}</h3>
-            <span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span>
-          </div>
+          <SectionHeader id="prod-h" title={`Production and reserves in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} intro={`${productionGroups.length} mineral series; where several sources or units report the same mineral, the first row is shown and the others open on request.`} />
           <table className="w-full text-xs">
-            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Mineral</th><th className="py-1">Measure</th><th className="py-1 text-right">Quantity</th><th className="py-1">Unit</th><th className="py-1">Source</th></tr></thead>
+            <thead><tr><th>Mineral</th><th>Measure</th><th className="text-right">Quantity</th><th>Unit</th><th>Source</th></tr></thead>
             <tbody>
-              {production.map((p, i) => (
-                <tr key={i} className="border-t border-rule align-top">
-                  <td className="py-1">{prettyMineral(p.mineral)}</td>
-                  <td className="py-1">{p.measure}</td>
-                  <td className="py-1 text-right tabular-nums">{p.qty == null ? "—" : p.qty.toLocaleString("en-GB")}</td>
-                  <td className="py-1">{p.unit}</td>
-                  <td className="py-1"><SourceLink source={p.source} compact /></td>
+              {productionGroups.map((g) => (
+                <tr key={g.key} className="align-top">
+                  <td className="font-medium">{prettyMineral(g.mineral)}</td>
+                  <td>{g.measure}</td>
+                  <td className="text-right tabular-nums">{g.rows[0].qty == null ? "—" : g.rows[0].qty.toLocaleString("en-GB")}</td>
+                  <td>{g.rows[0].unit}</td>
+                  <td>
+                    <SourceLink source={g.rows[0].source} compact />
+                    {g.rows.length > 1 && (
+                      <details className="mt-0.5">
+                        <summary>{g.rows.length - 1} other series</summary>
+                        <ul className="mt-0.5 space-y-0.5 text-[11px] text-ink-2">
+                          {g.rows.slice(1).map((p, i) => (
+                            <li key={i}><span className="tabular-nums">{p.qty == null ? "—" : p.qty.toLocaleString("en-GB")}</span> {p.unit} · <SourceLink source={p.source} compact /></li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -154,19 +168,20 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
 
       {contracts.length > 0 && (
         <section aria-labelledby="contracts-h">
-          <div className="mb-1 flex items-center justify-between gap-2">
-            <h3 id="contracts-h" className="text-sm font-semibold">Published contracts ({contracts.length})</h3>
-            <span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span>
-          </div>
+          <SectionHeader id="contracts-h" title={`Published contracts (${contracts.length})`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} intro="From the ResourceContracts database; the mineral and the companies are shown where the record carries them." />
           <ul className="divide-y divide-rule border-y border-rule text-sm">
-            {contracts.slice(0, 40).map((c) => (
+            {contracts.slice(0, contractsShown).map((c) => (
               <li key={c.id} className="py-1.5">
                 <a href={c.source.url} target="_blank" rel="noopener noreferrer" className="font-medium underline">{c.title}</a>
                 <p className="text-xs text-ink-3">{[c.year, c.resource, c.type, c.companies].filter(Boolean).join(" · ")}</p>
               </li>
             ))}
           </ul>
-          {contracts.length > 40 && <p className="mt-1 text-xs text-ink-3">Showing 40 of {contracts.length}.</p>}
+          {contracts.length > contractsShown && (
+            <button type="button" onClick={() => setContractsShown((n) => n + 40)} className="mt-2 rounded-full border border-rule px-3 py-1 text-xs text-ink-2 hover:bg-surface-2">
+              Show more ({contracts.length - contractsShown} remaining)
+            </button>
+          )}
         </section>
       )}
     </div>

@@ -14,7 +14,16 @@ export default function MethodologyPage() {
         This page documents every index, model, data source and known limitation, with validation scores as they become available. It is regenerated with each data release. Sections marked pending describe planned methods; everything else is live and labelled per block on the site.
       </p>
 
-      <h2>Three layers, kept apart</h2>
+      <nav aria-label="Contents" className="toc card mt-4 p-3">
+        <p className="eyebrow mb-1">Contents</p>
+        <ol className="grid gap-x-6 gap-y-0.5 sm:grid-cols-2">
+          {Object.entries({ layers: "Three layers, kept apart", reliability: "Source reliability ratings", missing: "Missing and estimated data", text: "Text analysis (Phase 3)", index: "Influence index (Phase 4)", concentration: "Concentration and dependence", events: "Event studies and panels", flags: "Say–do gap and flags", networks: "Networks", forecasting: "Forecasting (Phase 5)", writing: "Written analysis (Phase 6)", refresh: "Refresh schedule", limitations: "Known limitations" }).map(([id, label], i) => (
+            <li key={id}><a href={`#${id}`}><span className="tabular-nums text-ink-3">{i + 1}.</span> {label}</a></li>
+          ))}
+        </ol>
+      </nav>
+
+      <h2 id="layers">Three layers, kept apart</h2>
       <p>Everything on the site belongs to one of three layers and is labelled as such:</p>
       <ul>
         <li><LayerLabel layer="facts" /> Sourced data: trade flows, loans, deals, concessions, production, parliamentary records, article metadata. Each row carries its source, retrieval date, original language, reliability rating and confidence level.</li>
@@ -22,7 +31,7 @@ export default function MethodologyPage() {
         <li><LayerLabel layer="interpretation" /> Written analysis generated from named indicators by fixed templates (each sentence lists the indicators behind it), plus the project owner&apos;s own writing, shown apart and marked as such.</li>
       </ul>
 
-      <h2>Source reliability ratings</h2>
+      <h2 id="reliability">Source reliability ratings</h2>
       <table>
         <thead><tr><th>Rating</th><th>Meaning</th></tr></thead>
         <tbody>
@@ -35,40 +44,40 @@ export default function MethodologyPage() {
       </table>
       <p>The full registry with URL, coverage years, update frequency, license and verification status is on the <Link href="/sources" className="underline">Sources page</Link>.</p>
 
-      <h2>Missing and estimated data</h2>
+      <h2 id="missing">Missing and estimated data</h2>
       <p>Missing data is shown as missing (&ldquo;no data&rdquo; on the map, empty lists in the panel). Nothing is estimated silently. Where a value is derived (for example an implicit lithium price computed as export value divided by quantity), the method is stated next to it. Partner-reported (mirror) trade data is labelled as such; discrepancies between national, partner, Chinese and US customs figures are reported, not reconciled.</p>
 
-      <h2>Influence index (Phase 4)</h2>
+      <h2 id="index">Influence index (Phase 4)</h2>
       <p>A composite indicator per country, year and actor (and per mineral where the country trades it), built along the OECD/JRC Handbook on Constructing Composite Indicators. Six components measure observable ties to the actor: the share of the country&apos;s mineral exports going to it and of its mineral imports coming from it (UN Comtrade, reporter&apos;s own data), documented official-finance commitments from its institutions over the last three years relative to GDP (AidData for China, DFC for the United States; central-bank swap-line drawdowns excluded), public external debt owed to it relative to GDP (World Bank IDS, China only: no equivalent source exists for the United States), UN General Assembly voting agreement, and the mean legislative stance toward it from the text model (years with at least five scored records). <strong>No imputation:</strong> a missing input leaves the component unavailable with the reason recorded, the index is the equal-weighted mean of the components that exist, and it is not computed from fewer than three. Values are normalised by winsorised min–max over the whole panel with both actors on one scale, so a US value and a Chinese value are comparable; because US trade shares and finance are small next to China&apos;s, US values are low by construction, which is the finding, not an artefact. <strong>Uncertainty:</strong> weights are redrawn hundreds of times from a Dirichlet around equal weights and the normalisation switched to percentile ranks in half of the draws; the band on every value is the 5th–95th percentile of the results, and the rank stability of the country ranking is reported below. The index is a description of recorded ties, not a measure of intent.</p>
       <QuantMethods />
 
-      <h2>Concentration and dependence (Phase 4)</h2>
+      <h2 id="concentration">Concentration and dependence (Phase 4)</h2>
       <p>For every country, mineral and year with reported trade: the shares of exports going to the United States, to China and to the rest of the world, the same for imports, the two-power share, and a revealed comparative advantage index against the pooled twelve-country export basket (world totals are not in the warehouse). A Herfindahl–Hirschman index over all export destinations is <strong>not computed</strong>: the free Comtrade access used so far returns partner totals for the United States, China and the world only; it is stored as null with that reason, never estimated. A partner row absent from a reporter&apos;s Comtrade answer for a year it did report is read as no recorded flow and noted as such.</p>
 
-      <h2>Text analysis (Phase 3)</h2>
+      <h2 id="text">Text analysis (Phase 3)</h2>
       <p>Multilingual pipeline (Spanish, Portuguese, English, Dutch). The unit of analysis is the title of a legislative record plus its summary where the legislature publishes one, or a headline; no article text is stored. Documents are coded for stance toward the United States and toward China on a five-point scale (−2 to +2), scored only when the actor is named (otherwise the stance is “not applicable”, never zero), plus tone (−1 to +1) and topic, following the written codebook in <code>pipeline/config/codebook.md</code>.</p>
       <p>Classification uses open-weight models on CPU only. <strong>Baseline:</strong> a multilingual natural-language-inference model (mDeBERTa-v3-base-xnli) scores three hypotheses per actor (favourable, critical, neutral mention); the winning hypothesis gives the sign and its probability the strength (≥0.75 → ±2, else ±1; below 0.5 the model has no clear reading and the stance is 0). Tone is the positive-minus-negative score of a multilingual sentiment model. <strong>Trained model:</strong> multilingual sentence embeddings (paraphrase-multilingual-MiniLM) with a logistic-regression head trained on the adjudicated sample inside the same workflow; it replaces the baseline on the site only if it beats it on the held-out split. Machine translations of titles (opus-mt) are labelled as such and the original is always shown. Narratives are clusters of headline embeddings (k-means) labelled by class-based TF-IDF keywords, with example documents. Media attention is the share of each year&apos;s coverage naming an actor.</p>
       <p><strong>Validation.</strong> A stratified random sample of 300 documents (country × document type × whether an actor is named) is coded by two coders: the project owner and an LLM coder inside development sessions, blind to each other and to the model, then adjudicated. Inter-coder agreement (Cohen&apos;s kappa, Krippendorff&apos;s alpha) and per-class precision, recall and F1 of the baseline and the trained model against the adjudicated labels are published below as soon as they exist. Until then every stance and tone value on the site is tagged “zero-shot baseline, not yet validated”.</p>
       <ValidationMetrics />
 
-      <h2>Event studies and panels (Phase 4b)</h2>
+      <h2 id="events">Event studies and panels (Phase 4b)</h2>
       <p><strong>Event studies.</strong> The dated events in <code>pipeline/config/events.yaml</code> (US critical-minerals orders and the IRA, Chinese export controls of 2023–2025, Chile&apos;s lithium strategy, Argentina&apos;s RIGI, Bolivia&apos;s 2019 crisis, Peru&apos;s Chancay port, the 2025 Section 232 copper tariff, among others; each dated, typed and sourced, and marked draft until the project owner has reviewed it) are tested two ways on annual export shares. The event window compares, for each country and actor, the mean share in the two years after the event with the two years before (the event year left out); the placebo p-value is the share of the same statistic computed at every other year of that country&apos;s series that is at least as large. For events touching some countries only, a difference-in-differences subtracts the mean change of the other countries, with a permutation placebo over country subsets of the same size (at least three controls). With twelve countries, annual data and policies that respond to the same world, these are associations; no causal language is used. Events of 2025 and later have no post-event years yet and are listed as pending.</p>
       <p><strong>Panel regressions.</strong> Four outcomes (a country&apos;s export share to China, to the United States, and the two import shares) on five standardised regressors: the actor&apos;s documented official-finance commitments over the previous three years relative to GDP, lagged one year; UN General Assembly voting agreement with the actor; electoral democracy (V-Dem); rule of law (WGI); mineral rents in GDP. Country effects absorb endowment and geography, year effects absorb world prices and demand; a country-effects-only variant is the robustness check. With eleven clusters the inference is fragile, so every coefficient is shown with its cluster-robust standard error, a wild cluster bootstrap p-value and the range it takes when each country is dropped in turn. The table below is regenerated with each data release.</p>
 
-      <h2>Say–do gap and flags (Phase 4)</h2>
+      <h2 id="flags">Say–do gap and flags (Phase 4)</h2>
       <p><strong>Say–do gap:</strong> the legislature&apos;s mean stance toward an actor in a year (at least five scored records; a text-model output carried with the classifier&apos;s validation status) standardised within the actor, minus the standardised year-on-year change of the economic-ties sub-index (trade shares, finance, debt). Positive: words warmer than the flows; negative: flows outrun the words. Media stance joins once the headline record is long enough. <strong>Flags</strong> are rules on the sourced series, each with an evidence level: a share of exports to an actor moving 20 points or more in a year, or documented commitments of 1% of GDP or more in a year (<em>documented</em>: the movement is in official data); commitments of 0.5% of GDP or more not followed by any change in the mineral trade share within two years, or the debt stock owed to China rising 20% and US$100 million in a year with no commitment recorded (<em>strongly indicated</em>: two sourced series disagree); a say–do gap beyond two standard deviations (<em>speculative</em>: a model output is involved). Swap-line drawdowns are flagged as rescue lending and kept out of the finance component. Mirror-data discrepancies and third-country subsidiaries wait for partner-reported trade and ownership data. A flag is never presented as an established fact.</p>
 
-      <h2>Networks (Phase 4)</h2>
+      <h2 id="networks">Networks (Phase 4)</h2>
       <p>The finance records give a lender–recipient graph: funding institutions (policy banks, central banks, ministries, agencies, companies) linked to the receiving agencies named in each record, weighted by the amounts committed. Degree, weighted degree, betweenness, eigenvector centrality (on the largest connected component) and greedy-modularity communities are computed on the twelve-country graph and shown per country. Events that name no recipient are left out and counted. Ownership chains through third-country subsidiaries are not in the graph yet: the contracts database carries no company names and cadastres exist for one country.</p>
 
-      <h2>Forecasting (Phase 5)</h2>
+      <h2 id="forecasting">Forecasting (Phase 5)</h2>
       <p>Two targets per country and actor are forecast to 2030: the influence index and the share of mineral exports going to the actor. The series are annual and at most eighteen points long, so only simple models are fitted and they are made to compete: naive persistence (last value, with uncertainty from bootstrapped yearly changes), a random walk with drift, the same drift partially pooled across countries by empirical-Bayes shrinkage (the hierarchical element), an AR(1) on yearly changes, and a damped local linear trend fitted by maximum likelihood with a Kalman filter (the state-space element). Each model produces simulated paths; on expanding-window backtests from 2015 onward every model is scored at horizons of one to three years by the continuous ranked probability score (CRPS), the absolute error of the median and the coverage of its 80% and 95% bands, pooled over the countries. The model published for a target is the one with the lowest pooled CRPS if it beats naive persistence; otherwise persistence itself is published and labelled. Bands are the 5th–95th and 25th–75th percentiles of the simulated paths. Scenarios are Monte Carlo paths of the published model with an explicit, stated yearly shift (for example &ldquo;the share to China grows 2 points a year faster&rdquo;); they are what-ifs, not forecasts. A five-year horizon on seventeen annual observations is a long reach: the bands are wide, coverage in the backtests is below nominal for the share forecasts, and the methodology table below is regenerated with every data release.</p>
       <ForecastMetrics />
 
-      <h2>Written analysis (Phase 6)</h2>
+      <h2 id="writing">Written analysis (Phase 6)</h2>
       <p>The interpretation layer has two parts, kept apart on every page. <strong>Generated briefs:</strong> for each country (where it stands, trade, finance and debt, politics, dated events, outlook, what the data cannot say) and for the region (ranking, movers, trade pattern, finance pattern, statistical evidence, outlook, caveats), fixed templates turn the computed indicators into sentences. A template fires only when every indicator it cites exists; otherwise the brief says what is missing. Every sentence carries the ids of the indicators it rests on (<code>table:field:actor:year</code>, for example <code>index_value:influence:CN:2024</code> or <code>anomaly_flag:BRA-sudden_trade_shift-2009-CN</code>), shown on click, and model outputs are named as such in the sentence. Trend words follow fixed thresholds: an index change under 2 points over five years, or a share change under 3 points, is &ldquo;broadly flat&rdquo;. The briefs are regenerated with every data release; a section whose text differs from the previous release is marked &ldquo;updated&rdquo;. No language model writes any of this text. <strong>Human-written interpretation:</strong> the project owner&apos;s own Markdown files under <code>data/manual/interpretation/</code>, with author, date and a reviewed flag, shown in their own box labelled as the owner&apos;s writing; the pipeline never writes or edits them, and where none exists the site says so.</p>
 
-      <h2>Refresh schedule</h2>
+      <h2 id="refresh">Refresh schedule</h2>
       <table>
         <thead><tr><th>Layer</th><th>Cadence</th></tr></thead>
         <tbody>
@@ -80,7 +89,7 @@ export default function MethodologyPage() {
       </table>
       <p>&ldquo;Real time&rdquo; means scheduled refreshes, not a live feed. Each panel shows its last update and the sources behind it.</p>
 
-      <h2>Known limitations</h2>
+      <h2 id="limitations">Known limitations</h2>
       <p>The full list is maintained in <a href="https://github.com/DomyB/US_vs_China_AI/blob/main/LIMITATIONS.md" className="underline">LIMITATIONS.md</a>. Highlights:</p>
       <ul>
         <li>Phase 0 source verification was search-based because the development sandbox cannot reach most hosts; direct checks run in the first scheduled ingestion.</li>

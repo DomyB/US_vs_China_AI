@@ -22,6 +22,7 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
   const [category, setCategory] = useState("");
   const [reliability, setReliability] = useState("");
   const [status, setStatus] = useState("");
+  const [shown, setShown] = useState(60);
 
   const categories = useMemo(() => Array.from(new Set(sources.map((s) => s.category))).sort(), [sources]);
   const filtered = useMemo(
@@ -77,7 +78,7 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
         <span className="self-center text-xs text-ink-3">{filtered.length} of {sources.length}</span>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[1400px] border-collapse text-xs">
+        <table className="data-table w-full min-w-[1400px] border-collapse text-xs [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:bg-card [&_thead_th]:py-1.5 [&_tbody_tr:hover]:bg-surface-2">
           <thead>
             <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3">
               <th className="border-b border-rule px-2 py-1">Source</th>
@@ -94,7 +95,7 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((s) => (
+            {filtered.slice(0, shown).map((s) => (
               <tr key={s.id} id={s.id} className="align-top odd:bg-surface-2/60">
                 <td className="border-b border-rule px-2 py-1.5">
                   <a href={s.url} target="_blank" rel="noopener noreferrer" className="font-medium underline">{s.name}</a>
@@ -136,6 +137,12 @@ export function SourcesTable({ sources }: { sources: SourceEntry[] }) {
             ))}
           </tbody>
         </table>
+        {filtered.length > shown && (
+          <div className="flex items-center justify-between gap-3 border-t border-rule px-2 py-2 text-xs text-ink-3">
+            <span>Showing {shown} of {filtered.length} sources</span>
+            <button type="button" onClick={() => setShown((n) => n + 60)} className="rounded-full border border-rule px-3 py-1 text-ink-2 hover:bg-surface-2">Show more</button>
+          </div>
+        )}
       </div>
     </div>
   );
