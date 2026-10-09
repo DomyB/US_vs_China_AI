@@ -56,7 +56,7 @@ export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: 
       </div>
       <div className="min-h-[70vh] rounded-md border border-rule">
         {meta && index ? (
-          <CountryPanel iso3={iso3} year={year} mineral={mineral} meta={meta} indexRows={index.rows} tab={tab} onTab={(t) => setParam({ tab: t })} sourceNames={sourceNames} standalone />
+          <CountryPanel iso3={iso3} year={year} mineral={mineral} meta={meta} indexRows={index.rows} indexLayer={index.layer} tab={tab} onTab={(t) => setParam({ tab: t })} sourceNames={sourceNames} standalone />
         ) : (
           <p className="p-4 text-sm text-ink-3">Loading…</p>
         )}

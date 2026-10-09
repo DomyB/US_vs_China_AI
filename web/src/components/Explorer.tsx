@@ -78,13 +78,15 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
     return f;
   }, [values, mode]);
 
+  const indexLayer = index?.layer ?? "sample";
   const describeValue = useCallback(
     (iso3: string, v: number | null) => {
-      if (v === null) return "no data";
-      if (mode === "both") return `net lean ${fmtSigned(v, 0)} (${v > 0 ? "China-leaning" : v < 0 ? "US-leaning" : "balanced"}) · sample`;
-      return `${mode === "US" ? "US" : "China"} influence index ${v.toFixed(0)} / 100 · sample`;
+      if (v === null) return indexLayer === "real" ? "no index (no trade in the selected mineral, or fewer than three components)" : "no data";
+      const tag = indexLayer === "real" ? "computed" : "sample";
+      if (mode === "both") return `net lean ${fmtSigned(v, 0)} (${v > 0 ? "China-leaning" : v < 0 ? "US-leaning" : "balanced"}) · ${tag}`;
+      return `${mode === "US" ? "US" : "China"} influence index ${v.toFixed(0)} / 100 · ${tag}`;
     },
-    [mode],
+    [mode, indexLayer],
   );
 
   const ranked = useMemo(() => {
@@ -100,7 +102,7 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
         <div>
           <h1 className="text-2xl font-semibold leading-tight">Who is gaining ground, where, and in which minerals?</h1>
           <p className="max-w-3xl text-sm text-ink-2">
-            Colour shows the influence index for the selected actor and year. Click a country for its actions, parliament, media, analysis and forecast. <LayerLabel layer="model" />
+            Colour shows the influence index for the selected actor and year{index?.layer === "real" ? " (computed from sourced data, Phase 4; per-mineral values use that mineral's trade shares)" : " (sample)"}. Click a country for its actions, parliament, media, analysis and forecast. <LayerLabel layer="model" />
           </p>
         </div>
       </div>
@@ -130,7 +132,7 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
 
           <div className="rounded-md border border-rule bg-surface p-3">
             <h2 className="mb-1 text-sm font-semibold">
-              Ranking in {year}{mineral !== "all" ? ` · ${mineral.replace(/_/g, " ")}` : ""} <span className="font-normal text-ink-3">({mode === "both" ? "net lean, China minus US" : `${mode === "US" ? "US" : "China"} index`})</span>
+              Ranking in {year}{mineral !== "all" ? ` · ${mineral.replace(/_/g, " ")}` : ""} <span className="font-normal text-ink-3">({mode === "both" ? "net lean, China minus US" : `${mode === "US" ? "US" : "China"} index`}{index?.layer === "real" ? ", computed" : ", sample"})</span>
             </h2>
             <ol className="grid grid-cols-2 gap-x-6 gap-y-0.5 text-sm sm:grid-cols-3 lg:grid-cols-4">
               {ranked.map((r, i) => (
@@ -147,7 +149,7 @@ export function Explorer({ sourceNames }: { sourceNames: Record<string, { name: 
 
         <div className="h-[600px] overflow-hidden rounded-md border border-rule lg:h-[calc(100vh-180px)] lg:min-h-[640px] lg:sticky lg:top-3">
           {selected && meta && index ? (
-            <CountryPanel iso3={selected} year={year} mineral={mineral} meta={meta} indexRows={index.rows} tab={tab} onTab={(t) => setParam({ tab: t })} onClose={() => setParam({ country: null })} sourceNames={sourceNames} />
+            <CountryPanel iso3={selected} year={year} mineral={mineral} meta={meta} indexRows={index.rows} indexLayer={index.layer} tab={tab} onTab={(t) => setParam({ tab: t })} onClose={() => setParam({ country: null })} sourceNames={sourceNames} />
           ) : (
             <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center text-sm text-ink-3">
               <p className="serif text-lg text-ink-2">Select a country</p>

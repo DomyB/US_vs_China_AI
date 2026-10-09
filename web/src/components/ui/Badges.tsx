@@ -1,5 +1,5 @@
 import { EVIDENCE_LABEL, RELIABILITY_LABEL, STANCE_LABEL } from "@/lib/constants";
-import type { Reliability, TextModelStatus } from "@/lib/types";
+import type { QuantModelStatus, Reliability, TextModelStatus } from "@/lib/types";
 
 export function ReliabilityBadge({ value }: { value: Reliability }) {
   const style: Record<Reliability, string> = {
@@ -85,6 +85,18 @@ export function ModelStatusTag({ status }: { status: TextModelStatus | null | un
   return (
     <span className="inline-block rounded-sm border border-dashed border-model px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-model" title={title}>
       {text}
+    </span>
+  );
+}
+
+/** States how the Phase 4 quant outputs (index, concentration, say–do gap, flags, network) stand: computed from the
+ *  sourced data with a method version, or sample. */
+export function QuantStatusTag({ status }: { status: QuantModelStatus | null | undefined }) {
+  if (!status || status.status !== "computed") return <SampleTag />;
+  const title = `${status.label ?? "computed"}; data release ${status.inputs_release}, run ${status.run_id}; method and limits on the methodology page`;
+  return (
+    <span className="inline-block rounded-sm border border-dashed border-model px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-model" title={title}>
+      Computed · method {status.method_version}
     </span>
   );
 }

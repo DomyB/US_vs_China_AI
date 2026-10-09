@@ -36,7 +36,7 @@ export function SampleBanner() {
   return (
     <div role="status" className="bg-sample px-3 py-1.5 text-center text-xs font-semibold tracking-wide text-white">
       MIXED DATA · Facts layer (actions, trade, governance): real data from {real.sources_ok.length} sources, ingested {real.generated_on}, covering {countriesWithFacts} of 12 countries; blocks are labelled per panel.
-      Indices and forecasts: SAMPLE until Phases 4–5.{textLayers}
+      {real.layers?.analysis === "real" ? ` Influence index, concentration, say–do gap, flags and finance network: COMPUTED from the sourced data (method ${real.quant_model?.method_version ?? ""}, labelled per block). Forecasts: SAMPLE until Phase 5.` : " Indices and forecasts: SAMPLE until Phases 4–5."}{textLayers}
     </div>
   );
 }

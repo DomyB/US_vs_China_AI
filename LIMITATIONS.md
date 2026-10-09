@@ -5,10 +5,10 @@ listed here is also surfaced on the methodology page.
 
 ## Status
 
-Phase 2a (international and US pipelines). The facts layer (actions, trade, governance)
-is replaced by real data country by country as the ingestion workflow runs; the banner
-and each panel state whether a block is real or sample. Model outputs, parliament and
-media layers are still sample.
+Phases 2 and 3a live, Phase 4a live (2026-10-09). The facts layer (actions, trade, governance)
+is real where the banner says so; parliament and media records are real with text-model outputs
+tagged by validation status; the influence index, concentration, say–do gap, flags and finance
+network are computed from the warehouse and labelled per block; forecasts are still sample.
 
 ## Phase 2a data caveats
 
@@ -200,12 +200,46 @@ the registry.
 - **Machine translation** of titles (opus-mt) is unmeasured for quality; summaries are not
   translated by default.
 
-## Method limitations (to be expanded in later phases)
+## Phase 4 quantitative caveats (added 2026-10-09)
+
+- **The index measures recorded ties, not intent or influence as such.** Six components per actor
+  (export and import shares, official finance / GDP, debt / GDP, UN voting agreement, legislative
+  stance); what the warehouse does not record is not in the index. Nothing is imputed: a component
+  beyond its source's coverage is unavailable and the index rests on the others (never fewer than
+  three), and the number and names of the components behind every value are stored and shown.
+- **The two sides are not symmetric in the data.** US official finance is DFC/OPIC only (EXIM, CGIT
+  and IDB DPI files pending), Chinese finance (AidData 3.0) ends in 2021, debt by creditor exists for
+  China only (World Bank IDS, nine countries, to 2024), and the legislative stance is the zero-shot
+  baseline until the sample is adjudicated. Both actors share one scale, so US values are low
+  because US recorded ties are small relative to China's; from 2022 the Chinese index rests on trade,
+  debt and diplomacy only.
+- **Trade partners are three.** Comtrade was fetched keyless for the United States, China and the
+  world total; no HHI over all destinations, no mirror comparison yet. A partner row absent from a
+  reporter's answer for a year it did report is read as no recorded flow (noted on the row).
+  Venezuela reports no trade; Uruguay's reported trade stops in 2011; Paraguay's and Suriname's
+  mineral exports are tiny, so their shares swing.
+- **Sensitivity band.** The 5th–95th percentile across 500 draws of weights (Dirichlet around equal)
+  and normalisations (min–max or percentile rank) is wide and skewed upward for countries with small
+  raw values that rank high: it mostly reflects the normalisation choice. Rank stability (mean
+  Spearman correlation with the baseline ranking) is 0.69 on the first run.
+- **Say–do gap** needs at least five scored legislative records in a year, which exist mainly for
+  Brazil and Argentina; the rhetoric side inherits every Phase 3 caveat. **Flags** are rules with
+  fixed thresholds (DECISIONS 48), not findings; the `strongly_indicated` finance-without-trade rule
+  fires where a loan was never about minerals, which is itself informative but not an anomaly.
+- **Network** links lenders to the receiving agencies named in the records; 846 of 1,699 events name
+  no recipient and are counted, not drawn. No ownership links yet (contracts carry no company names;
+  cadastres exist for Ecuador only).
+- **Event studies and panel regressions are not run yet** (Phase 4b): the event list
+  (`pipeline/config/events.yaml`) is a draft awaiting review, and with twelve countries and annual
+  data they will be reported as associations with their uncertainty.
+
+## Method limitations
 
 - Stance and topic classification: see "Phase 3 text-analysis caveats" above (one human and one
   LLM coder, 300 documents, zero-shot baseline, linear head on frozen embeddings).
-- The influence index is a composite indicator; its ranking is sensitive to
-  weighting choices, which is why a sensitivity analysis will be shown alongside.
+- The influence index is a composite indicator; its ranking is sensitive to weighting and
+  normalisation choices, which is why the sensitivity band and the rank stability are shown with it
+  (see "Phase 4 quantitative caveats").
 - Event studies and difference-in-differences designs cannot establish causality
   where treatment timing is endogenous to politics; results will be labeled as
   associations.

@@ -52,12 +52,33 @@ export interface IndexRow {
   value: number;
   lower: number;
   upper: number;
+  /** real index only: how many of the six components carried the value */
+  n_components?: number;
 }
 
 export interface IndexFile {
   dataset: string;
   method: string;
   rows: IndexRow[];
+  /** "real" once the quant step has run (web/public/data/real/index.json), "sample" for the seeded set */
+  layer?: "real" | "sample" | "none";
+  quant_model?: QuantModelStatus;
+}
+
+/** How the Phase 4 quant outputs stand (exported in meta.json, index.json and every analysis block). */
+export interface QuantModelStatus {
+  status: "computed" | "not_yet_computed";
+  method_version: string | null;
+  weights_version: string | null;
+  run_id: string | null;
+  inputs_release: string | null;
+  created_at: string | null;
+  draws: number | null;
+  rank_stability: number | null;
+  text_model_label: string | null;
+  last_year: Record<string, number | null>;
+  unattributed_finance_events: number | null;
+  label: string | null;
 }
 
 export interface ActionEvent {
@@ -177,6 +198,32 @@ export interface ValidationFile {
   text_model: TextModelStatus;
 }
 
+/** web/public/data/real/quant.json: what the methodology page shows about the Phase 4 methods. */
+export interface QuantFile {
+  generated_on: string;
+  status: "computed" | "not_yet_computed";
+  quant_model: QuantModelStatus;
+  components: {
+    name: string;
+    group: string;
+    definition: string;
+    source_ids: string[];
+    availability: Record<string, { rows: number; available: number; years: [number, number] | null; countries: string[] }>;
+  }[];
+  rules: {
+    min_components: number;
+    min_docs_stance: number;
+    normalisation: string;
+    weights: string;
+    sensitivity: { draws: number | null; dirichlet_alpha: number; rank_share: number; band: string; rank_stability: number | null };
+  };
+  index: { rows: number; with_value: number; years: [number, number] | null; countries: string[]; per_mineral: string[] };
+  say_do: { rows: number; countries: string[] };
+  flags_by_type: Record<string, Record<string, number>>;
+  concentration: { rows: number; hhi: string };
+  network: { nodes: number; edges: number; unattributed_events: number | null; top_lenders: { label: string; origin: string | null; degree: number; weighted_degree_musd: number }[] };
+}
+
 export interface CountryCoverage {
   trade_years: number[];
   mirror_years: number[];
@@ -199,6 +246,9 @@ export interface CountryCoverage {
   parliament_translated?: number;
   media_classified?: number;
   narratives_available?: boolean;
+  analysis_available?: boolean;
+  analysis_years?: [number, number] | null;
+  flags?: number;
 }
 
 export interface RealMeta {
@@ -210,6 +260,7 @@ export interface RealMeta {
   tables: Record<string, number>;
   layers: Record<string, string>;
   text_model?: TextModelStatus;
+  quant_model?: QuantModelStatus;
   coverage: Record<string, CountryCoverage>;
 }
 
@@ -218,10 +269,12 @@ export interface RealCountryData {
   iso3: string;
   name: string;
   generated_on: string;
-  freshness: { actions: Freshness; governance: Freshness };
+  freshness: { actions: Freshness; governance: Freshness; analysis?: Freshness };
   actions: { events: ActionEvent[]; trade: TradeRow[]; contracts: ContractRow[]; production: ProductionRow[] };
   governance: GovernanceRow[];
   trade_discrepancies: TradeDiscrepancy[];
+  /** present once `scm analyse` has run (Phase 4) */
+  analysis?: RealAnalysis;
 }
 
 /** web/public/data/real/parliament/<ISO3>.json */
@@ -323,18 +376,32 @@ export interface Article {
   topic_minerals: string[];
 }
 
+export interface ComponentValue {
+  name: string;
+  /** null when the component is unavailable (see `note`) */
+  normalized_value: number | null;
+  weight: number;
+  raw_value?: number | null;
+  available?: boolean;
+  note?: string | null;
+  source_ids?: string[];
+}
+
 export interface ComponentRow {
   year: number;
   actor: Actor;
-  components: { name: string; normalized_value: number; weight: number }[];
+  components: ComponentValue[];
 }
 
 export interface SayDoRow {
   year: number;
   actor: Actor;
-  rhetoric: number;
-  action: number;
-  gap: number;
+  rhetoric: number | null;
+  action: number | null;
+  gap: number | null;
+  n_docs?: number;
+  text_model_status?: string;
+  evidence_doc_ids?: string[];
 }
 
 export interface Flag {
@@ -344,6 +411,78 @@ export interface Flag {
   evidence_level: "documented" | "strongly_indicated" | "speculative";
   description: string;
   evidence: SourceRef[];
+  actor?: Actor | null;
+  score?: number | null;
+}
+
+/** Real index rows inside a country file: the "all minerals" composite and its two sub-indices. */
+export interface CountryIndexRow {
+  year: number;
+  actor: Actor;
+  index_name: "influence" | "economic_ties" | "political_alignment";
+  value: number | null;
+  lower: number | null;
+  upper: number | null;
+  n_components: number;
+  components_available: string[];
+}
+
+export interface ConcentrationRow {
+  year: number;
+  mineral: string;
+  share_us_x?: number | null;
+  share_cn_x?: number | null;
+  share_other_x?: number | null;
+  big2_share_x?: number | null;
+  exports_wld_musd?: number | null;
+  share_us_m?: number | null;
+  share_cn_m?: number | null;
+  share_other_m?: number | null;
+  big2_share_m?: number | null;
+  imports_wld_musd?: number | null;
+  rca_pool?: number | null;
+  hhi_export_dest?: number | null;
+  hhi_note?: string | null;
+}
+
+export interface NetworkNode {
+  id: string;
+  label: string;
+  type: "lender" | "recipient";
+  origin: "US" | "CN" | null;
+  country: string | null;
+  degree: number;
+  weighted_degree_musd: number;
+  betweenness: number;
+  eigenvector: number | null;
+  community: number;
+}
+
+export interface NetworkEdge {
+  source: string;
+  target: string;
+  weight_musd: number;
+  n_events: number;
+  source_ids: string[];
+}
+
+export interface CountryNetwork {
+  nodes: NetworkNode[];
+  edges: NetworkEdge[];
+  n_nodes_total: number;
+  n_edges_total: number;
+  unattributed_events: number;
+}
+
+/** The `analysis` block of a real country file (Phase 4). */
+export interface RealAnalysis {
+  index: CountryIndexRow[];
+  components: ComponentRow[];
+  say_do_gap: SayDoRow[];
+  flags: Flag[];
+  concentration: ConcentrationRow[];
+  network: CountryNetwork;
+  quant_model: QuantModelStatus;
 }
 
 export interface ForecastRow {
@@ -389,6 +528,11 @@ export interface CountryData {
     say_do_gap: SayDoRow[];
     flags: Flag[];
     key_events: { year: number; title: string; actor: Actor }[];
+    /** real only (Phase 4) */
+    index?: CountryIndexRow[];
+    concentration?: ConcentrationRow[];
+    network?: CountryNetwork;
+    quant_model?: QuantModelStatus;
   };
   forecast: { series: ForecastRow[]; scenarios: Scenario[] };
 }

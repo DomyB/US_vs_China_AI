@@ -7,7 +7,7 @@ import { LayerLabel } from "@/components/ui/Badges";
 import { ACTOR_COLOR } from "@/lib/constants";
 import type { CountryData, IndexRow } from "@/lib/types";
 
-export function ForecastTab({ data, indexRows }: { data: CountryData; indexRows: IndexRow[] }) {
+export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: CountryData; indexRows: IndexRow[]; indexLayer?: "real" | "sample" | "none" }) {
   const history = useMemo(() => indexRows.filter((r) => r.year <= 2026), [indexRows]);
   const fc = data.forecast.series;
   const options = useMemo(
@@ -36,8 +36,8 @@ export function ForecastTab({ data, indexRows }: { data: CountryData; indexRows:
           <h3 id="fc-h" className="text-sm font-semibold">Influence index to 2030</h3>
           <LayerLabel layer="model" />
         </div>
-        <p className="mb-2 text-xs text-ink-3">Dashed line: point forecast. Bands: 50% and 90% intervals. A model is shown only if it beats naive baselines out of sample; backtest scores (CRPS, interval coverage) will appear on the methodology page.</p>
-        <PlotFigure options={options} ariaLabel={`Forecast of the influence index for the United States and China in ${data.name} to 2030 with 50 and 90 percent intervals, sample data`} />
+        <p className="mb-2 text-xs text-ink-3">Solid line: the influence index to date{indexLayer === "real" ? " (computed, Phase 4)" : " (sample)"}. Dashed line: point forecast, SAMPLE until Phase 5. Bands: 50% and 90% intervals. A model is shown only if it beats naive baselines out of sample; backtest scores (CRPS, interval coverage) will appear on the methodology page.</p>
+        <PlotFigure options={options} ariaLabel={`Forecast of the influence index for the United States and China in ${data.name} to 2030 with 50 and 90 percent intervals, sample forecast${indexLayer === "real" ? " on the computed index history" : ""}`} />
         <DataTable rows={fc} caption="Forecast by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Point" }, { key: "p05", label: "5%" }, { key: "p25", label: "25%" }, { key: "p75", label: "75%" }, { key: "p95", label: "95%" }]} />
         <p className="mt-1 text-[11px] text-ink-3">Model: {fc[0]?.model}</p>
       </section>

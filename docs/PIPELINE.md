@@ -10,6 +10,7 @@ load(tables)     -> data/warehouse/<table>/<source_id>.parquet
 build            -> data/warehouse/scm.duckdb (views over Parquet + trade_discrepancy + finance_event_dedup)
 export           -> web/public/data/real/ (meta, coverage, country/<ISO3>.json, parliament/, media/, validation.json, region, prices, policy)
 classify         -> data/warehouse/{doc_translation,doc_classification,doc_embedding,topic*}/<slot>.parquet (Phase 3 model outputs)
+analyse          -> data/warehouse/{concentration,index_value,index_component,say_do_gap,anomaly_flag,network_metric,network_edge,quant_run}/quant.parquet (Phase 4)
 ```
 
 ## Running
@@ -19,7 +20,7 @@ cd pipeline
 uv venv .venv && uv pip install --python .venv/bin/python -e ".[dev]"
 .venv/bin/python -m scm run tier1            # every keyless adapter
 .venv/bin/python -m scm run un_comtrade wb_wgi --fetch-only
-.venv/bin/python -m scm build && .venv/bin/python -m scm export
+.venv/bin/python -m scm analyse && .venv/bin/python -m scm build && .venv/bin/python -m scm export
 .venv/bin/python -m scm liveness            # direct HTTP check of every registry URL
 .venv/bin/python -m scm fixtures            # trimmed copies of the latest snapshots for tests
 .venv/bin/python -m pytest -q
@@ -126,8 +127,8 @@ processed once per (model, codebook version); `--force` recomputes. `text/models
 models lazily and `SCM_TEXT_FAKE=1` substitutes deterministic fakes (keyword scoring, hashed
 embeddings) so tests and CI never download weights. `text/series.py` builds the per-year stance,
 attention/tone and narrative series the exporter writes into the parliament and media files;
-`export_site._pick_classifications` chooses the trained head over the baseline only when the
-validation metrics show it beating the baseline on the held-out split.
+`text.store.pick_classifications` (shared by the exporter and the quant step) chooses the trained head
+over the baseline only when the validation metrics show it beating the baseline on the held-out split.
 
 Validation and training (Phase 3b): `python -m scm validation draw` writes the stratified 300-document
 template `data/manual/validation/sample_<round>.csv` (and the `template` rows with the held-out split
@@ -140,6 +141,31 @@ the logistic-regression head (`text/train.py`, numpy) on the training split, sav
 workflow inputs `draw_sample` and `train` run these steps; the codebook is `pipeline/config/codebook.md`.
 
 Install for real runs: `pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install -e ".[dev,ml]"`.
+
+## Phase 4: quantitative analysis (`scm/quant/`)
+
+`python -m scm analyse [--draws 500] [--seed 20261009] [--release TAG]` reads the fact tables with
+`warehouse.table_frames` (no DuckDB build needed), computes every Phase 4 table in a few seconds and
+replaces the `quant` slot of each (`warehouse.replace_slot`); it runs in both workflows before `build`.
+Every row carries `method_version`, `run_id` and `inputs_release` (the restored data release, from
+`RESTORED_TAG`). Nothing is imputed: a missing input leaves a component unavailable with its reason.
+
+| Module | Writes | What |
+|---|---|---|
+| `quant/inputs.py` | – | tidy frames: annual reported trade by reporter × year × mineral (plus `all`) × partner × flow; documented finance commitments with a `swap` flag; GDP, UNGA agreement, debt to China (IDS creditor 730); legislative stance per document with the classifier choice shared with the exporter; the last year each source covers |
+| `quant/concentration.py` | `concentration` | export and import shares to the US and China, `share_other`, `big2_share`, `rca_pool` (Balassa index against the pooled twelve-country basket), `exports_wld_usd`; `hhi_export_dest` null with the reason (three partners only) |
+| `quant/index.py` | `index_component`, `index_value` | six components per actor (`COMPONENTS`), winsorised pooled min–max to 0–100, equal weights over the available components (≥3), sub-indices `economic_ties` and `political_alignment`; 500-draw sensitivity band (Dirichlet weights, rank normalisation in half of the draws) and rank stability; also per core mineral where the country traded it |
+| `quant/say_do.py` | `say_do_gap` | standardised legislative stance (≥5 records) minus the standardised change of the economic-ties sub-index, with the doc ids and the text model's status |
+| `quant/anomalies.py` | `anomaly_flag` | rule-based flags with evidence levels (DECISIONS 48) and source ids |
+| `quant/network.py` | `network_metric`, `network_edge` | lender–recipient graph (networkx): degree, weighted degree, betweenness, eigenvector (largest component), greedy-modularity communities |
+| `quant/run.py` | `quant_run` | orchestration; one row with the draws, the rank stability and the notes (source coverage, unattributed events) |
+
+The exporter writes the per-country `analysis` block (index with sub-indices, drivers with availability
+notes, concentration, say–do, flags with source references, the top network nodes, `quant_model` status),
+`index.json` (the composite for the map and the panels, per mineral) and `quant.json` (component definitions,
+availability, rules and counts for the methodology page); `meta.json` sets `layers.analysis` to `real`.
+`pipeline/config/events.yaml` is the draft event list for Phase 4b (event studies, panel regressions),
+read only once reviewed.
 
 ## Hand-supplied files
 
@@ -173,9 +199,9 @@ provenance shown on the site stays honest.
 
 | Workflow | Cadence | What it does |
 |---|---|---|
-| `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 adapters, fixtures, build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD`, opens an issue on failure |
+| `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 adapters, fixtures, `analyse` (Phase 4), build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD.<run>`, opens an issue on failure; `targets: none` recomputes, rebuilds and re-exports without ingesting |
 | `ingest-annual.yml` | 15 March | USGS, V-Dem, UNGA, DPI, BGS via the same job |
-| `text-analysis.yml` | Thursdays, and on demand | Phase 3: restores the release, installs the `[ml]` extra (CPU torch), caches model weights, runs `scm classify` (translate, classify, embed, topics), build, export, tests, guard, commits site data, publishes a release; inputs `steps`, `limit`, `force`, `codebook_version`, `fields` |
+| `text-analysis.yml` | Thursdays, and on demand | Phase 3: restores the release, installs the `[ml]` extra (CPU torch), caches model weights, runs `scm classify` (translate, classify, embed, topics), `analyse`, build, export, tests, guard, commits site data, publishes a release; inputs `steps`, `limit`, `force`, `codebook_version`, `fields`, `draw_sample`, `train` |
 | `liveness.yml` | Mondays | HEAD/GET of every registry URL → `data/liveness.json`, regenerates SOURCES.md |
 | `ci.yml` | every push | lint, typecheck, unit tests, build (web and pipeline) |
 
@@ -194,3 +220,6 @@ without repository activity; the monthly data commit keeps them alive.
   within 10 percent) and every source id is kept; nothing is dropped.
 - Country matching uses ISO3 via `registry.iso3_from_name`; unmatched names are skipped and
   counted, never guessed.
+- Quant outputs never impute: an unavailable component is stored as such with its reason, an index
+  needs at least three components, and every value carries the method version, the run and the data
+  release it was computed from.

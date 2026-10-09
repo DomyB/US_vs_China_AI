@@ -1,0 +1,237 @@
+# Dated policy events for the Phase 4b event studies and difference-in-differences designs.
+#
+# DRAFT for the owner's review. Phase 4b will read only events whose `status` is `reviewed`; `draft` rows
+# are listed for checking. Every event needs a date, the actor whose policy it is (US, CN, or the ISO3 of the
+# country whose own policy it is), the countries it is expected to touch (`scope: all` for the twelve), the
+# registry source id that documents it (`pipeline/config/sources/*.yaml`) and, when the exact document or
+# date still needs confirming, `verify: true` with a note saying what to check. Nothing here is used by the
+# site or the index until reviewed.
+#
+# Fields: id, date (YYYY-MM-DD), date_precision (day|month), actor, scope (all | [ISO3, ...]), type
+# (export_control | tariff | sanction | law | strategy | agreement | political | contract), title, source_id,
+# url (optional, only when a stable official URL is known), note, status (draft|reviewed), verify (bool).
+
+events:
+  - id: us_eo13817_critical_minerals
+    date: 2017-12-20
+    date_precision: day
+    actor: US
+    scope: all
+    type: strategy
+    title: "Executive Order 13817: A Federal Strategy to Ensure Secure and Reliable Supplies of Critical Minerals"
+    source_id: federal_register
+    note: "Starts the US critical-minerals list process (USGS list 2018, updated 2022 and 2025)."
+    status: draft
+    verify: false
+
+  - id: us_section301_china_tranche1
+    date: 2018-07-06
+    date_precision: day
+    actor: US
+    scope: all
+    type: tariff
+    title: "Section 301 tariffs on imports from China, first tranche in force"
+    source_id: federal_register
+    note: "Notice of action 83 FR 28710 (20 June 2018). Marks the start of the US–China tariff escalation; relevant as a regional demand/diversion shock, not a minerals measure."
+    status: draft
+    verify: true
+
+  - id: bol_2019_crisis_ylb
+    date: 2019-11-10
+    date_precision: day
+    actor: BOL
+    scope: [BOL]
+    type: political
+    title: "Bolivia: the YLB–ACI Systems lithium joint venture decree is repealed (DS 4070, 4 November) and President Morales resigns (10 November)"
+    source_id: bol_gaceta
+    note: "Two dates within a week; the event is dated at the resignation. Check DS 4070 in the Gaceta."
+    status: draft
+    verify: true
+
+  - id: us_eo14017_supply_chains
+    date: 2021-02-24
+    date_precision: day
+    actor: US
+    scope: all
+    type: strategy
+    title: "Executive Order 14017: America's Supply Chains (100-day review including critical minerals)"
+    source_id: federal_register
+    status: draft
+    verify: false
+
+  - id: us_minerals_security_partnership
+    date: 2022-06-14
+    date_precision: day
+    actor: US
+    scope: all
+    type: agreement
+    title: "Minerals Security Partnership announced (State Department)"
+    source_id: state_msp_forge
+    note: "Argentina joined the MSP Forum later; check the announcement date and Argentina's accession date."
+    status: draft
+    verify: true
+
+  - id: us_inflation_reduction_act
+    date: 2022-08-16
+    date_precision: day
+    actor: US
+    scope: all
+    type: law
+    title: "Inflation Reduction Act signed (H.R. 5376, 117th Congress): critical-mineral sourcing rules for the clean-vehicle credit"
+    source_id: congress_gov
+    note: "Free-trade-agreement sourcing rule favours Chile and Peru (US FTA partners) over Argentina, Bolivia and Brazil: a natural treated/control split."
+    status: draft
+    verify: false
+
+  - id: chl_national_lithium_strategy
+    date: 2023-04-20
+    date_precision: day
+    actor: CHL
+    scope: [CHL]
+    type: strategy
+    title: "Chile: Estrategia Nacional del Litio announced (state participation through Codelco/ENAMI, CEOL contracts)"
+    source_id: chl_corfo_lithium
+    status: draft
+    verify: false
+
+  - id: cn_export_control_gallium_germanium
+    date: 2023-08-01
+    date_precision: day
+    actor: CN
+    scope: all
+    type: export_control
+    title: "China: export controls on gallium and germanium items in force (MOFCOM/GAC Announcement 2023 No. 23 of 3 July 2023)"
+    source_id: mofcom_export_controls
+    status: draft
+    verify: false
+
+  - id: cn_export_control_graphite
+    date: 2023-12-01
+    date_precision: day
+    actor: CN
+    scope: all
+    type: export_control
+    title: "China: export controls on graphite items in force (Announcement 2023 No. 39 of 20 October 2023)"
+    source_id: mofcom_export_controls
+    note: "Relevant for Brazil's graphite exports."
+    status: draft
+    verify: true
+
+  - id: arg_ley_bases_rigi
+    date: 2024-07-08
+    date_precision: day
+    actor: ARG
+    scope: [ARG]
+    type: law
+    title: "Argentina: Ley 27.742 (Ley Bases) promulgated, creating the RIGI large-investment regime used by lithium and copper projects"
+    source_id: arg_boletin_oficial
+    note: "Sanctioned 27 June 2024, promulgated 8 July 2024; confirm the Boletín Oficial date."
+    status: draft
+    verify: true
+
+  - id: cn_export_control_antimony
+    date: 2024-09-15
+    date_precision: day
+    actor: CN
+    scope: all
+    type: export_control
+    title: "China: export controls on antimony items in force (Announcement 2024 No. 33 of 15 August 2024)"
+    source_id: mofcom_export_controls
+    note: "Bolivia and Peru are antimony producers."
+    status: draft
+    verify: false
+
+  - id: per_chancay_port_opening
+    date: 2024-11-14
+    date_precision: day
+    actor: CN
+    scope: [PER, CHL, BRA]
+    type: contract
+    title: "Peru: Chancay port (COSCO Shipping Ports majority) inaugurated"
+    source_id: null
+    note: "Add the official Peruvian source (Autoridad Portuaria Nacional or gob.pe) before review."
+    status: draft
+    verify: true
+
+  - id: cn_export_ban_us_gallium_germanium_antimony
+    date: 2024-12-03
+    date_precision: day
+    actor: CN
+    scope: all
+    type: export_control
+    title: "China: exports of gallium, germanium, antimony and superhard materials to the United States prohibited (Announcement 2024 No. 46)"
+    source_id: mofcom_export_controls
+    status: draft
+    verify: false
+
+  - id: cn_export_control_rare_earths_2025
+    date: 2025-04-04
+    date_precision: day
+    actor: CN
+    scope: all
+    type: export_control
+    title: "China: export controls on seven medium and heavy rare-earth elements (Announcement 2025 No. 18)"
+    source_id: mofcom_export_controls
+    note: "Relevant for Brazil's rare-earth projects."
+    status: draft
+    verify: false
+
+  - id: us_section232_copper
+    date: 2025-08-01
+    date_precision: day
+    actor: US
+    scope: [CHL, PER]
+    type: tariff
+    title: "United States: Section 232 proclamation on copper, 50% tariff on semi-finished copper from 1 August 2025; ores, concentrates and cathodes exempt"
+    source_id: federal_register
+    note: "Proclamation of 30 July 2025 (see docs/PHASE0_PLAN.md section 2.1). Exemption of cathodes limits the direct effect on Chile and Peru."
+    status: draft
+    verify: false
+
+  - id: cn_export_controls_oct_2025
+    date: 2025-10-09
+    date_precision: day
+    actor: CN
+    scope: all
+    type: export_control
+    title: "China: expanded rare-earth and related export controls (Announcements 2025 No. 55–58, 61, 62)"
+    source_id: mofcom_export_controls
+    note: "Suspended until November 2026 by Announcement No. 70 (see the next event); record both."
+    status: draft
+    verify: true
+
+  - id: cn_export_controls_oct_2025_suspended
+    date: 2025-11-01
+    date_precision: month
+    actor: CN
+    scope: all
+    type: export_control
+    title: "China: Announcement 2025 No. 70 suspends the October 2025 controls until November 2026"
+    source_id: mofcom_export_controls
+    note: "Confirm the publication date."
+    status: draft
+    verify: true
+
+  - id: us_arg_swap_line_2025
+    date: 2025-10-01
+    date_precision: month
+    actor: US
+    scope: [ARG]
+    type: agreement
+    title: "United States–Argentina currency swap line (US Treasury, October 2025), followed by the trade framework (November 2025) and the critical-minerals supply instrument"
+    source_id: null
+    note: "Add the US Treasury and USTR documents and exact dates (docs/PHASE0_PLAN.md section 2.8 anchor list)."
+    status: draft
+    verify: true
+
+  - id: bra_lei_15506_critical_minerals
+    date: 2026-01-01
+    date_precision: month
+    actor: BRA
+    scope: [BRA]
+    type: law
+    title: "Brazil: Lei 15.506/2026, the national critical and strategic minerals policy"
+    source_id: bra_camara_api
+    note: "Date and number from docs/PHASE0_PLAN.md section 2.7; confirm in the Diário Oficial da União."
+    status: draft
+    verify: true

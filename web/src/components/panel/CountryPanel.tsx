@@ -26,6 +26,7 @@ interface Props {
   mineral: string;
   meta: Meta;
   indexRows: IndexRow[];
+  indexLayer?: "real" | "sample" | "none";
   tab: TabId;
   onTab: (t: TabId) => void;
   onClose?: () => void;
@@ -33,7 +34,7 @@ interface Props {
   standalone?: boolean;
 }
 
-export function CountryPanel({ iso3, year, mineral, meta, indexRows, tab, onTab, onClose, sourceNames, standalone = false }: Props) {
+export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer = "sample", tab, onTab, onClose, sourceNames, standalone = false }: Props) {
   const [data, setData] = useState<CountryData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -95,8 +96,8 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, tab, onTab,
         {data && tab === "actions" && <ActionsTab data={data} year={year} mineral={mineral} />}
         {data && tab === "parliament" && <ParliamentTab data={data} year={year} mineral={mineral} />}
         {data && tab === "media" && <MediaTab data={data} year={year} mineral={mineral} />}
-        {data && tab === "analysis" && <AnalysisTab data={data} year={year} indexRows={countryIndex} />}
-        {data && tab === "forecast" && <ForecastTab data={data} indexRows={countryIndex} />}
+        {data && tab === "analysis" && <AnalysisTab data={data} year={year} indexRows={countryIndex} indexLayer={indexLayer} />}
+        {data && tab === "forecast" && <ForecastTab data={data} indexRows={countryIndex} indexLayer={indexLayer} />}
         {data && (
           <div className="mt-5">
             <Freshness f={data.freshness[tab]} sources={sourceNames} />

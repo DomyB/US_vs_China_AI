@@ -3,51 +3,89 @@
 import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
-import { DataLayerTag, EvidenceBadge, LayerLabel } from "@/components/ui/Badges";
+import { DataLayerTag, EvidenceBadge, LayerLabel, QuantStatusTag } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
-import { ACTOR_COLOR, prettyLabel } from "@/lib/constants";
-import { fmtSigned } from "@/lib/format";
-import type { CountryData, IndexRow } from "@/lib/types";
+import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
+import { fmtPct, fmtSigned } from "@/lib/format";
+import type { ComponentValue, CountryData, IndexRow } from "@/lib/types";
 
-export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year: number; indexRows: IndexRow[] }) {
+const COMPONENT_LABEL: Record<string, string> = {
+  trade_export_share: "Export share to actor",
+  trade_import_share: "Import share from actor",
+  finance_flow: "Official finance (3 yr) / GDP",
+  debt_stock: "Debt owed to actor / GDP",
+  diplomatic_alignment: "UN voting agreement",
+  legislative_stance: "Legislative stance",
+};
+const actorName = (a: string) => (a === "US" ? ACTOR_LABEL.US : ACTOR_LABEL.CN);
+
+export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { data: CountryData; year: number; indexRows: IndexRow[]; indexLayer?: "real" | "sample" | "none" }) {
+  const real = data.layers?.analysis === "real";
+  const status = data.analysis.quant_model ?? null;
+  const tag = real ? "computed" : "sample data";
+
   const indexOptions = useMemo(
     () => ({
       height: 200,
       marginLeft: 40,
       x: { label: null, tickFormat: (d: number) => String(d) },
       y: { label: "Influence index (0–100)", domain: [0, 100], grid: true },
-      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => (d === "US" ? "United States" : "China") },
+      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => actorName(d) },
       marks: [
         Plot.areaY(indexRows, { x: "year", y1: "lower", y2: "upper", fill: "actor", fillOpacity: 0.15, curve: "monotone-x" }),
-        Plot.lineY(indexRows, { x: "year", y: "value", stroke: "actor", strokeWidth: 2, curve: "monotone-x", tip: true }),
+        Plot.lineY(indexRows, { x: "year", y: "value", stroke: "actor", strokeWidth: 2, curve: "monotone-x", tip: true, title: (d: IndexRow) => `${d.year} ${actorName(d.actor)}: ${d.value.toFixed(1)} (band ${d.lower.toFixed(1)}–${d.upper.toFixed(1)}${d.n_components ? `, ${d.n_components} of 6 components` : ""})` }),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
       ],
     }),
     [indexRows, year],
   );
 
+  const subIndices = useMemo(() => (data.analysis.index ?? []).filter((r) => r.index_name !== "influence" && r.value !== null), [data]);
+  const subOptions = useMemo(
+    () => ({
+      height: 170,
+      marginLeft: 40,
+      x: { label: null, tickFormat: (d: number) => String(d) },
+      y: { label: "Sub-index (0–100)", domain: [0, 100], grid: true },
+      fx: { label: null, tickFormat: (d: string) => prettyLabel(d) },
+      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN] },
+      facet: { data: subIndices, x: "index_name" },
+      marks: [
+        Plot.lineY(subIndices, { x: "year", y: "value", stroke: "actor", strokeWidth: 1.8, curve: "monotone-x", tip: true, title: (d: { year: number; actor: string; value: number; n_components: number }) => `${d.year} ${actorName(d.actor)}: ${d.value.toFixed(1)} (${d.n_components} components)` }),
+        Plot.ruleX([year], { stroke: "#1b1d20", strokeDasharray: "3,2" }),
+      ],
+    }),
+    [subIndices, year],
+  );
+
+  const componentRows = useMemo(() => data.analysis.components.filter((c) => c.year === year), [data, year]);
   const components = useMemo(() => {
-    const rows = data.analysis.components.filter((c) => c.year === year);
     const long: { actor: string; component: string; value: number; weight: number }[] = [];
-    for (const r of rows) for (const c of r.components) long.push({ actor: r.actor, component: prettyLabel(c.name), value: c.normalized_value, weight: c.weight });
+    for (const r of componentRows) for (const c of r.components) if (c.normalized_value !== null && c.normalized_value !== undefined) long.push({ actor: r.actor, component: COMPONENT_LABEL[c.name] ?? prettyLabel(c.name), value: c.normalized_value, weight: c.weight });
     return long;
-  }, [data, year]);
+  }, [componentRows]);
+  const unavailable = useMemo(() => {
+    const out: { actor: string; c: ComponentValue }[] = [];
+    for (const r of componentRows) for (const c of r.components) if (c.available === false) out.push({ actor: r.actor, c });
+    return out;
+  }, [componentRows]);
   const componentOptions = useMemo(
     () => ({
-      height: 40 + 26 * (components.length / 2),
-      marginLeft: 150,
+      height: 40 + 26 * Math.max(1, new Set(components.map((c) => c.component)).size),
+      marginLeft: 170,
       x: { label: "Normalised component (0–100)", domain: [0, 100], grid: true },
       y: { label: null },
-      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => (d === "US" ? "United States" : "China") },
+      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => actorName(d) },
       marks: [
         Plot.ruleY(components, Plot.groupY({ x1: "min", x2: "max" }, { y: "component", x: "value", stroke: "#c9c7c0", strokeWidth: 2 })),
-        Plot.dot(components, { x: "value", y: "component", fill: "actor", r: 5, stroke: "#fff", strokeWidth: 1, tip: true, title: (d: { actor: string; component: string; value: number; weight: number }) => `${d.component} (${d.actor === "US" ? "United States" : "China"}): ${d.value} · weight ${d.weight}` }),
+        Plot.dot(components, { x: "value", y: "component", fill: "actor", r: 5, stroke: "#fff", strokeWidth: 1, tip: true, title: (d: { actor: string; component: string; value: number; weight: number }) => `${d.component} (${actorName(d.actor)}): ${d.value.toFixed(1)} · nominal weight ${d.weight.toFixed(2)}` }),
       ],
     }),
     [components],
   );
+  const indexThisYear = useMemo(() => (data.analysis.index ?? []).filter((r) => r.index_name === "influence" && r.year === year), [data, year]);
 
-  const sayDo = useMemo(() => data.analysis.say_do_gap, [data]);
+  const sayDo = useMemo(() => data.analysis.say_do_gap.filter((r) => r.gap !== null), [data]);
   const sayDoOptions = useMemo(
     () => ({
       height: 180,
@@ -57,7 +95,8 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
       color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN] },
       marks: [
         Plot.ruleY([0], { stroke: "#8a8f98" }),
-        Plot.lineY(sayDo, { x: "year", y: "gap", stroke: "actor", strokeWidth: 2, curve: "monotone-x", tip: true, title: (d: { year: number; actor: string; rhetoric: number; action: number; gap: number }) => `${d.year} ${d.actor}: rhetoric ${fmtSigned(d.rhetoric, 2)}, action ${fmtSigned(d.action, 2)}, gap ${fmtSigned(d.gap, 2)}` }),
+        Plot.lineY(sayDo, { x: "year", y: "gap", stroke: "actor", strokeWidth: 1.5, curve: "linear" }),
+        Plot.dot(sayDo, { x: "year", y: "gap", fill: "actor", r: 4, tip: true, title: (d: { year: number; actor: string; rhetoric: number | null; action: number | null; gap: number | null; n_docs?: number }) => `${d.year} ${actorName(d.actor)}: rhetoric ${fmtSigned(d.rhetoric ?? 0, 2)}, action ${fmtSigned(d.action ?? 0, 2)}, gap ${fmtSigned(d.gap ?? 0, 2)}${d.n_docs ? ` · ${d.n_docs} records` : ""}` }),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
       ],
     }),
@@ -65,6 +104,33 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
   );
 
   const flags = useMemo(() => [...data.analysis.flags].sort((a, b) => b.year - a.year), [data]);
+  const concentration = useMemo(() => {
+    const rows = (data.analysis.concentration ?? []).filter((c) => c.year === year && c.mineral !== "all" && c.share_cn_x !== undefined && c.share_cn_x !== null);
+    return rows.sort((a, b) => (b.exports_wld_musd ?? 0) - (a.exports_wld_musd ?? 0));
+  }, [data, year]);
+  const concentrationAll = useMemo(() => (data.analysis.concentration ?? []).find((c) => c.year === year && c.mineral === "all"), [data, year]);
+  const concLong = useMemo(() => {
+    const long: { mineral: string; partner: string; share: number }[] = [];
+    for (const r of concentration) {
+      long.push({ mineral: prettyMineral(r.mineral), partner: "US", share: r.share_us_x ?? 0 });
+      long.push({ mineral: prettyMineral(r.mineral), partner: "CN", share: r.share_cn_x ?? 0 });
+      long.push({ mineral: prettyMineral(r.mineral), partner: "ROW", share: r.share_other_x ?? 0 });
+    }
+    return long;
+  }, [concentration]);
+  const concOptions = useMemo(
+    () => ({
+      height: 40 + 24 * Math.max(1, concentration.length),
+      marginLeft: 130,
+      x: { label: "Share of the country's exports of the mineral", domain: [0, 1], tickFormat: (d: number) => fmtPct(d) },
+      y: { label: null },
+      color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, "#8a8f98"], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "rest of world" }[d] ?? d) },
+      marks: [Plot.barX(concLong, { x: "share", y: "mineral", fill: "partner", order: ["US", "CN", "ROW"], insetTop: 1, insetBottom: 1, tip: true }), Plot.ruleX([0])],
+    }),
+    [concLong, concentration.length],
+  );
+
+  const network = data.analysis.network;
   const governance = useMemo(() => {
     const rows = (data.governance ?? []).filter((g) => g.year === year);
     const byInd = new Map<string, (typeof rows)[number]>();
@@ -72,47 +138,110 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
     return Array.from(byInd.values()).sort((a, b) => a.indicator.localeCompare(b.indicator));
   }, [data, year]);
 
+  const header = (id: string, title: string) => (
+    <div className="mb-1 flex items-center justify-between gap-2">
+      <h3 id={id} className="text-sm font-semibold">{title}</h3>
+      <span className="flex items-center gap-1">{real ? <QuantStatusTag status={status} /> : <DataLayerTag layer="sample" />}<LayerLabel layer="model" /></span>
+    </div>
+  );
+
   return (
     <div className="space-y-5">
+      {real && status && (
+        <p className="rounded border border-dashed border-model/60 bg-surface-2 px-2 py-1.5 text-xs text-ink-2">
+          {status.label}. Computed from the data release {status.inputs_release} on {status.created_at?.slice(0, 10)}; nothing is imputed, a missing input leaves a component unavailable and the index rests on the rest (never fewer than three). Rank stability across the draws: {status.rank_stability !== null ? status.rank_stability.toFixed(2) : "n/a"}. Method details on the methodology page.
+        </p>
+      )}
       <section aria-labelledby="idx-h">
-        <div className="mb-1 flex items-center justify-between">
-          <h3 id="idx-h" className="text-sm font-semibold">Influence index with uncertainty</h3>
-          <LayerLabel layer="model" />
-        </div>
-        <p className="mb-2 text-xs text-ink-3">Composite indicator (OECD/JRC method). Bands show sensitivity to weighting choices once the real index is built.</p>
-        <PlotFigure options={indexOptions} ariaLabel={`Influence index of the United States and China in ${data.name} with uncertainty bands, sample data`} />
+        {header("idx-h", "Influence index with uncertainty")}
+        <p className="mb-2 text-xs text-ink-3">
+          {real
+            ? "Composite of six observable ties to each actor (trade shares, official finance, debt, UN voting agreement, legislative stance), OECD/JRC method, equal weights over the available components. The band is the 5th–95th percentile across weight and normalisation draws."
+            : "Composite indicator (OECD/JRC method). Bands show sensitivity to weighting choices once the real index is built."}
+          {indexLayer === "real" && indexRows.length === 0 ? " No index for this selection: the country did not trade the selected mineral, or fewer than three components are available." : ""}
+        </p>
+        <PlotFigure options={indexOptions} ariaLabel={`Influence index of the United States and China in ${data.name} with uncertainty bands, ${tag}`} />
         <DataTable rows={indexRows} caption="Influence index by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }, { key: "lower", label: "Lower" }, { key: "upper", label: "Upper" }]} />
+        {real && indexThisYear.length > 0 && (
+          <ul className="mt-1 text-[11px] text-ink-3">
+            {indexThisYear.map((r) => (
+              <li key={r.actor}>
+                {actorName(r.actor)}, {year}: {r.value === null ? `not computed (${r.n_components} of 6 components available, 3 needed)` : `${r.value.toFixed(1)} from ${r.n_components} components (${r.components_available.map((c) => COMPONENT_LABEL[c] ?? c).join(", ")})`}
+              </li>
+            ))}
+          </ul>
+        )}
+        {real && subIndices.length > 0 && (
+          <div className="mt-3">
+            <p className="mb-1 text-xs text-ink-3">Sub-indices: economic ties (trade shares, finance, debt) and political alignment (UN voting, legislative stance).</p>
+            <PlotFigure options={subOptions} ariaLabel={`Economic ties and political alignment sub-indices for ${data.name}, computed`} />
+          </div>
+        )}
       </section>
 
       <section aria-labelledby="drv-h">
-        <div className="mb-1 flex items-center justify-between">
-          <h3 id="drv-h" className="text-sm font-semibold">Drivers in {year}</h3>
-          <LayerLabel layer="model" />
-        </div>
-        <PlotFigure options={componentOptions} ariaLabel={`Index components for the United States and China in ${data.name} in ${year}, sample data`} />
+        {header("drv-h", `Drivers in ${year}`)}
+        {components.length > 0 ? (
+          <PlotFigure options={componentOptions} ariaLabel={`Index components for the United States and China in ${data.name} in ${year}, ${tag}`} />
+        ) : (
+          <p className="text-sm text-ink-3">No component values for {year}.</p>
+        )}
+        {unavailable.length > 0 && (
+          <details className="mt-1 text-[11px] text-ink-3">
+            <summary className="cursor-pointer">Unavailable components in {year} ({unavailable.length}) and why</summary>
+            <ul className="mt-1 list-disc pl-4">
+              {unavailable.map(({ actor, c }) => (
+                <li key={`${actor}-${c.name}`}>{COMPONENT_LABEL[c.name] ?? c.name} ({actorName(actor)}): {c.note}</li>
+              ))}
+            </ul>
+          </details>
+        )}
       </section>
 
+      {real && (
+        <section aria-labelledby="conc-h">
+          <div className="mb-1 flex items-center justify-between gap-2">
+            <h3 id="conc-h" className="text-sm font-semibold">Export concentration in {year}</h3>
+            <span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span>
+          </div>
+          <p className="mb-2 text-xs text-ink-3">
+            Shares of the country&apos;s reported exports going to the United States, China and the rest of the world (UN Comtrade, reporter&apos;s own data).
+            {concentrationAll ? ` All minerals together: ${fmtPct(concentrationAll.share_us_x ?? 0)} to the United States, ${fmtPct(concentrationAll.share_cn_x ?? 0)} to China, two-power share ${fmtPct(concentrationAll.big2_share_x ?? 0)}.` : ""}
+            {" "}A Herfindahl index over all destinations is not computed: the warehouse holds the three partner totals only.
+          </p>
+          {concentration.length > 0 ? (
+            <PlotFigure options={concOptions} ariaLabel={`Share of ${data.name}'s exports of each mineral going to the United States, China and the rest of the world in ${year}`} />
+          ) : (
+            <p className="text-sm text-ink-3">No reported exports by mineral for {year}.</p>
+          )}
+          <DataTable rows={concentration} caption="Export shares and revealed comparative advantage by mineral" columns={[{ key: "mineral", label: "Mineral", format: (v) => prettyMineral(String(v)) }, { key: "share_us_x", label: "To US", format: (v) => fmtPct(Number(v ?? 0), 1) }, { key: "share_cn_x", label: "To China", format: (v) => fmtPct(Number(v ?? 0), 1) }, { key: "exports_wld_musd", label: "Exports (M US$)" }, { key: "rca_pool", label: "RCA (12-country pool)", format: (v) => (v === null || v === undefined ? "—" : Number(v).toFixed(2)) }]} />
+        </section>
+      )}
+
       <section aria-labelledby="sd-h">
-        <div className="mb-1 flex items-center justify-between">
-          <h3 id="sd-h" className="text-sm font-semibold">Say–do gap</h3>
-          <LayerLabel layer="model" />
-        </div>
-        <p className="mb-2 text-xs text-ink-3">Positive values: rhetoric (parliament and media stance) warmer than observed flows; negative: flows outrun the rhetoric.</p>
-        <PlotFigure options={sayDoOptions} ariaLabel={`Say-do gap toward the United States and China in ${data.name}, sample data`} />
+        {header("sd-h", "Say–do gap")}
+        <p className="mb-2 text-xs text-ink-3">
+          {real
+            ? `Positive: the legislature's stance toward the actor (years with at least five scored records) is warmer than the movement of economic ties; negative: the flows outrun the words. Rhetoric is a text-model output (${data.analysis.say_do_gap[0]?.text_model_status ?? status?.text_model_label ?? "no classifier"}).`
+            : "Positive values: rhetoric (parliament and media stance) warmer than observed flows; negative: flows outrun the rhetoric."}
+        </p>
+        {sayDo.length > 0 ? (
+          <PlotFigure options={sayDoOptions} ariaLabel={`Say-do gap toward the United States and China in ${data.name}, ${tag}`} />
+        ) : (
+          <p className="text-sm text-ink-3">{real ? "No year with at least five scored legislative records and a measurable change in economic ties." : "No say–do values."}</p>
+        )}
       </section>
 
       <section aria-labelledby="flag-h">
-        <div className="mb-1 flex items-center justify-between">
-          <h3 id="flag-h" className="text-sm font-semibold">Flagged under-reported or indirect activity</h3>
-          <LayerLabel layer="model" />
-        </div>
-        <p className="mb-2 text-xs text-ink-3">Flags are never presented as established facts. Each carries an evidence level and the evidence behind it.</p>
+        {header("flag-h", "Flagged movements and under-reported activity")}
+        <p className="mb-2 text-xs text-ink-3">Flags are never presented as established facts. Each carries an evidence level and the sources behind it{real ? "; rules and thresholds are on the methodology page" : ""}.</p>
+        {flags.length === 0 && <p className="text-sm text-ink-3">No flags for this country.</p>}
         <ul className="divide-y divide-rule border-y border-rule">
           {flags.map((f) => (
             <li key={f.id} className="py-2.5 text-sm">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs tabular-nums text-ink-3">{f.year}</span>
-                <span className="text-xs font-medium text-ink-2">{prettyLabel(f.type)}</span>
+                <span className="text-xs font-medium text-ink-2">{prettyLabel(f.type)}{f.actor ? ` · ${actorName(f.actor)}` : ""}</span>
                 <EvidenceBadge level={f.evidence_level} />
               </div>
               <p className="mt-0.5 text-ink-2">{f.description}</p>
@@ -126,13 +255,41 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
         </ul>
       </section>
 
+      {real && network && (
+        <section aria-labelledby="net-h">
+          {header("net-h", "Finance network: lenders and recipients")}
+          <p className="mb-2 text-xs text-ink-3">
+            Funding institutions and the receiving agencies named in the finance records, ranked by the amounts committed between them; centralities are computed on the twelve-country graph. {network.n_nodes_total} nodes and {network.n_edges_total} links involve this country; {network.unattributed_events} events name no recipient and are left out. Contracts carry no company names yet, so ownership links are not part of this graph.
+          </p>
+          {network.nodes.length === 0 ? (
+            <p className="text-sm text-ink-3">No finance records with a named recipient.</p>
+          ) : (
+            <table className="w-full text-xs">
+              <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Node</th><th className="py-1">Role</th><th className="py-1 text-right">Links</th><th className="py-1 pr-2 text-right">M US$</th><th className="py-1 text-right">Betweenness</th><th className="py-1 text-right">Community</th></tr></thead>
+              <tbody>
+                {network.nodes.map((n) => (
+                  <tr key={n.id} className="border-t border-rule align-top">
+                    <td className="py-1">{n.label}</td>
+                    <td className="py-1 text-ink-3">{n.type === "lender" ? `lender (${n.origin ?? "?"})` : "recipient"}</td>
+                    <td className="py-1 text-right tabular-nums">{n.degree}</td>
+                    <td className="py-1 pr-2 text-right tabular-nums">{n.weighted_degree_musd.toLocaleString("en-GB", { maximumFractionDigits: 0 })}</td>
+                    <td className="py-1 text-right tabular-nums">{n.betweenness.toFixed(3)}</td>
+                    <td className="py-1 text-right tabular-nums">{n.community}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </section>
+      )}
+
       {governance.length > 0 && (
         <section aria-labelledby="gov-h">
           <div className="mb-1 flex items-center justify-between gap-2">
             <h3 id="gov-h" className="text-sm font-semibold">Governance and alignment indicators, {year}</h3>
             <span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span>
           </div>
-          <p className="mb-1 text-xs text-ink-3">Inputs to the influence index: governance (World Bank WGI, V-Dem), executive ideology (IDB DPI), UN General Assembly alignment with the US and China, macro context.</p>
+          <p className="mb-1 text-xs text-ink-3">Inputs to the influence index and context: governance (World Bank WGI, V-Dem), UN General Assembly alignment with the US and China, debt by creditor, macro context.</p>
           <table className="w-full text-xs">
             <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 pr-4 text-right">Value</th><th className="py-1">Source</th></tr></thead>
             <tbody>
@@ -154,7 +311,7 @@ export function AnalysisTab({ data, year, indexRows }: { data: CountryData; year
           <LayerLabel layer="interpretation" />
         </div>
         <div className="rounded border border-dotted border-interp/60 bg-surface-2 p-3 text-sm text-ink-2">
-          <p>Written country analysis (alignment, trajectory, risks, likely next moves by each actor, and the indicators each statement rests on) is produced in Phase 6. In Phase 1 this block is a placeholder so the three layers are visually separate from the start.</p>
+          <p>Written country analysis (alignment, trajectory, risks, likely next moves by each actor, and the indicators each statement rests on) is produced in Phase 6. Until then this block is a placeholder so the three layers stay visually separate.</p>
           <p className="mt-2 text-xs text-ink-3">Context note from the registry: {data.note}</p>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import type { ValidationFile, CountryCoverage, CountryData, IndexFile, IndexRow, Meta, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
+import type { ValidationFile, CountryCoverage, CountryData, IndexFile, IndexRow, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -10,8 +10,27 @@ async function getJSON<T>(path: string): Promise<T> {
 }
 
 export const loadMeta = () => getJSON<Meta>(`${BASE}/meta.json`);
-export const loadIndex = () => getJSON<IndexFile>(`${BASE}/index.json`);
 export const loadRegion = () => getJSON<RegionData>(`${BASE}/region.json`);
+
+/** The seeded sample index, tagged as such. */
+export const loadSampleIndex = async (): Promise<IndexFile> => ({ ...(await getJSON<IndexFile>(`${BASE}/index.json`)), layer: "sample" });
+
+/**
+ * The influence index: the computed one (web/public/data/real/index.json, Phase 4) once the real metadata says the
+ * analysis layer is real and the file carries rows, otherwise the sample index. `layer` says which one came back.
+ */
+export async function loadIndex(): Promise<IndexFile> {
+  const realMeta = await loadRealMeta();
+  if (realMeta?.layers?.analysis === "real") {
+    try {
+      const real = await getJSON<IndexFile>(`${REAL}/index.json`);
+      if (real.rows.length > 0) return { ...real, layer: "real" };
+    } catch {
+      // fall through to the sample index
+    }
+  }
+  return loadSampleIndex();
+}
 
 /** Real-data metadata, or null when no ingestion has run yet (file absent). */
 export async function loadRealMeta(): Promise<RealMeta | null> {
@@ -47,7 +66,8 @@ export async function loadCountry(iso3: string): Promise<CountryData> {
  * Pure merge of the real layers into the sample country file. Actions and governance are replaced
  * wholesale. For parliament and media the record lists are replaced; when the real file also carries
  * the model-output series (stance series, volume, narratives: Phase 3) they replace the sample series
- * and the layer is "real", otherwise the series stay sample and the layer is "facts_only".
+ * and the layer is "real", otherwise the series stay sample and the layer is "facts_only". When the real
+ * file carries an `analysis` block (Phase 4) it replaces the sample analysis and the layer is "real".
  */
 export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | undefined, real: RealCountryData | null, parliament: RealParliamentFile | null, media: RealMediaFile | null): CountryData {
   sample.layers = { actions: "sample", governance: "none", parliament: "sample", media: "sample", analysis: "sample", forecast: "sample" };
@@ -80,6 +100,12 @@ export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | unde
       sample.text_model = sample.text_model ?? media.text_model ?? null;
       sample.media_volume_basis = media.volume_basis;
     }
+  }
+  if (real?.analysis) {
+    const a = real.analysis;
+    sample.analysis = { components: a.components, say_do_gap: a.say_do_gap, flags: a.flags, key_events: [], index: a.index, concentration: a.concentration, network: a.network, quant_model: a.quant_model };
+    if (real.freshness.analysis) sample.freshness = { ...sample.freshness, analysis: real.freshness.analysis };
+    sample.layers.analysis = "real";
   }
   sample.parliament_note = cov.parliament_note ?? null;
   return sample;
@@ -122,6 +148,15 @@ export function mapValue(lookup: IndexLookup, iso3: string, year: number, mode: 
   }
   const r = lookup.get(indexKey(iso3, year, mode, mineral));
   return r ? r.value : null;
+}
+
+/** Phase 4 method summary for the methodology page (absent until the quant step has run). */
+export async function loadQuant(): Promise<QuantFile | null> {
+  try {
+    return await getJSON<QuantFile>(`${REAL}/quant.json`);
+  } catch {
+    return null;
+  }
 }
 
 /** Validation metrics for the methodology page (absent until the text workflow has run). */

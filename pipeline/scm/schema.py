@@ -10,6 +10,8 @@ import pandas as pd
 import pandera.pandas as pa
 from pandera.pandas import Check, Column, DataFrameSchema
 
+from .registry import IN_SCOPE
+
 RELIABILITY = ["official", "independent_academic", "partisan", "state_media", "analysis"]
 CONFIDENCE = ["documented", "strongly_indicated", "speculative"]
 VALUE_TYPE = ["reported", "mirror", "estimated"]
@@ -409,14 +411,150 @@ validation_metric = DataFrameSchema(
     coerce=True, strict=True, name="validation_metric",
 )
 
+# ---- Phase 4 model outputs (docs/PHASE0_PLAN.md section 4.4): computed from the fact tables by `scm analyse`, replaced
+# wholesale on every run. Every row names the method version, the run and the data release it was computed from.
+QUANT_STAMP = {
+    "method_version": Column(str),
+    "run_id": Column(str),
+    "inputs_release": Column(str),
+}
+ACTORS = ["US", "CN"]
+INDEX_NAMES = ["influence", "economic_ties", "political_alignment"]
+
+concentration = DataFrameSchema(
+    {
+        "country": Column(str, Check.isin(IN_SCOPE)),
+        "mineral": Column(str),  # a mineral id or "all"
+        "year": Column(int),
+        "metric": Column(str),
+        "value": Column(float, nullable=True),  # null = not computable (the note says why)
+        "note": Column(str, nullable=True),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="concentration",
+)
+
+index_value = DataFrameSchema(
+    {
+        "country": Column(str, Check.isin(IN_SCOPE)),
+        "year": Column(int),
+        "actor": Column(str, Check.isin(ACTORS)),
+        "mineral": Column(str),
+        "index_name": Column(str, Check.isin(INDEX_NAMES)),
+        "value": Column(float, Check.in_range(0, 100), nullable=True),
+        "lower": Column(float, Check.in_range(0, 100), nullable=True),  # 5th percentile over the sensitivity draws
+        "upper": Column(float, Check.in_range(0, 100), nullable=True),  # 95th percentile
+        "n_components": Column(int),
+        "components_available": Column(str),  # comma-separated component names behind the value
+        "weights_version": Column(str),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="index_value",
+)
+
+index_component = DataFrameSchema(
+    {
+        "country": Column(str, Check.isin(IN_SCOPE)),
+        "year": Column(int),
+        "actor": Column(str, Check.isin(ACTORS)),
+        "mineral": Column(str),
+        "component": Column(str),
+        "raw_value": Column(float, nullable=True),
+        "normalized_value": Column(float, Check.in_range(0, 100), nullable=True),
+        "weight": Column(float, Check.in_range(0, 1)),
+        "available": Column(bool),
+        "source_ids": Column(str),  # comma-separated
+        "note": Column(str, nullable=True),  # why a component is unavailable
+        "weights_version": Column(str),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="index_component",
+)
+
+say_do_gap = DataFrameSchema(
+    {
+        "country": Column(str, Check.isin(IN_SCOPE)),
+        "year": Column(int),
+        "actor": Column(str, Check.isin(ACTORS)),
+        "rhetoric": Column(float, nullable=True),  # standardised mean legislative stance toward the actor
+        "action": Column(float, nullable=True),  # standardised year-on-year change of the economic-ties sub-index
+        "gap": Column(float, nullable=True),  # rhetoric minus action
+        "n_docs": Column(int),
+        "evidence_doc_ids": Column(str),  # '|'-separated doc_ids behind the rhetoric value
+        "text_model_status": Column(str),  # the classifier's status label at computation time
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="say_do_gap",
+)
+
+anomaly_flag = DataFrameSchema(
+    {
+        "flag_id": Column(str, unique=True),
+        "country": Column(str, Check.isin(IN_SCOPE)),
+        "year": Column(int),
+        "actor": Column(str, Check.isin(ACTORS), nullable=True),
+        "type": Column(str),
+        "evidence_level": Column(str, Check.isin(CONFIDENCE)),
+        "description": Column(str),
+        "evidence_source_ids": Column(str),  # comma-separated registry source ids
+        "score": Column(float, nullable=True),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="anomaly_flag",
+)
+
+network_metric = DataFrameSchema(
+    {
+        "node_id": Column(str),
+        "node_type": Column(str, Check.isin(["lender", "recipient"])),
+        "label": Column(str),
+        "origin": Column(str, nullable=True),  # US / CN for lenders
+        "country": Column(str, nullable=True),  # recipient's country
+        "degree": Column(int),
+        "weighted_degree": Column(float),  # summed amounts over the node's edges, USD
+        "betweenness": Column(float),
+        "eigenvector": Column(float, nullable=True),
+        "community": Column(int),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="network_metric",
+)
+
+network_edge = DataFrameSchema(
+    {
+        "source_node": Column(str),
+        "target_node": Column(str),
+        "country": Column(str, Check.isin(IN_SCOPE)),
+        "weight_usd": Column(float),
+        "n_events": Column(int),
+        "source_ids": Column(str),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="network_edge",
+)
+
+quant_run = DataFrameSchema(
+    {
+        "created_at": Column(str),
+        "weights_version": Column(str),
+        "draws": Column(int),
+        "rank_stability": Column(float, nullable=True),  # mean Spearman correlation of the perturbed rankings with the baseline
+        "notes": Column(str, nullable=True),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="quant_run",
+)
+
 SCHEMAS: dict[str, DataFrameSchema] = {
     s.name: s for s in [trade_flow, finance_event, deal_event, production, price, governance, contract, policy_document,
                         document, vote, vote_member, concession, media_volume, ingest_run,
                         doc_translation, doc_classification, doc_embedding, topic_model_run, topic, doc_topic,
-                        validation_sample, validation_metric]
+                        validation_sample, validation_metric,
+                        concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, quant_run]
 }
 MODEL_OUTPUT_TABLES = ["doc_translation", "doc_classification", "doc_embedding", "topic_model_run", "topic", "doc_topic",
                        "validation_sample", "validation_metric"]
+QUANT_TABLES = ["concentration", "index_value", "index_component", "say_do_gap", "anomaly_flag", "network_metric", "network_edge", "quant_run"]
 
 # Merge keys for tables that accumulate across runs (Adapter.incremental): rows with the same key
 # are kept once, the first-seen row winning so `retrieved_at` records the first observation.
@@ -435,6 +573,15 @@ KEY_COLUMNS: dict[str, list[str]] = {
     "doc_topic": ["doc_id", "run_id"],
     "validation_sample": ["doc_id", "coder", "round"],
     "validation_metric": ["run_id", "method", "target", "class", "metric", "split"],
+    # Phase 4 quant outputs (replaced wholesale per run; keys document the grain)
+    "concentration": ["country", "mineral", "year", "metric"],
+    "index_value": ["country", "year", "actor", "mineral", "index_name"],
+    "index_component": ["country", "year", "actor", "mineral", "component"],
+    "say_do_gap": ["country", "year", "actor"],
+    "anomaly_flag": ["flag_id"],
+    "network_metric": ["run_id", "node_id"],
+    "network_edge": ["run_id", "source_node", "target_node"],
+    "quant_run": ["run_id"],
 }
 
 
@@ -447,4 +594,4 @@ def validate(table: str, df: pd.DataFrame) -> pd.DataFrame:
     return schema.validate(df, lazy=True)
 
 
-__all__ = ["SCHEMAS", "KEY_COLUMNS", "MODEL_OUTPUT_TABLES", "validate", "pa"]
+__all__ = ["SCHEMAS", "KEY_COLUMNS", "MODEL_OUTPUT_TABLES", "QUANT_TABLES", "validate", "pa"]

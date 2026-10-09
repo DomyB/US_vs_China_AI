@@ -98,6 +98,7 @@ jobs:
           python -m scm validation metrics --round "${{ inputs.round || 'v1' }}" --codebook-version "${{ inputs.codebook_version || 'v1' }}"
       - name: Build warehouse and export site data
         run: |
+          python -m scm analyse
           python -m scm build
           python -m scm export
       - name: Tests

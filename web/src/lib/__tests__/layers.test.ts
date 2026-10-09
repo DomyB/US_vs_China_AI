@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { mergeRealLayers } from "@/lib/data";
-import type { CountryCoverage, CountryData, RealMediaFile, RealParliamentFile } from "@/lib/types";
+import type { CountryCoverage, CountryData, RealCountryData, RealMediaFile, RealParliamentFile } from "@/lib/types";
 
 const sample = () =>
   ({
@@ -56,6 +56,31 @@ describe("mergeRealLayers", () => {
     expect(out.layers?.parliament).toBe("real");
     expect(out.layers?.media).toBe("facts_only");
     expect(out.media.narratives[0].label).toBe("x");
+  });
+  it("replaces the analysis block and marks the layer real when the real country file carries one", () => {
+    const quant = { status: "computed", method_version: "2026.10", weights_version: "2026.10.eq", run_id: "q", inputs_release: "data-v1", created_at: "2026-10-09T00:00:00+00:00", draws: 500, rank_stability: 0.7, text_model_label: "zero-shot baseline, not yet validated", last_year: {}, unattributed_finance_events: 1, label: "computed" } as const;
+    const real = {
+      dataset: "REAL", iso3: "BRA", name: "Brazil", generated_on: "2026-10-09",
+      freshness: { actions: { last_updated: "2026-10-09", source_ids: ["un_comtrade"], schedule: "monthly" }, governance: { last_updated: "2026-10-09", source_ids: [], schedule: "annual" }, analysis: { last_updated: "2026-10-09", source_ids: ["un_comtrade", "aiddata_gcdf"], schedule: "monthly" } },
+      actions: { events: [], trade: [], contracts: [], production: [] }, governance: [], trade_discrepancies: [],
+      analysis: { index: [{ year: 2023, actor: "CN", index_name: "influence", value: 32.3, lower: 26.2, upper: 54.4, n_components: 5, components_available: ["trade_export_share"] }], components: [{ year: 2023, actor: "CN", components: [{ name: "trade_export_share", normalized_value: 50, weight: 0.1667, available: true, note: null, source_ids: ["un_comtrade"] }] }], say_do_gap: [], flags: [], concentration: [], network: { nodes: [], edges: [], n_nodes_total: 0, n_edges_total: 0, unattributed_events: 0 }, quant_model: quant },
+    } as unknown as RealCountryData;
+    const s = sample();
+    s.analysis = { components: [{ year: 2023, actor: "US", components: [] }], say_do_gap: [], flags: [{ id: "f" }], key_events: [] } as unknown as CountryData["analysis"];
+    const out = mergeRealLayers(s, { ...cov, actions: true }, real, null, null);
+    expect(out.layers?.analysis).toBe("real");
+    expect(out.analysis.index?.[0].value).toBe(32.3);
+    expect(out.analysis.flags).toEqual([]);
+    expect(out.analysis.quant_model?.status).toBe("computed");
+    expect(out.freshness.analysis?.source_ids).toEqual(["un_comtrade", "aiddata_gcdf"]);
+  });
+  it("keeps the analysis sample when the real country file has no analysis block", () => {
+    const real = { dataset: "REAL", freshness: { actions: { last_updated: "x", source_ids: [], schedule: "m" } }, actions: { events: [], trade: [], contracts: [], production: [] }, governance: [], trade_discrepancies: [] } as unknown as RealCountryData;
+    const s = sample();
+    s.analysis = { components: [], say_do_gap: [], flags: [{ id: "f" }], key_events: [] } as unknown as CountryData["analysis"];
+    const out = mergeRealLayers(s, { ...cov, actions: true }, real, null, null);
+    expect(out.layers?.analysis).toBe("sample");
+    expect(out.analysis.flags[0].id).toBe("f");
   });
   it("returns the sample untouched without coverage", () => {
     const out = mergeRealLayers(sample(), undefined, null, null, null);

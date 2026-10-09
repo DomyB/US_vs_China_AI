@@ -1,6 +1,7 @@
 """Command line: python -m scm run <source_id|all|tier1|legislature|press|national|annual|monthly> [--fetch-only|--parse-only]
                  python -m scm build | export | liveness [ids...] | fixtures | stats [--write f] [--not-below f]
-                 python -m scm classify [--steps translate,classify,embed,topics] [--limit N] [--force] [--codebook-version v1]"""
+                 python -m scm classify [--steps translate,classify,embed,topics] [--limit N] [--force] [--codebook-version v1]
+                 python -m scm analyse [--draws 500] [--seed 20261009]   (Phase 4 quant tables from the warehouse)"""
 from __future__ import annotations
 
 import argparse
@@ -64,7 +65,7 @@ def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="scm")
     sub = p.add_subparsers(dest="cmd", required=True)
     r = sub.add_parser("run", help="run adapters")
-    r.add_argument("targets", nargs="+", help="source ids, or all / tier1 / tier2 / legislature / press / national / annual / monthly")
+    r.add_argument("targets", nargs="+", help="source ids, or all / tier1 / tier2 / legislature / press / national / annual / monthly; `none` runs nothing (rebuild and re-export only)")
     r.add_argument("--fetch-only", action="store_true")
     r.add_argument("--parse-only", action="store_true")
     r.add_argument("--fail-fast", action="store_true")
@@ -92,13 +93,19 @@ def main(argv: list[str] | None = None) -> int:
     tr = sub.add_parser("train", help="fit the stance head on the adjudicated sample and label every document (method trained)")
     tr.add_argument("--round", default="v1")
     tr.add_argument("--codebook-version", default="v1")
+    an = sub.add_parser("analyse", help="Phase 4: concentration, influence index with sensitivity band, say-do gap, anomaly flags, finance network")
+    an.add_argument("--draws", type=int, default=500, help="weight draws for the sensitivity band")
+    an.add_argument("--seed", type=int, default=20261009)
+    an.add_argument("--release", default=None, help="data release tag the warehouse was restored from (default: RESTORED_TAG or local)")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
 
     if args.cmd == "run":
         ids: list[str] = []
         for t in args.targets:
-            if t == "all":
+            if t == "none":
+                continue
+            elif t == "all":
                 ids += list(ADAPTERS)
             elif t in GROUPS:
                 ids += [a.source_id for a in GROUPS[t]]
@@ -128,6 +135,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1 if failed else 0
     if args.cmd == "build":
         print(warehouse.build())
+        return 0
+    if args.cmd == "analyse":
+        from .quant.run import run as analyse
+
+        print(json.dumps(analyse(draws=args.draws, seed=args.seed, release=args.release), indent=1, default=str))
         return 0
     if args.cmd == "classify":
         from .text.pipeline import run_steps

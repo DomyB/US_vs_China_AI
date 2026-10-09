@@ -145,7 +145,7 @@ export function RegionView() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-3">
       <h1 className="text-2xl font-semibold leading-tight">Regional overview</h1>
-      <p className="mb-3 max-w-3xl text-sm text-ink-2">Rankings, comparisons over time, mineral-by-mineral shares and the map of major projects. <LayerLabel layer="model" /></p>
+      <p className="mb-3 max-w-3xl text-sm text-ink-2">Rankings, comparisons over time, mineral-by-mineral shares and the map of major projects. <LayerLabel layer="model" />{index?.layer === "real" ? <DataLayerTag layer="real" /> : <DataLayerTag layer="sample" />}</p>
 
       <div className="mb-4 rounded-md border border-rule bg-surface p-3">
         <YearControl year={year} onChange={setYear} playing={playing} onTogglePlay={togglePlay} />
@@ -154,8 +154,8 @@ export function RegionView() {
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="rounded-md border border-rule bg-surface p-3" aria-labelledby="rk-h">
           <h2 id="rk-h" className="mb-1 text-base font-semibold">Ranking in {year}</h2>
-          <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US. Click a name in the table for the country page.</p>
-          <PlotFigure options={rankingOptions} ariaLabel={`Ranking of countries by net lean of the influence index in ${year}, sample data`} />
+          <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a name in the table for the country page.</p>
+          <PlotFigure options={rankingOptions} ariaLabel={`Ranking of countries by net lean of the influence index in ${year}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           <table className="mt-2 w-full text-xs">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US</th><th className="py-1 text-right">China</th><th className="py-1 text-right">Net</th></tr>
@@ -176,7 +176,7 @@ export function RegionView() {
         <section className="rounded-md border border-rule bg-surface p-3" aria-labelledby="mm-h">
           <h2 id="mm-h" className="mb-1 text-base font-semibold">Comparison over time</h2>
           <p className="mb-2 text-xs text-ink-3">Small multiples, one per country (ISO codes), same axes, 2008–2026 left to right. Dotted line: selected year.</p>
-          <PlotFigure options={multiplesOptions} ariaLabel="Influence index over time for each of the twelve countries, small multiples, sample data" />
+          <PlotFigure options={multiplesOptions} ariaLabel={`Influence index over time for each of the twelve countries, small multiples, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           <DataTable rows={multiples} caption="Influence index by country, year and actor" columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }]} />
         </section>
 

@@ -3,8 +3,11 @@
 Facts (actions, trade, contracts, governance, prices, policy, legislative records, headlines) and, from
 Phase 3, the text-model outputs (machine translations, stance, tone, narratives) are exported side by side
 but labelled apart: every model value carries the method, model name and codebook version, and `text_model`
-says whether the classifier is a zero-shot baseline or validated against the hand-coded sample. A coverage
-file tells the UI which countries and tables have real data so it can fall back to sample per layer.
+says whether the classifier is a zero-shot baseline or validated against the hand-coded sample. From Phase 4
+the quant outputs (influence index with its sensitivity band, concentration, say–do gap, flags, finance network)
+go into each country file's `analysis` block, `index.json` and `quant.json`, stamped with `quant_model` (method
+and weights version, data release, draws). A coverage file tells the UI which countries and tables have real
+data so it can fall back to sample per layer.
 """
 from __future__ import annotations
 
@@ -16,7 +19,10 @@ import duckdb
 import pandas as pd
 
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
+from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
 from .registry import COUNTRIES, IN_SCOPE, core_minerals, sources
+from .schema import SCHEMAS
+from .text.store import pick_classifications
 
 ORIGIN_TO_SIDE = {"US": "US", "CN": "CN", "other": "other", "unknown": "other"}
 MAX_ARTICLES = 4000  # most recent headlines per country kept in the site file
@@ -32,49 +38,7 @@ NO_STRUCTURED_LEGISLATURE = {
 ARTICLE_KEYS = {"id", "date", "date_precision", "outlet", "outlet_source_id", "orientation", "reliability", "headline_original", "language", "headline_en",
                 "url", "stance_us", "stance_cn", "tone", "classification", "classifier", "translation", "topic_minerals", "mentions", "via",
                 "also_reported_by", "source"}
-METHOD_PRIORITY = ["trained", "zero_shot"]  # a trained head is used only once it is validated and beats the baseline (see _pick_classifications)
-
-
-def _pick_classifications(cls_rows: list[dict], metrics: list[dict], n_total: int) -> tuple[dict[str, dict], dict]:
-    """Choose one classification row per document and describe the classifier for the UI.
-
-    Method: `trained` when validation metrics show it beating the zero-shot baseline on the held-out split
-    (macro F1 of the pooled stance), else `zero_shot`. Within a method the latest codebook version wins, then the
-    latest row. The status block reports whether any agreement statistics exist (validated) and the headline numbers."""
-    def metric(method: str, target: str, cls: str, name: str, split: str) -> float | None:
-        for m in metrics:
-            if (m["method"], m["target"], m["class"], m["metric"], m["split"]) == (method, target, cls, name, split):
-                return m["value"]
-        return None
-
-    f1_trained = metric("trained", "stance_pooled", "macro", "f1", "held_out")
-    f1_zero = metric("zero_shot", "stance_pooled", "macro", "f1", "held_out")
-    beats = f1_trained is not None and (f1_zero is None or f1_trained >= f1_zero)
-    method = "trained" if beats and any(r["method"] == "trained" for r in cls_rows) else "zero_shot"
-    chosen: dict[str, dict] = {}
-    for r in sorted((r for r in cls_rows if r["method"] == method), key=lambda r: (r["codebook_version"], r["created_at"])):
-        chosen[r["doc_id"]] = r  # later (newer) rows overwrite
-    agreement = [m for m in metrics if m["method"] == "agreement"]
-    kappa = metric("agreement", "stance_pooled", "all", "kappa_quadratic", "all")
-    alpha = metric("agreement", "stance_pooled", "all", "alpha_ordinal", "all")
-    n_coded = next((int(m["n"]) for m in agreement if m["target"] == "stance_pooled"), 0) if agreement else 0
-    any_row = next(iter(chosen.values()), None)
-    status = {
-        "method": method if any_row else None,
-        "model": any_row["model"] if any_row else None,
-        "codebook_version": any_row["codebook_version"] if any_row else None,
-        "run_id": any_row["run_id"] if any_row else None,
-        "validated": bool(agreement),
-        "kappa_stance_pooled": kappa, "alpha_stance_pooled": alpha,
-        "macro_f1_held_out": f1_trained if method == "trained" else f1_zero,
-        "beats_baseline": beats if f1_trained is not None else None,
-        "n_coded": n_coded, "n_total": n_total, "n_classified": len(chosen),
-        "label": None,
-    }
-    if any_row:
-        status["label"] = (f"validated against {n_coded} hand-coded documents (κ={kappa:.2f})" if agreement and kappa is not None
-                           else "zero-shot baseline, not yet validated" if method == "zero_shot" else "trained, not yet validated")
-    return chosen, status
+METHOD_PRIORITY = ["trained", "zero_shot"]  # a trained head is used only once it is validated and beats the baseline (see text.store.pick_classifications)
 
 
 def _translations(tr_rows: list[dict]) -> dict[tuple[str, str], dict]:
@@ -112,6 +76,123 @@ def _validation_file(metrics: list[dict], sample_rows: list[dict], status: dict,
             "sample": {"n": by_coder.get("adjudicated", by_coder.get("template", 0)), "by_coder": by_coder},
             "agreement": agreement, "models": models, "selected_method": status.get("method"), "beats_baseline": status.get("beats_baseline"),
             "text_model": status}
+
+
+NETWORK_TOP = 12  # nodes shown per country
+
+
+def _round(v, digits: int):
+    return None if v is None else round(float(v), digits)
+
+
+def _quant_status(qrun: list[dict], idx_rows: list[dict], text_status: dict) -> dict:
+    """How the Phase 4 outputs stand: computed (method and weights version, draws, rank stability, data release) or not yet."""
+    r = qrun[0] if qrun else None
+    computed = bool(idx_rows) and r is not None
+    notes = {}
+    if r and r.get("notes"):
+        try:
+            notes = json.loads(r["notes"])
+        except ValueError:
+            notes = {}
+    status = {"status": "computed" if computed else "not_yet_computed", "method_version": r["method_version"] if r else None,
+              "weights_version": r["weights_version"] if r else None, "run_id": r["run_id"] if r else None, "inputs_release": r["inputs_release"] if r else None,
+              "created_at": r["created_at"] if r else None, "draws": int(r["draws"]) if r else None, "rank_stability": r["rank_stability"] if r else None,
+              "text_model_label": text_status.get("label"), "last_year": notes.get("last_year", {}), "unattributed_finance_events": notes.get("unattributed_finance_events"),
+              "label": None}
+    if computed:
+        status["label"] = f"Computed from sourced data · method {r['method_version']} · band: 5th–95th percentile of {int(r['draws'])} weight and normalisation draws"
+    return status
+
+
+def _analysis_block(iso: str, idx_rows: list[dict], comp_rows: list[dict], sd_rows: list[dict], flag_rows: list[dict], conc_rows: list[dict],
+                    node_rows: list[dict], edge_rows: list[dict], unattributed: int, status: dict) -> dict | None:
+    reg = sources()
+    # the country file carries the "all minerals" index with its sub-indices and drivers; per-mineral composites live in index.json
+    index = [{"year": int(r["year"]), "actor": r["actor"], "index_name": r["index_name"], "value": r["value"], "lower": r["lower"], "upper": r["upper"],
+              "n_components": int(r["n_components"]), "components_available": [c for c in str(r["components_available"]).split(",") if c]}
+             for r in idx_rows if r["country"] == iso and r["mineral"] == "all"]
+    comp_by: dict[tuple[int, str], list[dict]] = {}
+    for r in comp_rows:
+        if r["country"] != iso or r["mineral"] != "all":
+            continue
+        comp_by.setdefault((int(r["year"]), r["actor"]), []).append({
+            "name": r["component"], "raw_value": _round(r["raw_value"], 6), "normalized_value": _round(r["normalized_value"], 2), "weight": _round(r["weight"], 4),
+            "available": bool(r["available"]), "note": r["note"], "source_ids": [x for x in str(r["source_ids"] or "").split(",") if x]})
+    components = [{"year": k[0], "actor": k[1], "components": v} for k, v in sorted(comp_by.items())]
+    say_do = [{"year": int(r["year"]), "actor": r["actor"], "rhetoric": r["rhetoric"], "action": r["action"], "gap": r["gap"], "n_docs": int(r["n_docs"]),
+               "text_model_status": r["text_model_status"], "evidence_doc_ids": [x for x in str(r["evidence_doc_ids"] or "").split("|") if x]}
+              for r in sd_rows if r["country"] == iso]
+    flags = [{"id": r["flag_id"], "year": int(r["year"]), "actor": r["actor"], "type": r["type"], "evidence_level": r["evidence_level"], "description": r["description"],
+              "score": r["score"], "evidence": [_src(sid) for sid in str(r["evidence_source_ids"] or "").split(",") if sid in reg]}
+             for r in flag_rows if r["country"] == iso]
+    conc_by: dict[tuple[int, str], dict] = {}
+    for r in conc_rows:
+        if r["country"] != iso:
+            continue
+        c = conc_by.setdefault((int(r["year"]), r["mineral"]), {"year": int(r["year"]), "mineral": r["mineral"]})
+        m = r["metric"]
+        if m in ("exports_wld_usd", "imports_wld_usd"):
+            c[m.replace("_usd", "_musd")] = round(float(r["value"]) / 1e6, 3) if r["value"] is not None else None
+        elif m == "hhi_export_dest":
+            c["hhi_export_dest"] = r["value"]
+            c["hhi_note"] = r["note"]
+        else:
+            c[m] = r["value"]
+    concentration = [conc_by[k] for k in sorted(conc_by)]
+    edges = [e for e in edge_rows if e["country"] == iso]
+    node_ids = {e["source_node"] for e in edges} | {e["target_node"] for e in edges}
+    nodes = sorted((n for n in node_rows if n["node_id"] in node_ids), key=lambda n: -float(n["weighted_degree"]))[:NETWORK_TOP]
+    keep = {n["node_id"] for n in nodes}
+    network = {
+        "nodes": [{"id": n["node_id"], "label": n["label"], "type": n["node_type"], "origin": n["origin"], "country": n["country"], "degree": int(n["degree"]),
+                   "weighted_degree_musd": round(float(n["weighted_degree"]) / 1e6, 2), "betweenness": n["betweenness"], "eigenvector": n["eigenvector"], "community": int(n["community"])} for n in nodes],
+        "edges": [{"source": e["source_node"], "target": e["target_node"], "weight_musd": round(float(e["weight_usd"]) / 1e6, 2), "n_events": int(e["n_events"]),
+                   "source_ids": [x for x in str(e["source_ids"] or "").split(",") if x]} for e in edges if e["source_node"] in keep and e["target_node"] in keep],
+        "n_nodes_total": len(node_ids), "n_edges_total": len(edges), "unattributed_events": unattributed,
+    }
+    if not (index or concentration or flags or edges):
+        return None
+    return {"index": index, "components": components, "say_do_gap": say_do, "flags": flags, "concentration": concentration, "network": network, "quant_model": status}
+
+
+def _quant_file(status: dict, idx_rows: list[dict], comp_rows: list[dict], sd_rows: list[dict], flag_rows: list[dict], conc_rows: list[dict],
+                node_rows: list[dict], edge_rows: list[dict], today: str) -> dict:
+    """What the methodology page shows about the Phase 4 methods: components and their availability, the index
+    coverage, the sensitivity settings, flag counts by type and level, the network size."""
+    comps = []
+    for name, group, definition, ids in COMPONENTS:
+        avail: dict[str, dict] = {}
+        for actor in ("US", "CN"):
+            rows = [r for r in comp_rows if r["component"] == name and r["actor"] == actor and r["mineral"] == "all"]
+            ok = [r for r in rows if r["available"]]
+            years = sorted({int(r["year"]) for r in ok})
+            avail[actor] = {"rows": len(rows), "available": len(ok), "years": [years[0], years[-1]] if years else None,
+                            "countries": sorted({r["country"] for r in ok})}
+        src_ids = sorted({x for r in comp_rows if r["component"] == name for x in str(r["source_ids"] or "").split(",") if x}) or ids
+        comps.append({"name": name, "group": group, "definition": definition, "source_ids": src_ids, "availability": avail})
+    influence = [r for r in idx_rows if r["index_name"] == "influence" and r["mineral"] == "all"]
+    with_value = [r for r in influence if r["value"] is not None]
+    years = sorted({int(r["year"]) for r in with_value})
+    flags_by: dict[str, dict[str, int]] = {}
+    for r in flag_rows:
+        flags_by.setdefault(r["type"], {})
+        flags_by[r["type"]][r["evidence_level"]] = flags_by[r["type"]].get(r["evidence_level"], 0) + 1
+    lenders = sorted((n for n in node_rows if n["node_type"] == "lender"), key=lambda n: -float(n["weighted_degree"]))[:8]
+    return {
+        "generated_on": today, "status": status["status"], "quant_model": status,
+        "components": comps,
+        "rules": {"min_components": MIN_COMPONENTS, "min_docs_stance": MIN_DOCS, "normalisation": "winsorised (2.5–97.5 pct) min–max over the pooled panel, both actors on one scale",
+                  "weights": "equal, renormalised over the available components", "sensitivity": {"draws": status.get("draws"), "dirichlet_alpha": DIRICHLET_ALPHA, "rank_share": RANK_SHARE,
+                                                                                                   "band": "5th–95th percentile", "rank_stability": status.get("rank_stability")}},
+        "index": {"rows": len(influence), "with_value": len(with_value), "years": [years[0], years[-1]] if years else None,
+                  "countries": sorted({r["country"] for r in with_value}), "per_mineral": sorted({r["mineral"] for r in idx_rows if r["mineral"] != "all"})},
+        "say_do": {"rows": len(sd_rows), "countries": sorted({r["country"] for r in sd_rows})},
+        "flags_by_type": flags_by,
+        "concentration": {"rows": len(conc_rows), "hhi": "not computed: partner flows for the United States, China and the world total only"},
+        "network": {"nodes": len(node_rows), "edges": len(edge_rows), "unattributed_events": status.get("unattributed_finance_events"),
+                    "top_lenders": [{"label": n["label"], "origin": n["origin"], "degree": int(n["degree"]), "weighted_degree_musd": round(float(n["weighted_degree"]) / 1e6, 1)} for n in lenders]},
+    }
 
 
 def _src(sid: str, record_url: str | None = None) -> dict:
@@ -164,11 +245,21 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     cls_rows = _rows(con, "SELECT * FROM doc_classification")
     metrics = _rows(con, "SELECT * FROM validation_metric")
     sample_rows = _rows(con, "SELECT doc_id, coder, round FROM validation_sample")
-    chosen, text_status = _pick_classifications(cls_rows, metrics, len(docs))
+    chosen, text_status = pick_classifications(cls_rows, metrics, len(docs))
     translations = _translations(_rows(con, "SELECT * FROM doc_translation"))
     topic_rows = _rows(con, "SELECT * FROM topic")
     doc_topic_rows = _rows(con, "SELECT * FROM doc_topic")
     mv_rows = _rows(con, "SELECT country, period, items_total FROM media_volume")
+    # Phase 4 quant outputs (empty lists until `scm analyse` has run)
+    conc_rows = _rows(con, "SELECT country, mineral, year, metric, value, note FROM concentration")
+    idx_rows = _rows(con, "SELECT * FROM index_value")
+    comp_rows = _rows(con, "SELECT * FROM index_component")
+    sd_rows = _rows(con, "SELECT * FROM say_do_gap")
+    flag_rows = _rows(con, "SELECT * FROM anomaly_flag")
+    node_rows = _rows(con, "SELECT * FROM network_metric")
+    edge_rows = _rows(con, "SELECT * FROM network_edge")
+    qrun = _rows(con, "SELECT * FROM quant_run ORDER BY created_at DESC LIMIT 1")
+    quant_status = _quant_status(qrun, idx_rows, text_status)
     from .text import series as text_series
 
     docs_df = pd.DataFrame(docs) if docs else pd.DataFrame(columns=["doc_id", "country", "year", "doc_type", "mentions_us", "mentions_cn"])
@@ -348,6 +439,13 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "governance": [{"year": int(r["year"]), "indicator": r["indicator"], "name": r["indicator_name"], "value": r["value"], "source": _src(r["source_id"], r["source_record_url"])} for r in g_rows],
             "trade_discrepancies": [d for d in disc if d["reporter"] == iso and d["flag"] in ("large_discrepancy", "mirror_only")],
         }
+        unattributed = sum(1 for r in f_rows if not r["actor_to"] and r["actor_from_origin"] in ("US", "CN"))
+        analysis = _analysis_block(iso, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, unattributed, quant_status)
+        analysis_years = sorted({r["year"] for r in (analysis["index"] if analysis else []) if r["index_name"] == "influence" and r["value"] is not None})
+        if analysis:
+            country["analysis"] = analysis
+            a_src = {s for c in analysis["components"] for comp in c["components"] for s in comp["source_ids"]}
+            country["freshness"]["analysis"] = {"last_updated": today, "source_ids": sorted(a_src), "schedule": "monthly (recomputed with each ingestion run)"}
         (out / "country" / f"{iso}.json").write_text(json.dumps(country, ensure_ascii=False, default=str), encoding="utf-8")
         coverage[iso] = {
             "trade_years": years, "mirror_years": mirror_years, "events": len(events), "contracts": len(c_rows), "governance": len(g_rows), "production": len(p_rows),
@@ -360,6 +458,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "parliament_translated": sum(1 for d in parl_docs if d["title_en"]),
             "media_classified": sum(1 for a in articles if a["classification"] == "coded"),
             "narratives_available": bool(narratives_by_iso.get(iso)),
+            "analysis_available": bool(analysis_years), "analysis_years": [analysis_years[0], analysis_years[-1]] if analysis_years else None,
+            "flags": len(analysis["flags"]) if analysis else 0,
         }
 
     # region: mineral shares from reported exports summed over the 12 countries
@@ -378,20 +478,27 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             cn, us = s["CN"] / s["WLD"], s["US"] / s["WLD"]
             mineral_shares.append({"year": s["year"], "mineral": s["mineral"], "share_cn": round(cn, 4), "share_us": round(us, 4), "share_other": round(max(0.0, 1 - cn - us), 4), "exports_wld_musd": round(s["WLD"] / 1e6, 1)})
     (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade")}, ensure_ascii=False), encoding="utf-8")
+    influence = [{"iso3": r["country"], "year": int(r["year"]), "actor": r["actor"], "mineral": r["mineral"], "value": r["value"], "lower": r["lower"], "upper": r["upper"], "n_components": int(r["n_components"])}
+                 for r in idx_rows if r["index_name"] == "influence" and r["value"] is not None]
+    (out / "index.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "layer": "real" if influence else "none",
+                                                "method": f"Composite influence index, method {quant_status.get('method_version')}, weights {quant_status.get('weights_version')}; band = 5th–95th percentile over {quant_status.get('draws')} weight and normalisation draws",
+                                                "quant_model": quant_status, "rows": influence}, ensure_ascii=False, default=str), encoding="utf-8")
+    (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
     meta = {
         "dataset": "REAL", "generated_on": today, "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "sources_ok": ok_sources, "ingest_runs": runs,
-        "tables": {t: int(con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]) for t in ("trade_flow", "finance_event", "deal_event", "governance", "contract", "production", "price", "policy_document", "document", "vote", "vote_member", "concession", "media_volume",
-                                                                                           "doc_translation", "doc_classification", "doc_embedding", "topic", "doc_topic", "validation_sample", "validation_metric") if _table_exists(con, t)},
+        "tables": {t: int(con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]) for t in SCHEMAS if t != "ingest_run" and _table_exists(con, t)},
         # layers: "facts_only" = real records without model outputs; "real" = records plus labelled model outputs
         # (text_model says whether the classifier is a zero-shot baseline or validated); charts labelled accordingly
         "layers": {"facts": "real",
                    "model_outputs": ("validated" if text_status["validated"] else "zero_shot_baseline") if n_parl_coded or n_media_coded else "sample",
                    "parliament": "real" if n_parl_coded else "facts_only" if any(c["parliament_available"] for c in coverage.values()) else "sample",
-                   "media": "real" if n_media_coded else "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample", "forecast": "sample"},
+                   "media": "real" if n_media_coded else "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample",
+                   "analysis": "real" if influence else "sample", "forecast": "sample"},
         "text_model": text_status,
+        "quant_model": quant_status,
         "coverage": coverage,
     }
     (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, default=str, indent=1), encoding="utf-8")

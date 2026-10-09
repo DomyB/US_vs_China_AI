@@ -53,6 +53,49 @@ def corpus(warehouse: Path = WAREHOUSE_DIR) -> pd.DataFrame:
     return docs
 
 
+def pick_classifications(cls_rows: list[dict], metrics: list[dict], n_total: int) -> tuple[dict[str, dict], dict]:
+    """Choose one classification row per document and describe the classifier (shared by the site exporter and the
+    Phase 4 quant step so both read the same stance values).
+
+    Method: `trained` when validation metrics show it beating the zero-shot baseline on the held-out split
+    (macro F1 of the pooled stance), else `zero_shot`. Within a method the latest codebook version wins, then the
+    latest row. The status block reports whether any agreement statistics exist (validated) and the headline numbers."""
+    def metric(method: str, target: str, cls: str, name: str, split: str) -> float | None:
+        for m in metrics:
+            if (m["method"], m["target"], m["class"], m["metric"], m["split"]) == (method, target, cls, name, split):
+                return m["value"]
+        return None
+
+    f1_trained = metric("trained", "stance_pooled", "macro", "f1", "held_out")
+    f1_zero = metric("zero_shot", "stance_pooled", "macro", "f1", "held_out")
+    beats = f1_trained is not None and (f1_zero is None or f1_trained >= f1_zero)
+    method = "trained" if beats and any(r["method"] == "trained" for r in cls_rows) else "zero_shot"
+    chosen: dict[str, dict] = {}
+    for r in sorted((r for r in cls_rows if r["method"] == method), key=lambda r: (r["codebook_version"], r["created_at"])):
+        chosen[r["doc_id"]] = r  # later (newer) rows overwrite
+    agreement = [m for m in metrics if m["method"] == "agreement"]
+    kappa = metric("agreement", "stance_pooled", "all", "kappa_quadratic", "all")
+    alpha = metric("agreement", "stance_pooled", "all", "alpha_ordinal", "all")
+    n_coded = next((int(m["n"]) for m in agreement if m["target"] == "stance_pooled"), 0) if agreement else 0
+    any_row = next(iter(chosen.values()), None)
+    status = {
+        "method": method if any_row else None,
+        "model": any_row["model"] if any_row else None,
+        "codebook_version": any_row["codebook_version"] if any_row else None,
+        "run_id": any_row["run_id"] if any_row else None,
+        "validated": bool(agreement),
+        "kappa_stance_pooled": kappa, "alpha_stance_pooled": alpha,
+        "macro_f1_held_out": f1_trained if method == "trained" else f1_zero,
+        "beats_baseline": beats if f1_trained is not None else None,
+        "n_coded": n_coded, "n_total": n_total, "n_classified": len(chosen),
+        "label": None,
+    }
+    if any_row:
+        status["label"] = (f"validated against {n_coded} hand-coded documents (κ={kappa:.2f})" if agreement and kappa is not None
+                           else "zero-shot baseline, not yet validated" if method == "zero_shot" else "trained, not yet validated")
+    return chosen, status
+
+
 def pending(table: str, slot: str, candidates: pd.DataFrame, fixed: dict, warehouse: Path = WAREHOUSE_DIR, force: bool = False) -> pd.DataFrame:
     """Rows of `candidates` (which carry doc_id) that have no stored row in warehouse/<table>/<slot> with the
     same key, where the non-doc_id key columns take the `fixed` values (model, codebook_version, ...)."""

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       targets:
-        description: "Adapters to run (space-separated source ids, or all / tier1 / legislature / press / national / monthly / annual)"
+        description: "Adapters to run (space-separated source ids, or all / tier1 / legislature / press / national / monthly / annual; none = recompute, rebuild and re-export only)"
         default: "tier1 legislature national"
       fetch_only:
         description: "Only download raw snapshots (no parse)"
@@ -94,6 +94,7 @@ jobs:
         run: python -m scm fixtures
       - name: Build warehouse and export site data
         run: |
+          python -m scm analyse
           python -m scm build
           python -m scm export
       - name: Tests on the real fixtures
