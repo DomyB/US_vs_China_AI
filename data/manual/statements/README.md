@@ -25,6 +25,30 @@ records plus summary sheets, a codebook and an HS6 join key to the trade data.
   are kept in the warehouse but are outside the twelve countries of this site; region-wide records (`REG`) appear
   on the region page.
 
+## Additions of 2026-10-09 (AI research batch and a second coding)
+
+- **22 records added by an AI session** (`PS-0396`–`PS-0417`, `research_batch` `GUY_PRY_SUR_URY_VEN_ai` and
+  `CHN_embassy_ai`): Suriname (3: the Chinalco bauxite MoU of 2024 and its re-evaluation in 2025), Guyana (3:
+  Bosai's manganese commitments, the 2024 bauxite rebound, the OTC 2026 address), Paraguay (4: uranium and
+  rare-earth prospects, 2025–2026), Venezuela (4: the 2026 mining-law reform announced with US Interior Secretary
+  Burgum, his own remarks, the Assembly's president and the bill's presenter) and eight Chinese officials
+  (ambassadors in Guyana, Bolivia, Chile and Peru, the embassy in Chile, and the Foreign Ministry on Venezuela).
+  **Uruguay: none found** (the searches returned exploration notes of the mining directorate without a dated
+  statement by a named official). The records were coded under the vocabularies above from web-search results
+  that cite each page; the pages themselves were not opened by the session, so `verification` is
+  `secondary_reported` throughout (`unverified` for the Guyana OTC record, whose minerals passage one search
+  reported and another did not) and every `notes` field says so. Dates are month-precise where the day was not
+  established. The owner should treat this batch as a lead list to check, not as verified records.
+- **Second coding of a sample** (`second_coder_sample_v1.csv`, `pipeline/scripts/statements_agreement.py`): 40
+  records drawn by a fixed seed, stratified by country and speaker bloc, were re-coded for `stance_china` and
+  `stance_us` by an AI session reading only the quote and the summary. Agreement with the dataset's codes:
+  China 95.0% (Cohen's κ 0.90 on the five codes, 0.94 collapsed to positive / negative / other); United States
+  87.5% (κ 0.77, 0.73 collapsed). Four of the five US disagreements have the same shape: the dataset codes a US
+  official's own government as `positive` when the statement attacks China (Rubio, Holsey), the second coding
+  left it `not_mentioned`; the codebook should say which is intended. This is the stability of an AI coding
+  re-read by an AI, not a validation against human judgement; the site's wording ("coded under the dataset's
+  codebook, not validated") stays.
+
 ## How the pipeline uses it
 
 The adapter `manual_statements` (`pipeline/scm/ingest/statements.py`) copies this file into a snapshot, normalises

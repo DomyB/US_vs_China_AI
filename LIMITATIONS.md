@@ -311,6 +311,12 @@ or hands, and labelled each:
   not from the documents themselves (the session could not open them); `url`, dates and notes are in
   `pipeline/config/events.yaml` and `status` stays `draft` until the owner reads them (DECISIONS 63),
   so the event echoes on the Insights page still carry the draft label.
+- The 22 statement records for Guyana, Paraguay, Suriname, Venezuela and Chinese officials, and the second coding
+  of a 40-record sample, are AI work on search results (DECISIONS 65): the records say so in `notes` and
+  `research_batch`, `verification` is `secondary_reported` or `unverified` by what was read, and the agreement
+  figures (China κ 0.90, United States κ 0.77) measure stability between two AI readings, not validity. No
+  statement was found for Uruguay. Four of the five US disagreements come from one convention the codebook does
+  not settle (whether a US official attacking China is coded `positive` toward their own government).
 - Not done, by design or by lack of access: the `COMTRADE_KEY`, Congress.gov and Census secrets (the
   owner's registrations); the BU CODF file (signed agreement) and AEI's tracker (403 challenge, no
   redistribution); coder 1 of the validation sample (an AI coder 1 would make "validated against
