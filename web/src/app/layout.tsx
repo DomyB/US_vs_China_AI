@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { NavLinks } from "@/components/ui/NavLinks";
+import { ChromeMeasure } from "@/components/ui/ChromeMeasure";
 import { SampleBanner } from "@/components/ui/SampleBanner";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { THEME_BOOTSTRAP } from "@/lib/theme";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-surface focus:px-3 focus:py-2">
           Skip to content
         </a>
+        <ChromeMeasure>
         <header className="border-b-2 border-outline bg-card">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 sm:gap-x-6">
             <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 no-underline sm:flex-none">
@@ -50,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         <SampleBanner />
+        </ChromeMeasure>
         <main id="main" className="flex-1">
           {children}
         </main>

@@ -273,6 +273,15 @@ the registry.
 - **The human layer is opinion, labelled as such,** and exists only where the owner has written a file;
   as of this release none exists.
 
+## Flow map caveats (added 2026-10-09)
+
+- The money arcs draw documented finance commitments only, summed by country, origin and year from the de-duplicated finance events (`flows.json`, DECISIONS 56). Chinese finance comes from AidData's Global Chinese Development Finance dataset and ends in 2021; US finance is DFC only until the EXIM, CGIT and BU CODF files are supplied. A window that lies beyond a source's last year is flagged on the page rather than drawn empty.
+- 561 of the 1,699 finance events carry no published amount: they are counted in the arc's popup and table but add no width. Swap-line drawdowns and amounts from lower-confidence records are listed apart and never added to the drawn amount.
+- The trade arcs use reported exports only (UN Comtrade, reporter's own data); mirror data is not used. Venezuela reports no trade and therefore has no trade arc.
+- Arcs are schematic: they run from a country centroid to Washington or Beijing as anchors, not along shipping or financing routes, and the width scale is shared across countries within one view.
+- The world basemap is Natural Earth 1:10m simplified to about 3% of its vertices; it is a backdrop, not a boundary reference. Country labels are hidden when the map is zoomed out to the world view.
+- The comparison panel uses the same inputs as the rest of the site (index values are model outputs; shares and finance totals are facts) and shows a dash where a value is missing.
+
 ## Method limitations
 
 - Stance and topic classification: see "Phase 3 text-analysis caveats" above (one human and one

@@ -431,6 +431,32 @@ figure.plot, .plot-figure svg { font-family: var(--font-sans); }
 .maplibregl-map .maplibregl-ctrl.maplibregl-ctrl-attrib a { color: var(--ink-2); }
 .maplibregl-map .maplibregl-ctrl-attrib .maplibregl-ctrl-attrib-button { filter: var(--ctrl-filter); }
 
+/* ---- map-first home page -------------------------------------------- */
+.map-page .maplibregl-canvas:focus { outline: none; }
+.map-wide .country-label { display: none; }
+.anchor-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  will-change: transform;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--card);
+  border: 2.5px solid var(--outline);
+  box-shadow: 2px 2px 0 var(--shadow-hard);
+  font: 700 11px/1 var(--font-sans);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+.anchor-badge.anchor-us { border-color: var(--us); color: var(--us); }
+.anchor-badge.anchor-cn { border-color: var(--cn); color: var(--cn); }
+.drawer-sheet { transition: height 0.25s ease; box-shadow: 0 -4px 0 var(--shadow-hard); }
+.maplibregl-map .maplibregl-cooperative-gesture-screen { font-family: var(--font-sans); font-size: 14px; }
+
 @media (max-width: 640px) {
   body { font-size: 14.5px; }
   h1 { font-size: 1.45rem; }
