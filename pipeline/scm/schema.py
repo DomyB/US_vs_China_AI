@@ -544,6 +544,7 @@ event_effect = DataFrameSchema(
         "event_type": Column(str),
         "event_title": Column(str),
         "event_source_id": Column(str, nullable=True),
+        "event_url": Column(str, nullable=True),  # the document the event was verified against (events.yaml `url`)
         "event_scope": Column(str),  # "all" or comma-separated ISO3
         "country": Column(str),  # ISO3, or "treated" for a difference-in-differences row
         "actor": Column(str, Check.isin(ACTORS)),
@@ -645,6 +646,7 @@ analysis_text = DataFrameSchema(
         "changed_since_previous": Column(bool),
         "previous_date": Column(str, nullable=True),
         "generated_on": Column(str),
+        "drafted_by": Column(str, Check.isin(["ai", "owner"]), nullable=True),  # human rows only: who drafted the Markdown (DECISIONS 61)
         **QUANT_STAMP,
     },
     coerce=True, strict=True, name="analysis_text",

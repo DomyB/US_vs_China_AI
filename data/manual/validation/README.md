@@ -12,6 +12,11 @@ coding rules):
 Blank `stance_us` / `stance_cn` means "not applicable" (the actor is not named); `0` means neutral.
 No model output is included in the template, so the coders never see the baseline's values.
 
+**Two pitfalls of the committed `sample_v1.csv`** (left as is so coder 2's row order stays valid):
+a missing summary appears as the word `nan` (later templates write an empty cell), and the codebook
+prints the Unicode minus (`−1`); the reader accepts it, a plain hyphen and an en dash alike. `topic`
+must be one of the codebook's eight values; a file with any other value is rejected with the list.
+
 **Blindness.** `coder2_v1.csv` (Claude's coding, 2026-10-04) is committed so it cannot be lost; the
 owner codes `coder1_v1.csv` from `sample_v1.csv` without opening it. Coder 2 did not see any model
 output while coding (the template carries none).

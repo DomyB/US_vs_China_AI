@@ -1,11 +1,12 @@
 # Dated policy events for the Phase 4b event studies and difference-in-differences designs.
 #
-# DRAFT for the owner's review. Phase 4b will read only events whose `status` is `reviewed`; `draft` rows
-# are listed for checking. Every event needs a date, the actor whose policy it is (US, CN, or the ISO3 of the
-# country whose own policy it is), the countries it is expected to touch (`scope: all` for the twelve), the
-# registry source id that documents it (`pipeline/config/sources/*.yaml`) and, when the exact document or
-# date still needs confirming, `verify: true` with a note saying what to check. Nothing here is used by the
-# site or the index until reviewed.
+# DRAFT for the owner's review. The event studies (scm/quant/events.py) read every event and stamp each result
+# with the event's `status`: `draft` rows are computed and shown with a draft label on the site, in the briefs
+# and on the Insights page; `reviewed` is the owner's sign-off and removes the label. Every event needs a date,
+# the actor whose policy it is (US, CN, or the ISO3 of the country whose own policy it is), the countries it is
+# expected to touch (`scope: all` for the twelve), the registry source id that documents it
+# (`pipeline/config/sources/*.yaml`) and, when the exact document or date still needs confirming, `verify: true`
+# with a note saying what to check. `url` holds the official document where one is known.
 #
 # Fields: id, date (YYYY-MM-DD), date_precision (day|month), actor, scope (all | [ISO3, ...]), type
 # (export_control | tariff | sanction | law | strategy | agreement | political | contract), title, source_id,
@@ -32,9 +33,10 @@ events:
     type: tariff
     title: "Section 301 tariffs on imports from China, first tranche in force"
     source_id: federal_register
-    note: "Notice of action 83 FR 28710 (20 June 2018). Marks the start of the US–China tariff escalation; relevant as a regional demand/diversion shock, not a minerals measure."
+    url: https://www.govinfo.gov/content/pkg/FR-2018-06-20/html/2018-13248.htm
+    note: "USTR notice of action 83 FR 28710 (FR Doc. 2018-13248, published 20 June 2018): 25% additional duty on about US$34 bn of Chinese goods effective 6 July 2018. Marks the start of the US–China tariff escalation; relevant as a regional demand/diversion shock, not a minerals measure. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: bol_2019_crisis_ylb
     date: 2019-11-10
@@ -42,11 +44,12 @@ events:
     actor: BOL
     scope: [BOL]
     type: political
-    title: "Bolivia: the YLB–ACI Systems lithium joint venture decree is repealed (DS 4070, 4 November) and President Morales resigns (10 November)"
+    title: "Bolivia: the YLB–ACI Systems lithium joint venture decree is repealed (DS 4070, 2 November) and President Morales resigns (10 November)"
     source_id: bol_gaceta
-    note: "Two dates within a week; the event is dated at the resignation. Check DS 4070 in the Gaceta."
+    url: https://www.lexivox.org/norms/BO-DS-N4070.html
+    note: "DS 4070 is dated 2 November 2019 (signed that Saturday; Lexivox lists it under 4 November, the publication) and abrogates DS 3738 of 7 December 2018, the YLB–ACI Systems joint venture; Morales resigned on 10 November 2019. The event is dated at the resignation. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: us_eo14017_supply_chains
     date: 2021-02-24
@@ -67,9 +70,10 @@ events:
     type: agreement
     title: "Minerals Security Partnership announced (State Department)"
     source_id: state_msp_forge
-    note: "Argentina joined the MSP Forum later; check the announcement date and Argentina's accession date."
+    url: https://policy.trade.ec.europa.eu/news/statement-first-high-level-minerals-security-partnership-msp-forum-event-2024-07-18_en
+    note: "The State Department's media note of 14 June 2022 announced the MSP at the PDAC convention in Toronto (founding partners: Australia, Canada, Finland, France, Germany, Japan, Korea, Sweden, the United Kingdom, the United States and the European Commission). Argentina was not a founding member: it joined the MSP Forum at the Forum's first high-level event on 18 July 2024 (EU statement at the url; Argentine Foreign Ministry release of 23 August 2024). The event keeps the 2022 announcement date; the State Department page itself is not linked (not found by search). Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: us_inflation_reduction_act
     date: 2022-08-16
@@ -113,9 +117,10 @@ events:
     type: export_control
     title: "China: export controls on graphite items in force (Announcement 2023 No. 39 of 20 October 2023)"
     source_id: mofcom_export_controls
-    note: "Relevant for Brazil's graphite exports."
+    url: https://www.iea.org/policies/17933
+    note: "MOFCOM and GACC Announcement 2023 No. 39 (Optimising and Adjusting Temporary Export Control Measures for Graphite Items), issued 20 October 2023, in force 1 December 2023: formal licences for high-purity, high-strength, high-density synthetic graphite and natural flake graphite items. Relevant for Brazil's graphite exports. The url is the IEA policy record, which links the original announcement. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: arg_ley_bases_rigi
     date: 2024-07-08
@@ -125,9 +130,10 @@ events:
     type: law
     title: "Argentina: Ley 27.742 (Ley Bases) promulgated, creating the RIGI large-investment regime used by lithium and copper projects"
     source_id: arg_boletin_oficial
-    note: "Sanctioned 27 June 2024, promulgated 8 July 2024; confirm the Boletín Oficial date."
+    url: https://www.argentina.gob.ar/normativa/nacional/norma-401266
+    note: "Sanctioned by Congress on 27 June 2024, promulgated by Decreto 592/2024 of 5 July 2024 and published in the Boletín Oficial on 8 July 2024 (aviso 44031/24). Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: cn_export_control_antimony
     date: 2024-09-15
@@ -149,9 +155,10 @@ events:
     type: contract
     title: "Peru: Chancay port (COSCO Shipping Ports majority) inaugurated"
     source_id: null
-    note: "Add the official Peruvian source (Autoridad Portuaria Nacional or gob.pe) before review."
+    url: https://andina.pe/ingles/noticia-peruvian-and-chinese-presidents-participate-in-chancay-port-inauguration-1007858.aspx
+    note: "Inaugurated on 14 November 2024 by Presidents Boluarte and Xi in a ceremony held from the Government Palace in Lima (the port operations started remotely); the url is the state news agency Andina's report; the official gazette's site El Peruano announced the date in advance. No registry source id for Andina or El Peruano yet, so source_id stays null. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: cn_export_ban_us_gallium_germanium_antimony
     date: 2024-12-03
@@ -196,42 +203,46 @@ events:
     type: export_control
     title: "China: expanded rare-earth and related export controls (Announcements 2025 No. 55–58, 61, 62)"
     source_id: mofcom_export_controls
-    note: "Suspended until November 2026 by Announcement No. 70 (see the next event); record both."
+    url: https://www.news.cn/world/20251009/92483e0b54b24511b355a2d60a9a936e/c.html
+    note: "All six announcements were issued on 9 October 2025: MOFCOM and GACC No. 55 (superhard materials), 56 (rare-earth equipment and raw materials), 57 (holmium, erbium, thulium, europium, ytterbium items), 58 (lithium-battery and graphite-anode items), and MOFCOM No. 61 (overseas rare-earth items containing Chinese-origin rare earths or made with Chinese technology; parts 1–2 in force 1 December 2025) and 62 (rare-earth technologies). Suspended until 10 November 2026 by Announcement No. 70 (next event). The url is Xinhua's reproduction of the official text; the MOFCOM gazette page is to be added. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: cn_export_controls_oct_2025_suspended
-    date: 2025-11-01
-    date_precision: month
+    date: 2025-11-07
+    date_precision: day
     actor: CN
     scope: all
     type: export_control
-    title: "China: Announcement 2025 No. 70 suspends the October 2025 controls until November 2026"
+    title: "China: Announcement 2025 No. 70 suspends the October 2025 controls until 10 November 2026"
     source_id: mofcom_export_controls
-    note: "Confirm the publication date."
+    url: https://www.cirs-group.com/en/chemicals/china-temporarily-suspends-export-controls-on-key-raw-materials-including-rare-earths-lithium-batteries-and-diamond
+    note: "MOFCOM and GACC Announcement 2025 No. 70 of 7 November 2025 suspends Announcements 2025 No. 55, 56, 57, 58, 61 and 62 with immediate effect until 10 November 2026 (a separate Announcement No. 72 of 9 November 2025 suspends article 2 of Announcement 2024 No. 46 until 27 November 2026). The url is a regulatory-consultancy summary; the MOFCOM gazette page is to be added. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: us_arg_swap_line_2025
-    date: 2025-10-01
-    date_precision: month
+    date: 2025-10-20
+    date_precision: day
     actor: US
     scope: [ARG]
     type: agreement
-    title: "United States–Argentina currency swap line (US Treasury, October 2025), followed by the trade framework (November 2025) and the critical-minerals supply instrument"
+    title: "United States–Argentina exchange-rate stabilisation agreement (US$20 bn swap framework, signed 20 October 2025), followed by the trade framework with critical-minerals cooperation (13 November 2025)"
     source_id: null
-    note: "Add the US Treasury and USTR documents and exact dates (docs/PHASE0_PLAN.md section 2.8 anchor list)."
+    url: https://www.bcra.gob.ar/en/news/el-bcra-y-el-departamento-del-tesoro-de-los-estados-unidos-firman-un-acuerdo-de-estabilizacion-cambiaria-por-usd-20-000-millones/
+    note: "Treasury Secretary Bessent announced direct peso purchases and the finalised US$20 bn swap framework on 9 October 2025 (social-media post); the Banco Central de la República Argentina announced the signed exchange-rate stabilisation agreement with the US Treasury on 20 October 2025 (the url, the official document found); the White House joint statement on the Framework for a United States–Argentina Agreement on Reciprocal Trade and Investment, with cooperation on critical-minerals investment and trade, followed on 13 November 2025 (whitehouse.gov briefings-statements, USTR fact sheet). The event is dated at the signed agreement. No registry source id for the BCRA or the White House yet. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false
 
   - id: bra_lei_15506_critical_minerals
-    date: 2026-01-01
-    date_precision: month
+    date: 2026-09-16
+    date_precision: day
     actor: BRA
     scope: [BRA]
     type: law
-    title: "Brazil: Lei 15.506/2026, the national critical and strategic minerals policy"
+    title: "Brazil: Lei 15.506 of 16 September 2026, the national critical and strategic minerals policy (PNMCE) and the CIMCE council"
     source_id: bra_camara_api
-    note: "Date and number from docs/PHASE0_PLAN.md section 2.7; confirm in the Diário Oficial da União."
+    url: https://www.planalto.gov.br/ccivil_03/_Ato2023-2026/2026/Lei/l15506.htm
+    note: "Lei 15.506 was sanctioned on 16 September 2026 (from PL 2.780/2024), creating the Política Nacional de Minerais Críticos e Estratégicos and the Conselho Nacional para Industrialização de Minerais Críticos e Estratégicos, regulated the same day by Decreto 13.118; the earlier placeholder date (January 2026, from the Phase 0 plan) was wrong. The url is the Planalto text; the Senate record (legis.senado.leg.br/norma/43923839) carries the publication history. Checked on 2026-10-09 by an AI session from web-search results that cite the document (the page itself was not opened from that session); the owner flips `status` after reading."
     status: draft
-    verify: true
+    verify: false

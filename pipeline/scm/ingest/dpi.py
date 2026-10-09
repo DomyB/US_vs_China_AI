@@ -16,8 +16,8 @@ from .util import col, read_any
 
 PACKAGE = "https://data.iadb.org/api/3/action/package_show"
 MANUAL_FILES = ["data/manual/dpi2023.csv", "data/manual/dpi2023.xlsx"]  # IDB open data (CC BY 3.0 IGO)
-READY_ATTEMPTS = 8
-READY_WAIT_S = 8  # seconds; grows linearly per attempt (8, 16, ... 64 s)
+READY_ATTEMPTS = 12
+READY_WAIT_S = 25  # seconds between attempts: the portal generates the file on demand and answered 202 for over a minute in 2026
 PACKAGE_ID = "the-database-of-political-institutions-dpi-2023"
 VARS = {"execrlc": "Chief executive party orientation (1 right, 2 centre, 3 left, 0 no information)",
         "yrsoffc": "Years chief executive in office", "checks": "Checks and balances (checks)", "polariz": "Polarization",
@@ -83,7 +83,7 @@ class DPI(Adapter):
             snap.files.pop(name, None)
             if status == 200:
                 return False  # 200 but not the expected file type (an HTML page)
-            time.sleep(READY_WAIT_S * (attempt + 1))
+            time.sleep(READY_WAIT_S)
         return False
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:

@@ -299,6 +299,23 @@ the registry.
 - The US "attention" series counts documents selected by title filters (Congress.gov bills, Federal Register notices and rules); a change in the filters changes the counts.
 - The interpretation on the page is AI-drafted from the indicators and not yet reviewed by the project owner (DECISIONS 61); the label says so until the owner sets `reviewed: true`.
 
+## Owner items done by an AI session (added 2026-10-09)
+
+Of the eight items on the owner's list, an AI session did the ones that need no account, signature
+or hands, and labelled each:
+
+- The interpretation files for the twelve countries and the region are AI-drafted (DECISIONS 62): the
+  site says so on each, and every claim cites an indicator id so the owner can check it; the numbers
+  quoted are those of the 2026-10-09 export.
+- The ten flagged events were verified from web-search results that cite the official documents,
+  not from the documents themselves (the session could not open them); `url`, dates and notes are in
+  `pipeline/config/events.yaml` and `status` stays `draft` until the owner reads them (DECISIONS 63),
+  so the event echoes on the Insights page still carry the draft label.
+- Not done, by design or by lack of access: the `COMTRADE_KEY`, Congress.gov and Census secrets (the
+  owner's registrations); the BU CODF file (signed agreement) and AEI's tracker (403 challenge, no
+  redistribution); coder 1 of the validation sample (an AI coder 1 would make "validated against
+  hand-coded documents" false, DECISIONS 62); a real phone (a touch-emulation pass stands in).
+
 ## Method limitations
 
 - Stance and topic classification: see "Phase 3 text-analysis caveats" above (one human and one

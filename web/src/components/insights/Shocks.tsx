@@ -13,6 +13,8 @@ export function Shocks({ echoes, titles, selected }: { echoes: EventEcho[]; titl
   const fams = useMemo(() => echoes.filter((e) => e.actor === "CN" && e.n >= 2).sort((a, b) => b.n - a.n).map((e) => e.label), [echoes]);
   const windows = useMemo<W[]>(() => echoes.filter((e) => fams.includes(e.label)).flatMap((e) => e.windows.map((w) => ({ label: e.label, family: e.family, actor: e.actor, country: w.country, year: w.year, diff: w.diff, placebo_p: w.placebo_p, title: titles[w.event_id] ?? w.event_id }))), [echoes, fams, titles]);
   const means = useMemo(() => echoes.filter((e) => fams.includes(e.label)).map((e) => ({ label: e.label, actor: e.actor, mean: e.mean, n: e.n, family: e.family })), [echoes, fams]);
+  const nDraft = useMemo(() => { const ids = new Map<string, string>(); for (const e of echoes) for (const w of e.windows) ids.set(w.event_id, w.status); return [Array.from(ids.values()).filter((s) => s !== "reviewed").length, ids.size]; }, [echoes]);
+  const draftNote = nDraft[0] === 0 ? "Every event is reviewed." : nDraft[0] === nDraft[1] ? "Every event is still in draft." : `${nDraft[0]} of ${nDraft[1]} events are still in draft.`;
   const options = useMemo(
     () => ({
       height: 70 + 44 * fams.length,
@@ -35,7 +37,7 @@ export function Shocks({ echoes, titles, selected }: { echoes: EventEcho[]; titl
   return (
     <div>
       <PlotFigure options={options} ariaLabel="Post-minus-pre changes of the export share after each event family, one dot per event and country, with the family mean as a tick" />
-      <p className="mt-1 text-[11px] leading-snug text-ink-3">Each dot is one event in one country (the shock lever above uses the family mean and middle half). Every event is still in draft; windows overlap and the years coincide with price swings, so read a direction, not an effect.</p>
+      <p className="mt-1 text-[11px] leading-snug text-ink-3">Each dot is one event in one country (the shock lever above uses the family mean and middle half). {draftNote} Windows overlap and the years coincide with price swings, so read a direction, not an effect.</p>
       <DataTable rows={windows} caption="Event windows" columns={[{ key: "label", label: "Family" }, { key: "country", label: "Country" }, { key: "year", label: "Year" }, { key: "actor", label: "Share to" }, { key: "diff", label: "Change", format: (v) => fmtPts(Number(v)) }, { key: "placebo_p", label: "Placebo p" }]} />
     </div>
   );

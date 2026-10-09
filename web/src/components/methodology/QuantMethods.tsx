@@ -97,12 +97,18 @@ export function QuantMethods() {
       {q.events && (
         <p className="mt-3 text-xs text-ink-2">
           <strong>Event studies:</strong> {q.events.total} dated events in the list ({q.events.reviewed} reviewed, {q.events.draft} draft, {q.events.to_verify} flagged for verification); {q.events.with_window} of {q.events.rows} event-window estimates have both pre- and post-event trade years, {q.events.did_rows} difference-in-differences estimates. Results appear on each country&apos;s Analysis tab; draft events are marked there.
-          {q.events.list.length > 0 && (
-            <>
-              {" "}Events: {q.events.list.map((e) => `${e.date} ${e.title}${e.status !== "reviewed" ? " (draft)" : ""}`).join("; ")}.
-            </>
-          )}
         </p>
+      )}
+      {q.events && q.events.list.length > 0 && (
+        <ul className="mt-1 space-y-0.5 text-xs text-ink-2">
+          {q.events.list.map((e) => (
+            <li key={e.id}>
+              <span className="tabular-nums text-ink-3">{e.date}</span>{" "}
+              {e.url ? <a href={e.url} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted">{e.title}</a> : e.title}
+              {e.status !== "reviewed" && <span className="text-ink-3"> (draft{e.url ? ", document linked" : ""})</span>}
+            </li>
+          ))}
+        </ul>
       )}
       {Object.keys(q.flags_by_type).length > 0 && (
         <table className="mt-2 w-full border-collapse text-xs">

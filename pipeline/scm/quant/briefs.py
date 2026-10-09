@@ -485,7 +485,7 @@ def generate(frames: dict, inp_finance: pd.DataFrame, last_year: dict, text_labe
     """analysis_text rows for every country and the region: generated sections (with sentences and their indicator ids)
     and the owner's text where a file exists; `changed_since_previous` compares with the previous run's rows."""
     cols = ["scope", "country", "section", "position", "title", "text_md", "sentences_json", "supporting_indicator_ids", "template_version", "model", "author",
-            "reviewed_by_human", "changed_since_previous", "previous_date", "generated_on"]
+            "reviewed_by_human", "changed_since_previous", "previous_date", "generated_on", "drafted_by"]
     prev: dict[tuple, tuple[str, str]] = {}
     if previous is not None and not previous.empty:
         for r in previous.itertuples(index=False):
@@ -500,7 +500,7 @@ def generate(frames: dict, inp_finance: pd.DataFrame, last_year: dict, text_labe
             rows.append({"scope": scope, "country": country, "section": sec.key, "position": pos, "title": sec.title, "text_md": text,
                          "sentences_json": json.dumps([{"text": s.text, "ids": s.ids} for s in sec.sentences], ensure_ascii=False), "supporting_indicator_ids": ",".join(ids),
                          "template_version": TEMPLATE_VERSION, "model": f"template-{TEMPLATE_VERSION}", "author": None, "reviewed_by_human": False,
-                         "changed_since_previous": old is None or old[0] != text, "previous_date": old[1] if old else None, "generated_on": generated_on})
+                         "changed_since_previous": old is None or old[0] != text, "previous_date": old[1] if old else None, "generated_on": generated_on, "drafted_by": None})
 
     def emit_human(scope: str, country: str | None, path: Path) -> None:
         h = load_human(path)
@@ -508,7 +508,8 @@ def generate(frames: dict, inp_finance: pd.DataFrame, last_year: dict, text_labe
             old = prev.get((scope, country, "human"))
             rows.append({"scope": scope, "country": country, "section": "human", "position": 99, "title": h["title"], "text_md": h["text_md"], "sentences_json": "[]",
                          "supporting_indicator_ids": "", "template_version": TEMPLATE_VERSION, "model": "human", "author": h["author"], "reviewed_by_human": h["reviewed"],
-                         "changed_since_previous": old is None or old[0] != h["text_md"], "previous_date": old[1] if old else None, "generated_on": h["date"] or generated_on})
+                         "changed_since_previous": old is None or old[0] != h["text_md"], "previous_date": old[1] if old else None, "generated_on": h["date"] or generated_on,
+                         "drafted_by": h["drafted_by"]})
 
     for iso in IN_SCOPE:
         emit("country", iso, country_brief(iso, frames, inp_finance, last_year, text_label, fc_status))

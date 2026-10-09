@@ -75,8 +75,8 @@ def write_template(sample: pd.DataFrame, translations: dict[str, str], path: Pat
     rows = []
     for _, r in sample.iterrows():
         rows.append({"doc_id": r["doc_id"], "country": r["country"], "doc_type": r["doc_type"], "date": r["date"], "language": r["language"],
-                     "title_original": r["title_original"], "summary": r.get("summary") or "", "title_en_mt": translations.get(r["doc_id"], ""),
-                     "url": r.get("source_record_url") or "", "mentions_us": int(bool(r["mentions_us"])), "mentions_cn": int(bool(r["mentions_cn"])),
+                     "title_original": r["title_original"], "summary": _text(r.get("summary")), "title_en_mt": translations.get(r["doc_id"], ""),
+                     "url": _text(r.get("source_record_url")), "mentions_us": int(bool(r["mentions_us"])), "mentions_cn": int(bool(r["mentions_cn"])),
                      **{c: "" for c in CODED_COLUMNS}})
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as f:
@@ -86,10 +86,18 @@ def write_template(sample: pd.DataFrame, translations: dict[str, str], path: Pat
     return path
 
 
+def _text(v) -> str:
+    """A cell for the template: missing values (None, NaN) become an empty string, never the word "nan"."""
+    if v is None or (isinstance(v, float) and np.isnan(v)):
+        return ""
+    s = str(v)
+    return "" if s.strip().lower() in ("nan", "none", "<na>") else s
+
+
 def _int_or_none(v) -> int | None:
     if v is None or (isinstance(v, float) and np.isnan(v)):
         return None
-    s = str(v).strip()
+    s = str(v).strip().replace("\u2212", "-").replace("\u2013", "-")  # the codebook prints the Unicode minus; coders may copy it
     if s in ("", "NA", "na", "n/a", "-", "—"):
         return None
     return int(float(s))
@@ -110,7 +118,11 @@ def read_coder_csv(path: Path) -> pd.DataFrame:
         out[col] = [_bool_or_none(v) for v in df.get(col, "")]
     for col in ("stance_us", "stance_cn", "tone", "confidence"):
         out[col] = [_int_or_none(v) for v in df.get(col, "")]
-    out["topic"] = [v.strip() or None for v in df.get("topic", "")]
+    topics = [v.strip() or None for v in df.get("topic", "")]
+    bad = sorted({t for t in topics if t is not None and t not in TOPICS})
+    if bad:
+        raise ValueError(f"{path.name}: topic values outside the codebook: {bad}; allowed: {TOPICS}")
+    out["topic"] = topics
     out["notes"] = [v.strip() or None for v in df.get("notes", "")]
     for col in ("applicable_us", "applicable_cn"):
         stance = "stance_us" if col == "applicable_us" else "stance_cn"

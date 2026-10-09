@@ -36,7 +36,7 @@ def load_events(path: Path = EVENTS_FILE) -> list[dict]:
         countries = list(IN_SCOPE) if scope == "all" else [c for c in scope if c in IN_SCOPE]
         out.append({"id": str(e["id"]), "date": str(e["date"]), "year": int(str(e["date"])[:4]), "actor": str(e.get("actor", "")), "scope_all": scope == "all",
                     "countries": countries, "type": str(e.get("type", "")), "title": str(e.get("title", "")), "status": str(e.get("status", "draft")),
-                    "verify": bool(e.get("verify", False)), "source_id": e.get("source_id")})
+                    "verify": bool(e.get("verify", False)), "source_id": e.get("source_id"), "url": e.get("url")})
     return out
 
 
@@ -62,7 +62,7 @@ def event_effects(events: list[dict], shares: pd.DataFrame, n_perm: int = N_PERM
     """`shares`: country, year, share_us, share_cn (mineral "all", exports). Returns one row per event × actor × country
     (design `window`) plus, for scoped events with enough controls, one row per event × actor for the treated group
     (design `did`)."""
-    cols = ["event_id", "event_date", "event_year", "event_status", "event_verify", "event_actor", "event_type", "event_title", "event_source_id", "event_scope",
+    cols = ["event_id", "event_date", "event_year", "event_status", "event_verify", "event_actor", "event_type", "event_title", "event_source_id", "event_url", "event_scope",
             "country", "actor", "outcome", "design", "pre_mean", "post_mean", "diff", "placebo_p", "n_placebo", "treated_countries", "control_countries", "note"]
     if not events or shares.empty:
         return pd.DataFrame(columns=cols)
@@ -78,7 +78,7 @@ def event_effects(events: list[dict], shares: pd.DataFrame, n_perm: int = N_PERM
     for e in events:
         t = e["year"]
         base = {"event_id": e["id"], "event_date": e["date"], "event_year": t, "event_status": e["status"], "event_verify": e["verify"], "event_actor": e["actor"],
-                "event_type": e["type"], "event_title": e["title"], "event_source_id": e["source_id"], "event_scope": "all" if e["scope_all"] else ",".join(e["countries"])}
+                "event_type": e["type"], "event_title": e["title"], "event_source_id": e["source_id"], "event_url": e["url"], "event_scope": "all" if e["scope_all"] else ",".join(e["countries"])}
         for actor in ("US", "CN"):
             outcome = f"export_share_{actor.lower()}"
             treated_diffs: dict[str, float] = {}

@@ -30,12 +30,18 @@ Rules that keep the three layers honest:
 The text is shown as paragraphs; `#`/`##` headings and blank-line paragraph breaks are rendered,
 other Markdown is shown as typed.
 
-## AI-drafted text (`insights.md`)
+## AI-drafted files (every country, `regional.md`, `insights.md`)
 
-`insights.md` is the exception to the "owner only" rule: it was drafted from the indicators of the
-site's Insights page at the owner's request, and its front matter says so (`drafted_by: ai`,
-`reviewed: false`). The site shows it under the label "AI-drafted from the indicators · not yet
-reviewed by the owner" until the owner edits it as they see fit and sets `reviewed: true` (keep or
-drop `drafted_by` as you prefer; the label follows the front matter). Every claim in the file names
-in square brackets the finding or indicator on the page it rests on, so the review can check each
-one against the live numbers. The pipeline never rewrites this file either.
+The twelve country files, `regional.md` and `insights.md` were drafted by an AI session on
+2026-10-09 at the owner's request, from the site's own indicators (the generated brief, the index
+and its components, the contrasts of the Insights page, the flags, the dated events and the
+forecasts). Their front matter says so (`drafted_by: ai`, `reviewed: false`, an `author` line that
+names no person). The site shows each under the label "AI-drafted from the indicators · not yet
+reviewed by the owner" until the owner edits it and sets `reviewed: true` (keep or drop
+`drafted_by`; the label follows the front matter; `drafted_by` reaches the warehouse as a column of
+`analysis_text`, DECISIONS 62). Every claim names in square brackets the indicator, finding, record
+or table it rests on (for example `[index_value:influence:CN:2024]`, `[flow_trade:ARG:lithium:2025]`,
+`[insights:parity_gap:CHL]`), so the review can check each one against the live numbers. The numbers
+quoted are those of the 2026-10-09 export and will drift as the data update, one more reason to
+review. Uruguay's and Venezuela's files are short: the first because the reported trade ends in
+2011, the second because the index is not computed. The pipeline never rewrites these files.

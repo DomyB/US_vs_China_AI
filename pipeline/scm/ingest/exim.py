@@ -18,7 +18,11 @@ CATALOG = "https://catalog.data.gov"
 MANUAL_FILE = "data/manual/exim_authorizations.csv"  # US government work: public domain, may be committed
 AGENCY_CATALOGS = ["https://www.exim.gov/data.json", "https://exim.gov/data.json"]
 API_BASES = ["https://catalog.data.gov/api/3/action", "https://catalog.data.gov/api/action"]
-PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-12-31-2022", "authorizations-from-10-01-2006-thru-9-30-2025"]
+PACKAGE_IDS = ["authorizations-from-10-01-2006-thru-06-30-2025", "authorizations-from-10-01-2006-thru-9-30-2025", "authorizations-from-10-01-2006-thru-12-31-2022"]
+# Direct files behind the data.gov record (found 2026-10-09 by search: the record's CSV distribution points at EXIM's own
+# S3 bucket, and the file name changes each quarter). Tried last, newest first, when the catalog cannot be read.
+KNOWN_FILES = ["https://img.exim.gov/s3fs-public/dataset/vbhv-d8am/data-gov_fy26-q2.csv",
+               "https://img.exim.gov/s3fs-public/dataset/vbhv-d8am/Data.Gov+-+FY25+Q4.csv"]
 
 
 def _csv_links(page: str, html: str) -> list[str]:
@@ -112,7 +116,19 @@ class EXIM(Adapter):
                     break
         snap.save()
         if not csvs:
-            raise RuntimeError("no CSV resource found for EXIM authorizations on data.gov (API and HTML); set EXIM_FILE_URL to the current CSV")
+            for url in KNOWN_FILES:  # the catalog could not be read: try the files its record pointed at when last seen
+                try:
+                    snap.get(url, "exim.csv", timeout=600)
+                    if snap.looks_like("exim.csv", "csv"):
+                        snap.manifest["resource_used"] = {"url": url, "via": "KNOWN_FILES"}
+                        snap.save()
+                        return
+                    snap.path("exim.csv").unlink(missing_ok=True)
+                    snap.files.pop("exim.csv", None)
+                except Exception as e:  # noqa: BLE001
+                    snap.manifest.setdefault("errors", []).append({"name": url, "error": str(e)[:200]})
+            snap.save()
+            raise RuntimeError("no CSV resource found for EXIM authorizations on data.gov (API and HTML) and the known files failed; set EXIM_FILE_URL to the current CSV")
         snap.get(csvs[0], "exim.csv", timeout=600)
         snap.manifest["resource_used"] = {"url": csvs[0]}
         snap.save()

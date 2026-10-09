@@ -681,8 +681,12 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
             s.add(f"After {e['label']} ({basis}), the share of exports to China moved {pts(e['mean'])} on average within two years (middle half {pts(e['p25'])} to {pts(e['p75'])}).",
                   [f"event_effect:family={e['family']}:{e['actor']}"])
         e0 = echoes[0]
+        draft_flags = [w["status"] != "reviewed" for e in echoes for w in e["windows"]]
+        any_draft = any(draft_flags)
+        draft_text = "; the event list is still in draft" if draft_flags and all(draft_flags) else "; the event list is still partly in draft" if any_draft else "; the events are reviewed"
         out.append(_finding("shocks", "After the shock", f"What followed {e0['label']}: {pts(e0['mean'])} for China's share within two years", s, "thin",
-                            "event windows on annual shares with placebo distributions; the event list is in draft", "Windows overlap, events cluster in the same years and world prices move everything at once: these are echoes, not effects.",
+                            "event windows on annual shares with placebo distributions" + draft_text,
+                            "Windows overlap, events cluster in the same years and world prices move everything at once: these are echoes, not effects.",
                             sorted({c for e in echoes for c in e["countries"]})))
     # F10 what the panel says
     reg = {(r["spec"], r["term"]): r for r in region["regressions"]["rows"]}
@@ -741,7 +745,10 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
     s.add(f"Coded statements exist for {join(with_stm) if with_stm else 'no country'}" + (f" and for none of {join(without)}" if without else "") +
           (f"; {n_latest} of the {tm['n_statements']} statements are from {y_latest}, a year with no reported trade or finance to set them against." if y_latest else "."),
           ["statement:count:by_country", "statement:count:by_year"])
-    s.add("The legislative stance is a zero-shot model output not yet validated, media tone exists for a few country-years, Chinese lending (AidData) ends in 2021, the DFC is the only US finance source and the dated events are all in draft.",
+    statuses = [w["status"] for e in region["event_echoes"] for w in e["windows"]]
+    n_draft = sum(1 for st in statuses if st != "reviewed")
+    events_part = ("the dated events are all in draft" if statuses and n_draft == len(statuses) else f"{n_draft} of the event windows come from draft events" if n_draft else "the dated events are reviewed") if statuses else "no event study has been computed"
+    s.add(f"The legislative stance is a zero-shot model output not yet validated, media tone exists for a few country-years, Chinese lending (AidData) ends in 2021, the DFC is the only US finance source and {events_part}.",
           ["quant_run:last_year", "quant_run:text_model", "event_effect:status"])
     s.add("Scales differ (statements −1..+1, legislative stance −2..+2, media tone −1..+1, the index 0–100) and are never added together here.", ["insights:scales"])
     out.append(_finding("cannot_see", "What this page cannot see", "The contrasts rest on thin overlaps and four different scales", s, "strong", "coverage counts", "", IN_SCOPE))

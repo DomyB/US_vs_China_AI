@@ -135,7 +135,7 @@ def _interpretation_block(text_rows: list[dict], scope: str, iso: str | None) ->
                   "changed_since_previous": bool(r["changed_since_previous"]), "previous_date": r["previous_date"]}
                  for r in sorted((r for r in rows if r["model"] != "human"), key=lambda r: int(r["position"]))]
     human = next(({"title": r["title"], "author": r["author"], "date": r["generated_on"], "reviewed": bool(r["reviewed_by_human"]), "text_md": r["text_md"],
-                   "changed_since_previous": bool(r["changed_since_previous"])} for r in rows if r["model"] == "human"), None)
+                   "changed_since_previous": bool(r["changed_since_previous"]), "drafted_by": r.get("drafted_by") or "owner"} for r in rows if r["model"] == "human"), None)
     first = rows[0]
     return {"generated": generated, "human": human, "template_version": first["template_version"], "generated_on": max(r["generated_on"] for r in rows if r["model"] != "human") if generated else first["generated_on"],
             "label": "Generated from named indicators by fixed templates; each sentence lists the indicators it rests on. The owner's writing, where present, is shown apart."}
@@ -164,7 +164,8 @@ def _events_from_rows(effect_rows: list[dict]) -> dict[str, dict]:
     events: dict[str, dict] = {}
     for r in effect_rows:
         events.setdefault(r["event_id"], {"id": r["event_id"], "date": r["event_date"], "actor": r["event_actor"], "type": r["event_type"], "title": r["event_title"],
-                                          "status": r["event_status"], "verify": bool(r["event_verify"]), "scope": r["event_scope"], "source_id": r.get("event_source_id")})
+                                          "status": r["event_status"], "verify": bool(r["event_verify"]), "scope": r["event_scope"], "source_id": r.get("event_source_id"),
+                                          "url": r.get("event_url") or None})
     return events
 
 

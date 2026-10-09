@@ -232,7 +232,7 @@ export interface QuantFile {
     rows: number;
     with_window: number;
     did_rows: number;
-    list: { id: string; date: string; actor: string; type: string; title: string; status: string; verify: boolean; scope: string; source_id: string | null }[];
+    list: { id: string; date: string; actor: string; type: string; title: string; status: string; verify: boolean; scope: string; source_id: string | null; url?: string | null }[];
   };
 }
 

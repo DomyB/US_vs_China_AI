@@ -346,8 +346,9 @@ def test_briefs_sentences_cite_indicators_and_missing_data_is_said(tmp_path):
     human_dir.mkdir()
     (human_dir / "CHL.md").write_text("---\ntitle: Chile, my reading\nauthor: Owner\ndate: 2026-10-10\nreviewed: true\n---\n\n## Alignment\n\nMy own view, with a claim.\n", encoding="utf-8")
     (human_dir / "BRA.md").write_text("---\nreviewed: false\n---\n", encoding="utf-8")  # empty body: ignored
+    (human_dir / "regional.md").write_text("---\ntitle: Region, drafted\nauthor: AI-drafted; not yet reviewed\ndate: 2026-10-11\nreviewed: false\ndrafted_by: ai\n---\n\nA regional reading [ranking].\n", encoding="utf-8")
     res = quant_run.run(wh, draws=20, seed=3, release="t", n_boot=19, n_sims=200, n_backtest=50, human_dir=human_dir)
-    assert res["briefs"]["sections"] == 12 * 7 + 7 + 1 and res["briefs"]["human"] == 1 and res["briefs"]["changed"] == res["briefs"]["sections"]
+    assert res["briefs"]["sections"] == 12 * 7 + 7 + 2 and res["briefs"]["human"] == 2 and res["briefs"]["changed"] == res["briefs"]["sections"]
     text = warehouse.load_slot("analysis_text", "quant", wh)
     gen = text[text["model"] != "human"]
     assert set(gen["scope"]) == {"country", "regional"} and (gen["template_version"] == briefs.TEMPLATE_VERSION).all()
@@ -364,9 +365,11 @@ def test_briefs_sentences_cite_indicators_and_missing_data_is_said(tmp_path):
     assert "%" not in ven.loc["trade", "text_md"]  # nothing invented
     regional = gen[gen["scope"] == "regional"].set_index("section")
     assert "Herfindahl" in regional.loc["trade_pattern", "text_md"]
-    human = text[text["model"] == "human"]
-    assert len(human) == 1 and human.iloc[0]["country"] == "CHL" and human.iloc[0]["reviewed_by_human"] and human.iloc[0]["author"] == "Owner" and human.iloc[0]["title"] == "Chile, my reading"
-    assert human.iloc[0]["text_md"].startswith("## Alignment")
+    human = text[text["model"] == "human"].set_index("scope")
+    assert len(human) == 2 and human.loc["country", "country"] == "CHL" and human.loc["country", "reviewed_by_human"] and human.loc["country", "author"] == "Owner" and human.loc["country", "title"] == "Chile, my reading"
+    assert human.loc["country", "text_md"].startswith("## Alignment") and human.loc["country", "drafted_by"] == "owner"
+    assert human.loc["regional", "drafted_by"] == "ai" and not human.loc["regional", "reviewed_by_human"] and human.loc["regional", "title"] == "Region, drafted"
+    assert gen["drafted_by"].isna().all()
     # an identical re-run changes nothing; the diff flags turn false
     res2 = quant_run.run(wh, draws=20, seed=3, release="t", n_boot=19, n_sims=200, n_backtest=50, human_dir=human_dir)
     assert res2["briefs"]["changed"] == 0
@@ -384,7 +387,8 @@ def test_briefs_sentences_cite_indicators_and_missing_data_is_said(tmp_path):
     v = json.loads((out / "country" / "VEN.json").read_text())["interpretation"]
     assert v["human"] is None and "No reported mineral trade" in v["generated"][1]["sentences"][0]["text"]
     region = json.loads((out / "region.json").read_text())["interpretation"]
-    assert region["generated"][0]["section"] == "ranking" and region["human"] is None
+    assert region["generated"][0]["section"] == "ranking" and region["human"]["drafted_by"] == "ai" and region["human"]["reviewed"] is False and region["human"]["author"] == "AI-drafted; not yet reviewed"
+    assert interp["human"]["drafted_by"] == "owner"
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["interpretation"] == "generated+human" and meta["coverage"]["CHL"]["human_interpretation"] and not meta["coverage"]["VEN"]["human_interpretation"]
 
