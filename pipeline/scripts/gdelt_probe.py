@@ -4,7 +4,7 @@ Runs on the GitHub Actions runner (the development container has no route to eit
 to the warehouse: every answer is printed as one JSON line (`probe`, `status`, `bytes`, `articles`, `head`) so the
 log is the record. One request every PACE seconds; a 429 pauses for THROTTLE seconds and the probe continues.
 
-Usage: python scripts/gdelt_probe.py [gdelt|gnews|all]
+Usage: python scripts/gdelt_probe.py [gdelt|gnews|all|translingual]
 """
 from __future__ import annotations
 
@@ -51,19 +51,31 @@ GDELT_PROBES: list[tuple[str, dict]] = [
 ]
 
 
+# Second set: does the DOC API match English terms against its translation of Spanish and Portuguese articles?
+# Paced at 45 s because the first set was throttled at 12 s.
+TRANSLINGUAL_PROBES: list[tuple[str, dict]] = [
+    ("tl_en_term_es_lang", {"query": "lithium sourcelang:spanish", **BASE, **LAST30}),
+    ("tl_en_term_cl", {"query": "copper sourcecountry:CI", **BASE, **LAST30}),
+    ("tl_en_term_ar", {"query": "lithium sourcecountry:AR", **BASE, **LAST30}),
+    ("tl_en_phrase_pt", {"query": '"rare earths" sourcelang:portuguese', **BASE, **LAST30}),
+    ("tl_en_production_ar_2025", {"query": '(lithium OR copper OR mining) (China OR "United States") sourcelang:spanish sourcecountry:AR', **BASE, **WIN_2025}),
+    ("tl_es_control", {"query": "litio sourcelang:spanish", **BASE, **LAST30}),
+]
+
+
 def say(**kw) -> None:
     print(json.dumps(kw, ensure_ascii=False), flush=True)
 
 
-def gdelt() -> None:
+def gdelt(probes: list[tuple[str, dict]] = GDELT_PROBES, pace: int = PACE) -> None:
     s = requests.Session()
     s.headers["User-Agent"] = UA
-    for key, params in GDELT_PROBES:
+    for key, params in probes:
         try:
             r = s.get(API, params=params, timeout=60)
         except Exception as e:  # noqa: BLE001
             say(probe=key, error=str(e)[:160])
-            time.sleep(PACE)
+            time.sleep(pace)
             continue
         body = r.content
         head = body[:160].decode("utf-8", "replace")
@@ -76,7 +88,7 @@ def gdelt() -> None:
         except Exception:  # noqa: BLE001
             pass
         say(probe=key, status=r.status_code, bytes=len(body), articles=arts, url=r.url[:220], head=head)
-        time.sleep(THROTTLE if r.status_code == 429 else PACE)
+        time.sleep(THROTTLE if r.status_code == 429 else pace)
 
 
 def gnews() -> None:
@@ -112,5 +124,7 @@ if __name__ == "__main__":
     what = sys.argv[1] if len(sys.argv) > 1 else "all"
     if what in ("gdelt", "all"):
         gdelt()
+    if what == "translingual":
+        gdelt(TRANSLINGUAL_PROBES, pace=45)
     if what in ("gnews", "all"):
         gnews()
