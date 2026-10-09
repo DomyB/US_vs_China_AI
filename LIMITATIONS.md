@@ -63,6 +63,16 @@ owner's own text shown apart where it exists. All six phases are live.
   continuous only from the week the press workflow started; earlier years come from the GDELT
   index (2017 onward, larger outlets over-represented, 250 results per query window). GDELT
   dates are indexing dates (`date_precision = seen`), not publication dates.
+- **GDELT from GitHub's runners (diagnosed 2026-10-09).** Two findings from probe runs on the Actions runner:
+  the DOC API matches query terms against its English translation of every article, so the Spanish and
+  Portuguese term sets used until now returned nothing while `lithium sourcelang:spanish` returned
+  Spanish-language articles (the adapter now queries English terms with the language operator and re-filters
+  the headline in its own language); and GDELT throttles by address and GitHub-hosted runners share theirs,
+  so 17 of 20 probes at one request per twelve seconds, and 5 of 6 at one per 45 seconds, answered HTTP 429.
+  The adapter backs off exponentially and retries, but the history will fill slowly from the runner; the
+  throttle message invites larger users to contact GDELT, which the owner can do, or the backfill can run from
+  an address GDELT does not throttle. Google News's RSS search was examined as an alternative and rejected:
+  its robots.txt disallows the search path for every agent, and names Claude's agents, so it is not fetched.
 - **Outlets without a feed** (and outlets GDELT does not index under the registry's domain)
   have no headlines yet; the manifest of each run lists unmatched domains and failed feed URLs.
   As of 2026-10-03: El Mostrador and OjoPúblico publish no discoverable feed (15 common paths

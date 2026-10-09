@@ -1,7 +1,9 @@
 """GDELT 2.0 DOC API -> document (news headlines, history from 2017) and media_volume (window ledger).
 
 Keyless; one query per country and time window, restricted afterwards to the outlets in the
-registry (matched on domain) and re-filtered on the headline. GDELT's date is the indexing time,
+registry (matched on domain) and re-filtered on the headline. Terms are English for every language
+because the API matches its English translations (see TERMS); GitHub's runners share egress
+addresses that GDELT throttles, so requests are paced and backed off (see the class constants). GDELT's date is the indexing time,
 stored with date_precision "seen". Each run fetches the recent weeks for every country plus a
 number of still-missing historical windows (GDELT_BACKFILL_WINDOWS, default 60, about 5 s each),
 so the history completes over a few runs or one long manual dispatch.
@@ -28,38 +30,30 @@ HALF_MONTH = {"BRA", "ARG", "CHL", "PER", "COL"}  # busier press: shorter window
 HISTORY_FROM = date(2017, 1, 1)
 RECENT_DAYS = 35
 MAX_RECORDS = 250
-# short term sets (GDELT rejects long queries); the headline is re-filtered with the full keyword module afterwards
-# GDELT's DOC API matches non-English terms only when the language is named (sourcelang); every Spanish and
-# Portuguese window came back empty without it in the first live runs while English windows returned articles
+# Term sets. The DOC API matches query terms against GDELT's ENGLISH translation of every article, whatever its
+# language: in the diagnostic runs of 2026-10-09 every Spanish- and Portuguese-term query answered an empty object,
+# while `lithium sourcelang:spanish` returned Spanish-language articles. So the terms are English for every
+# language and `sourcelang:` picks the local-language press; the headline is re-filtered afterwards in its own
+# language by the keyword module. Kept short: GDELT rejects long queries.
 TERMS = {
-    "es": '(litio OR cobre OR minería OR minera OR niobio OR "tierras raras") (China OR chino OR chinos OR "Estados Unidos" OR estadounidense) sourcelang:spanish',
-    "pt": '(lítio OR cobre OR mineração OR mineradora OR nióbio OR "terras raras") (China OR chinesa OR chineses OR "Estados Unidos" OR EUA) sourcelang:portuguese',
+    "es": '(lithium OR copper OR mining OR niobium OR "rare earths") (China OR Chinese OR "United States" OR American) sourcelang:spanish',
+    "pt": '(lithium OR copper OR mining OR niobium OR "rare earths") (China OR Chinese OR "United States" OR American) sourcelang:portuguese',
     "en": '(mining OR bauxite OR gold OR lithium OR minerals) (China OR Chinese OR "United States")',
-    "nl": '(mijnbouw OR goud OR bauxiet OR olie) (China OR Chinese OR "Verenigde Staten") sourcelang:dutch',
+    "nl": '(mining OR gold OR bauxite OR oil) (China OR Chinese OR "United States") sourcelang:dutch',
 }
-# ASCII-only, shorter variants: in the first live run every Spanish and Portuguese window came back empty while
-# the English and Dutch ones returned articles, so accented or long queries are suspected; the fallback is tried
-# once per empty window and the variant that yields results is recorded in the manifest
+# shorter variants tried once per empty window until the primary form has returned articles for the language
 TERMS_FALLBACK = {
-    "es": '(litio OR cobre OR mineria OR minera) (China OR "Estados Unidos") sourcelang:spanish',
-    "pt": '(litio OR cobre OR mineracao OR mineradora OR niobio) (China OR "Estados Unidos") sourcelang:portuguese',
+    "es": '(lithium OR copper OR mining) (China OR "United States") sourcelang:spanish',
+    "pt": '(lithium OR copper OR mining) (China OR "United States") sourcelang:portuguese',
     "en": "(mining OR lithium OR copper) (China OR \"United States\")",
-    "nl": "(mijnbouw OR goud OR bauxiet) (China OR \"Verenigde Staten\")",
+    "nl": "(mining OR gold OR bauxite) (China OR \"United States\") sourcelang:dutch",
 }
 COUNTRY_LANGS = {"BRA": ["pt"], "GUY": ["en"], "SUR": ["nl", "en"]}
-# One-term probes run at the start of every fetch (last 30 days, 5 records each) and recorded under
-# manifest["diagnostics"]: every Spanish and Portuguese window answered an empty JSON object in the first
-# live runs, with and without accents and with sourcelang, while English and Dutch windows returned
-# articles. The probes isolate which operator or term set empties the query; they cost eight requests.
+# Two one-term probes at the start of every fetch (last 30 days, 5 records each), recorded under
+# manifest["diagnostics"]: they show whether the address is throttled and whether the translation matching holds.
 DIAGNOSTIC_QUERIES = [
-    ("es_term_only", "cobre"),
-    ("es_sourcelang", "cobre sourcelang:spanish"),
-    ("es_sourcecountry", "cobre sourcecountry:AR"),
-    ("es_two_terms", "litio China sourcelang:spanish"),
-    ("es_or_group", "(litio OR cobre) China sourcelang:spanish"),
-    ("es_phrase", '"Estados Unidos" cobre sourcelang:spanish'),
-    ("pt_sourcelang", "cobre sourcelang:portuguese"),
-    ("pt_sourcecountry", "litio sourcecountry:BR"),
+    ("es_english_term", "lithium sourcelang:spanish"),
+    ("pt_english_term", "lithium sourcelang:portuguese"),
 ]
 # registry press hosts that GDELT reports under another domain
 DOMAIN_ALIASES = {"www1.folha.uol.com.br": "bra_folha", "folha.uol.com.br": "bra_folha", "valor.globo.com": "bra_valor", "oglobo.globo.com": "bra_oglobo",
