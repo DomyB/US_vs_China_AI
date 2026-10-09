@@ -63,6 +63,45 @@ export function QuantMethods() {
         <strong>Say–do gap:</strong> {q.say_do.rows} country-year-actor values ({q.say_do.countries.join(", ") || "none"}); the rhetoric side is a text-model output ({qm.text_model_label}).{" "}
         <strong>Network:</strong> {q.network.nodes} nodes and {q.network.edges} links from the finance records{q.network.unattributed_events !== null ? `; ${q.network.unattributed_events} events name no recipient and are left out` : ""}. Most connected lenders: {q.network.top_lenders.slice(0, 5).map((l) => `${l.label} (${l.degree} links)`).join("; ")}.
       </p>
+      {q.regressions && (
+        <div className="mt-3">
+          <p className="mb-1 text-xs text-ink-2">
+            <strong>Panel regressions:</strong> {q.regressions.rows.length > 0
+              ? `${q.regressions.rows.length} coefficients from ${new Set(q.regressions.rows.map((r) => r.spec)).size} outcomes × ${new Set(q.regressions.rows.map((r) => r.variant)).size} specifications; regressors standardised (a coefficient is share points per one standard deviation); standard errors clustered by country; p (wild) from ${q.regressions.n_boot ?? "–"} Rademacher wild-cluster bootstrap draws; range = coefficient when each country is dropped in turn. Associations with country and year effects, not causal estimates.`
+              : q.regressions.note}
+          </p>
+          {q.regressions.rows.length > 0 && (
+            <table className="w-full border-collapse text-xs">
+              <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Outcome · spec</th><th className="py-1 pr-2">Term</th><th className="py-1 pr-2 text-right">Coef.</th><th className="py-1 pr-2 text-right">SE</th><th className="py-1 pr-2 text-right">p (cluster)</th><th className="py-1 pr-2 text-right">p (wild)</th><th className="py-1 pr-2 text-right">Drop-one range</th><th className="py-1 text-right">n · countries · within R²</th></tr></thead>
+              <tbody>
+                {q.regressions.rows.map((r) => (
+                  <tr key={`${r.spec}-${r.variant}-${r.term}`} className="border-b border-rule">
+                    <td className="py-1 pr-2">{prettyLabel(r.outcome)} · {r.variant === "twfe" ? "country + year FE" : "country FE"}</td>
+                    <td className="py-1 pr-2">{prettyLabel(r.term)}</td>
+                    <td className="py-1 pr-2 text-right tabular-nums">{(r.coef * 100).toFixed(2)}</td>
+                    <td className="py-1 pr-2 text-right tabular-nums">{(r.se * 100).toFixed(2)}</td>
+                    <td className="py-1 pr-2 text-right tabular-nums">{r.p_cluster !== null ? r.p_cluster.toFixed(3) : "–"}</td>
+                    <td className="py-1 pr-2 text-right tabular-nums">{r.p_wild !== null ? r.p_wild.toFixed(3) : "–"}</td>
+                    <td className="py-1 pr-2 text-right tabular-nums">{(r.jk_min * 100).toFixed(2)} to {(r.jk_max * 100).toFixed(2)}</td>
+                    <td className="py-1 text-right tabular-nums">{r.n_obs} · {r.n_countries} · {r.r2_within !== null ? r.r2_within.toFixed(2) : "–"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          <p className="mt-1 text-[11px] text-ink-3">Coefficients and errors are shown in share points (×100).</p>
+        </div>
+      )}
+      {q.events && (
+        <p className="mt-3 text-xs text-ink-2">
+          <strong>Event studies:</strong> {q.events.total} dated events in the list ({q.events.reviewed} reviewed, {q.events.draft} draft, {q.events.to_verify} flagged for verification); {q.events.with_window} of {q.events.rows} event-window estimates have both pre- and post-event trade years, {q.events.did_rows} difference-in-differences estimates. Results appear on each country&apos;s Analysis tab; draft events are marked there.
+          {q.events.list.length > 0 && (
+            <>
+              {" "}Events: {q.events.list.map((e) => `${e.date} ${e.title}${e.status !== "reviewed" ? " (draft)" : ""}`).join("; ")}.
+            </>
+          )}
+        </p>
+      )}
       {Object.keys(q.flags_by_type).length > 0 && (
         <table className="mt-2 w-full border-collapse text-xs">
           <thead><tr className="border-b border-rule text-left"><th className="py-1 pr-2">Flag rule</th><th className="py-1 pr-2">Evidence level</th><th className="py-1">Flags</th></tr></thead>

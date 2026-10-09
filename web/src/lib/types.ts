@@ -222,6 +222,17 @@ export interface QuantFile {
   flags_by_type: Record<string, Record<string, number>>;
   concentration: { rows: number; hhi: string };
   network: { nodes: number; edges: number; unattributed_events: number | null; top_lenders: { label: string; origin: string | null; degree: number; weighted_degree_musd: number }[] };
+  regressions?: { rows: RegressionRow[]; terms: string[]; min_obs: number; min_countries: number; n_boot: number | null; note: string | null };
+  events?: {
+    total: number;
+    reviewed: number;
+    draft: number;
+    to_verify: number;
+    rows: number;
+    with_window: number;
+    did_rows: number;
+    list: { id: string; date: string; actor: string; type: string; title: string; status: string; verify: boolean; scope: string; source_id: string | null }[];
+  };
 }
 
 export interface CountryCoverage {
@@ -474,6 +485,50 @@ export interface CountryNetwork {
   unattributed_events: number;
 }
 
+/** One event-study estimate (Phase 4b): a country's own event window, or the difference-in-differences row of a scoped event. */
+export interface EventEffectRow {
+  event_id: string;
+  title: string | null;
+  type: string | null;
+  date: string;
+  year: number;
+  status: "draft" | "reviewed";
+  verify: boolean;
+  event_actor: string;
+  actor: Actor;
+  outcome: string;
+  design: "window" | "did";
+  pre_mean: number | null;
+  post_mean: number | null;
+  diff: number | null;
+  placebo_p: number | null;
+  n_placebo: number;
+  treated_countries: string[];
+  control_countries: string[];
+  note: string | null;
+  source: SourceRef | null;
+}
+
+/** One term of a panel regression (Phase 4b), exported in quant.json. */
+export interface RegressionRow {
+  spec: string;
+  variant: string;
+  outcome: string;
+  actor: Actor;
+  term: string;
+  coef: number;
+  se: number;
+  t: number | null;
+  p_cluster: number | null;
+  p_wild: number | null;
+  jk_min: number;
+  jk_max: number;
+  n_obs: number;
+  n_countries: number;
+  years: string;
+  r2_within: number | null;
+}
+
 /** The `analysis` block of a real country file (Phase 4). */
 export interface RealAnalysis {
   index: CountryIndexRow[];
@@ -482,6 +537,7 @@ export interface RealAnalysis {
   flags: Flag[];
   concentration: ConcentrationRow[];
   network: CountryNetwork;
+  event_effects?: EventEffectRow[];
   quant_model: QuantModelStatus;
 }
 
@@ -532,6 +588,7 @@ export interface CountryData {
     index?: CountryIndexRow[];
     concentration?: ConcentrationRow[];
     network?: CountryNetwork;
+    event_effects?: EventEffectRow[];
     quant_model?: QuantModelStatus;
   };
   forecast: { series: ForecastRow[]; scenarios: Scenario[] };

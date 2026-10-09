@@ -131,6 +131,9 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
   );
 
   const network = data.analysis.network;
+  const eventRows = useMemo(() => (data.analysis.event_effects ?? []).filter((e) => e.diff !== null), [data]);
+  const eventsPending = useMemo(() => (data.analysis.event_effects ?? []).filter((e) => e.diff === null && e.design === "window").length, [data]);
+  const draftEvents = useMemo(() => (data.analysis.event_effects ?? []).some((e) => e.status !== "reviewed"), [data]);
   const governance = useMemo(() => {
     const rows = (data.governance ?? []).filter((g) => g.year === year);
     const byInd = new Map<string, (typeof rows)[number]>();
@@ -254,6 +257,41 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
           ))}
         </ul>
       </section>
+
+      {real && (data.analysis.event_effects ?? []).length > 0 && (
+        <section aria-labelledby="ev-h">
+          {header("ev-h", "Event windows")}
+          <p className="mb-2 text-xs text-ink-3">
+            For each dated policy event: the country&apos;s mean export share to the actor in the two years after the event minus the two years before (the event year left out), with a placebo p-value from the same statistic at the series&apos; other years; for events that touch some countries only, a difference-in-differences against the others with a permutation placebo. Associations, not causes.
+            {draftEvents ? " The event list is a draft awaiting review: rows marked draft may change." : ""}
+            {eventsPending ? ` ${eventsPending} event-window row${eventsPending === 1 ? "" : "s"} wait for post-event years of trade data.` : ""}
+          </p>
+          {eventRows.length === 0 ? (
+            <p className="text-sm text-ink-3">No event has both pre- and post-event trade years for this country yet.</p>
+          ) : (
+            <table className="w-full text-xs">
+              <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Event</th><th className="py-1">Toward</th><th className="py-1">Design</th><th className="py-1 text-right">Before</th><th className="py-1 text-right">After</th><th className="py-1 text-right">Change</th><th className="py-1 text-right">Placebo p</th></tr></thead>
+              <tbody>
+                {eventRows.map((e) => (
+                  <tr key={`${e.event_id}-${e.actor}-${e.design}`} className="border-t border-rule align-top">
+                    <td className="py-1">
+                      <span className="tabular-nums text-ink-3">{e.date.slice(0, 7)}</span> {e.title ?? e.event_id}
+                      {e.status !== "reviewed" && <span className="ml-1 rounded-sm border border-dotted border-ink-3 px-1 text-[9px] uppercase text-ink-3" title="Event list not yet reviewed by the project owner">draft</span>}
+                      {e.source && <span className="ml-1"><SourceLink source={e.source} compact /></span>}
+                    </td>
+                    <td className="py-1">{actorName(e.actor)}</td>
+                    <td className="py-1" title={e.note ?? undefined}>{e.design === "did" ? `diff-in-diff (treated ${e.treated_countries.join(", ")} vs ${e.control_countries.length} controls)` : "own window"}</td>
+                    <td className="py-1 text-right tabular-nums">{e.pre_mean !== null ? fmtPct(e.pre_mean, 1) : "—"}</td>
+                    <td className="py-1 text-right tabular-nums">{e.post_mean !== null ? fmtPct(e.post_mean, 1) : "—"}</td>
+                    <td className="py-1 text-right tabular-nums">{e.diff !== null ? `${e.diff > 0 ? "+" : ""}${(e.diff * 100).toFixed(1)} pts` : "—"}</td>
+                    <td className="py-1 text-right tabular-nums">{e.placebo_p !== null ? e.placebo_p.toFixed(2) : "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </section>
+      )}
 
       {real && network && (
         <section aria-labelledby="net-h">

@@ -173,3 +173,78 @@ def test_export_without_quant_tables_keeps_analysis_sample(tmp_path):
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["analysis"] == "sample" and meta["quant_model"]["status"] == "not_yet_computed"
     assert json.loads((out / "index.json").read_text())["rows"] == [] and json.loads((out / "quant.json").read_text())["status"] == "not_yet_computed"
+
+
+def test_event_effects_window_and_did(tmp_path):
+    from scm.quant import events as ev
+
+    years = list(range(2010, 2024))
+    rows = []
+    for iso in ["CHL", "PER", "ARG", "BRA", "COL"]:
+        for y in years:
+            base = 0.4 if iso == "CHL" else 0.2
+            jump = 0.2 if (iso == "CHL" and y >= 2018) else 0.0  # Chile's share to China steps up after 2017
+            rows.append({"country": iso, "year": y, "share_us": 0.1, "share_cn": base + jump})
+    shares = pd.DataFrame(rows)
+    path = tmp_path / "events.yaml"
+    path.write_text("""events:
+  - {id: chl_event, date: 2017-06-01, actor: CHL, scope: [CHL], type: strategy, title: Chile event, source_id: chl_corfo_lithium, status: reviewed, verify: false}
+  - {id: global_event, date: 2017-06-01, actor: US, scope: all, type: law, title: Global event, source_id: federal_register, status: draft, verify: true}
+  - {id: late_event, date: 2023-06-01, actor: CN, scope: all, type: export_control, title: No post years yet, source_id: mofcom_export_controls, status: draft, verify: false}
+""", encoding="utf-8")
+    events = ev.load_events(path)
+    assert len(events) == 3 and events[0]["countries"] == ["CHL"] and events[1]["scope_all"] and events[1]["status"] == "draft"
+    out = ev.event_effects(events, shares, n_perm=200, seed=1)
+    chl = out[(out["event_id"] == "chl_event") & (out["country"] == "CHL") & (out["actor"] == "CN")].iloc[0]
+    assert chl["design"] == "window" and abs(chl["diff"] - 0.2) < 1e-9 and chl["placebo_p"] is not None and chl["placebo_p"] < 0.2
+    did = out[(out["event_id"] == "chl_event") & (out["design"] == "did") & (out["actor"] == "CN")].iloc[0]
+    assert abs(did["diff"] - 0.2) < 1e-9 and did["treated_countries"] == "CHL" and did["control_countries"] == "ARG,BRA,COL,PER" and did["placebo_p"] <= 0.25
+    assert out[(out["event_id"] == "global_event") & (out["design"] == "did")].empty  # no control group for a global event
+    late = out[out["event_id"] == "late_event"]
+    assert late["diff"].isna().all() and late["note"].str.contains("not covered").all()
+    assert set(out["event_status"]) == {"reviewed", "draft"}
+
+
+def test_panel_regression_recovers_a_planted_effect():
+    import numpy as np
+
+    from scm.quant import panel as pn
+
+    rng = np.random.default_rng(0)
+    rows = []
+    for i, iso in enumerate(["ARG", "BOL", "BRA", "CHL", "COL", "ECU", "PER", "GUY"]):
+        for y in range(2009, 2022):
+            x = rng.normal()
+            z = rng.normal()
+            # outcome: country effect + year effect + 0.05 per 1 SD of x + noise; z and the others carry nothing
+            rows.append({"country": iso, "year": y, "actor": "CN", "share_x": 0.3 + 0.02 * i + 0.01 * (y - 2009) + 0.05 * x + rng.normal(scale=0.01), "share_m": np.nan,
+                         "finance_flow_lag1": x, "diplomatic_alignment": z, "electoral_democracy": rng.normal(), "rule_of_law": rng.normal(), "mineral_rents_gdp": rng.normal()})
+    panel = pd.DataFrame(rows)
+    out = pn.panel_regressions(panel, n_boot=99, seed=1)
+    main = out[(out["spec"] == "exports_to_cn") & (out["variant"] == "twfe")].set_index("term")
+    assert abs(main.loc["finance_flow_lag1", "coef"] - 0.05) < 0.01 and main.loc["finance_flow_lag1", "p_wild"] < 0.05 and main.loc["finance_flow_lag1", "p_cluster"] < 0.01
+    assert main.loc["finance_flow_lag1", "jk_min"] <= main.loc["finance_flow_lag1", "coef"] <= main.loc["finance_flow_lag1", "jk_max"]
+    assert abs(main.loc["diplomatic_alignment", "coef"]) < 0.01 and main.loc["diplomatic_alignment", "p_wild"] > 0.05
+    assert main["n_obs"].iloc[0] == 104 and main["n_countries"].iloc[0] == 8 and main["r2_within"].iloc[0] > 0.5
+    assert out[(out["spec"] == "imports_from_cn")].empty  # no import outcome in the synthetic panel
+    assert set(out["variant"]) == {"twfe", "country_fe"}
+
+
+def test_run_exports_event_effects_and_regressions(tmp_path):
+    wh = _synthetic_warehouse(tmp_path)
+    path = tmp_path / "events.yaml"
+    path.write_text("events:\n  - {id: chl_event, date: 2021-03-01, actor: CHL, scope: [CHL], type: strategy, title: Chile event, source_id: chl_corfo_lithium, status: draft, verify: true}\n", encoding="utf-8")
+    res = quant_run.run(wh, draws=20, seed=3, release="t", n_boot=19, events_path=path)
+    assert res["rows"]["event_effect"] >= 2 and res["events"] == {"total": 1, "reviewed": 0, "draft": 1}
+    eff = warehouse.load_slot("event_effect", "quant", wh)
+    chl_cn = eff[(eff["country"] == "CHL") & (eff["actor"] == "CN")].iloc[0]
+    assert chl_cn["pre_mean"] == 0.3 and chl_cn["post_mean"] == 0.6 and abs(chl_cn["diff"] - 0.3) < 1e-9 and chl_cn["event_status"] == "draft"
+    assert res["rows"]["regression_result"] == 0  # two countries: below the panel minimum, nothing invented
+    warehouse.build(wh)
+    out = tmp_path / "site"
+    export_site.run(wh, out)
+    chl = json.loads((out / "country" / "CHL.json").read_text())["analysis"]
+    e = next(r for r in chl["event_effects"] if r["actor"] == "CN" and r["design"] == "window")
+    assert e["title"] == "Chile event" and e["status"] == "draft" and e["verify"] is True and e["source"]["id"] == "chl_corfo_lithium" and abs(e["diff"] - 0.3) < 1e-9
+    q = json.loads((out / "quant.json").read_text())
+    assert q["events"]["total"] == 1 and q["events"]["with_window"] >= 2 and q["regressions"]["rows"] == [] and "not computed" in q["regressions"]["note"]

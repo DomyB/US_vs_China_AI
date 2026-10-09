@@ -103,7 +103,7 @@ export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | unde
   }
   if (real?.analysis) {
     const a = real.analysis;
-    sample.analysis = { components: a.components, say_do_gap: a.say_do_gap, flags: a.flags, key_events: [], index: a.index, concentration: a.concentration, network: a.network, quant_model: a.quant_model };
+    sample.analysis = { components: a.components, say_do_gap: a.say_do_gap, flags: a.flags, key_events: [], index: a.index, concentration: a.concentration, network: a.network, event_effects: a.event_effects ?? [], quant_model: a.quant_model };
     if (real.freshness.analysis) sample.freshness = { ...sample.freshness, analysis: real.freshness.analysis };
     sample.layers.analysis = "real";
   }

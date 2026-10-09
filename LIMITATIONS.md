@@ -229,9 +229,17 @@ the registry.
 - **Network** links lenders to the receiving agencies named in the records; 846 of 1,699 events name
   no recipient and are counted, not drawn. No ownership links yet (contracts carry no company names;
   cadastres exist for Ecuador only).
-- **Event studies and panel regressions are not run yet** (Phase 4b): the event list
-  (`pipeline/config/events.yaml`) is a draft awaiting review, and with twelve countries and annual
-  data they will be reported as associations with their uncertainty.
+- **Event studies** (Phase 4b) rest on a draft event list: `pipeline/config/events.yaml` holds 19 dated
+  events of which 10 are flagged for verification and none is marked reviewed yet; every result carries
+  the event's status and the site marks draft rows. Annual export shares, two-year windows and placebo
+  distributions of about ten values per country make the placebo p coarse (the smallest attainable is
+  about 0.08); events of 2025–2026 have no post-event years yet. Policies respond to the same world the
+  outcomes do, so nothing here is causal.
+- **Panel regressions** (Phase 4b) use 131–133 country-years over eleven countries, 2009–2021 (the
+  finance regressor ends with AidData's coverage); within R² is low (0.02–0.19) and most coefficients
+  are indistinguishable from zero under the wild cluster bootstrap. The one robust association on the
+  first run (imports from the United States rise with electoral democracy, two-way fixed effects) is a
+  conditional correlation across a handful of democratic transitions, not a mechanism.
 
 ## Method limitations
 

@@ -97,6 +97,7 @@ def main(argv: list[str] | None = None) -> int:
     an.add_argument("--draws", type=int, default=500, help="weight draws for the sensitivity band")
     an.add_argument("--seed", type=int, default=20261009)
     an.add_argument("--release", default=None, help="data release tag the warehouse was restored from (default: RESTORED_TAG or local)")
+    an.add_argument("--boot", type=int, default=999, help="wild-cluster bootstrap draws for the panel regressions")
     args = p.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
 
@@ -139,7 +140,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "analyse":
         from .quant.run import run as analyse
 
-        print(json.dumps(analyse(draws=args.draws, seed=args.seed, release=args.release), indent=1, default=str))
+        print(json.dumps(analyse(draws=args.draws, seed=args.seed, release=args.release, n_boot=args.boot), indent=1, default=str))
         return 0
     if args.cmd == "classify":
         from .text.pipeline import run_steps

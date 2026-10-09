@@ -533,6 +533,59 @@ network_edge = DataFrameSchema(
     coerce=True, strict=True, name="network_edge",
 )
 
+event_effect = DataFrameSchema(
+    {
+        "event_id": Column(str),
+        "event_date": Column(str),
+        "event_year": Column(int),
+        "event_status": Column(str, Check.isin(["draft", "reviewed"])),
+        "event_verify": Column(bool),
+        "event_actor": Column(str),
+        "event_type": Column(str),
+        "event_title": Column(str),
+        "event_source_id": Column(str, nullable=True),
+        "event_scope": Column(str),  # "all" or comma-separated ISO3
+        "country": Column(str),  # ISO3, or "treated" for a difference-in-differences row
+        "actor": Column(str, Check.isin(ACTORS)),
+        "outcome": Column(str),
+        "design": Column(str, Check.isin(["window", "did"])),
+        "pre_mean": Column(float, nullable=True),
+        "post_mean": Column(float, nullable=True),
+        "diff": Column(float, nullable=True),
+        "placebo_p": Column(float, Check.in_range(0, 1), nullable=True),
+        "n_placebo": Column(int),
+        "treated_countries": Column(str),
+        "control_countries": Column(str),
+        "note": Column(str, nullable=True),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="event_effect",
+)
+
+regression_result = DataFrameSchema(
+    {
+        "spec": Column(str),
+        "variant": Column(str),
+        "outcome": Column(str),
+        "actor": Column(str, Check.isin(ACTORS)),
+        "term": Column(str),
+        "coef": Column(float),
+        "se": Column(float),
+        "t": Column(float, nullable=True),
+        "p_cluster": Column(float, Check.in_range(0, 1), nullable=True),
+        "p_wild": Column(float, Check.in_range(0, 1), nullable=True),
+        "jk_min": Column(float),
+        "jk_max": Column(float),
+        "n_obs": Column(int),
+        "n_countries": Column(int),
+        "years": Column(str),
+        "r2_within": Column(float, nullable=True),
+        "note": Column(str, nullable=True),
+        **QUANT_STAMP,
+    },
+    coerce=True, strict=True, name="regression_result",
+)
+
 quant_run = DataFrameSchema(
     {
         "created_at": Column(str),
@@ -550,11 +603,11 @@ SCHEMAS: dict[str, DataFrameSchema] = {
                         document, vote, vote_member, concession, media_volume, ingest_run,
                         doc_translation, doc_classification, doc_embedding, topic_model_run, topic, doc_topic,
                         validation_sample, validation_metric,
-                        concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, quant_run]
+                        concentration, index_value, index_component, say_do_gap, anomaly_flag, network_metric, network_edge, event_effect, regression_result, quant_run]
 }
 MODEL_OUTPUT_TABLES = ["doc_translation", "doc_classification", "doc_embedding", "topic_model_run", "topic", "doc_topic",
                        "validation_sample", "validation_metric"]
-QUANT_TABLES = ["concentration", "index_value", "index_component", "say_do_gap", "anomaly_flag", "network_metric", "network_edge", "quant_run"]
+QUANT_TABLES = ["concentration", "index_value", "index_component", "say_do_gap", "anomaly_flag", "network_metric", "network_edge", "event_effect", "regression_result", "quant_run"]
 
 # Merge keys for tables that accumulate across runs (Adapter.incremental): rows with the same key
 # are kept once, the first-seen row winning so `retrieved_at` records the first observation.
@@ -581,6 +634,8 @@ KEY_COLUMNS: dict[str, list[str]] = {
     "anomaly_flag": ["flag_id"],
     "network_metric": ["run_id", "node_id"],
     "network_edge": ["run_id", "source_node", "target_node"],
+    "event_effect": ["event_id", "country", "actor", "design"],
+    "regression_result": ["spec", "variant", "term"],
     "quant_run": ["run_id"],
 }
 

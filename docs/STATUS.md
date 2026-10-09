@@ -4,6 +4,19 @@ One entry per phase: what runs, what is missing, what broke, recommendation.
 
 **Note, 2026-10-07 (credential leak):** the first Congress.gov run recorded its API key in a fixture manifest committed to the public repository (the recorder cleaned URLs but not the params dict). Fixed in code (params masked, a test scans every fixture) and the adapter was rewritten to list bills per Congress and filter on title (DECISIONS 44). The first run of the rewritten adapter failed after about 40 pages with "Response ended prematurely" (a dropped connection); downloads now retry cut-off responses four times before failing. The completed run scanned 10 Congresses (about 150,000 bills) and kept 1,576 titles, of which 607 were Congressional Gold Medal bills and dozens were tariff-suspension bills on chemicals; both are now excluded, and the date is the latest action's date (the update date put 2008 bills in 2025). The key must be rotated at api.congress.gov and the `CONGRESS_GOV_KEY` secret replaced; the old value remains in git history until then.
 
+## Phase 4b — Event studies and panel regressions (2026-10-09)
+
+**What runs**
+- `scm/quant/events.py`: for each of the 19 dated events in `pipeline/config/events.yaml` (all still `draft`; 10 flagged for verification), per country and actor, the mean export share in the two years after the event minus the two years before, with a placebo p from the same statistic at the series' other years; for the five events with a country scope, a difference-in-differences against the other countries with a 999-permutation placebo. 292 rows on the 8 October release, 194 with both windows (events of 2025–2026 wait for post-event years), 8 difference-in-differences estimates. Every row carries the event's status, title, type and source; the Analysis tab shows the country's rows with a "draft" mark.
+- `scm/quant/panel.py`: two-way fixed-effects regressions (numpy) of the export and import shares to each actor on five standardised regressors (finance / GDP lagged, UNGA agreement, V-Dem electoral democracy, WGI rule of law, mineral rents), 131–133 country-years over 11 countries, 2009–2021; CR1 cluster-robust SE, wild cluster bootstrap p (999 Rademacher draws, about one minute), drop-one-country range, and a country-effects-only variant: 40 coefficients in `regression_result`, shown on the methodology page in share points.
+- First reading: almost everything is a null. Chinese finance lagged one year is associated with a lower, not higher, share of exports to China (−1.2 points per SD, bootstrap p 0.04, drop-one range −1.7 to −0.5): lending went to oil, power and infrastructure, not to mineral buyers. Imports from the United States rise with electoral democracy (+15.7 points per SD, p 0.03). Event windows: Argentina's, Bolivia's and Guyana's export shares to China rose after the 2022 Inflation Reduction Act (placebo p 0.08, the floor the design allows); Chile's share to the United States rose 3.6 points relative to the others after the 2023 lithium strategy (permutation p 0.09); the Chancay opening shows nothing yet. 147 pipeline tests (3 new, including a planted-effect recovery test for the estimator) and 19 site tests pass; DECISIONS 50–51.
+
+**What is missing**
+- The owner's review of `events.yaml` (mark events `reviewed`, fix the 10 flagged ones); the HHI and mirror comparisons (need `COMTRADE_KEY`); media stance; ownership links.
+
+**Recommendation**
+- Treat every coefficient and event estimate as an association on a short annual panel; the methodology page states the designs and their placebo construction. Review the event list before citing an event result.
+
 ## Phase 4a — Quantitative analysis on the committed warehouse (2026-10-09)
 
 **What runs**

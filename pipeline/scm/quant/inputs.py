@@ -18,6 +18,8 @@ UNGA = {"US": "unga_agreement_USA", "CN": "unga_agreement_CHN"}
 GDP = "NY.GDP.MKTP.CD"
 DEBT_CN = "DT.DOD.DPPG.CD:730"  # IDS: PPG external debt stock owed to China
 SWAP_RE = r"(?i)\bswap\b"
+# controls for the panel regressions (Phase 4b): indicator id -> short name
+CONTROLS = {"v2x_polyarchy": "electoral_democracy", "RL.EST": "rule_of_law", "NY.GDP.MINR.RT.ZS": "mineral_rents_gdp", "BX.KLT.DINV.CD.WD": "fdi_inflows_usd"}
 
 
 @dataclass
@@ -29,6 +31,7 @@ class Inputs:
     debt_cn: pd.DataFrame  # country, year, value (USD)
     stance: pd.DataFrame  # doc_id, country, year, actor, stance, source_id (legislative records with a scored stance)
     text_status: dict  # the classifier's status block (method, label, validated ...)
+    controls: pd.DataFrame = field(default_factory=lambda: pd.DataFrame(columns=["country", "year", "name", "value"]))  # panel controls
     last_year: dict[str, int | None] = field(default_factory=dict)  # last year each source covers
     minerals: list[str] = field(default_factory=list)  # minerals the index is also computed for
 
@@ -132,10 +135,12 @@ def load_inputs(warehouse: Path = WAREHOUSE_DIR) -> Inputs:
     unga = pd.concat(unga_parts, ignore_index=True) if unga_parts else _empty(["country", "year", "value", "actor"])
     debt_cn = _indicator(gov, DEBT_CN)
     stance, text_status = load_stance(warehouse)
+    ctrl_parts = [_indicator(gov, ind).assign(name=name) for ind, name in CONTROLS.items()]
+    controls = pd.concat([c for c in ctrl_parts if not c.empty], ignore_index=True) if any(not c.empty for c in ctrl_parts) else pd.DataFrame(columns=["country", "year", "value", "name"])
     last_year = {
         "trade": _last_year(trade), "gdp": _last_year(gdp), "unga": _last_year(unga), "debt_CN": _last_year(debt_cn), "stance": _last_year(stance),
         "finance_US": _last_year(finance[finance["origin"] == "US"]) if not finance.empty else None,
         "finance_CN": _last_year(finance[finance["origin"] == "CN"]) if not finance.empty else None,
     }
     return Inputs(trade=trade, finance=finance, gdp=gdp, unga=unga, debt_cn=debt_cn, stance=stance, text_status=text_status,
-                  last_year=last_year, minerals=core_minerals())
+                  controls=controls[["country", "year", "name", "value"]], last_year=last_year, minerals=core_minerals())

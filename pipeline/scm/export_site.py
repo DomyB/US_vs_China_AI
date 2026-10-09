@@ -20,6 +20,7 @@ import pandas as pd
 
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
 from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
+from .quant.panel import MIN_COUNTRIES, MIN_OBS, TERMS
 from .registry import COUNTRIES, IN_SCOPE, core_minerals, sources
 from .schema import SCHEMAS
 from .text.store import pick_classifications
@@ -99,15 +100,41 @@ def _quant_status(qrun: list[dict], idx_rows: list[dict], text_status: dict) -> 
               "weights_version": r["weights_version"] if r else None, "run_id": r["run_id"] if r else None, "inputs_release": r["inputs_release"] if r else None,
               "created_at": r["created_at"] if r else None, "draws": int(r["draws"]) if r else None, "rank_stability": r["rank_stability"] if r else None,
               "text_model_label": text_status.get("label"), "last_year": notes.get("last_year", {}), "unattributed_finance_events": notes.get("unattributed_finance_events"),
-              "label": None}
+              "n_boot": notes.get("n_boot"), "events": notes.get("events"), "label": None}
     if computed:
         status["label"] = f"Computed from sourced data · method {r['method_version']} · band: 5th–95th percentile of {int(r['draws'])} weight and normalisation draws"
     return status
 
 
-def _analysis_block(iso: str, idx_rows: list[dict], comp_rows: list[dict], sd_rows: list[dict], flag_rows: list[dict], conc_rows: list[dict],
-                    node_rows: list[dict], edge_rows: list[dict], unattributed: int, status: dict) -> dict | None:
+def _event_rows(iso: str, effect_rows: list[dict]) -> list[dict]:
+    """Event-window rows of the country plus the difference-in-differences rows of events that treat it; the event's
+    title, type, review status and source travel with the rows (they were computed from that event list)."""
     reg = sources()
+    out = []
+    for r in effect_rows:
+        treated = [c for c in str(r["treated_countries"] or "").split(",") if c]
+        if not (r["country"] == iso or (r["design"] == "did" and iso in treated)):
+            continue
+        out.append({"event_id": r["event_id"], "title": r["event_title"], "type": r["event_type"], "date": r["event_date"], "year": int(r["event_year"]),
+                    "status": r["event_status"], "verify": bool(r["event_verify"]), "event_actor": r["event_actor"], "actor": r["actor"], "outcome": r["outcome"],
+                    "design": r["design"], "pre_mean": r["pre_mean"], "post_mean": r["post_mean"], "diff": r["diff"], "placebo_p": r["placebo_p"], "n_placebo": int(r["n_placebo"]),
+                    "treated_countries": treated, "control_countries": [c for c in str(r["control_countries"] or "").split(",") if c], "note": r["note"],
+                    "source": _src(r["event_source_id"]) if r.get("event_source_id") in reg else None})
+    return sorted(out, key=lambda r: (r["year"], r["event_id"], r["actor"], r["design"]))
+
+
+def _events_from_rows(effect_rows: list[dict]) -> dict[str, dict]:
+    events: dict[str, dict] = {}
+    for r in effect_rows:
+        events.setdefault(r["event_id"], {"id": r["event_id"], "date": r["event_date"], "actor": r["event_actor"], "type": r["event_type"], "title": r["event_title"],
+                                          "status": r["event_status"], "verify": bool(r["event_verify"]), "scope": r["event_scope"], "source_id": r.get("event_source_id")})
+    return events
+
+
+def _analysis_block(iso: str, idx_rows: list[dict], comp_rows: list[dict], sd_rows: list[dict], flag_rows: list[dict], conc_rows: list[dict],
+                    node_rows: list[dict], edge_rows: list[dict], unattributed: int, status: dict, effect_rows: list[dict] | None = None) -> dict | None:
+    reg = sources()
+    event_rows = _event_rows(iso, effect_rows or [])
     # the country file carries the "all minerals" index with its sub-indices and drivers; per-mineral composites live in index.json
     index = [{"year": int(r["year"]), "actor": r["actor"], "index_name": r["index_name"], "value": r["value"], "lower": r["lower"], "upper": r["upper"],
               "n_components": int(r["n_components"]), "components_available": [c for c in str(r["components_available"]).split(",") if c]}
@@ -153,11 +180,12 @@ def _analysis_block(iso: str, idx_rows: list[dict], comp_rows: list[dict], sd_ro
     }
     if not (index or concentration or flags or edges):
         return None
-    return {"index": index, "components": components, "say_do_gap": say_do, "flags": flags, "concentration": concentration, "network": network, "quant_model": status}
+    return {"index": index, "components": components, "say_do_gap": say_do, "flags": flags, "concentration": concentration, "network": network,
+            "event_effects": event_rows, "quant_model": status}
 
 
 def _quant_file(status: dict, idx_rows: list[dict], comp_rows: list[dict], sd_rows: list[dict], flag_rows: list[dict], conc_rows: list[dict],
-                node_rows: list[dict], edge_rows: list[dict], today: str) -> dict:
+                node_rows: list[dict], edge_rows: list[dict], today: str, reg_rows: list[dict] | None = None, effect_rows: list[dict] | None = None) -> dict:
     """What the methodology page shows about the Phase 4 methods: components and their availability, the index
     coverage, the sensitivity settings, flag counts by type and level, the network size."""
     comps = []
@@ -179,6 +207,7 @@ def _quant_file(status: dict, idx_rows: list[dict], comp_rows: list[dict], sd_ro
         flags_by.setdefault(r["type"], {})
         flags_by[r["type"]][r["evidence_level"]] = flags_by[r["type"]].get(r["evidence_level"], 0) + 1
     lenders = sorted((n for n in node_rows if n["node_type"] == "lender"), key=lambda n: -float(n["weighted_degree"]))[:8]
+    events = _events_from_rows(effect_rows or [])
     return {
         "generated_on": today, "status": status["status"], "quant_model": status,
         "components": comps,
@@ -192,6 +221,14 @@ def _quant_file(status: dict, idx_rows: list[dict], comp_rows: list[dict], sd_ro
         "concentration": {"rows": len(conc_rows), "hhi": "not computed: partner flows for the United States, China and the world total only"},
         "network": {"nodes": len(node_rows), "edges": len(edge_rows), "unattributed_events": status.get("unattributed_finance_events"),
                     "top_lenders": [{"label": n["label"], "origin": n["origin"], "degree": int(n["degree"]), "weighted_degree_musd": round(float(n["weighted_degree"]) / 1e6, 1)} for n in lenders]},
+        "regressions": {"rows": [{k: r[k] for k in ("spec", "variant", "outcome", "actor", "term", "coef", "se", "t", "p_cluster", "p_wild", "jk_min", "jk_max", "n_obs", "n_countries", "years", "r2_within")} for r in (reg_rows or [])],
+                        "terms": TERMS, "min_obs": MIN_OBS, "min_countries": MIN_COUNTRIES, "n_boot": status.get("n_boot"),
+                        "note": (reg_rows or [{}])[0].get("note") if reg_rows else "not computed: too few observations or countries"},
+        "events": {"total": len(events), "reviewed": sum(1 for e in events.values() if e["status"] == "reviewed"),
+                   "draft": sum(1 for e in events.values() if e["status"] != "reviewed"), "to_verify": sum(1 for e in events.values() if e["verify"]),
+                   "rows": len(effect_rows or []), "with_window": sum(1 for r in (effect_rows or []) if r["diff"] is not None),
+                   "did_rows": sum(1 for r in (effect_rows or []) if r["design"] == "did" and r["diff"] is not None),
+                   "list": sorted(events.values(), key=lambda e: e["date"])},
     }
 
 
@@ -258,6 +295,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     flag_rows = _rows(con, "SELECT * FROM anomaly_flag")
     node_rows = _rows(con, "SELECT * FROM network_metric")
     edge_rows = _rows(con, "SELECT * FROM network_edge")
+    effect_rows = _rows(con, "SELECT * FROM event_effect")
+    reg_rows = _rows(con, "SELECT * FROM regression_result")
     qrun = _rows(con, "SELECT * FROM quant_run ORDER BY created_at DESC LIMIT 1")
     quant_status = _quant_status(qrun, idx_rows, text_status)
     from .text import series as text_series
@@ -440,7 +479,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "trade_discrepancies": [d for d in disc if d["reporter"] == iso and d["flag"] in ("large_discrepancy", "mirror_only")],
         }
         unattributed = sum(1 for r in f_rows if not r["actor_to"] and r["actor_from_origin"] in ("US", "CN"))
-        analysis = _analysis_block(iso, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, unattributed, quant_status)
+        analysis = _analysis_block(iso, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, unattributed, quant_status, effect_rows)
         analysis_years = sorted({r["year"] for r in (analysis["index"] if analysis else []) if r["index_name"] == "influence" and r["value"] is not None})
         if analysis:
             country["analysis"] = analysis
@@ -483,7 +522,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     (out / "index.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "layer": "real" if influence else "none",
                                                 "method": f"Composite influence index, method {quant_status.get('method_version')}, weights {quant_status.get('weights_version')}; band = 5th–95th percentile over {quant_status.get('draws')} weight and normalisation draws",
                                                 "quant_model": quant_status, "rows": influence}, ensure_ascii=False, default=str), encoding="utf-8")
-    (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
+    (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today, reg_rows, effect_rows), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
     meta = {
