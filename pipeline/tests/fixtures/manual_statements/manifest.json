@@ -1,0 +1,21 @@
+{
+ "source_id": "manual_statements",
+ "files": {
+  "statements.csv": {
+   "url": "https://github.com/DomyB/US_vs_China_AI/blob/main/data/manual/statements/political_statements_minerals.csv",
+   "params": {},
+   "status": null,
+   "bytes": 363510,
+   "sha256": "7cffcc8da74c253fc0e8f212f9ce5c3257d26bfedf11e9583ba0e7fab89553a9",
+   "retrieved_at": "2026-10-09T13:58:38+00:00",
+   "note": "copied from a file supplied by the project owner (data/manual/statements/political_statements_minerals.csv)",
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/manual_statements/2026-10-09",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "resource_used": {
+  "url": "data/manual/statements/political_statements_minerals.csv",
+  "via": "STATEMENTS_FILE_URL or data/manual"
+ }
+}

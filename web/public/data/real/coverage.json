@@ -50,7 +50,8 @@
    "flags": 14,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 55
   },
   "BOL": {
    "trade_years": [
@@ -101,7 +102,8 @@
    "flags": 9,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 49
   },
   "BRA": {
    "trade_years": [
@@ -152,7 +154,8 @@
    "flags": 5,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 56
   },
   "CHL": {
    "trade_years": [
@@ -203,7 +206,8 @@
    "flags": 10,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 65
   },
   "COL": {
    "trade_years": [
@@ -254,7 +258,8 @@
    "flags": 5,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 12
   },
   "ECU": {
    "trade_years": [
@@ -305,7 +310,8 @@
    "flags": 11,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 16
   },
   "GUY": {
    "trade_years": [
@@ -356,7 +362,8 @@
    "flags": 18,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 0
   },
   "PRY": {
    "trade_years": [
@@ -404,7 +411,8 @@
    "flags": 0,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 0
   },
   "PER": {
    "trade_years": [
@@ -454,7 +462,8 @@
    "flags": 8,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 63
   },
   "SUR": {
    "trade_years": [
@@ -505,7 +514,8 @@
    "flags": 23,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 0
   },
   "URY": {
    "trade_years": [
@@ -542,7 +552,8 @@
    "flags": 0,
    "forecast_available": false,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 0
   },
   "VEN": {
    "trade_years": [],
@@ -571,7 +582,8 @@
    "flags": 9,
    "forecast_available": false,
    "interpretation_available": true,
-   "human_interpretation": false
+   "human_interpretation": false,
+   "statements": 0
   }
  }
 }
