@@ -289,6 +289,16 @@ the registry.
 - Coverage is uneven: Chile, Peru, Brazil, Argentina and Bolivia have 49–65 records each, Ecuador 16 and Colombia 12; Guyana, Paraguay, Suriname, Uruguay and Venezuela have none, and the dataset's own notes list Chinese embassy statements and several US ambassadors as under-represented. Records before 2022 are few (23 in 2019–2021). Mexico (43) and Panama (13) records are outside this site's twelve countries and are not shown; 23 region-wide records appear on the region page.
 - 100 records carry no quote (only a summary); quotes are at most 30 words and translations may be the dataset's own. Speaker roles are as at the statement date.
 
+## Insights page caveats (added 2026-10-09)
+
+- The contrasts set layers against each other that overlap thinly: coded statements, legislative stance and the index coincide only for Argentina 2022–2025, Brazil 2024–2025, Chile 2024 and Peru 2024; a third of the statements are from 2026, a year with no reported trade or finance yet. Every contrast carries its `n` and the page's evidence meter says when a finding rests on fewer than ten records, one year, press tone, zero-shot stance or draft events.
+- Scales differ and are never added: statements −1..+1 (the dataset's codebook, not validated), legislative stance −2..+2 (zero-shot model, not validated; shown halved where it meets the statements), media tone −1..+1, the index 0–100.
+- "Who talks, who pays" compares statement counts gathered by web search (which favours prominent US voices) with documented commitments that cover every sector in both sources (AidData and the DFC); the part tagged to a mineral by the adapters is shown apart. AidData ends in 2021 and the DFC record is the only US source, so the money ratio runs on 2015–2021.
+- The parity gap, the redirect and price levers and the index what-if are arithmetic at constant totals and volumes: they say what would have to change hands, not whether it could. The what-if index may use components the published year lacks (finance beyond a source's coverage); the count is shown next to the published value.
+- The scenario blend interpolates the published paths linearly; the pipeline's shifted paths were clipped at 0 and 1 (or 0 and 100), so an intermediate blend is exact except near those bounds. The shock echoes are averages of post-minus-pre changes around draft events whose windows overlap and whose years coincide with price swings: a direction, not an effect.
+- The US "attention" series counts documents selected by title filters (Congress.gov bills, Federal Register notices and rules); a change in the filters changes the counts.
+- The interpretation on the page is AI-drafted from the indicators and not yet reviewed by the project owner (DECISIONS 61); the label says so until the owner sets `reviewed: true`.
+
 ## Method limitations
 
 - Stance and topic classification: see "Phase 3 text-analysis caveats" above (one human and one

@@ -29,3 +29,13 @@ Rules that keep the three layers honest:
 
 The text is shown as paragraphs; `#`/`##` headings and blank-line paragraph breaks are rendered,
 other Markdown is shown as typed.
+
+## AI-drafted text (`insights.md`)
+
+`insights.md` is the exception to the "owner only" rule: it was drafted from the indicators of the
+site's Insights page at the owner's request, and its front matter says so (`drafted_by: ai`,
+`reviewed: false`). The site shows it under the label "AI-drafted from the indicators · not yet
+reviewed by the owner" until the owner edits it as they see fit and sets `reviewed: true` (keep or
+drop `drafted_by` as you prefer; the label follows the front matter). Every claim in the file names
+in square brackets the finding or indicator on the page it rests on, so the review can check each
+one against the live numbers. The pipeline never rewrites this file either.

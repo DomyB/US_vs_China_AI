@@ -56,7 +56,7 @@ validation sample, writing the interpretation) and the open data gaps listed in 
 web/                 Next.js site (TypeScript, MapLibre, Observable Plot)
 pipeline/            Python package scm/ (ingest/, schema, warehouse, export_site, liveness), config/, scripts/, tests/
 pipeline/config/     minerals.yaml, hs_codes.yaml, sources/*.yaml (the source registry)
-data/                raw snapshots (not in git), warehouse (Parquet/DuckDB), site JSON
+data/                raw snapshots (not in git), warehouse (Parquet/DuckDB), site JSON; data/manual/ holds the owner's files (events, statements, interpretation)
 docs/                PHASE0_PLAN.md, DEPLOYMENT.md, METHODOLOGY.md
 SOURCES.md           generated from the registry: every source, URL, coverage, license, reliability
 DECISIONS.md         every major choice and why
@@ -70,6 +70,7 @@ LIMITATIONS.md       known gaps and biases
 - [Pipeline](docs/PIPELINE.md): adapters, workflows, secrets, how to add a source
 - [Deployment](docs/DEPLOYMENT.md)
 - [Status log per phase](docs/STATUS.md)
+- [Interpretation files](data/manual/interpretation/README.md): the owner's written analysis and the AI-drafted reading of the Insights page, with its review rule
 
 ## Running locally
 

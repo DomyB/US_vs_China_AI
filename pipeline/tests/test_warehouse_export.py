@@ -83,6 +83,17 @@ def test_build_and_export_end_to_end(tmp_path):
     tr = {r["mineral"]: r for r in flows["trade"] if r["iso3"] == "CHL"}
     assert tr["all"]["exports_musd"] == {"US": 500.0, "CN": 2000.0, "ROW": 1500.0} and tr["lithium"]["exports_musd"]["CN"] == 2000.0 and tr["all"]["source_id"] == "un_comtrade"
     assert flows["meta"]["last_year"]["finance_CN"] == 2020 and flows["meta"]["last_year"]["trade"] == 2022
+    # the Insights file: every country present, contrasts only where inputs exist, the parity gap from the fixture trade
+    ins = json.loads((out / "insights.json").read_text())
+    assert ins["dataset"] == "REAL" and [c["iso3"] for c in ins["countries"]] == list(export_site.IN_SCOPE)
+    assert res["insights"]["human"] is True and ins["human"]["drafted_by"] == "ai" and ins["human"]["reviewed"] is False  # the repository's AI-drafted insights.md, labelled as such
+    chl = next(c for c in ins["countries"] if c["iso3"] == "CHL")
+    gap = next(x for x in chl["contrasts"] if x["id"] == "parity_gap")
+    assert gap == {"id": "parity_gap", "kind": "parity_gap", "year": 2022, "musd": 750.0, "cn_musd": 2000.0, "us_musd": 500.0, "multiple_of_us": 1.5, "us_ahead": False, "top_mineral": "lithium",
+                   "top_mineral_cn_musd": 2000.0, "reachable_with_top_mineral": True, "inputs": ["flow_trade:CHL:all:2022", "flow_trade:CHL:lithium:2022"], "caveat": gap["caveat"]}
+    assert chl["finance"]["cn_2015_21"] == 4070.0 and chl["trade_series"] == [{"year": 2022, "share_cn": 0.5, "share_us": 0.125, "total_musd": 4000.0}]
+    assert next(c for c in ins["countries"] if c["iso3"] == "ARG")["contrasts"] == [] and ins["region"]["scales"] == {} and ins["region"]["event_echoes"] == []
+    assert [f["id"] for f in ins["findings"]] == ["parity", "cannot_see"] and meta["layers"]["insights"] == "real"
 
 
 def _doc(country, doc_type, date, title, sid, url, prec="day", summary=None, outlet=None, native=None, minerals=None, cn=False, us=False):

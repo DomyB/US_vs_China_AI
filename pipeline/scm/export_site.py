@@ -19,12 +19,13 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
+from .insights import build_insights
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
 from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
 from .quant.inputs import SWAP_RE
 from .quant.panel import MIN_COUNTRIES, MIN_OBS, TERMS
-from .registry import COUNTRIES, IN_SCOPE, core_minerals, sources
+from .registry import COUNTRIES, IN_SCOPE, core_minerals, minerals, sources
 from .schema import SCHEMAS
 from .text.store import pick_classifications
 
@@ -697,6 +698,11 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             mineral_shares.append({"year": s["year"], "mineral": s["mineral"], "share_cn": round(cn, 4), "share_us": round(us, 4), "share_other": round(max(0.0, 1 - cn - us), 4), "exports_wld_musd": round(s["WLD"] / 1e6, 1)})
     flows = build_flows(fin, trade, core, quant_status.get("last_year") or {}, today)
     (out / "flows.json").write_text(json.dumps(flows, ensure_ascii=False, default=str), encoding="utf-8")
+    # the Insights page: cross-layer contrasts, scenario inputs and findings, computed from the rows above (DECISIONS 59)
+    insights = build_insights(flows=flows, idx_rows=idx_rows, comp_rows=comp_rows, fc_rows=fc_rows, effect_rows=effect_rows, reg_rows=reg_rows, sd_rows=sd_rows, flag_rows=flag_rows,
+                              stm=stm, stance_by_iso=stance_by_iso, volume_by_iso=volume_by_iso, gov=gov, prices=prices, policy=policy, fin=fin, core=core, quant_status=quant_status, today=today,
+                              trade_raw=trade, known_minerals=[m["id"] for m in minerals()])
+    (out / "insights.json").write_text(json.dumps(insights, ensure_ascii=False, default=str), encoding="utf-8")
     regional_interp = _interpretation_block(text_rows, "regional", None)
     region_stm = None
     if stm:
@@ -733,7 +739,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                    "media": "real" if n_media_coded else "facts_only" if any(c["media_available"] for c in coverage.values()) else "sample",
                    "analysis": "real" if influence else "sample", "forecast": "real" if fc_rows else "sample",
                    "interpretation": ("generated+human" if any(r["model"] == "human" for r in text_rows) else "generated") if text_rows else "sample",
-                   "statements": "real" if stm else "none"},
+                   "statements": "real" if stm else "none",
+                   "insights": "real" if insights["findings"] else "none"},
         "text_model": text_status,
         "quant_model": quant_status,
         "coverage": coverage,
@@ -742,7 +749,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     (out / "validation.json").write_text(json.dumps(_validation_file(metrics, sample_rows, text_status, today), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "coverage.json").write_text(json.dumps({"generated_on": today, "countries": coverage}, indent=1), encoding="utf-8")
     con.close()
-    return {"countries": len(coverage), "tables": meta["tables"], "sources_ok": ok_sources, "flows": {"finance_rows": len(flows["finance"]), "trade_rows": len(flows["trade"])}}
+    return {"countries": len(coverage), "tables": meta["tables"], "sources_ok": ok_sources, "flows": {"finance_rows": len(flows["finance"]), "trade_rows": len(flows["trade"])},
+            "insights": {"findings": len(insights["findings"]), "contrasts": sum(len(c["contrasts"]) for c in insights["countries"]), "human": bool(insights["human"])}}
 
 
 def _table_exists(con: duckdb.DuckDBPyConnection, name: str) -> bool:

@@ -456,7 +456,7 @@ FRONT_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
 
 
 def load_human(path: Path) -> dict | None:
-    """A Markdown file with optional front matter (author, date, reviewed, title) -> row dict, or None."""
+    """A Markdown file with optional front matter (author, date, reviewed, title, drafted_by) -> row dict, or None."""
     if not path.exists():
         return None
     raw = path.read_text(encoding="utf-8")
@@ -473,7 +473,9 @@ def load_human(path: Path) -> dict | None:
     if not body:
         return None
     reviewed = str(meta.get("reviewed", "false")).lower() in ("true", "yes", "1")
-    return {"title": meta.get("title") or "Written interpretation", "author": meta.get("author") or "project owner", "date": meta.get("date") or "", "reviewed": reviewed, "text_md": body}
+    # drafted_by: "owner" (default) or "ai" for a draft generated from the indicators that the owner has not yet reviewed (shown with its own label)
+    return {"title": meta.get("title") or "Written interpretation", "author": meta.get("author") or "project owner", "date": meta.get("date") or "", "reviewed": reviewed, "text_md": body,
+            "drafted_by": "ai" if str(meta.get("drafted_by", "owner")).lower() == "ai" else "owner"}
 
 
 # ---------------------------------------------------------------- orchestration
