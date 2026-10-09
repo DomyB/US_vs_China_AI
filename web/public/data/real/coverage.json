@@ -50,7 +50,7 @@
    "flags": 14,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 55
   },
   "BOL": {
@@ -102,7 +102,7 @@
    "flags": 9,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 49
   },
   "BRA": {
@@ -154,7 +154,7 @@
    "flags": 5,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 56
   },
   "CHL": {
@@ -206,7 +206,7 @@
    "flags": 10,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 65
   },
   "COL": {
@@ -258,7 +258,7 @@
    "flags": 5,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 12
   },
   "ECU": {
@@ -310,7 +310,7 @@
    "flags": 11,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 16
   },
   "GUY": {
@@ -362,7 +362,7 @@
    "flags": 18,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 0
   },
   "PRY": {
@@ -411,7 +411,7 @@
    "flags": 0,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 0
   },
   "PER": {
@@ -462,7 +462,7 @@
    "flags": 8,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 63
   },
   "SUR": {
@@ -514,7 +514,7 @@
    "flags": 23,
    "forecast_available": true,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 0
   },
   "URY": {
@@ -552,7 +552,7 @@
    "flags": 0,
    "forecast_available": false,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 0
   },
   "VEN": {
@@ -582,7 +582,7 @@
    "flags": 9,
    "forecast_available": false,
    "interpretation_available": true,
-   "human_interpretation": false,
+   "human_interpretation": true,
    "statements": 0
   }
  }
