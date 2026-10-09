@@ -1,7 +1,7 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Callout, SectionHeader } from "@/components/ui/Section";
@@ -43,7 +43,8 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
   const history = useMemo<Hist[]>(() => indexRows.filter((r) => r.year <= 2026).map((r) => ({ year: r.year, actor: r.actor, value: r.value })), [indexRows]);
   const all = data.forecast.series;
   const baseline = useMemo(() => all.filter((r) => (r.scenario_id ?? "baseline") === "baseline"), [all]);
-  const scenarioRows = useMemo(() => all.filter((r) => r.scenario_id && r.scenario_id !== "baseline"), [all]);
+  const [hidden, setHidden] = useState<Set<string>>(new Set());
+  const scenarioRows = useMemo(() => all.filter((r) => r.scenario_id && r.scenario_id !== "baseline" && !hidden.has(r.scenario_id)), [all, hidden]);
   const shareHistory = useMemo<Hist[]>(() => {
     const rows: Hist[] = [];
     for (const c of data.analysis.concentration ?? []) {
@@ -106,7 +107,14 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
         <ul className="divide-y divide-rule border-y border-rule">
           {data.forecast.scenarios.map((s) => (
             <li key={s.id} className="py-2 text-sm">
-              <p className="font-medium">{s.name}</p>
+              <p className="flex items-center justify-between gap-2 font-medium">
+                <span>{s.name}</span>
+                {s.id !== "baseline" && (
+                  <label className="inline-flex items-center gap-1 text-[11px] font-normal text-ink-3">
+                    <input type="checkbox" checked={!hidden.has(s.id)} onChange={(e) => setHidden((cur) => { const next = new Set(cur); if (e.target.checked) next.delete(s.id); else next.add(s.id); return next; })} /> on the chart
+                  </label>
+                )}
+              </p>
               <p className="text-xs text-ink-2"><span className="text-ink-3">Assumptions:</span> {s.assumptions}</p>
               <p className="text-xs text-ink-3">{s.description}</p>
             </li>

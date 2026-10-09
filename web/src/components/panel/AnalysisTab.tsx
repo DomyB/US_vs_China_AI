@@ -6,6 +6,7 @@ import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, EvidenceBadge, LayerLabel, QuantStatusTag } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { Interpretation } from "./Interpretation";
+import { WeightsPlayground } from "./WeightsPlayground";
 import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtPct, fmtSigned } from "@/lib/format";
@@ -188,6 +189,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
         ) : (
           <p className="text-sm text-ink-3">No component values for {year}.</p>
         )}
+        {real && <WeightsPlayground rows={componentRows} labels={COMPONENT_LABEL} year={year} published={indexThisYear} />}
         {unavailable.length > 0 && (
           <details className="mt-1 text-[11px] text-ink-3">
             <summary className="cursor-pointer">Unavailable components in {year} ({unavailable.length}) and why</summary>

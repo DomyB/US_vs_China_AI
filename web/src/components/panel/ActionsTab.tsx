@@ -1,7 +1,7 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
@@ -54,8 +54,35 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
     [trade, year, hasMirror, isReal],
   );
 
-  const events = useMemo(() => data.actions.events.filter((e) => e.year === year && (mineral === "all" || e.mineral === mineral)).sort((a, b) => a.date.localeCompare(b.date)), [data, year, mineral]);
-  const contracts = useMemo(() => (data.actions.contracts ?? []).filter((c) => mineral === "all" || c.mineral === mineral), [data, mineral]);
+  const [allYears, setAllYears] = useState(false);
+  const [eventsShown, setEventsShown] = useState(30);
+  const allEvents = useMemo(() => data.actions.events.filter((e) => mineral === "all" || e.mineral === mineral), [data, mineral]);
+  const events = useMemo(() => allEvents.filter((e) => allYears || e.year === year).sort((a, b) => (allYears ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date))), [allEvents, year, allYears]);
+  useEffect(() => setEventsShown(30), [year, mineral, allYears, data]);
+  const timelineOptions = useMemo(() => {
+    const rows = allEvents.map((e) => ({ ...e, when: new Date(e.date.length === 4 ? `${e.date}-07-01` : e.date), side: e.actor_side === "US" ? "US-linked" : e.actor_side === "CN" ? "China-linked" : "Other", amt: e.amount_musd ?? 0 }));
+    const years = allEvents.map((e) => e.year);
+    const lo = Math.min(2008, ...years);
+    const hi = Math.max(2026, ...years);
+    return {
+      height: 150,
+      marginLeft: 84,
+      x: { type: "utc" as const, label: null, domain: [new Date(`${lo}-01-01`), new Date(`${hi}-12-31`)] },
+      y: { label: null, domain: ["US-linked", "China-linked", "Other"] },
+      r: { range: [2.5, 14] },
+      color: { domain: ["US-linked", "China-linked", "Other"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, OTHER_COLOR] },
+      marks: [
+        Plot.rectX([{ a: new Date(`${year}-01-01`), b: new Date(`${year}-12-31`) }], { x1: "a", x2: "b", fill: "#1b1d20", fillOpacity: 0.06 }),
+        Plot.dot(rows.filter((d) => d.amt > 0), { x: "when", y: "side", r: "amt", fill: "side", fillOpacity: 0.55, stroke: "#fff", strokeWidth: 0.5, tip: true, title: (d: (typeof rows)[number]) => `${fmtDate(d.date)} · ${prettyLabel(d.type)}${d.mineral && d.mineral !== "none" ? ` · ${prettyMineral(d.mineral)}` : ""}\n${fmtMusd(d.amount_musd)} · ${d.actors.slice(0, 2).join(" → ")}\n${d.description.slice(0, 140)}${d.description.length > 140 ? "…" : ""}` }),
+        Plot.dot(rows.filter((d) => d.amt <= 0), { x: "when", y: "side", r: 2.5, fill: "none", stroke: "side", strokeWidth: 1.2, tip: true, title: (d: (typeof rows)[number]) => `${fmtDate(d.date)} · ${prettyLabel(d.type)} · no published amount\n${d.description.slice(0, 140)}${d.description.length > 140 ? "…" : ""}` }),
+      ],
+    };
+  }, [allEvents, year]);
+  const [contractQuery, setContractQuery] = useState("");
+  const contracts = useMemo(() => {
+    const needle = contractQuery.trim().toLowerCase();
+    return (data.actions.contracts ?? []).filter((c) => mineral === "all" || c.mineral === mineral).filter((c) => !needle || `${c.title} ${c.companies ?? ""} ${c.resource ?? ""}`.toLowerCase().includes(needle));
+  }, [data, mineral, contractQuery]);
   const production = useMemo(() => (data.actions.production ?? []).filter((p) => (mineral === "all" || p.mineral === mineral) && p.year === year), [data, mineral, year]);
   // one line per mineral and measure; the other series (other sources, other units) sit behind a toggle
   const productionGroups = useMemo(() => {
@@ -105,12 +132,22 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
       </section>
 
       <section aria-labelledby="events-h">
-        <SectionHeader id="events-h" title={`Deals, loans, investments and agreements in ${year}`} tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} />
+        <SectionHeader id="events-h" title={allYears ? "Deals, loans, investments and agreements, all years" : `Deals, loans, investments and agreements in ${year}`} tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} />
+        {allEvents.length > 0 && (
+          <>
+            <p className="mb-1 text-xs text-ink-3">Every recorded event, by date and side; the circle area follows the published amount (hollow: no amount published); the shaded band is {year}. Hover for the record.</p>
+            <PlotFigure options={timelineOptions} ariaLabel={`Timeline of ${allEvents.length} recorded deals, loans, investments and agreements in ${data.name} by actor side, circle size by amount`} />
+          </>
+        )}
+        <div className="mb-1 flex flex-wrap items-center gap-2 text-xs">
+          <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={allYears} onChange={(e) => setAllYears(e.target.checked)} /> all years</label>
+          <span className="ml-auto text-ink-3">{events.length} of {allEvents.length} event{allEvents.length === 1 ? "" : "s"}</span>
+        </div>
         {events.length === 0 ? (
           <p className="text-sm text-ink-3">No recorded events for this selection. Absence of a record is not evidence of absence.</p>
         ) : (
           <ol className="divide-y divide-rule border-y border-rule">
-            {events.map((e) => (
+            {events.slice(0, eventsShown).map((e) => (
               <li key={e.id} className="py-2.5 text-sm">
                 <div className="flex flex-wrap items-baseline gap-x-2">
                   <span className="text-xs tabular-nums text-ink-3">{fmtDate(e.date)}</span>
@@ -131,6 +168,11 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
               </li>
             ))}
           </ol>
+        )}
+        {events.length > eventsShown && (
+          <button type="button" onClick={() => setEventsShown((n) => n + 30)} className="btn mt-2 h-8 px-3 text-xs">
+            Show {Math.min(30, events.length - eventsShown)} more of {events.length - eventsShown} remaining
+          </button>
         )}
       </section>
 
@@ -169,6 +211,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
       {contracts.length > 0 && (
         <section aria-labelledby="contracts-h">
           <SectionHeader id="contracts-h" title={`Published contracts (${contracts.length})`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} intro="From the ResourceContracts database; the mineral and the companies are shown where the record carries them." />
+          <input value={contractQuery} onChange={(e) => setContractQuery(e.target.value)} placeholder="Search contracts by title, company or resource…" aria-label="Search contracts" className="input mb-2 h-7 w-72 max-w-full py-0 text-xs" />
           <ul className="divide-y divide-rule border-y border-rule text-sm">
             {contracts.slice(0, contractsShown).map((c) => (
               <li key={c.id} className="py-1.5">

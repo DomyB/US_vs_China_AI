@@ -69,11 +69,24 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
     [narratives, labels],
   );
 
-  const articles = useMemo(() => data.media.articles.filter((a) => Number(a.date.slice(0, 4)) === year && (mineral === "all" || a.topic_minerals.includes(mineral))), [data, year, mineral]);
+  const [q, setQ] = useState("");
+  const [outlet, setOutlet] = useState("");
+  const [lang, setLang] = useState("");
+  const [onlyYear, setOnlyYear] = useState(true);
+  const outlets = useMemo(() => Array.from(new Set(data.media.articles.map((a) => a.outlet))).sort(), [data]);
+  const langs = useMemo(() => Array.from(new Set(data.media.articles.map((a) => a.language))).sort(), [data]);
+  const articles = useMemo(() => {
+    const needle = q.trim().toLowerCase();
+    return data.media.articles
+      .filter((a) => (!onlyYear || Number(a.date.slice(0, 4)) === year) && (mineral === "all" || a.topic_minerals.includes(mineral)))
+      .filter((a) => (!outlet || a.outlet === outlet) && (!lang || a.language === lang))
+      .filter((a) => !needle || `${a.headline_original} ${a.headline_en ?? ""} ${a.outlet}`.toLowerCase().includes(needle))
+      .sort((a, b) => b.date.localeCompare(a.date));
+  }, [data, year, mineral, q, outlet, lang, onlyYear]);
   const layer = data.layers?.media;
   const PAGE = 50;
   const [shown, setShown] = useState(PAGE);
-  useEffect(() => setShown(PAGE), [year, mineral, data]);
+  useEffect(() => setShown(PAGE), [year, mineral, data, q, outlet, lang, onlyYear]);
   const nearestYear = useMemo(() => {
     const years = data.media.articles.map((a) => Number(a.date.slice(0, 4)));
     if (years.length === 0) return null;
@@ -119,7 +132,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
 
       <section aria-labelledby="art-h">
         <div className="mb-1 flex items-center justify-between">
-          <h3 id="art-h" className="text-sm font-semibold">Articles in {year}</h3>
+          <h3 id="art-h" className="text-sm font-semibold">{onlyYear ? `Articles in ${year}` : "Articles, all years"}</h3>
           <span className="flex items-center gap-1.5"><LayerLabel layer="facts" /><DataLayerTag layer={layer} /></span>
         </div>
         <p className="mb-1 text-xs text-ink-3">
@@ -127,9 +140,26 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
           {(layer === "facts_only" || layer === "real") && ` ${data.media.articles.length} headlines about minerals and the two powers from the registry's outlets (RSS feeds and the GDELT index; keyword-selected).`}
           {layer === "real" && " Stance and tone are model outputs; English headlines are machine translations."}
         </p>
+        <div className="mb-2 flex flex-wrap items-center gap-1.5 text-xs">
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search headlines…" aria-label="Search headlines" className="input h-7 w-48 py-0 text-xs" />
+          {outlets.length > 1 && (
+            <select aria-label="Outlet" value={outlet} onChange={(e) => setOutlet(e.target.value)} className="input h-7 py-0 text-xs">
+              <option value="">All outlets</option>
+              {outlets.map((o) => <option key={o} value={o}>{o}</option>)}
+            </select>
+          )}
+          {langs.length > 1 && (
+            <select aria-label="Language" value={lang} onChange={(e) => setLang(e.target.value)} className="input h-7 py-0 text-xs">
+              <option value="">All languages</option>
+              {langs.map((l) => <option key={l} value={l}>{LANGUAGE_NAME[l] ?? l}</option>)}
+            </select>
+          )}
+          <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={onlyYear} onChange={(e) => setOnlyYear(e.target.checked)} /> only {year}</label>
+          <span className="ml-auto text-ink-3">{articles.length} headline{articles.length === 1 ? "" : "s"}</span>
+        </div>
         {articles.length === 0 ? (
           <p className="text-sm text-ink-3">
-            {(layer === "facts_only" || layer === "real") && nearestYear !== null ? `No headlines match this selection in ${year}. Nearest year with headlines: ${nearestYear}.` : "No articles for this selection."}
+            {(layer === "facts_only" || layer === "real") && nearestYear !== null && onlyYear ? `No headlines match this selection in ${year}. Nearest year with headlines: ${nearestYear}; untick "only ${year}" to see every year.` : "No articles for this selection."}
           </p>
         ) : (
           <ol className="divide-y divide-rule border-y border-rule">
@@ -167,7 +197,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
           </ol>
         )}
         {articles.length > shown && (
-          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="mt-2 rounded-sm border border-rule px-2 py-1 text-xs text-ink-2 hover:bg-surface-2">
+          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="btn mt-2 h-8 px-3 text-xs">
             Show {Math.min(PAGE, articles.length - shown)} more of {articles.length - shown} remaining
           </button>
         )}
