@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- The site mark: a 2×2 sticker tile, US blue and China vermilion on opposite corners, inside a 4px outline.
+       Same geometry as components/ui/LogoTile.tsx; the colours follow the browser's colour scheme. -->
+  <style>
+    .o { fill: #26292e; } .us { fill: #1f5fa8; } .s { fill: #f1efe9; } .cn { fill: #c8441c; }
+    @media (prefers-color-scheme: dark) { .o { fill: #626873; } .us { fill: #4f8fdc; } .s { fill: #1c1e21; } .cn { fill: #e2682f; } }
+  </style>
+  <rect class="o" x="0" y="0" width="64" height="64" rx="14" />
+  <clipPath id="r"><rect x="4" y="4" width="56" height="56" rx="10" /></clipPath>
+  <g clip-path="url(#r)">
+    <rect class="us" x="4" y="4" width="28" height="28" />
+    <rect class="s" x="32" y="4" width="28" height="28" />
+    <rect class="s" x="4" y="32" width="28" height="28" />
+    <rect class="cn" x="32" y="32" width="28" height="28" />
+  </g>
+</svg>

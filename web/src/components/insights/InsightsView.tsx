@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { SectionNav } from "@/components/ui/SectionNav";
+import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { Toast } from "@/components/ui/Toast";
 import { useRevealChildren } from "@/lib/motion";
 import { Interpretation } from "@/components/panel/Interpretation";
@@ -92,7 +93,7 @@ export function InsightsView() {
   const rows = useMemo(() => (file && levers ? boardRows(file.countries, levers, file.region.event_echoes, file.meta.horizon_year) : []), [file, levers]);
   const findings = useMemo(() => (file ? file.findings.filter((f) => (level === "all" || f.strength.level === level) && (!onlyCountry || f.countries.includes(onlyCountry))) : []), [file, level, onlyCountry]);
 
-  if (file === undefined) return <div className="mx-auto max-w-7xl px-4 py-10 text-sm text-ink-3">Loading the insights…</div>;
+  if (file === undefined) return <InsightsSkeleton />;
   if (file === null) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">

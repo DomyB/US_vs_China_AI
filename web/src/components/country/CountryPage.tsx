@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { MineralFilter } from "@/components/controls/MineralFilter";
 import { YearControl } from "@/components/controls/YearControl";
+import { PanelSkeleton } from "@/components/ui/Skeleton";
 import { CountryPanel, type TabId } from "@/components/panel/CountryPanel";
 import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { loadIndex, loadMeta } from "@/lib/data";
@@ -58,7 +59,7 @@ export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: 
         {meta && index ? (
           <CountryPanel iso3={iso3} year={year} mineral={mineral} meta={meta} indexRows={index.rows} indexLayer={index.layer} tab={tab} onTab={(t) => setParam({ tab: t })} sourceNames={sourceNames} standalone />
         ) : (
-          <p className="p-4 text-sm text-ink-3">Loading…</p>
+          <div className="p-4"><PanelSkeleton /></div>
         )}
       </div>
     </div>

@@ -13,6 +13,7 @@ import { YearControl } from "@/components/controls/YearControl";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Segmented } from "@/components/ui/Segmented";
 import { SectionNav } from "@/components/ui/SectionNav";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { useRevealChildren } from "@/lib/motion";
 import { useTheme } from "@/lib/theme";
 import { FocusChart, MEASURE_LABEL, type MeasureRow, type RegionMeasure } from "./FocusChart";
@@ -281,7 +282,7 @@ export function RegionView() {
       <section className="card region-card mt-4 p-3" aria-labelledby="syn-h">
         <div className="mb-1 flex items-center justify-between gap-2"><h2 id="syn-h" className="text-lg font-semibold">Regional synthesis</h2><LayerLabel layer="interpretation" /></div>
         <p className="mb-2 text-xs text-ink-3">Written analysis of the region generated from the computed indicators (each sentence names what it rests on), and the project owner&apos;s own synthesis where one exists.</p>
-        {interp === undefined ? <p className="text-sm text-ink-3">Loading…</p> : <Interpretation block={interp} scopeLabel="the region" />}
+        {interp === undefined ? <Skeleton className="h-24" /> : <Interpretation block={interp} scopeLabel="the region" />}
       </section>
       {meta && (
         <div className="mt-4">

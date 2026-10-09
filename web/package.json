@@ -12,7 +12,8 @@
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "predev": "node scripts/copy-maplibre-worker.mjs",
     "prebuild": "node scripts/copy-maplibre-worker.mjs",
-    "postinstall": "node scripts/copy-maplibre-worker.mjs"
+    "postinstall": "node scripts/copy-maplibre-worker.mjs",
+    "og": "node scripts/render-og.mjs"
   },
   "dependencies": {
     "@observablehq/plot": "^0.6.17",

@@ -1,11 +1,12 @@
 import { Suspense } from "react";
 import { RegionView } from "@/components/region/RegionView";
+import { RegionSkeleton } from "@/components/ui/Skeleton";
 
 export const metadata = { title: "Regional overview · US–China Critical Minerals Tracker" };
 
 export default function RegionPage() {
   return (
-    <Suspense fallback={<div className="p-6 text-sm text-ink-3">Loading…</div>}>
+    <Suspense fallback={<RegionSkeleton />}>
       <RegionView />
     </Suspense>
   );
