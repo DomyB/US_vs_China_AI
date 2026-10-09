@@ -48,7 +48,9 @@
     2025
    ],
    "flags": 14,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "BOL": {
    "trade_years": [
@@ -97,7 +99,9 @@
     2024
    ],
    "flags": 9,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "BRA": {
    "trade_years": [
@@ -146,7 +150,9 @@
     2025
    ],
    "flags": 5,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "CHL": {
    "trade_years": [
@@ -195,7 +201,9 @@
     2024
    ],
    "flags": 10,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "COL": {
    "trade_years": [
@@ -244,7 +252,9 @@
     2024
    ],
    "flags": 5,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "ECU": {
    "trade_years": [
@@ -293,7 +303,9 @@
     2024
    ],
    "flags": 11,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "GUY": {
    "trade_years": [
@@ -342,7 +354,9 @@
     2024
    ],
    "flags": 18,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "PRY": {
    "trade_years": [
@@ -388,7 +402,9 @@
     2024
    ],
    "flags": 0,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "PER": {
    "trade_years": [
@@ -436,7 +452,9 @@
     2024
    ],
    "flags": 8,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "SUR": {
    "trade_years": [
@@ -485,7 +503,9 @@
     2024
    ],
    "flags": 23,
-   "forecast_available": true
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "URY": {
    "trade_years": [
@@ -520,7 +540,9 @@
     2011
    ],
    "flags": 0,
-   "forecast_available": false
+   "forecast_available": false,
+   "interpretation_available": true,
+   "human_interpretation": false
   },
   "VEN": {
    "trade_years": [],
@@ -547,7 +569,9 @@
    "analysis_available": false,
    "analysis_years": null,
    "flags": 9,
-   "forecast_available": false
+   "forecast_available": false,
+   "interpretation_available": true,
+   "human_interpretation": false
   }
  }
 }
