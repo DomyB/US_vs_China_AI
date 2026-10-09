@@ -28,7 +28,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
 
   const indexOptions = useMemo(
     () => ({
-      height: 200,
+      height: 260,
       marginLeft: 40,
       x: { label: null, tickFormat: (d: number) => String(d) },
       y: { label: "Influence index (0–100)", domain: [0, 100], grid: true },
@@ -45,7 +45,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
   const subIndices = useMemo(() => (data.analysis.index ?? []).filter((r) => r.index_name !== "influence" && r.value !== null), [data]);
   const subOptions = useMemo(
     () => ({
-      height: 170,
+      height: 210,
       marginLeft: 40,
       x: { label: null, tickFormat: (d: number) => String(d) },
       y: { label: "Sub-index (0–100)", domain: [0, 100], grid: true },
@@ -90,7 +90,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
   const sayDo = useMemo(() => data.analysis.say_do_gap.filter((r) => r.gap !== null), [data]);
   const sayDoOptions = useMemo(
     () => ({
-      height: 180,
+      height: 220,
       marginLeft: 40,
       x: { label: null, tickFormat: (d: number) => String(d) },
       y: { label: "Say − do (standardised)", grid: true },

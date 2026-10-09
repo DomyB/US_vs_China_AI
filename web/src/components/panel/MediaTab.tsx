@@ -24,7 +24,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
 
   const volumeOptions = useMemo(
     () => ({
-      height: 180,
+      height: 230,
       marginLeft: 44,
       x: { label: null, tickFormat: (d: number) => String(d) },
       y: { label: "Share of all coverage", grid: true, tickFormat: (d: number) => fmtPct(d, 1) },
@@ -41,7 +41,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
 
   const toneOptions = useMemo(
     () => ({
-      height: 160,
+      height: 200,
       marginLeft: 44,
       x: { label: null, tickFormat: (d: number) => String(d) },
       y: { label: "Mean tone (−1 to +1)", domain: [-1, 1], grid: true },

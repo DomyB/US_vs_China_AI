@@ -37,7 +37,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
 
   const tradeOptions = useMemo(
     () => ({
-      height: 200,
+      height: 260,
       marginLeft: 48,
       x: { label: null, ticks: [2008, 2011, 2014, 2017, 2020, 2023, 2026], tickFormat: (d: number) => String(d) },
       y: { label: isReal ? "Exports, US$ m" : "Exports, US$ m (SAMPLE)", grid: true },

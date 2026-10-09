@@ -10,6 +10,10 @@ import type { FeatureCollection, Geometry } from "geojson";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { YearControl } from "@/components/controls/YearControl";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
+import { Segmented } from "@/components/ui/Segmented";
+import { useTheme } from "@/lib/theme";
+import { FocusChart, MEASURE_LABEL, type MeasureRow, type RegionMeasure } from "./FocusChart";
+import { Heatmap } from "./Heatmap";
 import { Freshness } from "@/components/ui/Freshness";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
 import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionInterpretation, loadRegionShares } from "@/lib/data";
@@ -31,6 +35,12 @@ export function RegionView() {
   const [geo, setGeo] = useState<FC | null>(null);
   const [shareRows, setShareRows] = useState<{ rows: RegionData["mineral_shares"]; layer: "real" | "sample" } | null>(null);
   const [interp, setInterp] = useState<InterpretationBlock | null | undefined>(undefined);
+  const [measure, setMeasure] = useState<RegionMeasure>("net");
+  const [chartMode, setChartMode] = useState<"lines" | "heatmap">("lines");
+  const [hoverIso, setHoverIso] = useState<string | null>(null);
+  const [pinned, setPinned] = useState<string | null>(null);
+  const focus = pinned ?? hoverIso;
+  const theme = useTheme();
 
   useEffect(() => {
     Promise.all([loadMeta(), loadIndex(), loadRegion(), loadRegionShares(), loadRegionInterpretation()]).then(([m, i, r, s, t]) => {
@@ -77,41 +87,50 @@ export function RegionView() {
       y: { label: null },
       color: { domain: ["US-leaning", "China-leaning"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true },
       marks: [
-        Plot.barX(ranking, { x: "net", y: "name", fill: (d: { net: number | null }) => ((d.net ?? 0) >= 0 ? "China-leaning" : "US-leaning"), sort: { y: "-x" }, rx: 2, tip: true, title: (d: { name: string; us: number | null; cn: number | null; net: number | null }) => `${d.name}: US ${d.us?.toFixed(0)}, China ${d.cn?.toFixed(0)}, net ${fmtSigned(d.net ?? 0, 0)}` }),
+        Plot.barX(ranking, { x: "net", y: "name", fill: (d: { net: number | null }) => ((d.net ?? 0) >= 0 ? "China-leaning" : "US-leaning"), sort: { y: "-x" }, rx: 2, tip: true, href: (d: { iso: string }) => `/?country=${d.iso}&year=${year}`, title: (d: { name: string; us: number | null; cn: number | null; net: number | null }) => `${d.name}: US ${d.us?.toFixed(0)}, China ${d.cn?.toFixed(0)}, net ${fmtSigned(d.net ?? 0, 0)}` }),
         Plot.ruleX([0]),
       ],
     }),
-    [ranking],
+    [ranking, year],
   );
 
-  const multiples = useMemo(() => (index ? index.rows.filter((r) => r.mineral === "all").map((r) => ({ ...r, name: COUNTRY_NAMES[r.iso3] })) : []), [index]);
-  const multiplesOptions = useMemo(
-    () => ({
-      height: 520,
-      marginLeft: 30,
-      marginRight: 10,
-      x: { label: null, ticks: [] as number[] },
-      y: { label: "Index", domain: [0, 100], ticks: [0, 50, 100] },
-      fx: { label: null, tickFormat: (d: string) => d },
-      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => (d === "US" ? "United States" : "China") },
-      facet: { data: multiples, x: "iso3", marginTop: 10 },
-      marks: [
-        Plot.frame({ stroke: "#d9d7d0" }),
-        Plot.lineY(multiples, { x: "year", y: "value", stroke: "actor", strokeWidth: 1.5, curve: "monotone-x", tip: true }),
-        Plot.ruleX([year], { stroke: "#1b1d20", strokeDasharray: "2,2" }),
-      ],
-    }),
-    [multiples, year],
-  );
+  const measureRows = useMemo<MeasureRow[]>(() => {
+    if (!index) return [];
+    const out: MeasureRow[] = [];
+    if (measure === "net") {
+      const byKey = new Map<string, { us?: number; cn?: number }>();
+      for (const r of index.rows) {
+        if (r.mineral !== "all") continue;
+        const k = `${r.iso3}|${r.year}`;
+        const e = byKey.get(k) ?? {};
+        if (r.actor === "US") e.us = r.value;
+        else e.cn = r.value;
+        byKey.set(k, e);
+      }
+      for (const [k, e] of byKey) {
+        if (e.us === undefined || e.cn === undefined) continue;
+        const [iso3, y] = k.split("|");
+        out.push({ iso3, name: COUNTRY_NAMES[iso3] ?? iso3, year: Number(y), value: e.cn - e.us });
+      }
+    } else {
+      for (const r of index.rows) if (r.mineral === "all" && r.actor === measure) out.push({ iso3: r.iso3, name: COUNTRY_NAMES[r.iso3] ?? r.iso3, year: r.year, value: r.value });
+    }
+    return out.sort((a, b) => a.year - b.year || a.iso3.localeCompare(b.iso3));
+  }, [index, measure]);
+  const heatOrder = useMemo(() => {
+    const latest = new Map<string, number>();
+    for (const r of measureRows) if (r.year <= year) latest.set(r.name, r.value);
+    return Array.from(new Set(measureRows.map((r) => r.name))).sort((a, b) => (latest.get(b) ?? -999) - (latest.get(a) ?? -999));
+  }, [measureRows, year]);
 
   const shares = useMemo(() => {
     if (!shareRows) return [];
     const rows = shareRows.rows.filter((r) => r.year === year);
-    const long: { mineral: string; partner: string; share: number }[] = [];
+    const long: { mineral: string; id: string; partner: string; share: number }[] = [];
     for (const r of rows) {
-      long.push({ mineral: prettyMineral(r.mineral), partner: "US", share: r.share_us });
-      long.push({ mineral: prettyMineral(r.mineral), partner: "CN", share: r.share_cn });
-      long.push({ mineral: prettyMineral(r.mineral), partner: "ROW", share: r.share_other });
+      long.push({ mineral: prettyMineral(r.mineral), id: r.mineral, partner: "US", share: r.share_us });
+      long.push({ mineral: prettyMineral(r.mineral), id: r.mineral, partner: "CN", share: r.share_cn });
+      long.push({ mineral: prettyMineral(r.mineral), id: r.mineral, partner: "ROW", share: r.share_other });
     }
     return long;
   }, [shareRows, year]);
@@ -122,9 +141,9 @@ export function RegionView() {
       x: { label: "Share of regional exports", domain: [0, 1], tickFormat: (d: number) => fmtPct(d) },
       y: { label: null },
       color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, OTHER_COLOR], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "rest of world" }[d] ?? d) },
-      marks: [Plot.barX(shares, { x: "share", y: "mineral", fill: "partner", order: ["US", "CN", "ROW"], insetTop: 1, insetBottom: 1, tip: true }), Plot.ruleX([0])],
+      marks: [Plot.barX(shares, { x: "share", y: "mineral", fill: "partner", order: ["US", "CN", "ROW"], insetTop: 1, insetBottom: 1, tip: true, href: (d: { id: string }) => `/?mineral=${d.id}&year=${year}&view=trade`, title: (d: { mineral: string; partner: string; share: number }) => `${d.mineral} · ${({ US: "to United States", CN: "to China", ROW: "rest of world" } as Record<string, string>)[d.partner]}: ${fmtPct(d.share, 1)} · open on the map` }), Plot.ruleX([0])],
     }),
-    [shares],
+    [shares, year],
   );
 
   const projectsOptions = useMemo(() => {
@@ -157,16 +176,16 @@ export function RegionView() {
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="card region-card p-3" aria-labelledby="rk-h">
           <h2 id="rk-h" className="mb-1 text-base font-semibold">Ranking in {year}</h2>
-          <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a name in the table for the country page.</p>
+          <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a bar to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
           <PlotFigure options={rankingOptions} ariaLabel={`Ranking of countries by net lean of the influence index in ${year}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
-          <table className="mt-2 w-full text-xs">
+          <table className="mt-4 w-full text-xs">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US</th><th className="py-1 text-right">China</th><th className="py-1 text-right">Net</th></tr>
             </thead>
             <tbody>
               {ranking.map((r) => (
-                <tr key={r.iso} className="border-t border-rule">
-                  <td className="py-0.5"><Link href={`/country/${r.iso}?year=${year}`} className="underline">{r.name}</Link></td>
+                <tr key={r.iso} className={`cursor-pointer border-t border-rule ${focus === r.iso ? "bg-surface-2" : ""} ${pinned === r.iso ? "font-semibold" : ""}`} onMouseEnter={() => setHoverIso(r.iso)} onMouseLeave={() => setHoverIso(null)} onClick={() => setPinned((p) => (p === r.iso ? null : r.iso))} aria-selected={pinned === r.iso}>
+                  <td className="py-0.5"><Link href={`/country/${r.iso}?year=${year}`} className="underline" onClick={(e) => e.stopPropagation()}>{r.name}</Link>{pinned === r.iso && <span className="ml-1 text-[10px] uppercase tracking-wide text-ink-3">pinned</span>}</td>
                   <td className="py-0.5 text-right tabular-nums">{r.us?.toFixed(0) ?? "—"}</td>
                   <td className="py-0.5 text-right tabular-nums">{r.cn?.toFixed(0) ?? "—"}</td>
                   <td className="py-0.5 text-right tabular-nums">{r.net !== null ? fmtSigned(r.net, 0) : "—"}</td>
@@ -177,21 +196,38 @@ export function RegionView() {
         </section>
 
         <section className="card region-card p-3" aria-labelledby="mm-h">
-          <h2 id="mm-h" className="mb-1 text-base font-semibold">Comparison over time</h2>
-          <p className="mb-2 text-xs text-ink-3">Small multiples, one per country (ISO codes), same axes, 2008–2026 left to right. Dotted line: selected year.</p>
-          <PlotFigure options={multiplesOptions} ariaLabel={`Influence index over time for each of the twelve countries, small multiples, ${index?.layer === "real" ? "computed" : "sample data"}`} />
-          <DataTable rows={multiples} caption="Influence index by country, year and actor" columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }]} />
+          <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+            <h2 id="mm-h" className="text-base font-semibold">Comparison over time</h2>
+            <span className="flex items-center gap-1"><DataLayerTag layer={index?.layer === "real" ? "real" : "sample"} /><LayerLabel layer="model" /></span>
+          </div>
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <Segmented label="Measure" value={measure} options={[{ value: "net", label: "Net lean" }, { value: "US", label: "US index" }, { value: "CN", label: "China index" }]} onChange={setMeasure} />
+            <Segmented label="Chart" value={chartMode} options={[{ value: "lines", label: "Lines" }, { value: "heatmap", label: "Heatmap" }]} onChange={setChartMode} />
+          </div>
+          <p className="mb-2 text-xs text-ink-3">
+            {chartMode === "lines"
+              ? `All twelve countries in grey; ${focus ? `${COUNTRY_NAMES[focus] ?? focus} highlighted` : "hover or pin a country in the ranking to highlight it"}. Move the pointer over the chart to read any point; the dotted line is ${year}.`
+              : `One row per country, one cell per year, ordered by the value in ${year}; the outlined column is ${year}. Hover a cell for its value.`}
+          </p>
+          {measureRows.length === 0 ? (
+            <p className="text-sm text-ink-3">No index values yet.</p>
+          ) : chartMode === "lines" ? (
+            <FocusChart rows={measureRows} focus={focus} year={year} measure={measure} ariaLabel={`${MEASURE_LABEL[measure]} over time for the twelve countries${focus ? `, ${COUNTRY_NAMES[focus] ?? focus} highlighted` : ""}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
+          ) : (
+            <Heatmap rows={measureRows} year={year} measure={measure} theme={theme} order={heatOrder} ariaLabel={`${MEASURE_LABEL[measure]} by country and year as a heatmap, ${index?.layer === "real" ? "computed" : "sample data"}`} />
+          )}
+          <DataTable rows={measureRows} caption={`${MEASURE_LABEL[measure]} by country and year`} columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "value", label: MEASURE_LABEL[measure], format: (v) => (measure === "net" ? fmtSigned(Number(v), 0) : Number(v).toFixed(0)) }]} />
         </section>
 
         <section className="card region-card p-3" aria-labelledby="min-h">
           <div className="mb-1 flex items-center justify-between gap-2"><h2 id="min-h" className="text-base font-semibold">Mineral by mineral in {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer={shareRows?.layer} /><LayerLabel layer="facts" /></span></div>
-          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each mineral going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the 12 countries that reported)." : "."}</p>
+          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each mineral going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the 12 countries that reported)." : "."} Click a bar to open that mineral&apos;s trade flows on the map.</p>
           {shares.length === 0 ? <p className="text-sm text-ink-3">No reported trade for {year} yet.</p> : <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />}
           <DataTable rows={shares} caption="Export shares by mineral and destination" columns={[{ key: "mineral", label: "Mineral" }, { key: "partner", label: "Destination" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }]} />
         </section>
 
         <section className="card region-card p-3" aria-labelledby="pr-h">
-          <div className="mb-1 flex items-center justify-between"><h2 id="pr-h" className="text-base font-semibold">Major projects active by {year}</h2><LayerLabel layer="facts" /></div>
+          <div className="mb-1 flex items-center justify-between"><h2 id="pr-h" className="text-base font-semibold">Major projects active by {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer="sample" /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">Mines, processing plants and ports. Real project names and approximate locations; operator origin, stage and start year are sample values until Phase 2.</p>
           {projectsOptions ? <PlotFigure options={projectsOptions} ariaLabel={`Map of major mining projects, plants and ports in South America active by ${year}, sample attributes`} /> : <p className="text-sm text-ink-3">Loading map…</p>}
           {region && (

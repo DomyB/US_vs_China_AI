@@ -389,6 +389,38 @@ figure.plot, .plot-figure svg { font-family: var(--font-sans); }
 .plot-figure [fill="#fff"], .plot-figure [fill="#ffffff"] { fill: var(--card); }
 .plot-figure [stroke="#fff"], .plot-figure [stroke="#ffffff"] { stroke: var(--card); }
 
+/* expand-to-dialog on every figure */
+.plot-expand {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 0.4rem;
+  border: 1.5px solid var(--outline);
+  background: var(--card);
+  color: var(--ink-2);
+  opacity: 0.45;
+  transition: opacity 0.12s ease;
+}
+.plot-figure:hover > .plot-expand, .plot-expand:focus-visible { opacity: 1; }
+.plot-dialog {
+  width: min(1100px, 92vw);
+  max-width: none;
+  max-height: 92vh;
+  margin: auto;
+  padding: 1rem 1.25rem 1.25rem;
+  border: 2px solid var(--outline);
+  border-radius: 0.9rem;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: 6px 6px 0 var(--shadow-hard);
+}
+.plot-dialog::backdrop { background: rgba(10, 11, 12, 0.55); }
+body:has(dialog[open]) { overflow: hidden; }
+
 /* ---- MapLibre: labels, popup, controls follow the theme ---------------- */
 .country-label {
   font-family: var(--font-sans);

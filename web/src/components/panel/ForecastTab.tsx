@@ -21,7 +21,7 @@ function statusLine(st: ForecastModelStatus | undefined): string {
 function chartOptions(baseline: ForecastRow[], scenarios: ForecastRow[], hist: Hist[], yLabel: string, domain: [number, number], fmt: (v: number) => string) {
   const lastYear = baseline[0]?.last_observed_year ?? 2026;
   return {
-    height: 240,
+    height: 300,
     marginLeft: 44,
     x: { label: null, tickFormat: (d: number) => String(d), domain: [2008, 2030] },
     y: { label: yLabel, domain, grid: true, tickFormat: fmt },

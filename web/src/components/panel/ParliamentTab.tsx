@@ -21,7 +21,7 @@ export function ParliamentTab({ data, year, mineral }: { data: CountryData; year
 
   const options = useMemo(
     () => ({
-      height: 200,
+      height: 250,
       marginLeft: 40,
       x: { label: null, tickFormat: (d: number) => String(d) },
       y: { label: "Mean stance (−2 to +2)", domain: [-2, 2], grid: true },

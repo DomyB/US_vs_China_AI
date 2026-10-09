@@ -1,9 +1,9 @@
 import { MAP_PALETTE, legendStops } from "./scales";
-import type { FlowView } from "./flows";
+import { fmtAmount, type FlowView } from "./flows";
 import type { Theme } from "@/lib/theme";
 import type { ActorMode } from "@/lib/types";
 
-export function Legend({ mode, theme = "light", view = "index" }: { mode: ActorMode; theme?: Theme; view?: FlowView }) {
+export function Legend({ mode, theme = "light", view = "index", flowMax = 0 }: { mode: ActorMode; theme?: Theme; view?: FlowView; flowMax?: number }) {
   const stops = legendStops(mode, 9, theme);
   const p = MAP_PALETTE[theme];
   return (
@@ -15,7 +15,13 @@ export function Legend({ mode, theme = "light", view = "index" }: { mode: ActorM
             <div className="flex items-center gap-2"><ArcSwatch color={p.us} />{view === "money" ? "from the United States" : "to the United States"}</div>
             <div className="flex items-center gap-2"><ArcSwatch color={p.cn} />{view === "money" ? "from China" : "to China"}</div>
           </div>
-          <p className="mt-1 text-ink-3">Width follows the amount; the faint end is where the flow starts. Hover an arc for the numbers and sources.</p>
+          {flowMax > 0 && (
+            <div className="mt-1.5 flex items-center gap-2" aria-label="Line width scale">
+              <svg width="60" height="14" viewBox="0 0 60 14" aria-hidden="true"><path d="M1 7 L59 7" stroke="var(--ink-3)" strokeWidth="1.5" strokeLinecap="round" /><path d="M30 7 L59 7" stroke="var(--ink-3)" strokeWidth="5" strokeLinecap="round" /><path d="M48 7 L59 7" stroke="var(--ink-3)" strokeWidth="9" strokeLinecap="round" /></svg>
+              <span className="text-ink-3">thin ≈ 0 · thickest = {fmtAmount(flowMax)} in this view</span>
+            </div>
+          )}
+          <p className="mt-1 text-ink-3">The faint end is where the flow starts. Hover an arc for the numbers and sources.</p>
         </div>
       )}
       <div className="mb-1 font-semibold text-ink">

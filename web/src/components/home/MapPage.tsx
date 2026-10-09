@@ -221,7 +221,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
               selectionCount={selection.length}
               flowsMeta={flows?.data.meta ?? null}
               flowsLayer={flows?.layer ?? null}
-              legend={<Legend mode={mode} theme={theme} view={view} />}
+              legend={<Legend mode={mode} theme={theme} view={view} flowMax={Math.max(0, ...aggs.map((a) => a.amount))} />}
               compact={!lg}
             />
           )}
