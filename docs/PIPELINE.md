@@ -217,9 +217,20 @@ provenance shown on the site stays honest.
 |---|---|---|
 | `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 adapters, fixtures, `analyse` (Phase 4), build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD.<run>`, opens an issue on failure; `targets: none` recomputes, rebuilds and re-exports without ingesting |
 | `ingest-annual.yml` | 15 March | USGS, V-Dem, UNGA, DPI, BGS via the same job |
+| `ingest-press.yml` | Wednesdays | The press group (27 RSS adapters, then GDELT with 60 backlog windows and a 45-minute budget) via the same job |
+| `diagnose.yml` | on demand | Read-only probes of the GDELT DOC API (`what: gdelt`, `translingual`) and of Google News's robots rules (`gnews`); the job log is the record |
 | `text-analysis.yml` | Thursdays, and on demand | Phase 3: restores the release, installs the `[ml]` extra (CPU torch), caches model weights, runs `scm classify` (translate, classify, embed, topics), `analyse`, build, export, tests, guard, commits site data, publishes a release; inputs `steps`, `limit`, `force`, `codebook_version`, `fields`, `draw_sample`, `train` |
 | `liveness.yml` | Mondays | HEAD/GET of every registry URL → `data/liveness.json`, regenerates SOURCES.md |
 | `ci.yml` | every push | lint, typecheck, unit tests, build (web and pipeline) |
+
+Dispatch inputs of `ingest-monthly.yml`: `targets` (source ids or a group; `none` only recomputes and exports),
+`fetch_only`, `gdelt_backfill_windows` (missing historical windows to fetch, about 15 s each, more when
+throttled), `gdelt_time_budget_min` (GDELT stops fetching after this many minutes and leaves the rest for the
+next run), `gdelt_countries` (ISO3 codes in priority order; empty = all), `adapter_budget_min` (the cut-off for
+any single adapter: set it above the GDELT budget for a backfill, `0` for no limit), `allow_empty_warehouse`,
+`allow_regression`. A backfill of about 200 windows: `targets: gdelt`, `gdelt_backfill_windows: 200`,
+`gdelt_time_budget_min: 150`, `adapter_budget_min: 175`; the job limit is 300 minutes and the run shares its
+concurrency group with the Wednesday press run and the Thursday text run, which wait for it.
 
 Each ingestion run first restores the Parquet warehouse from the latest `data-v*` release, so
 running a subset of adapters (`targets: wb_wgi usgs_mcs`) refreshes only those tables and keeps

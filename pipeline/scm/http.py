@@ -25,9 +25,13 @@ from .paths import RAW_DIR
 USER_AGENT = "scm-critical-minerals-research/0.2 (+https://github.com/DomyB/US_vs_China_AI; academic, non-commercial)"
 
 
-def make_session(retries: int = 4, backoff: float = 1.5) -> requests.Session:
+DEFAULT_RETRY_STATUSES: tuple[int, ...] = (429, 500, 502, 503, 504)
+
+
+def make_session(retries: int = 4, backoff: float = 1.5, retry_statuses: tuple[int, ...] = DEFAULT_RETRY_STATUSES) -> requests.Session:
+    """A session that retries transient answers; an adapter that paces its own throttling leaves 429 out of `retry_statuses`."""
     s = requests.Session()
-    retry = Retry(total=retries, backoff_factor=backoff, status_forcelist=(429, 500, 502, 503, 504),
+    retry = Retry(total=retries, backoff_factor=backoff, status_forcelist=tuple(retry_statuses),
                   allowed_methods=frozenset({"GET", "HEAD"}), raise_on_status=False)
     s.mount("https://", HTTPAdapter(max_retries=retry))
     s.mount("http://", HTTPAdapter(max_retries=retry))
@@ -88,6 +92,7 @@ class Snapshot:
     session: requests.Session | None = None
     min_interval: float = 1.0
     robots: object | None = None  # scm.robots.RobotsCache when the adapter respects robots.txt
+    retry_statuses: tuple[int, ...] = DEFAULT_RETRY_STATUSES  # HTTP answers the session retries by itself
     _last_request: float = 0.0
 
     @classmethod
@@ -155,7 +160,7 @@ class Snapshot:
         if self.has(name) and not force:
             return target
         if self.session is None:
-            self.session = make_session()
+            self.session = make_session(retry_statuses=self.retry_statuses)
         self._check_robots(url)
         self._throttle()
         # transient network failures (a dropped connection or a response cut off mid-body, seen on a 700-request
@@ -221,7 +226,7 @@ class Snapshot:
         target = self.path(name)
         if not (self.has(name) and not force):
             if self.session is None:
-                self.session = make_session()
+                self.session = make_session(retry_statuses=self.retry_statuses)
             self._check_robots(url)
             self._throttle()
             resp = self.session.post(url, json=json_body, headers=headers, timeout=timeout)

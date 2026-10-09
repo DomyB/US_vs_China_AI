@@ -69,7 +69,7 @@ owner's own text shown apart where it exists. All six phases are live.
   Spanish-language articles (the adapter now queries English terms with the language operator and re-filters
   the headline in its own language); and GDELT throttles by address and GitHub-hosted runners share theirs,
   so 17 of 20 probes at one request per twelve seconds, and 5 of 6 at one per 45 seconds, answered HTTP 429.
-  The adapter backs off exponentially and retries, but the history will fill slowly from the runner; the
+  The adapter backs off exponentially and retries (the session no longer retries a 429 on its own), plans the backlog newest first across the countries in turn, re-plans the windows fetched in the Spanish-term era (their ledger rows carry the old query) and splits a window that hit the 250-record cap into two halves; but the history will fill slowly from the runner; the
   throttle message invites larger users to contact GDELT, which the owner can do, or the backfill can run from
   an address GDELT does not throttle. Google News's RSS search was examined as an alternative and rejected:
   its robots.txt disallows the search path for every agent, and names Claude's agents, so it is not fetched.

@@ -12,7 +12,7 @@ from pathlib import Path
 import pandas as pd
 
 from .. import schema
-from ..http import RobotsDisallowed, Snapshot, clean_url
+from ..http import DEFAULT_RETRY_STATUSES, RobotsDisallowed, Snapshot, clean_url
 from ..paths import RAW_DIR, REPO_ROOT, WAREHOUSE_DIR
 from ..registry import Source, source
 
@@ -36,6 +36,7 @@ class Adapter(ABC):
     min_interval: float = 1.0
     incremental: bool = False  # merge with the previously stored rows (feeds, windows) instead of replacing them
     respect_robots: bool = False  # consult robots.txt before every GET (HTML, SOAP, feeds)
+    retry_statuses: tuple[int, ...] = DEFAULT_RETRY_STATUSES  # which HTTP answers the session retries on its own
 
     def __init__(self) -> None:
         self.src: Source = source(self.source_id)
@@ -74,7 +75,7 @@ class Adapter(ABC):
 
     # ---- lifecycle
     def snapshot(self, base: Path = RAW_DIR) -> Snapshot:
-        snap = Snapshot.today(self.source_id, base=base, min_interval=self.min_interval)
+        snap = Snapshot.today(self.source_id, base=base, min_interval=self.min_interval, retry_statuses=self.retry_statuses)
         if self.respect_robots:
             from ..robots import RobotsCache
 

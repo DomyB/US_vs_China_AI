@@ -13,8 +13,17 @@ on:
         type: boolean
         default: false
       gdelt_backfill_windows:
-        description: "GDELT: how many missing historical windows to fetch this run (about 5 s each)"
+        description: "GDELT: how many missing historical windows to fetch this run (about 15 s each, more when throttled)"
         default: "60"
+      gdelt_time_budget_min:
+        description: "GDELT: minutes of fetching before the run stops and leaves the rest for next time"
+        default: "45"
+      gdelt_countries:
+        description: "GDELT: ISO3 codes to fetch, in priority order (empty = all twelve)"
+        default: ""
+      adapter_budget_min:
+        description: "Minutes any single adapter may run before it is cut off (set above the GDELT budget for a backfill; 0 = no limit)"
+        default: "120"
       allow_empty_warehouse:
         description: "Start from an empty warehouse when no usable data release exists (first run only)"
         type: boolean
@@ -34,6 +43,15 @@ on:
       gdelt_backfill_windows:
         type: string
         default: "60"
+      gdelt_time_budget_min:
+        type: string
+        default: "45"
+      gdelt_countries:
+        type: string
+        default: ""
+      adapter_budget_min:
+        type: string
+        default: "120"
       allow_empty_warehouse:
         type: boolean
         default: false
@@ -65,6 +83,9 @@ jobs:
       EXIM_FILE_URL: ${{ secrets.EXIM_FILE_URL }}
       DPI_FILE_URL: ${{ secrets.DPI_FILE_URL }}
       GDELT_BACKFILL_WINDOWS: ${{ inputs.gdelt_backfill_windows || '60' }}
+      GDELT_TIME_BUDGET_MIN: ${{ inputs.gdelt_time_budget_min || '45' }}
+      GDELT_COUNTRIES: ${{ inputs.gdelt_countries || '' }}
+      SCM_ADAPTER_BUDGET_MIN: ${{ inputs.adapter_budget_min || '120' }}
     steps:
       - uses: actions/checkout@v4
         with:

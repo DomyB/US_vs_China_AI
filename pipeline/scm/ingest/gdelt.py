@@ -5,7 +5,7 @@ registry (matched on domain) and re-filtered on the headline. Terms are English 
 because the API matches its English translations (see TERMS); GitHub's runners share egress
 addresses that GDELT throttles, so requests are paced and backed off (see the class constants). GDELT's date is the indexing time,
 stored with date_precision "seen". Each run fetches the recent weeks for every country plus a
-number of still-missing historical windows (GDELT_BACKFILL_WINDOWS, default 60, about 5 s each),
+number of still-missing historical windows (GDELT_BACKFILL_WINDOWS, default 60, about 15 s each),
 so the history completes over a few runs or one long manual dispatch.
 """
 from __future__ import annotations
@@ -75,6 +75,56 @@ def outlet_domains() -> dict[str, str]:
     return out
 
 
+CURRENT_TERMS_MARKER = "lithium"  # every current query carries it; ledger rows without it come from the Spanish-term era
+
+
+def plan_windows(prev: pd.DataFrame | None, today: date, budget: int, only: list[str]) -> tuple[list[tuple[str, date, date, bool]], int]:
+    """The windows to fetch this run and how many stay in the backlog.
+
+    The recent windows (RECENT_DAYS) are always fetched. A historical window is done when the ledger holds a row for it
+    fetched with the current term set (its `source_record_url` carries CURRENT_TERMS_MARKER); rows from the Spanish-term
+    era, which always came back empty, are planned again. A window whose row reached MAX_RECORDS is planned again as two
+    half windows (unless the second half is already in the ledger). The backlog runs newest first, one window per
+    country in turn, so a bounded run gives every country its most recent missing months."""
+    rows = prev if prev is not None and not prev.empty else None
+    ledger: set[tuple[str, str]] = set()
+    done: set[tuple[str, str]] = set()
+    capped: set[tuple[str, str]] = set()
+    if rows is not None:
+        urls = rows["source_record_url"].astype(str) if "source_record_url" in rows.columns else pd.Series([""] * len(rows), index=rows.index)
+        totals = pd.to_numeric(rows["items_total"], errors="coerce").fillna(0) if "items_total" in rows.columns else pd.Series([0] * len(rows), index=rows.index)
+        for country, period, url, total in zip(rows["country"], rows["period"], urls, totals, strict=True):
+            key = (str(country), str(period)[:10])
+            ledger.add(key)
+            if CURRENT_TERMS_MARKER in url:
+                done.add(key)
+                if total >= MAX_RECORDS:
+                    capped.add(key)
+    recent_from = today - timedelta(days=RECENT_DAYS)
+    plan: list[tuple[str, date, date, bool]] = []
+    per_country: dict[str, list[tuple[str, date, date, bool]]] = {}
+    for iso in only:
+        todo: list[tuple[str, date, date, bool]] = []
+        for start, end in windows(iso, today):
+            key = (iso, start.isoformat())
+            if end >= recent_from:
+                plan.append((iso, start, end, True))
+            elif key in capped:
+                mid = start + timedelta(days=(end - start).days // 2 + 1)
+                if (iso, mid.isoformat()) not in ledger and mid <= end:
+                    todo.append((iso, mid, end, False))
+                    todo.append((iso, start, mid - timedelta(days=1), False))
+            elif key not in done:
+                todo.append((iso, start, end, False))
+        per_country[iso] = list(reversed(todo))  # newest first
+    backlog: list[tuple[str, date, date, bool]] = []
+    for i in range(max((len(v) for v in per_country.values()), default=0)):
+        for iso in only:
+            if i < len(per_country[iso]):
+                backlog.append(per_country[iso][i])
+    return plan + backlog[:budget], max(0, len(backlog) - budget)
+
+
 def windows(iso: str, until: date | None = None) -> list[tuple[date, date]]:
     until = until or datetime.now(UTC).date()
     out: list[tuple[date, date]] = []
@@ -96,6 +146,7 @@ class GDELTDoc(Adapter):
     tables = ("document", "media_volume")
     incremental = True
     min_interval = 15.0  # GDELT asks for one request every 5 s; GitHub runners share egress addresses, so go slower
+    retry_statuses = (500, 502, 503, 504)  # a 429 is paced and backed off here, never retried blindly by the session
     THROTTLE_SLEEP = 45  # seconds to pause after an HTTP 429; doubled on every consecutive 429 up to THROTTLE_MAX_SLEEP
     THROTTLE_MAX_SLEEP = 480
     THROTTLE_RETRIES = 2  # a throttled window is retried this many times after the pause before it is left for the next run
@@ -104,27 +155,17 @@ class GDELTDoc(Adapter):
 
     def fetch(self, snap: Snapshot) -> None:
         budget = int(os.environ.get("GDELT_BACKFILL_WINDOWS", "60") or 60)
-        only = [c for c in os.environ.get("GDELT_COUNTRIES", "").replace(",", " ").split() if c in IN_SCOPE] or IN_SCOPE
-        prev = self.previous_table("media_volume")
-        done = set(zip(prev["country"], prev["period"], strict=True)) if prev is not None and not prev.empty else set()
+        only = [c for c in os.environ.get("GDELT_COUNTRIES", "").replace(",", " ").split() if c in IN_SCOPE] or list(IN_SCOPE)
         today = datetime.now(UTC).date()
-        recent_from = today - timedelta(days=RECENT_DAYS)
-        plan: list[tuple[str, date, date, bool]] = []
-        backlog: list[tuple[str, date, date, bool]] = []
-        for iso in only:
-            for start, end in windows(iso, today):
-                if end >= recent_from:
-                    plan.append((iso, start, end, True))
-                elif (iso, start.isoformat()) not in done:
-                    backlog.append((iso, start, end, False))
-        plan += backlog[:budget]
+        plan, backlog_left = plan_windows(self.previous_table("media_volume"), today, budget, only)
         snap.manifest["windows_planned"] = len(plan)
-        snap.manifest["windows_backlog"] = max(0, len(backlog) - budget)
+        snap.manifest["windows_backlog"] = backlog_left
         snap.manifest["errors"] = []
         import time
 
         t0 = time.monotonic()
         time_budget = float(os.environ.get("GDELT_TIME_BUDGET_MIN", str(self.TIME_BUDGET_MIN))) * 60
+        self._deadline = t0 + time_budget
         self._diagnostics(snap, today)
         for iso, start, end, _recent in plan:
             if time.monotonic() - t0 > time_budget:
@@ -192,7 +233,13 @@ class GDELTDoc(Adapter):
                 if run >= self.MAX_THROTTLES:
                     snap.manifest["errors"].append({"name": label, "error": err[:200]})
                     return False
-                time.sleep(min(self.THROTTLE_MAX_SLEEP, self.THROTTLE_SLEEP * 2 ** (run - 1)))
+                pause = min(self.THROTTLE_MAX_SLEEP, self.THROTTLE_SLEEP * 2 ** (run - 1))
+                deadline = getattr(self, "_deadline", None)
+                if deadline is not None and time.monotonic() + pause > deadline:
+                    snap.manifest["errors"].append({"name": label, "error": "throttled; the time budget leaves no room for the pause"})
+                    snap.manifest["stopped"] = "time budget exhausted during a throttle pause"
+                    return False
+                time.sleep(pause)
                 if attempt == self.THROTTLE_RETRIES:
                     snap.manifest["errors"].append({"name": label, "error": err[:200]})
         return False

@@ -172,3 +172,64 @@ def test_gdelt_diagnostics_are_recorded_and_not_kept(snap_factory, monkeypatch):
     assert d["es_english_term"].startswith("1 articles") and d["pt_english_term"].startswith("0 articles (2 bytes)")
     assert not any(n.startswith("diagnostics/") for n in snap.files) and not snap.path("diagnostics/es_english_term.json").exists()
     assert "errors" not in snap.manifest or not snap.manifest["errors"]
+
+
+def test_gdelt_plan_windows_newest_first_round_robin_with_ledger_rules():
+    from datetime import date
+
+    import pandas as pd
+
+    from scm.ingest.gdelt import MAX_RECORDS, plan_windows
+
+    today = date(2026, 10, 9)
+    prev = pd.DataFrame([
+        # Spanish-term era (empty answer): planned again
+        {"country": "ARG", "period": "2025-01-01", "items_total": 0, "source_record_url": "https://api.gdeltproject.org/api/v2/doc/doc?query=litio+China"},
+        # current terms, genuinely empty: done
+        {"country": "BRA", "period": "2025-01-01", "items_total": 0, "source_record_url": "https://api.gdeltproject.org/api/v2/doc/doc?query=lithium+China"},
+        # current terms, capped: split into two halves
+        {"country": "BRA", "period": "2024-12-16", "items_total": MAX_RECORDS, "source_record_url": "https://api.gdeltproject.org/api/v2/doc/doc?query=lithium+China"},
+    ])
+    plan, left = plan_windows(prev, today, budget=6, only=["ARG", "BRA"])
+    recent = [w for w in plan if w[3]]
+    hist = [w for w in plan if not w[3]]
+    assert recent and all(w[2] >= today - pd.Timedelta(days=35).to_pytimedelta() for w in recent)
+    # round-robin: ARG, BRA, ARG, BRA …; newest first
+    assert [w[0] for w in hist[:4]] == ["ARG", "BRA", "ARG", "BRA"]
+    assert hist[0][1] > hist[2][1]
+    starts = {(w[0], w[1].isoformat()) for w in hist}
+    all_plan, _ = plan_windows(prev, today, budget=10_000, only=["ARG", "BRA"])
+    all_hist = {(w[0], w[1].isoformat(), w[2].isoformat()) for w in all_plan if not w[3]}
+    assert ("ARG", "2025-01-01", "2025-01-15") in all_hist  # Spanish-era window comes back
+    assert not any(k[:2] == ("BRA", "2025-01-01") for k in all_hist)  # empty with the current terms stays done
+    assert ("BRA", "2024-12-24", "2024-12-31") in all_hist and ("BRA", "2024-12-16", "2024-12-23") in all_hist  # the capped window is split
+    assert left > 0 and len(starts) == len(hist)
+
+
+def test_gdelt_session_does_not_retry_429_by_itself():
+    from scm.http import make_session
+    from scm.ingest.gdelt import GDELTDoc
+
+    assert 429 not in GDELTDoc.retry_statuses
+    s = make_session(retry_statuses=GDELTDoc.retry_statuses)
+    assert set(s.get_adapter("https://").max_retries.status_forcelist) == {500, 502, 503, 504}
+
+
+def test_gdelt_throttle_pause_respects_the_deadline(snap_factory, monkeypatch):
+    import time
+
+    from scm.ingest.gdelt import GDELTDoc
+
+    snap = snap_factory("gdelt", {})
+    snap.manifest["errors"] = []
+
+    def throttled(*a, **k):
+        raise RuntimeError("gdelt: HTTP 429 on GET …")
+
+    monkeypatch.setattr(snap, "get", throttled)
+    slept = []
+    monkeypatch.setattr(time, "sleep", lambda s: slept.append(s))
+    ad = GDELTDoc()
+    ad._deadline = time.monotonic() + 1  # no room for a 45 s pause
+    assert ad._get_window(snap, "ARG/2025-01-01_es.json", {"query": "x"}) is False
+    assert slept == [] and snap.manifest["stopped"].startswith("time budget exhausted") and snap.manifest["throttled"] == 1
