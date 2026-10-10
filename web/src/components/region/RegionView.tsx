@@ -19,6 +19,7 @@ import { useTheme } from "@/lib/theme";
 import { FocusChart, MEASURE_LABEL, type MeasureRow, type RegionMeasure } from "./FocusChart";
 import { Heatmap } from "./Heatmap";
 import { Freshness } from "@/components/ui/Freshness";
+import { NET_LEAN_MAX } from "@/components/map/scales";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
 import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionInterpretation, loadRegionShares, loadRegionStatements } from "@/lib/data";
 import { fmtPct, fmtSigned } from "@/lib/format";
@@ -183,8 +184,8 @@ export function RegionView() {
         <section className="card region-card p-3" aria-labelledby="rk-h">
           <h2 id="rk-h" className="mb-1 text-lg font-semibold">Ranking in {year}</h2>
           <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a row to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
-          <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={80} href={(iso) => `/?country=${iso}&year=${year}`} onHover={setHoverIso} hover={focus} />
-          <p className="mt-1 text-[11px] text-ink-3">Bars run from the centre: left toward the United States, right toward China, on a ±80 scale. Rows slide when the year changes.</p>
+          <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={NET_LEAN_MAX} href={(iso) => `/explore?country=${iso}&year=${year}`} onHover={setHoverIso} hover={focus} />
+          <p className="mt-1 text-[11px] text-ink-3">Bars run from the centre: left toward the United States, right toward China, on the ±60 scale the map and the heatmap use. Rows slide when the year changes.</p>
           <table className="mt-4 w-full text-xs">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US</th><th className="py-1 text-right">China</th><th className="py-1 text-right">Net</th></tr>

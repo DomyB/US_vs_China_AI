@@ -16,10 +16,13 @@ export function sequentialScale(actor: "US" | "CN", theme: Theme = "light") {
   return scaleSequential(piecewise(interpolateRgb, [p.noData, actor === "US" ? p.us : p.cn])).domain([0, 100]);
 }
 
-/** Diverging, US blue <- neutral grey -> China vermilion, for CN minus US in [-100, 100]. */
+/** Net lean (China minus US) is drawn on one range everywhere: the map, the heatmap and the ranking race. */
+export const NET_LEAN_MAX = 60;
+
+/** Diverging, US blue <- neutral grey -> China vermilion, for CN minus US clamped at ±NET_LEAN_MAX. */
 export function divergingScale(theme: Theme = "light") {
   const p = MAP_PALETTE[theme];
-  return scaleLinear<string>().domain([-60, 0, 60]).range([p.us, p.noData, p.cn]).interpolate(interpolateRgb).clamp(true);
+  return scaleLinear<string>().domain([-NET_LEAN_MAX, 0, NET_LEAN_MAX]).range([p.us, p.noData, p.cn]).interpolate(interpolateRgb).clamp(true);
 }
 
 export function legendStops(mode: "US" | "CN" | "both", n = 7, theme: Theme = "light"): { value: number; color: string }[] {

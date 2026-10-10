@@ -10,6 +10,8 @@ import { WeightsPlayground } from "./WeightsPlayground";
 import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtPct, fmtSigned } from "@/lib/format";
+import { provenanceFor } from "@/lib/provenance";
+import { useRealMeta } from "@/lib/useRealMeta";
 import type { ComponentValue, CountryData, IndexRow } from "@/lib/types";
 
 const COMPONENT_LABEL: Record<string, string> = {
@@ -24,6 +26,7 @@ const actorName = (a: string) => (a === "US" ? ACTOR_LABEL.US : ACTOR_LABEL.CN);
 
 export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { data: CountryData; year: number; indexRows: IndexRow[]; indexLayer?: "real" | "sample" | "none" }) {
   const real = data.layers?.analysis === "real";
+  const meta = useRealMeta();
   const status = data.analysis.quant_model ?? null;
   const tag = real ? "computed" : "sample data";
 
@@ -204,7 +207,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
 
       {real && (
         <section aria-labelledby="conc-h">
-          <SectionHeader id="conc-h" title={`Export concentration in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} />
+          <SectionHeader id="conc-h" title={`Export concentration in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("concentration", { iso3: data.iso3, year, meta })} />
           <p className="mb-2 text-xs text-ink-3">
             Shares of the country&apos;s reported exports going to the United States, China and the rest of the world (UN Comtrade, reporter&apos;s own data).
             {concentrationAll ? ` All minerals together: ${fmtPct(concentrationAll.share_us_x ?? 0)} to the United States, ${fmtPct(concentrationAll.share_cn_x ?? 0)} to China, two-power share ${fmtPct(concentrationAll.big2_share_x ?? 0)}.` : ""}
@@ -321,7 +324,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
 
       {governance.length > 0 && (
         <section aria-labelledby="gov-h">
-          <SectionHeader id="gov-h" title={`Governance and alignment indicators, ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} />
+          <SectionHeader id="gov-h" title={`Governance and alignment indicators, ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("governance", { iso3: data.iso3, year, meta })} />
           <p className="mb-1 text-xs text-ink-3">Inputs to the influence index and context: governance (World Bank WGI, V-Dem), UN General Assembly alignment with the US and China, debt by creditor, macro context.</p>
           <table className="w-full text-xs">
             <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 pr-4 text-right">Value</th><th className="py-1">Source</th></tr></thead>
@@ -339,7 +342,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
       )}
 
       <section aria-labelledby="interp-h">
-        <SectionHeader id="interp-h" title="Interpretation" tags={<LayerLabel layer="interpretation" />} />
+        <SectionHeader id="interp-h" title="Interpretation" tags={<LayerLabel layer="interpretation" />} provenance={provenanceFor("interpretation", { iso3: data.iso3, findingId: `country:${data.iso3}`, title: `Interpretation, ${data.name}` })} />
         <Interpretation block={data.interpretation} scopeLabel={data.name} />
         <p className="mt-2 text-xs text-ink-3">Context note from the registry: {data.note}</p>
       </section>

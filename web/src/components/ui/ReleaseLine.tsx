@@ -10,7 +10,9 @@ export function ReleaseLine() {
   const tag = real.quant_model?.inputs_release ?? null;
   return (
     <span>
-      Cite as: US–China Critical Minerals Tracker, data release {tag ? <a href={`https://github.com/DomyB/US_vs_China_AI/releases/tag/${tag}`} className="underline">{tag}</a> : "pending"} (ingested {real.generated_on}).
+      Cite as: US–China Critical Minerals Tracker, data release {tag ? <a href={`https://github.com/DomyB/US_vs_China_AI/releases/tag/${tag}`} className="underline">{tag}</a> : "pending"} (ingested {real.generated_on}
+      {real.sources_live ? `; ${real.sources_live.live} of ${real.sources_live.total} sources live` : ""}
+      {real.adapters_ok ? `; ${real.adapters_ok.ok} of ${real.adapters_ok.total} adapters ran` : ""}).
     </span>
   );
 }

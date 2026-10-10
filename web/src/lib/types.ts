@@ -273,6 +273,11 @@ export interface RealMeta {
   generated_on: string;
   generated_at: string;
   sources_ok: string[];
+  /** adapters that ran clean out of those registered; registry sources marked live out of all registered (DECISIONS 73) */
+  adapters_ok?: { ok: number; total: number };
+  sources_live?: { live: number; total: number };
+  /** the project's period and the first year the trade record holds */
+  period?: { from: number; data_from: number; to: number };
   ingest_runs: { source_id: string; status: string; finished_at: string; rows: string; error: string | null }[];
   tables: Record<string, number>;
   layers: Record<string, string>;

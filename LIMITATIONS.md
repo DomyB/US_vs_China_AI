@@ -310,7 +310,7 @@ the registry.
 - Coverage is uneven: Chile, Peru, Brazil, Argentina and Bolivia have 49–65 records each, Ecuador 16 and Colombia 12; Guyana, Paraguay, Suriname, Uruguay and Venezuela have none, and the dataset's own notes list Chinese embassy statements and several US ambassadors as under-represented. Records before 2022 are few (23 in 2019–2021). Mexico (43) and Panama (13) records are outside this site's twelve countries and are not shown; 23 region-wide records appear on the region page.
 - 100 records carry no quote (only a summary); quotes are at most 30 words and translations may be the dataset's own. Speaker roles are as at the statement date.
 
-## Insights page caveats (added 2026-10-09)
+## Lab page caveats (added 2026-10-09)
 
 - The contrasts set layers against each other that overlap thinly: coded statements, legislative stance and the index coincide only for Argentina 2022–2025, Brazil 2024–2025, Chile 2024 and Peru 2024; a third of the statements are from 2026, a year with no reported trade or finance yet. Every contrast carries its `n` and the page's evidence meter says when a finding rests on fewer than ten records, one year, press tone, zero-shot stance or draft events.
 - Scales differ and are never added: statements −1..+1 (the dataset's codebook, not validated), legislative stance −2..+2 (zero-shot model, not validated; shown halved where it meets the statements), media tone −1..+1, the index 0–100.
@@ -331,7 +331,7 @@ or hands, and labelled each:
 - The ten flagged events were verified from web-search results that cite the official documents,
   not from the documents themselves (the session could not open them); `url`, dates and notes are in
   `pipeline/config/events.yaml` and `status` stays `draft` until the owner reads them (DECISIONS 63),
-  so the event echoes on the Insights page still carry the draft label.
+  so the event echoes on the Lab (once the Lab page) still carry the draft label.
 - The 22 statement records for Guyana, Paraguay, Suriname, Venezuela and Chinese officials, and the second coding
   of a 40-record sample, are AI work on search results (DECISIONS 65): the records say so in `notes` and
   `research_batch`, `verification` is `secondary_reported` or `unverified` by what was read, and the agreement

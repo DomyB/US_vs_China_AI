@@ -8,10 +8,13 @@ import { SourceLink } from "@/components/ui/SourceLink";
 import { SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtMusd } from "@/lib/format";
+import { provenanceFor } from "@/lib/provenance";
 import type { CountryData } from "@/lib/types";
+import { useRealMeta } from "@/lib/useRealMeta";
 
 export function ActionsTab({ data, year, mineral }: { data: CountryData; year: number; mineral: string }) {
   const isReal = data.layers?.actions === "real";
+  const meta = useRealMeta();
   const trade = useMemo(() => {
     const rows = data.actions.trade.filter((t) => mineral === "all" || t.mineral === mineral);
     const byYear = new Map<number, { CN: number; US: number; ROW: number; mCN: number | null; mUS: number | null }>();
@@ -99,7 +102,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
   return (
     <div className="space-y-5">
       <section aria-labelledby="trade-h">
-        <SectionHeader id="trade-h" title="Mineral exports by destination" tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} />
+        <SectionHeader id="trade-h" title="Mineral exports by destination" tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} provenance={provenanceFor("trade", { iso3: data.iso3, year, meta, title: `Mineral exports by destination, ${data.name}` })} />
         <p className="mb-2 text-xs text-ink-3">
           {mineral === "all" ? "All core minerals" : prettyMineral(mineral)}, annual, reported by {data.name}.
           {hasMirror ? " Lighter narrow bars: the same flow as reported by the partner (mirror data, includes freight and insurance)." : " Mirror data appears here once the partner-reported series is ingested."}
@@ -132,7 +135,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
       </section>
 
       <section aria-labelledby="events-h">
-        <SectionHeader id="events-h" title={allYears ? "Deals, loans, investments and agreements, all years" : `Deals, loans, investments and agreements in ${year}`} tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} />
+        <SectionHeader id="events-h" title={allYears ? "Deals, loans, investments and agreements, all years" : `Deals, loans, investments and agreements in ${year}`} tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} provenance={provenanceFor("finance", { iso3: data.iso3, year: allYears ? undefined : year, meta, title: `Finance events, ${data.name}` })} />
         {allEvents.length > 0 && (
           <>
             <p className="mb-1 text-xs text-ink-3">Every recorded event, by date and side; the circle area follows the published amount (hollow: no amount published); the shaded band is {year}. Hover for the record.</p>
@@ -178,7 +181,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
 
       {production.length > 0 && (
         <section aria-labelledby="prod-h">
-          <SectionHeader id="prod-h" title={`Production and reserves in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} intro={`${productionGroups.length} mineral series; where several sources or units report the same mineral, the first row is shown and the others open on request.`} />
+          <SectionHeader id="prod-h" title={`Production and reserves in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("production", { iso3: data.iso3, year, meta })} intro={`${productionGroups.length} mineral series; where several sources or units report the same mineral, the first row is shown and the others open on request.`} />
           <table className="w-full text-xs">
             <thead><tr><th>Mineral</th><th>Measure</th><th className="text-right">Quantity</th><th>Unit</th><th>Source</th></tr></thead>
             <tbody>
@@ -210,7 +213,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
 
       {contracts.length > 0 && (
         <section aria-labelledby="contracts-h">
-          <SectionHeader id="contracts-h" title={`Published contracts (${contracts.length})`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} intro="From the ResourceContracts database; the mineral and the companies are shown where the record carries them." />
+          <SectionHeader id="contracts-h" title={`Published contracts (${contracts.length})`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("contracts", { iso3: data.iso3, meta })} intro="From the ResourceContracts database; the mineral and the companies are shown where the record carries them." />
           <input value={contractQuery} onChange={(e) => setContractQuery(e.target.value)} placeholder="Search contracts by title, company or resource…" aria-label="Search contracts" className="input mb-2 h-7 w-72 max-w-full py-0 text-xs" />
           <ul className="divide-y divide-rule border-y border-rule text-sm">
             {contracts.slice(0, contractsShown).map((c) => (

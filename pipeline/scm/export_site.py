@@ -308,6 +308,16 @@ def _story_file(stm: list[dict], conc_rows: list[dict], today: str) -> dict:
             "quotes": quotes, "series": series}
 
 
+def release_counts(ok_sources: list[str]) -> dict:
+    """The two counts the site's release line prints: adapters that ran clean out of those registered, and registry
+    sources marked live out of all registered sources (DECISIONS 73)."""
+    from .ingest import ADAPTERS
+
+    reg = sources()
+    return {"adapters_ok": {"ok": len([s for s in ok_sources if s in ADAPTERS]), "total": len(ADAPTERS)},
+            "sources_live": {"live": sum(1 for s in reg.values() if s.status == "live"), "total": len(reg)}}
+
+
 def _src(sid: str, record_url: str | None = None) -> dict:
     s = sources()[sid]
     return {"id": sid, "name": s.name, "url": record_url or s.url, "registry_url": s.url, "reliability": s.reliability, "sample": False}
@@ -767,7 +777,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     briefs = [r for r in text_rows if r["model"] == "human"]
     meta = {
         "dataset": "REAL", "generated_on": today, "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
-        "sources_ok": ok_sources, "ingest_runs": runs,
+        "sources_ok": ok_sources, **release_counts(ok_sources), "ingest_runs": runs,
         "tables": {t: int(con.execute(f"SELECT count(*) FROM {t}").fetchone()[0]) for t in SCHEMAS if t != "ingest_run" and _table_exists(con, t)},
         # layers: "facts_only" = real records without model outputs; "real" = records plus labelled model outputs
         # (text_model says whether the classifier is a zero-shot baseline or validated); charts labelled accordingly

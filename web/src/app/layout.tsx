@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import "./globals.css";
+import "./trust.css";
 import { NavLinks } from "@/components/ui/NavLinks";
 import { ChromeMeasure } from "@/components/ui/ChromeMeasure";
 import { SampleBanner } from "@/components/ui/SampleBanner";
@@ -12,8 +13,8 @@ import { Suspense } from "react";
 import { PageFade } from "@/components/layout/PageFade";
 import { Tour } from "@/components/tour/Tour";
 import { YEAR_MIN, YEAR_MAX } from "@/lib/constants";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
 const TITLE = `US–China Critical Minerals Tracker: South America ${YEAR_MIN}–${YEAR_MAX}`;
 const DESCRIPTION = "Tracks, analyses and forecasts the competition between the United States and China for critical minerals in South America: actions, parliaments and media, by country and year.";
 

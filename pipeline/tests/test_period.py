@@ -27,3 +27,12 @@ def test_comtrade_chunks_keep_the_2008_file_names():
     assert sorted(y for c in chunks for y in c) == years
     assert all(c[0] >= CHUNK_ANCHOR or c[-1] < CHUNK_ANCHOR for c in chunks)
     assert chunk_years(list(range(2008, 2014)), 6) == [[2008, 2009, 2010, 2011, 2012, 2013]]
+
+
+def test_release_counts_are_bounded_by_the_registry():
+    from scm.export_site import release_counts
+    from scm.ingest import ADAPTERS
+
+    c = release_counts(["un_comtrade", "aiddata_gcdf", "not_an_adapter"])
+    assert c["adapters_ok"] == {"ok": 2, "total": len(ADAPTERS)}
+    assert 0 < c["sources_live"]["live"] <= c["sources_live"]["total"]

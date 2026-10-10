@@ -10,6 +10,8 @@ import { SectionHeader, StatTile } from "@/components/ui/Section";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { ACTOR_COLOR, LANGUAGE_NAME, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtSigned } from "@/lib/format";
+import { provenanceFor } from "@/lib/provenance";
+import { useRealMeta } from "@/lib/useRealMeta";
 import type { CountryData, LayerSource, ParliamentDoc } from "@/lib/types";
 
 /** The dataset as committed in the repository (the CSV the pipeline reads and the owner's readable workbook regenerated from it). */
@@ -61,6 +63,7 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
   );
 
   const layer = data.layers?.parliament;
+  const meta = useRealMeta();
   const total = data.parliament.documents.length;
   const coded = data.parliament.documents.filter((d) => d.classification === "coded").length;
 
@@ -109,7 +112,7 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
       </section>
 
       <section aria-labelledby="stance-h">
-        <SectionHeader id="stance-h" title="Legislative stance over time" tags={<><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</>} />
+        <SectionHeader id="stance-h" title="Legislative stance over time" tags={<><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</>} provenance={provenanceFor("stance", { iso3: data.iso3, meta, model: data.text_model ? { name: data.text_model.model ?? data.text_model.method ?? "text model", version: data.text_model.codebook_version ?? undefined, validation: data.text_model.label ?? undefined } : undefined })} />
         <p className="mb-2 text-xs text-ink-3">
           Mean stance of bills, hearings and votes that name each actor (records that name neither are not scored); dot size is the number of records. Coding method and validation scores are on the methodology page.
           {layer === "facts_only" && " This series is SAMPLE until the text workflow classifies the real records listed below."}
@@ -167,7 +170,7 @@ function LegislativeRecords({ data, year, mineral }: { data: CountryData; year: 
 
   return (
     <section aria-labelledby="docs-h">
-      <SectionHeader id="docs-h" title={onlyYear ? `Legislative records in ${year}` : "Legislative records, all years"} tags={<><LayerLabel layer="facts" /><DataLayerTag layer={layer} /></>} />
+      <SectionHeader id="docs-h" title={onlyYear ? `Legislative records in ${year}` : "Legislative records, all years"} tags={<><LayerLabel layer="facts" /><DataLayerTag layer={layer} /></>} provenance={provenanceFor("records", { iso3: data.iso3, year: onlyYear ? year : undefined })} />
       {(layer === "facts_only" || layer === "real") && (
         <p className="mb-1 text-xs text-ink-3">
           {total} bills, hearings and votes about mining, minerals or the two powers (keyword-selected at ingestion; original language

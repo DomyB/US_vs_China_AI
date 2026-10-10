@@ -46,7 +46,7 @@ export function SampleBanner() {
       <details className="mx-auto max-w-7xl px-4">
         <summary className="scroll-x flex h-8 list-none items-center gap-x-3 whitespace-nowrap text-[11px] text-ink-2 [&::-webkit-details-marker]:hidden">
           <span className="eyebrow shrink-0"><span className="sm:hidden">Status</span><span className="hidden sm:inline">Data status</span></span>
-          <span className="shrink-0 text-ink-3">ingested {real.generated_on}<span className="hidden sm:inline"> · {real.sources_ok.length} sources</span></span>
+          <span className="shrink-0 text-ink-3">ingested {real.generated_on}<span className="hidden sm:inline"> · {real.sources_live ? `${real.sources_live.live} of ${real.sources_live.total} sources live` : `${real.sources_ok.length} sources`}</span></span>
           <span className="hidden shrink-0 gap-1 sm:flex">
             {chips.map((c) => (
               <span key={c.label} className={`chip border bg-card normal-case tracking-normal ${toneCls[c.tone]}`} title={`${c.label}: ${c.value}`}>

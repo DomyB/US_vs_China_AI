@@ -7,6 +7,8 @@ import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { fmtPct } from "@/lib/format";
+import { provenanceFor } from "@/lib/provenance";
+import { useRealMeta } from "@/lib/useRealMeta";
 import type { CountryData, ForecastModelStatus, ForecastRow, IndexRow } from "@/lib/types";
 
 const actorName = (a: string) => (a === "US" ? ACTOR_LABEL.US : ACTOR_LABEL.CN);
@@ -40,6 +42,7 @@ function chartOptions(baseline: ForecastRow[], scenarios: ForecastRow[], hist: H
 
 export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: CountryData; indexRows: IndexRow[]; indexLayer?: "real" | "sample" | "none" }) {
   const real = data.layers?.forecast === "real";
+  const meta = useRealMeta();
   const history = useMemo<Hist[]>(() => indexRows.filter((r) => r.year <= YEAR_MAX).map((r) => ({ year: r.year, actor: r.actor, value: r.value })), [indexRows]);
   const all = data.forecast.series;
   const baseline = useMemo(() => all.filter((r) => (r.scenario_id ?? "baseline") === "baseline"), [all]);
@@ -75,7 +78,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
         </Callout>
       )}
       <section aria-labelledby="fc-h">
-        <SectionHeader id="fc-h" title="Influence index to 2030" tags={<>{tag}<LayerLabel layer="model" /></>} />
+        <SectionHeader id="fc-h" title="Influence index to 2030" tags={<>{tag}<LayerLabel layer="model" /></>} provenance={provenanceFor("forecast_index", { iso3: data.iso3, meta })} />
         <p className="mb-2 text-xs text-ink-3">
           {real
             ? `Solid line: the computed index to date${indexLayer === "real" ? "" : " (sample history)"}. ${["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`influence_index:${a}`])}`).join(". ")}.`
@@ -88,7 +91,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
 
       {real && hasShares && (
         <section aria-labelledby="fcs-h">
-          <SectionHeader id="fcs-h" title="Share of mineral exports to each actor, to 2030" tags={<>{tag}<LayerLabel layer="model" /></>} />
+          <SectionHeader id="fcs-h" title="Share of mineral exports to each actor, to 2030" tags={<>{tag}<LayerLabel layer="model" /></>} provenance={provenanceFor("forecast_share", { iso3: data.iso3, meta })} />
           <p className="mb-2 text-xs text-ink-3">
             Solid line: reported shares (UN Comtrade). {["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`export_share:${a}`])}`).join(". ")}.
           </p>
@@ -98,7 +101,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
       )}
 
       <section aria-labelledby="sc-h">
-        <SectionHeader id="sc-h" title="Scenarios" tags={<>{tag}<LayerLabel layer="model" /></>} />
+        <SectionHeader id="sc-h" title="Scenarios" tags={<>{tag}<LayerLabel layer="model" /></>} provenance={provenanceFor("scenarios", { iso3: data.iso3, meta })} />
         <p className="mb-2 text-xs text-ink-3">
           {real
             ? "Monte Carlo paths of the published model with an explicit yearly shift added to every path; the assumptions are stated, the shift is a what-if, not a prediction. Scenario medians are the dotted lines above."

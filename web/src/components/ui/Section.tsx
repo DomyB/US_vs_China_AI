@@ -1,13 +1,20 @@
 import type { ReactNode } from "react";
+import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
 import { Icon, type IconName } from "@/components/ui/Icons";
+import type { Provenance } from "@/lib/provenance";
 
 /** Title row of a panel block: title on the left, layer tags on the right, an optional one-line intro. */
-export function SectionHeader({ id, title, tags, intro }: { id: string; title: ReactNode; tags?: ReactNode; intro?: ReactNode }) {
+export function SectionHeader({ id, title, tags, intro, provenance, table }: { id: string; title: ReactNode; tags?: ReactNode; intro?: ReactNode; provenance?: Provenance; table?: ReactNode }) {
   return (
     <div className="mb-1">
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
         <h3 id={id} className="text-[0.9rem] font-semibold leading-snug">{title}</h3>
-        {tags && <span className="flex shrink-0 flex-wrap items-center gap-1">{tags}</span>}
+        {(tags || provenance) && (
+          <span className="flex shrink-0 flex-wrap items-center gap-1">
+            {tags}
+            {provenance && <EvidenceButton provenance={{ anchor: id, ...provenance }} table={table} compact />}
+          </span>
+        )}
       </div>
       {intro && <p className="mt-0.5 text-xs leading-relaxed text-ink-3">{intro}</p>}
     </div>

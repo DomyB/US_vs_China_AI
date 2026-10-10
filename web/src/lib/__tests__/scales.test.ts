@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { MAP_PALETTE, divergingScale, legendStops, sequentialScale } from "@/components/map/scales";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { MAP_PALETTE, NET_LEAN_MAX, divergingScale, legendStops, sequentialScale } from "@/components/map/scales";
 
 describe("map scales", () => {
   it("diverging scale is neutral at zero and clamps", () => {
@@ -24,5 +26,11 @@ describe("map scales", () => {
     expect(legendStops("both", 9)).toHaveLength(9);
     expect(legendStops("US", 5)).toHaveLength(5);
     expect(legendStops("US", 5, "dark")[0].color).toBe("rgb(42, 45, 50)");
+  });
+  it("net lean runs on one ±60 range everywhere", () => {
+    expect(NET_LEAN_MAX).toBe(60);
+    const region = readFileSync(path.join(__dirname, "../../components/region/RegionView.tsx"), "utf8");
+    expect(region).toContain("max={NET_LEAN_MAX}");
+    expect(region).not.toContain("max={80}");
   });
 });
