@@ -11,7 +11,10 @@ export type PlotOptions = NonNullable<Parameters<typeof Plot.plot>[0]>;
  * Every figure can be expanded into a modal dialog at full width (the same options, re-rendered larger).
  * A hidden data table alternative is the caller's responsibility (see DataTable).
  */
-export function PlotFigure({ options, ariaLabel, className = "", expandable = true }: { options: PlotOptions; ariaLabel: string; className?: string; expandable?: boolean }) {
+/** The layer glyph set inside the figure's box (bottom left, where no axis label sits) so a crop of a model-output or interpretation figure keeps its label; small figures rely on their exhibit's ribbon. */
+export const FRAME_GLYPH = { model: "◆ model output", interp: "◇ interpretation" } as const;
+
+export function PlotFigure({ options, ariaLabel, className = "", expandable = true, glyph }: { options: PlotOptions; ariaLabel: string; className?: string; expandable?: boolean; glyph?: keyof typeof FRAME_GLYPH }) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState<number>(0);
   const [open, setOpen] = useState(false);
@@ -64,6 +67,7 @@ export function PlotFigure({ options, ariaLabel, className = "", expandable = tr
   return (
     <div className={`plot-figure relative w-full ${className}`}>
       <div ref={ref} className="w-full" />
+      {glyph && width >= 320 && <span className="frame-glyph" data-layer={glyph} aria-hidden="true">{FRAME_GLYPH[glyph]}</span>}
       {expandable && width > 0 && (
         <button ref={expandRef} type="button" onClick={() => setOpen(true)} className="plot-expand" aria-label="Expand this chart" title="Expand this chart">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9" /></svg>
@@ -75,7 +79,7 @@ export function PlotFigure({ options, ariaLabel, className = "", expandable = tr
 }
 
 /** The same figure in a native modal dialog, wider and taller, with a larger type size. */
-function ExpandedFigure({ options, ariaLabel, onClose }: { options: PlotOptions; ariaLabel: string; onClose: () => void }) {
+function ExpandedFigure({ options, ariaLabel, glyph, onClose }: { options: PlotOptions; ariaLabel: string; glyph?: keyof typeof FRAME_GLYPH; onClose: () => void }) {
   const dlg = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const d = dlg.current;
@@ -102,7 +106,7 @@ function ExpandedFigure({ options, ariaLabel, onClose }: { options: PlotOptions;
         <p className="text-sm leading-snug text-ink-2">{ariaLabel}</p>
         <button type="button" className="btn btn-sm shrink-0" onClick={onClose}>Close</button>
       </div>
-      <PlotFigure options={big} ariaLabel={ariaLabel} expandable={false} />
+      <PlotFigure options={big} ariaLabel={ariaLabel} expandable={false} glyph={glyph} />
       <p className="mt-2 text-[11px] text-ink-3">Press Esc to close. The table alternative sits under the chart on the page.</p>
     </dialog>
   );

@@ -3,7 +3,7 @@ import { CountrySkeleton } from "@/components/ui/Skeleton";
 import { notFound } from "next/navigation";
 import { CountryPage } from "@/components/country/CountryPage";
 import { COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
-import { sourceNameMap } from "@/lib/sources";
+import { sourceNameMapOnServer } from "@/lib/sources.server";
 
 export function generateStaticParams() {
   return IN_SCOPE.map((iso3) => ({ iso3 }));
@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: Promise<{ iso3: string 
   if (!IN_SCOPE.includes(iso3)) notFound();
   return (
     <Suspense fallback={<CountrySkeleton />}>
-      <CountryPage iso3={iso3} sourceNames={sourceNameMap()} />
+      <CountryPage iso3={iso3} sourceNames={sourceNameMapOnServer()} />
     </Suspense>
   );
 }

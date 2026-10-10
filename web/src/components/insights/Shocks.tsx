@@ -36,7 +36,7 @@ export function Shocks({ echoes, titles, selected }: { echoes: EventEcho[]; titl
   if (!fams.length) return <p className="text-sm text-ink-3">No event family has enough windows yet.</p>;
   return (
     <div>
-      <PlotFigure options={options} ariaLabel="Post-minus-pre changes of the export share after each event family, one dot per event and country, with the family mean as a tick" />
+      <PlotFigure glyph="model" options={options} ariaLabel="Post-minus-pre changes of the export share after each event family, one dot per event and country, with the family mean as a tick" />
       <p className="mt-1 text-[11px] leading-snug text-ink-3">Each dot is one event in one country (the shock lever above uses the family mean and middle half). {draftNote} Windows overlap and the years coincide with price swings, so read a direction, not an effect.</p>
       <DataTable rows={windows} caption="Event windows" columns={[{ key: "label", label: "Family" }, { key: "country", label: "Country" }, { key: "year", label: "Year" }, { key: "actor", label: "Share to" }, { key: "diff", label: "Change", format: (v) => fmtPts(Number(v)) }, { key: "placebo_p", label: "Placebo p" }]} />
     </div>

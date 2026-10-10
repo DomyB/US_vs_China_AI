@@ -1,19 +1,15 @@
-import sourcesFile from "../../public/data/sources.json";
-import type { SourcesFile, SourceEntry } from "./types";
+import type { SourceEntry, SourcesFile } from "./types";
 
-export const SOURCES = sourcesFile as SourcesFile;
+/**
+ * The sources registry (web/public/data/sources.json, 158 KB) is not in any bundle: server components read it from disk
+ * (sources.server.ts) and the client fetches it once, on the first evidence drawer (loadSources / useSources).
+ */
 
-export function sourceNameMap(): Record<string, { name: string; url: string }> {
+export function sourceNameMap(registry: SourcesFile | null | undefined): Record<string, { name: string; url: string }> {
   const m: Record<string, { name: string; url: string }> = {};
-  for (const s of SOURCES.sources) m[s.id] = { name: s.name, url: s.url };
+  for (const s of registry?.sources ?? []) m[s.id] = { name: s.name, url: s.url };
   return m;
 }
-
-export function sourceById(id: string): SourceEntry | undefined {
-  return SOURCES.sources.find((s) => s.id === id);
-}
-
-// --- the lazily fetched registry (the evidence drawer reads it on first open; the static import above is being retired)
 
 let pending: Promise<SourcesFile | null> | null = null;
 

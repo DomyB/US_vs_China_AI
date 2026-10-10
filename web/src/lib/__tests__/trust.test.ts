@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { GLOSSARY, GLOSSARY_BY_ID, glossaryHref } from "../glossary";
@@ -39,5 +39,21 @@ describe("provenance", () => {
     expect(href.startsWith("https://github.com/DomyB/US_vs_China_AI/issues/new?title=Reading%3A%20who_talks_who_pays")).toBe(true);
     expect(decodeURIComponent(href)).toContain("Exhibit: The ledger balance");
     expect(LAYER_GLYPH.model).toBe("◆");
+  });
+});
+
+describe("registry", () => {
+  it("is imported statically by no client module (only the server reader reads the file)", () => {
+    const root = path.join(__dirname, "../..");
+    const hits: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        const p = path.join(dir, name);
+        if (statSync(p).isDirectory()) walk(p);
+        else if (/\.(ts|tsx)$/.test(name) && /from\s+["'][^"']*sources\.json["']/.test(readFileSync(p, "utf8")) && !name.endsWith("sources.server.ts")) hits.push(path.relative(root, p));
+      }
+    };
+    walk(root);
+    expect(hits).toEqual([]);
   });
 });

@@ -35,7 +35,7 @@ export function PanelLever({ reg }: { reg: InsightRegion["regressions"] }) {
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_300px]">
       <div>
-        <PlotFigure options={options} ariaLabel="Panel regression coefficients by outcome and regressor, with the range when one country is dropped" />
+        <PlotFigure glyph="model" options={options} ariaLabel="Panel regression coefficients by outcome and regressor, with the range when one country is dropped" />
         <p className="mt-1 text-[11px] text-ink-3">A filled dot passes the wild-cluster bootstrap at 5%; a hollow one does not. {reg.note}.</p>
         <DataTable rows={rows} caption="Two-way fixed-effects panel regressions" columns={[{ key: "outcome_label", label: "Outcome" }, { key: "term_label", label: "Regressor" }, { key: "coef", label: "Coef", format: (v) => fmtPts(Number(v)) }, { key: "p_wild", label: "Wild p" }, { key: "jk_min", label: "Drop-one min", format: (v) => fmtPts(Number(v)) }, { key: "jk_max", label: "Drop-one max", format: (v) => fmtPts(Number(v)) }, { key: "n_obs", label: "N" }]} />
       </div>

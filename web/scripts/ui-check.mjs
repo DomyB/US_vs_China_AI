@@ -132,6 +132,36 @@ try {
     const story = await page.evaluate(() => ({ h1: document.querySelector("h1")?.textContent ?? "", chapters: document.querySelectorAll("section[id^='c']").length, receipts: document.querySelectorAll("ol[aria-label='Receipts'] li").length, skip: !!Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Skip intro")) }));
     check("story: the home opens on Said & Paid with nine chapters", story.h1.includes("Said") && story.chapters >= 9, JSON.stringify(story));
     check("story: the cold open prints receipts and a Skip control", story.receipts >= 3 && story.skip, JSON.stringify(story));
+    // the trust layer: the evidence drawer opens from a story exhibit, keeps focus, closes on Escape and hands focus back
+    {
+      const btn = page.locator(".evidence-btn").first();
+      await btn.scrollIntoViewIfNeeded();
+      await btn.click();
+      await page.waitForTimeout(600);
+      const drawer = await page.evaluate(() => {
+        const d = document.querySelector("dialog.evidence-drawer");
+        return { open: !!d?.open, title: d?.querySelector("h2")?.textContent ?? "", focusOnClose: document.activeElement?.textContent === "Close", sections: d?.querySelectorAll("h3").length ?? 0 };
+      });
+      check("drawer: opens from a story exhibit with its title and sections, focus on Close", drawer.open && drawer.title.length > 3 && drawer.focusOnClose && drawer.sections >= 1, JSON.stringify(drawer));
+      await page.keyboard.press("Escape");
+      await page.waitForTimeout(400);
+      const closed = await page.evaluate(() => ({ gone: !document.querySelector("dialog.evidence-drawer"), focus: document.activeElement?.classList.contains("evidence-btn") }));
+      check("drawer: Escape closes it and focus returns to the button", closed.gone && closed.focus, JSON.stringify(closed));
+    }
+    // the registry (sources.json) stays out of the home page's first-load scripts
+    {
+      const html = await (await page.request.get(`${BASE}/`)).text();
+      const srcs = Array.from(html.matchAll(/src="(\/_next\/static\/chunks\/[^"]+\.js)"/g)).map((m) => m[1]);
+      let hit = null;
+      for (const src of srcs) {
+        const body = await (await page.request.get(`${BASE}${src}`)).text();
+        if (body.includes("comtradeplus.un.org")) { hit = src; break; }
+      }
+      check("bundle: the sources registry is not in the home page's first-load scripts", srcs.length > 0 && hit === null, hit ? `found in ${hit}` : `${srcs.length} scripts checked`);
+    }
+    await page.goto(`${BASE}/methodology`, { waitUntil: "networkidle" });
+    const glossary = await page.evaluate(() => ({ section: !!document.getElementById("glossary"), entries: document.querySelectorAll(".glossary-entry").length, anchored: !!document.getElementById("glossary-crps") }));
+    check("methods: the glossary renders with anchors", glossary.section && glossary.entries >= 20 && glossary.anchored, JSON.stringify(glossary));
     await ctx.close();
   }
 

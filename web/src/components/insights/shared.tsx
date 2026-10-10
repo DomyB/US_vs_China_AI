@@ -2,6 +2,8 @@
 
 import type { ReactNode } from "react";
 import { DataLayerTag, LayerLabel, type Layer } from "@/components/ui/Badges";
+import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
+import type { Provenance } from "@/lib/provenance";
 import { ACTOR_COLOR, OTHER_COLOR } from "@/lib/constants";
 import type { EvidenceLevel } from "@/lib/types";
 
@@ -15,7 +17,7 @@ export const pretty = (m: string) => m.replace(/_/g, " ");
 export const fmtPts = (v: number, digits = 1) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(digits)} pts`;
 
 /** A page block: numbered eyebrow, big title, one-line lead, layer tags on the right. */
-export function Block({ id, n, title, lead, layer, tags, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; children: ReactNode }) {
+export function Block({ id, n, title, lead, layer, tags, provenance, table, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; provenance?: Provenance; table?: ReactNode; children: ReactNode }) {
   return (
     <section id={id} aria-labelledby={`${id}-h`} data-tour={id} className="insights-block card mt-6 scroll-mt-12 px-4 py-4 sm:px-6 sm:py-5">
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
@@ -24,7 +26,7 @@ export function Block({ id, n, title, lead, layer, tags, children }: { id: strin
           <h2 id={`${id}-h`} className="serif mt-0.5 text-xl font-bold leading-tight sm:text-2xl">{title}</h2>
           {lead && <p className="mt-1 max-w-3xl text-sm leading-relaxed text-ink-2">{lead}</p>}
         </div>
-        <span className="flex max-w-full flex-wrap items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer={layer} />{tags}</span>
+        <span className="flex max-w-full flex-wrap items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer={layer} />{tags}{provenance && <EvidenceButton provenance={{ anchor: id, ...provenance }} table={table} />}</span>
       </div>
       <div className="mt-4">{children}</div>
     </section>

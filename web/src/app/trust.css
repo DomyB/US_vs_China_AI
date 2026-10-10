@@ -25,6 +25,10 @@
   .evidence-table { font-size: 0.78rem; }
   .evidence-footer { margin-top: 1rem; font-size: 0.72rem; line-height: 1.5; }
 
+  .frame-glyph { position: absolute; left: 4px; bottom: 2px; font-size: 10px; font-weight: 700; line-height: 1; letter-spacing: 0.02em; pointer-events: none; }
+  .frame-glyph[data-layer="model"] { color: var(--model); }
+  .frame-glyph[data-layer="interp"] { color: var(--interp); }
+
   .glossary-term { text-decoration: underline dotted; text-underline-offset: 2px; }
   .glossary-list { display: grid; gap: 0.7rem; margin-top: 0.5rem; }
   .glossary-entry { scroll-margin-top: 3.25rem; }

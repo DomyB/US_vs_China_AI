@@ -14,6 +14,8 @@ import { COUNTRY_NAMES } from "@/lib/constants";
 import { loadIndex, loadInsights } from "@/lib/data";
 import { DEFAULT_LEVERS, leversFromParams, leversToParams, type Levers } from "@/lib/scenario";
 import type { EvidenceLevel, IndexFile, InsightsFile } from "@/lib/types";
+import { labProvenance } from "@/lib/provenance";
+import { useRealMeta } from "@/lib/useRealMeta";
 import { Attention } from "./Attention";
 import { Board, boardRows } from "./Board";
 import { FindingCard } from "./FindingCard";
@@ -43,6 +45,7 @@ const INSIGHT_SECTIONS = [
 ];
 
 export function InsightsView() {
+  const realMeta = useRealMeta();
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -147,11 +150,11 @@ export function InsightsView() {
         <SectionNav items={INSIGHT_SECTIONS} />
       </div>
 
-      <Block id="board" n={1} title={`Where will the minerals go in ${horizon}?`} lead="The split of each country's mineral exports today and under your scenario. Pick a country to open the studio." layer="model">
+      <Block id="board" provenance={labProvenance("board", realMeta)} n={1} title={`Where will the minerals go in ${horizon}?`} lead="The split of each country's mineral exports today and under your scenario. Pick a country to open the studio." layer="model">
         <Board rows={rows} selected={levers?.country ?? defaultCountry} onSelect={selectCountry} horizon={horizon} />
       </Block>
 
-      <Block id="studio" n={2} title={<>Scenario studio{country ? <span className="text-ink-3"> · {country.name}</span> : null}</>} lead="Five levers, all arithmetic on published numbers: blend the scenarios, add a shock history has seen, redirect a mineral, change the money, move a price." layer="model"
+      <Block id="studio" provenance={labProvenance("studio", realMeta)} n={2} title={<>Scenario studio{country ? <span className="text-ink-3"> · {country.name}</span> : null}</>} lead="Five levers, all arithmetic on published numbers: blend the scenarios, add a shock history has seen, redirect a mineral, change the money, move a price." layer="model"
         tags={<button type="button" className="btn btn-sm" onClick={copyLink}>{copied ? "Link copied" : "Copy link to this scenario"}</button>}>
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
           <label className="text-ink-2">Country <select className="input ml-1 text-xs" value={levers?.country ?? defaultCountry} onChange={(e) => selectCountry(e.target.value)} aria-label="Country of the scenario studio">{forecastCountries.map((c) => <option key={c.iso3} value={c.iso3}>{c.name}</option>)}</select></label>
@@ -160,40 +163,40 @@ export function InsightsView() {
         {country && levers && index ? <ScenarioStudio country={country} region={file.region} indexRows={index.rows} levers={levers} onChange={update} horizon={horizon} /> : <p className="text-sm text-ink-3">No forecast for this country.</p>}
       </Block>
 
-      <Block id="words" n={3} title="Words and money" lead="Executives' coded stance toward each power against the share of their mineral exports that actually goes there; and who says what, by bloc." layer="facts" tags={<span className="chip border border-dashed border-interp/60 text-interp">dataset coding · not validated</span>}>
+      <Block id="words" provenance={labProvenance("words", realMeta)} n={3} title="Words and money" lead="Executives' coded stance toward each power against the share of their mineral exports that actually goes there; and who says what, by bloc." layer="facts" tags={<span className="chip border border-dashed border-interp/60 text-interp">dataset coding · not validated</span>}>
         <WordsVsMoney countries={file.countries} byBloc={file.region.talk_vs_money.by_bloc} />
       </Block>
 
-      <Block id="ledger" n={4} title="Who talks, who pays" lead="Statement counts by speaker bloc beside documented commitments by origin." layer="facts">
+      <Block id="ledger" provenance={labProvenance("ledger", realMeta)} n={4} title="Who talks, who pays" lead="Statement counts by speaker bloc beside documented commitments by origin." layer="facts">
         <Ledger tm={file.region.talk_vs_money} />
       </Block>
 
-      <Block id="minerals" n={5} title="Talk and trade by mineral" lead="The minerals leaders name against the minerals that earn the export value." layer="facts">
+      <Block id="minerals" provenance={labProvenance("minerals", realMeta)} n={5} title="Talk and trade by mineral" lead="The minerals leaders name against the minerals that earn the export value." layer="facts">
         <MineralsTalk countries={file.countries} />
       </Block>
 
-      <Block id="parity" n={6} title="What it would take" lead="The yearly export value that would have to switch from China to the United States for the two to buy the same." layer="facts" tags={<span className="chip border border-rule text-ink-3">arithmetic at constant totals</span>}>
+      <Block id="parity" provenance={labProvenance("parity", realMeta)} n={6} title="What it would take" lead="The yearly export value that would have to switch from China to the United States for the two to buy the same." layer="facts" tags={<span className="chip border border-rule text-ink-3">arithmetic at constant totals</span>}>
         <ParityChart countries={file.countries} />
       </Block>
 
-      <Block id="shocks" n={7} title="After the shock" lead="What followed each kind of event in these countries, two years after against two years before; the shock lever uses the family mean." layer="model">
+      <Block id="shocks" provenance={labProvenance("shocks", realMeta)} n={7} title="After the shock" lead="What followed each kind of event in these countries, two years after against two years before; the shock lever uses the family mean." layer="model">
         <Shocks echoes={file.region.event_echoes} titles={file.region.event_titles} selected={levers?.shock ?? null} />
       </Block>
 
-      <Block id="panel" n={8} title="What the panel says" lead="Twelve countries, thirteen years, country and year effects: which recorded ties move together, and which do not." layer="model">
+      <Block id="panel" provenance={labProvenance("panel", realMeta)} n={8} title="What the panel says" lead="Twelve countries, thirteen years, country and year effects: which recorded ties move together, and which do not." layer="model">
         <PanelLever reg={file.region.regressions} />
       </Block>
 
-      <Block id="attention" n={9} title="Attention and money" lead="Washington's paper trail and its cheque book, year by year, with Beijing's commitments beside them." layer="facts">
+      <Block id="attention" provenance={labProvenance("attention", realMeta)} n={9} title="Attention and money" lead="Washington's paper trail and its cheque book, year by year, with Beijing's commitments beside them." layer="facts">
         <Attention rows={file.region.attention} lastYear={{ finance_US: file.meta.last_year.finance_US ?? null, finance_CN: file.meta.last_year.finance_CN ?? null }} />
       </Block>
 
-      <Block id="findings" n={10} title="Findings" lead="Generated from the indicators above by fixed templates; click a sentence for the indicator ids, and read the evidence meter before you quote a headline." layer="interpretation"
+      <Block id="findings" provenance={labProvenance("findings", realMeta)} n={10} title="Findings" lead="Generated from the indicators above by fixed templates; click a sentence for the indicator ids, and read the evidence meter before you quote a headline." layer="interpretation"
         tags={<><Segmented value={level} onChange={setLevel} label="Evidence level" options={[{ value: "all", label: "All" }, { value: "strong", label: "Strong" }, { value: "moderate", label: "Moderate" }, { value: "thin", label: "Thin" }]} /><select className="input text-xs" value={onlyCountry} onChange={(e) => setOnlyCountry(e.target.value)} aria-label="Only findings about a country"><option value="">every country</option>{file.countries.map((c) => <option key={c.iso3} value={c.iso3}>{COUNTRY_NAMES[c.iso3] ?? c.name}</option>)}</select></>}>
         {findings.length ? <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{findings.map((f) => <FindingCard key={f.id} f={f} />)}</div> : <p className="text-sm text-ink-3">No finding matches the filter.</p>}
       </Block>
 
-      <Block id="reading" n={11} title="Reading and outlook" lead="The interpretation of the contrasts and the perspective to 2030, kept apart from the facts and the models." layer="interpretation">
+      <Block id="reading" provenance={labProvenance("reading", realMeta)} n={11} title="Reading and outlook" lead="The interpretation of the contrasts and the perspective to 2030, kept apart from the facts and the models." layer="interpretation">
         <Interpretation block={interp} scopeLabel="the insights" hideGenerated />
       </Block>
     </div>

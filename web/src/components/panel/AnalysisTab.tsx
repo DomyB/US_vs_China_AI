@@ -169,7 +169,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
             : "Composite indicator (OECD/JRC method). Bands show sensitivity to weighting choices once the real index is built."}
           {indexLayer === "real" && indexRows.length === 0 ? " No index for this selection: the country did not trade the selected mineral, or fewer than three components are available." : ""}
         </p>
-        <PlotFigure options={indexOptions} ariaLabel={`Influence index of the United States and China in ${data.name} with uncertainty bands, ${tag}`} />
+        <PlotFigure glyph="model" options={indexOptions} ariaLabel={`Influence index of the United States and China in ${data.name} with uncertainty bands, ${tag}`} />
         <DataTable rows={indexRows} caption="Influence index by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }, { key: "lower", label: "Lower" }, { key: "upper", label: "Upper" }]} />
         {real && indexThisYear.length > 0 && (
           <ul className="mt-1 text-[11px] text-ink-3">
@@ -183,7 +183,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
         {real && subIndices.length > 0 && (
           <div className="mt-3">
             <p className="mb-1 text-xs text-ink-3">Sub-indices: economic ties (trade shares, finance, debt) and political alignment (UN voting, legislative stance).</p>
-            <PlotFigure options={subOptions} ariaLabel={`Economic ties and political alignment sub-indices for ${data.name}, computed`} />
+            <PlotFigure glyph="model" options={subOptions} ariaLabel={`Economic ties and political alignment sub-indices for ${data.name}, computed`} />
           </div>
         )}
       </section>
@@ -191,7 +191,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
       <section aria-labelledby="drv-h">
         {header("drv-h", `Drivers in ${year}`)}
         {components.length > 0 ? (
-          <PlotFigure options={componentOptions} ariaLabel={`Index components for the United States and China in ${data.name} in ${year}, ${tag}`} />
+          <PlotFigure glyph="model" options={componentOptions} ariaLabel={`Index components for the United States and China in ${data.name} in ${year}, ${tag}`} />
         ) : (
           <p className="text-sm text-ink-3">No component values for {year}.</p>
         )}
@@ -233,7 +233,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
             : "Positive values: rhetoric (parliament and media stance) warmer than observed flows; negative: flows outrun the rhetoric."}
         </p>
         {sayDo.length > 0 ? (
-          <PlotFigure options={sayDoOptions} ariaLabel={`Say-do gap toward the United States and China in ${data.name}, ${tag}`} />
+          <PlotFigure glyph="model" options={sayDoOptions} ariaLabel={`Say-do gap toward the United States and China in ${data.name}, ${tag}`} />
         ) : (
           <p className="text-sm text-ink-3">{real ? "No year with at least five scored legislative records and a measurable change in economic ties." : "No say–do values."}</p>
         )}
