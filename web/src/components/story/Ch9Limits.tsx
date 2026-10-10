@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { DataTable } from "@/components/charts/PlotFigure";
 import { COUNTRY_NAMES } from "@/lib/constants";
 import type { coverageWall } from "@/lib/story";
 import type { EvidenceLevel } from "@/lib/types";
@@ -11,9 +12,13 @@ type Wall = ReturnType<typeof coverageWall>;
 export interface Limit { text: string; ids: string[] }
 
 export function Ch9Limits({ wall, chapters, limits, changes }: { wall: Wall; chapters: { n: number; label: string; level: EvidenceLevel; basis: string }[]; limits: Limit[]; changes: string[] }) {
+  // The same cells as rows of text, so the reason behind every hatched cell is readable without a mouse.
+  const tableRows: Record<string, string>[] = wall.rows.map((r) => ({ country: COUNTRY_NAMES[r.iso3] ?? r.iso3, ...Object.fromEntries(wall.cols.map((c) => [c, `${r.cells[c].ok ? "held" : "missing"}: ${r.cells[c].note}`])) }));
+  const tableCols: { key: string; label: string }[] = [{ key: "country", label: "Country" }, ...wall.cols.map((c) => ({ key: c, label: c }))];
   return (
     <div className="space-y-6">
-      <Exhibit title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} note="A filled cell is a record the site holds; a hatched cell is a record it does not, with the reason on hover. The largest hole on every money chart is Chinese finance after 2021: the source ends there, so those years are blank, not zero.">
+      <Exhibit title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} note="A filled cell is a record the site holds; a hatched cell is a record it does not, with the reason on hover, read out by a screen reader, and listed in the table beneath. The largest hole on every money chart is Chinese finance after 2021: the source ends there, so those years are blank, not zero.">
+        <p className="mb-1 text-[11px] text-ink-3 sm:hidden">The wall is wider than the screen: scroll it sideways for the other columns.</p>
         <div className="scroll-x">
           <table className="w-full border-collapse text-xs">
             <thead>
@@ -30,7 +35,9 @@ export function Ch9Limits({ wall, chapters, limits, changes }: { wall: Wall; cha
                     const cell = r.cells[c];
                     return (
                       <td key={c} className="px-1 py-1 text-center">
-                        <span className={`inline-block h-4 w-8 rounded-sm border ${cell.ok ? "border-facts bg-facts/70" : "border-ink-3 bg-[repeating-linear-gradient(45deg,transparent_0_3px,var(--ink-3)_3px_4px)] opacity-60"}`} title={cell.note} aria-label={`${c}: ${cell.note}`} />
+                        <span className={`inline-block h-4 w-8 rounded-sm border ${cell.ok ? "border-facts bg-facts/70" : "border-ink-3 bg-[repeating-linear-gradient(45deg,transparent_0_3px,var(--ink-3)_3px_4px)] opacity-60"}`} title={cell.note}>
+                          <span className="sr-only">{c}: {cell.ok ? "held" : "missing"}, {cell.note}</span>
+                        </span>
                       </td>
                     );
                   })}
@@ -39,6 +46,7 @@ export function Ch9Limits({ wall, chapters, limits, changes }: { wall: Wall; cha
             </tbody>
           </table>
         </div>
+        <DataTable rows={tableRows} columns={tableCols} caption="The coverage wall as text: for each country and record, whether the site holds it and the reason when it does not" />
       </Exhibit>
       <Exhibit title="How strong is each chapter" layer="interp" sources={[]} ids={chapters.map((c) => `chapter:${c.n}`)}>
         <ol className="grid gap-2 sm:grid-cols-3">

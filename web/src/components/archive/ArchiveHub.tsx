@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { loadQuant, loadRealMeta } from "@/lib/data";
-import type { QuantFile, RealMeta } from "@/lib/types";
+import { loadQuant, loadRealMeta, loadRegionStatements } from "@/lib/data";
+import type { QuantFile, RealMeta, RegionStatements } from "@/lib/types";
 
 const FLAG_LABEL: Record<string, string> = { sudden_trade_shift: "sudden trade shifts", large_commitment: "large commitments", rescue_lending: "rescue lending", finance_without_trade_response: "finance without a trade response", say_do_divergence: "say–do divergences", debt_jump: "debt jumps" };
 
@@ -11,18 +11,21 @@ const FLAG_LABEL: Record<string, string> = { sudden_trade_shift: "sudden trade s
 export function ArchiveHub() {
   const [quant, setQuant] = useState<QuantFile | null>(null);
   const [meta, setMeta] = useState<RealMeta | null>(null);
+  const [statements, setStatements] = useState<RegionStatements | null>(null);
   useEffect(() => {
     let alive = true;
     loadQuant().then((q) => alive && setQuant(q));
     loadRealMeta().then((m) => alive && setMeta(m));
+    loadRegionStatements().then((s) => alive && setStatements(s));
     return () => {
       alive = false;
     };
   }, []);
   const flags = Object.entries(quant?.flags_by_type ?? {}).map(([type, byLevel]) => ({ type, n: Object.values(byLevel as Record<string, number>).reduce((s, v) => s + v, 0) }));
-  const statements = meta ? Object.values(meta.coverage).reduce((s, c) => s + (c.statements ?? 0), 0) : null;
+  // The same quantity the story prints: in-scope records, split into those tagged to a country and the region-wide ones.
+  const onCountry = statements ? Object.values(statements.countries ?? {}).reduce((s, n) => s + n, 0) : null;
   const rooms = [
-    { href: "/region", title: "Statements and the region", text: statements !== null ? `${statements} coded political statements with their original-language quotes, the regional ranking, the mineral shares and the synthesis.` : "Coded political statements with their original-language quotes, the regional ranking, the mineral shares and the synthesis." },
+    { href: "/region", title: "Statements and the region", text: statements && onCountry !== null ? `${statements.n_in_scope} in-scope coded political statements (${onCountry} on a country, ${statements.n_in_scope - onCountry} region-wide) with their original-language quotes, the regional ranking, the mineral shares and the synthesis.` : "Coded political statements with their original-language quotes, the regional ranking, the mineral shares and the synthesis." },
     { href: "/methodology", title: "Methods", text: "Every index, model, rule and limitation, with the live validation tables and the glossary." },
     { href: "/sources", title: "Sources", text: meta ? `${meta.sources_ok.length} sources live this release, each with its reliability rating and liveness.` : "Every registered source with its reliability rating and liveness." },
     { href: "/country", title: "Case files", text: "The twelve countries, five tabs each; every finance event, trade row, statement, flag and forecast." },

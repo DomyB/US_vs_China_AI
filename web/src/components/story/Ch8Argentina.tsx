@@ -9,7 +9,7 @@ import { fmtMusd, fmtPct } from "@/lib/format";
 import type { LedgerSide, TradeReceipt } from "@/lib/story";
 import type { IndexRow, InsightCountry, StatementRecord } from "@/lib/types";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
-import { MoneyDefs } from "./Ch3Iceberg";
+import { MoneyDefs, WideFigure } from "./Ch3Iceberg";
 import type { Receipt } from "./ColdOpen";
 
 type Event = { id: string; date: string; title: string; status: string; type: string };
@@ -18,44 +18,51 @@ type Event = { id: string; date: string; title: string; status: string; type: st
 function MoneyColumns({ cn, us, framework }: { cn: LedgerSide; us: LedgerSide; framework: Event | null }) {
   const max = Math.max(cn.documented_musd, cn.undocumented_musd, cn.swap_musd, 1);
   const h = (m: number) => Math.max(2, (m / max) * 170);
-  const base = 240;
+  const base = 240, defs = "arg-money";
   return (
-    <svg viewBox="0 0 640 300" className="w-full" role="img" aria-label={`Argentina: Chinese documented commitments ${fmtMusd(cn.documented_musd)}, lower-confidence ${fmtMusd(cn.undocumented_musd)}, swap drawdowns ${fmtMusd(cn.swap_musd)}; US documented ${fmtMusd(us.documented_musd)}${framework ? `; a US swap framework recorded as a draft event with no drawn amount` : ""}.`}>
-      <MoneyDefs />
-      <g>
-        <rect x={40} y={base - h(cn.documented_musd)} width={90} height={h(cn.documented_musd)} fill="var(--cn)" rx="3" />
-        <text x={85} y={base - h(cn.documented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.documented_musd)}</text>
-        <text x={85} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">documented</text><text x={85} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">to {cn.last_year}</text>
-        <rect x={150} y={base - h(cn.undocumented_musd)} width={90} height={h(cn.undocumented_musd)} className="fill-dots" stroke="var(--cn)" strokeWidth="1.2" rx="3" />
-        <text x={195} y={base - h(cn.undocumented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.undocumented_musd)}</text>
-        <text x={195} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">lower confidence</text><text x={195} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">{cn.undocumented_n} records</text>
-        <rect x={260} y={base - h(cn.swap_musd)} width={90} height={h(cn.swap_musd)} className="fill-hatch" stroke="var(--cn)" strokeWidth="1.2" rx="3" />
-        <text x={305} y={base - h(cn.swap_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.swap_musd)}</text>
-        <text x={305} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">swap drawdowns</text><text x={305} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">{cn.swap_n} years</text>
-        <text x={195} y={16} textAnchor="middle" fontSize="11" fontWeight="700" className="fill-ink">CHINA · three ledgers, never summed</text>
-      </g>
-      <line x1={390} y1={40} x2={390} y2={base + 20} stroke="var(--rule-2)" strokeDasharray="4 3" />
-      <g>
-        <text x={520} y={16} textAnchor="middle" fontSize="11" fontWeight="700" className="fill-ink">UNITED STATES</text>
-        <rect x={430} y={base - h(us.documented_musd)} width={80} height={h(us.documented_musd)} fill="var(--us)" rx="2" />
-        <text x={470} y={base - h(us.documented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(us.documented_musd)}</text>
-        <text x={470} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">DFC and EXIM</text><text x={470} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">to {us.last_year}</text>
-        {framework && (
-          <>
-            <rect x={535} y={base - 120} width={80} height={120} fill="none" stroke="var(--us)" strokeWidth="1.5" strokeDasharray="5 3" rx="3" />
-            <text x={575} y={base - 126} textAnchor="middle" fontSize="10" fontWeight="700" className="fill-ink">framework</text>
-            <text x={575} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">no drawdown recorded</text>
-            <text x={575} y={base + 26} textAnchor="middle" fontSize="8" className="fill-ink-3">draft event · {framework.date.slice(0, 7)}</text>
-          </>
-        )}
-      </g>
-      <line x1={30} y1={base} x2={620} y2={base} stroke="var(--outline)" strokeWidth="1.5" />
-    </svg>
+    <WideFigure minWidth="min-w-[800px]">
+      <svg viewBox="0 0 640 300" className="w-full" role="img" aria-label={`Argentina: Chinese documented commitments ${fmtMusd(cn.documented_musd)}, lower-confidence ${fmtMusd(cn.undocumented_musd)}, swap drawdowns ${fmtMusd(cn.swap_musd)}; US documented ${fmtMusd(us.documented_musd)}${framework ? `; a US swap framework recorded as a draft event with no drawn amount` : ""}.`}>
+        <MoneyDefs id={defs} />
+        <g>
+          <rect x={40} y={base - h(cn.documented_musd)} width={90} height={h(cn.documented_musd)} fill="var(--cn)" rx="3" />
+          <text x={85} y={base - h(cn.documented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.documented_musd)}</text>
+          <text x={85} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">documented</text><text x={85} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">to {cn.last_year}</text>
+          <rect x={150} y={base - h(cn.undocumented_musd)} width={90} height={h(cn.undocumented_musd)} fill={`url(#${defs}-dots)`} stroke="var(--cn)" strokeWidth="1.2" rx="3" />
+          <text x={195} y={base - h(cn.undocumented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.undocumented_musd)}</text>
+          <text x={195} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">lower confidence</text><text x={195} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">{cn.undocumented_n} records</text>
+          <rect x={260} y={base - h(cn.swap_musd)} width={90} height={h(cn.swap_musd)} fill={`url(#${defs}-hatch)`} stroke="var(--cn)" strokeWidth="1.2" rx="3" />
+          <text x={305} y={base - h(cn.swap_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.swap_musd)}</text>
+          <text x={305} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">swap drawdowns</text><text x={305} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">{cn.swap_n} records</text>
+          <text x={195} y={16} textAnchor="middle" fontSize="11" fontWeight="700" className="fill-ink">CHINA · three ledgers, never summed</text>
+        </g>
+        <line x1={390} y1={40} x2={390} y2={base + 20} stroke="var(--rule-2)" strokeDasharray="4 3" />
+        <g>
+          <text x={520} y={16} textAnchor="middle" fontSize="11" fontWeight="700" className="fill-ink">UNITED STATES</text>
+          <rect x={430} y={base - h(us.documented_musd)} width={80} height={h(us.documented_musd)} fill="var(--us)" rx="2" />
+          <text x={470} y={base - h(us.documented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(us.documented_musd)}</text>
+          <text x={470} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">DFC and EXIM</text><text x={470} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">to {us.last_year}</text>
+          {framework && (
+            <>
+              <rect x={535} y={base - 120} width={80} height={120} fill="none" stroke="var(--us)" strokeWidth="1.5" strokeDasharray="5 3" rx="3" />
+              <text x={575} y={base - 126} textAnchor="middle" fontSize="10" fontWeight="700" className="fill-ink">framework</text>
+              <text x={575} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">no drawdown recorded</text>
+              <text x={575} y={base + 26} textAnchor="middle" fontSize="8" className="fill-ink-3">draft event · {framework.date.slice(0, 7)}</text>
+            </>
+          )}
+        </g>
+        <line x1={30} y1={base} x2={620} y2={base} stroke="var(--outline)" strokeWidth="1.5" />
+      </svg>
+    </WideFigure>
   );
 }
 
 function netLean(rows: IndexRow[]): Plot.PlotOptions {
   const long = rows.map((r) => ({ year: r.year, actor: r.actor, value: r.value, lower: r.lower, upper: r.upper, n: r.n_components ?? null }));
+  // One label per actor at its own last year (the two records end in different years), nudged apart when the series end within 6 points (≈ 12 px) of each other.
+  const last = new Map<string, (typeof long)[number] & { ly: number }>();
+  for (const d of long) if ((last.get(d.actor)?.year ?? -Infinity) < d.year) last.set(d.actor, { ...d, ly: d.value });
+  const labels = [...last.values()].sort((a, b) => a.value - b.value);
+  for (let i = 1; i < labels.length; i++) if (labels[i].ly - labels[i - 1].ly < 6) labels[i].ly = labels[i - 1].ly + 6;
   return {
     height: 240,
     marginLeft: 40,
@@ -67,7 +74,7 @@ function netLean(rows: IndexRow[]): Plot.PlotOptions {
       Plot.areaY(long, { x: "year", y1: "lower", y2: "upper", fill: "actor", fillOpacity: 0.12, z: "actor" }),
       Plot.lineY(long, { x: "year", y: "value", stroke: "actor", strokeWidth: 2.2, z: "actor" }),
       Plot.dot(long, { x: "year", y: "value", fill: "actor", r: 2.5, tip: true, title: (d: { year: number; actor: string; value: number; lower: number; upper: number; n: number | null }) => `${d.year} · ${d.actor === "CN" ? "China" : "United States"}: ${d.value.toFixed(1)} (5th–95th ${d.lower.toFixed(0)}–${d.upper.toFixed(0)}; ${d.n ?? "–"} components)` }),
-      Plot.text(long.filter((d) => d.year === Math.max(...long.map((x) => x.year))), { x: "year", y: "value", text: (d: { actor: string; value: number; n: number | null }) => `${d.actor === "CN" ? "China" : "US"} ${d.value.toFixed(0)} (${d.n ?? "–"} comp.)`, textAnchor: "start", dx: 6, fontSize: 10, fill: "actor" }),
+      Plot.text(labels, { x: "year", y: "ly", text: (d: { actor: string; value: number; n: number | null }) => `${d.actor === "CN" ? "China" : "US"} ${d.value.toFixed(0)} (${d.n ?? "–"} comp.)`, textAnchor: "start", dx: 6, fontSize: 10, fill: "actor" }),
       Plot.ruleY([0]),
     ],
   };
@@ -106,6 +113,7 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
   const traj = useMemo(() => trajectory(rows), [rows]);
   const years = rows.map((r) => r.year);
   const peak = rows.filter((r) => r.actor === "CN").reduce((a, b) => (b.value > a.value ? b : a), rows[0]);
+  const swapYears = cn.by_year.filter((y) => y.swap_musd > 0).length;
   return (
     <div className="space-y-6">
       {quote && (
@@ -146,7 +154,7 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
         </div>
         <div className="space-y-4">
           <StepCard>
-            <p><strong>The receipts, read end to end.</strong> The documented Chinese block is {fmtMusd(cn.documented_musd)} since 2008; the swap drawdowns beside it, {fmtMusd(cn.swap_musd)} over {cn.swap_n} years, are emergency liquidity the index keeps out; the dotted block is {fmtMusd(cn.undocumented_musd)} a source reported at lower confidence. The US column is {fmtMusd(us.documented_musd)}.</p>
+            <p><strong>The receipts, read end to end.</strong> The documented Chinese block is {fmtMusd(cn.documented_musd)} since 2008; the swap drawdowns beside it, {fmtMusd(cn.swap_musd)} in {cn.swap_n} record{cn.swap_n === 1 ? "" : "s"} over {swapYears} year{swapYears === 1 ? "" : "s"}, are emergency liquidity the index keeps out; the dotted block is {fmtMusd(cn.undocumented_musd)} a source reported at lower confidence. The US column is {fmtMusd(us.documented_musd)}.</p>
           </StepCard>
           {lithium && lithium.CN !== null && (
             <StepCard>

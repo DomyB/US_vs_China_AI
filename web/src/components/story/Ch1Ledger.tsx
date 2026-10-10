@@ -6,6 +6,7 @@ import { ACTOR_COLOR, OTHER_COLOR } from "@/lib/constants";
 import { fmtMusd } from "@/lib/format";
 import type { InsightRegion, StatementRecord } from "@/lib/types";
 import { Exhibit, GuessFirst, KeyNumber, StepCard } from "./Chapter";
+import { WideFigure } from "./Ch3Iceberg";
 
 const BLOC_COLOR: Record<string, string> = { "United States": ACTOR_COLOR.US, China: ACTOR_COLOR.CN, "LatAm executive": OTHER_COLOR, "LatAm legislature": "#6a4fb8" };
 
@@ -25,37 +26,39 @@ function LedgerBalance({ tm }: { tm: InsightRegion["talk_vs_money"] }) {
     { key: "US_after", label: `US ${money.US_after.years[0]}–${money.US_after.years[1]}`, musd: money.US_after.musd, tagged: money.US_after.mineral_tagged_musd, x: 550, color: ACTOR_COLOR.US, curtain: false },
   ];
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={`Words: ${blocs.map((b) => `${b.bloc} ${b.n} statements`).join(", ")}. Money: China ${fmtMusd(money.CN.musd)} and the United States ${fmtMusd(money.US.musd)} in ${money.CN.years[0]}–${money.CN.years[1]}, the United States ${fmtMusd(money.US_after.musd)} in ${money.US_after.years[0]}–${money.US_after.years[1]}.`}>
-      <defs>
-        <pattern id="ledger-curtain" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--surface-2)" /><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-3)" strokeWidth="1.2" /></pattern>
-      </defs>
-      <text x={40} y={28} className="fill-ink" fontSize="12" fontWeight="700">WORDS · statements by bloc</text>
-      <text x={310} y={28} className="fill-ink" fontSize="12" fontWeight="700">MONEY · documented commitments</text>
-      {words.map((b) => (
-        <g key={b.bloc}>
-          <rect x={b.x} y={base - b.h} width={44} height={b.h} fill={BLOC_COLOR[b.bloc] ?? OTHER_COLOR} rx="3" />
-          <text x={b.x + 22} y={base - b.h - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{b.n}</text>
-          <text x={b.x + 22} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">{b.bloc.replace("LatAm ", "")}</text>
-        </g>
-      ))}
-      {cols.map((c) => {
-        const h = moneyH(c.musd), th = moneyH(c.tagged);
-        return (
-          <g key={c.key}>
-            <rect x={c.x} y={base - h} width={60} height={h} fill={c.color} rx="3" />
-            <rect x={c.x} y={base - th} width={60} height={th} fill="var(--ink)" fillOpacity="0.55" rx="2" />
-            {c.curtain && <rect x={c.x} y={base - h - 22} width={60} height={20} fill="url(#ledger-curtain)" stroke="var(--ink-3)" strokeDasharray="3 2" rx="2" />}
-            {c.curtain && <text x={c.x + 30} y={base - h - 40} textAnchor="middle" fontSize="8" className="fill-ink-3">no source after {money.CN.years[1]}</text>}
-            <text x={c.x + 30} y={base - h - (c.curtain ? 27 : 6)} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(c.musd)}</text>
-            <text x={c.x + 30} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">{c.label}</text>
-            <text x={c.x + 30} y={base + 26} textAnchor="middle" fontSize="8" className="fill-ink-3">mineral-tagged {fmtMusd(c.tagged)}</text>
+    <WideFigure minWidth="min-w-[800px]">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={`Words: ${blocs.map((b) => `${b.bloc} ${b.n} statements`).join(", ")}. Money: China ${fmtMusd(money.CN.musd)} and the United States ${fmtMusd(money.US.musd)} in ${money.CN.years[0]}–${money.CN.years[1]}, the United States ${fmtMusd(money.US_after.musd)} in ${money.US_after.years[0]}–${money.US_after.years[1]}.`}>
+        <defs>
+          <pattern id="ledger-curtain" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--surface-2)" /><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-3)" strokeWidth="1.2" /></pattern>
+        </defs>
+        <text x={40} y={28} className="fill-ink" fontSize="12" fontWeight="700">WORDS · statements by bloc</text>
+        <text x={310} y={28} className="fill-ink" fontSize="12" fontWeight="700">MONEY · documented commitments</text>
+        {words.map((b) => (
+          <g key={b.bloc}>
+            <rect x={b.x} y={base - b.h} width={44} height={b.h} fill={BLOC_COLOR[b.bloc] ?? OTHER_COLOR} rx="3" />
+            <text x={b.x + 22} y={base - b.h - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{b.n}</text>
+            <text x={b.x + 22} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">{b.bloc.replace("LatAm ", "")}</text>
           </g>
-        );
-      })}
-      <line x1={520} y1={50} x2={520} y2={base + 30} stroke="var(--rule-2)" strokeDasharray="4 3" />
-      <text x={632} y={base + 42} textAnchor="end" fontSize="8" className="fill-ink-3">different window, never in the ratio</text>
-      <line x1={30} y1={base} x2={W - 20} y2={base} stroke="var(--outline)" strokeWidth="1.5" />
-    </svg>
+        ))}
+        {cols.map((c) => {
+          const h = moneyH(c.musd), th = moneyH(c.tagged);
+          return (
+            <g key={c.key}>
+              <rect x={c.x} y={base - h} width={60} height={h} fill={c.color} rx="3" />
+              <rect x={c.x} y={base - th} width={60} height={th} fill="var(--ink)" fillOpacity="0.55" rx="2" />
+              {c.curtain && <rect x={c.x} y={base - h - 22} width={60} height={20} fill="url(#ledger-curtain)" stroke="var(--ink-3)" strokeDasharray="3 2" rx="2" />}
+              {c.curtain && <text x={c.x + 30} y={base - h - 40} textAnchor="middle" fontSize="8" className="fill-ink-3">no source after {money.CN.years[1]}</text>}
+              <text x={c.x + 30} y={base - h - (c.curtain ? 27 : 6)} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(c.musd)}</text>
+              <text x={c.x + 30} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">{c.label}</text>
+              <text x={c.x + 30} y={base + 26} textAnchor="middle" fontSize="8" className="fill-ink-3">mineral-tagged {fmtMusd(c.tagged)}</text>
+            </g>
+          );
+        })}
+        <line x1={520} y1={50} x2={520} y2={base + 30} stroke="var(--rule-2)" strokeDasharray="4 3" />
+        <text x={632} y={base + 42} textAnchor="end" fontSize="8" className="fill-ink-3">different window, never in the ratio</text>
+        <line x1={30} y1={base} x2={W - 20} y2={base} stroke="var(--outline)" strokeWidth="1.5" />
+      </svg>
+    </WideFigure>
   );
 }
 

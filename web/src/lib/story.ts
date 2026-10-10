@@ -167,14 +167,24 @@ export function loanThenFlat(insights: InsightsFile) {
   return out.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
 }
 
-/** Coverage as a fact: which record each country carries, from meta.json's coverage block. */
-export function coverageWall(meta: RealMeta) {
+/**
+ * Coverage as a fact: which record each country carries, from meta.json's coverage block. The two finance cells are
+ * derived per origin from the finance rows in flows.json, so a country with Chinese rows and no DFC/EXIM row (Venezuela)
+ * shows the US cell as missing, not held; the years come from the rows and from flows.meta.last_year.
+ */
+export function coverageWall(meta: RealMeta, flows: FlowsFile) {
   const cols = ["trade", "finance CN", "finance US", "statements", "parliament", "media", "forecast", "analysis"] as const;
+  const span = (rows: FlowFinanceRow[]) => {
+    const years = rows.map((r) => r.year);
+    return `${Math.min(...years)}–${Math.max(...years)}`;
+  };
   const rows = Object.entries(meta.coverage).map(([iso3, c]) => {
+    const cn = flows.finance.filter((r) => r.iso3 === iso3 && r.origin === "CN");
+    const us = flows.finance.filter((r) => r.iso3 === iso3 && r.origin === "US");
     const cells: Record<(typeof cols)[number], { ok: boolean; note: string }> = {
       trade: { ok: (c.trade_years?.length ?? 0) > 0, note: c.trade_years?.length ? `reported ${c.trade_years[0]}–${c.trade_years[c.trade_years.length - 1]}` : "no reported trade" },
-      "finance CN": { ok: !!c.actions, note: c.actions ? "AidData GCDF 3.0, record ends 2021" : "no finance record" },
-      "finance US": { ok: !!c.actions, note: c.actions ? "DFC and EXIM authorisations to 2026" : "no finance record" },
+      "finance CN": { ok: cn.length > 0, note: cn.length ? `AidData GCDF 3.0, rows ${span(cn)}; the source ends in ${flows.meta.last_year.finance_CN ?? "–"}` : "no Chinese finance record (AidData GCDF 3.0)" },
+      "finance US": { ok: us.length > 0, note: us.length ? `DFC and EXIM authorisations, rows ${span(us)}; the record runs to ${flows.meta.last_year.finance_US ?? "–"}` : "no DFC or EXIM record" },
       statements: { ok: (c.statements ?? 0) > 0, note: `${c.statements ?? 0} coded statements` },
       parliament: { ok: !!c.parliament_available, note: c.parliament_available ? `${c.parliament_documents ?? 0} legislative records` : (c.parliament_note ?? "no machine-readable legislature") },
       media: { ok: (c.media_articles ?? 0) > 0, note: `${c.media_articles ?? 0} headlines` },

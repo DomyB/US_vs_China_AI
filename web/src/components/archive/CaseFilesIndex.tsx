@@ -4,22 +4,31 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
-import { loadInsights } from "@/lib/data";
-import { fmtMusd, fmtPct } from "@/lib/format";
-import type { InsightsFile } from "@/lib/types";
+import { loadInsights, loadRealMeta } from "@/lib/data";
+import { fmtMusd, fmtShare } from "@/lib/format";
+import type { InsightCountry, InsightsFile, RealMeta } from "@/lib/types";
 
-/** Shares under 1% keep one decimal so a 0.2% share is not printed as 0%. */
-function sharePct(v: number | null | undefined): string {
-  if (v === null || v === undefined) return "n/a";
-  return fmtPct(v, v > 0 && v < 0.01 ? 1 : 0);
+/** The latest trade line; an absent partner cell is named as absent, never printed as 0%. */
+function tradeLine(t: NonNullable<InsightCountry["trade"]>): string {
+  const part = (cell: number | null, share: number | null, to: string, row: string) => (cell === null || share === null ? `no ${row} partner row (absent, not zero)` : `${fmtShare(share)} ${to}`);
+  return `${t.year}: ${fmtMusd(t.total_musd)} of mineral exports reported; ${part(t.exports_musd.CN, t.share_cn, "to China", "China")}, ${part(t.exports_musd.US, t.share_us, "to the United States", "United States")}.`;
 }
 
-/** The twelve case files: one card per country with its latest receipts, every number from insights.json. */
+/** Documented money in the Chinese window, per origin; an origin with no finance row in the window reads "no record", never US$0 m. */
+function moneyLine(f: InsightCountry["finance"]): string {
+  const [from, to] = f.windows.CN;
+  const onRecord = (origin: "US" | "CN") => f.by_year.some((y) => y.year >= from && y.year <= to && (origin === "US" ? y.n_US : y.n_CN) > 0);
+  return `Documented money ${from}–${to}: China ${onRecord("CN") ? fmtMusd(f.cn_2015_21) : "no record"}, United States ${onRecord("US") ? fmtMusd(f.us_2015_21) : "no record"}.`;
+}
+
+/** The twelve case files: one card per country with its latest receipts, every number from insights.json; the flag count is the case file's own (meta.json coverage), every rule type included. */
 export function CaseFilesIndex() {
   const [file, setFile] = useState<InsightsFile | null | undefined>(undefined);
+  const [meta, setMeta] = useState<RealMeta | null>(null);
   useEffect(() => {
     let alive = true;
     loadInsights().then((f) => alive && setFile(f));
+    loadRealMeta().then((m) => alive && setMeta(m));
     return () => {
       alive = false;
     };
@@ -33,18 +42,20 @@ export function CaseFilesIndex() {
       <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {IN_SCOPE.map((iso3) => {
           const c = file?.countries.find((x) => x.iso3 === iso3);
-          const uw = c?.contrasts.find((x) => x.id === "us_words_vs_us_money") as { cn_2015_21_musd: number; us_2015_21_musd: number } | undefined;
+          const flags = meta?.coverage[iso3]?.flags;
           return (
             <li key={iso3}>
               <Link href={`/country/${iso3}`} className="card block p-4 no-underline hover:-translate-y-0.5 hover:shadow-[5px_5px_0_var(--shadow-hard)]">
                 <p className="serif text-xl font-semibold">{COUNTRY_NAMES[iso3] ?? iso3}</p>
-                {c?.trade ? (
-                  <p className="mt-1 text-sm text-ink-2">{c.trade.year}: {sharePct(c.trade.share_cn)} of {fmtMusd(c.trade.total_musd)} of mineral exports to China, {sharePct(c.trade.share_us)} to the United States.</p>
+                {!c ? (
+                  <p className="mt-1 text-sm text-ink-3">Not in this release of the insights export; the case file holds whatever records exist.</p>
                 ) : (
-                  <p className="mt-1 text-sm text-ink-3">No reported mineral trade in the record.</p>
+                  <>
+                    {c.trade ? <p className="mt-1 text-sm text-ink-2">{tradeLine(c.trade)}</p> : <p className="mt-1 text-sm text-ink-3">No reported mineral trade in the record.</p>}
+                    <p className="mt-1 text-xs text-ink-3">{moneyLine(c.finance)}</p>
+                    <p className="mt-1 text-xs text-ink-3">{c.words?.n_statements ? `${c.words.n_statements} coded statements` : "no coded statements"} · {typeof flags === "number" ? `${flags} flags` : "flag count absent"}</p>
+                  </>
                 )}
-                {uw && <p className="mt-1 text-xs text-ink-3">Documented money 2015–2021: China {fmtMusd(uw.cn_2015_21_musd)}, United States {fmtMusd(uw.us_2015_21_musd)}.</p>}
-                {c?.words?.n_statements ? <p className="mt-1 text-xs text-ink-3">{c.words.n_statements} coded statements · {c.flags.n} flags</p> : <p className="mt-1 text-xs text-ink-3">{c?.flags.n ?? 0} flags · no coded statements</p>}
               </Link>
             </li>
           );

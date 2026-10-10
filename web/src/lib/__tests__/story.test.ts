@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import { fmtMusd, fmtShare } from "@/lib/format";
 import { coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
 import type { FlowsFile, InsightsFile, RealMeta, RegionData } from "@/lib/types";
 
@@ -47,6 +48,12 @@ describe("story numbers reproduce from the export", () => {
     const silver = tradeReceipt(flows, "ARG", "silver")!;
     expect(silver.partners_absent).toBe(silver.US === null || silver.CN === null);
     expect(tradeReceipt(flows, "ARG", "gold")).toBeNull(); // gold is not a core mineral in flows.json; the story reads it from the insights contrast
+    // an absent partner cell is a null share, never 0: the row exists (ROW only) but the China and US cells are missing
+    const sur = tradeReceipt(flows, "SUR", "all")!;
+    expect(sur.year).toBe(flows.meta.last_year.trade);
+    expect(sur.CN).toBeNull();
+    expect(sur.share_cn).toBeNull();
+    expect(sur.partners_absent).toBe(true);
   });
 
   it("the mineral board prints the world total of every bar and the flagged loans sort by share of GDP", () => {
@@ -57,6 +64,37 @@ describe("story numbers reproduce from the export", () => {
     const loans = loanThenFlat(insights);
     expect(loans.length).toBeGreaterThan(5);
     expect((loans[0].score ?? 0) >= (loans[1].score ?? 0)).toBe(true);
-    expect(coverageWall(meta).rows.length).toBe(12);
+    expect(coverageWall(meta, flows).rows.length).toBe(12);
+  });
+
+  it("the coverage wall derives each finance cell from that origin's rows, so a missing record is hatched, not held", () => {
+    const wall = coverageWall(meta, flows);
+    for (const r of wall.rows) {
+      const has = (origin: "US" | "CN") => flows.finance.some((f) => f.iso3 === r.iso3 && f.origin === origin);
+      expect(r.cells["finance CN"].ok).toBe(has("CN"));
+      expect(r.cells["finance US"].ok).toBe(has("US"));
+    }
+    const ven = wall.rows.find((r) => r.iso3 === "VEN")!;
+    expect(ven.cells["finance CN"].ok).toBe(true);
+    expect(ven.cells["finance US"].ok).toBe(false);
+    expect(ven.cells["finance US"].note).toMatch(/^no /);
+    const arg = wall.rows.find((r) => r.iso3 === "ARG")!;
+    expect(arg.cells["finance US"].note).toContain(String(flows.meta.last_year.finance_US));
+    expect(arg.cells["finance CN"].note).toContain(String(flows.meta.last_year.finance_CN));
+  });
+
+  it("shares and amounts never print a missing or a small value as zero", () => {
+    expect(fmtShare(null)).toBe("absent");
+    expect(fmtShare(undefined)).toBe("absent");
+    expect(fmtShare(0)).toBe("0%");
+    expect(fmtShare(0.0021)).toBe("0.2%");
+    expect(fmtShare(0.0002)).toBe("under 0.1%");
+    expect(fmtShare(0.2323)).toBe("23%");
+    expect(fmtMusd(0.065)).toBe("US$65 k");
+    expect(fmtMusd(0.27)).toBe("US$270 k");
+    expect(fmtMusd(0)).toBe("US$0 m");
+    expect(fmtMusd(5.912)).toBe("US$6 m");
+    expect(fmtMusd(2771.975)).toBe("US$2.8 bn");
+    expect(fmtMusd(null)).toBe("—");
   });
 });

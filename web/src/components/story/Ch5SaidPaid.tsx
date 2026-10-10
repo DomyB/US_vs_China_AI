@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { MineralsTalk } from "@/components/insights/MineralsTalk";
 import { WordsVsMoney } from "@/components/insights/WordsVsMoney";
 import { COUNTRY_NAMES } from "@/lib/constants";
-import { fmtPct } from "@/lib/format";
+import { fmtMusd, fmtShare } from "@/lib/format";
 import type { InsightCountry, InsightRegion, StatementBloc, StatementRecord } from "@/lib/types";
 import { Exhibit, StepCard } from "./Chapter";
 
@@ -37,36 +37,39 @@ function HedgingMeter({ hedgers }: { hedgers: InsightRegion["hedgers"] }) {
   );
 }
 
+/** One quote with its attribution, bloc and coding as plain text (readable by a screen reader), and a button that expands the receipts beneath it. */
 function QuoteCard({ q, receipt }: { q: StatementRecord; receipt: string | null }) {
-  const [flip, setFlip] = useState(false);
+  const [open, setOpen] = useState(false);
   const stance = (s: string) => s.replace(/_/g, " ");
+  const text = q.quote_original ?? q.quote_en ?? q.summary_en;
+  const paidId = `paid-${q.id}`;
   return (
     <li className="card p-3 text-sm">
-      <button type="button" className="w-full text-left" onClick={() => setFlip((f) => !f)} aria-pressed={flip} aria-label={flip ? "Show the quote" : "Show the receipts"}>
-        {!flip ? (
-          <>
-            <p className="serif leading-snug" lang={q.language}>“{(q.quote_original ?? q.quote_en ?? q.summary_en).slice(0, 200)}{(q.quote_original ?? q.quote_en ?? q.summary_en).length > 200 ? "…" : ""}”</p>
-            <p className="mt-2 text-[11px] text-ink-3">{q.speaker.name}, {q.speaker.role} · {q.date} · {q.source.name} · <span className="font-mono">{q.id}</span></p>
-            <p className="mt-1 text-[11px] text-ink-3">Coded: toward the US <strong>{stance(q.stance.us)}</strong>, toward China <strong>{stance(q.stance.cn)}</strong> · dataset coding, not validated · tap for the receipts</p>
-          </>
-        ) : (
-          <>
-            <p className="eyebrow !text-[0.62rem]">Paid · {COUNTRY_NAMES[q.country] ?? q.country}</p>
-            <p className="mt-1 leading-snug text-ink-2">{receipt ?? "No reported trade row for this country in the latest year."}</p>
-            <p className="mt-2 text-[11px] text-ink-3">Shown as coinciding with the sentence, not as its effect · tap for the quote</p>
-          </>
-        )}
-      </button>
+      <blockquote className="serif leading-snug" lang={q.language}>“{text.slice(0, 200)}{text.length > 200 ? "…" : ""}”</blockquote>
+      <p className="mt-2 text-[11px] text-ink-3">{q.speaker.name}{q.speaker.role ? `, ${q.speaker.role}` : ""} · {q.speaker.bloc} · {q.date} · {q.source.name} · <span className="font-mono">{q.id}</span></p>
+      <p className="mt-1 text-[11px] text-ink-3">Coded: toward the US <strong>{stance(q.stance.us)}</strong>, toward China <strong>{stance(q.stance.cn)}</strong> · dataset coding, not validated</p>
+      <button type="button" className="btn btn-sm mt-2" aria-expanded={open} aria-controls={paidId} onClick={() => setOpen((o) => !o)}>{open ? "Hide the receipts" : "Show the receipts"}</button>
+      {open && (
+        <div id={paidId} className="mt-2 border-t border-rule pt-2">
+          <p className="eyebrow !text-[0.62rem]">Paid · {COUNTRY_NAMES[q.country] ?? q.country}</p>
+          <p className="mt-1 leading-snug text-ink-2">{receipt ?? "No reported trade row for this country in the latest year."}</p>
+          <p className="mt-2 text-[11px] text-ink-3">Shown as coinciding with the sentence, not as its effect.</p>
+        </div>
+      )}
     </li>
   );
 }
 
 export function Ch5SaidPaid({ countries, byBloc, hedgers, quotes }: { countries: InsightCountry[]; byBloc: StatementBloc[]; hedgers: InsightRegion["hedgers"]; quotes: StatementRecord[] }) {
+  // The latest reported shares; an absent partner cell is named as absent, never printed as 0%, and a 0.2% share keeps its decimal.
   const receipt = (iso3: string) => {
     const c = countries.find((x) => x.iso3 === iso3);
     if (!c?.trade) return null;
-    return `In ${c.trade.year}, ${fmtPct(c.trade.share_cn ?? 0)} of ${c.name}'s reported mineral exports went to China and ${fmtPct(c.trade.share_us ?? 0)} to the United States.`;
+    const t = c.trade;
+    const part = (cell: number | null, share: number | null, to: string, row: string) => (cell === null || share === null ? `no ${row} partner row (absent, not zero)` : `${fmtShare(share)} ${to}`);
+    return `In ${t.year}, ${fmtMusd(t.total_musd)} of ${c.name}'s mineral exports were reported: ${part(t.exports_musd.CN, t.share_cn, "went to China", "China")}, ${part(t.exports_musd.US, t.share_us, "to the United States", "United States")}.`;
   };
+  const quoteCountries = [...new Set(quotes.map((q) => q.country))].filter((iso3) => iso3 in COUNTRY_NAMES);
   const excluded = countries.filter((c) => c.words?.executive_pooled && !hedgers.some((h) => h.iso3 === c.iso3) && (c.words.n_executive ?? 0) > 0).map((c) => c.name);
   return (
     <div className="space-y-6">
@@ -80,14 +83,14 @@ export function Ch5SaidPaid({ countries, byBloc, hedgers, quotes }: { countries:
         <Exhibit title="Hedging: who praises both" layer="facts" sources={["manual_statements"]} ids={["statement:stance_counts:country:executive"]} note={`Counts of coded positions by domestic executives over every year in the dataset; 1 = equally warm to both, 0 = one-sided.${excluded.length ? ` Excluded by the rule (no positive position on one of the two): ${excluded.join(", ")}.` : ""}`}>
           <HedgingMeter hedgers={hedgers} />
         </Exhibit>
-        <Exhibit title="Said and paid: the quotes beside the receipts" layer="interp" sources={["manual_statements", "un_comtrade"]} ids={quotes.map((q) => `statement:${q.id}`)} note="A statement by a domestic executive is set beside that country's latest reported trade shares. The pairing is editorial; both halves are facts; nothing here claims the words caused the trade.">
+        <Exhibit title="Said and paid: the quotes beside the receipts" layer="interp" sources={["manual_statements", "un_comtrade"]} ids={quotes.map((q) => `statement:${q.id}`)} note="A statement by a domestic executive or the head of a state company (the speaker's bloc is printed on each card) is set beside that country's latest reported trade shares. The pairing is editorial; both halves are facts; nothing here claims the words caused the trade.">
           <ul className="grid gap-3 sm:grid-cols-2">{quotes.map((q) => <QuoteCard key={q.id} q={q} receipt={receipt(q.country)} />)}</ul>
         </Exhibit>
       </div>
       <Exhibit title="Talks lithium, ships copper: what is mentioned against what is sold" layer="facts" sources={["manual_statements", "un_comtrade"]} ids={["statement:minerals:country", "flow_trade:country:mineral:latest"]} note="Mentions are the minerals named in a country's executives' statements; value is the latest reported export value by mineral.">
         <MineralsTalk countries={countries} />
       </Exhibit>
-      <p className="text-xs text-ink-3">Every record, with its original-language quote, is on the <Link href="/region" className="underline">region page</Link> and in each case file&apos;s Words tab.</p>
+      <p className="text-xs text-ink-3">Every record, with its original-language quote, is on the <Link href="/region" className="underline">region page</Link> and in each case file&apos;s Politics tab{quoteCountries.length ? <> ({quoteCountries.map((iso3, i) => <Fragment key={iso3}>{i > 0 ? ", " : ""}<Link href={`/country/${iso3}?tab=parliament`} className="underline">{COUNTRY_NAMES[iso3]}</Link></Fragment>)})</> : null}.</p>
     </div>
   );
 }
