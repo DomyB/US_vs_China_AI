@@ -183,6 +183,8 @@ flags) and the owner's text where a file exists; `meta.json` sets `layers.interp
 
 The owner's political-statements dataset (`data/manual/statements/`, DECISIONS 58) is ingested by the `manual_statements` adapter into the `statement` table and exported as each country file's `statements` block (records, the coded stance of domestic speakers by year, counts by speaker bloc) and as `region.json`'s `statements` (region-wide records and summaries); `meta.layers.statements` and `coverage[iso].statements` say what exists.
 
+`story.json` (DECISIONS 72) is the one file written for the story home: the statement records the story quotes (`STORY_QUOTE_IDS` in `export_site.py`, keyed by statement id, in the same record shape as the country files, so the home page does not load twelve country files for a dozen quotes) and, for Chile, Argentina, Peru and Brazil, the yearly share of each named mineral's exports going to China and to the United States with the world total (`STORY_SERIES`, from the concentration rows). Everything else the story shows is derived in the browser from `flows.json`, `insights.json`, `quant.json`, `region.json` and `meta.json`. There is no sample counterpart; when the file is absent the home page says so in the cold open and leaves the mineral lanes empty.
+
 ## Hand-supplied files
 
 Three sources broke in the first live runs and may need a file the owner downloads in a
