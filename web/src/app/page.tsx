@@ -1,12 +1,13 @@
 import { Suspense } from "react";
-import { MapPage } from "@/components/home/MapPage";
-import { sourceNameMap } from "@/lib/sources";
+import { StoryPage } from "@/components/story/StoryPage";
+import { InsightsSkeleton } from "@/components/ui/Skeleton";
+
+export const metadata = { title: "Said & Paid · US–China Critical Minerals Tracker", description: "What leaders said, what the money did: nine chapters of evidence on the competition between the United States and China for South America's critical minerals, 2008–2026." };
 
 export default function HomePage() {
-  const names = sourceNameMap();
   return (
-    <Suspense fallback={<div className="p-6 text-sm text-ink-3">Loading…</div>}>
-      <MapPage sourceNames={names} />
+    <Suspense fallback={<InsightsSkeleton />}>
+      <StoryPage />
     </Suspense>
   );
 }

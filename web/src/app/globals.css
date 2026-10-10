@@ -561,3 +561,43 @@
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ---- The story (Said & Paid): the ink stage, the two-column scrollytelling, the provenance ribbon, the money fills ---- */
+@layer components {
+  .ink-stage { background: var(--stage); color: var(--stage-ink); }
+  .ink-stage ::selection { background: color-mix(in srgb, var(--stage-ink) 30%, transparent); }
+  .story-grid { display: grid; gap: 1.25rem; align-items: start; }
+  @media (min-width: 1024px) { .story-grid { grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); gap: 1.5rem; } }
+  .story-sticky { position: sticky; top: 0.75rem; min-width: 0; }
+  @media (max-width: 1023.98px) { .story-sticky { position: static; } }
+  .story-step { max-width: 42rem; }
+  .exhibit { position: relative; border-top: 1px solid var(--rule-2); padding: 0.75rem 0 0.5rem 1.5rem; min-width: 0; }
+  .exhibit::before { content: ""; position: absolute; left: 0; top: 0.75rem; bottom: 0.5rem; width: 4px; border-radius: 2px; background: var(--ribbon, var(--outline)); }
+  .exhibit[data-layer="facts"] { --ribbon: var(--facts); }
+  .exhibit[data-layer="model"] { --ribbon: var(--model); }
+  .exhibit[data-layer="interp"] { --ribbon: var(--interp); }
+  .ribbon-label { position: absolute; left: 0.45rem; top: 0.8rem; line-height: 1; transform: rotate(180deg); writing-mode: vertical-rl; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ribbon, var(--ink-3)); opacity: 0.9; }
+  .key-number { font-family: var(--font-serif); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; line-height: 1; }
+  .receipt { font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.4; }
+  .receipt-outline { border: 1.5px solid currentColor; border-radius: 0.3rem; padding: 0.15rem 0.45rem; }
+  .typewriter-caret::after { content: "▍"; animation: caret 1s steps(1) infinite; opacity: 0.8; }
+  @keyframes caret { 50% { opacity: 0; } }
+  .door { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.9rem 1rem; border: 2px solid currentColor; border-radius: 0.9rem; text-decoration: none; color: inherit; transition: transform 160ms ease, background-color 160ms ease; }
+  .door:hover { transform: translateY(-2px); background: color-mix(in srgb, currentColor 8%, transparent); }
+  .progress-rail { position: fixed; left: 0.5rem; top: 50%; transform: translateY(-50%); z-index: 20; display: none; }
+  @media (min-width: 1280px) { .progress-rail { display: block; } }
+  .progress-rail a { display: flex; align-items: center; gap: 0.4rem; padding: 0.15rem 0.4rem; border-radius: 999px; font-size: 0.68rem; color: var(--ink-3); text-decoration: none; }
+  .progress-rail a[aria-current="true"] { color: var(--ink); background: var(--card); box-shadow: 2px 2px 0 var(--shadow-hard); border: 1px solid var(--outline); }
+  .meter { display: inline-flex; gap: 2px; align-items: flex-end; height: 10px; }
+  .meter i { display: block; width: 4px; background: var(--rule-2); border-radius: 1px; }
+  .meter i:nth-child(1) { height: 4px; } .meter i:nth-child(2) { height: 7px; } .meter i:nth-child(3) { height: 10px; }
+  .meter[data-level="thin"] i:nth-child(1), .meter[data-level="moderate"] i:nth-child(-n+2), .meter[data-level="strong"] i { background: var(--ink); }
+  .chapter-card { padding: clamp(2rem, 6vw, 4.5rem) 1rem; }
+  .chapter-card h2 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(1.6rem, 4.2vw, 2.9rem); line-height: 1.1; letter-spacing: -0.012em; max-width: 24ch; text-wrap: balance; }
+  .fill-dots { fill: url(#money-dots); }
+  .fill-hatch { fill: url(#money-hatch); }
+  .fill-curtain { fill: url(#money-curtain); }
+}
+:root { --stage: #1b1d20; --stage-ink: #ecebe6; }
+:root[data-theme="dark"] { --stage: #0f1012; --stage-ink: #ecebe6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --stage: #0f1012; --stage-ink: #ecebe6; } }

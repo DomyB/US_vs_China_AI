@@ -1,4 +1,4 @@
-import type { ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InsightsFile, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData, RegionStatements } from "./types";
+import type { StoryFile, ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InsightsFile, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData, RegionStatements } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -240,6 +240,15 @@ export async function loadInsights(): Promise<InsightsFile | null> {
   try {
     const file = await fetchOnce<InsightsFile>(`${REAL}/insights.json`);
     return Array.isArray(file.countries) && file.countries.length > 0 ? file : null;
+  } catch {
+    return null;
+  }
+}
+
+/** The story page's file (quotes by id, per-mineral series); null until an export has written it. */
+export async function loadStory(): Promise<StoryFile | null> {
+  try {
+    return await fetchOnce<StoryFile>(`${REAL}/story.json`);
   } catch {
     return null;
   }

@@ -31,8 +31,8 @@ export function IntroCard({ indexLayer, open, onToggle }: { indexLayer: "real" |
         Countries are coloured by the influence index{indexLayer === "real" ? ", computed from sourced trade, finance, debt, UN-vote and legislative records" : " (sample data until the first computation)"}; switch to money or trade flows, or open a country for its five tabs.
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
-        <Link href="/?tour=1" className="btn btn-md btn-primary no-underline">Take the tour</Link>
-        <Link href="/insights" className="btn btn-md no-underline">
+        <Link href="/explore?tour=1" className="btn btn-md btn-primary no-underline">Take the tour</Link>
+        <Link href="/lab" className="btn btn-md no-underline">
           See the Insights <Icon name="arrowRight" size={14} />
         </Link>
       </div>

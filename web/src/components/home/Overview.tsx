@@ -54,7 +54,7 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, ranked, 
             ? `Click countries on the map or in the ranking; ${selection.length ? `${selection.length} picked so far.` : "two or more open the comparison."}`
             : "Click the map or the ranking to open the five tabs: actions, parliament, media, analysis and forecast. Shift-click adds a country to a comparison."}
         </p>
-        {!compareMode && <Link href="/?tour=1" className="mt-2 inline-block text-xs underline decoration-dotted">New here? Take the two-minute tour</Link>}
+        {!compareMode && <Link href="/explore?tour=1" className="mt-2 inline-block text-xs underline decoration-dotted">New here? Take the two-minute tour</Link>}
       </div>
       {real && (
         <div className="grid grid-cols-2 gap-2">

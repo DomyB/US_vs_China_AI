@@ -19,7 +19,8 @@ export default function NotFound() {
             ))}
           </ul>
           <div className="mt-5 flex flex-wrap gap-2">
-            <Link href="/" className="btn btn-md btn-primary">Back to the map</Link>
+            <Link href="/" className="btn btn-md btn-primary">Back to the story</Link>
+            <Link href="/explore" className="btn btn-md">Open the map</Link>
             <Link href="/sources" className="btn btn-md">Sources</Link>
           </div>
         </div>

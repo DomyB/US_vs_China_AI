@@ -18,7 +18,7 @@ const BASE = process.env.BASE ?? "http://localhost:3000";
 const OUT = process.env.OUT ?? resolve(tmpdir(), "ui-check");
 mkdirSync(OUT, { recursive: true });
 
-const PAGES = ["/", "/region", "/insights", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
+const PAGES = ["/", "/explore", "/country", "/lab", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
 const VIEWS = [
   { name: "desktop", viewport: { width: 1366, height: 900 } },
   { name: "laptop", viewport: { width: 1024, height: 768 } },
@@ -79,7 +79,7 @@ try {
           });
           check(`${label}: .input text is 16px on a touch screen`, size === "16px", String(size));
         }
-        if (v.name === "laptop" && path === "/") {
+        if (v.name === "laptop" && path === "/explore") {
           const dock = await page.evaluate(() => {
             const root = document.querySelector('[data-tour="dock"]');
             const grid = root?.querySelector(".grid");
@@ -88,7 +88,7 @@ try {
           check(`${label}: the dock is one column beside the open panel`, dock?.columns === 1, JSON.stringify(dock));
           check(`${label}: the dock has no inner overflow`, (dock?.overflow ?? 1) <= 0, JSON.stringify(dock));
         }
-        if (path === "/" && v.name === "desktop" && !run.stored && run.scheme === "light") {
+        if (path === "/explore" && v.name === "desktop" && !run.stored && run.scheme === "light") {
           const head = await page.evaluate(() => ({
             icon: document.querySelector('link[rel="icon"]')?.getAttribute("href") ?? "",
             apple: !!document.querySelector('link[rel="apple-touch-icon"]'),
@@ -103,6 +103,21 @@ try {
       }
       await ctx.close();
     }
+  }
+
+  // 1b. the legacy map links and the old insights address redirect to the new rooms
+  {
+    const ctx = await browser.newContext({ viewport: VIEWS[0].viewport });
+    const page = await ctx.newPage();
+    await page.goto(`${BASE}/?view=money&span=3&year=2024`, { waitUntil: "networkidle" });
+    check("redirect: a map link on / lands on /explore with its query", page.url().includes("/explore") && page.url().includes("view=money"), page.url());
+    await page.goto(`${BASE}/insights`, { waitUntil: "networkidle" });
+    check("redirect: /insights lands on /lab", page.url().includes("/lab"), page.url());
+    await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+    const story = await page.evaluate(() => ({ h1: document.querySelector("h1")?.textContent ?? "", chapters: document.querySelectorAll("section[id^='c']").length, receipts: document.querySelectorAll("ol[aria-label='Receipts'] li").length, skip: !!Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Skip intro")) }));
+    check("story: the home opens on Said & Paid with nine chapters", story.h1.includes("Said") && story.chapters >= 9, JSON.stringify(story));
+    check("story: the cold open prints receipts and a Skip control", story.receipts >= 3 && story.skip, JSON.stringify(story));
+    await ctx.close();
   }
 
   // 2. the tour: every step finds its target and shows its card; Finish drops the parameter
@@ -131,7 +146,7 @@ try {
   // 3. reduced motion: the hero drawing does not animate
   {
     const ctx = await browser.newContext({ viewport: VIEWS[0].viewport, reducedMotion: "reduce" });
-    const { page } = await open(ctx, "/");
+    const { page } = await open(ctx, "/does-not-exist"); // the hero drawing lives on the 404 and error pages since the story became the home
     const anim = await page.evaluate(() => Array.from(document.querySelectorAll(".hero-route, .hero-shine")).map((el) => `${getComputedStyle(el).animationName}/${getComputedStyle(el).animationDuration}`));
     check("reduced motion: the hero drawing is still", anim.length > 0 && anim.every((a) => a.startsWith("none/") || a.endsWith("/0s") || a.endsWith("/0.01ms")), anim.join(","));
     await ctx.close();

@@ -715,6 +715,8 @@ export interface MineralShareRow {
   share_cn: number;
   share_us: number;
   share_other: number;
+  /** the world total the shares are of, US$ m (absent in the sample set) */
+  exports_wld_musd?: number | null;
 }
 
 export interface RegionData {
@@ -1073,4 +1075,14 @@ export interface InsightsFile {
   region: InsightRegion;
   findings: Finding[];
   human: HumanText | null;
+}
+
+/** The story page's own file (web/public/data/real/story.json): quotes by statement id and per-mineral destination shares, copied from the country files so the home never loads one. */
+export interface StorySeriesRow { year: number; share_cn_x: number | null; share_us_x: number | null; exports_wld_musd: number | null }
+export interface StoryFile {
+  dataset: string;
+  generated_on: string;
+  note: string;
+  quotes: Record<string, StatementRecord>;
+  series: Record<string, Record<string, StorySeriesRow[]>>;
 }

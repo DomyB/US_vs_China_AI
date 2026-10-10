@@ -13,7 +13,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
         <p className="mt-2 font-mono text-xs text-ink-3">{error.digest ?? error.message}</p>
         <div className="mt-5 flex flex-wrap gap-2">
           <button type="button" onClick={reset} className="btn btn-md btn-primary">Try again</button>
-          <Link href="/" className="btn btn-md">Back to the map</Link>
+          <Link href="/" className="btn btn-md">Back to the story</Link>
         </div>
       </div>
     </div>
