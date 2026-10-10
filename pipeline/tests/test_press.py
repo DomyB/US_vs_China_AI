@@ -206,6 +206,49 @@ def test_gdelt_plan_windows_newest_first_round_robin_with_ledger_rules():
     assert left > 0 and len(starts) == len(hist)
 
 
+def test_gdelt_plan_windows_backlog_first_puts_the_history_before_the_recent_windows():
+    from datetime import date
+
+    from scm.ingest.gdelt import plan_windows
+
+    today = date(2026, 10, 9)
+    default, left = plan_windows(None, today, budget=6, only=["ARG", "BRA"])
+    first, left2 = plan_windows(None, today, budget=6, only=["ARG", "BRA"], backlog_first=True)
+    assert left == left2 and sorted(default) == sorted(first) and default != first
+    assert default[0][3] is True and first[0][3] is False  # recent first by default, history first on request
+    assert [w for w in first if not w[3]] == [w for w in default if not w[3]]  # the history keeps its order
+    assert first[-1][3] is True
+
+
+def test_gdelt_total_throttle_cap_stops_the_run_without_a_pause(snap_factory, monkeypatch):
+    import time
+
+    from scm.ingest.gdelt import GDELTDoc
+
+    snap = snap_factory("gdelt", {})
+    snap.manifest["errors"] = []
+    snap.manifest["throttled"] = GDELTDoc.MAX_THROTTLES_TOTAL - 1
+
+    def throttled(*a, **k):
+        raise RuntimeError("gdelt: HTTP 429 on GET …")
+
+    monkeypatch.setattr(snap, "get", throttled)
+    slept = []
+    monkeypatch.setattr(time, "sleep", lambda s: slept.append(s))
+    ad = GDELTDoc()
+    ad._deadline = time.monotonic() + 10_000
+    assert ad._get_window(snap, "ARG/2025-01-01_es.json", {"query": "x"}) is False
+    assert slept == [] and snap.manifest["throttled"] == GDELTDoc.MAX_THROTTLES_TOTAL and snap.manifest["errors"]
+    # the run itself stops before asking for another window
+    monkeypatch.setenv("GDELT_BACKFILL_WINDOWS", "5")
+    monkeypatch.setattr(GDELTDoc, "previous_table", lambda self, table: None)
+    monkeypatch.setattr(GDELTDoc, "_diagnostics", lambda self, snap, today: None)
+    asked = []
+    monkeypatch.setattr(snap, "get", lambda *a, **k: asked.append(a))
+    ad.fetch(snap)
+    assert asked == [] and snap.manifest["stopped"].startswith(f"{GDELTDoc.MAX_THROTTLES_TOTAL} throttle responses")
+
+
 def test_gdelt_session_does_not_retry_429_by_itself():
     from scm.http import make_session
     from scm.ingest.gdelt import GDELTDoc

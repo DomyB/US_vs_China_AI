@@ -78,10 +78,12 @@ def outlet_domains() -> dict[str, str]:
 CURRENT_TERMS_MARKER = "lithium"  # every current query carries it; ledger rows without it come from the Spanish-term era
 
 
-def plan_windows(prev: pd.DataFrame | None, today: date, budget: int, only: list[str]) -> tuple[list[tuple[str, date, date, bool]], int]:
+def plan_windows(prev: pd.DataFrame | None, today: date, budget: int, only: list[str], backlog_first: bool = False) -> tuple[list[tuple[str, date, date, bool]], int]:
     """The windows to fetch this run and how many stay in the backlog.
 
-    The recent windows (RECENT_DAYS) are always fetched. A historical window is done when the ledger holds a row for it
+    The recent windows (RECENT_DAYS) are always planned, first by default; with `backlog_first` (a backfill run on a
+    throttled address) they come after the historical windows, so whatever the run gets goes to the history.
+    A historical window is done when the ledger holds a row for it
     fetched with the current term set (its `source_record_url` carries CURRENT_TERMS_MARKER); rows from the Spanish-term
     era, which always came back empty, are planned again. A window whose row reached MAX_RECORDS is planned again as two
     half windows (unless the second half is already in the ledger). The backlog runs newest first, one window per
@@ -122,7 +124,8 @@ def plan_windows(prev: pd.DataFrame | None, today: date, budget: int, only: list
         for iso in only:
             if i < len(per_country[iso]):
                 backlog.append(per_country[iso][i])
-    return plan + backlog[:budget], max(0, len(backlog) - budget)
+    history = backlog[:budget]
+    return (history + plan if backlog_first else plan + history), max(0, len(backlog) - budget)
 
 
 def windows(iso: str, until: date | None = None) -> list[tuple[date, date]]:
@@ -151,15 +154,18 @@ class GDELTDoc(Adapter):
     THROTTLE_MAX_SLEEP = 480
     THROTTLE_RETRIES = 2  # a throttled window is retried this many times after the pause before it is left for the next run
     MAX_THROTTLES = 12  # after this many consecutive 429s the run stops: the address is being rate-limited
+    MAX_THROTTLES_TOTAL = 20  # after this many 429s in one run, consecutive or not, the run stops: a run that got 10 windows out of 39 throttles in 150 minutes (2026-10-09) is not worth its budget
     TIME_BUDGET_MIN = 45  # minutes of fetching per run (GDELT_TIME_BUDGET_MIN); unfetched windows stay in the backlog
 
     def fetch(self, snap: Snapshot) -> None:
         budget = int(os.environ.get("GDELT_BACKFILL_WINDOWS", "60") or 60)
         only = [c for c in os.environ.get("GDELT_COUNTRIES", "").replace(",", " ").split() if c in IN_SCOPE] or list(IN_SCOPE)
         today = datetime.now(UTC).date()
-        plan, backlog_left = plan_windows(self.previous_table("media_volume"), today, budget, only)
+        backlog_first = os.environ.get("GDELT_BACKLOG_FIRST", "").strip().lower() in {"1", "true", "yes"}
+        plan, backlog_left = plan_windows(self.previous_table("media_volume"), today, budget, only, backlog_first=backlog_first)
         snap.manifest["windows_planned"] = len(plan)
         snap.manifest["windows_backlog"] = backlog_left
+        snap.manifest["backlog_first"] = backlog_first
         snap.manifest["errors"] = []
         import time
 
@@ -173,6 +179,9 @@ class GDELTDoc(Adapter):
                 break
             if snap.manifest.get("throttled_run", 0) >= self.MAX_THROTTLES:
                 snap.manifest["stopped"] = f"{self.MAX_THROTTLES} consecutive throttle responses; remaining windows left for the next run"
+                break
+            if snap.manifest.get("throttled", 0) >= self.MAX_THROTTLES_TOTAL:
+                snap.manifest["stopped"] = f"{self.MAX_THROTTLES_TOTAL} throttle responses in this run: the address is rate-limited; remaining windows left for the next run"
                 break
             for lang in COUNTRY_LANGS.get(iso, ["es"]):
                 name = f"{iso}/{start.isoformat()}_{lang}.json"
@@ -230,9 +239,9 @@ class GDELTDoc(Adapter):
                 snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
                 run = snap.manifest.get("throttled_run", 0) + 1
                 snap.manifest["throttled_run"] = run
-                if run >= self.MAX_THROTTLES:
+                if run >= self.MAX_THROTTLES or snap.manifest["throttled"] >= self.MAX_THROTTLES_TOTAL:
                     snap.manifest["errors"].append({"name": label, "error": err[:200]})
-                    return False
+                    return False  # no pause: the caller stops the run
                 pause = min(self.THROTTLE_MAX_SLEEP, self.THROTTLE_SLEEP * 2 ** (run - 1))
                 deadline = getattr(self, "_deadline", None)
                 if deadline is not None and time.monotonic() + pause > deadline:

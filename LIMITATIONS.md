@@ -71,7 +71,11 @@ owner's own text shown apart where it exists. All six phases are live.
   so 17 of 20 probes at one request per twelve seconds, and 5 of 6 at one per 45 seconds, answered HTTP 429.
   The adapter backs off exponentially and retries (the session no longer retries a 429 on its own), plans the backlog newest first across the countries in turn, re-plans the windows fetched in the Spanish-term era (their ledger rows carry the old query) and splits a window that hit the 250-record cap into two halves; but the history will fill slowly from the runner; the
   throttle message invites larger users to contact GDELT, which the owner can do, or the backfill can run from
-  an address GDELT does not throttle. Google News's RSS search was examined as an alternative and rejected:
+  an address GDELT does not throttle. The run of the evening of 2026-10-09 (200 windows, 150 minutes) settled
+  it: 10 windows came back against 39 throttle responses, all of them recent windows already held, so the runner
+  cannot fill the history. The adapter now stops after 20 throttles in a run, a backfill can put the history
+  before the recent windows (`gdelt_backlog_first`), and `docs/PIPELINE.md` describes the backfill from the
+  owner's own connection. Google News's RSS search was examined as an alternative and rejected:
   its robots.txt disallows the search path for every agent, and names Claude's agents, so it is not fetched.
 - **Outlets without a feed** (and outlets GDELT does not index under the registry's domain)
   have no headlines yet; the manifest of each run lists unmatched domains and failed feed URLs.

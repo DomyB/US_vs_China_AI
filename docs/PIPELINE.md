@@ -226,16 +226,44 @@ provenance shown on the site stays honest.
 Dispatch inputs of `ingest-monthly.yml`: `targets` (source ids or a group; `none` only recomputes and exports),
 `fetch_only`, `gdelt_backfill_windows` (missing historical windows to fetch, about 15 s each, more when
 throttled), `gdelt_time_budget_min` (GDELT stops fetching after this many minutes and leaves the rest for the
-next run), `gdelt_countries` (ISO3 codes in priority order; empty = all), `adapter_budget_min` (the cut-off for
+next run), `gdelt_countries` (ISO3 codes in priority order; empty = all), `gdelt_backlog_first` (fetch the historical
+windows before the recent ones), `adapter_budget_min` (the cut-off for
 any single adapter: set it above the GDELT budget for a backfill, `0` for no limit), `allow_empty_warehouse`,
 `allow_regression`. A backfill of about 200 windows: `targets: gdelt`, `gdelt_backfill_windows: 200`,
-`gdelt_time_budget_min: 150`, `adapter_budget_min: 175`; the job limit is 300 minutes and the run shares its
-concurrency group with the Wednesday press run and the Thursday text run, which wait for it.
+`gdelt_time_budget_min: 150`, `adapter_budget_min: 175`, `gdelt_backlog_first: true`; the job limit is 300 minutes
+and the run shares its concurrency group with the Wednesday press run and the Thursday text run, which wait for
+it. Expect little from it: the run of the evening of 2026-10-09 got 10 windows in 150 minutes against 39
+throttle responses, so the adapter now stops after 20 throttles in a run, and the history has to come from an
+address GDELT does not throttle (next section).
 
 Each ingestion run first restores the Parquet warehouse from the latest `data-v*` release, so
 running a subset of adapters (`targets: wb_wgi usgs_mcs`) refreshes only those tables and keeps
 the rest. Data commits carry `[skip ci]`. Scheduled workflows are disabled by GitHub after 60 days
 without repository activity; the monthly data commit keeps them alive.
+
+## Backfilling GDELT from your own connection
+
+GDELT throttles GitHub's shared runner addresses (LIMITATIONS, "GDELT from GitHub's runners"), so the press
+history of 2017–2026 (about 1,770 half-month and monthly windows) has to be fetched from an address GDELT does
+not throttle: a home or university connection, in one or several sittings. The steps are the ones the workflow
+runs, on your machine, from the repository root:
+
+1. Set up the pipeline once (`cd pipeline && python -m venv .venv && . .venv/bin/activate && pip install -e ".[dev]"`)
+   and restore the warehouse from the newest data release: `gh release list --limit 5` shows the tags (the newest
+   `data-v*` is the one the workflow would restore), then `gh release download <tag> --pattern 'warehouse-*.tar.gz'
+   --dir /tmp/prev && tar xzf /tmp/prev/warehouse-*.tar.gz -C data`.
+2. Fetch, from `pipeline/`: `GDELT_BACKFILL_WINDOWS=200 GDELT_TIME_BUDGET_MIN=150 GDELT_BACKLOG_FIRST=1 python -m scm run gdelt`.
+   Each run continues where the last stopped (the ledger in `media_volume` says which windows are done); repeat
+   until the manifest in `data/raw/gdelt/` reports `windows_backlog: 0`. Then `python -m scm fixtures`,
+   `python -m scm analyse`, `python -m scm build`, `python -m scm export` and `pytest -q`, as the workflow does.
+3. Publish: commit `web/public/data/real` and `pipeline/tests/fixtures`, push to `main` (Vercel deploys), then
+   package the warehouse as a release so the next Actions run restores it instead of the older one:
+   `tag=data-v$(date -u +%Y.%m.%d).local && tar czf warehouse-$tag.tar.gz -C data warehouse models && gh release create "$tag" "warehouse-$tag.tar.gz" --title "Data release $tag" --notes "Parquet warehouse from a backfill run on the owner's connection"`
+   (leave out `models` if `data/models` does not exist). `restore_release.sh` takes the newest usable release by
+   publication date, and the regression guard passes because the tables only grew.
+
+GDELT's public BigQuery dataset (`gdelt-bq.gdeltv2`) would be another route within Google's free tier; it needs
+a Google Cloud project in your name and a new adapter, and is not planned.
 
 ## Rules enforced in code
 

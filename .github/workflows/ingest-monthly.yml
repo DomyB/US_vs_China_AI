@@ -21,6 +21,10 @@ on:
       gdelt_countries:
         description: "GDELT: ISO3 codes to fetch, in priority order (empty = all twelve)"
         default: ""
+      gdelt_backlog_first:
+        description: "GDELT: fetch the historical windows before the recent ones (a backfill on a throttled address then spends what it gets on history)"
+        type: boolean
+        default: false
       adapter_budget_min:
         description: "Minutes any single adapter may run before it is cut off (set above the GDELT budget for a backfill; 0 = no limit)"
         default: "120"
@@ -49,6 +53,9 @@ on:
       gdelt_countries:
         type: string
         default: ""
+      gdelt_backlog_first:
+        type: boolean
+        default: false
       adapter_budget_min:
         type: string
         default: "120"
@@ -85,6 +92,7 @@ jobs:
       GDELT_BACKFILL_WINDOWS: ${{ inputs.gdelt_backfill_windows || '60' }}
       GDELT_TIME_BUDGET_MIN: ${{ inputs.gdelt_time_budget_min || '45' }}
       GDELT_COUNTRIES: ${{ inputs.gdelt_countries || '' }}
+      GDELT_BACKLOG_FIRST: ${{ inputs.gdelt_backlog_first && '1' || '' }}
       SCM_ADAPTER_BUDGET_MIN: ${{ inputs.adapter_budget_min || '120' }}
     steps:
       - uses: actions/checkout@v4
