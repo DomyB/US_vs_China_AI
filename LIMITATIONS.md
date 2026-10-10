@@ -42,8 +42,15 @@ owner's own text shown apart where it exists. All six phases are live.
   then a hand-supplied file (`EXIM_FILE_URL`, `DPI_FILE_URL`, or a file under `data/manual/`
   where the license allows); until one is provided, EXIM authorizations and executive
   ideology are missing.
-- **DFC** data goes back to OPIC records from the 1960s (schema widened to 1900); the
-  project only analyses 2008 onward.
+- **The period starts in 2000** (`pipeline/scm/period.py`, DECISIONS 73; it started in 2008 until
+  2026-10-10). Not every source reaches back that far, and the gap is shown as missing, never as
+  zero: EXIM authorizations start in FY2007; DFC's list holds active projects only (OPIC records
+  from the 1960s, schema widened to 1900); GDELT press starts in 2015; Argentina's chamber
+  records start in 2011, Brazil's in 2001, Chile's in 2002; the owner's statements dataset starts
+  in 2022. UN Comtrade, AidData (2000–2021), the World Bank series, UN votes, V-Dem, USGS, BGS,
+  the Pink Sheet, Congress.gov and the Federal Register cover the whole period. The site's axes
+  start at the first year the trade record holds (`period.json`, `data_from`), so a backfill that
+  has not landed yet does not open an empty band.
 - **Finance deduplication** is conservative (amount within 10 percent, same year and
   origin); the same loan reported with different amounts or years by two databases appears
   twice, with both sources visible.

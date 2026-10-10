@@ -1,7 +1,12 @@
 import type { Reliability } from "./types";
 
-export const YEAR_MIN = 2008;
-export const YEAR_MAX = 2026;
+import period from "../../public/data/real/period.json";
+
+/** The years the site spans: the first year the trade record holds and the current year, written by the pipeline's export
+ * (`period.json`, next to the other real exports; `from` is the project's period, `data_from` where the record starts). */
+export const PERIOD_FROM: number = period.from;
+export const YEAR_MIN: number = period.data_from;
+export const YEAR_MAX: number = period.to;
 
 export const ACTOR_LABEL: Record<"US" | "CN", string> = { US: "United States", CN: "China" };
 

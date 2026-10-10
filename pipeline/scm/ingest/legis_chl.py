@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 import pandas as pd
 
 from ..http import Snapshot
+from ..period import PERIOD_FROM
 from .base import Adapter, event_id
 from .docs import DOCUMENT_COLUMNS, VOTE_COLUMNS, VOTE_MEMBER_COLUMNS, make_document
 from .feeds import strip_ns
@@ -14,7 +15,7 @@ from .keywords import is_relevant, relevance
 
 WS = "https://opendata.camara.cl/camaradiputados/WServices/WSLegislativo.asmx"
 RECORD = "https://www.camara.cl/legislacion/ProyectosDeLey/tramitacion.aspx?prmID={id}&prmBOLETIN={boletin}"
-FIRST_YEAR = 2008
+FIRST_YEAR = PERIOD_FROM
 MAX_VOTE_DETAIL_CALLS = 400
 CHOICE = {"afirmativo": "yes", "a favor": "yes", "en contra": "no", "negativo": "no", "abstencion": "abstain", "abstención": "abstain",
           "dispensado": "absent", "pareo": "absent", "ausente": "absent", "no vota": "absent"}

@@ -7,6 +7,7 @@ import { PlotFigure } from "@/components/charts/PlotFigure";
 import { MAP_PALETTE } from "@/components/map/scales";
 import type { Theme } from "@/lib/theme";
 import { fmtMeasure, MEASURE_LABEL, type MeasureRow, type RegionMeasure } from "./FocusChart";
+import { YEAR_MIN, YEAR_MAX } from "@/lib/constants";
 
 /** Country × year cells coloured by the measure; the selected year's column is outlined. Colours are computed per
  *  theme from the map palette, because interpolated colours are not covered by the stylesheet's hex rules. */
@@ -20,7 +21,7 @@ export function Heatmap({ rows, year, measure, theme, order, ariaLabel }: { rows
     return {
       height: 40 + 26 * Math.max(1, order.length),
       marginLeft: 84,
-      x: { label: null, tickFormat: (d: number) => (d % 3 === 2 ? String(d) : ""), domain: Array.from({ length: 19 }, (_, i) => 2008 + i) },
+      x: { label: null, tickFormat: (d: number) => (d % 3 === 2 ? String(d) : ""), domain: Array.from({ length: YEAR_MAX - YEAR_MIN + 1 }, (_, i) => YEAR_MIN + i) },
       y: { label: null, domain: order },
       color,
       marks: [

@@ -10,6 +10,7 @@ from datetime import date
 import pandas as pd
 
 from ..http import Snapshot
+from ..period import PERIOD_FROM, congress_of
 from ..registry import IN_SCOPE, iso3_from_name
 from .base import Adapter, event_id, to_float
 from .keywords import relevance
@@ -35,7 +36,7 @@ DUTY_SUSPENSION_RE = re.compile(r"(?i)\bsuspen\w*\b.*\b(duty|duties)\b|\b(duty|d
 
 
 def first_congress() -> int:
-    return 110  # 2007-2008, the first Congress after the period starts
+    return congress_of(PERIOD_FROM)  # the Congress sitting in the period's first year (the 106th for 2000, the 110th for 2008)
 
 
 def current_congress(today: date | None = None) -> int:

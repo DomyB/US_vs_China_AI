@@ -21,6 +21,7 @@ import pandas as pd
 
 from .insights import build_insights
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
+from .period import data_from, period
 from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
 from .quant.inputs import SWAP_RE
@@ -444,6 +445,7 @@ def build_flows(fin: list[dict], trade: list[dict], core: list[str], last_year: 
                           "finance_US": last_year.get("finance_US") or _max_year(finance_rows, lambda r: r["origin"] == "US"),
                           "trade": last_year.get("trade") or _max_year(trade_rows, lambda r: True)},
             "note": "Finance: documented commitments from the de-duplicated finance events, summed by origin and year; swap-line drawdowns and lower-confidence amounts are reported apart. Trade: reported exports (UN Comtrade); the rest of the world is the world total minus the two actors."}
+    meta["period"] = period(today, data_from(trade_rows))
     return {"dataset": "REAL", "generated_on": today, "meta": meta, "finance": finance_rows, "trade": trade_rows}
 
 
@@ -730,6 +732,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             mineral_shares.append({"year": s["year"], "mineral": s["mineral"], "share_cn": round(cn, 4), "share_us": round(us, 4), "share_other": round(max(0.0, 1 - cn - us), 4), "exports_wld_musd": round(s["WLD"] / 1e6, 1)})
     flows = build_flows(fin, trade, core, quant_status.get("last_year") or {}, today)
     (out / "flows.json").write_text(json.dumps(flows, ensure_ascii=False, default=str), encoding="utf-8")
+    # the period the site reads at build time (web/src/lib/constants.ts imports it): tiny, so it may live in the bundle
+    (out / "period.json").write_text(json.dumps(flows["meta"]["period"]) + "\n", encoding="utf-8")
     # the Insights page: cross-layer contrasts, scenario inputs and findings, computed from the rows above (DECISIONS 59)
     insights = build_insights(flows=flows, idx_rows=idx_rows, comp_rows=comp_rows, fc_rows=fc_rows, effect_rows=effect_rows, reg_rows=reg_rows, sd_rows=sd_rows, flag_rows=flag_rows,
                               stm=stm, stance_by_iso=stance_by_iso, volume_by_iso=volume_by_iso, gov=gov, prices=prices, policy=policy, fin=fin, core=core, quant_status=quant_status, today=today,
@@ -781,6 +785,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                                   "ai_drafted": sum(1 for r in briefs if (r.get("drafted_by") or "owner") == "ai")},
         "text_model": text_status,
         "quant_model": quant_status,
+        "period": flows["meta"]["period"],
         "coverage": coverage,
     }
     (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, default=str, indent=1), encoding="utf-8")

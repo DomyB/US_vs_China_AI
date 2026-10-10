@@ -11,9 +11,10 @@ import { THEME_BOOTSTRAP } from "@/lib/theme";
 import { Suspense } from "react";
 import { PageFade } from "@/components/layout/PageFade";
 import { Tour } from "@/components/tour/Tour";
+import { YEAR_MIN, YEAR_MAX } from "@/lib/constants";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
-const TITLE = "US–China Critical Minerals Tracker: South America 2008–2026";
+const TITLE = `US–China Critical Minerals Tracker: South America ${YEAR_MIN}–${YEAR_MAX}`;
 const DESCRIPTION = "Tracks, analyses and forecasts the competition between the United States and China for critical minerals in South America: actions, parliaments and media, by country and year.";
 
 export const metadata: Metadata = {
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <LogoTile size={36} />
               <span className="leading-tight">
                 <span className="serif block text-[15px] font-bold tracking-tight text-ink sm:text-base">US–China Critical Minerals Tracker</span>
-                <span className="block text-[11px] text-ink-3">South America · 12 countries · 2008–2026</span>
+                <span className="block text-[11px] text-ink-3">South America · 12 countries · {YEAR_MIN}–{YEAR_MAX}</span>
               </span>
             </Link>
             <div className="order-3 w-full sm:order-2 sm:ml-auto sm:w-auto">

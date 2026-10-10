@@ -13,6 +13,7 @@ from datetime import date
 import pandas as pd
 
 from ..http import FetchError, Snapshot
+from ..period import PERIOD_FROM
 from ..registry import IN_SCOPE, M49, M49_TO_ISO3, hs6_to_mineral
 from .base import Adapter
 
@@ -21,6 +22,15 @@ KEYED = "https://comtradeapi.un.org/data/v1/get/C/A/HS"
 
 
 MAX_QUOTA_FAILURES = 3
+CHUNK_ANCHOR = 2008  # chunks are aligned on 2008 so the file names of the 2008+ fetches (and the recorded fixtures) do not move with the period
+
+
+def chunk_years(years: list[int], per_call: int) -> list[list[int]]:
+    """Consecutive year chunks of at most per_call years, the years before CHUNK_ANCHOR chunked on their own."""
+    before = [y for y in years if y < CHUNK_ANCHOR]
+    after = [y for y in years if y >= CHUNK_ANCHOR]
+    chunks = [before[i:i + per_call] for i in range(0, len(before), per_call)] + [after[i:i + per_call] for i in range(0, len(after), per_call)]
+    return [c for c in chunks if c]
 
 
 class Comtrade(Adapter):
@@ -31,7 +41,7 @@ class Comtrade(Adapter):
     def __init__(self, years: list[int] | None = None) -> None:
         super().__init__()
         last = date.today().year - 1
-        self.years = years or list(range(2008, last + 1))
+        self.years = years or list(range(PERIOD_FROM, last + 1))
         self.codes = sorted(hs6_to_mineral())
         self.key = os.environ.get("COMTRADE_KEY")
         self._quota_failures = 0  # consecutive calls refused with 429/403/503 after back-off
@@ -76,8 +86,7 @@ class Comtrade(Adapter):
 
     def _fetch_chunked(self, snap: Snapshot, prefix: str, reporter: int, partners: list[int], years_per_call: int) -> None:
         """Fetch several years per call; if a response is truncated at the record cap, refetch year by year."""
-        chunks = [self.years[i:i + years_per_call] for i in range(0, len(self.years), years_per_call)]
-        for chunk in chunks:
+        for chunk in chunk_years(self.years, years_per_call):
             name = f"{prefix}_{chunk[0]}-{chunk[-1]}.json"
             payload = self._call(snap, name, reporter, chunk, partners)
             if payload is None:

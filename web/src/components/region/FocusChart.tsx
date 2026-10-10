@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { PlotFigure } from "@/components/charts/PlotFigure";
 import { fmtSigned } from "@/lib/format";
+import { YEAR_MIN, YEAR_MAX } from "@/lib/constants";
 
 export type RegionMeasure = "net" | "US" | "CN";
 export interface MeasureRow {
@@ -27,7 +28,7 @@ export function FocusChart({ rows, focus, year, measure, ariaLabel }: { rows: Me
       height: 440,
       marginLeft: 44,
       marginRight: 96,
-      x: { label: null, tickFormat: (d: number) => String(d), domain: [2008, 2026] },
+      x: { label: null, tickFormat: (d: number) => String(d), domain: [YEAR_MIN, YEAR_MAX] },
       y: { label: MEASURE_LABEL[measure], domain, grid: true },
       marks: [
         ...(measure === "net" ? [Plot.ruleY([0], { stroke: "#8a8f98" })] : []),

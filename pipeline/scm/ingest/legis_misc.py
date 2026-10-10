@@ -10,6 +10,7 @@ from html.parser import HTMLParser
 import pandas as pd
 
 from ..http import Snapshot
+from ..period import PERIOD_FROM
 from .base import Adapter, event_id
 from .ckan import iso_date, year_of
 from .docs import DOCUMENT_COLUMNS, VOTE_COLUMNS, make_document
@@ -135,7 +136,7 @@ class SILpy(Adapter):
                     continue
                 date = iso_date(_pick(d, "fechaIngresoExpediente", "fecha_ingreso", "fecha", "fechaingreso"))
                 yr = year_of(date) or year_of(_pick(d, "anio", "ano", "periodo"))
-                if not yr or yr < 2008:
+                if not yr or yr < PERIOD_FROM:
                     continue
                 native = _pick(d, "idProyecto", "expedienteCamara", "expediente", "id", "codigo", "numero") or f"{name}-{i}"
                 etapa = " / ".join(x for x in (_pick(d, "estadoProyecto", "estado"), _pick(d, "descripcionEtapa"), _pick(d, "descripcionSubEtapa")) if x)
@@ -297,7 +298,7 @@ class SPLEY(Adapter):
                     continue
                 date = iso_date(_pick(d, "fecPresentacion", "fecha_presentacion", "fecha"))
                 yr = year_of(date) or year_of(_pick(d, "anio", "perParId"))
-                if not yr or yr < 2008:
+                if not yr or yr < PERIOD_FROM:
                     continue
                 native = _pick(d, "pleyNum", "numero", "id", "pleyId") or f"{name}-{i}"
                 row = make_document(source_id=self.source_id, country="PER", doc_type="bill", date=date or f"{yr}-01-01", date_precision="day" if date else "year",

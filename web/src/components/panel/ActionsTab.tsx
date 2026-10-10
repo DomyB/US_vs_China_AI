@@ -6,7 +6,7 @@ import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { SectionHeader } from "@/components/ui/Section";
-import { ACTOR_COLOR, OTHER_COLOR, prettyLabel, prettyMineral } from "@/lib/constants";
+import { ACTOR_COLOR, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtMusd } from "@/lib/format";
 import type { CountryData } from "@/lib/types";
 
@@ -39,7 +39,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
     () => ({
       height: 260,
       marginLeft: 48,
-      x: { label: null, ticks: [2008, 2011, 2014, 2017, 2020, 2023, 2026], tickFormat: (d: number) => String(d) },
+      x: { label: null, ticks: Array.from({ length: Math.floor((YEAR_MAX - YEAR_MIN) / 3) + 1 }, (_, i) => YEAR_MIN + 3 * i), tickFormat: (d: number) => String(d) },
       y: { label: isReal ? "Exports, US$ m" : "Exports, US$ m (SAMPLE)", grid: true },
       color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, OTHER_COLOR], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "to rest of world" }[d] ?? d) },
       marks: [
@@ -62,8 +62,8 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
   const timelineOptions = useMemo(() => {
     const rows = allEvents.map((e) => ({ ...e, when: new Date(e.date.length === 4 ? `${e.date}-07-01` : e.date), side: e.actor_side === "US" ? "US-linked" : e.actor_side === "CN" ? "China-linked" : "Other", amt: e.amount_musd ?? 0 }));
     const years = allEvents.map((e) => e.year);
-    const lo = Math.min(2008, ...years);
-    const hi = Math.max(2026, ...years);
+    const lo = Math.min(YEAR_MIN, ...years);
+    const hi = Math.max(YEAR_MAX, ...years);
     return {
       height: 150,
       marginLeft: 84,

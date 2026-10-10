@@ -13,6 +13,7 @@ import re
 import pandas as pd
 
 from ..http import FetchError, Snapshot
+from ..period import PERIOD_FROM
 from .base import Adapter, event_id
 from .docs import DOCUMENT_COLUMNS, VOTE_COLUMNS, VOTE_MEMBER_COLUMNS, make_document
 from .keywords import is_relevant, relevance
@@ -21,7 +22,7 @@ from .util import col
 BULK = "https://dadosabertos.camara.leg.br/arquivos/{kind}/csv/{kind}-{year}.csv"
 API = "https://dadosabertos.camara.leg.br/api/v2"
 RECORD = "https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao={id}"
-FIRST_YEAR = 2008
+FIRST_YEAR = PERIOD_FROM
 MAX_VOTE_DETAIL_CALLS = 1500
 BILL_TYPES = {"PL", "PLP", "PEC", "MPV", "PLV", "PDL", "PDC", "PRC", "PLN", "PLC", "PLS"}
 HEARING_TYPES = {"REQ", "RIC", "INC", "PFC", "RCP"}

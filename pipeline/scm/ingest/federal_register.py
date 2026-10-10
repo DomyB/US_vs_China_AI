@@ -6,6 +6,7 @@ import json
 import pandas as pd
 
 from ..http import Snapshot
+from ..period import PERIOD_FROM
 from .base import Adapter, event_id
 
 API = "https://www.federalregister.gov/api/v1/documents.json"
@@ -25,7 +26,7 @@ class FederalRegister(Adapter):
 
     def fetch(self, snap: Snapshot) -> None:
         for key, term in QUERIES.items():
-            params = {"conditions[term]": term, "conditions[publication_date][gte]": "2008-01-01", "per_page": 1000, "order": "newest"}
+            params = {"conditions[term]": term, "conditions[publication_date][gte]": f"{PERIOD_FROM}-01-01", "per_page": 1000, "order": "newest"}
             for f in FIELDS:
                 params.setdefault("fields[]", []).append(f)  # type: ignore[union-attr]
             page = 1

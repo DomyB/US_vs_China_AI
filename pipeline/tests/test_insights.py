@@ -102,7 +102,7 @@ def test_prices_prefer_the_monthly_series_and_average_by_year():
     prices = [{"mineral": "copper", "source_id": "wb_pink_sheet", "series": "Copper", "year": 2025, "month": m, "price": 9000.0 + m, "unit": "($/mt)"} for m in (1, 2)]
     prices += [{"mineral": "copper", "source_id": "usgs_mcs", "series": "USGS copper", "year": 2025, "month": None, "price": 4.5, "unit": "cents per pound"},
                {"mineral": "lithium", "source_id": "usgs_mcs", "series": "USGS lithium", "year": 2024, "month": None, "price": 14000.0, "unit": "dollars per metric ton"},
-               {"mineral": "lithium", "source_id": "usgs_mcs", "series": "USGS lithium", "year": 2007, "month": None, "price": 1.0, "unit": "dollars per metric ton"}]
+               {"mineral": "lithium", "source_id": "usgs_mcs", "series": "USGS lithium", "year": 1999, "month": None, "price": 1.0, "unit": "dollars per metric ton"}]
     p = insights.price_block(prices, CORE)
     assert p["copper"]["source_id"] == "wb_pink_sheet" and p["copper"]["latest"] == {"year": 2025, "avg": 9001.5, "n_obs": 2}
     assert p["lithium"]["annual"] == [{"year": 2024, "avg": 14000.0, "n_obs": 1}] and "gold" not in p

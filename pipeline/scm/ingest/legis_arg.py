@@ -10,6 +10,7 @@ import re
 import pandas as pd
 
 from ..http import Snapshot
+from ..period import PERIOD_FROM
 from .base import Adapter, event_id
 from .ckan import iso_date, package_search, pick_resources, read_table, year_of
 from .docs import DOCUMENT_COLUMNS, VOTE_COLUMNS, VOTE_MEMBER_COLUMNS, make_document
@@ -18,7 +19,7 @@ from .util import col
 
 BASE = "https://datos.hcdn.gob.ar"
 RECORD = "https://www.hcdn.gob.ar/proyectos/proyecto.jsp?exp={exp}"
-FIRST_YEAR = 2008
+FIRST_YEAR = PERIOD_FROM
 CHOICE = {"afirmativo": "yes", "negativo": "no", "abstencion": "abstain", "abstención": "abstain", "ausente": "absent", "presidente": "other"}
 
 

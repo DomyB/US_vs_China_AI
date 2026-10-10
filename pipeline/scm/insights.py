@@ -18,6 +18,7 @@ from pathlib import Path
 
 import numpy as np
 
+from .period import PERIOD_FROM
 from .quant.briefs import HUMAN_DIR, Section, join, load_human, musd, pct, pts
 from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, MIN_COMPONENTS, NAMES, WINSOR
@@ -321,7 +322,7 @@ def price_block(prices: list[dict], core: list[str]) -> dict:
         if not cands:
             continue
         (_, sid, series), v = cands[0]
-        annual = [{"year": y, "avg": round(sum(p) / len(p), 2), "n_obs": len(p)} for y, p in sorted(v["years"].items()) if y >= 2008]
+        annual = [{"year": y, "avg": round(sum(p) / len(p), 2), "n_obs": len(p)} for y, p in sorted(v["years"].items()) if y >= PERIOD_FROM]
         if not annual:
             continue
         last = annual[-1]
@@ -334,7 +335,7 @@ def price_block(prices: list[dict], core: list[str]) -> dict:
 def policy_attention(policy: list[dict]) -> list[dict]:
     by: dict[int, dict] = {}
     for p in policy:
-        if p.get("jurisdiction") != "US" or p.get("year") is None or int(p["year"]) < 2008:
+        if p.get("jurisdiction") != "US" or p.get("year") is None or int(p["year"]) < PERIOD_FROM:
             continue
         b = by.setdefault(int(p["year"]), {"year": int(p["year"]), "n": 0, "by_source": {}})
         b["n"] += 1
@@ -787,7 +788,7 @@ def build_insights(*, flows: dict, idx_rows: list[dict], comp_rows: list[dict], 
     docs = {p["year"]: p for p in policy_attention(policy)}
     years = sorted(set(docs) | {a["year"] for a in tm["by_year"]})
     attention = [{"year": y, "policy_docs": docs.get(y, {}).get("n", 0), "policy_by_source": docs.get(y, {}).get("by_source", {}),
-                  **{k: v for k, v in next((a for a in tm["by_year"] if a["year"] == y), {"statements": 0, "us_statements": 0, "dfc_musd": None, "cn_musd": None}).items() if k != "year"}} for y in years if y >= 2008]
+                  **{k: v for k, v in next((a for a in tm["by_year"] if a["year"] == y), {"statements": 0, "us_statements": 0, "dfc_musd": None, "cn_musd": None}).items() if k != "year"}} for y in years if y >= PERIOD_FROM]
     region = {"talk_vs_money": tm, "hedgers": [{"iso3": c["iso3"], **{k: v for k, v in h.items() if k not in ("id", "kind")}} for c in countries for h in [_contrast(c, "hedging")] if h],
               "event_echoes": event_echoes(effect_rows), "event_titles": {r["event_id"]: r.get("event_title") for r in effect_rows if r.get("event_id")},
               "regressions": regression_block(reg_rows, gov), "prices": price_series, "attention": attention,

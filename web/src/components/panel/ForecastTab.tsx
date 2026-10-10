@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Callout, SectionHeader } from "@/components/ui/Section";
-import { ACTOR_COLOR, ACTOR_LABEL } from "@/lib/constants";
+import { ACTOR_COLOR, ACTOR_LABEL, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { fmtPct } from "@/lib/format";
 import type { CountryData, ForecastModelStatus, ForecastRow, IndexRow } from "@/lib/types";
 
@@ -19,11 +19,11 @@ function statusLine(st: ForecastModelStatus | undefined): string {
 }
 
 function chartOptions(baseline: ForecastRow[], scenarios: ForecastRow[], hist: Hist[], yLabel: string, domain: [number, number], fmt: (v: number) => string) {
-  const lastYear = baseline[0]?.last_observed_year ?? 2026;
+  const lastYear = baseline[0]?.last_observed_year ?? YEAR_MAX;
   return {
     height: 300,
     marginLeft: 44,
-    x: { label: null, tickFormat: (d: number) => String(d), domain: [2008, 2030] },
+    x: { label: null, tickFormat: (d: number) => String(d), domain: [YEAR_MIN, 2030] },
     y: { label: yLabel, domain, grid: true, tickFormat: fmt },
     color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => actorName(d) },
     marks: [
@@ -40,7 +40,7 @@ function chartOptions(baseline: ForecastRow[], scenarios: ForecastRow[], hist: H
 
 export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: CountryData; indexRows: IndexRow[]; indexLayer?: "real" | "sample" | "none" }) {
   const real = data.layers?.forecast === "real";
-  const history = useMemo<Hist[]>(() => indexRows.filter((r) => r.year <= 2026).map((r) => ({ year: r.year, actor: r.actor, value: r.value })), [indexRows]);
+  const history = useMemo<Hist[]>(() => indexRows.filter((r) => r.year <= YEAR_MAX).map((r) => ({ year: r.year, actor: r.actor, value: r.value })), [indexRows]);
   const all = data.forecast.series;
   const baseline = useMemo(() => all.filter((r) => (r.scenario_id ?? "baseline") === "baseline"), [all]);
   const [hidden, setHidden] = useState<Set<string>>(new Set());

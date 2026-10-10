@@ -1,4 +1,4 @@
-# US–China Competition for Critical Minerals in South America (2008–2026)
+# US–China Competition for Critical Minerals in South America (2000–2026)
 
 A public research platform that tracks, analyses and forecasts the competition between
 the United States and China for critical minerals in the twelve sovereign states of

@@ -30,3 +30,4 @@ Before a push: `npm run lint && npm run typecheck && npm test && npm run build`,
 - Motion carries information and is off under `prefers-reduced-motion` (`src/lib/motion.ts`).
 - Text is sentence case, including buttons; numbers are tabular; headings are the serif at the base-layer sizes unless a page says otherwise.
 - The story's numbers come from the same files as the pages it links to; `story.json` carries only what no other file has (the quoted records that live in country files and the per-mineral share series). A reader's guess on a "guess first" slider stays in their browser.
+- The year range comes from `public/data/real/period.json` (`YEAR_MIN`, `YEAR_MAX`, `PERIOD_FROM` in `lib/constants.ts`), written by the pipeline's export; no component hard-codes the first or last year.

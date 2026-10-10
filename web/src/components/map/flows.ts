@@ -1,11 +1,11 @@
 import type { Feature, FeatureCollection, LineString } from "geojson";
-import { ACTOR_LABEL } from "@/lib/constants";
+import { ACTOR_LABEL, YEAR_MIN } from "@/lib/constants";
 import type { FlowsFile } from "@/lib/types";
 
 export type FlowView = "index" | "money" | "trade";
 export type FlowSpan = "1" | "3" | "all";
 export type Actor = "US" | "CN";
-export const FIRST_FLOW_YEAR = 2008;
+export const FIRST_FLOW_YEAR = YEAR_MIN;
 
 /** One arc's worth of data: a country and an actor over the selected window. */
 export interface FlowAgg {

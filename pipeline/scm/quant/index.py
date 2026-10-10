@@ -11,6 +11,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from ..period import PERIOD_FROM
 from ..registry import IN_SCOPE
 from .concentration import wide
 from .inputs import Inputs
@@ -22,7 +23,7 @@ WINSOR = (2.5, 97.5)
 DIRICHLET_ALPHA = 10.0  # concentration of the weight draws around equal weights
 RANK_SHARE = 0.5  # share of draws that use percentile-rank normalisation instead of min–max
 MIN_RANKED = 6  # countries needed in a year to measure rank stability
-FIRST_YEAR = 2008
+FIRST_YEAR = PERIOD_FROM
 
 # name, group, definition, registry source ids
 COMPONENTS: list[tuple[str, str, str, list[str]]] = [

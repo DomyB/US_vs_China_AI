@@ -7,6 +7,7 @@ import json
 import pandas as pd
 
 from ..http import Snapshot
+from ..period import PERIOD_FROM
 from .base import Adapter
 from .ckan import iso_date, year_of
 from .docs import DOCUMENT_COLUMNS, make_document
@@ -15,7 +16,7 @@ from .keywords import is_relevant, relevance
 SOCRATA = "https://www.datos.gov.co/resource/kcxp-nxum.json"
 PAGE = 5000
 MAX_PAGES = 20
-FIRST_YEAR = 2008
+FIRST_YEAR = PERIOD_FROM
 
 
 def _pick(d: dict, *words: str) -> str:

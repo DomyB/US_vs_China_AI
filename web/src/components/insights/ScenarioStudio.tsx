@@ -4,7 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { Segmented } from "@/components/ui/Segmented";
-import { ACTOR_LABEL, COUNTRY_NAMES } from "@/lib/constants";
+import { ACTOR_LABEL, COUNTRY_NAMES, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { fmtMusd, fmtPct } from "@/lib/format";
 import { atYear, blendPath, echoPath, financeRaw, recomputeIndex, tradeWhatIf, yearlyAverage, type Levers } from "@/lib/scenario";
 import type { Actor, EventEcho, IndexRow, InsightCountry, InsightRegion } from "@/lib/types";
@@ -24,7 +24,7 @@ function fanOptions(hist: { year: number; actor: Actor; value: number }[], paths
     height: 320,
     marginLeft: 46,
     marginTop: 30,
-    x: { label: null, tickFormat: (d: number) => String(d), domain: [2008, horizon] },
+    x: { label: null, tickFormat: (d: number) => String(d), domain: [YEAR_MIN, horizon] },
     y: { label: yLabel, domain, grid: true, tickFormat: fmt },
     color: { domain: ["US", "CN"], range: [COLORS.US, COLORS.CN], legend: true, tickFormat: (d: string) => actorName(d as Actor) },
     marks: [
@@ -53,7 +53,7 @@ export function ScenarioStudio({ country, region, indexRows, levers, onChange, h
   }, [echoes]);
   const echoFor = (actor: Actor) => (levers.shock ? echoes.find((e) => e.family === levers.shock && e.actor === actor) ?? null : null);
   const shareHist = useMemo(() => country.trade_series.flatMap((r) => [{ year: r.year, actor: "US" as Actor, value: r.share_us }, { year: r.year, actor: "CN" as Actor, value: r.share_cn }]), [country]);
-  const indexHist = useMemo(() => indexRows.filter((r) => r.iso3 === country.iso3 && r.mineral === "all" && r.year <= 2026).map((r) => ({ year: r.year, actor: r.actor as Actor, value: r.value })), [indexRows, country.iso3]);
+  const indexHist = useMemo(() => indexRows.filter((r) => r.iso3 === country.iso3 && r.mineral === "all" && r.year <= YEAR_MAX).map((r) => ({ year: r.year, actor: r.actor as Actor, value: r.value })), [indexRows, country.iso3]);
   const sharePaths = useMemo(() => ({ US: blendPath(country.forecast?.paths.export_share?.US, levers.pull), CN: blendPath(country.forecast?.paths.export_share?.CN, levers.pull) }), [country, levers.pull]);
   const indexPaths = useMemo(() => ({ US: blendPath(country.forecast?.paths.influence_index?.US, levers.pull), CN: blendPath(country.forecast?.paths.influence_index?.CN, levers.pull) }), [country, levers.pull]);
   const shareEcho = useMemo(() => ({ US: echoPath(sharePaths.US, echoFor("US"), levers.shockYear), CN: echoPath(sharePaths.CN, echoFor("CN"), levers.shockYear) }), [sharePaths, levers.shock, levers.shockYear]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -106,7 +106,7 @@ export function ScenarioStudio({ country, region, indexRows, levers, onChange, h
               {families.map((f) => <option key={f.family} value={f.family}>{f.label} (n {f.n})</option>)}
             </select>
             <select className="input w-20 shrink-0 text-xs" value={levers.shockYear} onChange={(e) => onChange({ shockYear: Number(e.target.value) })} aria-label="Year of the shock" disabled={!levers.shock}>
-              {[2026, 2027, 2028, 2029].map((y) => <option key={y} value={y}>{y}</option>)}
+              {[YEAR_MAX, YEAR_MAX + 1, YEAR_MAX + 2, YEAR_MAX + 3].map((y) => <option key={y} value={y}>{y}</option>)}
             </select>
           </div>
         </Lever>

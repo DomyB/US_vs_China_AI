@@ -7,6 +7,7 @@ import pandas as pd
 
 from ..http import Snapshot
 from ..paths import REPO_ROOT
+from ..period import PERIOD_FROM
 from .base import Adapter, fetch_manual
 from .ckan import iso_date, organization_list, package_search, pick_resources, read_table, year_of
 from .docs import DOCUMENT_COLUMNS, make_document
@@ -14,7 +15,7 @@ from .keywords import is_relevant, relevance
 from .util import col
 
 BASE = "https://catalogodatos.gub.uy"
-FIRST_YEAR = 2008
+FIRST_YEAR = PERIOD_FROM
 MANUAL_FILES = ["data/manual/ury_asuntos.csv", "data/manual/ury_asuntos.json"]  # open data; redistributable
 ORG_WORDS = ("parlamento", "legislativo", "legislatura", "camara de representantes", "cámara de representantes", "senado")
 
