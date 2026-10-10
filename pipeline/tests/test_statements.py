@@ -80,3 +80,6 @@ def test_export_statements_block(tmp_path):
     assert region["countries"]["PER"] == 3 and region["countries"]["BRA"] == 0
     meta = json.loads((site / "meta.json").read_text())
     assert meta["layers"]["statements"] == "real" and meta["coverage"]["PER"]["statements"] == 3 and meta["coverage"]["BRA"]["statements"] == 0
+    story = json.loads((site / "story.json").read_text())
+    assert story["dataset"] == "REAL" and isinstance(story["quotes"], dict) and set(story["series"]) >= {"CHL", "ARG"}
+    assert all(k.startswith("PS-") for k in story["quotes"]) and all(isinstance(v, list) for s in story["series"].values() for v in s.values())

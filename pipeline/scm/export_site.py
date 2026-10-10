@@ -276,6 +276,37 @@ def _quant_file(status: dict, idx_rows: list[dict], comp_rows: list[dict], sd_ro
     }
 
 
+# The statement records and per-mineral share series the story page (web/src/components/story) reads directly, so the
+# home page never loads a country file: the opening sentence and the quote strips by record id, and the lithium, copper,
+# gold and silver destination shares for the two ledger chapters. Every value is the same row the country files carry.
+STORY_QUOTE_IDS = ("PS-0283", "PS-0125", "PS-0290", "PS-0101", "PS-0354", "PS-0363", "PS-0298", "PS-0338", "PS-0240", "PS-0118", "PS-0120",
+                   "PS-0032", "PS-0033", "PS-0046", "PS-0059", "PS-0062", "PS-0065", "PS-0066", "PS-0067", "PS-0069", "PS-0099", "PS-0106", "PS-0129", "PS-0175",
+                   "PS-0192", "PS-0227", "PS-0243", "PS-0263", "PS-0267", "PS-0292", "PS-0296", "PS-0347", "PS-0389")
+STORY_SERIES = {"CHL": ("lithium", "copper"), "ARG": ("lithium", "gold", "silver"), "PER": ("copper",), "BRA": ("iron_ore", "rare_earths", "niobium")}
+
+
+def _story_file(stm: list[dict], conc_rows: list[dict], today: str) -> dict:
+    by_id = {r["statement_id"]: r for r in stm}
+    quotes = {sid: _statement_record(by_id[sid]) for sid in STORY_QUOTE_IDS if sid in by_id}
+    series: dict[str, dict[str, list[dict]]] = {}
+    for iso, mins in STORY_SERIES.items():
+        for m in mins:
+            rows: dict[int, dict] = {}
+            for r in conc_rows:
+                if r["country"] != iso or r["mineral"] != m or r["metric"] not in ("share_cn_x", "share_us_x", "exports_wld_usd"):
+                    continue
+                d = rows.setdefault(int(r["year"]), {"year": int(r["year"])})
+                if r["metric"] == "exports_wld_usd":
+                    d["exports_wld_musd"] = round(float(r["value"]) / 1e6, 3) if r["value"] is not None else None
+                else:
+                    d[r["metric"]] = r["value"]
+            series.setdefault(iso, {})[m] = [rows[y] for y in sorted(rows)]
+    return {"dataset": "REAL", "generated_on": today,
+            "note": "Records and series copied from the country files for the story page: quotes by statement id (the dataset's own coding, not validated); "
+                    "destination shares of a country's exports of one mineral (UN Comtrade, reported), share_cn_x and share_us_x of exports_wld_musd.",
+            "quotes": quotes, "series": series}
+
+
 def _src(sid: str, record_url: str | None = None) -> dict:
     s = sources()[sid]
     return {"id": sid, "name": s.name, "url": record_url or s.url, "registry_url": s.url, "reliability": s.reliability, "sample": False}
@@ -720,6 +751,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                       "by_bloc_all": _statements_block(kept, None)["by_bloc"],
                       "countries": {iso: sum(1 for r in kept if r["country"] == iso) for iso in IN_SCOPE}, "excluded": excluded}
     (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade"), "interpretation": regional_interp, "statements": region_stm}, ensure_ascii=False), encoding="utf-8")
+    (out / "story.json").write_text(json.dumps(_story_file(stm, conc_rows, today), ensure_ascii=False, default=str), encoding="utf-8")
     influence = [{"iso3": r["country"], "year": int(r["year"]), "actor": r["actor"], "mineral": r["mineral"], "value": r["value"], "lower": r["lower"], "upper": r["upper"], "n_components": int(r["n_components"])}
                  for r in idx_rows if r["index_name"] == "influence" and r["value"] is not None]
     (out / "index.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "layer": "real" if influence else "none",
