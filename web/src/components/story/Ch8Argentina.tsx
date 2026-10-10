@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { PlotFigure } from "@/components/charts/PlotFigure";
 import { ACTOR_COLOR } from "@/lib/constants";
-import { fmtMusd, fmtPct } from "@/lib/format";
+import { fmtMusd, fmtShare } from "@/lib/format";
 import type { LedgerSide, TradeReceipt } from "@/lib/story";
 import type { IndexRow, InsightCountry, StatementRecord } from "@/lib/types";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
@@ -143,7 +143,7 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
         </div>
         <div className="card p-4">
           <p className="eyebrow">Ship</p>
-          <p className="mt-1 text-sm text-ink-2">{arg.trade ? `${fmtPct(arg.trade.share_us ?? 0, 1)} of mineral exports to the United States and ${fmtPct(arg.trade.share_cn ?? 0)} to China in ${arg.trade.year} (${fmtMusd(arg.trade.total_musd)} in total)` : "no reported trade"}{lithium && lithium.CN !== null ? `; lithium ${fmtMusd(lithium.CN)} of ${fmtMusd(lithium.total)} to China` : ""}.</p>
+          <p className="mt-1 text-sm text-ink-2">{arg.trade ? `${arg.trade.share_us === null ? "no United States partner row (absent, not zero)" : `${fmtShare(arg.trade.share_us)} of mineral exports to the United States`} and ${arg.trade.share_cn === null ? "no China partner row (absent, not zero)" : `${fmtShare(arg.trade.share_cn)} to China`} in ${arg.trade.year} (${fmtMusd(arg.trade.total_musd)} in total)` : "no reported trade"}{lithium && lithium.CN !== null ? `; lithium ${fmtMusd(lithium.CN)} of ${fmtMusd(lithium.total)} to China` : ""}.</p>
         </div>
       </div>
       <div className="story-grid">
@@ -158,7 +158,7 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
           </StepCard>
           {lithium && lithium.CN !== null && (
             <StepCard>
-              <p><strong>Lithium.</strong> {fmtMusd(lithium.CN)} of {fmtMusd(lithium.total)} of Argentina&apos;s lithium exports went to China in {lithium.year} ({fmtPct(lithium.share_cn ?? 0)}); {lithium.US === null ? "no partner row for the United States (absent, not zero)" : `${fmtMusd(lithium.US)} to the United States`}.</p>
+              <p><strong>Lithium.</strong> {fmtMusd(lithium.CN)} of {fmtMusd(lithium.total)} of Argentina&apos;s lithium exports went to China in {lithium.year} ({fmtShare(lithium.share_cn)}); {lithium.US === null ? "no partner row for the United States (absent, not zero)" : `${fmtMusd(lithium.US)} to the United States`}.</p>
             </StepCard>
           )}
           {gold && (

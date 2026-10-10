@@ -153,6 +153,16 @@ def _total(e: dict) -> float:
     return (e.get("US") or 0.0) + (e.get("CN") or 0.0) + (e.get("ROW") or 0.0)
 
 
+def _share(e: dict, actor: str, total: float) -> float | None:
+    """The actor's share of a flows.json export cell; None when the partner cell is null (no partner row: absent, never zero)."""
+    v = e.get(actor)
+    return None if v is None or total <= 0 else _r(float(v) / total, 4)
+
+
+def _partners_absent(e: dict) -> list[str]:
+    return [a for a in ("CN", "US") if e.get(a) is None]
+
+
 def minerals_latest(trade_raw: list[dict], iso: str, year: int) -> list[dict]:
     """Every mineral the country reported exporting in the year (reported rows, world total present), largest first."""
     agg: dict[str, dict] = {}
@@ -186,11 +196,13 @@ def trade_latest(trade_rows: list[dict], iso: str, trade_raw: list[dict] | None 
     minerals = minerals_latest(trade_raw, iso, year) if trade_raw else sorted(
         ({"mineral": r["mineral"], "exports_musd": r["exports_musd"], "total_musd": _r(_total(r["exports_musd"]), 3)} for r in rows if r["year"] == year and r["mineral"] != "all"),
         key=lambda m: -(m["total_musd"] or 0))
-    return {"year": year, "exports_musd": allrow["exports_musd"], "total_musd": _r(t, 3), "share_cn": _r((allrow["exports_musd"].get("CN") or 0.0) / t, 4),
-            "share_us": _r((allrow["exports_musd"].get("US") or 0.0) / t, 4), "minerals": minerals, "source_id": allrow.get("source_id")}
+    e = allrow["exports_musd"]
+    return {"year": year, "exports_musd": e, "total_musd": _r(t, 3), "share_cn": _share(e, "CN", t), "share_us": _share(e, "US", t),
+            "partners_absent": _partners_absent(e), "minerals": minerals, "source_id": allrow.get("source_id")}
 
 
 def trade_series(trade_rows: list[dict], iso: str) -> list[dict]:
+    """Per reported year: the two shares (null where the partner row is absent, never 0) and the total."""
     out = []
     for r in sorted(trade_rows, key=lambda r: r["year"]):
         if r["iso3"] != iso or r["mineral"] != "all" or r["exports_musd"].get("ROW") is None:
@@ -199,7 +211,7 @@ def trade_series(trade_rows: list[dict], iso: str) -> list[dict]:
         if t <= 0:
             continue
         e = r["exports_musd"]
-        out.append({"year": r["year"], "share_cn": _r((e.get("CN") or 0.0) / t, 4), "share_us": _r((e.get("US") or 0.0) / t, 4), "total_musd": _r(t, 1)})
+        out.append({"year": r["year"], "share_cn": _share(e, "CN", t), "share_us": _share(e, "US", t), "total_musd": _r(t, 1)})
     return out
 
 
@@ -405,8 +417,8 @@ def country_contrasts(c: dict) -> list[dict]:
                             "inputs": [f"statement:stance_{actor.lower()}:{iso}:{p['years'][0]}-{p['years'][1]}", f"flow_trade:share_{actor.lower()}:{iso}:{t['year']}"],
                             "caveat": "the stance is the dataset's own coding (not validated) pooled over the latest statement years; the share is the latest reported trade year"})
         e = t["exports_musd"]
-        cn, us = e.get("CN") or 0.0, e.get("US") or 0.0
-        if cn > 0 or us > 0:
+        cn, us = e.get("CN"), e.get("US")
+        if cn is not None and us is not None and (cn > 0 or us > 0):  # an absent partner cell is no input for the arithmetic
             gap = (cn - us) / 2 if cn > us else 0.0
             top = max(t["minerals"], key=lambda m: m["exports_musd"].get("CN") or 0.0) if t["minerals"] else None
             out.append({"id": "parity_gap", "kind": "parity_gap", "year": t["year"], "musd": round(gap, 1), "cn_musd": round(cn, 1), "us_musd": round(us, 1),
@@ -489,9 +501,36 @@ def country_contrasts(c: dict) -> list[dict]:
                     "n_docs": latest["n_docs"], "inputs": [f"say_do_gap:{latest['actor']}:{iso}:{latest['year']}"], "caveat": "legislative rhetoric from the zero-shot model against the index; the gap is the project's own measure"})
     fl = c["flags"]
     if fl["n"]:
-        out.append({"id": "finance_without_trade_response", "kind": "flags", "n": fl["n"], "flags": fl["items"], "inputs": [f"anomaly_flag:{x['id']}" for x in fl["items"]],
-                    "caveat": "the flag rule is the project's own: a commitment above 0.5% of GDP followed by no change in the share of exports to the lender"})
+        out.append({"id": "finance_without_trade_response", "kind": "flags", "n": fl["n"], "flags": fl["items"], "n_share_absent": fl["share_absent"]["n"],
+                    "inputs": [f"anomaly_flag:{x['id']}" for x in fl["items"]],
+                    "caveat": "the flag rule is the project's own: a commitment above 0.5% of GDP followed by no change in the share of exports to the lender; "
+                              "rule hits where that share has no partner row before or after are listed apart and not counted"})
     return out
+
+
+FLAG_RULE = "finance_without_trade_response"
+SHARE_ABSENT_NOTE = ("rule hits where the lender's share of exports has no partner row in the year before or two years after the commitment "
+                     "(absent, not zero): listed here, not counted")
+
+
+def flag_block(flag_rows: list[dict], iso: str, series: list[dict]) -> dict:
+    """The country's finance-without-trade-response flags, split into those whose before/after shares are reported (counted) and
+    those resting on an absent partner cell (listed apart with the years that lack a row, never counted)."""
+    by_year = {s["year"]: s for s in series}
+    kept, absent = [], []
+    for r in flag_rows:
+        if r["country"] != iso or r["type"] != FLAG_RULE:
+            continue
+        item = {"id": r["flag_id"], "year": int(r["year"]), "actor": r["actor"], "evidence_level": r["evidence_level"], "score": _num(r["score"]), "description": r["description"]}
+        key = f"share_{str(r['actor']).lower()}"
+        missing = [y for y in (item["year"] - 1, item["year"] + 2) if by_year.get(y, {}).get(key) is None]
+        if missing:
+            absent.append({**item, "share_absent_years": missing})
+        else:
+            kept.append(item)
+    kept.sort(key=lambda r: -(r["score"] or 0))
+    absent.sort(key=lambda r: -(r["score"] or 0))
+    return {"n": len(kept), "items": kept, "share_absent": {"n": len(absent), "items": absent, "note": SHARE_ABSENT_NOTE}}
 
 
 def build_country(iso: str, *, stm: list[dict], trade_rows: list[dict], flow_finance: list[dict], comp_rows: list[dict], idx_rows: list[dict], fc_rows: list[dict],
@@ -504,8 +543,8 @@ def build_country(iso: str, *, stm: list[dict], trade_rows: list[dict], flow_fin
     cn_rows = [r for r in rows if r["speaker_bloc"] == BLOC_CN]
     gdp_rows = [g for g in gov if g.get("country") == iso and g.get("indicator") == "NY.GDP.MKTP.CD" and _num(g.get("value")) is not None]
     gdp = max(gdp_rows, key=lambda g: int(g["year"])) if gdp_rows else None
-    flags = [r for r in flag_rows if r["country"] == iso and r["type"] == "finance_without_trade_response"]
-    c = {"iso3": iso, "name": COUNTRIES[iso], "trade": trade_latest(trade_rows, iso, trade_raw), "trade_series": trade_series(trade_rows, iso), "finance": finance_summary(flow_finance, iso),
+    series = trade_series(trade_rows, iso)
+    c = {"iso3": iso, "name": COUNTRIES[iso], "trade": trade_latest(trade_rows, iso, trade_raw), "trade_series": series, "finance": finance_summary(flow_finance, iso),
          "gdp_latest": {"year": int(gdp["year"]), "usd": float(gdp["value"]), "source_id": gdp.get("source_id")} if gdp else None,
          "components_latest": components_latest(comp_rows, idx_rows, iso), "forecast": forecast_paths(fc_rows, iso),
          "words": {"n_statements": len(rows), "n_executive": len(exec_rows), "executive": statement_series(exec_rows),
@@ -516,8 +555,7 @@ def build_country(iso: str, *, stm: list[dict], trade_rows: list[dict], flow_fin
                    "parliament": stance_by_iso.get(iso, []), "media": volume_by_iso.get(iso, []), "minerals_talked": mineral_mentions(exec_rows + leg_rows, known_minerals)},
          "say_do": [{"year": int(r["year"]), "actor": r["actor"], "rhetoric": _num(r["rhetoric"]), "action": _num(r["action"]), "gap": _num(r["gap"]), "n_docs": int(r["n_docs"])}
                     for r in sd_rows if r["country"] == iso],
-         "flags": {"n": len(flags), "items": [{"id": r["flag_id"], "year": int(r["year"]), "actor": r["actor"], "evidence_level": r["evidence_level"], "score": _num(r["score"]), "description": r["description"]}
-                                              for r in sorted(flags, key=lambda r: -(_num(r["score"]) or 0))]},
+         "flags": flag_block(flag_rows, iso, series),
          "_prices": prices}
     c["contrasts"] = country_contrasts(c)
     del c["_prices"]
@@ -585,7 +623,12 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
                 parts.append(f"{x['stance']:+.2f} toward {ACTOR[x['actor']]} over {x['n']} coded statements of {x['years'][0]}–{x['years'][1]}")
                 ids += x["inputs"]
         t = c["trade"]
-        s.add(f"{c['name']}'s executives score {join(parts)}; in {t['year']} {pct(t['share_us'])} of the country's mineral exports went to the United States and {pct(t['share_cn'])} to China.", ids)
+        if t["share_us"] is not None and t["share_cn"] is not None:
+            shares = f"{pct(t['share_us'])} of the country's mineral exports went to the United States and {pct(t['share_cn'])} to China"
+        else:  # one partner row is absent: said as absent, never printed as 0%
+            went = [f"{pct(t[f'share_{a.lower()}'])} went to {ACTOR[a]}" if t[f"share_{a.lower()}"] is not None else f"the share going to {ACTOR[a]} has no partner row (absent, not zero)" for a in ("US", "CN")]
+            shares = f"of the country's mineral exports, {went[0]} and {went[1]}"
+        s.add(f"{c['name']}'s executives score {join(parts)}; in {t['year']} {shares}.", ids)
         n = min(x["n"] for x in (wu, wc) if x)
         capital = {"US": "Washington", "CN": "Beijing"}
         label = "; ".join(f"{x['label'].split(' words')[0]} to {capital[x['actor']]}, {pct(x['share'])} of exports" for x in (wu, wc) if x)
@@ -657,6 +700,10 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
         names = join([c["name"] for c, _ in flagged])
         s.add(f"{n} commitments across {names} were flagged as finance without a trade response: the share of exports to the lender did not move in the two years after. "
               f"The largest relative to GDP: {join(largest)}.", [i for _, x in flagged for i in x["inputs"]])
+        set_aside = [(c, f) for c in countries for f in c["flags"]["share_absent"]["items"]]
+        if set_aside:
+            s.add(f"{len(set_aside)} further rule hits ({join(sorted({c['name'] for c, _ in set_aside}))}) rest on a year with no partner row for the lender (absent, not zero) and are not counted.",
+                  [f"anomaly_flag:{f['id']}" for _, f in set_aside])
         out.append(_finding("money_without_trade", "Money that did not move the minerals", f"{n} large commitments were followed by no shift in the minerals' destination", s, "moderate",
                             "documented commitments and reported trade; the flag rule (above 0.5% of GDP, no share change within two years) is the project's own",
                             "Most of this money went to rail, power and budgets rather than mines; a loan can buy influence without changing where ore is sold.", [c["iso3"] for c, _ in flagged]))
@@ -758,11 +805,21 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
     s = Section("cannot_see", "What this page cannot see")
     with_stm = [c["name"] for c in countries if c["words"]["n_statements"]]
     without = [c["name"] for c in countries if not c["words"]["n_statements"]]
-    n_latest = sum(a["statements"] for a in tm["by_year"] if a["year"] == max((a["year"] for a in tm["by_year"]), default=0))
-    y_latest = max((a["year"] for a in tm["by_year"]), default=None)
+    y_latest = max((a["year"] for a in tm["by_year"] if a["statements"]), default=None)
+    latest = next((a for a in tm["by_year"] if a["year"] == y_latest), None)
+    n_latest = latest["statements"] if latest else 0
+    # which records reach the latest statement year: a null money cell is a year beyond that source's coverage
+    trade_last = max((s["year"] for c in countries for s in c["trade_series"]), default=None)
+    reach = (["reported trade"] if trade_last is not None and y_latest is not None and trade_last >= y_latest else [])
+    if latest and latest["cn_musd"] is not None:
+        reach.append("the Chinese finance record")
+    if latest and latest["dfc_musd"] is not None:
+        reach.append(f"the US finance record ({musd(float(latest['dfc_musd']) * 1e6) + ' of DFC and EXIM authorisations' if latest['dfc_musd'] else 'no commitment recorded'} that year)")
+    against = (f"only {join(reach)} {'reaches' if len(reach) == 1 else 'reach'} that year" if 0 < len(reach) < 3 else "reported trade and both finance records reach that year" if reach
+               else "no reported trade or finance reaches that year")
     s.add(f"Coded statements exist for {join(with_stm) if with_stm else 'no country'}" + (f" and for none of {join(without)}" if without else "") +
-          (f"; {n_latest} of the {tm['n_statements']} statements are from {y_latest}, a year with no reported trade or finance to set them against." if y_latest else "."),
-          ["statement:count:by_country", "statement:count:by_year"])
+          (f"; {n_latest} of the {tm['n_statements']} statements are from {y_latest}; {against}." if y_latest else "."),
+          ["statement:count:by_country", "statement:count:by_year", "quant_run:last_year"])
     statuses = [w["status"] for e in region["event_echoes"] for w in e["windows"]]
     n_draft = sum(1 for st in statuses if st != "reviewed")
     events_part = ("the dated events are all in draft" if statuses and n_draft == len(statuses) else f"{n_draft} of the event windows come from draft events" if n_draft else "the dated events are reviewed") if statuses else "no event study has been computed"

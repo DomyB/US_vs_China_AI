@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from .concentration import wide
+from .concentration import NOTE_ABSENT, wide
 
 SHIFT_POINTS = 0.20  # change in an export share, in share units, that counts as sudden
 MIN_WLD_USD = 1e8  # exports in both years must reach this for a share change to be flagged
@@ -38,6 +38,11 @@ def anomalies(conc: pd.DataFrame, finance: pd.DataFrame, gdp: pd.DataFrame, debt
                      "evidence_level": level, "description": text, "evidence_source_ids": ",".join(dict.fromkeys(sources)), "score": score})
 
     ex = wide(conc, "x")
+    # a partner cell with no row is 0 in `ex` (NOTE_ABSENT, kept so for the index); rule 4 never reads such a cell as an unmoved 0%
+    absent: set[tuple] = set()
+    if not conc.empty and "note" in conc.columns:
+        for r in conc[conc["note"] == NOTE_ABSENT].itertuples(index=False):
+            absent.add((r.country, r.mineral, int(r.year), r.metric))
     gdp_l = dict(zip(map(tuple, gdp[["country", "year"]].itertuples(index=False, name=None)), gdp["value"], strict=True)) if not gdp.empty else {}
 
     # 1. sudden shifts in an export share (documented: the movement is in the reporter's own customs data)
@@ -86,6 +91,8 @@ def anomalies(conc: pd.DataFrame, finance: pd.DataFrame, gdp: pd.DataFrame, debt
                 if not gd or total / gd < COMMIT_GDP_FOLLOW:
                     continue
                 col = f"share_{actor.lower()}"
+                if any((iso, "all", y, f"{col}_x") in absent for y in (int(year) - 1, int(year) + 2)):
+                    continue  # no partner row before or after the commitment: absent, not a share that did not move
                 before, after = all_ex[col].get((iso, int(year) - 1)), all_ex[col].get((iso, int(year) + 2))
                 if before is None or after is None or pd.isna(before) or pd.isna(after):
                     continue

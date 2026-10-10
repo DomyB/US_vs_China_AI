@@ -8,6 +8,9 @@ import { sourceNameMap } from "@/lib/sources";
 export function generateStaticParams() {
   return IN_SCOPE.map((iso3) => ({ iso3 }));
 }
+// an id outside IN_SCOPE is a 404 before anything streams: with the segment's loading shell already sent, notFound() alone
+// renders the not-found page under a 200 that then sits in the cache
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ iso3: string }> }) {
   const { iso3 } = await params;

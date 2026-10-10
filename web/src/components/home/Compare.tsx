@@ -108,8 +108,8 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
           us: us === null ? "—" : us.toFixed(0),
           cn: cn === null ? "—" : cn.toFixed(0),
           net: us === null || cn === null ? "—" : fmtSigned(cn - us, 0),
-          share_cn: tot && t ? fmtPct((t.exports_musd.CN ?? 0) / tot, 1) : "—",
-          share_us: tot && t ? fmtPct((t.exports_musd.US ?? 0) / tot, 1) : "—",
+          share_cn: tot && t && t.exports_musd.CN !== null ? fmtPct(t.exports_musd.CN / tot, 1) : "—",
+          share_us: tot && t && t.exports_musd.US !== null ? fmtPct(t.exports_musd.US / tot, 1) : "—",
           fin_cn: fmtAmount(fin("CN")),
           fin_us: fmtAmount(fin("US")),
           records: cov ? `${cov.events} events · ${cov.parliament_documents} records · ${cov.media_articles} headlines` : "sample",
@@ -175,7 +175,7 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
             </tbody>
           </table>
         </div>
-        <p className="mt-1 text-[11px] text-ink-3">Index values are model outputs; shares and finance totals are facts from UN Comtrade, AidData and DFC (documented commitments since 2008). A dash means no value, not zero.</p>
+        <p className="mt-1 text-[11px] text-ink-3">Index values are model outputs; shares and finance totals are facts from UN Comtrade, AidData and the DFC and EXIM (documented commitments since {YEAR_MIN}). A dash means no value, not zero.</p>
       </section>
     </div>
   );

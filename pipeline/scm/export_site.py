@@ -22,6 +22,7 @@ import pandas as pd
 from .insights import build_insights
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
 from .period import data_from, period
+from .quant.concentration import NOTE_ABSENT
 from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
 from .quant.inputs import SWAP_RE
@@ -204,7 +205,7 @@ def _analysis_block(iso: str, idx_rows: list[dict], comp_rows: list[dict], sd_ro
             c["hhi_export_dest"] = r["value"]
             c["hhi_note"] = r["note"]
         else:
-            c[m] = r["value"]
+            c[m] = None if r["note"] == NOTE_ABSENT else r["value"]  # no partner row: null on the site, never 0
     concentration = [conc_by[k] for k in sorted(conc_by)]
     edges = [e for e in edge_rows if e["country"] == iso]
     node_ids = {e["source_node"] for e in edges} | {e["target_node"] for e in edges}
@@ -300,7 +301,7 @@ def _story_file(stm: list[dict], conc_rows: list[dict], today: str) -> dict:
                 if r["metric"] == "exports_wld_usd":
                     d["exports_wld_musd"] = round(float(r["value"]) / 1e6, 3) if r["value"] is not None else None
                 else:
-                    d[r["metric"]] = r["value"]
+                    d[r["metric"]] = None if r["note"] == NOTE_ABSENT else r["value"]  # no partner row: null, never 0
             series.setdefault(iso, {})[m] = [rows[y] for y in sorted(rows)]
     return {"dataset": "REAL", "generated_on": today,
             "note": "Records and series copied from the country files for the story page: quotes by statement id (the dataset's own coding, not validated); "

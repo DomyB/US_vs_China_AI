@@ -332,7 +332,7 @@
   [role="tabpanel"] tbody tr:hover, .region-card tbody tr:hover { background: var(--surface-2); }
 
   /* horizontal scroll areas */
-  .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scroll-x { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; } /* positioned, so absolutely placed descendants (sr-only text in a wide table) are clipped here and cannot widen the page */
   .scroll-x::-webkit-scrollbar { height: 6px; }
   .scroll-x::-webkit-scrollbar-thumb { background: var(--rule-2); border-radius: 3px; }
 
@@ -358,7 +358,6 @@
      one to its token so the same figure reads in both colour schemes, including
      tooltips and legend swatches that Plot creates after the first render. */
   .plot-figure svg { font-family: var(--font-sans); }
-  .plot-figure svg { --plot-background: var(--card); }
   .plot-figure svg [aria-label="y-grid"] line, .plot-figure svg [aria-label="x-grid"] line { stroke: var(--rule-2); stroke-opacity: 0.7; }
   .plot-figure svg [aria-label="y-axis tick label"], .plot-figure svg [aria-label="x-axis tick label"] { fill: var(--ink-3); }
   .plot-figure svg [aria-label="y-axis label"], .plot-figure svg [aria-label="x-axis label"] { fill: var(--ink-2); }
@@ -545,6 +544,13 @@
 .map-page .maplibregl-canvas:focus { outline: none; }
 .maplibregl-map .maplibregl-cooperative-gesture-screen { font-family: var(--font-sans); font-size: 14px; }
 
+/* ---- Observable Plot tooltips: Plot writes an unlayered `:where(.plot-…) { --plot-background: white }` into every figure and
+   draws the tip box with it; an unlayered rule beats a layered one whatever its specificity, so this theming stays unlayered.
+   The tokens give the card and the ink of either scheme (a white box with light text in dark mode otherwise). ---- */
+.plot-figure svg { --plot-background: var(--card); }
+.plot-figure svg [aria-label="tip"] path { fill: var(--card); stroke: var(--outline); }
+.plot-figure svg [aria-label="tip"] text { fill: var(--ink); }
+
 /* ---- device blocks: unlayered on purpose so they beat utility classes (reduced motion last of all) ---- */
 /* touch screens: the controls people tap most get 40px targets; pointer sizes on desktop are unchanged */
 @media (pointer: coarse) {
@@ -566,7 +572,7 @@
 @layer components {
   .ink-stage { background: var(--stage); color: var(--stage-ink); }
   .ink-stage ::selection { background: color-mix(in srgb, var(--stage-ink) 30%, transparent); }
-  .story-grid { display: grid; gap: 1.25rem; align-items: start; }
+  .story-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; align-items: start; } /* minmax(0, …) so a scrollable exhibit never widens the column */
   @media (min-width: 1024px) { .story-grid { grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); gap: 1.5rem; } }
   .story-sticky { position: sticky; top: 0.75rem; min-width: 0; }
   @media (max-width: 1023.98px) { .story-sticky { position: static; } }

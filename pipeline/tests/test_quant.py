@@ -111,6 +111,28 @@ def test_index_components_missing_stays_missing_and_swaps_excluded(tmp_path):
     assert stability is None  # fewer than six ranked countries
 
 
+def test_finance_without_trade_response_never_rests_on_an_absent_partner_cell():
+    from scm.quant.anomalies import anomalies
+    from scm.quant.concentration import NOTE_ABSENT
+
+    def rows(iso, year, cn, note):
+        base = {"country": iso, "mineral": "all", "year": year}
+        return [{**base, "metric": "exports_wld_usd", "value": 5.0e8, "note": None}, {**base, "metric": "share_cn_x", "value": cn, "note": note},
+                {**base, "metric": "share_us_x", "value": 0.1, "note": None}]
+
+    # Suriname-like: no China partner row in 2015 or 2018 (0 with the absent note); Guyana-like: a reported 20% in both years
+    conc = pd.DataFrame([*rows("SUR", 2015, 0.0, NOTE_ABSENT), *rows("SUR", 2018, 0.0, NOTE_ABSENT), *rows("GUY", 2016, 0.2, None), *rows("GUY", 2019, 0.2, None)])
+    fin = pd.DataFrame([{"country": "SUR", "origin": "CN", "year": 2016, "actor_from": "China Eximbank", "amount_usd": 2.76e8, "documented": True, "swap": False},
+                        {"country": "GUY", "origin": "CN", "year": 2017, "actor_from": "China Eximbank", "amount_usd": 5.0e7, "documented": True, "swap": False}])
+    gdp = pd.DataFrame([{"country": "SUR", "year": 2016, "value": 3.0e9}, {"country": "GUY", "year": 2017, "value": 4.0e9}])
+    empty = pd.DataFrame()
+    flags = anomalies(conc, fin, gdp, empty, empty, empty, {})
+    kinds = set(zip(flags["country"], flags["type"], strict=True))
+    assert ("SUR", "large_commitment") in kinds and ("SUR", "finance_without_trade_response") not in kinds  # 9% of GDP, but the share has no partner row
+    guy = flags[(flags["country"] == "GUY") & (flags["type"] == "finance_without_trade_response")]
+    assert len(guy) == 1 and "20% in 2016, 20% in 2019" in guy.iloc[0]["description"]
+
+
 def test_run_writes_tables_flags_network_and_export(tmp_path):
     wh = _synthetic_warehouse(tmp_path)
     res = quant_run.run(wh, draws=40, seed=3, release="test-release")

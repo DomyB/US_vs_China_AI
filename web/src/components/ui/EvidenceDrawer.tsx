@@ -18,10 +18,13 @@ import { useSources } from "@/lib/useSources";
 export function EvidenceButton({ provenance, table, compact = false, className = "" }: { provenance: Provenance; table?: ReactNode; compact?: boolean; className?: string }) {
   const [open, setOpen] = useState(false);
   const btn = useRef<HTMLButtonElement>(null);
-  const close = useCallback(() => {
-    setOpen(false);
-    btn.current?.focus();
-  }, []);
+  const wasOpen = useRef(false);
+  // the dialog unmounts on close, so the browser never hands focus back itself: return it to the button that opened it
+  useEffect(() => {
+    if (wasOpen.current && !open) btn.current?.focus();
+    wasOpen.current = open;
+  }, [open]);
+  const close = useCallback(() => setOpen(false), []);
   return (
     <>
       <button

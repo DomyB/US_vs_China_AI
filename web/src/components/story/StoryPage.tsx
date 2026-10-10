@@ -83,7 +83,7 @@ export function StoryPage() {
     const usWindows = arg?.finance;
     const receipts: Receipt[] = [];
     if (argAll && argAll.share_us !== null) receipts.push({ label: "Mineral exports to the United States", window: `${argAll.year}, latest reported year`, value: `${fmtPct(argAll.share_us, 1)} (${fmtMusd(argAll.US)} of ${fmtMusd(argAll.total)})`, source: "UN Comtrade · official", href: "/country/ARG?tab=actions" });
-    if (argLithium && argLithium.CN !== null) receipts.push({ label: "Lithium exports to China", window: String(argLithium.year), value: `${fmtMusd(argLithium.CN)} of ${fmtMusd(argLithium.total)}`, source: "UN Comtrade · official", href: "/explore?view=trade&mineral=lithium&year=2025" });
+    if (argLithium && argLithium.CN !== null) receipts.push({ label: "Lithium exports to China", window: String(argLithium.year), value: `${fmtMusd(argLithium.CN)} of ${fmtMusd(argLithium.total)}`, source: "UN Comtrade · official", href: `/explore?view=trade&mineral=lithium&year=${argLithium.year}` });
     if (usWindows) receipts.push({ label: "Documented US commitments (DFC and EXIM authorisations)", window: `${usWindows.windows.US_after[0]}–${usWindows.windows.US_after[1]}`, value: usWindows.us_2022_24 > 0 ? fmtMusd(usWindows.us_2022_24) : `none on record (${fmtMusd(usWindows.us_2015_21)} in ${usWindows.windows.CN[0]}–${usWindows.windows.CN[1]})`, source: "DFC projects, EXIM authorisations · official", outlined: usWindows.us_2022_24 === 0, href: "/country/ARG?tab=actions" });
     if (framework) receipts.push({ label: framework.title, window: `${framework.date.slice(0, 7)} · ${framework.status} event, outside the DFC/EXIM record`, value: "no drawn amount recorded; shown apart, like the PBoC swaps", source: "pipeline/config/events.yaml", outlined: true });
     if (swaps.length) {
@@ -170,7 +170,7 @@ export function StoryPage() {
         <Ch1Ledger region={insights.region} lastYear={{ finance_US: flows.meta.last_year.finance_US, finance_CN: flows.meta.last_year.finance_CN }} voices={pick(d.story, d.statements, US_VOICES)} />
       </Chapter>
       <Chapter n={2} eyebrow="The trade" question="While they talked, where did the ore go?" meter={chapters[1]}>
-        <Ch2Trade years={c.years} board={mineralBoard(d.shares)} prices={insights.region.prices} />
+        <Ch2Trade years={c.years} board={mineralBoard(d.shares)} prices={insights.region.prices} coverage={d.meta?.coverage ?? null} />
       </Chapter>
       <Chapter n={3} eyebrow="The money nobody counts" question={`Is ${fmtMusd(c.ledger.CN.documented_musd)} the whole of Beijing's money?`} meter={chapters[2]}>
         <Ch3Iceberg cn={c.ledger.CN} us={c.ledger.US} allYearsCN={c.ledgerAll.CN} undocumentedTop={undocumentedByCountry(flows)} network={d.quant?.network ?? null} lastYearCN={flows.meta.last_year.finance_CN} />

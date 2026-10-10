@@ -70,6 +70,23 @@ export function InsightsView() {
     if (file && !levers) setLevers(leversFromParams(new URLSearchParams(params.toString()), defaultCountry));
   }, [file, levers, params, defaultCountry]);
 
+  // The blocks mount only once the data is in, so the browser's own jump to a #hash (the story's /lab#ledger links, a reload on
+  // a section) finds nothing: land it here, and follow the page for a moment while the figures above the target take their height.
+  useEffect(() => {
+    const root = revealRoot.current;
+    const id = window.location.hash.slice(1);
+    if (!file || !root || !id) return;
+    const land = () => document.getElementById(id)?.scrollIntoView({ block: "start" });
+    land();
+    const ro = new ResizeObserver(land);
+    ro.observe(root);
+    const stop = window.setTimeout(() => ro.disconnect(), 1500);
+    return () => {
+      window.clearTimeout(stop);
+      ro.disconnect();
+    };
+  }, [file, revealRoot]);
+
   const update = useCallback(
     (patch: Partial<Levers>) => {
       const next = { ...(levers ?? { country: defaultCountry, ...DEFAULT_LEVERS }), ...patch };
@@ -97,7 +114,7 @@ export function InsightsView() {
   if (file === null) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">
-        <h1 className="serif text-2xl font-bold">Insights and scenarios</h1>
+        <h1 className="serif text-2xl font-bold">The Lab</h1>
         <p className="mt-3 rounded-md border border-dashed border-rule-2 bg-surface-2 p-4 text-sm leading-relaxed text-ink-2">
           Nothing to show yet: the file this page reads, <code className="font-mono text-xs">insights.json</code>, is written by the pipeline&apos;s export step and appears with the next data run. The contrasts, the scenario studio and the findings then come from the same tables as the rest of the site. See the <Link href="/methodology#insights" className="underline">methodology</Link>.
         </p>
@@ -113,7 +130,7 @@ export function InsightsView() {
       <Toast message={copied ? "Link copied" : null} />
       <header className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
         <div>
-          <p className="eyebrow">Insights</p>
+          <p className="eyebrow">Lab</p>
           <h1 className="serif mt-1 text-2xl font-bold leading-tight sm:text-4xl">What the words, the money and the minerals say together</h1>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-2">
             Every other page shows one layer at a time. This one sets them against each other: what governments say (the owner&apos;s coded statements), what legislatures and the press say (text-model outputs), what the money and the ore actually do (documented commitments, reported trade) and what the backtested models expect to 2030. Move the levers to build your own scenario; every number stays traceable and nothing you set is stored.

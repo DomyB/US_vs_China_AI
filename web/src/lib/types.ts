@@ -873,13 +873,16 @@ export interface InsightTradeLatest {
   total_musd: number | null;
   share_cn: number | null;
   share_us: number | null;
+  /** partner cells with no row in the year (absent, never zero); the matching share is null. Absent from older exports. */
+  partners_absent?: ("CN" | "US")[];
   minerals: InsightTradeMineral[];
   source_id: string | null;
 }
+/** One reported year; a share is null where the partner row is absent (never 0). */
 export interface InsightTradeYear {
   year: number;
-  share_cn: number;
-  share_us: number;
+  share_cn: number | null;
+  share_us: number | null;
   total_musd: number;
 }
 export interface InsightFinanceYear {
@@ -963,9 +966,15 @@ export interface InsightCountry {
   forecast: InsightForecast | null;
   words: InsightWords;
   say_do: { year: number; actor: Actor; rhetoric: number | null; action: number | null; gap: number | null; n_docs: number }[];
-  flags: { n: number; items: { id: string; year: number; actor: Actor; evidence_level: string; score: number | null; description: string }[] };
+  flags: {
+    n: number;
+    items: InsightFlag[];
+    /** rule hits whose before/after share has no partner row: listed apart, never counted. Absent from older exports. */
+    share_absent?: { n: number; items: (InsightFlag & { share_absent_years: number[] })[]; note: string };
+  };
   contrasts: Contrast[];
 }
+export interface InsightFlag { id: string; year: number; actor: Actor; evidence_level: string; score: number | null; description: string }
 export interface EventEcho {
   family: string;
   event_actor: string;

@@ -30,7 +30,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
       y: { label: "Share of all coverage", grid: true, tickFormat: (d: number) => fmtPct(d, 1) },
       color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => (d === "US" ? "mentions United States" : "mentions China") },
       marks: [
-        Plot.lineY(volume, { x: "year", y: "share", stroke: "actor", strokeWidth: 2, curve: "monotone-x" }),
+        Plot.lineY(volume, { x: "year", y: "share", z: "actor", stroke: "actor", strokeWidth: 2, curve: "monotone-x" }),
         Plot.dot(volume, { x: "year", y: "share", fill: "actor", r: 3, tip: true, title: (d: { year: number; actor: string; count: number; share: number }) => `${d.year}: ${d.count} articles (${fmtPct(d.share, 1)} of coverage)` }),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
         Plot.ruleY([0]),
@@ -48,7 +48,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
       color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN] },
       marks: [
         Plot.ruleY([0], { stroke: "#8a8f98" }),
-        Plot.lineY(volume.filter((d) => d.tone !== null), { x: "year", y: "tone", stroke: "actor", strokeWidth: 2, curve: "monotone-x", tip: true }),
+        Plot.lineY(volume.filter((d) => d.tone !== null), { x: "year", y: "tone", z: "actor", stroke: "actor", strokeWidth: 2, curve: "monotone-x", tip: true }),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
       ],
     }),

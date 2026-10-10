@@ -83,7 +83,7 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, ranked, 
           {view === "money" && window && flowsLastYear && (
             <>
               {flowsLastYear.finance_CN !== null && window[0] > flowsLastYear.finance_CN && <p className="mt-1 rounded-md border border-sample/40 bg-sample/10 px-2 py-1 text-[11px] text-sample">No Chinese finance data in {window[0] === window[1] ? String(window[0]) : `${window[0]}–${window[1]}`}: the AidData series ends in {flowsLastYear.finance_CN}. Move the year to {flowsLastYear.finance_CN} or widen the window.</p>}
-              {flowsLastYear.finance_US !== null && window[0] > flowsLastYear.finance_US && <p className="mt-1 rounded-md border border-sample/40 bg-sample/10 px-2 py-1 text-[11px] text-sample">No US finance data in this window: the DFC series ends in {flowsLastYear.finance_US}.</p>}
+              {flowsLastYear.finance_US !== null && window[0] > flowsLastYear.finance_US && <p className="mt-1 rounded-md border border-sample/40 bg-sample/10 px-2 py-1 text-[11px] text-sample">No US finance data in this window: the DFC and EXIM series ends in {flowsLastYear.finance_US}.</p>}
             </>
           )}
           {aggs.length === 0 ? (

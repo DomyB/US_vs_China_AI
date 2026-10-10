@@ -43,7 +43,7 @@ export function Ch7Parity({ countries, targets, scenarios }: { countries: Insigh
   const c = withForecast.find((x) => x.iso3 === iso);
   const chl = countries.find((x) => x.iso3 === "CHL");
   const parity = chl?.contrasts.find((x) => x.id === "parity_gap") as { multiple_of_us: number; musd: number } | undefined;
-  const dep = c?.contrasts.find((x) => x.id === "dependence_2030") as { share_cn_now: number; year_now: number; cn_2030: Record<string, number>; us_2030: Record<string, number>; min_cn_2030: number; max_cn_2030: number } | undefined;
+  const dep = c?.contrasts.find((x) => x.id === "dependence_2030") as { share_cn_now: number | null; year_now: number; cn_2030: Record<string, number>; us_2030: Record<string, number>; min_cn_2030: number; max_cn_2030: number } | undefined;
   const target = targets?.["export_share:CN"];
   const lastObserved = c?.trade_series.filter((r) => r.share_cn !== null).reduce((m, r) => Math.max(m, r.year), 0) ?? 0;
   const opts = useMemo(() => (c ? fan(c.forecast!.paths.export_share.CN as unknown as Scenarios, c.trade_series.map((r) => ({ year: r.year, share: r.share_cn })), lastObserved) : null), [c, lastObserved]);
@@ -67,7 +67,7 @@ export function Ch7Parity({ countries, targets, scenarios }: { countries: Insigh
         <div className="space-y-4">
           {dep && c && (
             <StepCard>
-              <p><strong>{c.name} in 2030.</strong> China took {fmtPct(dep.share_cn_now)} of {c.name}&apos;s mineral exports in {dep.year_now}; the medians for 2030 are {fmtPct(dep.cn_2030.baseline)} at baseline, {fmtPct(dep.cn_2030.china_pull)} if the China pull accelerates and {fmtPct(dep.cn_2030.us_reshoring)} if US sourcing rules bite. The US share: {fmtPct(dep.us_2030.baseline)} at baseline, {fmtPct(dep.us_2030.us_reshoring)} under reshoring.</p>
+              <p><strong>{c.name} in 2030.</strong> {dep.share_cn_now === null ? `${c.name}'s share of mineral exports to China in ${dep.year_now} has no partner row (absent, not zero)` : `China took ${fmtPct(dep.share_cn_now)} of ${c.name}'s mineral exports in ${dep.year_now}`}; the medians for 2030 are {fmtPct(dep.cn_2030.baseline)} at baseline, {fmtPct(dep.cn_2030.china_pull)} if the China pull accelerates and {fmtPct(dep.cn_2030.us_reshoring)} if US sourcing rules bite. The US share: {fmtPct(dep.us_2030.baseline)} at baseline, {fmtPct(dep.us_2030.us_reshoring)} under reshoring.</p>
             </StepCard>
           )}
           <StepCard>

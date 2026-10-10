@@ -49,7 +49,7 @@ export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: 
   return (
     <div className="mx-auto max-w-4xl px-4 py-3">
       <p className="mb-2 text-xs text-ink-3">
-        <Link href={`/?country=${iso3}&year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">← Back to the map</Link>
+        <Link href={`/explore?country=${iso3}&year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">← Back to the map</Link>
       </p>
       <div className="card mb-3 grid gap-3 p-3 md:grid-cols-[minmax(0,1fr)_16rem] [&>*]:min-w-0">
         <YearControl year={year} onChange={setYear} playing={playing} onTogglePlay={togglePlay} />

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { PlotFigure } from "@/components/charts/PlotFigure";
 import { ACTOR_COLOR } from "@/lib/constants";
-import { fmtMusd, fmtPct } from "@/lib/format";
+import { fmtMusd, fmtPct, fmtShare } from "@/lib/format";
 import type { InsightCountry, StatementRecord, StorySeriesRow } from "@/lib/types";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
 
@@ -13,9 +13,6 @@ type Flag = InsightCountry["flags"]["items"][number];
 
 /** A partner's share of a total: null when the partner cell is absent, never 0. */
 const shareOf = (part: number | null | undefined, total: number | null | undefined) => (part === null || part === undefined || !total ? null : part / total);
-/** An absent share prints as absent, never as 0% (local until fmtShare lands in lib/format.ts). */
-const fmtShare = (v: number | null) => (v === null ? "absent" : fmtPct(v));
-
 /** Three lanes on one time axis: the money (lollipops by origin), the ore (lithium and copper shares to China) and the words (quote marks). */
 function lanes(fin: InsightCountry["finance"]["by_year"], lithium: StorySeriesRow[], copper: StorySeriesRow[], quotes: StatementRecord[], flags: Flag[]): Plot.PlotOptions {
   const money = fin.flatMap((y) => [

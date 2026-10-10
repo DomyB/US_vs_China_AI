@@ -9,7 +9,7 @@ import { Interpretation } from "./Interpretation";
 import { WeightsPlayground } from "./WeightsPlayground";
 import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
-import { fmtPct, fmtSigned } from "@/lib/format";
+import { fmtPct, fmtShare, fmtSigned } from "@/lib/format";
 import { provenanceFor } from "@/lib/provenance";
 import { useRealMeta } from "@/lib/useRealMeta";
 import type { ComponentValue, CountryData, IndexRow } from "@/lib/types";
@@ -111,16 +111,19 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
 
   const flags = useMemo(() => [...data.analysis.flags].sort((a, b) => b.year - a.year), [data]);
   const concentration = useMemo(() => {
-    const rows = (data.analysis.concentration ?? []).filter((c) => c.year === year && c.mineral !== "all" && c.share_cn_x !== undefined && c.share_cn_x !== null);
+    // rows with an export side; a mineral whose partner cell is absent (null share) stays in the table, printed as absent
+    const has = (v: unknown) => v !== undefined && v !== null;
+    const rows = (data.analysis.concentration ?? []).filter((c) => c.year === year && c.mineral !== "all" && (has(c.share_cn_x) || has(c.share_us_x) || has(c.exports_wld_musd)));
     return rows.sort((a, b) => (b.exports_wld_musd ?? 0) - (a.exports_wld_musd ?? 0));
   }, [data, year]);
   const concentrationAll = useMemo(() => (data.analysis.concentration ?? []).find((c) => c.year === year && c.mineral === "all"), [data, year]);
   const concLong = useMemo(() => {
     const long: { mineral: string; partner: string; share: number }[] = [];
     for (const r of concentration) {
-      long.push({ mineral: prettyMineral(r.mineral), partner: "US", share: r.share_us_x ?? 0 });
-      long.push({ mineral: prettyMineral(r.mineral), partner: "CN", share: r.share_cn_x ?? 0 });
-      long.push({ mineral: prettyMineral(r.mineral), partner: "ROW", share: r.share_other_x ?? 0 });
+      // an absent partner cell (null) is left out of the bar, never drawn as a 0% segment; the table beneath prints it as absent
+      if (r.share_us_x !== undefined && r.share_us_x !== null) long.push({ mineral: prettyMineral(r.mineral), partner: "US", share: r.share_us_x });
+      if (r.share_cn_x !== undefined && r.share_cn_x !== null) long.push({ mineral: prettyMineral(r.mineral), partner: "CN", share: r.share_cn_x });
+      if (r.share_other_x !== undefined && r.share_other_x !== null) long.push({ mineral: prettyMineral(r.mineral), partner: "ROW", share: r.share_other_x });
     }
     return long;
   }, [concentration]);
@@ -210,7 +213,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
           <SectionHeader id="conc-h" title={`Export concentration in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("concentration", { iso3: data.iso3, year, meta })} />
           <p className="mb-2 text-xs text-ink-3">
             Shares of the country&apos;s reported exports going to the United States, China and the rest of the world (UN Comtrade, reporter&apos;s own data).
-            {concentrationAll ? ` All minerals together: ${fmtPct(concentrationAll.share_us_x ?? 0)} to the United States, ${fmtPct(concentrationAll.share_cn_x ?? 0)} to China, two-power share ${fmtPct(concentrationAll.big2_share_x ?? 0)}.` : ""}
+            {concentrationAll ? ` All minerals together: ${concentrationAll.share_us_x === null || concentrationAll.share_us_x === undefined ? "no United States partner row (absent, not zero)" : `${fmtShare(concentrationAll.share_us_x)} to the United States`}, ${concentrationAll.share_cn_x === null || concentrationAll.share_cn_x === undefined ? "no China partner row (absent, not zero)" : `${fmtShare(concentrationAll.share_cn_x)} to China`}, two-power share ${fmtShare(concentrationAll.big2_share_x)}.` : ""}
             {" "}A Herfindahl index over all destinations is not computed: the warehouse holds the three partner totals only.
           </p>
           {concentration.length > 0 ? (
@@ -218,7 +221,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
           ) : (
             <p className="text-sm text-ink-3">No reported exports by mineral for {year}.</p>
           )}
-          <DataTable rows={concentration} caption="Export shares and revealed comparative advantage by mineral" columns={[{ key: "mineral", label: "Mineral", format: (v) => prettyMineral(String(v)) }, { key: "share_us_x", label: "To US", format: (v) => fmtPct(Number(v ?? 0), 1) }, { key: "share_cn_x", label: "To China", format: (v) => fmtPct(Number(v ?? 0), 1) }, { key: "exports_wld_musd", label: "Exports (M US$)" }, { key: "rca_pool", label: "RCA (12-country pool)", format: (v) => (v === null || v === undefined ? "—" : Number(v).toFixed(2)) }]} />
+          <DataTable rows={concentration} caption="Export shares and revealed comparative advantage by mineral" columns={[{ key: "mineral", label: "Mineral", format: (v) => prettyMineral(String(v)) }, { key: "share_us_x", label: "To US", format: (v) => (v === null || v === undefined ? "absent" : fmtPct(Number(v), 1)) }, { key: "share_cn_x", label: "To China", format: (v) => (v === null || v === undefined ? "absent" : fmtPct(Number(v), 1)) }, { key: "exports_wld_musd", label: "Exports (M US$)" }, { key: "rca_pool", label: "RCA (12-country pool)", format: (v) => (v === null || v === undefined ? "—" : Number(v).toFixed(2)) }]} />
         </section>
       )}
 

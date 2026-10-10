@@ -46,7 +46,7 @@ function flowNote(view: FlowView, m: FlowsFile["meta"] | null | undefined, layer
   if (view === "index" || !m) return null;
   const ly = m.last_year;
   const base = view === "money"
-    ? `Money: documented commitments from AidData (China, to ${ly.finance_CN ?? "–"}) and DFC (United States, to ${ly.finance_US ?? "–"}); events without a published amount are counted but add no width; swap lines and lower-confidence records are listed apart.`
+    ? `Money: documented commitments from AidData (China, to ${ly.finance_CN ?? "–"}) and the DFC and EXIM (United States, to ${ly.finance_US ?? "–"}); events without a published amount are counted but add no width; swap lines and lower-confidence records are listed apart.`
     : `Trade: reported exports to each actor (UN Comtrade, to ${ly.trade ?? "–"}); mirror data is not used.`;
   return layer === "sample" ? `${base} SAMPLE flows until the first data run.` : base;
 }

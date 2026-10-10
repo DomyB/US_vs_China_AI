@@ -95,7 +95,7 @@ export function Ch1Ledger({ region, lastYear, voices }: { region: InsightRegion;
         </div>
         <div className="space-y-4">
           <StepCard>
-            <p><strong>Who is louder?</strong> In the statements dataset ({tm.n_statements} records), officials of the United States account for {tm.by_bloc.find((b) => b.bloc === "United States")?.n ?? 0} and officials of China for {tm.by_bloc.find((b) => b.bloc === "China")?.n ?? 0}. The region&apos;s own executives, {tm.by_bloc.find((b) => b.bloc === "LatAm executive")?.n ?? 0} records, speak well of Washington {pos.ex_on_us?.positive ?? 0} times and badly {pos.ex_on_us?.negative ?? 0}; of Beijing {pos.ex_on_cn?.positive ?? 0} and {pos.ex_on_cn?.negative ?? 0}.</p>
+            <p><strong>Who is louder?</strong> In the statements dataset ({tm.n_statements} in-scope records, on a country or region-wide), officials of the United States account for {tm.by_bloc.find((b) => b.bloc === "United States")?.n ?? 0} and officials of China for {tm.by_bloc.find((b) => b.bloc === "China")?.n ?? 0}. The region&apos;s own executives, {tm.by_bloc.find((b) => b.bloc === "LatAm executive")?.n ?? 0} records, speak well of Washington {pos.ex_on_us?.positive ?? 0} times and badly {pos.ex_on_us?.negative ?? 0}; of Beijing {pos.ex_on_cn?.positive ?? 0} and {pos.ex_on_cn?.negative ?? 0}.</p>
           </StepCard>
           <StepCard>
             <p><strong>Who writes the cheques?</strong> Documented commitments from Chinese institutions to the twelve countries reached {fmtMusd(tm.finance.CN.musd)} in {tm.finance.CN.years[0]}–{tm.finance.CN.years[1]} ({fmtMusd(tm.finance.CN.mineral_tagged_musd)} of it tagged to a mineral); US DFC and EXIM commitments {fmtMusd(tm.finance.US.musd)} in the same years and {fmtMusd(tm.finance.US_after.musd)} in {tm.finance.US_after.years[0]}–{tm.finance.US_after.years[1]}. The windows differ because the Chinese record ends in {lastYear.finance_CN ?? "–"} and the US record runs to {lastYear.finance_US ?? "–"}; the dashed line keeps them apart.</p>
@@ -105,7 +105,7 @@ export function Ch1Ledger({ region, lastYear, voices }: { region: InsightRegion;
           </StepCard>
         </div>
       </div>
-      <Exhibit title="Attention and the cheque book, 2008–2026" layer="facts" sources={["congress_gov", "federal_register", "manual_statements", "dfc_projects", "aiddata_gcdf"]} ids={["policy_document:count:year", "statement:count:bloc=United States:year", "flow_finance:US:year", "flow_finance:CN:year"]} note="A bill is not a dollar: the paper trail and the statements climb while the documented US money stays small and the Chinese record ends.">
+      <Exhibit title="Attention and the cheque book, 2008–2026" layer="facts" sources={["congress_gov", "federal_register", "manual_statements", "dfc_projects", "exim_authorizations", "aiddata_gcdf"]} ids={["policy_document:count:year", "statement:count:bloc=United States:year", "flow_finance:US:year", "flow_finance:CN:year"]} note="A bill is not a dollar: the paper trail and the statements climb while the documented US money stays small and the Chinese record ends.">
         <Attention rows={region.attention} lastYear={lastYear} />
       </Exhibit>
       {voices.length > 0 && (

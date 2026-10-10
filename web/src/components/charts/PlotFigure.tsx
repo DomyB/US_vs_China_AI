@@ -1,7 +1,7 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { reducedMotion } from "@/lib/motion";
 
 export type PlotOptions = NonNullable<Parameters<typeof Plot.plot>[0]>;
@@ -15,6 +15,14 @@ export function PlotFigure({ options, ariaLabel, className = "", expandable = tr
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState<number>(0);
   const [open, setOpen] = useState(false);
+  const expandRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
+  const close = useCallback(() => setOpen(false), []);
+  // the dialog unmounts on close, so the browser never hands focus back itself: return it to the button that opened it
+  useEffect(() => {
+    if (wasOpen.current && !open) expandRef.current?.focus();
+    wasOpen.current = open;
+  }, [open]);
 
   useEffect(() => {
     const el = ref.current;
@@ -57,11 +65,11 @@ export function PlotFigure({ options, ariaLabel, className = "", expandable = tr
     <div className={`plot-figure relative w-full ${className}`}>
       <div ref={ref} className="w-full" />
       {expandable && width > 0 && (
-        <button type="button" onClick={() => setOpen(true)} className="plot-expand" aria-label="Expand this chart" title="Expand this chart">
+        <button ref={expandRef} type="button" onClick={() => setOpen(true)} className="plot-expand" aria-label="Expand this chart" title="Expand this chart">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9" /></svg>
         </button>
       )}
-      {open && <ExpandedFigure options={options} ariaLabel={ariaLabel} onClose={() => setOpen(false)} />}
+      {open && <ExpandedFigure options={options} ariaLabel={ariaLabel} onClose={close} />}
     </div>
   );
 }

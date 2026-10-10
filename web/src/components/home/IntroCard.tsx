@@ -33,7 +33,7 @@ export function IntroCard({ indexLayer, open, onToggle }: { indexLayer: "real" |
       <div className="mt-3 flex flex-wrap gap-2">
         <Link href="/explore?tour=1" className="btn btn-md btn-primary no-underline">Take the tour</Link>
         <Link href="/lab" className="btn btn-md no-underline">
-          See the Insights <Icon name="arrowRight" size={14} />
+          Open the Lab <Icon name="arrowRight" size={14} />
         </Link>
       </div>
       <p className="mt-3 flex flex-wrap items-center gap-1.5 text-xs">

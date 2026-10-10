@@ -57,6 +57,63 @@ def _country(trade=None, stm=None, fc=None, flags=None, stance=None, media=None)
                                   sd_rows=[], flag_rows=flags or [], known_minerals=CORE, prices={})
 
 
+def _flag(iso, year, actor="CN", score=0.02, kind="finance_without_trade_response"):
+    return {"flag_id": f"{iso}-{kind}-{year}-{actor}", "country": iso, "year": year, "actor": actor, "type": kind, "evidence_level": "strongly_indicated", "score": score,
+            "description": f"Commitments in {year} were not followed by a change in the share (0% in {year - 1}, 0% in {year + 2})."}
+
+
+def test_absent_partner_cells_stay_null_and_are_named():
+    # Suriname-like rows: the CN partner row is absent (null), the US one reported, the world total present
+    trade = [_trade("ARG", 2024, "all", 10.0, None, 90.0), _trade("ARG", 2025, "all", 5.0, None, 95.0), _trade("ARG", 2025, "gold", 5.0, None, 95.0)]
+    t = insights.trade_latest(trade, "ARG")
+    assert t["share_cn"] is None and t["share_us"] == 0.05 and t["total_musd"] == 100.0 and t["partners_absent"] == ["CN"]
+    series = insights.trade_series(trade, "ARG")
+    assert [(s["year"], s["share_cn"], s["share_us"]) for s in series] == [(2024, None, 0.1), (2025, None, 0.05)]
+    both = insights.trade_latest([_trade("ARG", 2025, "all", None, None, 100.0)], "ARG")
+    assert both["share_cn"] is None and both["share_us"] is None and both["partners_absent"] == ["CN", "US"] and both["total_musd"] == 100.0
+    # a reported zero is a zero, not an absence
+    zero = insights.trade_latest([_trade("ARG", 2025, "all", 0.0, 50.0, 50.0)], "ARG")
+    assert zero["share_us"] == 0.0 and zero["partners_absent"] == []
+    stm = [_stm(i, 2025, cn="positive", us="positive") for i in range(4)]
+    c = _country(trade=trade, stm=stm)
+    ids = {x["id"] for x in c["contrasts"]}
+    assert "words_vs_trade_us" in ids and "words_vs_trade_cn" not in ids  # no share toward China: no contrast, nothing read as 0%
+    assert "parity_gap" not in ids  # an absent partner cell is no input for the parity arithmetic
+
+
+def test_flags_on_absent_shares_are_listed_apart_and_not_counted():
+    trade = [_trade("ARG", y, "all", 10.0, None if y in (2015, 2018) else 20.0, 70.0) for y in range(2012, 2021)]
+    # 2016/CN looks at 2015 and 2018 (both absent); 2014/CN at 2013 and 2016 (reported); 2017/US at 2016 and 2019 (reported)
+    flags = [_flag("ARG", 2016, score=0.08), _flag("ARG", 2014, score=0.01), _flag("ARG", 2017, actor="US", score=0.02), _flag("ARG", 2016, kind="large_commitment")]
+    c = _country(trade=trade, flags=flags)
+    fl = c["flags"]
+    assert fl["n"] == 2 and [f["id"] for f in fl["items"]] == ["ARG-finance_without_trade_response-2017-US", "ARG-finance_without_trade_response-2014-CN"]
+    assert fl["share_absent"]["n"] == 1 and fl["share_absent"]["items"][0]["id"] == "ARG-finance_without_trade_response-2016-CN"
+    assert fl["share_absent"]["items"][0]["share_absent_years"] == [2015, 2018] and "not counted" in fl["share_absent"]["note"]
+    x = next(x for x in c["contrasts"] if x["id"] == "finance_without_trade_response")
+    assert x["n"] == 2 and x["n_share_absent"] == 1 and x["inputs"] == ["anomaly_flag:ARG-finance_without_trade_response-2017-US", "anomaly_flag:ARG-finance_without_trade_response-2014-CN"]
+    # every hit on absent cells: nothing counted, no contrast
+    only_absent = _country(trade=trade, flags=[_flag("ARG", 2016, score=0.08)])
+    assert only_absent["flags"]["n"] == 0 and only_absent["flags"]["share_absent"]["n"] == 1 and not any(x["id"] == "finance_without_trade_response" for x in only_absent["contrasts"])
+
+
+def test_findings_say_absent_shares_and_set_aside_flags(tmp_path):
+    stm = [_stm(i, 2025, country="SUR", speaker_country="SUR", us="positive") for i in range(3)]
+    flows = {"finance": [_fin("SUR", 2016, "CN", 276.0), _fin("GUY", 2017, "CN", 50.0)],
+             "trade": [_trade("SUR", y, "all", 7.0, None, 560.0) for y in range(2014, 2026)] + [_trade("GUY", y, "all", 50.0, 5.0, 500.0) for y in range(2014, 2026)]}
+    flags = [_flag("SUR", 2016, score=0.08), _flag("GUY", 2017, score=0.01)]
+    out = insights.build_insights(flows=flows, idx_rows=[], comp_rows=[], fc_rows=[], effect_rows=[], reg_rows=[], sd_rows=[], flag_rows=flags, stm=stm, stance_by_iso={}, volume_by_iso={},
+                                  gov=[], prices=[], policy=[], fin=[], core=CORE, quant_status={}, today="2026-10-10", human_dir=tmp_path)
+    sur = next(c for c in out["countries"] if c["iso3"] == "SUR")
+    assert sur["trade"]["share_cn"] is None and sur["trade"]["partners_absent"] == ["CN"] and sur["flags"]["n"] == 0 and sur["flags"]["share_absent"]["n"] == 1
+    by = {f["id"]: f for f in out["findings"]}
+    words = by["words_vs_trade_SUR"]["sentences"][0]["text"]
+    assert "1.2% went to the United States and the share going to China has no partner row (absent, not zero)" in words
+    money = by["money_without_trade"]
+    assert money["sentences"][0]["text"].startswith("1 commitments across Guyana") and money["countries"] == ["GUY"]
+    assert money["sentences"][1]["text"].startswith("1 further rule hits (Suriname) rest on a year with no partner row") and money["sentences"][1]["ids"] == ["anomaly_flag:SUR-finance_without_trade_response-2016-CN"]
+
+
 def test_words_vs_trade_quadrants_hedging_and_mineral_mismatch():
     stm = [_stm(i, 2024 + i % 3, cn="positive" if i % 2 else "neutral", us="positive", minerals="lithium,copper" if i < 6 else "gold") for i in range(10)]
     stm += [_stm(20, 2025, bloc="United States", speaker_country="USA", cn="negative", us="positive")]

@@ -4,10 +4,11 @@
  * page at three viewports in both colour schemes, once more with the stored dark choice, and asserts what the
  * design relies on: no console or page errors, no horizontal overflow, the token colours, 16px inputs on touch
  * screens, the dock in one column beside the open panel at 1024px, the favicon and social metadata, every tour
- * step and its Finish, a still hero drawing under reduced motion, and the social image's size. Screenshots go to
- * OUT (default: a ui-check folder in the system temp directory). Exit code 1 when a check fails.
+ * step and its Finish, the Lab anchors the story links to, a 404 for an unknown case file, a still hero drawing under
+ * reduced motion, and the social image's size. Screenshots go to OUT (default: a ui-check folder in the system temp
+ * directory). Exit code 1 when a check fails.
  */
-import { mkdirSync, readFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,6 +32,9 @@ const TOKENS = {
 };
 const themeKey = /const KEY = "([^"]+)"/.exec(readFileSync(resolve(web, "src/lib/theme.ts"), "utf8"))?.[1];
 const tourHrefs = [...readFileSync(resolve(web, "src/components/tour/steps.ts"), "utf8").matchAll(/href: "([^"]+)"/g)].map((m) => m[1]);
+// every /lab#… anchor the story points at must be an id on the Lab
+const storyDir = resolve(web, "src/components/story");
+const labAnchors = [...new Set(readdirSync(storyDir).flatMap((f) => [...readFileSync(resolve(storyDir, f), "utf8").matchAll(/\/lab#([\w-]+)/g)].map((m) => m[1])))];
 
 const results = [];
 const check = (name, ok, detail = "") => {
@@ -88,6 +92,10 @@ try {
           check(`${label}: the dock is one column beside the open panel`, dock?.columns === 1, JSON.stringify(dock));
           check(`${label}: the dock has no inner overflow`, (dock?.overflow ?? 1) <= 0, JSON.stringify(dock));
         }
+        if (path === "/lab" && v.name === "desktop" && !run.stored && run.scheme === "light") {
+          const missing = await page.evaluate((ids) => ids.filter((id) => !document.getElementById(id)), labAnchors);
+          check("lab: the story's /lab anchors exist", labAnchors.length >= 3 && missing.length === 0, `anchors ${labAnchors.join(",")}; missing ${missing.join(",") || "none"}`);
+        }
         if (path === "/explore" && v.name === "desktop" && !run.stored && run.scheme === "light") {
           const head = await page.evaluate(() => ({
             icon: document.querySelector('link[rel="icon"]')?.getAttribute("href") ?? "",
@@ -113,6 +121,13 @@ try {
     check("redirect: a map link on / lands on /explore with its query", page.url().includes("/explore") && page.url().includes("view=money"), page.url());
     await page.goto(`${BASE}/insights`, { waitUntil: "networkidle" });
     check("redirect: /insights lands on /lab", page.url().includes("/lab"), page.url());
+    const unknown = await page.goto(`${BASE}/country/XXX`, { waitUntil: "networkidle" });
+    check("country: an unknown case file is a 404", unknown?.status() === 404, `status ${unknown?.status()}`);
+    // the Lab renders after its data arrives, so a #hash has to be landed by the page itself
+    await page.goto(`${BASE}/lab#${labAnchors[0] ?? "ledger"}`, { waitUntil: "networkidle" });
+    await page.waitForTimeout(2000);
+    const landed = await page.evaluate((id) => document.getElementById(id)?.getBoundingClientRect().top ?? null, labAnchors[0] ?? "ledger");
+    check("lab: a #hash lands on its block", landed !== null && landed >= 0 && landed <= 120, `top ${landed}`);
     await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
     const story = await page.evaluate(() => ({ h1: document.querySelector("h1")?.textContent ?? "", chapters: document.querySelectorAll("section[id^='c']").length, receipts: document.querySelectorAll("ol[aria-label='Receipts'] li").length, skip: !!Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Skip intro")) }));
     check("story: the home opens on Said & Paid with nine chapters", story.h1.includes("Said") && story.chapters >= 9, JSON.stringify(story));
