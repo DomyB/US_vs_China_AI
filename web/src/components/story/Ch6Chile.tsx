@@ -11,6 +11,11 @@ import { Exhibit, KeyNumber, StepCard } from "./Chapter";
 
 type Flag = InsightCountry["flags"]["items"][number];
 
+/** A partner's share of a total: null when the partner cell is absent, never 0. */
+const shareOf = (part: number | null | undefined, total: number | null | undefined) => (part === null || part === undefined || !total ? null : part / total);
+/** An absent share prints as absent, never as 0% (local until fmtShare lands in lib/format.ts). */
+const fmtShare = (v: number | null) => (v === null ? "absent" : fmtPct(v));
+
 /** Three lanes on one time axis: the money (lollipops by origin), the ore (lithium and copper shares to China) and the words (quote marks). */
 function lanes(fin: InsightCountry["finance"]["by_year"], lithium: StorySeriesRow[], copper: StorySeriesRow[], quotes: StatementRecord[], flags: Flag[]): Plot.PlotOptions {
   const money = fin.flatMap((y) => [
@@ -51,18 +56,20 @@ export function Ch6Chile({ chile, lithium, copper, quotes }: { chile: InsightCou
   const li = chile.trade?.minerals.find((m) => m.mineral === "lithium");
   const cu = chile.trade?.minerals.find((m) => m.mineral === "copper");
   const peak = chile.finance.by_year.reduce((a, b) => ((b.CN ?? 0) > (a.CN ?? 0) ? b : a), chile.finance.by_year[0]);
+  const liShare = li ? shareOf(li.exports_musd.CN, li.total_musd) : null;
+  const cuShare = cu ? shareOf(cu.exports_musd.CN, cu.total_musd) : null;
   return (
     <div className="space-y-6">
       <StepCard>
         <p><strong>Chile is the hinge.</strong> It is the one country where loans, equity, offtake and regulation can be read as a chain, and the one where a US promise met a small invoice. It is the exception that shows the mechanism; Chapter 4 showed the regional pattern runs the other way.</p>
       </StepCard>
-      <Exhibit title="Money, ore and words on one time axis, Chile 2006–2026" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations", "un_comtrade", "manual_statements"]} ids={["flow_finance:CHL:origin:year", "concentration:share_cn_x:lithium:CHL", "concentration:share_cn_x:copper:CHL", "statement:CHL"]} explore={{ href: "/country/CHL?tab=actions", label: "Open Chile's case file" }} note="Money: documented commitments by year (lollipop height relative to the largest year). Ore: the share of Chile's lithium (vermilion) and copper (ink) exports going to China. Words: coded statements, the quote on hover. The flags named above the money lane are rule outputs.">
+      <Exhibit title="Money, ore and words on one time axis, Chile 2006–2026" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations", "un_comtrade", "manual_statements"]} ids={["flow_finance:CHL:origin:year", "concentration:share_cn_x:lithium:CHL", "concentration:share_cn_x:copper:CHL", "statement:CHL"]} explore={{ href: "/country/CHL?tab=actions", label: "Open Chile's case file" }} note={`Money: documented commitments by year (lollipop height relative to the largest year). Ore: the share of Chile's lithium (vermilion) and copper (ink) exports going to China. Words: coded statements, the quote on hover.${chile.flags.items.length ? " The flags named above the money lane are rule outputs." : ""}`}>
         <PlotFigure options={opts} ariaLabel="Chile: documented commitments, the shares of lithium and copper exports going to China, and coded statements by year" />
       </Exhibit>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {peak && <KeyNumber value={fmtMusd(peak.CN)} label={`Chinese commitments in ${peak.year}, the largest year on record (${peak.n_CN} events)`} tone="cn" size="text-3xl" />}
-        {li && <KeyNumber value={fmtPct((li.exports_musd.CN ?? 0) / Math.max(li.total_musd ?? 0, 1))} label={`of Chile's lithium exports went to China in ${chile.trade?.year} (${fmtMusd(li.exports_musd.CN)} of ${fmtMusd(li.total_musd)}; ${fmtMusd(li.exports_musd.US)} to the US)`} tone="cn" size="text-3xl" />}
-        {cu && <KeyNumber value={fmtPct((cu.exports_musd.CN ?? 0) / Math.max(cu.total_musd ?? 0, 1))} label={`of Chile's copper went to China (${fmtMusd(cu.exports_musd.CN)}; ${fmtMusd(cu.exports_musd.US)} to the US)`} tone="cn" size="text-3xl" />}
+        {li && <KeyNumber value={fmtShare(liShare)} label={`${liShare === null ? "China's share of Chile's lithium exports" : "of Chile's lithium exports went to China"} in ${chile.trade?.year} (${fmtMusd(li.exports_musd.CN)} of ${fmtMusd(li.total_musd)}; ${fmtMusd(li.exports_musd.US)} to the US)`} tone="cn" size="text-3xl" />}
+        {cu && <KeyNumber value={fmtShare(cuShare)} label={`${cuShare === null ? "China's share of Chile's copper" : "of Chile's copper went to China"} (${fmtMusd(cu.exports_musd.CN)}; ${fmtMusd(cu.exports_musd.US)} to the US)`} tone="cn" size="text-3xl" />}
         {ratio !== null && uw && <KeyNumber value={`${Math.round(ratio)} : 1`} label={`Chinese to US documented money, 2015–2021 (${fmtMusd(uw.cn_2015_21_musd)} vs ${fmtMusd(uw.us_2015_21_musd)}; the Chinese record ends in 2021, the US record runs on)`} size="text-3xl" />}
       </div>
       {parity && (

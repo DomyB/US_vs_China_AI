@@ -56,9 +56,9 @@ export function Ch7Parity({ countries, targets, scenarios }: { countries: Insigh
       <div className="story-grid">
         <div className="story-sticky">
           <Exhibit title={`The 2030 fan: ${c ? COUNTRY_NAMES[c.iso3] ?? c.name : "–"}`} layer="model" sources={["un_comtrade"]} ids={c ? [`forecast:export_share:CN:baseline:2030:${c.iso3}`, `forecast:export_share:CN:china_pull:2030:${c.iso3}`, `forecast:export_share:CN:us_reshoring:2030:${c.iso3}`] : []} explore={{ href: `/lab?country=${iso}`, label: "Move the levers in the Lab" }} note={target ? `Published model for the share to China: ${target.model} (CRPS ${target.crps ?? "–"} vs ${target.crps_naive ?? "–"} for persistence; the 80% band covered ${Math.round((target.coverage_80 ?? 0) * 100)}% of ${target.n_tests ?? "–"} backtests${(target.coverage_80 ?? 1) < 0.8 ? ", under-covered" : ""}). Solid: reported; dashed: median; bands: 50% and 90% of simulated paths; dotted: the two published scenarios, which are shifts added to every path, not modelled policy.` : undefined}>
-            <div className="mb-2 flex flex-wrap gap-1">
+            <div className="mb-2 flex flex-wrap gap-1" role="group" aria-label="Country">
               {withForecast.map((x) => (
-                <button key={x.iso3} type="button" className="pill pill-sm" aria-current={x.iso3 === iso ? "page" : undefined} onClick={() => setIso(x.iso3)}>{COUNTRY_NAMES[x.iso3] ?? x.name}</button>
+                <button key={x.iso3} type="button" className={`pill pill-sm ${x.iso3 === iso ? "border-outline bg-card text-ink shadow-[2px_2px_0_var(--outline)]" : ""}`} aria-pressed={x.iso3 === iso} onClick={() => setIso(x.iso3)}>{COUNTRY_NAMES[x.iso3] ?? x.name}</button>
               ))}
             </div>
             {opts && <PlotFigure options={opts} ariaLabel={`Forecast of the share of ${c?.name}'s mineral exports going to China to 2030, with bands and scenarios`} />}

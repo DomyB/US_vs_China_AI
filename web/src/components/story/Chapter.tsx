@@ -67,11 +67,11 @@ export function Exhibit({ title, layer, sources = [], ids = [], explore, note, c
           </span>
         )}
         {ids.length > 0 && (
-          <button type="button" className="underline decoration-dotted" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
+          <button type="button" className="underline decoration-dotted pointer-coarse:-my-2 pointer-coarse:py-2" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
             {open ? "Hide" : "Show"} table ids
           </button>
         )}
-        {explore && <Link href={explore.href} className="ml-auto underline">{explore.label ?? "Explore this exhibit"} →</Link>}
+        {explore && <Link href={explore.href} className="ml-auto underline pointer-coarse:-my-2 pointer-coarse:py-2">{explore.label ?? "Explore this exhibit"} →</Link>}
       </div>
       {open && ids.length > 0 && <p className="mt-1 font-mono text-[11px] text-ink-3 [overflow-wrap:anywhere]">{ids.join(" · ")}</p>}
     </figure>

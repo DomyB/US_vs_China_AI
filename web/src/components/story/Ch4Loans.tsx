@@ -11,7 +11,7 @@ import { Exhibit, KeyNumber, StepCard } from "./Chapter";
 
 type Loan = ReturnType<typeof loanThenFlat>[number];
 
-/** One flagged case: the lender's share of the country's mineral exports two years before and after the commitment, the window shaded. */
+/** One flagged case: the lender's share of the country's mineral exports around the commitment, the rule's two-year window after it shaded; the share of GDP is in the panel's heading, where no width can cut it. */
 function multiple(l: Loan): Plot.PlotOptions {
   const key = l.actor === "CN" ? "share_cn" : "share_us";
   const rows = l.series.filter((r) => r.year >= l.year - 3 && r.year <= l.year + 3).map((r) => ({ year: r.year, share: r[key] }));
@@ -24,9 +24,8 @@ function multiple(l: Loan): Plot.PlotOptions {
     x: { label: null, domain: [l.year - 3, l.year + 3], ticks: [l.year - 2, l.year, l.year + 2], tickFormat: (d: number) => String(d) },
     y: { label: "share to the lender", tickFormat: (d: number) => `${Math.round(d * 100)}%`, domain: [0, Math.max(0.1, ...rows.map((r) => r.share ?? 0)) * 1.2] },
     marks: [
-      Plot.rect([{ x1: l.year - 2, x2: l.year + 2 }], { x1: "x1", x2: "x2", y1: 0, y2: Math.max(0.1, ...rows.map((r) => r.share ?? 0)) * 1.2, fill: "var(--ink-3)", fillOpacity: 0.08 }),
+      Plot.rect([{ x1: l.year, x2: l.year + 2 }], { x1: "x1", x2: "x2", y1: 0, y2: Math.max(0.1, ...rows.map((r) => r.share ?? 0)) * 1.2, fill: "var(--ink-3)", fillOpacity: 0.08 }),
       Plot.ruleX([l.year], { stroke: color, strokeWidth: 2 }),
-      Plot.text([{ x: l.year, t: `${l.score !== null ? fmtPct(l.score, 1) : "?"} of GDP` }], { x: "x", frameAnchor: "top", text: "t", dy: 4, dx: 4, textAnchor: "start", fill: color, fontSize: 10, fontWeight: 700 }),
       Plot.lineY(rows, { x: "year", y: "share", stroke: "var(--ink)", strokeWidth: 1.8, curve: "linear" }),
       Plot.dot(rows, { x: "year", y: "share", fill: "var(--ink)", r: 2.5, tip: true, title: (d: { year: number; share: number | null }) => `${d.year}: ${d.share === null ? "no reported trade" : fmtPct(d.share, 1)}` }),
       Plot.ruleY([0]),
@@ -52,15 +51,17 @@ export function Ch4Loans({ loans, finance, chile }: { loans: Loan[]; finance: In
   const [all, setAll] = useState(false);
   const shown = all ? loans : loans.slice(0, 9);
   const opts = useMemo(() => shown.map((l) => ({ l, o: multiple(l) })), [shown]);
+  const lender = (l: Loan) => (l.actor === "CN" ? "China" : "United States");
+  const ofGdp = (l: Loan) => (l.score !== null ? `${fmtPct(l.score, 1)} of GDP` : "share of GDP not computed");
   return (
     <div className="space-y-6">
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit title={`Loan arrives, line stays flat: ${shown.length} of ${loans.length} flagged commitments`} layer="model" sources={["aiddata_gcdf", "un_comtrade"]} ids={loans.slice(0, 9).map((l) => `anomaly_flag:${l.id}`)} explore={{ href: "/lab#panel", label: "Try the panel levers in the Lab" }} note="Rule: a commitment of at least 0.5% of GDP after which the lender's share of the country's mineral exports did not change within two years (the shaded window). The nine drawn are the largest by share of GDP; a flag is a threshold crossing, not a finding of wrongdoing.">
+          <Exhibit title={`Loan arrives, line stays flat: ${shown.length} of ${loans.length} flagged commitments`} layer="model" sources={["aiddata_gcdf", "un_comtrade"]} ids={shown.map((l) => `anomaly_flag:${l.id}`)} explore={{ href: "/lab#panel", label: "Try the panel levers in the Lab" }} note={`Rule: a commitment of at least 0.5% of GDP after which the lender's share of the country's mineral exports did not change within two years (the shaded window). ${shown.length === loans.length ? `All ${loans.length} are drawn, largest share of GDP first` : `The ${shown.length} drawn are the largest by share of GDP`}; a flag is a threshold crossing, not a finding of wrongdoing.`}>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {opts.map(({ l, o }) => (
                 <div key={l.id} className="min-w-0">
-                  <p className="mb-1 text-xs font-semibold">{l.name} {l.year} · {l.actor === "CN" ? "China" : "United States"}</p>
+                  <p className="mb-1 text-xs font-semibold">{l.name} {l.year} · {lender(l)} <span className={`font-normal ${l.actor === "CN" ? "text-cn" : "text-us"}`}>· {ofGdp(l)}</span></p>
                   <PlotFigure options={o} ariaLabel={l.description} expandable={false} />
                 </div>
               ))}
@@ -74,7 +75,7 @@ export function Ch4Loans({ loans, finance, chile }: { loans: Loan[]; finance: In
           </StepCard>
           {loans[0] && (
             <StepCard>
-              <p><strong>The largest, relative to the economy.</strong> {loans[0].description}</p>
+              <p><strong>The largest, relative to the economy.</strong> {loans[0].name}, {loans[0].year}, {lender(loans[0])}: {loans[0].description}</p>
             </StepCard>
           )}
           {finance && finance.coef !== null && (
