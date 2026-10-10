@@ -1,5 +1,5 @@
 {
- "generated_on": "2026-10-09",
+ "generated_on": "2026-10-10",
  "countries": {
   "ARG": {
    "trade_years": [
@@ -87,7 +87,7 @@
    "parliament_from": null,
    "parliament_note": "The Asamblea Legislativa Plurinacional publishes no API, no roll-call data and no transcripts; the Gaceta's full text is paywalled.",
    "media_available": true,
-   "media_articles": 1,
+   "media_articles": 3,
    "media_from": 2026,
    "concessions": 0,
    "parliament_classified": 0,
@@ -191,7 +191,7 @@
    "parliament_from": 2008,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 7,
+   "media_articles": 11,
    "media_from": 2026,
    "concessions": 0,
    "parliament_classified": 173,
@@ -447,7 +447,7 @@
    "parliament_from": 2021,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 7,
+   "media_articles": 11,
    "media_from": 2026,
    "concessions": 0,
    "parliament_classified": 140,
