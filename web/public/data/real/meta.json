@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-11",
- "generated_at": "2026-10-11T01:15:00+00:00",
+ "generated_at": "2026-10-11T12:55:16+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "arg_clarin",
@@ -47,6 +47,7 @@
   "pry_abc",
   "pry_silpy",
   "resourcecontracts",
+  "un_comtrade",
   "unga_votes",
   "ury_elobservador",
   "ury_ladiaria",
@@ -59,7 +60,7 @@
   "wb_wgi"
  ],
  "adapters_ok": {
-  "ok": 54,
+  "ok": 55,
   "total": 63
  },
  "sources_live": {
@@ -68,14 +69,14 @@
  },
  "ingest_runs": [
   {
-   "source_id": "aei_cgit",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:24:13+00:00",
-   "rows": "{}",
-   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+   "source_id": "arg_clarin",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:16+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
   },
   {
-   "source_id": "arg_infobae",
+   "source_id": "arg_lanacion",
    "status": "ok",
    "finished_at": "2026-10-07T11:19:42+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
@@ -89,31 +90,24 @@
    "error": null
   },
   {
-   "source_id": "bra_oglobo",
+   "source_id": "bra_senado_api",
    "status": "ok",
-   "finished_at": "2026-10-07T11:20:02+00:00",
-   "rows": "{\"document\": 2, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-10T23:48:52+00:00",
+   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
    "error": null
   },
   {
-   "source_id": "chl_camara",
+   "source_id": "chl_cochilco",
    "status": "ok",
-   "finished_at": "2026-10-10T23:56:18+00:00",
-   "rows": "{\"document\": 199, \"vote\": 186, \"vote_member\": 19513}",
+   "finished_at": "2026-10-04T12:08:26+00:00",
+   "rows": "{\"production\": 709}",
    "error": null
   },
   {
-   "source_id": "chl_latercera",
+   "source_id": "col_anm_anna",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:10+00:00",
-   "rows": "{\"document\": 4, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "col_camara",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:08:46+00:00",
-   "rows": "{\"document\": 69}",
+   "finished_at": "2026-10-04T12:07:48+00:00",
+   "rows": "{\"concession\": 0}",
    "error": null
   },
   {
@@ -124,10 +118,17 @@
    "error": null
   },
   {
-   "source_id": "exim_authorizations",
+   "source_id": "ecu_eluniverso",
    "status": "ok",
-   "finished_at": "2026-10-09T16:47:14+00:00",
-   "rows": "{\"finance_event\": 2396}",
+   "finished_at": "2026-10-07T11:21:36+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "federal_register",
+   "status": "ok",
+   "finished_at": "2026-10-10T23:22:16+00:00",
+   "rows": "{\"policy_document\": 480}",
    "error": null
   },
   {
@@ -215,17 +216,17 @@
    "error": "RuntimeError: chl_elmostrador: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
   },
   {
-   "source_id": "col_elespectador",
+   "source_id": "col_camara",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:16+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-11T00:08:46+00:00",
+   "rows": "{\"document\": 69}",
    "error": null
   },
   {
-   "source_id": "ecu_asamblea",
+   "source_id": "dfc_projects",
    "status": "ok",
-   "finished_at": "2026-10-11T00:09:15+00:00",
-   "rows": "{\"document\": 0, \"vote\": 0}",
+   "finished_at": "2026-10-01T21:00:06+00:00",
+   "rows": "{\"finance_event\": 84}",
    "error": null
   },
   {
@@ -320,24 +321,24 @@
    "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
   },
   {
-   "source_id": "col_anm_anna",
+   "source_id": "chl_latercera",
    "status": "ok",
-   "finished_at": "2026-10-04T12:07:48+00:00",
-   "rows": "{\"concession\": 0}",
+   "finished_at": "2026-10-07T11:21:10+00:00",
+   "rows": "{\"document\": 4, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "dfc_projects",
+   "source_id": "col_elespectador",
    "status": "ok",
-   "finished_at": "2026-10-01T21:00:06+00:00",
-   "rows": "{\"finance_event\": 84}",
-   "error": null
-  },
-  {
-   "source_id": "ecu_eluniverso",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:36+00:00",
+   "finished_at": "2026-10-07T11:21:16+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "ecu_asamblea",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:09:15+00:00",
+   "rows": "{\"document\": 0, \"vote\": 0}",
    "error": null
   },
   {
@@ -390,14 +391,14 @@
    "error": null
   },
   {
-   "source_id": "arg_clarin",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:16+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
+   "source_id": "aei_cgit",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:13+00:00",
+   "rows": "{}",
+   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
   },
   {
-   "source_id": "arg_lanacion",
+   "source_id": "arg_infobae",
    "status": "ok",
    "finished_at": "2026-10-07T11:19:42+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
@@ -411,17 +412,17 @@
    "error": null
   },
   {
-   "source_id": "bra_senado_api",
+   "source_id": "bra_oglobo",
    "status": "ok",
-   "finished_at": "2026-10-10T23:48:52+00:00",
-   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
+   "finished_at": "2026-10-07T11:20:02+00:00",
+   "rows": "{\"document\": 2, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "chl_cochilco",
+   "source_id": "chl_camara",
    "status": "ok",
-   "finished_at": "2026-10-04T12:08:26+00:00",
-   "rows": "{\"production\": 709}",
+   "finished_at": "2026-10-10T23:56:18+00:00",
+   "rows": "{\"document\": 199, \"vote\": 186, \"vote_member\": 19513}",
    "error": null
   },
   {
@@ -446,10 +447,10 @@
    "error": null
   },
   {
-   "source_id": "federal_register",
+   "source_id": "exim_authorizations",
    "status": "ok",
-   "finished_at": "2026-10-10T23:22:16+00:00",
-   "rows": "{\"policy_document\": 480}",
+   "finished_at": "2026-10-09T16:47:14+00:00",
+   "rows": "{\"finance_event\": 2396}",
    "error": null
   },
   {
@@ -475,10 +476,10 @@
   },
   {
    "source_id": "un_comtrade",
-   "status": "failed",
-   "finished_at": "2026-10-11T01:13:23+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: un_comtrade: 3 consecutive calls refused (429/403/503) after back-off; the preview API's quota for this address is spent (another run fetched Comtrade earlier today?) - the previous release's trade_flow is kept; rerun tomorrow or set COMTRADE_KEY"
+   "status": "ok",
+   "finished_at": "2026-10-11T12:53:20+00:00",
+   "rows": "{\"trade_flow\": 29828}",
+   "error": null
   },
   {
    "source_id": "ury_parlamento",
@@ -496,7 +497,7 @@
   }
  ],
  "tables": {
-  "trade_flow": 14274,
+  "trade_flow": 29828,
   "finance_event": 4095,
   "production": 4423,
   "price": 3400,
@@ -516,16 +517,16 @@
   "topic": 12,
   "doc_topic": 5450,
   "validation_sample": 300,
-  "concentration": 26667,
-  "index_value": 9290,
-  "index_component": 19116,
+  "concentration": 41894,
+  "index_value": 14938,
+  "index_component": 30384,
   "say_do_gap": 35,
-  "anomaly_flag": 100,
+  "anomaly_flag": 110,
   "network_metric": 2303,
   "network_edge": 2437,
-  "event_effect": 292,
+  "event_effect": 316,
   "regression_result": 40,
-  "forecast": 546,
+  "forecast": 579,
   "backtest": 80,
   "analysis_text": 104,
   "quant_run": 1
@@ -565,11 +566,11 @@
   "status": "computed",
   "method_version": "2026.10",
   "weights_version": "2026.10.eq",
-  "run_id": "quant-20261011T011325Z",
-  "inputs_release": "data-v2026.10.11.56",
-  "created_at": "2026-10-11T01:14:53+00:00",
+  "run_id": "quant-20261011T125323Z",
+  "inputs_release": "data-v2026.10.11.58",
+  "created_at": "2026-10-11T12:55:08+00:00",
   "draws": 500,
-  "rank_stability": 0.613,
+  "rank_stability": 0.648,
   "text_model_label": "zero-shot baseline, not yet validated",
   "last_year": {
    "trade": 2025,
@@ -600,103 +601,111 @@
       "GUY",
       "PER",
       "PRY",
-      "SUR"
+      "SUR",
+      "URY"
      ],
-     "model": "damped_trend",
-     "label": "damped local linear trend (Kalman filter, maximum likelihood)",
-     "crps": 4.7292,
-     "crps_naive": 5.009,
-     "crps_ratio": 0.944,
-     "beats_naive": true,
-     "coverage_80": 0.768,
-     "coverage_95": 0.895,
-     "n_tests": 267,
-     "origins": "2015–2024",
+     "model": "naive",
+     "label": "naive persistence (last value; bootstrapped yearly changes)",
+     "crps": 5.1916,
+     "crps_naive": 5.1916,
+     "crps_ratio": 1.0,
+     "beats_naive": false,
+     "coverage_80": 0.704,
+     "coverage_95": 0.842,
+     "n_tests": 558,
+     "origins": "2007–2024",
      "windows": {
       "ARG": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "BOL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "BRA": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "CHL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "COL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "ECU": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "GUY": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "PER": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "PRY": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "SUR": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
+       "n_absent": 0
+      },
+      "URY": {
+       "years": [
+        2000,
+        2025
+       ],
+       "n_obs": 26,
        "n_absent": 0
       }
      },
      "skipped": {
-      "URY": "4 reported years in the latest unbroken run (2008–2011), fewer than 8",
-      "VEN": "no reported observation"
+      "VEN": "last reported year 2013, before 2023"
      }
     },
     "influence_index:CN": {
@@ -710,103 +719,111 @@
       "GUY",
       "PER",
       "PRY",
-      "SUR"
+      "SUR",
+      "URY"
      ],
      "model": "naive",
      "label": "naive persistence (last value; bootstrapped yearly changes)",
-     "crps": 3.9469,
-     "crps_naive": 3.9469,
+     "crps": 4.0372,
+     "crps_naive": 4.0372,
      "crps_ratio": 1.0,
      "beats_naive": false,
-     "coverage_80": 0.728,
-     "coverage_95": 0.852,
-     "n_tests": 243,
-     "origins": "2015–2024",
+     "coverage_80": 0.674,
+     "coverage_95": 0.817,
+     "n_tests": 531,
+     "origins": "2007–2024",
      "windows": {
       "ARG": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "BOL": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "BRA": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "CHL": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "COL": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "ECU": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "GUY": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "PER": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "PRY": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       },
       "SUR": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "URY": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
        "n_absent": 0
       }
      },
      "skipped": {
-      "URY": "4 reported years in the latest unbroken run (2008–2011), fewer than 8",
-      "VEN": "no reported observation"
+      "VEN": "last reported year 2013, before 2023"
      }
     },
     "export_share:US": {
@@ -821,77 +838,78 @@
      ],
      "model": "naive",
      "label": "naive persistence (last value; bootstrapped yearly changes)",
-     "crps": 0.0442,
-     "crps_naive": 0.0442,
+     "crps": 0.0574,
+     "crps_naive": 0.0574,
      "crps_ratio": 1.0,
      "beats_naive": false,
-     "coverage_80": 0.871,
-     "coverage_95": 0.946,
-     "n_tests": 186,
-     "origins": "2015–2024",
+     "coverage_80": 0.831,
+     "coverage_95": 0.941,
+     "n_tests": 354,
+     "origins": "2007–2024",
      "windows": {
       "BOL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "BRA": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "CHL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "COL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "ECU": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "GUY": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "PER": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       }
      },
      "skipped": {
       "ARG": "1 reported year in the latest unbroken run (2025), fewer than 8; 2 years with no partner row left out (absent, not zero)",
-      "PRY": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 3 years with no partner row left out (absent, not zero)",
-      "SUR": "1 reported year in the latest unbroken run (2022), fewer than 8; 9 years with no partner row left out (absent, not zero)",
-      "URY": "4 reported years in the latest unbroken run (2008–2011), fewer than 8"
+      "PRY": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 4 years with no partner row left out (absent, not zero)",
+      "SUR": "1 reported year in the latest unbroken run (2022), fewer than 8; 11 years with no partner row left out (absent, not zero)",
+      "URY": "6 reported years in the latest unbroken run (2020–2025), fewer than 8; 10 years with no partner row left out (absent, not zero)",
+      "VEN": "4 reported years in the latest unbroken run (2008–2011), fewer than 8; 2 years with no partner row left out (absent, not zero)"
      }
     },
     "export_share:CN": {
@@ -904,47 +922,47 @@
       "GUY",
       "PER"
      ],
-     "model": "damped_trend",
-     "label": "damped local linear trend (Kalman filter, maximum likelihood)",
-     "crps": 0.0412,
-     "crps_naive": 0.0463,
-     "crps_ratio": 0.89,
+     "model": "pooled_drift",
+     "label": "random walk with drift partially pooled across countries (empirical Bayes)",
+     "crps": 0.038,
+     "crps_naive": 0.042,
+     "crps_ratio": 0.905,
      "beats_naive": true,
-     "coverage_80": 0.585,
-     "coverage_95": 0.742,
-     "n_tests": 159,
-     "origins": "2015–2024",
+     "coverage_80": 0.681,
+     "coverage_95": 0.846,
+     "n_tests": 279,
+     "origins": "2007–2024",
      "windows": {
       "BOL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "BRA": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "CHL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "COL": {
        "years": [
-        2008,
+        2000,
         2025
        ],
-       "n_obs": 18,
+       "n_obs": 26,
        "n_absent": 0
       },
       "ECU": {
@@ -953,7 +971,7 @@
         2025
        ],
        "n_obs": 15,
-       "n_absent": 1
+       "n_absent": 6
       },
       "GUY": {
        "years": [
@@ -961,22 +979,23 @@
         2025
        ],
        "n_obs": 12,
-       "n_absent": 4
+       "n_absent": 10
       },
       "PER": {
        "years": [
-        2008,
+        2000,
         2024
        ],
-       "n_obs": 17,
+       "n_obs": 25,
        "n_absent": 0
       }
      },
      "skipped": {
-      "ARG": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 3 years with no partner row left out (absent, not zero)",
-      "PRY": "1 reported year in the latest unbroken run (2013), fewer than 8; 14 years with no partner row left out (absent, not zero)",
-      "SUR": "1 reported year in the latest unbroken run (2012), fewer than 8; 17 years with no partner row left out (absent, not zero)",
-      "URY": "3 reported years in the latest unbroken run (2009–2011), fewer than 8; 1 year with no partner row left out (absent, not zero)"
+      "ARG": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 7 years with no partner row left out (absent, not zero)",
+      "PRY": "1 reported year in the latest unbroken run (2013), fewer than 8; 18 years with no partner row left out (absent, not zero)",
+      "SUR": "1 reported year in the latest unbroken run (2012), fewer than 8; 25 years with no partner row left out (absent, not zero)",
+      "URY": "2 reported years in the latest unbroken run (2021–2022), fewer than 8; 16 years with no partner row left out (absent, not zero)",
+      "VEN": "1 reported year in the latest unbroken run (2013), fewer than 8; 1 year with no partner row left out (absent, not zero)"
      }
     }
    },
@@ -1011,12 +1030,20 @@
  },
  "period": {
   "from": 2000,
-  "data_from": 2008,
+  "data_from": 2000,
   "to": 2026
  },
  "coverage": {
   "ARG": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1036,7 +1063,34 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 450,
    "contracts": 46,
    "governance": 1048,
@@ -1058,7 +1112,7 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
    "flags": 14,
@@ -1069,6 +1123,14 @@
   },
   "BOL": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1088,7 +1150,34 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 154,
    "contracts": 50,
    "governance": 1048,
@@ -1110,7 +1199,7 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
    "flags": 9,
@@ -1121,6 +1210,14 @@
   },
   "BRA": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1140,7 +1237,34 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 1442,
    "contracts": 49,
    "governance": 1048,
@@ -1162,10 +1286,10 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
-   "flags": 5,
+   "flags": 6,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
@@ -1173,6 +1297,14 @@
   },
   "CHL": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1192,7 +1324,34 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 269,
    "contracts": 19,
    "governance": 796,
@@ -1214,10 +1373,10 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
-   "flags": 10,
+   "flags": 11,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
@@ -1225,6 +1384,14 @@
   },
   "COL": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1244,7 +1411,34 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 351,
    "contracts": 100,
    "governance": 1048,
@@ -1266,10 +1460,10 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
-   "flags": 5,
+   "flags": 7,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
@@ -1277,6 +1471,14 @@
   },
   "ECU": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1296,7 +1498,34 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 373,
    "contracts": 37,
    "governance": 1048,
@@ -1318,7 +1547,7 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
    "flags": 11,
@@ -1329,6 +1558,14 @@
   },
   "GUY": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1348,7 +1585,34 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 133,
    "contracts": 39,
    "governance": 1048,
@@ -1370,10 +1634,10 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
-   "flags": 13,
+   "flags": 14,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
@@ -1381,6 +1645,10 @@
   },
   "PRY": {
    "trade_years": [
+    2004,
+    2005,
+    2006,
+    2007,
     2010,
     2011,
     2012,
@@ -1397,7 +1665,30 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2002,
+    2003,
+    2004,
+    2005,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 68,
    "contracts": 16,
    "governance": 1048,
@@ -1419,7 +1710,7 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
    "flags": 0,
@@ -1430,6 +1721,14 @@
   },
   "PER": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1448,7 +1747,34 @@
     2023,
     2024
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 419,
    "contracts": 100,
    "governance": 1048,
@@ -1470,10 +1796,10 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2024
    ],
-   "flags": 8,
+   "flags": 10,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
@@ -1481,6 +1807,14 @@
   },
   "SUR": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
@@ -1500,7 +1834,31 @@
     2024,
     2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2019,
+    2020,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 114,
    "contracts": 5,
    "governance": 1048,
@@ -1522,7 +1880,7 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
+    2000,
     2025
    ],
    "flags": 16,
@@ -1533,12 +1891,61 @@
   },
   "URY": {
    "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
     2008,
     2009,
     2010,
-    2011
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
    ],
-   "mirror_years": [],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 143,
    "contracts": 25,
    "governance": 796,
@@ -1560,18 +1967,59 @@
    "narratives_available": false,
    "analysis_available": true,
    "analysis_years": [
-    2008,
-    2011
+    2000,
+    2025
    ],
    "flags": 0,
-   "forecast_available": false,
+   "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
    "statements": 0
   },
   "VEN": {
-   "trade_years": [],
-   "mirror_years": [],
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013
+   ],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
    "events": 179,
    "contracts": 1,
    "governance": 769,
@@ -1591,9 +2039,12 @@
    "parliament_translated": 0,
    "media_classified": 0,
    "narratives_available": false,
-   "analysis_available": false,
-   "analysis_years": null,
-   "flags": 9,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2013
+   ],
+   "flags": 12,
    "forecast_available": false,
    "interpretation_available": true,
    "human_interpretation": true,
