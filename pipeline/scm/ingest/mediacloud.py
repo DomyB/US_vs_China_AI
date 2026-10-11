@@ -3,7 +3,7 @@
 Media Cloud (mediacloud.org, a university consortium) indexes stories from tens of thousands of outlets and
 keeps one national collection per country ("Argentina - National"). It is the history source for the press
 record: GDELT throttles GitHub's runner addresses and starts in 2017, while Media Cloud answers a registered
-key (MEDIACLOUD_KEY, free) and its collections reach back to about 2010. Per country and year the adapter asks
+key (MEDIACLOUD_KEY, free; 4,000 requests a week, the count endpoints two a minute) and its collections reach back to about 2010. Per country and year the adapter asks
 for three daily count series (the mineral query; mineral AND China; mineral AND the United States) and one
 story list (the mineral query, paginated, capped at MAX_STORIES per country-year). The daily rows are summed
 into MONTHLY `media_volume` rows (`period = YYYY-MM-01`); `items_total` is the collection's own daily total,
@@ -43,7 +43,8 @@ PAGE_SIZE = 1000
 MAX_STORIES = 2000  # stories kept per country-year (two pages of PAGE_SIZE)
 MAX_CONSECUTIVE_ERRORS = 5  # after this many failed requests in a row the run stops (quota or outage); the rest waits for the next run
 MAX_THROTTLES = 10  # HTTP 429 answers in one run before it stops: the address is rate-limited or the weekly quota is spent
-THROTTLE_PAUSE_S = 30  # the pause before the one retry of a throttled request, unless the answer names its own wait
+QUERY_RATE = (2, 60.0)  # Media Cloud limits each search endpoint to two requests a minute per user (its FAQ; confirmed by the first runs)
+THROTTLE_PAUSE_S = 61  # the pause before the one retry of a throttled request, unless the answer names its own wait
 THROTTLE_PAUSE_MAX_S = 120
 
 # The mineral terms are the ones the GDELT adapter queries (gdelt.TERMS, English because GDELT matches its English
@@ -235,9 +236,24 @@ class MediaCloud(Adapter):
     retry_statuses = (500, 502, 503, 504)  # a 429 is paced by the adapter (one retry after the wait the answer names), never retried blindly
     TIME_BUDGET_MIN = 40  # minutes of fetching per run (MEDIACLOUD_TIME_BUDGET_MIN); unfetched country-years wait for the next run
     _errors = 0  # consecutive failed requests in this run
+    _calls: dict[str, list[float]]  # endpoint -> monotonic times of its recent requests, for the two-a-minute pacing
 
     def _pause(self, seconds: float) -> None:
         time.sleep(seconds)
+
+    def _pace(self, endpoint: str) -> None:
+        """Wait so that no more than QUERY_RATE[0] requests to one endpoint go out in any QUERY_RATE[1] seconds. The limit
+        is per endpoint, so the three counts and the two story pages of a country-year interleave: about two minutes each."""
+        n, window = QUERY_RATE
+        now = time.monotonic()
+        calls = [t for t in self.__dict__.setdefault("_calls", {}).get(endpoint, []) if now - t < window]
+        if len(calls) >= n:
+            wait = window - (now - calls[0]) + 1.0
+            if wait > 0:
+                self._pause(wait)
+                now = time.monotonic()
+        calls.append(now)
+        self._calls[endpoint] = calls
 
     def _headers(self) -> dict[str, str]:
         return {"Authorization": f"Token {os.environ.get('MEDIACLOUD_KEY', '')}", "Accept": "application/json"}
@@ -292,6 +308,7 @@ class MediaCloud(Adapter):
 
     def fetch(self, snap: Snapshot) -> None:
         self._errors = 0
+        self._calls = {}
         snap.manifest["errors"] = []
         today = datetime.now(UTC).date()
         bounds = year_bounds(os.environ.get("MEDIACLOUD_YEARS"))
@@ -315,6 +332,7 @@ class MediaCloud(Adapter):
             start, end = f"{year}-01-01", min(date(year, 12, 31), today).isoformat()
             common = {"start": start, "end": end, "cs": cols[iso], "platform": PLATFORM}
             for kind in COUNT_KINDS:
+                self._pace("search/count-over-time")
                 self._get_json(snap, "search/count-over-time", f"{iso}/{year}_{kind}.json", {"q": actor_query(kind), **common})
             self._stories(snap, iso, year, common)
             fetched += 1
@@ -330,6 +348,7 @@ class MediaCloud(Adapter):
             params = {"q": mineral_query(), **common, "page_size": PAGE_SIZE, "sort_order": "asc"}
             if token:
                 params["pagination_token"] = token
+            self._pace("search/story-list")
             payload = self._get_json(snap, "search/story-list", f"{iso}/{year}_stories_{page}.json", params)
             if payload is None:
                 return

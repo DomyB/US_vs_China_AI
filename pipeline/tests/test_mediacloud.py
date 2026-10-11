@@ -32,6 +32,12 @@ STORIES = {"stories": [
 ], "pagination_token": None}
 
 
+@pytest.fixture(autouse=True)
+def _no_sleep(monkeypatch):
+    """The pacer and the throttle retry sleep in production; tests record the pauses instead."""
+    monkeypatch.setattr(MediaCloud, "_pause", lambda self, s: None)
+
+
 def test_mediacloud_is_in_the_press_group_and_registry():
     assert MediaCloud in PRESS and ADAPTERS["mediacloud"] is MediaCloud
     src = MediaCloud().src
@@ -243,8 +249,8 @@ def test_fetch_stops_after_consecutive_failures(snap_factory, monkeypatch):
     # every throttled request is retried once after a pause, so each of the five failed requests counts two throttles;
     # after the fifth failure in a row no further request is sent, and the run stops at the next year
     assert snap.manifest["stopped"].startswith(f"{mc.MAX_CONSECUTIVE_ERRORS} consecutive")
-    assert snap.manifest["throttled"] == 2 * mc.MAX_CONSECUTIVE_ERRORS and len(pauses) == mc.MAX_CONSECUTIVE_ERRORS
-    assert pauses[0] == mc.THROTTLE_PAUSE_S and len(calls) == 2 * mc.MAX_CONSECUTIVE_ERRORS + 1  # the collection lookup plus the retried requests
+    assert snap.manifest["throttled"] == 2 * mc.MAX_CONSECUTIVE_ERRORS and len([p for p in pauses if p == mc.THROTTLE_PAUSE_S]) == mc.MAX_CONSECUTIVE_ERRORS
+    assert mc.THROTTLE_PAUSE_S in pauses and len(calls) == 2 * mc.MAX_CONSECUTIVE_ERRORS + 1  # the collection lookup plus the retried requests
     assert len(snap.manifest["errors"]) == mc.MAX_CONSECUTIVE_ERRORS and snap.manifest["years_fetched"] == 2 and snap.manifest["years_left"] == 2
 
 
@@ -304,3 +310,29 @@ def test_skipped_without_the_key(tmp_path, monkeypatch):
     monkeypatch.delenv("MEDIACLOUD_KEY", raising=False)
     rec = MediaCloud().run(raw_base=tmp_path / "raw", out_dir=tmp_path / "wh")
     assert rec["status"] == "skipped" and "MEDIACLOUD_KEY" in rec["error"]
+
+
+def test_requests_are_paced_to_two_a_minute_per_endpoint(monkeypatch):
+    clock = [1000.0]
+    monkeypatch.setattr(mc.time, "monotonic", lambda: clock[0])
+    adapter = MediaCloud()
+    adapter._calls = {}
+    pauses: list[float] = []
+
+    def pause(self, s):
+        pauses.append(s)
+        clock[0] += s
+
+    monkeypatch.setattr(MediaCloud, "_pause", pause)
+    adapter._pace("search/count-over-time")  # t = 1000
+    clock[0] += 1
+    adapter._pace("search/count-over-time")  # t = 1001: the second of the minute, no wait
+    clock[0] += 1
+    adapter._pace("search/story-list")  # another endpoint has its own window: no wait
+    adapter._pace("search/count-over-time")  # t = 1002: a third within the minute waits until 1061
+    assert pauses == [59.0] and clock[0] == 1061.0
+    clock[0] += 1
+    adapter._pace("search/count-over-time")  # t = 1062: the 1001 call has aged out, no wait
+    assert pauses == [59.0]
+    adapter._pace("search/count-over-time")  # t = 1062: waits until the 1061 call is a minute old
+    assert pauses == [59.0, 60.0]
