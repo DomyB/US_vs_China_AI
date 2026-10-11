@@ -38,10 +38,13 @@ from .keywords import is_relevant, relevance
 
 API = "https://search.mediacloud.org/api/"
 HISTORY_FROM = 2010
-PLATFORM = "onlinenews"
+PLATFORM = "onlinenews-mediacloud"  # the `platform` value the Media Cloud client sends
 PAGE_SIZE = 1000
 MAX_STORIES = 2000  # stories kept per country-year (two pages of PAGE_SIZE)
 MAX_CONSECUTIVE_ERRORS = 5  # after this many failed requests in a row the run stops (quota or outage); the rest waits for the next run
+MAX_THROTTLES = 10  # HTTP 429 answers in one run before it stops: the address is rate-limited or the weekly quota is spent
+THROTTLE_PAUSE_S = 30  # the pause before the one retry of a throttled request, unless the answer names its own wait
+THROTTLE_PAUSE_MAX_S = 120
 
 # The mineral terms are the ones the GDELT adapter queries (gdelt.TERMS, English because GDELT matches its English
 # translations) plus their Spanish and Portuguese forms, since Media Cloud matches the story's own language; the
@@ -85,14 +88,21 @@ def find_collection(results: object, iso: str) -> int | str | None:
     if not isinstance(items, list):
         return None
     want = collection_name(iso).lower()
-    for it in items:
-        if isinstance(it, dict) and str(it.get("name", "")).strip().lower() == want and it.get("id") is not None:
-            return it["id"]
+    names = [(str(it.get("name", "")).strip().lower(), it["id"]) for it in items if isinstance(it, dict) and it.get("id") is not None]
+    for name, cid in names:
+        if name == want:
+            return cid
+    # Media Cloud names some countries by their long form ("Bolivia, Plurinational State of - National",
+    # "Venezuela, Bolivarian Republic of - National"): the national collection whose name is the short name, a comma and a qualifier
+    country = COUNTRIES[iso].lower()
+    for name, cid in names:
+        if name.endswith(" - national") and name.startswith(country + ","):
+            return cid
     return None
 
 
 def daily_rows(payload: object) -> list[dict] | None:
-    """The daily rows of a story-count-over-time answer: nested under count_over_time -> counts, under counts,
+    """The daily rows of a count-over-time answer: nested under count_over_time -> counts, under counts,
     or the list itself. None when the shape is not recognised."""
     obj = payload
     for _ in range(3):
@@ -130,6 +140,13 @@ def story_rows(payload: object) -> tuple[list[dict], str | None] | None:
         return None
     token = payload.get("pagination_token") or payload.get("next_page_token")
     return [s for s in stories if isinstance(s, dict)], (str(token) if token else None)
+
+
+def throttle_wait(message: str) -> float:
+    """The pause a throttled answer asks for ("Request was throttled. Expected available in 42 seconds."), bounded;
+    THROTTLE_PAUSE_S when the answer names none."""
+    m = re.search(r"available in (\d+) second", message)
+    return min(float(m.group(1)) + 1, THROTTLE_PAUSE_MAX_S) if m else float(THROTTLE_PAUSE_S)
 
 
 def _int(x: object) -> int:
@@ -215,24 +232,35 @@ class MediaCloud(Adapter):
     requires_env = ("MEDIACLOUD_KEY",)
     incremental = True
     min_interval = 1.0
-    retry_statuses = (500, 502, 503, 504)  # a 429 (weekly quota) is counted and stops the run, never retried blindly
+    retry_statuses = (500, 502, 503, 504)  # a 429 is paced by the adapter (one retry after the wait the answer names), never retried blindly
     TIME_BUDGET_MIN = 40  # minutes of fetching per run (MEDIACLOUD_TIME_BUDGET_MIN); unfetched country-years wait for the next run
     _errors = 0  # consecutive failed requests in this run
+
+    def _pause(self, seconds: float) -> None:
+        time.sleep(seconds)
 
     def _headers(self) -> dict[str, str]:
         return {"Authorization": f"Token {os.environ.get('MEDIACLOUD_KEY', '')}", "Accept": "application/json"}
 
     def _get_json(self, snap: Snapshot, path: str, name: str, params: dict) -> object | None:
         """One GET, stored under `name`; None (and a manifest error) when it fails or is not JSON."""
-        try:
-            snap.get(API + path, name, params=params, headers=self._headers(), timeout=120, force=True)
-        except Exception as e:  # noqa: BLE001 - the country-year stays missing and is planned again next run
-            err = str(e)
-            snap.manifest["errors"].append({"name": name, "error": err[:200]})
-            self._errors += 1
-            if "429" in err:
-                snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
-            return None
+        if self._errors >= MAX_CONSECUTIVE_ERRORS or snap.manifest.get("throttled", 0) >= MAX_THROTTLES:
+            return None  # the run is stopping: no further request
+        for attempt in (1, 2):
+            try:
+                snap.get(API + path, name, params=params, headers=self._headers(), timeout=120, force=True)
+                break
+            except Exception as e:  # noqa: BLE001 - the country-year stays missing and is planned again next run
+                err = str(e)
+                throttled = re.search(r"HTTP 429\b", err) is not None
+                if throttled:
+                    snap.manifest["throttled"] = snap.manifest.get("throttled", 0) + 1
+                if throttled and attempt == 1 and snap.manifest["throttled"] < MAX_THROTTLES:
+                    self._pause(throttle_wait(err))  # one paced retry: the API names its wait ("Expected available in N seconds")
+                    continue
+                snap.manifest["errors"].append({"name": name, "error": err[:200]})
+                self._errors += 1
+                return None
         try:
             payload = json.loads(snap.path(name).read_text(encoding="utf-8"))
         except (json.JSONDecodeError, UnicodeDecodeError) as e:
@@ -281,10 +309,13 @@ class MediaCloud(Adapter):
             if self._errors >= MAX_CONSECUTIVE_ERRORS:
                 snap.manifest["stopped"] = f"{MAX_CONSECUTIVE_ERRORS} consecutive requests failed; the remaining years wait for the next run"
                 break
+            if snap.manifest.get("throttled", 0) >= MAX_THROTTLES:
+                snap.manifest["stopped"] = f"{MAX_THROTTLES} throttle responses in this run: the address is rate-limited or the weekly quota is spent"
+                break
             start, end = f"{year}-01-01", min(date(year, 12, 31), today).isoformat()
-            common = {"start": start, "end": end, "cs": cols[iso], "ps": PLATFORM}
+            common = {"start": start, "end": end, "cs": cols[iso], "platform": PLATFORM}
             for kind in COUNT_KINDS:
-                self._get_json(snap, "search/story-count-over-time", f"{iso}/{year}_{kind}.json", {"q": actor_query(kind), **common})
+                self._get_json(snap, "search/count-over-time", f"{iso}/{year}_{kind}.json", {"q": actor_query(kind), **common})
             self._stories(snap, iso, year, common)
             fetched += 1
             snap.manifest["years_fetched"] = fetched
@@ -296,7 +327,7 @@ class MediaCloud(Adapter):
         token: str | None = None
         got = 0
         for page in range(1, MAX_STORIES // PAGE_SIZE + 1):
-            params = {"q": mineral_query(), **common, "page_size": PAGE_SIZE, "sort_field": "publish_date", "sort_order": "asc"}
+            params = {"q": mineral_query(), **common, "page_size": PAGE_SIZE, "sort_order": "asc"}
             if token:
                 params["pagination_token"] = token
             payload = self._get_json(snap, "search/story-list", f"{iso}/{year}_stories_{page}.json", params)

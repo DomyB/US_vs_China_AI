@@ -31,7 +31,7 @@ def test_fixtures_carry_no_credentials():
             for k, v in (meta.get("params") or {}).items():
                 if _SECRET_PARAM.match(str(k)) and v not in (MASK, "", None):
                     bad.append(f"{manifest.parent.name}/{name}: param {k}")
-            if any(f"{k}=" in str(meta.get("url", "")).lower() for k in ("api_key", "subscription-key", "access_token", "token", "&key=", "?key=")):
+            if any(f"{k}=" in str(meta.get("url", "")).lower() for k in ("api_key", "subscription-key", "access_token", "&token", "?token", "&key", "?key")):
                 bad.append(f"{manifest.parent.name}/{name}: url")
     assert not bad, bad
 

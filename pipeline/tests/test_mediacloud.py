@@ -51,6 +51,11 @@ def test_collection_lookup_picks_the_national_collection_by_name():
     assert find_collection([{"id": 7, "name": "argentina - national"}], "ARG") == 7  # case-insensitive, flat list accepted
     assert find_collection(payload, "BOL") is None
     assert find_collection({"results": "nope"}, "ARG") is None
+    # the long official names Media Cloud uses for two countries, and a decoy that is not the national collection
+    long = {"count": 2, "results": [{"id": 1, "name": "Bolivia, Plurinational State of - State & Local"}, {"id": 34412045, "name": "Bolivia, Plurinational State of - National"}]}
+    assert find_collection(long, "BOL") == 34412045
+    assert find_collection({"results": [{"id": 9, "name": "Venezuela, Bolivarian Republic of - National"}]}, "VEN") == 9
+    assert find_collection({"results": [{"id": 9, "name": "Guyana Chronicle - National"}]}, "GUY") is None
 
 
 def test_collections_are_recorded_and_a_country_without_one_is_skipped(snap_factory, monkeypatch):
@@ -102,7 +107,7 @@ def _year_snapshot(snap_factory, shape=_nested, with_us=True):
         files["BRA/2024_count_us.json"] = shape([{"date": "2024-02-10", "count": 1, "total_count": 90}])
     snap = snap_factory("mediacloud", files)
     snap.files["BRA/2024_count_mining.json"]["params"] = {"start": "2024-01-01", "end": "2024-03-31", "cs": 1}
-    snap.files["BRA/2024_count_mining.json"]["url"] = "https://search.mediacloud.org/api/search/story-count-over-time?q=x&start=2024-01-01&end=2024-03-31&cs=1"
+    snap.files["BRA/2024_count_mining.json"]["url"] = "https://search.mediacloud.org/api/search/count-over-time?q=x&start=2024-01-01&end=2024-03-31&cs=1"
     return snap
 
 
@@ -118,7 +123,7 @@ def test_monthly_aggregation_from_daily_rows(snap_factory, shape):
     assert feb["items_total"] == 80 and feb["items_mining"] == 1 and feb["items_cn"] == 0 and feb["items_us"] == 1
     assert mar["items_total"] == 0 and mar["items_mining"] == 0
     assert (vol["country"] == "BRA").all() and (vol["source_id"] == "mediacloud").all()
-    assert vol.iloc[0]["source_record_url"].startswith("https://search.mediacloud.org/api/search/story-count-over-time?q=x&start=2024-01-01")
+    assert vol.iloc[0]["source_record_url"].startswith("https://search.mediacloud.org/api/search/count-over-time?q=x&start=2024-01-01")
     assert vol.iloc[0]["reliability"] == "independent_academic"
 
 
@@ -156,7 +161,7 @@ def test_a_month_still_running_on_the_fetch_day_is_not_written(snap_factory):
 
 
 def test_ledger_skips_a_done_year_and_runs_newest_first():
-    mc_url = "https://search.mediacloud.org/api/search/story-count-over-time?start={y}-01-01"
+    mc_url = "https://search.mediacloud.org/api/search/count-over-time?start={y}-01-01"
     prev = pd.DataFrame([
         *({"country": "BRA", "period": f"2023-{m:02d}-01", "source_record_url": mc_url.format(y=2023)} for m in range(1, 13)),  # all twelve months: done
         *({"country": "BRA", "period": f"2022-{m:02d}-01", "source_record_url": mc_url.format(y=2022)} for m in range(1, 12)),  # cut short at eleven: planned again
@@ -202,8 +207,8 @@ def test_fetch_runs_the_plan_and_stops_on_the_time_budget(snap_factory, monkeypa
     names = [n for _, n in calls if not n.startswith("collections/")]
     assert names[:4] == ["ARG/2023_count_mining.json", "ARG/2023_count_cn.json", "ARG/2023_count_us.json", "ARG/2023_stories_1.json"]
     assert names[4].startswith("BRA/2023_") and names[-1] == "BRA/2022_stories_1.json"
-    assert calls[-1][0] == "search/story-list" and calls[2][0] == "search/story-count-over-time"
-    assert snap.files["ARG/2023_count_mining.json"]["params"] == {"q": mc.actor_query("count_mining"), "start": "2023-01-01", "end": "2023-12-31", "cs": 5, "ps": "onlinenews"}
+    assert calls[-1][0] == "search/story-list" and calls[2][0] == "search/count-over-time"
+    assert snap.files["ARG/2023_count_mining.json"]["params"] == {"q": mc.actor_query("count_mining"), "start": "2023-01-01", "end": "2023-12-31", "cs": 5, "platform": "onlinenews-mediacloud"}
     # budget exhausted: the plan is recorded, nothing after the collection lookup is fetched
     monkeypatch.setenv("MEDIACLOUD_TIME_BUDGET_MIN", "0")
     snap2 = snap_factory("mediacloud2", {})
@@ -232,10 +237,45 @@ def test_fetch_stops_after_consecutive_failures(snap_factory, monkeypatch):
         raise FetchError(f"mediacloud: HTTP 429 on GET {url}")
 
     monkeypatch.setattr(snap, "get", flaky)
+    pauses: list[float] = []
+    monkeypatch.setattr(MediaCloud, "_pause", lambda self, s: pauses.append(s))
     MediaCloud().fetch(snap)
+    # every throttled request is retried once after a pause, so each of the five failed requests counts two throttles;
+    # after the fifth failure in a row no further request is sent, and the run stops at the next year
     assert snap.manifest["stopped"].startswith(f"{mc.MAX_CONSECUTIVE_ERRORS} consecutive")
-    assert snap.manifest["throttled"] == mc.MAX_CONSECUTIVE_ERRORS + 3  # the failed year's four calls plus the next year's four
-    assert len(snap.manifest["errors"]) == 8 and snap.manifest["years_fetched"] == 2 and snap.manifest["years_left"] == 2
+    assert snap.manifest["throttled"] == 2 * mc.MAX_CONSECUTIVE_ERRORS and len(pauses) == mc.MAX_CONSECUTIVE_ERRORS
+    assert pauses[0] == mc.THROTTLE_PAUSE_S and len(calls) == 2 * mc.MAX_CONSECUTIVE_ERRORS + 1  # the collection lookup plus the retried requests
+    assert len(snap.manifest["errors"]) == mc.MAX_CONSECUTIVE_ERRORS and snap.manifest["years_fetched"] == 2 and snap.manifest["years_left"] == 2
+
+
+def test_throttle_wait_reads_the_answer():
+    assert mc.throttle_wait("mediacloud: HTTP 429 on GET x {\"detail\":\"Request was throttled. Expected available in 42 seconds.\"}") == 43.0
+    assert mc.throttle_wait("mediacloud: HTTP 429 on GET x") == mc.THROTTLE_PAUSE_S
+    assert mc.throttle_wait("available in 9999 seconds") == mc.THROTTLE_PAUSE_MAX_S
+
+
+def test_a_throttled_request_succeeds_on_its_retry(snap_factory, monkeypatch):
+    from scm.http import FetchError
+
+    monkeypatch.setenv("MEDIACLOUD_KEY", "k")
+    snap = snap_factory("mediacloud", {})
+    calls: list = []
+    ok = _fake_api(snap, calls)
+    seen: list[str] = []
+
+    def once(url, name, params=None, headers=None, **kw):
+        if name not in seen:
+            seen.append(name)
+            raise FetchError(f"mediacloud: HTTP 429 on GET {url} Expected available in 2 seconds.")
+        return ok(url, name, params=params, headers=headers, **kw)
+
+    monkeypatch.setattr(snap, "get", once)
+    pauses: list[float] = []
+    monkeypatch.setattr(MediaCloud, "_pause", lambda self, s: pauses.append(s))
+    adapter = MediaCloud()
+    snap.manifest["errors"] = []
+    assert adapter._get_json(snap, "sources/collections/", "collections/ARG.json", {"name": "Argentina - National"}) is not None
+    assert pauses == [3.0] and snap.manifest["throttled"] == 1 and snap.manifest["errors"] == [] and adapter._errors == 0
 
 
 def test_story_pagination_is_capped(snap_factory, monkeypatch):
@@ -256,7 +296,7 @@ def test_story_pagination_is_capped(snap_factory, monkeypatch):
     monkeypatch.setattr(snap, "get", fake_get)
     adapter = MediaCloud()
     adapter._errors = 0
-    adapter._stories(snap, "ARG", 2020, {"start": "2020-01-01", "end": "2020-12-31", "cs": 1, "ps": "onlinenews"})
+    adapter._stories(snap, "ARG", 2020, {"start": "2020-01-01", "end": "2020-12-31", "cs": 1, "platform": "onlinenews-mediacloud"})
     assert pages == [None, "t1"] and snap.has("ARG/2020_stories_2.json")  # two pages of two, then the cap
 
 
