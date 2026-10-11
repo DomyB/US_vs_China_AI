@@ -5,7 +5,7 @@ import { DataTable } from "@/components/charts/PlotFigure";
 import { COUNTRY_NAMES, YEAR_MIN } from "@/lib/constants";
 import type { coverageWall } from "@/lib/story";
 import type { EvidenceLevel } from "@/lib/types";
-import { Door, Exhibit, Meter, StepCard } from "./Chapter";
+import { Door, Exhibit, Meter, StepCard, restartStory } from "./Chapter";
 
 type Wall = ReturnType<typeof coverageWall>;
 
@@ -83,6 +83,9 @@ export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }
           <Door href="/country" title="The case files" text="Twelve countries, five tabs each, every receipt attached." />
           <Door href="/lab" title="The Lab" text="Your own scenario to 2030, labelled as yours." />
         </div>
+        <p className="mt-5 text-xs opacity-80">
+          Or read it again: <button type="button" className="underline decoration-dotted pointer-coarse:py-2" onClick={restartStory}>start the story over</button> (the opening replays and your guesses are cleared from this browser).
+        </p>
       </div>
     </div>
   );

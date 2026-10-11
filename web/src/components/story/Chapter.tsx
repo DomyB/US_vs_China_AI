@@ -9,6 +9,18 @@ import { sourceEntry } from "@/lib/sources";
 import type { EvidenceLevel, Reliability } from "@/lib/types";
 import { useSources } from "@/lib/useSources";
 
+/** Dispatched on window by "Start the story over": the opening replays and every guess is cleared. */
+export const STORY_RESTART_EVENT = "story:restart";
+
+export function restartStory() {
+  try {
+    for (const k of Object.keys(localStorage)) if (k.startsWith("guess.")) localStorage.removeItem(k);
+  } catch {
+    // storage may be unavailable
+  }
+  window.dispatchEvent(new Event(STORY_RESTART_EVENT));
+}
+
 export type Layer = "facts" | "model" | "interp";
 const LAYER_LABEL: Record<Layer, string> = { facts: "Facts", model: "Model output", interp: "Interpretation" };
 
@@ -139,6 +151,23 @@ export function GuessFirst({ id, question, min, max, step = 1, answer, format, u
       // ignore
     }
   };
+  const again = () => {
+    setRevealed(false);
+    setGuess((min + max) / 2);
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // ignore
+    }
+  };
+  useEffect(() => {
+    const onRestart = () => {
+      setRevealed(false);
+      setGuess((min + max) / 2);
+    };
+    window.addEventListener(STORY_RESTART_EVENT, onRestart);
+    return () => window.removeEventListener(STORY_RESTART_EVENT, onRestart);
+  }, [min, max]);
   const pct = (v: number) => `${((v - min) / (max - min)) * 100}%`;
   return (
     <div className="card p-4">
@@ -146,7 +175,11 @@ export function GuessFirst({ id, question, min, max, step = 1, answer, format, u
       <div className="mt-3 flex flex-wrap items-center gap-3">
         <input id={inputId} type="range" min={min} max={max} step={step} value={guess} onChange={(e) => setGuess(Number(e.target.value))} disabled={revealed} className="min-w-[10rem] flex-1" aria-valuetext={`${format(guess)}${unit ? ` ${unit}` : ""}`} />
         <output htmlFor={inputId} className="serif w-20 text-right text-2xl tabular-nums">{format(guess)}</output>
-        {!revealed && <button type="button" className="btn btn-sm btn-primary" onClick={reveal}>Show the record</button>}
+        {revealed ? (
+          <button type="button" className="btn btn-sm" onClick={again}>Guess again</button>
+        ) : (
+          <button type="button" className="btn btn-sm btn-primary" onClick={reveal}>Show the record</button>
+        )}
       </div>
       <div className="relative mt-3 h-6 border-b border-rule-2">
         <span className="absolute -bottom-px h-3 w-0 border-l-[1.5px] border-dashed border-ink" style={{ left: pct(guess) }} title={`your guess: ${format(guess)}`} aria-hidden="true" />

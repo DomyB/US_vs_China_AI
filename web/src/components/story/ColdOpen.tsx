@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { STORY_RESTART_EVENT } from "./Chapter";
 import { reducedMotion } from "@/lib/motion";
 import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import type { StatementRecord } from "@/lib/types";
@@ -38,13 +39,19 @@ export function ColdOpen({ quote, absence, receipts, release, pairingNote }: { q
   // the tick reads the pause flag from a ref so a toggle reaches the running interval without restarting it
   const pausedRef = useRef(false);
   const timer = useRef(0);
+  const [run, setRun] = useState(0); // bumped by "Replay the opening", so the sequence can be watched again
   useEffect(() => {
+    window.clearInterval(timer.current);
+    pausedRef.current = false;
+    setPaused(false);
     if (reducedMotion() || !text) {
       setTyped(text.length);
       setDone(true);
       return;
     }
     let i = 0;
+    setTyped(0);
+    setDone(false);
     timer.current = window.setInterval(() => {
       if (pausedRef.current) return;
       i += 1;
@@ -55,7 +62,16 @@ export function ColdOpen({ quote, absence, receipts, release, pairingNote }: { q
       }
     }, 28);
     return () => window.clearInterval(timer.current);
-  }, [text]);
+  }, [text, run]);
+  const replay = () => {
+    setRun((r) => r + 1);
+    window.scrollTo({ top: 0, behavior: reducedMotion() ? "auto" : "smooth" });
+  };
+  // "Start the story over" (chapter 9) replays the opening and resets every guess through one window event
+  useEffect(() => {
+    window.addEventListener(STORY_RESTART_EVENT, replay);
+    return () => window.removeEventListener(STORY_RESTART_EVENT, replay);
+  }, []);
   const togglePause = () => {
     pausedRef.current = !pausedRef.current;
     setPaused(pausedRef.current);
@@ -72,10 +88,16 @@ export function ColdOpen({ quote, absence, receipts, release, pairingNote }: { q
       <div className="mx-auto max-w-5xl px-4 pb-10 pt-8 sm:pt-14">
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
           <span className="eyebrow !text-[0.68rem] opacity-80">Said &amp; Paid</span>
-          {/* hidden rather than removed once the sentence is complete, so the quote does not jump up when the row empties */}
-          <span className={`flex gap-2 ${done ? "invisible" : ""}`}>
-            <button type="button" className="rounded-full border border-current px-3 py-1 pointer-coarse:py-2" onClick={togglePause} aria-pressed={paused}>{paused ? "Resume" : "Pause"}</button>
-            <button type="button" className="rounded-full border border-current px-3 py-1 pointer-coarse:py-2" onClick={skip}>Skip intro</button>
+          {/* the row keeps its height once the sentence is complete (the quote must not jump up): it then offers a replay, except under reduced motion where nothing animates */}
+          <span className="flex gap-2">
+            {done ? (
+              <button type="button" className={`rounded-full border border-current px-3 py-1 pointer-coarse:py-2 ${reducedMotion() || !text ? "invisible" : ""}`} onClick={replay}>Replay the opening</button>
+            ) : (
+              <>
+                <button type="button" className="rounded-full border border-current px-3 py-1 pointer-coarse:py-2" onClick={togglePause} aria-pressed={paused}>{paused ? "Resume" : "Pause"}</button>
+                <button type="button" className="rounded-full border border-current px-3 py-1 pointer-coarse:py-2" onClick={skip}>Skip intro</button>
+              </>
+            )}
           </span>
         </div>
         {quote ? (
