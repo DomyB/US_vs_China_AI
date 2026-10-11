@@ -1,68 +1,68 @@
 {
  "source_id": "un_comtrade",
  "files": {},
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/un_comtrade/2026-10-10",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/un_comtrade/2026-10-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
    "name": "rep_ARG_2000-2002.json",
    "attempt": 0,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C2002&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
    "name": "rep_ARG_2000-2002.json",
    "attempt": 1,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C2002&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
    "name": "rep_ARG_2000-2002.json",
    "attempt": 2,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C2002&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
    "name": "rep_ARG_2000-2002.json",
    "attempt": 3,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C2002&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2003-2005.json",
+   "name": "rep_ARG_2000-2002_c250410-850511.json",
    "attempt": 0,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2003%2C2004%2C2005&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2003-2005.json",
+   "name": "rep_ARG_2000-2002_c250410-850511.json",
    "attempt": 1,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2003%2C2004%2C2005&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2003-2005.json",
+   "name": "rep_ARG_2000-2002_c250410-850511.json",
    "attempt": 2,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2003%2C2004%2C2005&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2003-2005.json",
+   "name": "rep_ARG_2000-2002_c250410-850511.json",
    "attempt": 3,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2003%2C2004%2C2005&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 61390%2C261400%2C261590%2C261610%2C261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2006-2007.json",
+   "name": "rep_ARG_2000-2002_c261690-850511.json",
    "attempt": 0,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2006%2C2007&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2C261310"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 &partnerCode=156%2C842%2C0&cmdCode=261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2006-2007.json",
+   "name": "rep_ARG_2000-2002_c261690-850511.json",
    "attempt": 1,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2006%2C2007&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2C261310"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 &partnerCode=156%2C842%2C0&cmdCode=261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2006-2007.json",
+   "name": "rep_ARG_2000-2002_c261690-850511.json",
    "attempt": 2,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2006%2C2007&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2C261310"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 &partnerCode=156%2C842%2C0&cmdCode=261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   },
   {
-   "name": "rep_ARG_2006-2007.json",
+   "name": "rep_ARG_2000-2002_c261690-850511.json",
    "attempt": 3,
-   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2006%2C2007&partnerCode=156%2C842%2C0&cmdCode=250410%2C250490%2C251010%2C251020%2C253090%2C260111%2C260112%2C260200%2C260300%2C260400%2C260500%2C260600%2C260800%2C260900%2C261100%2C261210%2C261310"
+   "error": "un_comtrade: HTTP 400 on GET https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=32&period=2000%2C2001%2C20 \u2026 &partnerCode=156%2C842%2C0&cmdCode=261690%2C261710%2C280519%2C280530%2C281820%2C282520%2C283691%2C284610%2C284690%2C710691%2C710812%2C720260%2C720293%2C740200%2C740311%2C740319%2C750110%2C750210%2C800110%2C811292%2C850511&flowCode=X%2CM&partner2Code=0&customsCode=C00&motCode=0&includeDesc=false&maxRecords=500 {\"error\":\"Maximum number of periods for preview is 1\",\"details\":null}"
   }
  ]
 }

@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-11",
- "generated_at": "2026-10-11T00:11:08+00:00",
+ "generated_at": "2026-10-11T01:15:00+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "arg_clarin",
@@ -58,16 +58,24 @@
   "wb_wdi",
   "wb_wgi"
  ],
+ "adapters_ok": {
+  "ok": 54,
+  "total": 63
+ },
+ "sources_live": {
+  "live": 169,
+  "total": 188
+ },
  "ingest_runs": [
   {
-   "source_id": "arg_cronista",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:37+00:00",
-   "rows": "{\"document\": 2, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
+   "source_id": "aei_cgit",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:13+00:00",
+   "rows": "{}",
+   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
   },
   {
-   "source_id": "arg_lanacion",
+   "source_id": "arg_infobae",
    "status": "ok",
    "finished_at": "2026-10-07T11:19:42+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
@@ -81,24 +89,31 @@
    "error": null
   },
   {
-   "source_id": "bra_valor",
+   "source_id": "bra_oglobo",
    "status": "ok",
-   "finished_at": "2026-10-07T11:20:06+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-07T11:20:02+00:00",
+   "rows": "{\"document\": 2, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "chl_elmercurio",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:20:36+00:00",
-   "rows": "{}",
-   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+   "source_id": "chl_camara",
+   "status": "ok",
+   "finished_at": "2026-10-10T23:56:18+00:00",
+   "rows": "{\"document\": 199, \"vote\": 186, \"vote_member\": 19513}",
+   "error": null
   },
   {
-   "source_id": "col_anm_anna",
+   "source_id": "chl_latercera",
    "status": "ok",
-   "finished_at": "2026-10-04T12:07:48+00:00",
-   "rows": "{\"concession\": 0}",
+   "finished_at": "2026-10-07T11:21:10+00:00",
+   "rows": "{\"document\": 4, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "col_camara",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:08:46+00:00",
+   "rows": "{\"document\": 69}",
    "error": null
   },
   {
@@ -109,59 +124,52 @@
    "error": null
   },
   {
-   "source_id": "ecu_eluniverso",
+   "source_id": "exim_authorizations",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:36+00:00",
+   "finished_at": "2026-10-09T16:47:14+00:00",
+   "rows": "{\"finance_event\": 2396}",
+   "error": null
+  },
+  {
+   "source_id": "idb_dpi",
+   "status": "ok",
+   "finished_at": "2026-10-09T17:06:32+00:00",
+   "rows": "{\"governance\": 1440}",
+   "error": null
+  },
+  {
+   "source_id": "per_elcomercio",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:37+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "guy_ggmc",
+   "source_id": "per_ojopublico",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:25+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "sur_dwt",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:47+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "ury_ladiaria",
    "status": "ok",
-   "finished_at": "2026-10-04T12:07:44+00:00",
-   "rows": "{\"production\": 95}",
+   "finished_at": "2026-10-07T11:23:21+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "per_congreso_spley",
+   "source_id": "wb_ids",
    "status": "ok",
-   "finished_at": "2026-10-11T00:09:52+00:00",
-   "rows": "{\"document\": 140}",
-   "error": null
-  },
-  {
-   "source_id": "per_larepublica",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:54+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "pry_silpy",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:09:04+00:00",
-   "rows": "{\"document\": 4}",
-   "error": null
-  },
-  {
-   "source_id": "unga_votes",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:34+00:00",
-   "rows": "{\"governance\": 2409}",
-   "error": null
-  },
-  {
-   "source_id": "usgs_mcs",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:00:03+00:00",
-   "rows": "{\"production\": 118, \"price\": 200}",
-   "error": null
-  },
-  {
-   "source_id": "wb_pink_sheet",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:31+00:00",
-   "rows": "{\"price\": 3200}",
+   "finished_at": "2026-10-01T20:15:29+00:00",
+   "rows": "{\"governance\": 2268}",
    "error": null
   },
   {
@@ -172,10 +180,10 @@
    "error": null
   },
   {
-   "source_id": "arg_infobae",
+   "source_id": "arg_hcdn",
    "status": "ok",
-   "finished_at": "2026-10-07T11:19:42+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-11T00:06:06+00:00",
+   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
    "error": null
   },
   {
@@ -193,10 +201,10 @@
    "error": null
   },
   {
-   "source_id": "chl_camara",
+   "source_id": "chl_biobio",
    "status": "ok",
-   "finished_at": "2026-10-10T23:56:18+00:00",
-   "rows": "{\"document\": 199, \"vote\": 186, \"vote_member\": 19513}",
+   "finished_at": "2026-10-07T11:20:10+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
@@ -249,6 +257,111 @@
    "error": null
   },
   {
+   "source_id": "pry_silpy",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:09:04+00:00",
+   "rows": "{\"document\": 4}",
+   "error": null
+  },
+  {
+   "source_id": "unga_votes",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:02:34+00:00",
+   "rows": "{\"governance\": 2409}",
+   "error": null
+  },
+  {
+   "source_id": "usgs_mcs",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:00:03+00:00",
+   "rows": "{\"production\": 118, \"price\": 200}",
+   "error": null
+  },
+  {
+   "source_id": "wb_pink_sheet",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:31+00:00",
+   "rows": "{\"price\": 3200}",
+   "error": null
+  },
+  {
+   "source_id": "arg_cronista",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:37+00:00",
+   "rows": "{\"document\": 2, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "arg_pagina12",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:48+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bra_estadao",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:53+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bra_valor",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:20:06+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "chl_elmercurio",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:20:36+00:00",
+   "rows": "{}",
+   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "source_id": "col_anm_anna",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:07:48+00:00",
+   "rows": "{\"concession\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "dfc_projects",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:00:06+00:00",
+   "rows": "{\"finance_event\": 84}",
+   "error": null
+  },
+  {
+   "source_id": "ecu_eluniverso",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:36+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "guy_ggmc",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:07:44+00:00",
+   "rows": "{\"production\": 95}",
+   "error": null
+  },
+  {
+   "source_id": "per_congreso_spley",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:09:52+00:00",
+   "rows": "{\"document\": 140}",
+   "error": null
+  },
+  {
+   "source_id": "per_larepublica",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:54+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
    "source_id": "resourcecontracts",
    "status": "ok",
    "finished_at": "2026-10-01T21:02:14+00:00",
@@ -263,108 +376,10 @@
    "error": null
   },
   {
-   "source_id": "wb_ids",
+   "source_id": "vdem",
    "status": "ok",
-   "finished_at": "2026-10-01T20:15:29+00:00",
-   "rows": "{\"governance\": 2268}",
-   "error": null
-  },
-  {
-   "source_id": "arg_clarin",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:16+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "arg_hcdn",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:06:06+00:00",
-   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
-   "error": null
-  },
-  {
-   "source_id": "bol_opinion",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:50+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "bra_oglobo",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:20:02+00:00",
-   "rows": "{\"document\": 2, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "chl_biobio",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:20:10+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "chl_latercera",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:10+00:00",
-   "rows": "{\"document\": 4, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "col_camara",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:08:46+00:00",
-   "rows": "{\"document\": 69}",
-   "error": null
-  },
-  {
-   "source_id": "dfc_projects",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:00:06+00:00",
-   "rows": "{\"finance_event\": 84}",
-   "error": null
-  },
-  {
-   "source_id": "exim_authorizations",
-   "status": "ok",
-   "finished_at": "2026-10-09T16:47:14+00:00",
-   "rows": "{\"finance_event\": 2396}",
-   "error": null
-  },
-  {
-   "source_id": "idb_dpi",
-   "status": "ok",
-   "finished_at": "2026-10-09T17:06:32+00:00",
-   "rows": "{\"governance\": 1440}",
-   "error": null
-  },
-  {
-   "source_id": "per_gestion",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:39+00:00",
-   "rows": "{\"document\": 5, \"document_new\": 2, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "pry_abc",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:22:46+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "un_comtrade",
-   "status": "failed",
-   "finished_at": "2026-10-10T22:24:31+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: un_comtrade: 3 consecutive calls refused (429/403/503) after back-off; the preview API's quota for this address is spent (another run fetched Comtrade earlier today?) - the previous release's trade_flow is kept; rerun tomorrow or set COMTRADE_KEY"
-  },
-  {
-   "source_id": "ury_parlamento",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:08:39+00:00",
-   "rows": "{\"document\": 1}",
+   "finished_at": "2026-10-01T20:24:47+00:00",
+   "rows": "{\"governance\": 2184}",
    "error": null
   },
   {
@@ -375,23 +390,23 @@
    "error": null
   },
   {
-   "source_id": "aei_cgit",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:24:13+00:00",
-   "rows": "{}",
-   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
-  },
-  {
-   "source_id": "arg_pagina12",
+   "source_id": "arg_clarin",
    "status": "ok",
-   "finished_at": "2026-10-07T11:19:48+00:00",
+   "finished_at": "2026-10-07T11:19:16+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "bra_estadao",
+   "source_id": "arg_lanacion",
    "status": "ok",
-   "finished_at": "2026-10-07T11:19:53+00:00",
+   "finished_at": "2026-10-07T11:19:42+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bol_opinion",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:50+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
@@ -445,38 +460,31 @@
    "error": null
   },
   {
-   "source_id": "per_elcomercio",
+   "source_id": "per_gestion",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:37+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-07T11:21:39+00:00",
+   "rows": "{\"document\": 5, \"document_new\": 2, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "per_ojopublico",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:25+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "sur_dwt",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:47+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "ury_ladiaria",
+   "source_id": "pry_abc",
    "status": "ok",
-   "finished_at": "2026-10-07T11:23:21+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-07T11:22:46+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "vdem",
+   "source_id": "un_comtrade",
+   "status": "failed",
+   "finished_at": "2026-10-11T01:13:23+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: un_comtrade: 3 consecutive calls refused (429/403/503) after back-off; the preview API's quota for this address is spent (another run fetched Comtrade earlier today?) - the previous release's trade_flow is kept; rerun tomorrow or set COMTRADE_KEY"
+  },
+  {
+   "source_id": "ury_parlamento",
    "status": "ok",
-   "finished_at": "2026-10-01T20:24:47+00:00",
-   "rows": "{\"governance\": 2184}",
+   "finished_at": "2026-10-11T00:08:39+00:00",
+   "rows": "{\"document\": 1}",
    "error": null
   },
   {
@@ -512,12 +520,12 @@
   "index_value": 9290,
   "index_component": 19116,
   "say_do_gap": 35,
-  "anomaly_flag": 112,
+  "anomaly_flag": 100,
   "network_metric": 2303,
   "network_edge": 2437,
   "event_effect": 292,
   "regression_result": 40,
-  "forecast": 606,
+  "forecast": 546,
   "backtest": 80,
   "analysis_text": 104,
   "quant_run": 1
@@ -557,9 +565,9 @@
   "status": "computed",
   "method_version": "2026.10",
   "weights_version": "2026.10.eq",
-  "run_id": "quant-20261011T000959Z",
-  "inputs_release": "data-v2026.10.10.55",
-  "created_at": "2026-10-11T00:11:03+00:00",
+  "run_id": "quant-20261011T011325Z",
+  "inputs_release": "data-v2026.10.11.56",
+  "created_at": "2026-10-11T01:14:53+00:00",
   "draws": 500,
   "rank_stability": 0.613,
   "text_model_label": "zero-shot baseline, not yet validated",
@@ -603,7 +611,93 @@
      "coverage_80": 0.768,
      "coverage_95": 0.895,
      "n_tests": 267,
-     "origins": "2015–2024"
+     "origins": "2015–2024",
+     "windows": {
+      "ARG": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "BOL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "BRA": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "CHL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "COL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "ECU": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "GUY": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "PER": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "PRY": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "SUR": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      }
+     },
+     "skipped": {
+      "URY": "4 reported years in the latest unbroken run (2008–2011), fewer than 8",
+      "VEN": "no reported observation"
+     }
     },
     "influence_index:CN": {
      "countries": [
@@ -627,53 +721,263 @@
      "coverage_80": 0.728,
      "coverage_95": 0.852,
      "n_tests": 243,
-     "origins": "2015–2024"
+     "origins": "2015–2024",
+     "windows": {
+      "ARG": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "BOL": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "BRA": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "CHL": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "COL": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "ECU": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "GUY": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "PER": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "PRY": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      },
+      "SUR": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      }
+     },
+     "skipped": {
+      "URY": "4 reported years in the latest unbroken run (2008–2011), fewer than 8",
+      "VEN": "no reported observation"
+     }
     },
     "export_share:US": {
      "countries": [
-      "ARG",
       "BOL",
       "BRA",
       "CHL",
       "COL",
       "ECU",
       "GUY",
-      "PER",
-      "SUR"
+      "PER"
      ],
      "model": "naive",
      "label": "naive persistence (last value; bootstrapped yearly changes)",
-     "crps": 0.044,
-     "crps_naive": 0.044,
+     "crps": 0.0442,
+     "crps_naive": 0.0442,
      "crps_ratio": 1.0,
      "beats_naive": false,
-     "coverage_80": 0.833,
-     "coverage_95": 0.908,
-     "n_tests": 240,
-     "origins": "2015–2024"
+     "coverage_80": 0.871,
+     "coverage_95": 0.946,
+     "n_tests": 186,
+     "origins": "2015–2024",
+     "windows": {
+      "BOL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "BRA": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "CHL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "COL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "ECU": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "GUY": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "PER": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      }
+     },
+     "skipped": {
+      "ARG": "1 reported year in the latest unbroken run (2025), fewer than 8; 2 years with no partner row left out (absent, not zero)",
+      "PRY": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 3 years with no partner row left out (absent, not zero)",
+      "SUR": "1 reported year in the latest unbroken run (2022), fewer than 8; 9 years with no partner row left out (absent, not zero)",
+      "URY": "4 reported years in the latest unbroken run (2008–2011), fewer than 8"
+     }
     },
     "export_share:CN": {
      "countries": [
-      "ARG",
       "BOL",
       "BRA",
       "CHL",
       "COL",
       "ECU",
       "GUY",
-      "PER",
-      "SUR"
+      "PER"
      ],
-     "model": "drift",
-     "label": "random walk with drift",
-     "crps": 0.0396,
-     "crps_naive": 0.0414,
-     "crps_ratio": 0.956,
+     "model": "damped_trend",
+     "label": "damped local linear trend (Kalman filter, maximum likelihood)",
+     "crps": 0.0412,
+     "crps_naive": 0.0463,
+     "crps_ratio": 0.89,
      "beats_naive": true,
-     "coverage_80": 0.683,
-     "coverage_95": 0.771,
-     "n_tests": 240,
-     "origins": "2015–2024"
+     "coverage_80": 0.585,
+     "coverage_95": 0.742,
+     "n_tests": 159,
+     "origins": "2015–2024",
+     "windows": {
+      "BOL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "BRA": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "CHL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "COL": {
+       "years": [
+        2008,
+        2025
+       ],
+       "n_obs": 18,
+       "n_absent": 0
+      },
+      "ECU": {
+       "years": [
+        2011,
+        2025
+       ],
+       "n_obs": 15,
+       "n_absent": 1
+      },
+      "GUY": {
+       "years": [
+        2014,
+        2025
+       ],
+       "n_obs": 12,
+       "n_absent": 4
+      },
+      "PER": {
+       "years": [
+        2008,
+        2024
+       ],
+       "n_obs": 17,
+       "n_absent": 0
+      }
+     },
+     "skipped": {
+      "ARG": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 3 years with no partner row left out (absent, not zero)",
+      "PRY": "1 reported year in the latest unbroken run (2013), fewer than 8; 14 years with no partner row left out (absent, not zero)",
+      "SUR": "1 reported year in the latest unbroken run (2012), fewer than 8; 17 years with no partner row left out (absent, not zero)",
+      "URY": "3 reported years in the latest unbroken run (2009–2011), fewer than 8; 1 year with no partner row left out (absent, not zero)"
+     }
     }
    },
    "horizon_year": 2030,
@@ -1069,7 +1373,7 @@
     2008,
     2025
    ],
-   "flags": 18,
+   "flags": 13,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
@@ -1221,7 +1525,7 @@
     2008,
     2025
    ],
-   "flags": 23,
+   "flags": 16,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
