@@ -19,7 +19,7 @@ const BASE = process.env.BASE ?? "http://localhost:3000";
 const OUT = process.env.OUT ?? resolve(tmpdir(), "ui-check");
 mkdirSync(OUT, { recursive: true });
 
-const PAGES = ["/", "/explore", "/country", "/lab", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
+const PAGES = ["/", "/explore", "/country", "/lab", "/votes-and-ore", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
 const VIEWS = [
   { name: "desktop", viewport: { width: 1366, height: 900 } },
   { name: "laptop", viewport: { width: 1024, height: 768 } },

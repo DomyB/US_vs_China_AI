@@ -7,6 +7,7 @@ export const SITE_ROUTES: { path: string; priority: number }[] = [
   { path: "/explore", priority: 0.9 },
   { path: "/country", priority: 0.8 },
   { path: "/lab", priority: 0.8 },
+  { path: "/votes-and-ore", priority: 0.8 },
   { path: "/archive", priority: 0.6 },
   { path: "/region", priority: 0.6 },
   { path: "/methodology", priority: 0.5 },
