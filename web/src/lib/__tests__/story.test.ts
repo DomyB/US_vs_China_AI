@@ -26,6 +26,23 @@ describe("story numbers reproduce from the export", () => {
     expect(rows.every((r) => Math.abs(r.US + r.CN + r.ROW - r.total) < 1e-6)).toBe(true);
   });
 
+  it("counts the reporters with no partner row per actor, so a share over the others is never read as a share over all", () => {
+    const rows = regionalTrade(flows);
+    for (const r of rows) {
+      const all = flows.trade.filter((t) => t.mineral === "all" && t.year === r.year);
+      expect(r.reporters).toBe(all.length);
+      expect(r.cn_absent).toBe(all.filter((t) => t.exports_musd.CN === null).length);
+      expect(r.us_absent).toBe(all.filter((t) => t.exports_musd.US === null).length);
+      // the combined count is at least the larger of the two and at most their sum
+      expect(r.partners_absent).toBeGreaterThanOrEqual(Math.max(r.cn_absent, r.us_absent));
+      expect(r.partners_absent).toBeLessThanOrEqual(r.cn_absent + r.us_absent);
+    }
+    // the first year's China share rests on the reporters with a China row (a lower bound the chapter says so about)
+    const first = rows[0];
+    const withRow = flows.trade.filter((t) => t.mineral === "all" && t.year === first.year && t.exports_musd.CN !== null);
+    expect(first.CN).toBeCloseTo(withRow.reduce((s, t) => s + (t.exports_musd.CN ?? 0), 0), 6);
+  });
+
   it("the two ledgers are kept apart and agree with the insights ratios", () => {
     const l = financeLedger(flows);
     expect(l.CN.documented_musd).toBeGreaterThan(l.US.documented_musd * 10);

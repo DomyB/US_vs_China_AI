@@ -2,6 +2,8 @@
 
 Skipped for adapters without a recorded fixture directory. A failure here means the source
 changed its format since the last run (or the recorder trimmed something the parser needs).
+Each fixture is copied to a temporary directory first: parsers save their manifest, and the
+committed fixture must not change when the suite runs.
 """
 from __future__ import annotations
 
@@ -13,8 +15,8 @@ from scm.ingest import ADAPTERS
 
 
 @pytest.mark.parametrize("sid", sorted(ADAPTERS))
-def test_parser_on_recorded_fixture(sid):
-    snap = fixture_snapshot(sid)
+def test_parser_on_recorded_fixture(sid, tmp_path):
+    snap = fixture_snapshot(sid, into=tmp_path)
     if snap is None or not snap.files:
         pytest.skip(f"no recorded fixture for {sid}")
     adapter = ADAPTERS[sid]()

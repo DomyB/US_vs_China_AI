@@ -2,27 +2,29 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { MineralFilter } from "@/components/controls/MineralFilter";
 import { YearControl } from "@/components/controls/YearControl";
 import { PanelSkeleton } from "@/components/ui/Skeleton";
-import { CountryPanel, type TabId } from "@/components/panel/CountryPanel";
+import { CountryPanel, parseTab } from "@/components/panel/CountryPanel";
 import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { loadIndex, loadMeta } from "@/lib/data";
+import { defaultIndexYear, rowsForIndex } from "@/lib/indexView";
 import type { IndexFile, Meta } from "@/lib/types";
 
-const TABS: TabId[] = ["actions", "parliament", "media", "analysis", "forecast"];
+/** The year shown before the index file has said which year most countries are last indexed in (`defaultIndexYear`, as the map). */
+const FALLBACK_YEAR = 2024;
 
 export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: Record<string, { name: string; url: string }> }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const year = Math.min(YEAR_MAX, Math.max(YEAR_MIN, Number(params.get("year")) || 2024));
   const mineral = params.get("mineral") ?? "all";
-  const tabParam = params.get("tab") ?? "actions";
-  const tab = (TABS.includes(tabParam as TabId) ? tabParam : "actions") as TabId;
+  const tab = parseTab(params.get("tab"));
   const [meta, setMeta] = useState<Meta | null>(null);
   const [index, setIndex] = useState<IndexFile | null>(null);
+  const defaultYear = useMemo(() => defaultIndexYear(index ? rowsForIndex(index.rows, "composite") : [], FALLBACK_YEAR), [index]);
+  const year = Math.min(YEAR_MAX, Math.max(YEAR_MIN, Number(params.get("year")) || defaultYear));
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {

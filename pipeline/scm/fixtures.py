@@ -8,6 +8,7 @@ is copied so parsers run unchanged on fixtures.
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 
 import pandas as pd
@@ -134,9 +135,21 @@ def record(ids: list[str] | None = None) -> dict:
     return out
 
 
-def fixture_snapshot(source_id: str) -> Snapshot | None:
+def fixture_snapshot(source_id: str, into: Path | None = None) -> Snapshot | None:
+    """Open the recorded fixture of `source_id`, or None when there is none.
+
+    Parsers may write into their snapshot (manifests record incomplete years, headline windows and the like),
+    so a caller that must leave the committed fixture untouched passes `into`: the fixture directory is copied
+    under it and the copy is opened instead.
+    """
     d = FIXTURES / source_id
-    return Snapshot.open(source_id, d) if (d / "manifest.json").exists() else None
+    if not (d / "manifest.json").exists():
+        return None
+    if into is not None:
+        copy = Path(into) / source_id
+        shutil.copytree(d, copy, dirs_exist_ok=True)
+        d = copy
+    return Snapshot.open(source_id, d)
 
 
 __all__ = ["record", "fixture_snapshot", "FIXTURES", "Path"]

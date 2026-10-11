@@ -16,13 +16,14 @@ import { SectionNav } from "@/components/ui/SectionNav";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useRevealChildren } from "@/lib/motion";
 import { useTheme } from "@/lib/theme";
-import { FocusChart, MEASURE_LABEL, type MeasureRow, type RegionMeasure } from "./FocusChart";
+import { FocusChart, beyondRange, measureLabel, type MeasureRow, type RegionMeasure } from "./FocusChart";
 import { Heatmap } from "./Heatmap";
 import { Freshness } from "@/components/ui/Freshness";
 import { NET_LEAN_MAX } from "@/components/map/scales";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
 import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionInterpretation, loadRegionShares, loadRegionStatements } from "@/lib/data";
 import { fmtPct, fmtSigned } from "@/lib/format";
+import { INDEX_FORMULA, INDEX_LABEL, INDEX_PHRASE, defaultIndexYear, hasSubIndices, parseIndexName, rowsForIndex, type IndexName } from "@/lib/indexView";
 import type { IndexFile, InterpretationBlock, Meta, RegionData, RegionStatements } from "@/lib/types";
 import { StatementsByYear } from "@/components/statements/StatementCharts";
 import { StatementList } from "@/components/statements/StatementList";
@@ -39,12 +40,18 @@ const REGION_SECTIONS = [
   { id: "stm-h", label: "Statements" },
   { id: "syn-h", label: "Synthesis" },
 ];
+/** The year shown before the index file has said which year most countries are last indexed in (`defaultIndexYear`, as the map). */
+const FALLBACK_YEAR = 2024;
+const INDEX_OPTIONS: { value: IndexName; label: string; title: string }[] = [
+  { value: "composite", label: "Composite", title: INDEX_FORMULA.composite },
+  { value: "economic_ties", label: "Economic ties", title: INDEX_FORMULA.economic_ties },
+  { value: "political_alignment", label: "Political alignment", title: INDEX_FORMULA.political_alignment },
+];
 
 export function RegionView() {
-    const router = useRouter();
+  const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const year = Math.min(YEAR_MAX, Math.max(YEAR_MIN, Number(params.get("year")) || 2024));
   const [playing, setPlaying] = useState(false);
   const [meta, setMeta] = useState<Meta | null>(null);
   const [index, setIndex] = useState<IndexFile | null>(null);
@@ -81,17 +88,28 @@ export function RegionView() {
       });
   }, []);
 
-  const setYear = useCallback(
-    (y: number) => {
+  const setParam = useCallback(
+    (key: string, value: string | null) => {
       const next = new URLSearchParams(params.toString());
-      next.set("year", String(y));
+      if (value === null) next.delete(key);
+      else next.set(key, value);
       router.replace(`${pathname}?${next.toString()}`, { scroll: false });
     },
     [params, pathname, router],
   );
+  const setYear = useCallback((y: number) => setParam("year", String(y)), [setParam]);
   const togglePlay = useCallback(() => setPlaying((p) => !p), []);
 
-  const lookup = useMemo(() => (index ? buildIndexLookup(index.rows) : null), [index]);
+  // The index rows: the composite everywhere, the two sub-indices (`index` on each row, contract with the export) only when
+  // the file carries them; an older file's rows carry no `index` and read as composite rows, and the switch is not shown.
+  const subIndices = useMemo(() => (index ? hasSubIndices(index.rows) : false), [index]);
+  const indexName: IndexName = subIndices ? parseIndexName(params.get("index")) : "composite";
+  const compositeRows = useMemo(() => (index ? rowsForIndex(index.rows, "composite") : []), [index]);
+  const indexRows = useMemo(() => (indexName === "composite" ? compositeRows : index ? rowsForIndex(index.rows, indexName) : []), [index, indexName, compositeRows]);
+  // the year the page opens on: the latest year in which most countries have both actors' composite index, as the map (never a typed year once the file is in)
+  const defaultYear = useMemo(() => defaultIndexYear(compositeRows, FALLBACK_YEAR), [compositeRows]);
+  const year = Math.min(YEAR_MAX, Math.max(YEAR_MIN, Number(params.get("year")) || defaultYear));
+  const lookup = useMemo(() => (index ? buildIndexLookup(indexRows) : null), [index, indexRows]);
 
   const ranking = useMemo(() => {
     if (!lookup) return [];
@@ -101,14 +119,13 @@ export function RegionView() {
       return { iso, name: COUNTRY_NAMES[iso], us, cn, net: us !== null && cn !== null ? cn - us : null };
     }).sort((a, b) => (b.net ?? -999) - (a.net ?? -999));
   }, [lookup, year]);
-
+  const unranked = ranking.filter((r) => r.net === null).length;
 
   const measureRows = useMemo<MeasureRow[]>(() => {
-    if (!index) return [];
     const out: MeasureRow[] = [];
     if (measure === "net") {
       const byKey = new Map<string, { us?: number; cn?: number }>();
-      for (const r of index.rows) {
+      for (const r of indexRows) {
         if (r.mineral !== "all") continue;
         const k = `${r.iso3}|${r.year}`;
         const e = byKey.get(k) ?? {};
@@ -122,15 +139,17 @@ export function RegionView() {
         out.push({ iso3, name: COUNTRY_NAMES[iso3] ?? iso3, year: Number(y), value: e.cn - e.us });
       }
     } else {
-      for (const r of index.rows) if (r.mineral === "all" && r.actor === measure) out.push({ iso3: r.iso3, name: COUNTRY_NAMES[r.iso3] ?? r.iso3, year: r.year, value: r.value });
+      for (const r of indexRows) if (r.mineral === "all" && r.actor === measure) out.push({ iso3: r.iso3, name: COUNTRY_NAMES[r.iso3] ?? r.iso3, year: r.year, value: r.value });
     }
     return out.sort((a, b) => a.year - b.year || a.iso3.localeCompare(b.iso3));
-  }, [index, measure]);
+  }, [indexRows, measure]);
   const heatOrder = useMemo(() => {
     const latest = new Map<string, number>();
     for (const r of measureRows) if (r.year <= year) latest.set(r.name, r.value);
     return Array.from(new Set(measureRows.map((r) => r.name))).sort((a, b) => (latest.get(b) ?? -999) - (latest.get(a) ?? -999));
   }, [measureRows, year]);
+  // net lean is drawn on one ±NET_LEAN_MAX scale everywhere; the country-years beyond it (a handful in the record) are named, never cut off silently
+  const beyond = useMemo(() => beyondRange(measureRows, measure), [measureRows, measure]);
 
   const shares = useMemo(() => {
     if (!shareRows) return [];
@@ -150,7 +169,8 @@ export function RegionView() {
       x: { label: "Share of regional exports", domain: [0, 1], tickFormat: (d: number) => fmtPct(d) },
       y: { label: null },
       color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, OTHER_COLOR], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "rest of world" }[d] ?? d) },
-      marks: [Plot.barX(shares, { x: "share", y: "mineral", fill: "partner", order: ["US", "CN", "ROW"], insetTop: 1, insetBottom: 1, tip: true, href: (d: { id: string }) => `/?mineral=${d.id}&year=${year}&view=trade`, title: (d: { mineral: string; partner: string; share: number }) => `${d.mineral} · ${({ US: "to United States", CN: "to China", ROW: "rest of world" } as Record<string, string>)[d.partner]}: ${fmtPct(d.share, 1)} · open on the map` }), Plot.ruleX([0])],
+      // the sticky tip Plot renders on click would otherwise sit over the bar and swallow the click's mouseup, so the bar's link never fired: the tip takes no pointer events
+      marks: [Plot.barX(shares, { x: "share", y: "mineral", fill: "partner", order: ["US", "CN", "ROW"], insetTop: 1, insetBottom: 1, tip: { pointerEvents: "none" }, href: (d: { id: string }) => `/explore?view=trade&mineral=${d.id}&year=${year}`, title: (d: { mineral: string; partner: string; share: number }) => `${d.mineral} · ${({ US: "to United States", CN: "to China", ROW: "rest of world" } as Record<string, string>)[d.partner]}: ${fmtPct(d.share, 1)} · open on the map` }), Plot.ruleX([0])],
     }),
     [shares, year],
   );
@@ -185,10 +205,13 @@ export function RegionView() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="card region-card p-3" aria-labelledby="rk-h">
-          <h2 id="rk-h" className="mb-1 text-lg font-semibold">Ranking in {year}</h2>
-          <p className="mb-2 text-xs text-ink-3">Net lean of the influence index: China minus US{index?.layer === "real" ? " (computed; a dash means fewer than three components were available)" : " (sample)"}. Click a row to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
-          <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={NET_LEAN_MAX} href={(iso) => `/explore?country=${iso}&year=${year}`} onHover={setHoverIso} hover={focus} />
-          <p className="mt-1 text-[11px] text-ink-3">Bars run from the centre: left toward the United States, right toward China, on the ±60 scale the map and the heatmap use. Rows slide when the year changes.</p>
+          <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+            <h2 id="rk-h" className="text-lg font-semibold">Ranking in {year}</h2>
+            {subIndices && <Segmented label="Index" value={indexName} options={INDEX_OPTIONS} onChange={(n) => setParam("index", n === "composite" ? null : n)} />}
+          </div>
+          <p className="mb-2 text-xs text-ink-3">Net lean = China index − US index, in points of the 0–100 scale, for the {INDEX_PHRASE[indexName]} ({INDEX_FORMULA[indexName]}){index?.layer === "real" ? `; computed, and a dash means the ${INDEX_PHRASE[indexName]} has no value for one of the actors that year (too few components, or a source that has not reached the year)` : " (sample)"}. Click a row to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
+          <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={NET_LEAN_MAX} href={(iso) => `/explore?country=${iso}&year=${year}${indexName === "composite" ? "" : `&index=${indexName}`}`} onHover={setHoverIso} hover={focus} />
+          <p className="mt-1 text-[11px] text-ink-3">Bars run from the centre: left toward the United States, right toward China, on the ±{NET_LEAN_MAX} scale the map and the heatmap use. Rows slide when the year changes.{unranked > 0 && index?.layer === "real" ? ` ${unranked} of ${IN_SCOPE.length} countries have no net lean in ${year} (a dash in the table).` : ""}</p>
           <table className="mt-4 w-full text-xs">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US</th><th className="py-1 text-right">China</th><th className="py-1 text-right">Net</th></tr>
@@ -216,23 +239,24 @@ export function RegionView() {
             <Segmented label="Chart" value={chartMode} options={[{ value: "lines", label: "Lines" }, { value: "heatmap", label: "Heatmap" }]} onChange={setChartMode} />
           </div>
           <p className="mb-2 text-xs text-ink-3">
+            {INDEX_LABEL[indexName]}{subIndices ? " (switch it in the ranking)" : ""}.{" "}
             {chartMode === "lines"
-              ? `All twelve countries in grey; ${focus ? `${COUNTRY_NAMES[focus] ?? focus} highlighted` : "hover or pin a country in the ranking to highlight it"}. Move the pointer over the chart to read any point; the dotted line is ${year}.`
-              : `One row per country, one cell per year, ordered by the value in ${year}; the outlined column is ${year}. Hover a cell for its value.`}
+              ? `All twelve countries in grey; ${focus ? `${COUNTRY_NAMES[focus] ?? focus} highlighted` : "hover or pin a country in the ranking to highlight it"}. Move the pointer over the chart to read any point; the dotted line is ${year}.${measure === "net" ? ` Net lean is on the same ±${NET_LEAN_MAX} scale as the map, the ranking and the heatmap${beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? " lies" : "s lie"} beyond it and ${beyond === 1 ? "is" : "are"} drawn at the edge, with the full value in the tooltip and the table` : ""}.` : ""}`
+              : `One row per country, one cell per year, ordered by the value in ${year}; the outlined column is ${year}. Hover a cell for its value${measure === "net" && beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? "" : "s"} beyond ±${NET_LEAN_MAX} take the edge colour and keep the full value` : ""}.`}
           </p>
           {measureRows.length === 0 ? (
             <p className="text-sm text-ink-3">No index values yet.</p>
           ) : chartMode === "lines" ? (
-            <FocusChart rows={measureRows} focus={focus} year={year} measure={measure} ariaLabel={`${MEASURE_LABEL[measure]} over time for the twelve countries${focus ? `, ${COUNTRY_NAMES[focus] ?? focus} highlighted` : ""}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
+            <FocusChart rows={measureRows} focus={focus} year={year} measure={measure} indexName={indexName} ariaLabel={`${measureLabel(measure, indexName)} over time for the twelve countries${focus ? `, ${COUNTRY_NAMES[focus] ?? focus} highlighted` : ""}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           ) : (
-            <Heatmap rows={measureRows} year={year} measure={measure} theme={theme} order={heatOrder} ariaLabel={`${MEASURE_LABEL[measure]} by country and year as a heatmap, ${index?.layer === "real" ? "computed" : "sample data"}`} />
+            <Heatmap rows={measureRows} year={year} measure={measure} indexName={indexName} theme={theme} order={heatOrder} ariaLabel={`${measureLabel(measure, indexName)} by country and year as a heatmap, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           )}
-          <DataTable rows={measureRows} caption={`${MEASURE_LABEL[measure]} by country and year`} columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "value", label: MEASURE_LABEL[measure], format: (v) => (measure === "net" ? fmtSigned(Number(v), 0) : Number(v).toFixed(0)) }]} />
+          <DataTable rows={measureRows} caption={`${measureLabel(measure, indexName)} by country and year`} columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "value", label: measureLabel(measure, indexName), format: (v) => (measure === "net" ? fmtSigned(Number(v), 0) : Number(v).toFixed(0)) }]} />
         </section>
 
         <section className="card region-card p-3" aria-labelledby="min-h">
           <div className="mb-1 flex items-center justify-between gap-2"><h2 id="min-h" className="text-lg font-semibold">Mineral by mineral in {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer={shareRows?.layer} /><LayerLabel layer="facts" /></span></div>
-          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each mineral going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the 12 countries that reported)." : "."} Click a bar to open that mineral&apos;s trade flows on the map.</p>
+          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each of the nine core minerals going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the countries that reported that year; the all-minerals totals on the map and in the story also count iron ore, gold, bauxite and the other minerals the countries report)." : "."} Click a bar to open that mineral&apos;s trade flows on the map.</p>
           {shares.length === 0 ? <p className="text-sm text-ink-3">No reported trade for {year} yet.</p> : <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />}
           <DataTable rows={shares} caption="Export shares by mineral and destination" columns={[{ key: "mineral", label: "Mineral" }, { key: "partner", label: "Destination" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }]} />
         </section>

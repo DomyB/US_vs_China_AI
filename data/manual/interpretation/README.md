@@ -15,8 +15,14 @@ title: Brazil: what the numbers do and do not say
 author: Your name
 date: 2026-10-15
 reviewed: true
+data_release: data-v2026.10.11.62
 ---
 ```
+
+`data_release` names the data release (the `inputs_release` tag in `web/public/data/real/meta.json`,
+`quant_model.inputs_release`) whose numbers the text quotes. The exporter passes it to the site, which prints
+"drafted from data release X" under the text and adds "the current release is Y, numbers may have moved"
+once a newer release is on the site, so a reader can tell a stale draft from the live figures.
 
 Rules that keep the three layers honest:
 
@@ -35,13 +41,17 @@ other Markdown is shown as typed.
 The twelve country files, `regional.md` and `insights.md` were drafted by an AI session on
 2026-10-09 at the owner's request, from the site's own indicators (the generated brief, the index
 and its components, the contrasts of the Lab (/lab, formerly the Insights page), the flags, the dated events and the
-forecasts). Their front matter says so (`drafted_by: ai`, `reviewed: false`, an `author` line that
-names no person). The site shows each under the label "AI-drafted from the indicators · not yet
+forecasts), and re-drafted on 2026-10-11 from data release `data-v2026.10.11.62` after the record
+was extended to 2000 and the trade backfill landed. Their front matter says so (`drafted_by: ai`,
+`reviewed: false`, an `author` line that names no person, `data_release` naming the release the
+numbers were read from). The site shows each under the label "AI-drafted from the indicators · not yet
 reviewed by the owner" until the owner edits it and sets `reviewed: true` (keep or drop
 `drafted_by`; the label follows the front matter; `drafted_by` reaches the warehouse as a column of
 `analysis_text`, DECISIONS 62). Every claim names in square brackets the indicator, finding, record
 or table it rests on (for example `[index_value:influence:CN:2024]`, `[flow_trade:ARG:lithium:2025]`,
 `[insights:parity_gap:CHL]`), so the review can check each one against the live numbers. The numbers
-quoted are those of the 2026-10-09 export and will drift as the data update, one more reason to
-review. Uruguay's and Venezuela's files are short: the first because the reported trade ends in
-2011, the second because the index is not computed. The pipeline never rewrites these files.
+quoted are those of the release named in each file and will drift as the data update; the site says
+when its current release is newer, one more reason to review. Uruguay's and Venezuela's files are
+shorter than the others: Uruguay's reported mineral exports are under US$10 m a year from 2019, so its
+index rests on tiny flows, and Venezuela's index stops in 2013 with its reported trade. The pipeline
+never rewrites these files.

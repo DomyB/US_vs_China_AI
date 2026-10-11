@@ -1,11 +1,12 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { DataLayerTag, LayerLabel, type Layer } from "@/components/ui/Badges";
+import { DataLayerTag, LayerLabel, QuantStatusTag, type Layer } from "@/components/ui/Badges";
 import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
 import type { Provenance } from "@/lib/provenance";
 import { ACTOR_COLOR, OTHER_COLOR } from "@/lib/constants";
 import type { EvidenceLevel } from "@/lib/types";
+import { useRealMeta } from "@/lib/useRealMeta";
 
 export const INK = "#1b1d20";
 export const INK_3 = "#9a9fa8";
@@ -16,8 +17,13 @@ export const COLORS = { US: ACTOR_COLOR.US, CN: ACTOR_COLOR.CN, OTHER: OTHER_COL
 export const pretty = (m: string) => m.replace(/_/g, " ");
 export const fmtPts = (v: number, digits = 1) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(digits)} pts`;
 
-/** A page block: numbered eyebrow, big title, one-line lead, layer tags on the right. */
+/**
+ * A page block: numbered eyebrow, big title, one-line lead, layer tags on the right. The status chip follows the layer as
+ * the case files do: "Real data" marks facts, a model block carries the quant method's computed tag, an interpretation
+ * block only its layer label (the Interpretation and Findings components say "generated" or "AI-drafted" themselves).
+ */
 export function Block({ id, n, title, lead, layer, tags, provenance, table, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; provenance?: Provenance; table?: ReactNode; children: ReactNode }) {
+  const real = useRealMeta();
   return (
     <section id={id} aria-labelledby={`${id}-h`} data-tour={id} className="insights-block card mt-6 scroll-mt-12 px-4 py-4 sm:px-6 sm:py-5">
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
@@ -26,21 +32,21 @@ export function Block({ id, n, title, lead, layer, tags, provenance, table, chil
           <h2 id={`${id}-h`} className="serif mt-0.5 text-xl font-bold leading-tight sm:text-2xl">{title}</h2>
           {lead && <p className="mt-1 max-w-3xl text-sm leading-relaxed text-ink-2">{lead}</p>}
         </div>
-        <span className="flex max-w-full flex-wrap items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer={layer} />{tags}{provenance && <EvidenceButton provenance={{ anchor: id, ...provenance }} table={table} />}</span>
+        <span className="flex max-w-full flex-wrap items-center gap-1">{layer === "facts" ? <DataLayerTag layer="real" /> : layer === "model" ? <QuantStatusTag status={real?.quant_model} /> : null}<LayerLabel layer={layer} />{tags}{provenance && <EvidenceButton provenance={{ anchor: id, ...provenance }} table={table} />}</span>
       </div>
       <div className="mt-4">{children}</div>
     </section>
   );
 }
 
-/** Three bars, filled by evidence level, with the basis on hover and as text. */
+/** Three bars, filled by evidence level, with the basis on hover and the level once as text (the bars are hidden from assistive technology, so the word is the whole accessible name). */
 export function EvidenceMeter({ level, basis }: { level: EvidenceLevel; basis: string }) {
   const n = level === "strong" ? 3 : level === "moderate" ? 2 : 1;
   const word = { strong: "strong evidence", moderate: "moderate evidence", thin: "thin evidence" }[level];
   return (
     <span className="inline-flex items-center gap-1.5 text-[11px] text-ink-3" title={basis}>
       <span className="evidence" aria-hidden="true" data-level={level}>{[1, 2, 3].map((i) => <span key={i} className={i <= n ? "on" : ""} />)}</span>
-      <span className="sr-only">{word}: </span>{word}
+      {word}
     </span>
   );
 }

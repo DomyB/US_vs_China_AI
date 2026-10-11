@@ -109,7 +109,7 @@ describe("why a country has no index", () => {
     expect(laggingSources(null, 2025, "CN")).toEqual([]);
     expect(laggingSources(lastYear, 2025, "CN", "political_alignment")).toEqual(["UN voting to 2024"]);
     expect(laggingSources(lastYear, 2025, "CN", "economic_ties")).toEqual(["debt owed to China to 2024", "Chinese finance to 2021"]);
-    expect(noIndexReason({ year: 2025, mineral: "all", indexName: "composite", missing: ["CN"], lastYear, defaultYear: 2024 })).toBe("no China composite influence index for 2025: UN voting to 2024, debt owed to China to 2024, Chinese finance to 2021 leave fewer than 3 components");
+    expect(noIndexReason({ year: 2025, mineral: "all", indexName: "composite", missing: ["CN"], lastYear, defaultYear: 2024 })).toBe("no China composite influence index for 2025: UN voting to 2024, debt owed to China to 2024, Chinese finance to 2021 (the index is not published where a component it rested on the year before has no data yet, or with fewer than 3 components)");
   });
   it("does not blame the sources for a country-specific gap inside the indexed years", () => {
     expect(noIndexReason({ year: 2024, mineral: "all", indexName: "composite", missing: ["US", "CN"], lastYear, defaultYear: 2024 })).toBe("no US composite influence index for 2024: fewer than 3 components (the case file's Analysis tab says which); no China composite influence index for 2024: fewer than 3 components (the case file's Analysis tab says which)");
@@ -117,7 +117,7 @@ describe("why a country has no index", () => {
   it("keeps the mineral and the sub-index cases honest", () => {
     expect(noIndexReason({ year: 2024, mineral: "copper", indexName: "composite", missing: ["US"], lastYear, defaultYear: 2024 })).toBe("no composite influence index for copper in 2024: no reported trade in the mineral that year, or fewer than 3 components");
     expect(noIndexReason({ year: 2024, mineral: "copper", indexName: "economic_ties", missing: ["US"], lastYear, defaultYear: 2024 })).toBe("no economic ties sub-index for copper: the sub-indices are computed for all minerals together");
-    expect(noIndexReason({ year: 2025, mineral: "all", indexName: "political_alignment", missing: ["CN"], lastYear, defaultYear: 2024 })).toBe("no China political alignment sub-index for 2025: UN voting to 2024 leaves no component available");
+    expect(noIndexReason({ year: 2025, mineral: "all", indexName: "political_alignment", missing: ["CN"], lastYear, defaultYear: 2024 })).toBe("no China political alignment sub-index for 2025: UN voting to 2024 (no component available)");
     expect(noIndexReason({ year: 2024, mineral: "all", indexName: "composite", missing: ["CN"], lastYear: null, defaultYear: null })).toContain("fewer than 3 components (the case file's Analysis tab says which)");
   });
 });
@@ -128,7 +128,7 @@ describe("the ranking's note", () => {
   });
   it("explains 2025 by the sources that end before it and names the last broadly indexed year", () => {
     expect(missingIndexNote({ year: 2025, mineral: "all", indexName: "composite", missingAny: 11, missingCN: 11, missingUS: 2, lastYear, defaultYear: 2024 })).toBe(
-      "11 of 12 countries have no composite influence index in 2025: the China index is missing for 11 (UN voting to 2024, debt owed to China to 2024, Chinese finance to 2021: fewer than 3 components); the US index is missing for 2 (UN voting to 2024: fewer than 3 components). The last year with both indices for most countries is 2024.",
+      "11 of 12 countries have no composite influence index in 2025: the China index is missing for 11 (UN voting to 2024, debt owed to China to 2024, Chinese finance to 2021); the US index is missing for 2 (UN voting to 2024). The index is not published where a component it rested on the year before has no data yet, or with fewer than 3 components. The last year with both indices for most countries is 2024.",
     );
   });
   it("explains 2026 by the trade record and a mineral filter by the mineral", () => {

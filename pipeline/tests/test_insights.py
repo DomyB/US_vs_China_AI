@@ -17,7 +17,11 @@ def _stm(i, year, country="ARG", bloc="LatAm executive", speaker_country="ARG", 
 
 
 def _trade(iso, year, mineral, us, cn, row):
-    return {"iso3": iso, "year": year, "mineral": mineral, "exports_musd": {"US": us, "CN": cn, "ROW": row}, "source_id": "un_comtrade"}
+    """A flows.json trade row as export_site.export_cells writes it: `row` is the rest of the world, from which the reported
+    world total (WLD) follows; ROW itself is published only when both partner rows exist."""
+    wld = None if row is None else (us or 0.0) + (cn or 0.0) + row
+    both = us is not None and cn is not None and row is not None
+    return {"iso3": iso, "year": year, "mineral": mineral, "exports_musd": {"US": us, "CN": cn, "ROW": row if both else None, "WLD": wld}, "source_id": "un_comtrade"}
 
 
 def _fin(iso, year, origin, musd, n=1):
@@ -47,6 +51,39 @@ def test_trade_latest_and_parity_arithmetic():
     c = _country(trade=trade)
     gap = next(x for x in c["contrasts"] if x["id"] == "parity_gap")
     assert gap["musd"] == 200.0 and gap["multiple_of_us"] == 4.0 and gap["top_mineral"] == "lithium" and gap["reachable_with_top_mineral"] is True
+
+
+def test_trade_totals_read_the_world_cell_and_absent_partners_keep_row_null():
+    # flows.json: ROW is null wherever a partner row is absent, WLD is the reported total (export_site.export_cells)
+    cells = {"US": 10.0, "CN": None, "ROW": None, "WLD": 100.0}
+    assert insights._world(cells) == 100.0 and insights._total(cells) == 100.0
+    assert insights._world({"US": 1.0, "CN": 1.0, "ROW": None, "WLD": None}) is None  # no world total: not a usable year
+    # an older file without the WLD key: the three-cell sum, only when ROW exists
+    assert insights._world({"US": 10.0, "CN": 20.0, "ROW": 70.0}) == 100.0 and insights._world({"US": 10.0, "CN": None, "ROW": None}) is None
+    rows = [{"iso3": "ARG", "year": 2021, "mineral": "all", "exports_musd": cells, "source_id": "un_comtrade"},
+            {"iso3": "ARG", "year": 2022, "mineral": "all", "exports_musd": {"US": 5.0, "CN": 15.0, "ROW": 80.0, "WLD": 100.0}, "source_id": "un_comtrade"}]
+    assert [(s["year"], s["share_cn"], s["share_us"], s["total_musd"]) for s in insights.trade_series(rows, "ARG")] == [(2021, None, 0.1, 100.0), (2022, 0.15, 0.05, 100.0)]
+    latest = insights.trade_latest(rows[:1], "ARG")
+    assert latest["year"] == 2021 and latest["total_musd"] == 100.0 and latest["share_cn"] is None and latest["partners_absent"] == ["CN"]
+    # minerals from the raw reported rows: the same rule, and tiny flows keep six decimals
+    raw = [{"reporter": "ARG", "year": 2021, "value_type": "reported", "mineral": "lithium", "partner": "WLD", "value_usd": 1_000_000.0},
+           {"reporter": "ARG", "year": 2021, "value_type": "reported", "mineral": "lithium", "partner": "USA", "value_usd": 367.0},
+           {"reporter": "ARG", "year": 2021, "value_type": "reported", "mineral": "gold", "partner": "WLD", "value_usd": 5_000_000.0},
+           {"reporter": "ARG", "year": 2021, "value_type": "reported", "mineral": "gold", "partner": "USA", "value_usd": 1_000_000.0},
+           {"reporter": "ARG", "year": 2021, "value_type": "reported", "mineral": "gold", "partner": "CHN", "value_usd": 2_000_000.0}]
+    minerals = {m["mineral"]: m["exports_musd"] for m in insights.minerals_latest(raw, "ARG", 2021)}
+    assert minerals["lithium"] == {"US": 0.000367, "CN": None, "ROW": None, "WLD": 1.0}
+    assert minerals["gold"] == {"US": 1.0, "CN": 2.0, "ROW": 2.0, "WLD": 5.0}
+
+
+def test_forecast_status_carries_the_skip_reason_of_a_target():
+    fc = [{"country": "ARG", "mineral": "all", "target": "influence_index", "actor": "CN", "scenario_id": "baseline", "horizon_year": 2030, "last_observed_year": 2024, "model": "persistence",
+           "point": 10.0, "p05": 5.0, "p25": 8.0, "p75": 12.0, "p95": 15.0}]
+    targets = {"export_share:CN": {"countries": [], "skipped": {"ARG": "4 reported years in the latest unbroken run (2022–2025), fewer than 8"}}, "influence_index:CN": {"countries": ["ARG"]}}
+    out = insights.forecast_paths(fc, "ARG", [], targets)
+    assert out["status"]["influence_index:CN"] == {"last_observed_year": 2024, "model": "persistence"}
+    assert out["status"]["export_share:CN"] == {"last_observed_year": None, "model": None, "skipped": "4 reported years in the latest unbroken run (2022–2025), fewer than 8"}
+    assert insights.forecast_paths([], "ARG", [], targets) is None  # no paths at all: no forecast block, as before
 
 
 def _country(trade=None, stm=None, fc=None, flags=None, stance=None, media=None):

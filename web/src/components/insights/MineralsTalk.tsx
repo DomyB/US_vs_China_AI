@@ -19,7 +19,8 @@ function Country({ c, x }: { c: InsightCountry; x: Contrast }) {
       height: 40 + 26 * rows.length,
       marginLeft: 124, // "phosphate/potash" at the tick size
       marginRight: 24, // the right half of the "100%" tick
-      x: { label: null, domain: [0, 1], tickFormat: (v: number) => fmtPct(v), ticks: 4 },
+      // three explicit ticks: `ticks: 4` let d3 pick a step of 0.2, six labels that overlapped in a 180 px facet
+      x: { label: null, domain: [0, 1], tickFormat: (v: number) => fmtPct(v), ticks: [0, 0.5, 1] },
       y: { label: null, domain: rows.map((r) => short(r.mineral)) },
       color: { domain: ["share of mentions", "share of export value"], range: [CAT_3, INK], legend: false },
       marks: [

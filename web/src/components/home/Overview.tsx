@@ -46,7 +46,7 @@ interface Props {
 export function Overview({ meta, real, indexLayer, year, mode, mineral, indexName, ranked, leads, leadLine, indexNote, onSelect, onHover, hover, view, aggs, flowsLastYear, window, sourceNames, compareMode, selection }: Props) {
   const kpis = useMemo(() => {
     const cov = real ? Object.values(real.coverage) : [];
-    return { sources: real?.sources_ok.length ?? null, facts: cov.filter((c) => c.actions).length, indexed: cov.filter((c) => c.analysis_available).length, asOf: real?.generated_on ?? null };
+    return { sources: real?.sources_live?.live ?? real?.sources_ok.length ?? null, sourcesTotal: real?.sources_live?.total ?? null, facts: cov.filter((c) => c.actions).length, indexed: cov.filter((c) => c.analysis_available).length, asOf: real?.generated_on ?? null };
   }, [real]);
   const names = useMemo(() => Object.fromEntries(meta.countries.map((c) => [c.iso3, c.name])), [meta]);
   const flowRows = useMemo(
@@ -80,8 +80,8 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, indexNam
       </div>
       {real && (
         <div className="grid grid-cols-2 gap-2">
-          <StatTile icon="calendar" label="Data as of" value={kpis.asOf ? new Date(kpis.asOf + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "–"} note="monthly refresh" />
-          <StatTile icon="sources" label="Live sources" value={kpis.sources !== null ? <AnimatedNumber value={kpis.sources} /> : "–"} note={`of ${Object.keys(sourceNames).length} registered`} href="/sources" />
+          <StatTile icon="calendar" label="Data as of" value={kpis.asOf ? new Date(kpis.asOf + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "–"} note="press weekly · the rest monthly" />
+          <StatTile icon="sources" label="Live sources" value={kpis.sources !== null ? <AnimatedNumber value={kpis.sources} /> : "–"} note={`of ${kpis.sourcesTotal ?? Object.keys(sourceNames).length} registered`} href="/sources" />
           <StatTile icon="facts" label="Countries with facts" value={<><AnimatedNumber value={kpis.facts} /> / 12</>} note="trade, finance, governance" />
           <StatTile icon="index" label="Countries indexed" value={<><AnimatedNumber value={kpis.indexed} /> / 12</>} note="≥ 3 of 6 components" href="/methodology#index" />
         </div>

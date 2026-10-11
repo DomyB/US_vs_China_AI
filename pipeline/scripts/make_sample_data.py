@@ -249,10 +249,10 @@ def main() -> None:
             },
         ],
         "refresh_schedule": [
-            {"layer": "News (media)", "cadence": "daily", "note": "RSS and Media Cloud; GDELT daily files"},
-            {"layer": "Parliaments and gazettes", "cadence": "weekly"},
-            {"layer": "Trade, finance, investment", "cadence": "monthly or when the source publishes"},
-            {"layer": "Production, reserves, governance indices", "cadence": "annual"},
+            {"layer": "News (media)", "cadence": "weekly (Wednesdays: RSS feeds, GDELT, Media Cloud)"},
+            {"layer": "Parliaments and gazettes", "cadence": "monthly (the 3rd)"},
+            {"layer": "Trade, finance, investment", "cadence": "monthly (the 3rd), or when the source publishes"},
+            {"layer": "Production, reserves, governance indices", "cadence": "annual (15 March)"},
         ],
         "freshness": {
             "actions": {
@@ -263,11 +263,11 @@ def main() -> None:
             "parliament": {
                 "last_updated": today,
                 "source_ids": ["bra_camara_api", "chl_camara", "arg_hcdn"],
-                "schedule": "weekly",
+                "schedule": "monthly",
             },
-            "media": {"last_updated": today, "source_ids": ["mediacloud", "gdelt"], "schedule": "daily"},
+            "media": {"last_updated": today, "source_ids": ["mediacloud", "gdelt"], "schedule": "weekly (Wednesdays: RSS feeds, GDELT and Media Cloud)"},
             "analysis": {"last_updated": today, "source_ids": [], "schedule": "with each data refresh"},
-            "forecast": {"last_updated": today, "source_ids": [], "schedule": "quarterly"},
+            "forecast": {"last_updated": today, "source_ids": [], "schedule": "with each data refresh"},
         },
     }
     (OUT / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -19,7 +19,7 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
-from .insights import build_insights
+from .insights import MUSD_DECIMALS, build_insights
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
 from .period import data_from, period
 from .quant.briefs import FRONT_RE, HUMAN_DIR
@@ -529,7 +529,6 @@ def _statements_block(rows: list[dict], iso: str | None) -> dict:
 
 
 FLOW_PARTNER = {"CHN": "CN", "USA": "US", "WLD": "WLD"}
-MUSD_DECIMALS = 6  # US$ million to six decimals: a US$1 grain, so a reported flow under US$500 never collapses to 0.0
 
 
 def musd(value_usd: float | None, digits: int = MUSD_DECIMALS) -> float | None:
@@ -830,7 +829,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             # `text_model` are model outputs and appear only once some headline is coded.
             media_file = {"dataset": "REAL", "iso3": iso, "generated_on": today, "articles": articles, "outlets": outlets,
                           "freshness": {"last_updated": today, "source_ids": media_sources,
-                                        "schedule": "weekly (RSS feeds and Media Cloud) and monthly windows (GDELT)",
+                                        "schedule": "weekly (Wednesdays: RSS feeds, GDELT and Media Cloud)",
                                         # the years whose headline list was cut (Media Cloud keeps the newest stories of a year
                                         # with more matches than its cap): the window the kept headlines come from
                                         "headlines_window": windows_by_iso.get(iso, [])},

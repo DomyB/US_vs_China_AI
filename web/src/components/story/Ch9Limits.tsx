@@ -17,7 +17,7 @@ export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }
   const tableCols: { key: string; label: string }[] = [{ key: "country", label: "Country" }, ...wall.cols.map((c) => ({ key: c, label: c }))];
   return (
     <div className="space-y-6">
-      <Exhibit title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} note={`A filled cell is a record the site holds; a hatched cell is a record it does not, with the reason on hover, read out by a screen reader, and listed in the table beneath. The largest hole on every money chart is Chinese finance after ${lastYearCN ?? "the source's last year"}: the source ends there, so those years are blank, not zero.`}>
+      <Exhibit id="c9-wall" title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} note={`A filled cell is a record the site holds; a hatched cell is a record it does not, with the reason on hover, read out by a screen reader, and listed in the table beneath. The largest hole on every money chart is Chinese finance after ${lastYearCN ?? "the source's last year"}: the source ends there, so those years are blank, not zero.`}>
         <p className="mb-1 text-[11px] text-ink-3 sm:hidden">The wall is wider than the screen: scroll it sideways for the other columns.</p>
         <div className="scroll-x">
           <table className="w-full border-collapse text-xs">
@@ -48,7 +48,7 @@ export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }
         </div>
         <DataTable rows={tableRows} columns={tableCols} caption="The coverage wall as text: for each country and record, whether the site holds it and the reason when it does not" />
       </Exhibit>
-      <Exhibit title="How strong is each chapter" layer="interp" sources={[]} ids={chapters.map((c) => `chapter:${c.n}`)}>
+      <Exhibit id="c9-meters" title="How strong is each chapter" layer="interp" sources={[]} ids={chapters.map((c) => `chapter:${c.n}`)}>
         <ol className="grid gap-2 sm:grid-cols-3">
           {chapters.map((c) => (
             <li key={c.n}>

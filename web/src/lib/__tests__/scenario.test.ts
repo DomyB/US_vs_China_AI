@@ -37,23 +37,31 @@ const trade: InsightTradeLatest = {
 };
 
 describe("tradeWhatIf", () => {
+  it("is not computable when a partner row is absent, and reads ROW from the world total", () => {
+    const base = { year: 2025, total_musd: 100, share_cn: null, share_us: 0.1, partners_absent: ["CN"], minerals: [], source_id: "un_comtrade" };
+    const absent = { ...base, exports_musd: { US: 10, CN: null, ROW: null, WLD: 100 } } as unknown as Parameters<typeof tradeWhatIf>[0];
+    expect(tradeWhatIf(absent, { divertMineral: null, divertPct: 0, divertTo: "US", pricePct: 0 }, null)).toBeNull();
+    const both = { ...base, exports_musd: { US: 10, CN: 30, ROW: null, WLD: 100 } } as unknown as Parameters<typeof tradeWhatIf>[0];
+    const w = tradeWhatIf(both, { divertMineral: null, divertPct: 0, divertTo: "US", pricePct: 0 }, null)!;
+    expect(w?.exports).toEqual({ US: 10, CN: 30, ROW: 60 });
+  });
   it("leaves the shares alone without levers", () => {
-    const w = tradeWhatIf(trade, { divertMineral: null, divertPct: 0, divertTo: "US", pricePct: 0 }, "copper");
+    const w = tradeWhatIf(trade, { divertMineral: null, divertPct: 0, divertTo: "US", pricePct: 0 }, "copper")!;
     expect(w.share_cn).toBeCloseTo(0.45);
     expect(w.moved_musd).toBe(0);
     expect(w.gap_musd).toBe(400);
   });
   it("moves a share of the mineral's exports to China and reports parity", () => {
-    const w = tradeWhatIf(trade, { divertMineral: "copper", divertPct: 0.5, divertTo: "US", pricePct: 0 }, null);
+    const w = tradeWhatIf(trade, { divertMineral: "copper", divertPct: 0.5, divertTo: "US", pricePct: 0 }, null)!;
     expect(w.moved_musd).toBe(400);
     expect(w.exports).toEqual({ US: 500, CN: 500, ROW: 1000 });
     expect(w.parity).toBe(true);
     expect(w.share_us).toBeCloseTo(0.25);
-    const r = tradeWhatIf(trade, { divertMineral: "copper", divertPct: 0.5, divertTo: "ROW", pricePct: 0 }, null);
+    const r = tradeWhatIf(trade, { divertMineral: "copper", divertPct: 0.5, divertTo: "ROW", pricePct: 0 }, null)!;
     expect(r.exports).toEqual({ US: 100, CN: 500, ROW: 1400 });
   });
   it("revalues the priced mineral at constant volumes before the redirect", () => {
-    const w = tradeWhatIf(trade, { divertMineral: "copper", divertPct: 0.25, divertTo: "US", pricePct: 50 }, "copper");
+    const w = tradeWhatIf(trade, { divertMineral: "copper", divertPct: 0.25, divertTo: "US", pricePct: 50 }, "copper")!;
     expect(w.price_delta).toEqual({ US: 25, CN: 400, ROW: 75 });
     expect(w.moved_musd).toBe(300); // a quarter of the revalued 1,200 to China
     expect(w.exports.CN).toBe(1000);

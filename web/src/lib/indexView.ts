@@ -242,6 +242,15 @@ function fewerThan(name: IndexName): string {
 }
 
 /**
+ * Why a source ending before the year leaves no index: the composite is not published for a year in which a component
+ * it rested on the year before has no data yet (method 2026.10.2 holds it back rather than change its composition), or
+ * too few components remain; a sub-index only has the second case.
+ */
+function sourceEndClause(name: IndexName): string {
+  return name === "composite" ? `the index is not published where a component it rested on the year before has no data yet, or with ${fewerThan(name)}` : fewerThan(name);
+}
+
+/**
  * Why one country has no index value: the trade record not reaching the year, a source ending before it (only when the
  * year lies beyond the last year most countries are indexed, so the gap is the sources' and not the country's), the
  * mineral, or the components themselves (the case file says which).
@@ -258,7 +267,7 @@ export function noIndexReason(o: { year: number; mineral: string; indexName: Ind
   const parts = o.missing.map((a) => {
     const lags = structural ? laggingSources(o.lastYear, o.year, a, o.indexName) : [];
     return lags.length
-      ? `no ${actorName(a)} ${label} for ${o.year}: ${lags.join(", ")} ${lags.length > 1 ? "leave" : "leaves"} ${fewerThan(o.indexName)}`
+      ? `no ${actorName(a)} ${label} for ${o.year}: ${lags.join(", ")} (${sourceEndClause(o.indexName)})`
       : `no ${actorName(a)} ${label} for ${o.year}: ${fewerThan(o.indexName)} (the case file's Analysis tab says which)`;
   });
   return parts.length ? parts.join("; ") : `no ${label} for ${o.year}`;
@@ -282,9 +291,9 @@ export function missingIndexNote(o: { year: number; mineral: string; indexName: 
     for (const [a, n] of [["CN", o.missingCN], ["US", o.missingUS]] as [Actor, number][]) {
       if (n === 0) continue;
       const lags = laggingSources(o.lastYear, o.year, a, o.indexName);
-      parts.push(`the ${actorName(a)} index is missing for ${n}${lags.length ? ` (${lags.join(", ")}: ${fewerThan(o.indexName)})` : ` (${fewerThan(o.indexName)})`}`);
+      parts.push(`the ${actorName(a)} index is missing for ${n}${lags.length ? ` (${lags.join(", ")})` : ` (${fewerThan(o.indexName)})`}`);
     }
-    return `${head}: ${parts.join("; ")}. The last year with both indices for most countries is ${o.defaultYear}.`;
+    return `${head}: ${parts.join("; ")}. ${sourceEndClause(o.indexName).replace(/^the/, "The")}. The last year with both indices for most countries is ${o.defaultYear}.`;
   }
   return `${head}: ${fewerThan(o.indexName)} (each case file's Analysis tab says which).`;
 }

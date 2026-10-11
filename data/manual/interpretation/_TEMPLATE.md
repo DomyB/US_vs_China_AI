@@ -3,6 +3,7 @@ title: <Country>: interpretation
 author: <your name>
 date: <YYYY-MM-DD>
 reviewed: false
+data_release: <the inputs_release tag of web/public/data/real/meta.json when you read the numbers>
 ---
 
 ## Alignment

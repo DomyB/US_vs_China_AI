@@ -163,7 +163,7 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
       </div>
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit title="Argentina's money, three ledgers and a sliver" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flow_finance:ARG:CN", "flow_finance:ARG:US", "anomaly_flag:ARG-rescue_lending-*", framework ? `event:${framework.id}` : ""].filter(Boolean)} explore={{ href: "/country/ARG?tab=actions", label: "Open Argentina's case file" }} note="Documented commitments solid; lower-confidence amounts dotted; central-bank swap drawdowns hatched; the US Treasury swap framework of 2025 is a draft event with no drawn amount, drawn outlined on the same footing as the Chinese swaps. None of the blocks is added to another; the US figures are authorisations, not disbursements.">
+          <Exhibit id="c8-money" title="Argentina's money, three ledgers and a sliver" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flow_finance:ARG:CN", "flow_finance:ARG:US", "anomaly_flag:ARG-rescue_lending-*", framework ? `event:${framework.id}` : ""].filter(Boolean)} explore={{ href: "/country/ARG?tab=actions", label: "Open Argentina's case file" }} note="Documented commitments solid; lower-confidence amounts dotted; central-bank swap drawdowns hatched; the US Treasury swap framework of 2025 is a draft event with no drawn amount, drawn outlined on the same footing as the Chinese swaps. None of the blocks is added to another; the US figures are authorisations, not disbursements.">
             <MoneyColumns cn={cn} us={us} framework={framework} />
           </Exhibit>
         </div>
@@ -186,20 +186,20 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
       {/* the index is drawn only from the real export (StoryPage passes no sample rows): without it, one note, never two empty frames */}
       {rows.length ? (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-          <Exhibit title={`The influence index, ${Math.min(...years)}–${Math.max(...years)}`} layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes", "wb_ids"]} ids={["index_value:influence:ARG:US", "index_value:influence:ARG:CN"]} note={`Model output: six components on one 0–100 scale, equal weights over the components available (never fewer than three), 5th–95th band over 500 weight draws. Every value prints its component count: a changed count is a coverage change, not a swing.${peak ? ` China's peak: ${peak.value.toFixed(1)} in ${peak.year}.` : ""}`}>
+          <Exhibit id="c8-index" title={`The influence index, ${Math.min(...years)}–${Math.max(...years)}`} layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes", "wb_ids"]} ids={["index_value:influence:ARG:US", "index_value:influence:ARG:CN"]} note={`Model output: six components on one 0–100 scale, equal weights over the components available (never fewer than three), 5th–95th band over 500 weight draws. Every value prints its component count: a changed count is a coverage change, not a swing.${peak ? ` China's peak: ${peak.value.toFixed(1)} in ${peak.year}.` : ""}`}>
             <PlotFigure glyph="model" options={lean} ariaLabel="Argentina's influence index for the United States and China by year with uncertainty bands" />
           </Exhibit>
-          <Exhibit title="The trajectory" layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes"]} ids={["index_value:influence:ARG"]} note={`US index on the horizontal, China index on the vertical, one dot per year joined in order${span ? ` from ${span.first} (in the knot at the left, the year on hover) to ${span.last}` : ""}; the diagonal is equal presence; the last year is filled and labelled.`}>
+          <Exhibit id="c8-trajectory" title="The trajectory" layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes"]} ids={["index_value:influence:ARG"]} note={`US index on the horizontal, China index on the vertical, one dot per year joined in order${span ? ` from ${span.first} (in the knot at the left, the year on hover) to ${span.last}` : ""}; the diagonal is equal presence; the last year is filled and labelled.`}>
             <PlotFigure glyph="model" options={traj} ariaLabel="Argentina's trajectory: US index against China index, one dot per year" expandable={false} />
           </Exhibit>
         </div>
       ) : (
-        <Exhibit title="The influence index" layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes", "wb_ids"]} ids={["index_value:influence:ARG:US", "index_value:influence:ARG:CN"]} note="Model output: the computed index is drawn only from the real export; a seeded sample is never shown in its place.">
+        <Exhibit id="c8-index" title="The influence index" layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes", "wb_ids"]} ids={["index_value:influence:ARG:US", "index_value:influence:ARG:CN"]} note="Model output: the computed index is drawn only from the real export; a seeded sample is never shown in its place.">
           <p className="py-6 text-sm text-ink-2">The computed influence index is not in this release: nothing is drawn in its place.</p>
         </Exhibit>
       )}
       {voices.length > 0 && (
-        <Exhibit title="More of the words around the sentence" layer="facts" sources={["manual_statements"]} ids={voices.map((v) => `statement:${v.id}`)}>
+        <Exhibit id="c8-voices" title="More of the words around the sentence" layer="facts" sources={["manual_statements"]} ids={voices.map((v) => `statement:${v.id}`)}>
           <ul className="grid gap-3 md:grid-cols-3">
             {voices.map((v) => (
               <li key={v.id} className="card p-3 text-sm">

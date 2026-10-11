@@ -104,18 +104,22 @@ export function StoryPage() {
       }
     }
     if (framework) receipts.push({ label: framework.title, window: `${framework.date.slice(0, 7)} · ${framework.status} event, outside the DFC/EXIM record`, value: "no drawn amount recorded; shown apart, like the PBoC swaps", source: "pipeline/config/events.yaml", outlined: true });
-    if (swaps.length) {
-      // One AidData row per year; the total is the sum of those yearly rows, so the largest single year is printed beside it.
-      const peak = swaps.reduce((a, b) => (b.musd > a.musd ? b : a));
-      receipts.push({ label: "Chinese central-bank swap drawdowns, yearly rows summed", window: `${swaps[0].year}–${swaps[swaps.length - 1].year}, where the record ends`, value: `${fmtMusd(swapTotal)} over ${swaps.length} yearly rows (largest ${fmtMusd(peak.musd)} in ${peak.year})`, source: "AidData GCDF 3.0 · independent/academic · flagged rescue lending", href: "/country/ARG?tab=analysis" });
+    // One AidData row per year; the total is the sum of those yearly rows, so the largest single year is printed beside it (and, in chapter 3, beside the region-wide peak).
+    const argPeak = swaps.length ? swaps.reduce((a, b) => (b.musd > a.musd ? b : a)) : null;
+    if (argPeak) {
+      receipts.push({ label: "Chinese central-bank swap drawdowns, yearly rows summed", window: `${swaps[0].year}–${swaps[swaps.length - 1].year}, where the record ends`, value: `${fmtMusd(swapTotal)} over ${swaps.length} yearly rows (largest ${fmtMusd(argPeak.musd)} in ${argPeak.year})`, source: "AidData GCDF 3.0 · independent/academic · flagged rescue lending", href: "/country/ARG?tab=analysis" });
     }
+    // The US rows after the insights' later window (the DFC years), from the same finance rows, so chapter 1 can say what lies outside both windows.
+    const usAfterFrom = insights.region.talk_vs_money.finance.US_after.years[1] + 1;
+    const usAfterLedger = ly.finance_US !== null && ly.finance_US >= usAfterFrom ? financeLedger(flows, { since: usAfterFrom }).US : null;
+    const usAfterWindow = usAfterLedger ? { musd: usAfterLedger.documented_musd, events: usAfterLedger.events, from: usAfterFrom, to: ly.finance_US as number } : null;
     const finance = insights.region.regressions.rows.find((r) => r.spec === "exports_to_cn" && r.term === "finance_flow_lag1" && (r as { variant?: string }).variant !== "ols");
     // The story export carries Chile's per-mineral series; without it the same shares are computed from flows.json's rows.
     const chlLithium = d.story?.series?.CHL?.lithium ?? seriesFromFlows(flows, "CHL", "lithium");
     const chlCopper = d.story?.series?.CHL?.copper ?? seriesFromFlows(flows, "CHL", "copper");
     const chlFlag = chl?.flags.items.find((f) => f.id.includes("large_commitment") && f.id.includes("2018"))?.id ?? null;
     // The influence index is drawn only from the real export; a seeded sample index is never shown as model output.
-    const argRows = d.index.layer === "real" ? d.index.rows.filter((r) => r.iso3 === "ARG" && r.mineral === "all") : [];
+    const argRows = d.index.layer === "real" ? d.index.rows.filter((r) => r.iso3 === "ARG" && r.mineral === "all" && (r.index ?? "composite") === "composite") : [];
     const gold = arg?.contrasts.find((c) => c.id === "price_exposure") as { mineral: string; exports_musd: { US: number | null; CN: number | null; ROW: number | null }; total_musd: number; year: number } | undefined;
     const loans = loanThenFlat(insights);
     // rule hits the export itself lists apart (flags.share_absent, once it carries them), named in chapter 4 beside the ones it finds in flows.json
@@ -159,7 +163,7 @@ export function StoryPage() {
       forecast: t && t.coverage_80 !== undefined ? { coverage_80: t.coverage_80, n_tests: t.n_tests ?? null } : null,
       events: events ? { draft: events.draft, total: events.total } : null,
     });
-    return { years, ledger, ledgerAll, arg, chl, argLedger, argLithium, gold, receipts, finance, chlLithium, chlCopper, chlFlag, argRows, loans, setAside, wall, targets, framework, limits, stm2026, chapters, pairingNote: pairingNote(ly) };
+    return { years, ledger, ledgerAll, arg, chl, argLedger, argLithium, gold, receipts, finance, chlLithium, chlCopper, chlFlag, argRows, loans, setAside, wall, targets, framework, limits, stm2026, chapters, argPeak, usAfterWindow, pairingNote: pairingNote(ly) };
   }, [d]);
 
   if (!d && !failed) return <InsightsSkeleton />;
@@ -177,7 +181,10 @@ export function StoryPage() {
   }
   const { insights, flows } = d;
   const c = computed;
-  const release = d.meta ? `Data as of ${d.meta.generated_on} · ${d.meta.quant_model?.inputs_release ?? ""} · ${d.meta.sources_ok.length} sources live` : "";
+  // Two counts, never confused (DECISIONS 73): registry sources that answered the liveness check, and adapters that ran in the last ingestion.
+  const release = d.meta
+    ? `Data as of ${d.meta.generated_on} · ${d.meta.quant_model?.inputs_release ?? ""} · ${d.meta.sources_live ? `${d.meta.sources_live.live} of ${d.meta.sources_live.total} sources live` : `${d.meta.sources_ok.length} adapters ran`}${d.meta.adapters_ok ? ` · ${d.meta.adapters_ok.ok} of ${d.meta.adapters_ok.total} adapters ran` : ""}`
+    : "";
   const meter = (n: number) => c.chapters.find((ch) => ch.n === n);
   // Chapters 6, 8 and 9 render only with their inputs; the rail and chapter 9's list name the chapters on the page, never a dead anchor.
   const present = c.chapters.filter((ch) => (ch.n !== 6 || c.chl) && (ch.n !== 8 || c.arg) && (ch.n !== 9 || c.wall));
@@ -189,13 +196,13 @@ export function StoryPage() {
       <ProgressRail items={present} />
       <ColdOpen quote={opening} absence={absence} receipts={c.receipts} release={release} pairingNote={c.pairingNote} />
       <Chapter n={1} eyebrow="The ledger" question="Who is louder, and who writes the cheques?" meter={meter(1)}>
-        <Ch1Ledger region={insights.region} lastYear={{ finance_US: flows.meta.last_year.finance_US, finance_CN: flows.meta.last_year.finance_CN }} voices={pick(d.story, d.statements, US_VOICES)} />
+        <Ch1Ledger region={insights.region} lastYear={{ finance_US: flows.meta.last_year.finance_US, finance_CN: flows.meta.last_year.finance_CN }} afterWindow={c.usAfterWindow} voices={pick(d.story, d.statements, US_VOICES)} />
       </Chapter>
       <Chapter n={2} eyebrow="The trade" question="While they talked, where did the ore go?" meter={meter(2)}>
         <Ch2Trade years={c.years} board={mineralBoard(d.shares)} prices={insights.region.prices} coverage={d.meta?.coverage ?? null} />
       </Chapter>
       <Chapter n={3} eyebrow="The money nobody counts" question={`Is ${fmtMusd(c.ledger.CN.documented_musd)} the whole of Beijing's money?`} meter={meter(3)}>
-        <Ch3Iceberg cn={c.ledger.CN} us={c.ledger.US} allYearsCN={c.ledgerAll.CN} undocumentedTop={undocumentedByCountry(flows)} network={d.quant?.network ?? null} lastYearCN={flows.meta.last_year.finance_CN} />
+        <Ch3Iceberg cn={c.ledger.CN} us={c.ledger.US} allYearsCN={c.ledgerAll.CN} undocumentedTop={undocumentedByCountry(flows)} network={d.quant?.network ?? null} lastYearCN={flows.meta.last_year.finance_CN} argPeak={c.argPeak} />
       </Chapter>
       <Chapter n={4} eyebrow="Money that did not move the minerals" question="When a large commitment arrived, did the lender's share of the minerals move?" meter={meter(4)}>
         <Ch4Loans loans={c.loans} setAside={c.setAside} finance={c.finance} chile={c.chlLithium.length ? { series: c.chlLithium, year: 2018, flag: c.chlFlag } : null} />
@@ -205,7 +212,7 @@ export function StoryPage() {
       </Chapter>
       {c.chl && (
         <Chapter n={6} eyebrow="The hinge" question="Read end to end, when did money, words and ore move in Chile, and in what order?" meter={meter(6)}>
-          <Ch6Chile chile={c.chl} lithium={c.chlLithium} copper={c.chlCopper} quotes={pick(d.story, d.statements, CHILE_QUOTES).filter((q) => q.country === "CHL")} />
+          <Ch6Chile chile={c.chl} lithium={c.chlLithium} copper={c.chlCopper} lastYearCN={flows.meta.last_year.finance_CN} quotes={pick(d.story, d.statements, CHILE_QUOTES).filter((q) => q.country === "CHL")} />
         </Chapter>
       )}
       <Chapter n={7} eyebrow="What it would take" question="If Washington meant it, what would have to change hands, and what does 2030 look like?" meter={meter(7)}>

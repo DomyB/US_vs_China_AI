@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { COUNTRY_NAMES } from "@/lib/constants";
 import { fmtMusd } from "@/lib/format";
+import { LAST_YEAR_LABEL } from "@/lib/provenance";
 import { STORY_SINCE, type LedgerSide } from "@/lib/story";
 import type { QuantFile } from "@/lib/types";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
@@ -104,10 +105,12 @@ function Iceberg({ cn, us, unattributed }: { cn: LedgerSide; us: LedgerSide; una
   );
 }
 
-export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastYearCN }: { cn: LedgerSide; us: LedgerSide; allYearsCN: LedgerSide; undocumentedTop: { iso3: string; musd: number }[]; network: QuantFile["network"] | null; lastYearCN: number | null }) {
+/** `argPeak`: Argentina's own largest swap year (the cold open's receipt), printed beside the region-wide peak so the two figures meet on the page with their scopes named. */
+export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastYearCN, argPeak = null }: { cn: LedgerSide; us: LedgerSide; allYearsCN: LedgerSide; undocumentedTop: { iso3: string; musd: number }[]; network: QuantFile["network"] | null; lastYearCN: number | null; argPeak?: { year: number; musd: number } | null }) {
   const pre2008 = allYearsCN.undocumented_musd - cn.undocumented_musd;
-  // the swap rows are one AidData row per year of the same renewed line, summed as recorded; the largest year is printed beside the sum
+  // the swap rows are one AidData row per year of the same renewed line, summed as recorded; the largest year across the twelve countries is printed beside the sum
   const swapPeak = cn.by_year.reduce<LedgerSide["by_year"][number] | null>((a, b) => (b.swap_musd > (a?.swap_musd ?? 0) ? b : a), null);
+  const financeLastYears = { [LAST_YEAR_LABEL.finance_CN]: lastYearCN ?? cn.last_year, [LAST_YEAR_LABEL.finance_US]: us.last_year };
   const lenders = network?.top_lenders ?? [];
   const named = lenders.filter((l) => !isUnspecified(l));
   const unnamed = lenders.length - named.length;
@@ -117,7 +120,7 @@ export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastY
     <div className="space-y-6">
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit title="The Iceberg: two ledgers, never summed" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flow_finance:origin:year:amount_musd", "flow_finance:undocumented_musd", "flow_finance:swap_musd", "flow_finance:n_events", "network:unattributed_events"]} explore={{ href: "/explore?view=money&span=all", label: "Open the money arcs" }} note="Documented commitments are drawn solid; the dotted block is money a source reported at lower confidence, the hatched block is central-bank swap drawdowns (emergency liquidity), the outlined blocks are counts. Each is a real record the index refuses to count; none is added to another.">
+          <Exhibit id="c3-iceberg" title="The Iceberg: two ledgers, never summed" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flow_finance:origin:year:amount_musd", "flow_finance:undocumented_musd", "flow_finance:swap_musd", "flow_finance:n_events", "network:unattributed_events"]} lastYear={financeLastYears} explore={{ href: "/explore?view=money&span=all", label: "Open the money arcs" }} note="Documented commitments are drawn solid; the dotted block is money a source reported at lower confidence, the hatched block is central-bank swap drawdowns (emergency liquidity), the outlined blocks are counts. Each is a real record the index refuses to count; none is added to another.">
             <Iceberg cn={cn} us={us} unattributed={network?.unattributed_events ?? null} />
           </Exhibit>
         </div>
@@ -129,7 +132,7 @@ export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastY
             <p><strong>The money with a lower confidence.</strong> {fmtMusd(cn.undocumented_musd)} across {cn.undocumented_n} records since {STORY_SINCE}{pre2008 > 0 ? `, and a further ${fmtMusd(pre2008)} in records before ${STORY_SINCE}` : ""}. Largest: {undocumentedTop.slice(0, 4).map((u) => `${COUNTRY_NAMES[u.iso3] ?? u.iso3} ${fmtMusd(u.musd)}`).join(", ")}.</p>
           </StepCard>
           <StepCard>
-            <p><strong>The money that is not a loan for anything.</strong> {fmtMusd(cn.swap_musd)} of central-bank swap drawdowns in {cn.swap_n} records{swapPeak ? ` (yearly rows of a renewed line, summed as recorded; the largest year ${fmtMusd(swapPeak.swap_musd)} in ${swapPeak.year})` : ""}, almost all of it Argentina&apos;s central bank drawing on the People&apos;s Bank of China. The pipeline flags each as rescue lending and keeps it out of the finance component; Chapter 8 draws it beside the opening sentence.</p>
+            <p><strong>The money that is not a loan for anything.</strong> {fmtMusd(cn.swap_musd)} of central-bank swap drawdowns in {cn.swap_n} records{swapPeak ? ` (yearly rows of a renewed line, summed as recorded; the largest year across the twelve countries ${fmtMusd(swapPeak.swap_musd)} in ${swapPeak.year}${argPeak ? `, of which Argentina ${fmtMusd(argPeak.musd)}${argPeak.year !== swapPeak.year ? ` in ${argPeak.year}` : ""}` : ""})` : ""}, almost all of it Argentina&apos;s central bank drawing on the People&apos;s Bank of China. The pipeline flags each as rescue lending and keeps it out of the finance component; Chapter 8 draws it beside the opening sentence.</p>
           </StepCard>
           <StepCard>
             <p><strong>And the money nobody can place.</strong> {(cn.no_amount_n + cn.undocumented_n + cn.swap_n).toLocaleString("en-US")} events carry no documented amount ({cn.no_amount_n.toLocaleString("en-US")} none at all){network?.unattributed_events ? `, and ${network.unattributed_events.toLocaleString("en-US")} name no recipient` : ""}. Opacity is itself the finding.</p>
@@ -137,7 +140,7 @@ export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastY
         </div>
       </div>
       {lenders.length > 0 && (
-        <Exhibit title={`Who lends: the ${lenders.length} largest lenders`} layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["network:top_lenders"]} note={`Weighted degree is the sum of every recorded amount on the lender's links across the twelve countries, all years, swap drawdowns and lower-confidence amounts included, so it is not the documented ledger above the waterline${swapLender ? `: the ${swapLender.label} row is the central-bank swap drawdowns the iceberg shows apart, almost all Argentina's, drawn hatched here` : ""}. Degree is the number of lender–recipient links.${unnamed > 0 ? ` ${unnamed === 1 ? "One row is" : `${unnamed} rows are`} an unspecified Chinese government institution: a lender, not a named one.` : ""}`}>
+        <Exhibit id="c3-lenders" title={`Who lends: the ${lenders.length} largest lenders`} layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["network:top_lenders"]} lastYear={financeLastYears} note={`Weighted degree is the sum of every recorded amount on the lender's links across the twelve countries, all years, swap drawdowns and lower-confidence amounts included, so it is not the documented ledger above the waterline${swapLender ? `: the ${swapLender.label} row is the central-bank swap drawdowns the iceberg shows apart, almost all Argentina's, drawn hatched here` : ""}. Degree is the number of lender–recipient links.${unnamed > 0 ? ` ${unnamed === 1 ? "One row is" : `${unnamed} rows are`} an unspecified Chinese government institution: a lender, not a named one.` : ""}`}>
           <div className="grid gap-4 sm:grid-cols-2">
             <ul className="space-y-1.5 text-sm">
               {lenders.map((l) => {

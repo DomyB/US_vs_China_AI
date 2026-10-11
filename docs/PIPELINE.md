@@ -8,7 +8,7 @@ fetch(snapshot)  -> data/raw/<source_id>/<YYYY-MM-DD>/...   (+ manifest.json: UR
 parse(snapshot)  -> {table_name: DataFrame}                 (pure; validated against scm/schema.py)
 load(tables)     -> data/warehouse/<table>/<source_id>.parquet
 build            -> data/warehouse/scm.duckdb (views over Parquet + trade_discrepancy + finance_event_dedup)
-export           -> web/public/data/real/ (meta, coverage, country/<ISO3>.json, parliament/, media/, validation.json, region, prices, policy)
+export           -> web/public/data/real/ (meta with per-country coverage, period, country/<ISO3>.json, parliament/, media/, validation.json, region, index, quant, flows, insights, story, prices, policy; coverage.json is no longer written)
 classify         -> data/warehouse/{doc_translation,doc_classification,doc_embedding,topic*}/<slot>.parquet (Phase 3 model outputs)
 analyse          -> data/warehouse/{concentration,index_value,index_component,say_do_gap,anomaly_flag,network_metric,network_edge,event_effect,regression_result,forecast,backtest,analysis_text,quant_run}/quant.parquet (Phases 4-6)
 ```
@@ -50,7 +50,7 @@ which the tests run on real data.
 | unga_votes | `ingest/unga.py` | governance | — |
 | idb_dpi | `ingest/dpi.py` | governance | optional `DPI_FILE_URL` (data.iadb.org file downloads answered 404 in October 2026) |
 | bgs_wms | `ingest/bgs.py` | production (cross-check) | — |
-| congress_gov | `ingest/tier2.py` | policy_document | `CONGRESS_GOV_KEY`; lists every bill of each Congress from the 110th (about 700 requests, 250 per page) and keeps titles about minerals or mining, or naming China with a Western Hemisphere term; the API has no keyword search |
+| congress_gov | `ingest/tier2.py` | policy_document | `CONGRESS_GOV_KEY`; lists every bill of each Congress from the one sitting in the period's first year (`tier2.first_congress()`: the 106th for 2000; 250 bills per page) and keeps titles about minerals or mining, or naming China with a Western Hemisphere term; the API has no keyword search |
 | us_census_trade | `ingest/tier2.py` | trade_flow (monthly HS10 mirror) | `CENSUS_KEY` |
 | bu_codf | `ingest/tier2.py` | finance_event | `CODF_DOWNLOAD_URL` (signed data-use agreement; file never committed) |
 
@@ -70,24 +70,26 @@ Dataverse's presigned S3 redirects).
 | Adapter | Module | Produces | Notes |
 |---|---|---|---|
 | bra_camara_api | `ingest/legis_bra.py` | document (bills, hearings), vote, vote_member | yearly bulk CSVs filtered by keyword; member votes from `/api/v2/votacoes/{id}/votos` |
-| RSS_<outlet> (27) | `ingest/press.py` | document (news), media_volume | one class per registry press source with `access: rss`; feed from `api_url` or discovery |
+| RSS_<outlet> (34) | `ingest/press.py` | document (news), media_volume | one class per registry press source with `access: rss` that names its countries (26 national outlets and 8 regional feeds: Xinhua, People's Daily and CGTN in Spanish, the State, Treasury, USTR and DFC press rooms, Dialogue Earth; a regional headline is filed under each in-scope country it names and dropped when it names none); the feed is `api_url` when it looks like one (set to the feed each outlet's runs actually read), else the feeds the home page declares, then common paths; a home page geo-redirected to a section (Infobae's US edition from a US runner) is not trusted for feeds; reader-comments feeds are never read; one unreachable candidate is recorded and discovery goes on; an outlet whose every URL robots.txt forbids reports `skipped`, not `failed`; feed items are counted once per run across an outlet's feeds |
 | bra_senado_api | `ingest/legis_bra.py` | document (bills), vote, vote_member | matters per year (classic and renamed routes tried), votes per matter kept |
 | chl_camara | `ingest/legis_chl.py` | document (bills), vote, vote_member | opendata.camara.cl XML services per year, votes and member detail per boletín |
 | gdelt | `ingest/gdelt.py` | document (news), media_volume (window ledger) | GDELT DOC API per country and window since 2017 (`sourcelang:` for es/pt/nl); outlets matched on registry domains; `GDELT_BACKFILL_WINDOWS` windows and `GDELT_TIME_BUDGET_MIN` minutes per run; stops after repeated HTTP 429 |
-| mediacloud | `ingest/mediacloud.py` | document (news), media_volume (monthly, per national collection) | Media Cloud API v4 (`MEDIACLOUD_KEY`, free registered key): per country and year since 2010, three daily count series (mineral terms; AND China; AND the United States) summed into months plus up to 2,000 headlines; the national collection `<Country> - National` is looked up by name each run; a country-year is done once its months are in the ledger, newest year first; `MEDIACLOUD_TIME_BUDGET_MIN` minutes per run (default 40), `MEDIACLOUD_YEARS=YYYY-YYYY` bounds a run; every search endpoint is paced to two requests a minute (Media Cloud's per-user limit, by endpoint), so a country-year costs about two minutes; a throttled request waits the seconds the answer names and is retried once; stops after 5 consecutive failed requests or 10 throttle answers |
+| mediacloud | `ingest/mediacloud.py` | document (news), media_volume (monthly, per national collection) | Media Cloud API v4 (`MEDIACLOUD_KEY`, free registered key): per country and year since 2010, three daily count series (mineral terms; AND China; AND the United States) summed into months plus up to 2,000 headlines; the national collection `<Country> - National` is looked up by name each run; a country-year is done once its months are in the ledger, newest year first; `MEDIACLOUD_TIME_BUDGET_MIN` minutes per run (default 40), `MEDIACLOUD_YEARS=YYYY-YYYY` bounds a run; every search endpoint is paced to two requests a minute (Media Cloud's per-user limit, by endpoint), so a country-year costs about two minutes; a throttled request waits the seconds the answer names and is retried once; stops after 5 consecutive failed requests or 10 throttle answers; the story list is fetched newest first, and a country-year with more matches than the cap records the window its kept headlines come from (`headlines_window` {from, to, kept, matched, truncated} in the manifest and in the `ingest_run` record), which the export passes to the media files |
 | arg_hcdn | `ingest/legis_arg.py` | document (bills, votes), vote, vote_member | datos.hcdn.gob.ar CKAN; proyectos, votaciones and votos resources found by search (candidates recorded) |
 | ury_parlamento | `ingest/legis_ury.py` | document (bills) | catalogodatos.gub.uy CKAN; no roll-call dataset |
 | col_camara | `ingest/legis_col.py` | document (bills) | Socrata kcxp-nxum paged; votes are PDF only; Senado never fetched (403, terms) |
 | col_anm_anna | `ingest/national_col.py` | concession | Socrata catalogue discovery; the national titles layer is an unexportable map view, so the adapter records the catalogue choice and stores 0 rows (si2v-pbq5 is the annotations table, never stored) |
 | chl_senado | `ingest/legis_chl.py` | vote, vote_member | tramitacion.senado.cl `votaciones.php` and the tramitación document for the boletines the Cámara adapter kept; both carried no roll calls in October 2026 |
-| pry_silpy, ecu_asamblea, per_congreso_spley | `ingest/legis_misc.py` | document (bills / votes) | undocumented services: index pages and first bytes recorded; parsers completed from fixtures |
+| pry_silpy, ecu_asamblea, per_congreso_spley | `ingest/legis_misc.py` | document (bills / votes) | undocumented services: index pages and first bytes recorded; parsers completed from fixtures. Ecuador's adapter runs clean and returns no records (the bills database is HTML only, the plenary-votes page a script-rendered application whose data service is not exposed); `export_site.NO_STRUCTURED_LEGISLATURE` carries that reason to the site's Politics tab |
 | ecu_cadastre | `ingest/national_ecu.py` | concession | ArcGIS REST layer query, paged |
-| per_bcrp_api | `ingest/national_per.py` | production | series chosen from BCRPData metadata (annual mine production), JSON API |
+| per_bcrp_api | `ingest/national_per.py` | production | series chosen from BCRPData metadata (annual mine production) when the metadata export answers CSV; since 2026-10-04 it answers an Incapsula challenge page, so the adapter falls back to the committed list `config/bcrp_series.json` (the selection of the last successful read; the manifest's `series_source` says which) and requests the JSON API only |
 | chl_cochilco | `ingest/national_chl.py` | production | anuario XLSX from the page; sheets with producción and a Chile/total row |
 | guy_ggmc | `ingest/national_guy.py` | production (1979–2024; gold grand total, bauxite, manganese) | direct CSV with a three-row header |
 
 Target groups: `legislature`, `press`, `national` (plus `tier1`, `tier2`, `annual`, `monthly`,
-`all`). `monthly` = tier1 + legislature + national; `press` runs weekly from
+`all`). The monthly workflow's default targets are `tier1 tier2 legislature national`: the tier-two
+adapters (Congress.gov, Census, BU CODF) are gated by secrets and record an instant `skipped` when
+theirs is missing, so a run always leaves a record of them; `press` runs weekly from
 `ingest-press.yml`. Text tables: `document` (bills and news; news rows carry no summary),
 `vote`, `vote_member`, `media_volume`; cadastres go to `concession`.
 
@@ -104,14 +106,27 @@ disables it) and a memory cap (`SCM_MEM_LIMIT_GB`, default 8); an adapter that o
 is recorded as `failed` with the reason and the run continues with the next source.
 
 Incremental tables (see `schema.KEY_COLUMNS`) merge with the Parquet restored from the previous
-data release; the first-seen row wins. Adapters that fetch HTML, feeds or web services set
+data release; the first-seen row wins. Because that merge preserves a wrong row for ever, a small
+documented list in `ingest/base.py`, `PURGE_RECORD_URL_SUBSTRINGS: dict[source_id, list[str]]`,
+names rows to drop at merge time by a substring of their `source_record_url`, each entry with its
+reason; the first entry drops Infobae's US-edition rows (`/category/estados-unidos/`) that a
+geo-redirected home page had passed off as Argentine news, and the run record counts the rows
+purged (`<table>_purged`). Adapters that fetch HTML, feeds or web services set
 `respect_robots = True`: robots.txt is read once per host and crawl-delays raise the request
 interval. The keyword filter (`ingest/keywords.py`) is versioned; `relevance()` returns the
 matched terms, which are stored with each row.
 
-**Adding a press outlet:** add the registry entry with `access: rss` and the feed URL in
-`api_url` (orientation and paywall are required for press); the adapter class is created
-automatically. XML feeds are recorded as fixtures (first 60 items per element).
+**Adding a press outlet:** add the registry entry with `access: rss`, the feed URL in `api_url`
+(the feed the run actually reads; the discovery fallback is for outlets whose feed is unknown),
+`countries` (one ISO3 for a national outlet, all twelve for a regional voice whose headlines are
+filed by the countries they name), `orientation` and `paywall` (required for press); the adapter
+class is created automatically. A new outlet starts with `status: uncertain` and a dated note until
+the Monday liveness check and the Wednesday press run confirm the feed; a publisher whose
+robots.txt forbids automated clients keeps `access: html` and gets no adapter (De Ware Tijd), and a
+host that answers 403 to automated clients is marked `dead` for the adapter's purpose and never
+fetched (US embassy press rooms, DECISIONS 29). Registry `api_url` answers that are 404 by design
+(an SDMX root) are noted in the entry so the weekly check's result is not read as a fault. XML
+feeds are recorded as fixtures (first 60 items per element).
 
 ## Phase 3: text analysis (`scm/text/`)
 
@@ -155,20 +170,28 @@ Every row carries `method_version`, `run_id` and `inputs_release` (the restored 
 |---|---|---|
 | `quant/inputs.py` | – | tidy frames: annual reported trade by reporter × year × mineral (plus `all`) × partner × flow; documented finance commitments with a `swap` flag; GDP, UNGA agreement, debt to China (IDS creditor 730); legislative stance per document with the classifier choice shared with the exporter; the last year each source covers |
 | `quant/concentration.py` | `concentration` | export and import shares to the US and China, `share_other`, `big2_share`, `rca_pool` (Balassa index against the pooled twelve-country basket), `exports_wld_usd`; `hhi_export_dest` null with the reason (three partners only) |
-| `quant/index.py` | `index_component`, `index_value` | six components per actor (`COMPONENTS`), winsorised pooled min–max to 0–100, equal weights over the available components (≥3), sub-indices `economic_ties` and `political_alignment`; 500-draw sensitivity band (Dirichlet weights, rank normalisation in half of the draws) and rank stability; also per core mineral where the country traded it |
+| `quant/index.py` | `index_component`, `index_value` | six components per actor (`COMPONENTS`), winsorised min–max to 0–100 whose bounds come from each component's mineral "all" rows (one country × year × actor panel) and apply to every row, equal weights over the available components (≥3), sub-indices `economic_ties` and `political_alignment`; 500-draw sensitivity band (Dirichlet weights, rank normalisation in half of the draws) and rank stability; also per core mineral where the country traded it. Method 2026.10.2: a composite is held back (value and band null, `n_components` and `components_available` kept) in a year where a component it rested on the year before is missing only because its source's release lags (note "source coverage ends L", L within `LAG_YEARS` = 2 of the current year), so a late release never changes the composition silently; an ended source (AidData, 2021) is not a lag. The US finance component's `source_ids` name the DFC and EXIM rows actually summed |
 | `quant/say_do.py` | `say_do_gap` | standardised legislative stance (≥5 records) minus the standardised change of the economic-ties sub-index, with the doc ids and the text model's status |
 | `quant/anomalies.py` | `anomaly_flag` | rule-based flags with evidence levels (DECISIONS 48) and source ids |
 | `quant/network.py` | `network_metric`, `network_edge` | lender–recipient graph (networkx): degree, weighted degree, betweenness, eigenvector (largest component), greedy-modularity communities |
 | `quant/events.py` | `event_effect` | event windows (t+1..t+2 vs t−2..t−1 on export shares, placebo from the series' other years) and difference-in-differences with a permutation placebo for scoped events, from `config/events.yaml` (every row carries the event's review status, title, type and source) |
 | `quant/panel.py` | `regression_result` | two-way fixed-effects OLS (numpy) on export and import shares with standardised regressors; CR1 cluster SE, wild cluster bootstrap p (`--boot`, default 999), drop-one-country range; country-FE variant |
-| `quant/briefs.py` | `analysis_text` | Phase 6: seven generated sections per country and for the region, each sentence with its indicator ids (`sentences_json`), template version, diff flag against the previous release; the owner's Markdown under `data/manual/interpretation/` loaded as `model = human` |
-| `quant/forecast.py` | `forecast`, `backtest` | Phase 5: five models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) backtested on expanding windows (CRPS, MAE, 80/95% coverage, horizons 1–3), the best published only if it beats persistence; forecasts to 2030 for the index and the export shares with 5/25/75/95 percentiles of 2,000 simulated paths; three scenarios as stated yearly shifts |
+| `quant/briefs.py` | `analysis_text` | Phase 6: seven generated sections per country and for the region, each sentence with its indicator ids (`sentences_json`), template version, diff flag against the previous release; the owner's Markdown under `data/manual/interpretation/` loaded as `model = human` (front matter `drafted_by`, `reviewed`, `data_release`: the exporter reads `data_release` from the file and the site prints it beside the text, with a note when the current release is newer) |
+| `quant/forecast.py` | `forecast`, `backtest` | Phase 5: five models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) backtested on expanding windows (CRPS, MAE, 80/95% coverage, horizons 1–3), the best published only if it beats persistence; forecasts to 2030 for the index and the export shares with 5/25/75/95 percentiles of 2,000 simulated paths; three scenarios as stated yearly shifts. The fitted series is a country's latest unbroken run of published values: a share cell with no partner row and a composite held back for a lagging source are not observations, so the forecast anchors on the last published composite; a country whose run is shorter than eight years or not current is skipped and listed with the reason |
 | `quant/run.py` | `quant_run` | orchestration; one row with the draws, the rank stability and the notes (source coverage, unattributed events) |
 
 The exporter writes the per-country `analysis` block (index with sub-indices, drivers with availability
 notes, concentration, say–do, flags with source references, the top network nodes, `quant_model` status),
-`index.json` (the composite for the map and the panels, per mineral) and `quant.json` (component definitions,
-availability, rules and counts for the methodology page); `meta.json` sets `layers.analysis` to `real`.
+`index.json` (the rows the map and the panels read: every published composite, for all minerals and per
+mineral, plus the two sub-indices for mineral "all", each row naming its `index` (`composite`,
+`economic_ties`, `political_alignment`) and its `components_available`; the composite all-minerals rows
+also carry `lead`, the component available for both actors with the largest gap between their normalised
+values, with `lead_gap` (China minus United States, in points of the 0–100 component scale), `lead_cn` and
+`lead_us`, the same on both actors' rows and null when the actors share no component; a cell without a
+value has no row) and `quant.json` (component definitions, availability, rules and counts for the
+methodology page, the forecast targets with every skipped country and its reason); `meta.json` sets
+`layers.analysis` to `real`. The site treats a row without `index` as a composite and hides the switch and
+the "carried by" line when the fields are absent, so an older file still works.
 `pipeline/config/events.yaml` is the dated event list (draft until the owner marks events `reviewed`;
 the results carry the status). The country file's `analysis.event_effects` holds the country's event rows,
 `quant.json` the regression table and the event list summary. The country file's `forecast` block holds the
@@ -220,7 +243,7 @@ provenance shown on the site stays honest.
 
 | Workflow | Cadence | What it does |
 |---|---|---|
-| `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 adapters, fixtures, `analyse` (Phase 4), build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD.<run>`, opens an issue on failure; `targets: none` recomputes, rebuilds and re-exports without ingesting |
+| `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 and tier 2 adapters, the legislatures and the national sources (default targets `tier1 tier2 legislature national`), fixtures, `analyse` (Phase 4), build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD.<run>`, opens an issue on failure; `targets: none` recomputes, rebuilds and re-exports without ingesting |
 | `ingest-annual.yml` | 15 March | USGS, V-Dem, UNGA, DPI, BGS via the same job |
 | `ingest-press.yml` | Wednesdays | The press group (the RSS adapters, then GDELT with 60 backlog windows and a 45-minute budget, then Media Cloud with a 40-minute budget of country-years, newest first) via the same job |
 | `diagnose.yml` | on demand | Read-only probes of the GDELT DOC API (`what: gdelt`, `translingual`) and of Google News's robots rules (`gnews`); the job log is the record |
@@ -259,6 +282,21 @@ and `MEDIACLOUD_YEARS=YYYY-YYYY` (`mediacloud_years`) bounds it in years. A full
 `mediacloud_time_budget_min: 150`, `adapter_budget_min: 175`, repeated until the manifest in `data/raw/mediacloud/`
 reports `years_left: 0`. GDELT keeps running for the recent weeks and as a second index of the same outlets;
 the two sources stay apart in the warehouse (`source_id`) and on the site. A first fill of the 204 country-years takes about seven hours of fetching at that pace: dispatch `targets: mediacloud` with `mediacloud_time_budget_min: 170` and `adapter_budget_min: 200` twice, newest years first; the weekly press run then keeps the current year.
+
+The media files' `history` rows (`text/series.py`, `monthly_frame`) are one row per source and calendar
+month, and the three sources are counted differently because their `media_volume` rows mean different
+things. GDELT windows (half-months) and Media Cloud months are disjoint, so their rows are summed into the
+month. A feed's rows are fetch days of the same rolling list (four or five a month in the weekly run, mostly
+the same headlines), so they are never summed: `items_total` is the feed's largest fetch of the month (the
+most items it exposed at once), `n_fetches` the number of fetches, and `items_mining` / `items_cn` /
+`items_us` are the distinct kept headlines of that feed dated in the month, counted from the `document`
+rows; the Media tab words a feed month as "items seen at the month's fullest fetch". The yearly attention
+series uses the same monthly feed totals, so a denominator no longer grows with the number of fetches.
+Media Cloud's headline lists are fetched newest first, and when a country-year has more matches than the
+2,000 the adapter keeps, the cut is recorded (`headlines_window`: source, year, the first and last
+publication date kept, how many were kept and how many matched) in the ingest-run record, from which the
+export writes `freshness.headlines_window` into the media file and the Media tab says, for example,
+"headlines: the newest 2,000 of 13,809 matches, from 2026-09-14".
 
 Each ingestion run first restores the Parquet warehouse from the latest `data-v*` release, so
 running a subset of adapters (`targets: wb_wgi usgs_mcs`) refreshes only those tables and keeps

@@ -12,11 +12,11 @@ import { COLORS, INK, INK_3, Lever, fmtPts, pretty } from "./shared";
 
 const actorName = (a: Actor) => ACTOR_LABEL[a];
 
-function fanOptions(hist: { year: number; actor: Actor; value: number }[], paths: Record<Actor, ReturnType<typeof blendPath>>, echo: Record<Actor, ReturnType<typeof echoPath>>, lastYear: number, horizon: number, yLabel: string, domain: [number, number], fmt: (v: number) => string) {
+function fanOptions(hist: { year: number; actor: Actor; value: number }[], paths: Record<Actor, ReturnType<typeof blendPath>>, echo: Record<Actor, ReturnType<typeof echoPath>>, lastYear: Record<Actor, number>, horizon: number, yLabel: string, domain: [number, number], fmt: (v: number) => string) {
   // the drawn paths start from the last reported value so the line is continuous
   const band = (["US", "CN"] as Actor[]).flatMap((a) => {
-    const last = hist.find((h) => h.actor === a && h.year === lastYear);
-    const start = last && paths[a].length ? [{ year: lastYear, point: last.value, p05: last.value, p25: last.value, p75: last.value, p95: last.value, actor: a }] : [];
+    const last = hist.find((h) => h.actor === a && h.year === lastYear[a]);
+    const start = last && paths[a].length ? [{ year: lastYear[a], point: last.value, p05: last.value, p25: last.value, p75: last.value, p95: last.value, actor: a }] : [];
     return [...start, ...paths[a].map((p) => ({ ...p, actor: a }))];
   });
   const echoRows = (["US", "CN"] as Actor[]).flatMap((a) => echo[a].map((p) => ({ ...p, actor: a })));
@@ -38,8 +38,13 @@ function fanOptions(hist: { year: number; actor: Actor; value: number }[], paths
             Plot.lineY(echoRows, { x: "year", y: "point", stroke: "actor", strokeWidth: 2, strokeDasharray: "1,4", curve: "monotone-x", tip: true, title: (d: { year: number; actor: Actor; point: number; lo: number; hi: number }) => `${d.year} ${actorName(d.actor)}, with your shock: ${fmt(d.point)} (middle half of past echoes ${fmt(d.lo)}–${fmt(d.hi)})` }),
           ]
         : []),
-      Plot.ruleX([lastYear], { stroke: INK, strokeDasharray: "3,2" }),
-      Plot.text([{ x: lastYear + 0.2, y: domain[1] * 0.97, t: "scenario →" }], { x: "x", y: "y", text: "t", textAnchor: "start", fill: INK_3, fontSize: 11 }),
+      // the scenario starts where each actor's own record ends: one rule when the two agree, one per actor in its colour otherwise
+      ...(lastYear.US === lastYear.CN
+        ? [Plot.ruleX([lastYear.US], { stroke: INK, strokeDasharray: "3,2" }), Plot.text([{ x: lastYear.US + 0.2, y: domain[1] * 0.97, t: "scenario →" }], { x: "x", y: "y", text: "t", textAnchor: "start", fill: INK_3, fontSize: 11 })]
+        : (["US", "CN"] as Actor[]).flatMap((a, i) => [
+            Plot.ruleX([lastYear[a]], { stroke: COLORS[a], strokeDasharray: "3,2" }),
+            Plot.text([{ x: lastYear[a] + 0.2, y: domain[1] * (0.97 - i * 0.07), t: `${actorName(a)}: scenario from ${lastYear[a] + 1} →` }], { x: "x", y: "y", text: "t", textAnchor: "start", fill: COLORS[a], fontSize: 11 }),
+          ])),
     ],
   };
 }
@@ -54,13 +59,14 @@ export function ScenarioStudio({ country, region, indexRows, levers, onChange, h
   const echoFor = (actor: Actor) => (levers.shock ? echoes.find((e) => e.family === levers.shock && e.actor === actor) ?? null : null);
   // an absent partner cell (null share) is left out: a gap in the history, never a 0% point
   const shareHist = useMemo(() => country.trade_series.flatMap((r) => [{ year: r.year, actor: "US" as Actor, value: r.share_us }, { year: r.year, actor: "CN" as Actor, value: r.share_cn }]).filter((h): h is { year: number; actor: Actor; value: number } => h.value !== null), [country]);
-  const indexHist = useMemo(() => indexRows.filter((r) => r.iso3 === country.iso3 && r.mineral === "all" && r.year <= YEAR_MAX).map((r) => ({ year: r.year, actor: r.actor as Actor, value: r.value })), [indexRows, country.iso3]);
+  const indexHist = useMemo(() => indexRows.filter((r) => r.iso3 === country.iso3 && r.mineral === "all" && (r.index ?? "composite") === "composite" && r.year <= YEAR_MAX).map((r) => ({ year: r.year, actor: r.actor as Actor, value: r.value })), [indexRows, country.iso3]);
   const sharePaths = useMemo(() => ({ US: blendPath(country.forecast?.paths.export_share?.US, levers.pull), CN: blendPath(country.forecast?.paths.export_share?.CN, levers.pull) }), [country, levers.pull]);
   const indexPaths = useMemo(() => ({ US: blendPath(country.forecast?.paths.influence_index?.US, levers.pull), CN: blendPath(country.forecast?.paths.influence_index?.CN, levers.pull) }), [country, levers.pull]);
   const shareEcho = useMemo(() => ({ US: echoPath(sharePaths.US, echoFor("US"), levers.shockYear), CN: echoPath(sharePaths.CN, echoFor("CN"), levers.shockYear) }), [sharePaths, levers.shock, levers.shockYear]); // eslint-disable-line react-hooks/exhaustive-deps
   const noEcho = useMemo(() => ({ US: [], CN: [] }), []);
-  const lastShare = country.forecast?.status["export_share:CN"]?.last_observed_year ?? country.trade?.year ?? 2025;
-  const lastIndex = country.forecast?.status["influence_index:CN"]?.last_observed_year ?? 2025;
+  // each actor's own last observed year (the records end in different years: the US index runs a year past China's)
+  const lastShare = useMemo(() => Object.fromEntries((["US", "CN"] as Actor[]).map((a) => [a, country.forecast?.status[`export_share:${a}`]?.last_observed_year ?? country.trade?.year ?? 2025])) as Record<Actor, number>, [country]);
+  const lastIndex = useMemo(() => Object.fromEntries((["US", "CN"] as Actor[]).map((a) => [a, country.forecast?.status[`influence_index:${a}`]?.last_observed_year ?? 2025])) as Record<Actor, number>, [country]);
   const shareOptions = useMemo(() => fanOptions(shareHist, sharePaths, shareEcho, lastShare, horizon, "Share of mineral exports", [0, 1], (v) => fmtPct(v)), [shareHist, sharePaths, shareEcho, lastShare, horizon]);
   const indexOptions = useMemo(() => fanOptions(indexHist, indexPaths, noEcho, lastIndex, horizon, "Influence index (0–100)", [0, 100], (v) => v.toFixed(0)), [indexHist, indexPaths, noEcho, lastIndex, horizon]);
 
@@ -72,19 +78,23 @@ export function ScenarioStudio({ country, region, indexRows, levers, onChange, h
   const gdp = country.gdp_latest?.usd ?? null;
   const cnAvg = yearlyAverage(country.finance.by_year, "CN", country.finance.windows.CN[0], country.finance.windows.CN[1]);
   const usAvg = yearlyAverage(country.finance.by_year, "US", country.finance.windows.US_after[0], country.finance.windows.US_after[1]);
+  // the trade levers at their defaults leave the published export-share component untouched: the what-if then equals the published
+  // index for both actors and says nothing was set (the latest trade year can differ from the published component's year)
+  const tradeTouched = (levers.divertMineral !== null && levers.divertPct > 0) || levers.pricePct !== 0;
   const indexWhatIf = useMemo(() => {
-    const out: Partial<Record<Actor, ReturnType<typeof recomputeIndex> & { published: number | null; year: number; nPublished: number }>> = {};
+    const out: Partial<Record<Actor, ReturnType<typeof recomputeIndex> & { published: number | null; year: number; nPublished: number; tradeYear: number | null }>> = {};
     for (const actor of ["US", "CN"] as Actor[]) {
       const comp = country.components_latest[actor];
       if (!comp) continue;
       const overrides: Record<string, number | null> = {};
-      if (whatIf) overrides.trade_export_share = actor === "US" ? whatIf.share_us : whatIf.share_cn;
+      if (whatIf && tradeTouched) overrides.trade_export_share = actor === "US" ? whatIf.share_us : whatIf.share_cn;
       const k = actor === "CN" ? levers.cnFin : levers.usFin;
       if (k !== 1) overrides.finance_flow = financeRaw((actor === "CN" ? cnAvg : usAvg) * k, gdp);
-      out[actor] = { ...recomputeIndex(comp.components, overrides, region.scales, region.index_rules.min_components), published: comp.published.value, year: comp.year, nPublished: comp.published.n_components };
+      const result = recomputeIndex(comp.components, overrides, region.scales, region.index_rules.min_components);
+      out[actor] = { ...result, published: comp.published.value, year: comp.year, nPublished: comp.published.n_components, tradeYear: whatIf && tradeTouched && result.changed.includes("trade_export_share") && trade && trade.year !== comp.year ? trade.year : null };
     }
     return out;
-  }, [country, whatIf, levers.cnFin, levers.usFin, cnAvg, usAvg, gdp, region.scales, region.index_rules.min_components]);
+  }, [country, whatIf, tradeTouched, trade, levers.cnFin, levers.usFin, cnAvg, usAvg, gdp, region.scales, region.index_rules.min_components]);
 
   const cn30 = atYear(sharePaths.CN, horizon);
   const us30 = atYear(sharePaths.US, horizon);
@@ -140,12 +150,12 @@ export function ScenarioStudio({ country, region, indexRows, levers, onChange, h
           <div className="card px-3 py-2.5">
             <p className="eyebrow">{trade?.year ?? "latest"} shares after redirect and price</p>
             <p className="mt-0.5 text-lg font-semibold leading-tight">{whatIf ? <><span className="text-cn">{fmtPct(whatIf.share_cn)}</span> China · <span className="text-us">{fmtPct(whatIf.share_us)}</span> US</> : "—"}</p>
-            <p className="text-[11px] text-ink-3">{whatIf ? (whatIf.parity ? "the United States buys as much as China" : `${fmtMusd(whatIf.gap_musd)} more would have to switch for parity`) : "no reported trade"}{whatIf && levers.pricePct !== 0 ? `; price lever worth ${fmtMusd(Math.abs(whatIf.price_delta.CN))} ${whatIf.price_delta.CN >= 0 ? "more" : "less"} to China, ${fmtMusd(Math.abs(whatIf.price_delta.US))} ${whatIf.price_delta.US >= 0 ? "more" : "less"} to the US` : ""}</p>
+            <p className="text-[11px] text-ink-3">{whatIf ? (whatIf.parity ? "the United States buys as much as China" : `${fmtMusd(whatIf.gap_musd)} more would have to switch for parity`) : trade ? `no ${(trade.partners_absent ?? []).map((a) => (a === "CN" ? "China" : "US")).join(" or ") || "US or China"} partner row in ${trade.year}: the trade levers need both (absent, not zero)` : "no reported trade"}{whatIf && levers.pricePct !== 0 ? `; price lever worth ${fmtMusd(Math.abs(whatIf.price_delta.CN))} ${whatIf.price_delta.CN >= 0 ? "more" : "less"} to China, ${fmtMusd(Math.abs(whatIf.price_delta.US))} ${whatIf.price_delta.US >= 0 ? "more" : "less"} to the US` : ""}</p>
           </div>
           <div className="card px-3 py-2.5">
             <p className="eyebrow">Index formula on your numbers</p>
             <p className="mt-0.5 text-lg font-semibold leading-tight">{(["CN", "US"] as Actor[]).map((a, i) => { const w = indexWhatIf[a]; return <span key={a}>{i ? " · " : ""}<span className={a === "CN" ? "text-cn" : "text-us"}>{w?.value !== null && w?.value !== undefined ? w.value.toFixed(1) : "—"}</span> {a}</span>; })}</p>
-            <p className="text-[11px] text-ink-3">{(["CN", "US"] as Actor[]).map((a) => { const w = indexWhatIf[a]; return w ? `${a}: published ${w.published?.toFixed(1) ?? "—"} (${w.year}, ${w.nPublished} components); yours uses ${w.n}${w.changed.length ? `, ${w.changed.map(pretty).join(" and ")} set by you` : ""}` : `${a}: no index`; }).join(" · ")}</p>
+            <p className="text-[11px] text-ink-3">{(["CN", "US"] as Actor[]).map((a) => { const w = indexWhatIf[a]; return w ? `${a}: published ${w.published?.toFixed(1) ?? "—"} (${w.year}, ${w.nPublished} components); yours uses ${w.n}${w.changed.length ? `, ${w.changed.map(pretty).join(" and ")} set by you${w.tradeYear !== null ? ` (the ${w.tradeYear} share in place of the ${w.year} one)` : ""}` : ", nothing set"}` : `${a}: no index`; }).join(" · ")}</p>
           </div>
         </div>
         <div>

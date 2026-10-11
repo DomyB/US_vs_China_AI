@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, prettyMineral } from "@/lib/constants";
 import { fmtMusd, fmtPct } from "@/lib/format";
+import { LAST_YEAR_LABEL } from "@/lib/provenance";
 import type { YearShares } from "@/lib/story";
 import type { InsightRegion, PriceSeries, RealMeta } from "@/lib/types";
 import { useMediaQuery } from "@/lib/useMediaQuery";
@@ -14,11 +15,14 @@ type BoardRow = { mineral: string; year: number; share_cn: number; share_us: num
 
 const ACTOR_NAME: Record<string, string> = { US: "United States", CN: "China", ROW: "Rest of the world" };
 
+/** "5 with no China row" for a tooltip: the reporters whose partner cell is absent that year, so a share over the others is never read as a share over all. */
+const absentClause = (actor: string, n: number) => (n > 0 ? `, ${n} with no ${ACTOR_NAME[actor]} row` : "");
+
 function stackedArea(rows: YearShares[]): Plot.PlotOptions {
   const long = rows.flatMap((r) => [
-    { year: r.year, actor: "US", share: r.share_us, musd: r.US, reporters: r.reporters },
-    { year: r.year, actor: "ROW", share: 1 - r.share_us - r.share_cn, musd: r.ROW, reporters: r.reporters },
-    { year: r.year, actor: "CN", share: r.share_cn, musd: r.CN, reporters: r.reporters },
+    { year: r.year, actor: "US", share: r.share_us, musd: r.US, reporters: r.reporters, absent: r.us_absent },
+    { year: r.year, actor: "ROW", share: 1 - r.share_us - r.share_cn, musd: r.ROW, reporters: r.reporters, absent: 0 },
+    { year: r.year, actor: "CN", share: r.share_cn, musd: r.CN, reporters: r.reporters, absent: r.cn_absent },
   ]);
   const last = rows[rows.length - 1];
   return {
@@ -30,7 +34,7 @@ function stackedArea(rows: YearShares[]): Plot.PlotOptions {
     y: { label: "share of reported mineral exports", tickFormat: (d: number) => `${Math.round(d * 100)}%`, domain: [0, 1] },
     color: { domain: ["US", "ROW", "CN"], range: [ACTOR_COLOR.US, OTHER_COLOR, ACTOR_COLOR.CN] },
     marks: [
-      Plot.areaY(long, { x: "year", y: "share", fill: "actor", order: ["US", "ROW", "CN"], fillOpacity: 0.9, tip: true, title: (d: { year: number; actor: string; share: number; musd: number; reporters: number }) => `${d.year} · ${ACTOR_NAME[d.actor]}: ${fmtPct(d.share, 1)} (${fmtMusd(d.musd)}) · ${d.reporters} reporters` }),
+      Plot.areaY(long, { x: "year", y: "share", fill: "actor", order: ["US", "ROW", "CN"], fillOpacity: 0.9, tip: true, title: (d: { year: number; actor: string; share: number; musd: number; reporters: number; absent: number }) => `${d.year} · ${ACTOR_NAME[d.actor]}: ${fmtPct(d.share, 1)} (${fmtMusd(d.musd)}) · ${d.reporters} reporters${absentClause(d.actor, d.absent)}` }),
       Plot.text([{ x: last.year, y: last.share_cn / 2, t: `China ${fmtPct(last.share_cn)}` }], { x: "x", y: "y", text: "t", textAnchor: "start", dx: 6, fill: ACTOR_COLOR.CN, fontWeight: 700 }),
       Plot.text([{ x: last.year, y: last.share_cn + (1 - last.share_cn - last.share_us) / 2, t: `rest ${fmtPct(1 - last.share_cn - last.share_us)}` }], { x: "x", y: "y", text: "t", textAnchor: "start", dx: 6, fill: "var(--ink-2)" }),
       Plot.text([{ x: last.year, y: 1 - last.share_us / 2, t: `US ${fmtPct(last.share_us)}` }], { x: "x", y: "y", text: "t", textAnchor: "start", dx: 6, fill: ACTOR_COLOR.US, fontWeight: 700 }),
@@ -91,34 +95,37 @@ export function Ch2Trade({ years, board, prices, coverage }: { years: YearShares
   const behind = lastReported.filter((x) => x.year !== null).sort((a, b) => (b.year ?? 0) - (a.year ?? 0));
   const none = lastReported.filter((x) => x.year === null);
   const reporterNote = boardReporters === undefined ? "" : ` ${boardReporters} of ${IN_SCOPE.length} countries report ${boardYear}${behind.length ? `; ${behind.map((x, i) => (i === 0 ? `${x.name} last reported ${x.year}` : `${x.name} ${x.year}`)).join(", ")}` : ""}${none.length ? `; ${none.map((x) => x.name).join(", ")} ${none.length > 1 ? "have" : "has"} no reported trade` : ""}.`;
+  // a China share over the reporters with a China row is a lower bound for the region: the step cards say how many reporters sent none
+  const noChinaRow = (y: YearShares) => (y.cn_absent > 0 ? ` (${y.cn_absent} of the ${y.reporters} reporters ${y.cn_absent === 1 ? "has" : "have"} no China row that year: absent, not zero, so the China share is over the other ${y.reporters - y.cn_absent})` : "");
+  const tradeLastYear = { [LAST_YEAR_LABEL.trade]: last.year };
   return (
     <div className="space-y-6">
-      <GuessFirst id="c2-share" question={`What share of the region's reported mineral exports went to China in ${last.year}?`} min={0} max={100} step={1} answer={Math.round(last.share_cn * 100)} format={(v) => `${Math.round(v)}%`} unit={`(${last.reporters} reporting countries)`} />
+      <GuessFirst id="c2-share" question={`What share of the region's reported mineral exports went to China in ${last.year}?`} min={0} max={100} step={1} answer={Math.round(last.share_cn * 100)} format={(v) => `${Math.round(v)}%`} unit={`(${last.reporters} reporting countries${last.cn_absent ? `, ${last.cn_absent} with no China row` : ""})`} />
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit title={`Where the region's minerals went, ${first.year}–${last.year}`} layer="facts" sources={["un_comtrade"]} ids={["flow_trade:*:all:year"]} explore={{ href: `/explore?view=trade&year=${last.year}`, label: "Open the trade arcs on the map" }} note={`Reported exports of the ${last.reporters} countries that reported in ${last.year} (${first.reporters} in ${first.year}); the rest of the world stays on screen so a US decline is never read as a China gain. A year's reporter count is in every tooltip.`}>
+          <Exhibit id="c2-destinations" title={`Where the region's minerals went, ${first.year}–${last.year}`} layer="facts" sources={["un_comtrade"]} ids={["flow_trade:*:all:year"]} lastYear={tradeLastYear} explore={{ href: `/explore?view=trade&year=${last.year}`, label: "Open the trade arcs on the map" }} note={`Reported exports of the ${last.reporters} countries that reported in ${last.year} (${first.reporters} in ${first.year}); the rest of the world stays on screen so a US decline is never read as a China gain. A year's reporter count, and how many of them sent no row for the partner, is in every tooltip: a share is over the reporters with a row, never over an absent cell read as zero.`}>
             <PlotFigure options={area} ariaLabel="Share of the region's mineral exports going to the United States, China and the rest of the world by year" />
-            <DataTable rows={years.map((y) => ({ year: y.year, reporters: y.reporters, total: fmtMusd(y.total), china: fmtPct(y.share_cn, 1), us: fmtPct(y.share_us, 1), absent: y.partners_absent }))} caption="Regional mineral exports by destination and year" columns={[{ key: "year", label: "Year" }, { key: "reporters", label: "Reporters" }, { key: "total", label: "Total" }, { key: "china", label: "To China" }, { key: "us", label: "To the US" }, { key: "absent", label: "Absent partner cells" }]} />
+            <DataTable rows={years.map((y) => ({ year: y.year, reporters: y.reporters, total: fmtMusd(y.total), china: fmtPct(y.share_cn, 1), us: fmtPct(y.share_us, 1), cn_absent: y.cn_absent, us_absent: y.us_absent }))} caption="Regional mineral exports by destination and year" columns={[{ key: "year", label: "Year" }, { key: "reporters", label: "Reporters" }, { key: "total", label: "Total" }, { key: "china", label: "To China" }, { key: "us", label: "To the US" }, { key: "cn_absent", label: "No China row" }, { key: "us_absent", label: "No US row" }]} />
           </Exhibit>
         </div>
         <div className="space-y-4">
           <StepCard>
-            <p><strong>{first.year}.</strong> The {first.reporters} reporting countries exported {fmtMusd(first.total)} of minerals; {fmtPct(first.share_cn)} went to China and {fmtPct(first.share_us)} to the United States.</p>
+            <p><strong>{first.year}.</strong> The {first.reporters} reporting countries exported {fmtMusd(first.total)} of minerals; {fmtPct(first.share_cn)} went to China{noChinaRow(first)} and {fmtPct(first.share_us)} to the United States{first.us_absent > 0 ? ` (${first.us_absent} with no United States row)` : ""}.</p>
           </StepCard>
           <StepCard>
-            <p><strong>{peak.year}, the peak.</strong> {fmtMusd(peak.total)} of exports, {fmtPct(peak.share_cn)} of it to China. Prices did much of the lifting (the strip below); the buyer did the rest.</p>
+            <p><strong>{peak.year}, the peak.</strong> {fmtMusd(peak.total)} of exports, {fmtPct(peak.share_cn)} of it to China{noChinaRow(peak)}. Prices did much of the lifting (the strip below); the buyer did the rest.</p>
           </StepCard>
           <StepCard>
-            <p><strong>{last.year}, the latest reported year.</strong> {fmtPct(last.share_cn)} to China and {fmtPct(last.share_us)} to the United States from {last.reporters} reporters. The grey band is everyone else: Europe, Japan, Korea, India, the neighbours.</p>
+            <p><strong>{last.year}, the latest reported year.</strong> {fmtPct(last.share_cn)} to China and {fmtPct(last.share_us)} to the United States from {last.reporters} reporters{noChinaRow(last)}. The grey band is everyone else: Europe, Japan, Korea, India, the neighbours.</p>
           </StepCard>
         </div>
       </div>
-      <Exhibit title={`The mineral board, ${boardYear}: who buys what`} layer="facts" sources={["un_comtrade"]} ids={["concentration:share_cn_x:mineral:year", "concentration:share_us_x:mineral:year"]} note={`Each bar is a share of the world total ${narrow ? "in the table beneath" : "printed at its right end"}; a bar marked small total is a share of less than US$100 m and should be read as a count of shipments, not as a market.${reporterNote}`}>
+      <Exhibit id="c2-board" title={`The mineral board, ${boardYear}: who buys what`} layer="facts" sources={["un_comtrade"]} ids={["concentration:share_cn_x:mineral:year", "concentration:share_us_x:mineral:year"]} lastYear={tradeLastYear} note={`The board shows the nine core minerals of the project's mineral list (minerals.yaml); the all-minerals total in the chart above also counts iron ore, gold, bauxite and the other minerals the countries report, which for several of them are the larger part of it. Each bar is a share of the world total ${narrow ? "in the table beneath" : "printed at its right end"}; a bar marked small total is a share of less than US$100 m and should be read as a count of shipments, not as a market.${reporterNote}`}>
         <PlotFigure options={boardOpts} ariaLabel="Share of each mineral's regional exports going to China, the rest of the world and the United States" />
         <DataTable rows={board.map((b) => ({ mineral: prettyMineral(b.mineral), china: fmtPct(b.share_cn, 1), us: fmtPct(b.share_us, 1), other: fmtPct(b.share_other, 1), total: worldTotal(b) }))} caption={`Share of each mineral's reported exports by destination, ${boardYear}`} columns={[{ key: "mineral", label: "Mineral" }, { key: "china", label: "To China" }, { key: "us", label: "To the US" }, { key: "other", label: "Rest of the world" }, { key: "total", label: "World total" }]} />
       </Exhibit>
       {strip.length > 0 && (
-        <Exhibit title="Price or politics?" layer="facts" sources={[...new Set(strip.map((s) => s.p!.source_id))]} ids={strip.map((s) => `price:${s.key}:${s.p!.source_id}`)} note="Value moved with prices; shares moved with buyers. Annual averages of the series named; an implied-volume decomposition is a model and is not drawn here.">
+        <Exhibit id="c2-prices" title="Price or politics?" layer="facts" sources={[...new Set(strip.map((s) => s.p!.source_id))]} ids={strip.map((s) => `price:${s.key}:${s.p!.source_id}`)} note="Value moved with prices; shares moved with buyers. Annual averages of the series named; an implied-volume decomposition is a model and is not drawn here.">
           <div className="grid gap-4 sm:grid-cols-3">
             {strip.map(({ key, p }) => {
               const tile = priceTile(p!);

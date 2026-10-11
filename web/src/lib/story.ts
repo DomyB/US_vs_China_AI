@@ -19,28 +19,38 @@ export interface YearShares {
   share_us: number;
   share_cn: number;
   reporters: number;
-  /** reporters whose US or China cell was absent that year (ROW then read the absent cell as 0) */
+  /** reporters whose US or China cell was absent that year (their world total still counts; the absent partner's flow sits in ROW, "rest of the world or an unreported partner") */
   partners_absent: number;
+  /** reporters with no China row that year: the China sum and share rest on the other reporters (a lower bound, not a total over all of them) */
+  cn_absent: number;
+  /** the same for the United States */
+  us_absent: number;
 }
 
-/** Regional mineral exports by destination and year from the `mineral = all` rows; absent partner cells are counted, never summed as zero silently. */
+/**
+ * Regional mineral exports by destination and year from the `mineral = all` rows. An absent partner cell is counted per
+ * actor (`cn_absent`, `us_absent`) and never summed as zero silently: a year's China share is a share over the reporters
+ * that sent a China row, and the chart, the tooltips and the step cards print how many did not.
+ */
 export function regionalTrade(flows: FlowsFile): YearShares[] {
   const by = new Map<number, YearShares>();
   for (const r of flows.trade) {
     if (r.mineral !== "all") continue;
-    const y = by.get(r.year) ?? { year: r.year, US: 0, CN: 0, ROW: 0, total: 0, share_us: 0, share_cn: 0, reporters: 0, partners_absent: 0 };
-    const us = r.exports_musd.US, cn = r.exports_musd.CN, row = r.exports_musd.ROW;
+    const y = by.get(r.year) ?? { year: r.year, US: 0, CN: 0, ROW: 0, total: 0, share_us: 0, share_cn: 0, reporters: 0, partners_absent: 0, cn_absent: 0, us_absent: 0 };
+    const us = r.exports_musd.US, cn = r.exports_musd.CN;
     y.US += us ?? 0;
     y.CN += cn ?? 0;
-    y.ROW += row ?? 0;
+    y.total += worldTotal(r.exports_musd) ?? 0;
     y.reporters += 1;
     if (us === null || cn === null) y.partners_absent += 1;
+    if (cn === null) y.cn_absent += 1;
+    if (us === null) y.us_absent += 1;
     by.set(r.year, y);
   }
   return [...by.values()]
     .map((y) => {
-      const total = y.US + y.CN + y.ROW;
-      return { ...y, total, share_us: total ? y.US / total : 0, share_cn: total ? y.CN / total : 0 };
+      const total = y.total;
+      return { ...y, ROW: total - y.US - y.CN, share_us: total ? y.US / total : 0, share_cn: total ? y.CN / total : 0 };
     })
     .sort((a, b) => a.year - b.year);
 }
@@ -134,9 +144,16 @@ export function tradeReceipt(flows: FlowsFile, iso3: string, mineral: string, ye
   return receiptOf(r);
 }
 
+/** The reported world total of a flows.json trade cell: `WLD` (from the 2026-10-11 export); an older file is summed over its three
+ *  cells, which only exists when ROW does (it was derived over both partners). Null when the year has no world total. */
+export function worldTotal(e: { US: number | null; CN: number | null; ROW: number | null; WLD?: number | null }): number | null {
+  if (e.WLD !== undefined) return e.WLD;
+  return e.US !== null && e.CN !== null && e.ROW !== null ? e.US + e.CN + e.ROW : null;
+}
+
 export function receiptOf(r: FlowTradeRow): TradeReceipt {
   const us = r.exports_musd.US, cn = r.exports_musd.CN, row = r.exports_musd.ROW;
-  const total = (us ?? 0) + (cn ?? 0) + (row ?? 0);
+  const total = worldTotal(r.exports_musd) ?? 0;
   return { year: r.year, mineral: r.mineral, US: us, CN: cn, ROW: row, total, share_us: us === null || !total ? null : us / total, share_cn: cn === null || !total ? null : cn / total, partners_absent: us === null || cn === null };
 }
 
@@ -216,7 +233,8 @@ export function coverageWall(meta: RealMeta, flows: FlowsFile) {
       "finance CN": { ok: cn.length > 0, note: cn.length ? `AidData GCDF 3.0, rows ${span(cn)}; the source ends in ${flows.meta.last_year.finance_CN ?? "–"}` : "no Chinese finance record (AidData GCDF 3.0)" },
       "finance US": { ok: us.length > 0, note: us.length ? `DFC and EXIM authorisations, rows ${span(us)}; the record runs to ${flows.meta.last_year.finance_US ?? "–"}` : "no DFC or EXIM record" },
       statements: { ok: (c.statements ?? 0) > 0, note: c.statements === undefined ? NOT_IN_RELEASE : `${c.statements} coded statements` },
-      parliament: { ok: !!c.parliament_available, note: c.parliament_available === undefined ? NOT_IN_RELEASE : c.parliament_available ? `${c.parliament_documents ?? 0} legislative records` : (c.parliament_note ?? "no machine-readable legislature") },
+      // the reason is the exporter's (NO_STRUCTURED_LEGISLATURE: no structured records, or an adapter that ran and returned none); without one the wall says only that the release holds no records
+      parliament: { ok: !!c.parliament_available, note: c.parliament_available === undefined ? NOT_IN_RELEASE : c.parliament_available ? `${c.parliament_documents ?? 0} legislative records` : (c.parliament_note ?? "no legislative records in this release (the exporter gave no reason)") },
       media: { ok: (c.media_articles ?? 0) > 0, note: c.media_articles === undefined ? NOT_IN_RELEASE : c.media_articles === 0 && c.media_history_from ? `no kept headline yet; monthly counts from ${c.media_history_from}` : `${c.media_articles} headlines` },
       forecast: { ok: !!c.forecast_available, note: c.forecast_available === undefined ? NOT_IN_RELEASE : c.forecast_available ? "forecast computed and backtested" : "no forecast computed for this country" },
       analysis: { ok: !!c.analysis_available, note: c.analysis_available === undefined ? NOT_IN_RELEASE : c.analysis_available ? "index computed" : "no index computed for this country" },

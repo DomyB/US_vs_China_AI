@@ -82,10 +82,21 @@ export function parityGap(cn: number, us: number): number {
 
 /** Price lever first (every destination of the priced mineral revalued at constant volumes), then the redirect of a share of
  *  the diverted mineral's exports to China toward the United States or the rest of the world. */
-export function tradeWhatIf(trade: InsightTradeLatest, levers: Pick<Levers, "divertMineral" | "divertPct" | "divertTo" | "pricePct">, pricedMineral: string | null): TradeWhatIf {
-  const e = { US: trade.exports_musd.US ?? 0, CN: trade.exports_musd.CN ?? 0, ROW: trade.exports_musd.ROW ?? 0 };
+/** The three cells of a trade row as numbers, or null when a partner row is absent: the rest of the world is `ROW`, or the world
+ *  total minus the two partners when both exist; an absent cell is never read as 0 (DECISIONS 47). */
+export function tradeCells(e: { US: number | null; CN: number | null; ROW: number | null; WLD?: number | null }): { US: number; CN: number; ROW: number } | null {
+  if (e.US === null || e.CN === null) return null;
+  const row = e.ROW ?? (e.WLD != null ? e.WLD - e.US - e.CN : null);
+  return row === null ? null : { US: e.US, CN: e.CN, ROW: row };
+}
+
+/** Null when the latest year has no US or China partner row: the levers would otherwise read an absent cell as 0. */
+export function tradeWhatIf(trade: InsightTradeLatest, levers: Pick<Levers, "divertMineral" | "divertPct" | "divertTo" | "pricePct">, pricedMineral: string | null): TradeWhatIf | null {
+  const e = tradeCells(trade.exports_musd);
+  if (!e) return null;
   const price_delta = { US: 0, CN: 0, ROW: 0 };
-  const minerals = new Map(trade.minerals.map((m) => [m.mineral, { US: m.exports_musd.US ?? 0, CN: m.exports_musd.CN ?? 0, ROW: m.exports_musd.ROW ?? 0 }]));
+  // a mineral with an absent partner row cannot be priced or redirected; it is left out of the map
+  const minerals = new Map(trade.minerals.flatMap((m) => { const c = tradeCells(m.exports_musd); return c ? [[m.mineral, c] as const] : []; }));
   const priced = pricedMineral ? minerals.get(pricedMineral) : undefined;
   if (priced && levers.pricePct !== 0) {
     const f = levers.pricePct / 100;
@@ -118,6 +129,9 @@ export interface IndexWhatIf {
   changed: string[];
 }
 
+/** The exported raw values are rounded to six decimals, so an override equal to the published value up to that rounding is not "set by you". */
+const RAW_TOLERANCE = 1e-6;
+
 /** The published formula (equal weights over the available normalised components, at least `minComponents`) applied to
  *  the published components with the reader's raw values substituted where given. */
 export function recomputeIndex(components: InsightComponent[], overrides: Record<string, number | null | undefined>, scales: Record<string, { lo: number; hi: number }>, minComponents = 3): IndexWhatIf {
@@ -129,7 +143,7 @@ export function recomputeIndex(components: InsightComponent[], overrides: Record
       const s = scales[c.name];
       if (!s) continue;
       vals.push({ name: c.name, v: normalise(o, s) });
-      if (!c.available || c.raw_value === null || Math.abs(o - c.raw_value) > 1e-9) changed.push(c.name);
+      if (!c.available || c.raw_value === null || Math.abs(o - c.raw_value) > RAW_TOLERANCE) changed.push(c.name);
     } else if (c.available && c.normalized_value !== null) {
       vals.push({ name: c.name, v: c.normalized_value });
     }

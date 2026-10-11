@@ -36,6 +36,7 @@ MIN_STANCE_N = 3  # coded statements needed for a pooled stance
 MIN_HEDGE_N = 4  # positive statements toward the two actors together needed for a hedging balance
 MIN_ECHO_N = 3  # event-country windows needed before an event family is offered as a shock
 MIN_MENTIONS = 5  # specific mineral mentions needed for a talk-vs-trade contrast
+MUSD_DECIMALS = 6  # US$ million to six decimals: a US$1 grain, so a reported flow under US$500 never collapses to 0.0 (flows.json uses the same)
 MIN_PRICE_MUSD = 10.0  # reported exports (US$ m) below this are not worth a price lever, nor a base for a talk-vs-trade value share
 CN_WINDOW, US_WINDOW = (2015, 2021), (2022, 2024)  # AidData's last seven years; the US (DFC and EXIM) years after them
 WARM, COOL = 0.34, -0.34  # mean coded stance above/below which words are called warm/cool
@@ -149,8 +150,27 @@ def mineral_mentions(rows: list[dict], known: list[str]) -> dict[str, int]:
 
 # ---------------------------------------------------------------- trade, finance, components, forecasts
 
+def _world(e: dict) -> float | None:
+    """The reported world total of a flows.json export cell, or None when the year has none.
+
+    flows.json carries the reported total as its own `WLD` cell and leaves `ROW` null whenever a partner row is absent
+    (export_site.export_cells), so the total is read from `WLD`; an older file without that key is summed from the three
+    cells, which only exists when `ROW` does (it was derived over both partners)."""
+    if "WLD" in e:
+        return None if e["WLD"] is None else float(e["WLD"])
+    if e.get("ROW") is None:
+        return None
+    return (e.get("US") or 0.0) + (e.get("CN") or 0.0) + float(e["ROW"])
+
+
 def _total(e: dict) -> float:
-    return (e.get("US") or 0.0) + (e.get("CN") or 0.0) + (e.get("ROW") or 0.0)
+    """The reported world total, 0.0 when the year has none (`_world`); never a sum over absent partner cells."""
+    return _world(e) or 0.0
+
+
+def _row_cell(us: float | None, cn: float | None, wld: float | None) -> float | None:
+    """Rest of the world = world minus the two partners, only when all three are reported (the exporter's rule)."""
+    return round(wld - cn - us, MUSD_DECIMALS) if us is not None and cn is not None and wld is not None else None
 
 
 def _share(e: dict, actor: str, total: float) -> float | None:
@@ -177,8 +197,10 @@ def minerals_latest(trade_raw: list[dict], iso: str, year: int) -> list[dict]:
     for mineral, a in agg.items():
         if a["WLD"] is None or a["WLD"] <= 0:
             continue
-        e = {"US": round(a["US"] / 1e6, 3) if a["US"] is not None else None, "CN": round(a["CN"] / 1e6, 3) if a["CN"] is not None else None,
-             "ROW": round((a["WLD"] - (a["CN"] or 0.0) - (a["US"] or 0.0)) / 1e6, 3)}
+        us = round(a["US"] / 1e6, MUSD_DECIMALS) if a["US"] is not None else None
+        cn = round(a["CN"] / 1e6, MUSD_DECIMALS) if a["CN"] is not None else None
+        wld = round(a["WLD"] / 1e6, MUSD_DECIMALS)
+        e = {"US": us, "CN": cn, "ROW": _row_cell(us, cn, wld), "WLD": wld}
         out.append({"mineral": mineral, "exports_musd": e, "total_musd": round(a["WLD"] / 1e6, 3)})
     return sorted(out, key=lambda m: -m["total_musd"])
 
@@ -186,7 +208,7 @@ def minerals_latest(trade_raw: list[dict], iso: str, year: int) -> list[dict]:
 def trade_latest(trade_rows: list[dict], iso: str, trade_raw: list[dict] | None = None) -> dict | None:
     """The latest reported trade year of the country (flows.json rows): totals, shares and the minerals (from the raw
     reported rows when given, else the core minerals the flows file carries)."""
-    rows = [r for r in trade_rows if r["iso3"] == iso and r["exports_musd"].get("ROW") is not None]
+    rows = [r for r in trade_rows if r["iso3"] == iso and _world(r["exports_musd"]) is not None]
     years = [r["year"] for r in rows if r["mineral"] == "all" and _total(r["exports_musd"]) > 0]
     if not years:
         return None
@@ -205,7 +227,7 @@ def trade_series(trade_rows: list[dict], iso: str) -> list[dict]:
     """Per reported year: the two shares (null where the partner row is absent, never 0) and the total."""
     out = []
     for r in sorted(trade_rows, key=lambda r: r["year"]):
-        if r["iso3"] != iso or r["mineral"] != "all" or r["exports_musd"].get("ROW") is None:
+        if r["iso3"] != iso or r["mineral"] != "all" or _world(r["exports_musd"]) is None:
             continue
         t = _total(r["exports_musd"])
         if t <= 0:
@@ -267,10 +289,12 @@ def components_latest(comp_rows: list[dict], idx_rows: list[dict], iso: str) -> 
 ABSENT_FORECAST_NOTE = "no partner row for the actor in the last observed year (the share is absent, not zero): no path is drawn from it"
 
 
-def forecast_paths(fc_rows: list[dict], iso: str, series: list[dict] | None = None) -> dict | None:
+def forecast_paths(fc_rows: list[dict], iso: str, series: list[dict] | None = None, fc_targets: dict | None = None) -> dict | None:
     """The country's forecast paths by target, actor and scenario, with the last observed year and model of each target. An
     export-share target whose last observed year has no partner row for the actor (a null share in `series`) is left out and
-    listed under `absent` with the reason: a series read from absent cells would draw a 2030 path from 0%."""
+    listed under `absent` with the reason: a series read from absent cells would draw a 2030 path from 0%. A target the
+    forecast step skipped for the country (quant status `targets[key].skipped[iso]`) is in `status` with nulls and the
+    reason, so the site can say why the shares have no forecast (numbers-7)."""
     rows = [r for r in fc_rows if r["country"] == iso and (r.get("mineral") or "all") == "all"]
     if not rows:
         return None
@@ -287,6 +311,10 @@ def forecast_paths(fc_rows: list[dict], iso: str, series: list[dict] | None = No
         paths.setdefault(r["target"], {}).setdefault(r["actor"], {}).setdefault(r["scenario_id"], []).append(
             {"year": int(r["horizon_year"]), "point": _r(r["point"], 4), "p05": _r(r["p05"], 4), "p25": _r(r["p25"], 4), "p75": _r(r["p75"], 4), "p95": _r(r["p95"], 4)})
         status[key] = {"last_observed_year": last, "model": r["model"]}
+    for key, t in (fc_targets or {}).items():
+        reason = (t.get("skipped") or {}).get(iso) if isinstance(t, dict) else None
+        if reason and key not in status and key not in absent:
+            status[key] = {"last_observed_year": None, "model": None, "skipped": reason}
     if not paths:
         return None
     return {"paths": paths, "status": status, "absent": absent}
@@ -608,7 +636,7 @@ def flag_block(flag_rows: list[dict], iso: str, series: list[dict]) -> dict:
 
 def build_country(iso: str, *, stm: list[dict], trade_rows: list[dict], flow_finance: list[dict], comp_rows: list[dict], idx_rows: list[dict], fc_rows: list[dict],
                   stance_by_iso: dict, volume_by_iso: dict, gov: list[dict], sd_rows: list[dict], flag_rows: list[dict], known_minerals: list[str], prices: dict,
-                  trade_raw: list[dict] | None = None) -> dict:
+                  trade_raw: list[dict] | None = None, fc_targets: dict | None = None) -> dict:
     rows = [r for r in stm if r["country"] == iso]
     exec_rows = [r for r in rows if r["speaker_bloc"] == BLOC_EXEC and r["speaker_country"] == iso]
     leg_rows = [r for r in rows if r["speaker_bloc"] == BLOC_LEG]
@@ -619,7 +647,7 @@ def build_country(iso: str, *, stm: list[dict], trade_rows: list[dict], flow_fin
     series = trade_series(trade_rows, iso)
     c = {"iso3": iso, "name": COUNTRIES[iso], "trade": trade_latest(trade_rows, iso, trade_raw), "trade_series": series, "finance": finance_summary(flow_finance, iso),
          "gdp_latest": {"year": int(gdp["year"]), "usd": float(gdp["value"]), "source_id": gdp.get("source_id")} if gdp else None,
-         "components_latest": components_latest(comp_rows, idx_rows, iso), "forecast": forecast_paths(fc_rows, iso, series),
+         "components_latest": components_latest(comp_rows, idx_rows, iso), "forecast": forecast_paths(fc_rows, iso, series, fc_targets),
          "words": {"n_statements": len(rows), "n_executive": len(exec_rows), "executive": statement_series(exec_rows),
                    "executive_pooled": {a: pooled_stance(exec_rows, a) for a in ("CN", "US")}, "executive_counts": stance_counts(exec_rows),
                    "legislature": {"n": len(leg_rows), "counts": stance_counts(leg_rows)},
@@ -948,7 +976,7 @@ def build_insights(*, flows: dict, idx_rows: list[dict], comp_rows: list[dict], 
     """The whole insights.json: per-country blocks with contrasts, the region-wide blocks, the generated findings and the written text."""
     known = sorted(set(core) | set(known_minerals or []) | {r["mineral"] for r in (trade_raw or []) if r.get("mineral") and r["mineral"] != "all"})
     price_series = price_block(prices, known)
-    countries = [build_country(iso, stm=stm, trade_rows=flows["trade"], flow_finance=flows["finance"], comp_rows=comp_rows, idx_rows=idx_rows, fc_rows=fc_rows, stance_by_iso=stance_by_iso,
+    countries = [build_country(iso, stm=stm, trade_rows=flows["trade"], flow_finance=flows["finance"], comp_rows=comp_rows, idx_rows=idx_rows, fc_rows=fc_rows, stance_by_iso=stance_by_iso, fc_targets=(quant_status.get("forecast") or {}).get("targets"),
                                volume_by_iso=volume_by_iso, gov=gov, sd_rows=sd_rows, flag_rows=flag_rows, known_minerals=known, prices=price_series, trade_raw=trade_raw) for iso in IN_SCOPE]
     last_year = quant_status.get("last_year") or {}
     tm = talk_vs_money(stm, flows["finance"], fin, last_year)

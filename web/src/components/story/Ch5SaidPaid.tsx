@@ -83,14 +83,14 @@ export function Ch5SaidPaid({ countries, byBloc, hedgers, quotes, storyMissing =
       <StepCard>
         <p><strong>Read this chapter smaller than the others.</strong> Stance is coded under the dataset&apos;s codebook by the owner&apos;s AI-assisted collection and is not validated against a human judgement{fewest !== null ? `; some countries rest on as few as ${fewest} statement${fewest === 1 ? "" : "s"}` : ""}. Shares are facts; the words are a reading of them.</p>
       </StepCard>
-      <Exhibit title="Words against trade, country by country" layer="model" sources={["manual_statements", "un_comtrade"]} ids={["statement:stance_cn:country:latest-years", "statement:stance_us:country:latest-years", "flow_trade:share_cn:country:latest", "flow_trade:share_us:country:latest"]} explore={{ href: "/lab#words", label: "Open in the Lab" }} note="Executives' coded stance toward the chosen power (−1 to +1, pooled over the latest statement years) against the share of mineral exports going there; bubble area is the country's mineral exports. The stance is the dataset's own coding; the share is reported trade.">
+      <Exhibit id="c5-words-trade" title="Words against trade, country by country" layer="model" sources={["manual_statements", "un_comtrade"]} ids={["statement:stance_cn:country:latest-years", "statement:stance_us:country:latest-years", "flow_trade:share_cn:country:latest", "flow_trade:share_us:country:latest"]} explore={{ href: "/lab#words", label: "Open in the Lab" }} note="Executives' coded stance toward the chosen power (−1 to +1, pooled over the latest statement years) against the share of mineral exports going there; bubble area is the country's mineral exports. The stance is the dataset's own coding; the share is reported trade.">
         <WordsVsMoney countries={countries} byBloc={byBloc} />
       </Exhibit>
       <div className="grid gap-6 lg:grid-cols-2">
-        <Exhibit title="Hedging: who praises both" layer="facts" sources={["manual_statements"]} ids={["statement:stance_counts:country:executive"]} note={`Counts of coded positions by domestic executives over every year in the dataset; 1 = equally warm to both, 0 = one-sided.${excluded.length ? ` Excluded by the rule (no positive position on one of the two): ${excluded.join(", ")}.` : ""}`}>
+        <Exhibit id="c5-hedging" title="Hedging: who praises both" layer="facts" sources={["manual_statements"]} ids={["statement:stance_counts:country:executive"]} note={`Counts of coded positions by domestic executives over every year in the dataset; 1 = equally warm to both, 0 = one-sided.${excluded.length ? ` Excluded by the rule (no positive position on one of the two): ${excluded.join(", ")}.` : ""}`}>
           <HedgingMeter hedgers={hedgers} />
         </Exhibit>
-        <Exhibit title="Said and paid: the quotes beside the receipts" layer="interp" sources={["manual_statements", "un_comtrade"]} ids={quotes.map((q) => `statement:${q.id}`)} note="A statement by a domestic executive or the head of a state company (the speaker's bloc is printed on each card) is set beside that country's latest reported trade shares. The pairing is editorial; both halves are facts; nothing here claims the words caused the trade.">
+        <Exhibit id="c5-quotes" title="Said and paid: the quotes beside the receipts" layer="interp" sources={["manual_statements", "un_comtrade"]} ids={quotes.map((q) => `statement:${q.id}`)} note="A statement by a domestic executive or the head of a state company (the speaker's bloc is printed on each card) is set beside that country's latest reported trade shares. The pairing is editorial; both halves are facts; nothing here claims the words caused the trade.">
           {quotes.length ? (
             <ul className="grid gap-3 sm:grid-cols-2">{quotes.map((q) => <QuoteCard key={q.id} q={q} receipt={receipt(q.country)} />)}</ul>
           ) : (
@@ -98,7 +98,7 @@ export function Ch5SaidPaid({ countries, byBloc, hedgers, quotes, storyMissing =
           )}
         </Exhibit>
       </div>
-      <Exhibit title="Talks lithium, ships copper: what is mentioned against what is sold" layer="facts" sources={["manual_statements", "un_comtrade"]} ids={["statement:minerals:country", "flow_trade:country:mineral:latest"]} note="Mentions are the minerals named in a country's executives' statements; value is the latest reported export value by mineral.">
+      <Exhibit id="c5-minerals" title="Talks lithium, ships copper: what is mentioned against what is sold" layer="facts" sources={["manual_statements", "un_comtrade"]} ids={["statement:minerals:country", "flow_trade:country:mineral:latest"]} note="Mentions are the minerals named in a country's executives' statements; value is the latest reported export value by mineral.">
         <MineralsTalk countries={countries} />
       </Exhibit>
       <p className="text-xs text-ink-3">Every record, with its original-language quote, is on the <Link href="/region" className="underline">region page</Link> and in each case file&apos;s Politics tab{quoteCountries.length ? <> ({quoteCountries.map((iso3, i) => <Fragment key={iso3}>{i > 0 ? ", " : ""}<Link href={`/country/${iso3}?tab=parliament`} className="underline">{COUNTRY_NAMES[iso3]}</Link></Fragment>)})</> : null}.</p>

@@ -11,6 +11,8 @@ export interface BoardRow {
   nowYear: number;
   now: { us: number; cn: number };
   then: { us: number; cn: number } | null;
+  /** why the forecast step skipped the shares, when the export says */
+  skipped?: string;
   index: { us: number | null; cn: number | null; usBase: number | null; cnBase: number | null };
   shocked: boolean;
 }
@@ -39,6 +41,7 @@ export function boardRows(countries: InsightCountry[], levers: Levers, echoes: E
     const ic = atYear(blendPath(idx.CN, levers.pull), horizon);
     rows.push({
       iso3: c.iso3, name: c.name, nowYear: c.trade.year, now: { us: c.trade.share_us, cn: c.trade.share_cn }, then, shocked,
+      skipped: c.forecast.status["export_share:CN"]?.skipped ?? c.forecast.status["export_share:US"]?.skipped,
       index: { us: iu?.point ?? null, cn: ic?.point ?? null, usBase: atYear(idx.US?.baseline ?? [], horizon)?.point ?? null, cnBase: atYear(idx.CN?.baseline ?? [], horizon)?.point ?? null },
     });
   }
@@ -72,7 +75,7 @@ export function Board({ rows, selected, onSelect, horizon }: { rows: BoardRow[];
             <span className="board-name"><span className="font-semibold">{r.name}</span><span className="block text-[10px] text-ink-3">{r.nowYear} → {horizon}</span></span>
             <span className="board-bars">
               <Bar us={r.now.us} cn={r.now.cn} label={`${r.name} ${r.nowYear}`} />
-              {r.then ? <Bar us={r.then.us} cn={r.then.cn} label={`${r.name} ${horizon}, your scenario`} faded /> : <span className="text-[11px] text-ink-3">no forecast of the shares</span>}
+              {r.then ? <Bar us={r.then.us} cn={r.then.cn} label={`${r.name} ${horizon}, your scenario`} faded /> : <span className="text-[11px] text-ink-3" title={r.skipped ? `Skipped by the forecast step: ${r.skipped}` : undefined}>no forecast of the shares{r.skipped ? " (skipped: hover for the reason)" : ""}</span>}
             </span>
             <span className="board-lean hidden sm:block" aria-hidden="true">
               <svg viewBox="0 0 120 22" width="120" height="22">

@@ -18,6 +18,7 @@ import pandas as pd
 
 from ..paths import PIPELINE_DIR
 from ..registry import COUNTRIES, IN_SCOPE
+from .index import FINANCE_SOURCES
 
 TEMPLATE_VERSION = "2026.10"
 HUMAN_DIR = PIPELINE_DIR.parent / "data" / "manual" / "interpretation"
@@ -83,6 +84,17 @@ def join(items: list[str]) -> str:
 
 
 # ---------------------------------------------------------------- country briefs
+
+SOURCE_SHORT = {"aiddata_gcdf": "AidData", "dfc_projects": "DFC", "exim_authorizations": "EXIM"}
+
+
+def finance_source_names(rows: pd.DataFrame, actor: str) -> str:
+    """The finance sources behind the actor's rows, named from their own `source_id` ("DFC and EXIM"); the registry's
+    sources for the actor (index.FINANCE_SOURCES) when there are no rows, so the sentence never names a source the data
+    does not carry (sources-12)."""
+    ids = sorted(rows["source_id"].dropna().unique()) if not rows.empty and "source_id" in rows else []
+    return join([SOURCE_SHORT.get(i, i) for i in (ids or FINANCE_SOURCES[actor])])
+
 
 def _latest_index(idx: pd.DataFrame, iso: str) -> tuple[int | None, dict[str, dict]]:
     d = idx[(idx["country"] == iso) & (idx["index_name"] == "influence") & (idx["mineral"] == "all") & idx["value"].notna()]
@@ -174,8 +186,9 @@ def finance_and_debt(iso: str, finance: pd.DataFrame, comp: pd.DataFrame, flags:
     s = Section("finance_and_debt", "Finance and debt")
     name = COUNTRIES[iso]
     f = finance[(finance["country"] == iso)] if not finance.empty else finance
-    for actor, source in (("CN", "AidData records"), ("US", "The DFC and OPIC records show")):
+    for actor in ("CN", "US"):
         g = f[(f["origin"] == actor) & f["documented"] & ~f["swap"] & f["amount_usd"].notna()] if not f.empty else f
+        source = f"The {finance_source_names(g, actor)} records show"
         ly = last_year.get(f"finance_{actor}")
         if g.empty:
             s.add(f"{source} no documented commitment from {ADJ[actor]} institutions to {name}{f' through {ly}' if ly else ''}.", [f"finance_event:{actor}:{iso}"])
@@ -443,7 +456,8 @@ def regional_brief(frames: dict, inp_finance: pd.DataFrame, last_year: dict, tex
     no_trade = [COUNTRIES[i] for i in IN_SCOPE if i not in set(conc_x["country"])] if not conc_x.empty else [COUNTRIES[i] for i in IN_SCOPE]
     if no_trade:
         c.add(f"{join(no_trade)} report{'s' if len(no_trade) == 1 else ''} no mineral trade to UN Comtrade in the covered years, so every trade-based indicator is absent there.", [f"concentration:{i}" for i in IN_SCOPE if COUNTRIES[i] in no_trade])
-    c.add(f"Chinese official finance (AidData) ends in {last_year.get('finance_CN')}, US finance is DFC/OPIC only, debt by creditor exists for China only, and the legislative stance comes from the text model ({text_label or 'not yet run'}).", ["quant_run:last_year", "quant_run:text_model"])
+    us_sources = finance_source_names(fin[fin["origin"] == "US"] if not fin.empty else fin, "US")
+    c.add(f"Chinese official finance (AidData) ends in {last_year.get('finance_CN')}, US finance comes from the {us_sources} records, debt by creditor exists for China only, and the legislative stance comes from the text model ({text_label or 'not yet run'}).", ["quant_run:last_year", "quant_run:text_model"])
     if not eff.empty:
         c.add(f"{eff['event_id'].nunique()} dated events are in the event list, {eff[eff['event_status'] != 'reviewed']['event_id'].nunique()} of them still in draft.", ["event_effect:status"])
     out.append(c)

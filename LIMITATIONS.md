@@ -40,14 +40,16 @@ owner's own text shown apart where it exists. All six phases are live.
   CKAN path, its search page is script-rendered, and data.iadb.org answered 202 "preparing"
   to every download request for five minutes. Both adapters try the open paths first and
   then a hand-supplied file (`EXIM_FILE_URL`, `DPI_FILE_URL`, or a file under `data/manual/`
-  where the license allows); until one is provided, EXIM authorizations and executive
-  ideology are missing.
+  where the license allows). Both landed on 2026-10-09 through the open paths (EXIM 2,396
+  authorizations, DPI 1,440 governance rows; `meta.json` `ingest_runs`); the hand-supplied fallback
+  remains for the next time a portal breaks. Of the three sources that needed a file, only AEI CGIT
+  still does (below).
 - **The period starts in 2000** (`pipeline/scm/period.py`, DECISIONS 73; it started in 2008 until
   2026-10-10). Not every source reaches back that far, and the gap is shown as missing, never as
   zero: EXIM authorizations start in FY2007; DFC's list holds active projects only (OPIC records
   from the 1960s, schema widened to 1900); GDELT press starts in 2015; Argentina's chamber
   records start in 2011, Brazil's in 2001, Chile's in 2002; the owner's statements dataset starts
-  in 2022. UN Comtrade, AidData (2000–2021), the World Bank series, UN votes, V-Dem, USGS, BGS,
+  in 2019 (23 records before 2022). UN Comtrade, AidData (2000–2021), the World Bank series, UN votes, V-Dem, USGS, BGS,
   the Pink Sheet, Congress.gov and the Federal Register cover the whole period. The site's axes
   start at the first year the trade record holds (`period.json`, `data_from`), so a backfill that
   has not landed yet does not open an empty band.
@@ -92,7 +94,7 @@ owner's own text shown apart where it exists. All six phases are live.
   cannot fill the history. The adapter now stops after 20 throttles in a run, a backfill can put the history
   before the recent windows (`gdelt_backlog_first`), and `docs/PIPELINE.md` describes the backfill from the
   owner's own connection. Google News's RSS search was examined as an alternative and rejected:
-  its robots.txt disallows the search path for every agent, and names Claude's agents, so it is not fetched.
+  its robots.txt disallows the search path for every agent, and names AI assistants' crawlers explicitly, so it is not fetched.
 - **Outlets without a feed** (and outlets GDELT does not index under the registry's domain)
   have no headlines yet; the manifest of each run lists unmatched domains and failed feed URLs.
   As of 2026-10-03: El Mostrador and OjoPúblico publish no discoverable feed (15 common paths
@@ -106,24 +108,20 @@ owner's own text shown apart where it exists. All six phases are live.
   the vote's title, so few of the 1,233 bills link to a vote. Chile's Senado public services
   answered no votes for any bill kept (both `votaciones.php` and the tramitación document);
   Argentina's Senado, Colombia, Peru and Uruguay publish votes only in PDF minutes or not at all.
-- **GDELT**: the English (Guyana) and Dutch (Suriname) queries return articles; every Spanish
-  and Portuguese window has answered an empty JSON object (`{}`) in all three forms tried
-  (accented terms, ASCII terms, and both with `sourcelang:`), so there is no Spanish- or
-  Portuguese-language media history yet. The cause is not identified: the sandbox cannot reach
-  GDELT, and the exact request URLs are in the run manifest (`pipeline/tests/fixtures/gdelt/`)
-  for anyone to open in a browser. From 2026-10-03 each press run records eight one-term probes
-  (`diagnostics` in the manifest: term alone, with `sourcelang:`, with `sourcecountry:`, OR
-  group, phrase) to isolate the operator that empties the query. GitHub runners share egress
-  addresses, so GDELT throttles them (12 HTTP 429 responses per run even at 10 s spacing); the
-  adapter pauses on a throttle and stops after a time budget, so the 2017→ backlog (1,783
-  windows) fills over many weekly runs unless a long manual backfill is dispatched when the
-  address is not throttled.
+- **GDELT, the earlier diagnosis (written 2026-10-03, superseded on 2026-10-09).** Until the probe
+  runs described in the bullet above, every Spanish and Portuguese window had answered an empty JSON
+  object (`{}`) in all three query forms tried (accented terms, ASCII terms, both with `sourcelang:`)
+  and the cause was unknown; the eight one-term probes each press run records (`diagnostics` in the
+  manifest) were how it was found. Kept as history: the query form is fixed, and what remains is the
+  runner-address throttling and the owner-run backfill described above.
 - **Colombia titles**: the national AnnA cadastre on datos.gov.co is a map layer that the portal
   refuses to export ("Unexportable view"); the registry's dataset id is the title annotations
   table and is never stored as concessions. Colombia's concessions stay missing until the ANM's
   own map service is wired.
-- **Bolivia, Guyana, Suriname, Venezuela**: no machine-readable legislative records; the site
-  shows the reason, not an empty list.
+- **Bolivia, Guyana, Suriname, Venezuela, Ecuador, Uruguay**: no structured legislative records
+  reach the warehouse (for Ecuador the adapter runs and returns none, for Uruguay the parliament's
+  site refuses automated clients, the two bullets below); the exporter writes the reason per country
+  (`NO_STRUCTURED_LEGISLATURE`) and the site shows it on the Politics tab, not an empty list.
 - **Uruguay**: parlamento.gub.uy answers HTTP 403 to automated clients and is not reachable
   from abroad in a browser either (checked 2026-10-03). The national catalogue
   (catalogodatos.gub.uy) is no alternative: its API lists organisations but answers every
@@ -131,9 +129,11 @@ owner's own text shown apart where it exists. All six phases are live.
   either the catalogue hides its datasets from automated clients or it has been emptied; the
   adapter records the organisations, packages and that total on every run and accepts a
   hand-supplied export (`data/manual/ury_asuntos.csv` or `URY_PARLAMENTO_FILE`) should one
-  become available. Until then the site shows the reason on Uruguay's Parliament tab. **Ecuador**: the
-  plenary-votes page is a script-rendered application whose data service is not exposed; votes
-  stay missing until a documented endpoint is found. **Paraguay**: the open-data API is documented
+  become available. Until then the site shows the reason on Uruguay's Politics tab. **Ecuador**: the
+  Asamblea adapter runs clean and returns no records (the ingest run of 2026-10-11 stored 0 documents
+  and 0 votes): the bills database is HTML only and the plenary-votes page is a script-rendered
+  application whose data service is not exposed. The exporter writes that reason and the Politics tab
+  shows it above the SAMPLE records until a documented endpoint is found. **Paraguay**: the open-data API is documented
   on its index page (`/opendata/api/data/proyecto`) and is used; its reuse terms are listed as
   "to confirm" in the registry.
 - **Translations, stance, tone and narratives are model outputs** (Phase 3, see below); the original
@@ -143,14 +143,18 @@ owner's own text shown apart where it exists. All six phases are live.
 - **National trade series by mineral** (Argentina SIACAM, Uruguay XXI) and sources that answer
   403 to runners (Comex Stat, Chile Aduanas) or need registration (DANE microdata) are deferred.
 
-## Verification caveat (Phase 0)
+## Verification caveat (Phase 0, and the weekly check since)
 
-Source verification was done from a sandbox whose network policy blocks direct
-access to every host except GitHub and PyPI. Statuses in `SOURCES.md` therefore
-rest on search-engine results, GitHub mirrors and package indexes dated 2025–2026,
-not on direct HTTP checks. Entries marked `uncertain` were not confirmable. The
-first scheduled ingestion run in GitHub Actions will re-check every URL and update
-the registry.
+Source verification in Phase 0 was done from a sandbox whose network policy blocks direct
+access to every host except GitHub and PyPI, so the first statuses in `SOURCES.md` rested on
+search-engine results, GitHub mirrors and package indexes dated 2025–2026, not on direct HTTP
+checks (`verified_method: search`). Since then the weekly liveness check (`liveness.yml`, Mondays;
+`data/liveness.json`) requests every registry URL and `api_url` from a GitHub Actions runner and
+regenerates `SOURCES.md` and the site's `sources.json`, and the Sources page shows each source's
+last check and result. Statuses the check settled are recorded in the registry with
+`verified_method: direct`; entries still marked `uncertain` did not answer on the last check or,
+for the newest feeds, have not been checked yet; a host that answers 403 to automated clients is
+not fetched (DECISIONS 29) and is marked accordingly.
 
 ## Structural gaps by country
 
@@ -178,8 +182,8 @@ the registry.
 - **Lithium prices**: no free licensed benchmark. We show USGS annual averages and
   customs-derived unit values, which mix grades and contract types.
 - **Chinese policy-bank lending**: no loan-level disclosure by CDB or China Exim.
-  We rely on BU CODF (to 2024) and AidData (commitments to 2021), which only
-  cover sovereign and public borrowers.
+  We rely on AidData (commitments to 2021), which only covers sovereign and public
+  borrowers; BU CODF (to 2024) waits for the signed data-use agreement.
 - **Chinese FDI**: MOFCOM bulletins attribute most outward investment to Hong
   Kong and the Caribbean; ultimate-destination figures come from AEI CGIT and Red
   ALC-China, which are compiled from press and filings and use a US$100m
@@ -220,7 +224,7 @@ the registry.
 - **Selection bias into the series.** The corpus is keyword-selected at ingestion (mining and
   mineral terms, actor terms); mean stance per year describes the selected records, not a
   legislature's whole agenda.
-- **Validation is one human and one LLM coder** (the owner and Claude in development sessions,
+- **Validation is one human and one LLM coder** (the owner and an AI assistant in development sessions,
   blind to each other), 300 documents, one third held out; agreement statistics are published with
   n. This is not a multi-human coding team.
 - **Trained head on few labels.** The embeddings-plus-logistic-regression classifier learns from
@@ -228,7 +232,7 @@ the registry.
   held-out split, and the methodology page shows both.
 - **Narratives** are automatic clusters labelled by keywords; labels can be overridden in
   `pipeline/config/topic_labels.yaml`. Press narratives need at least 100 headlines per corpus,
-  which no country has until the GDELT Spanish/Portuguese history arrives.
+  which few countries have until the Media Cloud history fills.
 - **Machine translation** of titles (opus-mt) is unmeasured for quality; summaries are not
   translated by default.
 
@@ -239,30 +243,44 @@ the registry.
   stance); what the warehouse does not record is not in the index. Nothing is imputed: a component
   beyond its source's coverage is unavailable and the index rests on the others (never fewer than
   three), and the number and names of the components behind every value are stored and shown.
-- **The two sides are not symmetric in the data.** US official finance is DFC/OPIC only (EXIM, CGIT
-  and IDB DPI files pending), Chinese finance (AidData 3.0) ends in 2021, debt by creditor exists for
-  China only (World Bank IDS, nine countries, to 2024), and the legislative stance is the zero-shot
-  baseline until the sample is adjudicated. Both actors share one scale, so US values are low
-  because US recorded ties are small relative to China's; from 2022 the Chinese index rests on trade,
-  debt and diplomacy only.
+- **Method 2026.10.2 (2026-10-11; the exports on disk carry the version they were computed with until
+  the next export run).** The normalisation bounds of each component come from its mineral "all" rows
+  (one country × year × actor panel) and apply to every row, so the per-mineral composites share the
+  composite's scale and a country that trades many minerals weighs no more in the pool than one that
+  trades one. A composite is not published (value and band null, the component set kept) in a year
+  where a component it rested on the year before is missing only because its source's release lags
+  (its note reads "source coverage ends L" with L within two years of the current year), so a late
+  release never changes the index's composition silently; a source that ended years ago (AidData,
+  2021) is an ended series and the index goes on without it. The forecast's observed series ends at
+  the last published composite. The US finance component names its sources (the DFC and EXIM).
+- **The two sides are not symmetric in the data.** US official finance is the DFC and EXIM
+  authorizations (AEI CGIT and BU CODF pending), Chinese finance (AidData 3.0) ends in 2021, debt by
+  creditor exists for China only (World Bank IDS, nine countries, to 2024), and the legislative stance
+  is the zero-shot baseline until the sample is adjudicated. Both actors share one scale, so US values
+  are low because US recorded ties are small relative to China's; from 2022 the Chinese index rests
+  on trade, debt and diplomacy only, and in the latest trade year, which the votes and debt sources
+  have not reached, on trade (and legislative stance where it exists) alone.
 - **Trade partners are three.** Comtrade was fetched keyless for the United States, China and the
   world total; no HHI over all destinations, no mirror comparison yet. A partner row absent from a
   reporter's answer for a year it did report is read as no recorded flow (noted on the row).
-  Venezuela reports no trade; Uruguay's reported trade stops in 2011; Paraguay's and Suriname's
-  mineral exports are tiny, so their shares swing.
+  Venezuela's reported trade ends in 2013 (mirror data only after, which the index does not use), so
+  its index stops there; Uruguay's reported mineral exports are under US$10 m a year from 2019;
+  Paraguay's and Suriname's are tiny or have no partner row, so their shares swing.
 - **Sensitivity band.** The 5th–95th percentile across 500 draws of weights (Dirichlet around equal)
   and normalisations (min–max or percentile rank) is wide and skewed upward for countries with small
   raw values that rank high: it mostly reflects the normalisation choice. Rank stability (mean
-  Spearman correlation with the baseline ranking) is 0.69 on the first run.
+  Spearman correlation with the baseline ranking) is 0.65 in the current run (0.69 on the first);
+  the live value is `quant_model.rank_stability` in `meta.json`.
 - **Say–do gap** needs at least five scored legislative records in a year, which exist mainly for
   Brazil and Argentina; the rhetoric side inherits every Phase 3 caveat. **Flags** are rules with
   fixed thresholds (DECISIONS 48), not findings; the `strongly_indicated` finance-without-trade rule
   fires where a loan was never about minerals, which is itself informative but not an anomaly.
-- **Network** links lenders to the receiving agencies named in the records; 846 of 1,699 events name
-  no recipient and are counted, not drawn. No ownership links yet (contracts carry no company names;
+- **Network** links lenders to the receiving agencies named in the records; 846 of the 4,095 finance
+  events (1,615 Chinese, 2,480 US) name no recipient and are counted, not drawn. No ownership links yet (contracts carry no company names;
   cadastres exist for Ecuador only).
 - **Event studies** (Phase 4b) rest on a draft event list: `pipeline/config/events.yaml` holds 19 dated
-  events of which 10 are flagged for verification and none is marked reviewed yet; every result carries
+  events, all draft; the ten once flagged for verification were checked by an AI session against
+  search results that cite the documents (DECISIONS 63) and none is marked reviewed yet; every result carries
   the event's status and the site marks draft rows. Annual export shares, two-year windows and placebo
   distributions of about ten values per country make the placebo p coarse (the smallest attainable is
   about 0.08); events of 2025–2026 have no post-event years yet. Policies respond to the same world the
@@ -275,20 +293,25 @@ the registry.
 
 ## Phase 5 forecasting caveats (added 2026-10-09)
 
-- **Seventeen annual points, five-year horizon.** Only simple models are fitted; the published one is
-  chosen by backtest CRPS against naive persistence, and for two of the four targets (the China index,
-  the US export share) nothing beat persistence, so persistence is what is shown. Improvements where a
-  model does win are modest (5–7% CRPS).
-- **Bands are too narrow for the share forecasts:** in the backtests the 80% bands of the published
-  share-to-China model covered 69% of outcomes and the 95% bands 78%; the index bands covered 77–85%
-  and 86–91%. Read every band as indicative and widen it mentally.
+- **At most twenty-six annual points, five-year horizon.** Only simple models are fitted; the published
+  one is chosen by backtest CRPS against naive persistence, and for three of the four targets (both
+  index targets, the US export share) nothing beat persistence, so persistence is what is shown; the
+  share-to-China model (drift pooled across countries) beats it by 9% CRPS. The live table is on
+  /methodology.
+- **Bands are too narrow:** in the backtests the 80% bands of the published share-to-China model
+  covered 68% of outcomes and the 95% bands 85%; the US-share bands 83% and 94%; the index bands
+  under-cover too (67–70% and 82–84%). Read every band as indicative and widen it mentally.
 - **The index forecast compounds model layers:** it forecasts a composite that is itself a model output
   with its own sensitivity band; the export-share forecast rests on facts and is the one to prefer.
 - **Scenarios are stated shifts, not causal simulations:** no elasticity or policy response is estimated
   (Phase 4b found no robust causal handle), so a scenario shows what a given yearly shift would do to
   the paths and nothing more.
-- **Coverage:** ten countries have index forecasts and nine have share forecasts (Uruguay's trade stops in
-  2011, Venezuela reports none, Paraguay's shares are too erratic for the share target).
+- **Coverage:** eleven countries have index forecasts (Venezuela's last reported trade year is 2013, so
+  its series is not current) and seven have share forecasts (Bolivia, Brazil, Chile, Colombia, Ecuador,
+  Guyana, Peru); Argentina, Paraguay, Suriname, Uruguay and Venezuela are skipped for the shares because
+  their latest unbroken run of reported years is shorter than the eight the model needs, years with no
+  partner row being left out as absent, never counted as zero. The export lists each skip with its
+  reason (`quant.json` `forecast.targets[*].skipped`) and the Forecast tab prints it.
 
 ## Phase 6 written-analysis caveats (added 2026-10-09)
 
@@ -300,24 +323,25 @@ the registry.
   conditional correlations; the templates cannot say why anything happened.
 - **Thresholds are conventions.** "Broadly flat" means under 2 index points or 3 share points over five
   years; "sudden" and "large" follow the flag rules of DECISIONS 48.
-- **The human layer is opinion, labelled as such,** and exists only where the owner has written a file;
-  as of this release none exists.
+- **The human layer is opinion, labelled as such.** As of this release every country file, `regional.md`
+  and the Lab's `insights.md` is AI-drafted and unreviewed (DECISIONS 62); the site labels them so,
+  names the data release each was drafted from and says when its current release is newer.
 
 ## Flow map caveats (added 2026-10-09)
 
 - The money arcs draw documented finance commitments only, summed by country, origin and year from the de-duplicated finance events (`flows.json`, DECISIONS 56). Chinese finance comes from AidData's Global Chinese Development Finance dataset and ends in 2021; US finance is the DFC and EXIM authorizations (the AEI tracker and the BU CODF file are still pending). A window that lies beyond a source's last year is flagged on the page rather than drawn empty.
-- 561 of the 1,699 finance events carry no published amount: they are counted in the arc's popup and table but add no width. Swap-line drawdowns and amounts from lower-confidence records are listed apart and never added to the drawn amount.
-- The trade arcs use reported exports only (UN Comtrade, reporter's own data); mirror data is not used. Venezuela reports no trade and therefore has no trade arc.
+- 757 of the 1,615 Chinese finance events carry no documented amount (the 2,480 US items all carry one): they are counted in the arc's popup and table but add no width. Swap-line drawdowns and amounts from lower-confidence records are listed apart and never added to the drawn amount.
+- The trade arcs use reported exports only (UN Comtrade, reporter's own data); mirror data is not used. Venezuela's reported trade ends in 2013, so its trade arcs stop there.
 - Arcs are schematic: they run from a country centroid to Washington or Beijing as anchors, not along shipping or financing routes, and the width scale is shared across countries within one view.
 - The world basemap is Natural Earth 1:10m simplified to about 3% of its vertices; it is a backdrop, not a boundary reference. Country labels are hidden when the map is zoomed out to the world view.
 - The comparison panel uses the same inputs as the rest of the site (index values are model outputs; shares and finance totals are facts) and shows a dash where a value is missing.
 
 ## Political statements dataset caveats (added 2026-10-09)
 
-- The statements block comes from a hand-supplied dataset (DECISIONS 58) collected by AI research agents with web search under a fixed codebook. Every record carries the source URL consulted and a verification level, but 339 of 395 records are `secondary_reported` (a media report of the statement) and 2 are `unverified`; only 54 were seen on a primary page.
+- The statements block comes from a hand-supplied dataset (DECISIONS 58) collected by AI research agents with web search under a fixed codebook. Every record carries the source URL consulted and a verification level, but 360 of the 417 records are `secondary_reported` (a media report of the statement) and 3 are `unverified`; only 54 were seen on a primary page.
 - The stance codes toward China and the United States (and the themes) are the dataset's own interpretive coding, not validated by a second coder and not a model output of this project. The site labels them "coded under the dataset's codebook" and keeps them out of the influence index and the say–do gap. The yearly stance means rest on few statements in most country-years (the count is shown next to every mean).
-- Coverage is uneven: Chile, Peru, Brazil, Argentina and Bolivia have 49–65 records each, Ecuador 16 and Colombia 12; Guyana, Paraguay, Suriname, Uruguay and Venezuela have none, and the dataset's own notes list Chinese embassy statements and several US ambassadors as under-represented. Records before 2022 are few (23 in 2019–2021). Mexico (43) and Panama (13) records are outside this site's twelve countries and are not shown; 23 region-wide records appear on the region page.
-- 100 records carry no quote (only a summary); quotes are at most 30 words and translations may be the dataset's own. Speaker roles are as at the statement date.
+- Coverage is uneven: Chile, Peru, Brazil, Argentina and Bolivia have 51–67 records each, Ecuador 16 and Colombia 12; Uruguay has none; Guyana, Paraguay, Suriname and Venezuela have 3–5 AI-researched records each (see "Owner items done by an AI session" below), and the dataset's own notes list Chinese embassy statements and several US ambassadors as under-represented. Records before 2022 are few (23 in 2019–2021). Mexico (43) and Panama (13) records are outside this site's twelve countries and are not shown; 23 region-wide records appear on the region page.
+- 104 records carry no quote (only a summary); quotes are at most 30 words and translations may be the dataset's own. Speaker roles are as at the statement date.
 
 ## Lab page caveats (added 2026-10-09)
 
@@ -334,9 +358,11 @@ the registry.
 Of the eight items on the owner's list, an AI session did the ones that need no account, signature
 or hands, and labelled each:
 
-- The interpretation files for the twelve countries and the region are AI-drafted (DECISIONS 62): the
-  site says so on each, and every claim cites an indicator id so the owner can check it; the numbers
-  quoted are those of the 2026-10-09 export.
+- The interpretation files for the twelve countries, the region and the Lab are AI-drafted (DECISIONS 62):
+  the site says so on each, and every claim cites an indicator id so the owner can check it. They were
+  re-drafted on 2026-10-11 from release `data-v2026.10.11.62` (the first drafts quoted the 2026-10-09
+  export, which the record's extension to 2000 and the trade backfill then overtook); each file names
+  its release in `data_release` and the site says when its current release is newer.
 - The ten flagged events were verified from web-search results that cite the official documents,
   not from the documents themselves (the session could not open them); `url`, dates and notes are in
   `pipeline/config/events.yaml` and `status` stays `draft` until the owner reads them (DECISIONS 63),
@@ -379,7 +405,7 @@ or hands, and labelled each:
 
 ## Congress.gov (added 2026-10-07)
 
-- Bills only, titles and the latest action text (no bill text), from the 110th Congress (2007) on, selected by
+- Bills only, titles and the latest action text (no bill text), from the 106th Congress (1999–2000, the one sitting in the period's first year) on, selected by
   title keywords: a bill about critical minerals whose title does not say so is missed. Votes, amendments and
   committee records are not collected. The date shown is the date of the bill's latest action. Titles about
   medals and honours, "data mining" and tariff-duty suspensions are excluded by rule.

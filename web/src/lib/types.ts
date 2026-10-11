@@ -14,6 +14,18 @@ export interface Freshness {
   last_updated: string;
   source_ids: string[];
   schedule: string;
+  /** media files: the years whose Media Cloud headline list was cut to the newest `kept` of `matched` stories (absent before the 2026-10-11 export) */
+  headlines_window?: HeadlinesWindow[];
+}
+
+/** One country-year whose Media Cloud headline list was cut: the window read (`from`–`to`), the headlines kept and the stories matched. */
+export interface HeadlinesWindow {
+  source_id: string;
+  year: number;
+  from: string;
+  to: string;
+  kept: number;
+  matched: number;
 }
 
 export interface CountryMeta {
@@ -117,7 +129,8 @@ export interface ActionEvent {
 export interface TradeRow {
   year: number;
   mineral: string;
-  exports_musd: { CN: number | null; US: number | null; ROW: number | null };
+  /** `WLD` is the reported world total (from the 2026-10-11 export on); `ROW` is null whenever a partner row is absent */
+  exports_musd: { CN: number | null; US: number | null; ROW: number | null; WLD?: number | null };
   mirror_musd?: { CN: number | null; US: number | null };
   value_type: string;
   source: SourceRef | null;
@@ -412,6 +425,8 @@ export interface MediaHistoryRow {
   items_mining: number;
   items_cn: number;
   items_us: number;
+  /** feed rows only: fetches in the month (`items_total` is the fullest of them, the three counts distinct headlines); GDELT and Media Cloud rows carry none */
+  n_fetches?: number;
 }
 
 export interface NarrativeRow {
@@ -612,6 +627,8 @@ export interface HumanText {
   changed_since_previous?: boolean;
   /** "ai" for a draft generated from the indicators that the owner has not yet reviewed (DECISIONS 61); absent or "owner" otherwise */
   drafted_by?: "ai" | "owner";
+  /** the data release the brief's numbers were read from (its front matter); null when the brief does not say, absent in older exports */
+  data_release?: string | null;
 }
 
 export interface InterpretationBlock {
@@ -653,6 +670,8 @@ export interface ForecastRow {
 export interface ForecastModelStatus {
   countries: string[];
   model: string | null;
+  /** why the forecast step skipped this country for the target (then `countries` is empty and `model` null) */
+  skipped?: string;
   label?: string;
   crps?: number;
   crps_naive?: number;
@@ -824,7 +843,7 @@ export interface FlowTradeRow {
   year: number;
   /** "all" or a core mineral id */
   mineral: string;
-  exports_musd: { US: number | null; CN: number | null; ROW: number | null };
+  exports_musd: { US: number | null; CN: number | null; ROW: number | null; WLD?: number | null };
   source_id: string;
 }
 export interface FlowsFile {
@@ -903,12 +922,12 @@ export interface ForecastPoint {
 export type ScenarioId = "baseline" | "china_pull" | "us_reshoring";
 export interface InsightTradeMineral {
   mineral: string;
-  exports_musd: { US: number | null; CN: number | null; ROW: number | null };
+  exports_musd: { US: number | null; CN: number | null; ROW: number | null; WLD?: number | null };
   total_musd: number | null;
 }
 export interface InsightTradeLatest {
   year: number;
-  exports_musd: { US: number | null; CN: number | null; ROW: number | null };
+  exports_musd: { US: number | null; CN: number | null; ROW: number | null; WLD?: number | null };
   total_musd: number | null;
   share_cn: number | null;
   share_us: number | null;
@@ -953,7 +972,8 @@ export interface InsightComponentsActor {
 export interface InsightForecast {
   /** target -> actor -> scenario -> yearly points */
   paths: Record<string, Partial<Record<Actor, Partial<Record<ScenarioId, ForecastPoint[]>>>>>;
-  status: Record<string, { last_observed_year: number; model: string }>;
+  /** target:actor -> the last observed year and model; a target the forecast step skipped carries nulls and the reason */
+  status: Record<string, { last_observed_year: number | null; model: string | null; skipped?: string }>;
 }
 export interface WordsYear {
   year: number;

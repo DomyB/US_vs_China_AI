@@ -61,8 +61,12 @@ export function StepCard({ children, className = "" }: { children: ReactNode; cl
   return <div className={`story-step card p-4 text-sm leading-relaxed text-ink-2 ${className}`}>{children}</div>;
 }
 
-/** A flat exhibit with its provenance ribbon: the layer on the left edge, the sources with their reliability and the table ids beneath. */
-export function Exhibit({ id, title, layer, sources = [], ids = [], tables, explore, note, evidence, caveat, model, status, findingId, glossary, table, children }: { id?: string; title: ReactNode; layer: Layer; sources?: string[]; ids?: string[]; tables?: string[]; explore?: { href: string; label?: string }; note?: ReactNode; evidence?: Provenance["evidence"]; caveat?: string; model?: Provenance["model"]; status?: string; findingId?: string; glossary?: string[]; table?: ReactNode; children: ReactNode }) {
+/**
+ * A flat exhibit with its provenance ribbon: the layer on the left edge, the sources with their reliability and the table ids beneath.
+ * `id` is the figure's anchor: the drawer's "Copy link" and the issue body point at it, so every exhibit on the story carries one.
+ * `lastYear` (label → year) is printed by the drawer as "Last year of data" where the chapter knows it.
+ */
+export function Exhibit({ id, title, layer, sources = [], ids = [], tables, explore, note, evidence, caveat, model, status, findingId, glossary, lastYear, table, children }: { id?: string; title: ReactNode; layer: Layer; sources?: string[]; ids?: string[]; tables?: string[]; explore?: { href: string; label?: string }; note?: ReactNode; evidence?: Provenance["evidence"]; caveat?: string; model?: Provenance["model"]; status?: string; findingId?: string; glossary?: string[]; lastYear?: Provenance["lastYear"]; table?: ReactNode; children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const registry = useSources();
   const srcs = sources.map((id) => ({ id, s: sourceEntry(registry, id) }));
@@ -79,6 +83,7 @@ export function Exhibit({ id, title, layer, sources = [], ids = [], tables, expl
     status,
     findingId,
     glossary,
+    lastYear,
     anchor: id,
   };
   return (

@@ -32,6 +32,8 @@ function small(rows: AttentionYear[], key: "policy_docs" | "us_statements" | "df
 }
 
 export function Attention({ rows, lastYear }: { rows: AttentionYear[]; lastYear: { finance_US: number | null; finance_CN: number | null } }) {
+  // the first year the statements dataset has a record, from the rows themselves (never a typed year)
+  const firstStatements = rows.find((r) => r.statements > 0)?.year ?? null;
   const o1 = useMemo(() => small(rows, "policy_docs", "US policy documents", COLORS.OTHER, null, (v) => `${v} documents`, (v) => String(v)), [rows]);
   const o2 = useMemo(() => small(rows, "us_statements", "Statements by US officials", COLORS.US, null, (v) => `${v} statements`, (v) => String(v)), [rows]);
   const o3 = useMemo(() => small(rows, "dfc_musd", "US DFC and EXIM commitments (US$)", COLORS.US, lastYear.finance_US, (v) => fmtMusd(v), compact), [rows, lastYear.finance_US]);
@@ -44,7 +46,7 @@ export function Attention({ rows, lastYear }: { rows: AttentionYear[]; lastYear:
         <PlotFigure options={o3} ariaLabel="US DFC and EXIM documented commitments to the twelve countries per year" expandable={false} />
         <PlotFigure options={o4} ariaLabel="Chinese documented commitments to the twelve countries per year" expandable={false} />
       </div>
-      <p className="mt-1 text-[11px] leading-snug text-ink-3">Same years on every panel. Policy documents: Congress.gov bills and Federal Register notices and rules selected by title (a bill is not a dollar). Statements: the owner&apos;s dataset, which begins in 2019. Commitments: documented amounts in the de-duplicated finance events; a shaded year has no source, not zero money.</p>
+      <p className="mt-1 text-[11px] leading-snug text-ink-3">Same years on every panel. Policy documents: Congress.gov bills and Federal Register notices and rules selected by title (a bill is not a dollar). Statements: the owner&apos;s dataset{firstStatements !== null ? `, which begins in ${firstStatements}` : ""}. Commitments: documented amounts in the de-duplicated finance events; a shaded year has no source, not zero money.</p>
       <DataTable rows={rows} caption="Attention and money by year" columns={[{ key: "year", label: "Year" }, { key: "policy_docs", label: "Policy docs" }, { key: "us_statements", label: "US statements" }, { key: "statements", label: "All statements" }, { key: "dfc_musd", label: "DFC and EXIM (US$ m)", format: (v) => (v === null ? "no source" : String(v)) }, { key: "cn_musd", label: "China (US$ m)", format: (v) => (v === null ? "no source" : String(v)) }]} />
     </div>
   );

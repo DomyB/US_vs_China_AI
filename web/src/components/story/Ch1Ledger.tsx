@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Attention } from "@/components/insights/Attention";
 import { ACTOR_COLOR, OTHER_COLOR } from "@/lib/constants";
 import { fmtMusd } from "@/lib/format";
+import { LAST_YEAR_LABEL } from "@/lib/provenance";
 import type { InsightRegion, StatementRecord } from "@/lib/types";
 import { Exhibit, GuessFirst, KeyNumber, StepCard } from "./Chapter";
 import { WideFigure } from "./Ch3Iceberg";
@@ -81,17 +82,29 @@ function positions(tm: InsightRegion["talk_vs_money"]) {
   };
 }
 
-export function Ch1Ledger({ region, lastYear, voices }: { region: InsightRegion; lastYear: { finance_US: number | null; finance_CN: number | null }; voices: StatementRecord[] }) {
+/**
+ * `afterWindow`: the documented US rows after the insights' later window (the DFC years), from flows.json, so the sentence
+ * on the windows can say where each record ends and what lies outside both windows; null when the record ends with the window.
+ */
+export function Ch1Ledger({ region, lastYear, afterWindow = null, voices }: { region: InsightRegion; lastYear: { finance_US: number | null; finance_CN: number | null }; afterWindow?: { musd: number; events: number; from: number; to: number } | null; voices: StatementRecord[] }) {
   const tm = region.talk_vs_money;
   const pos = useMemo(() => positions(tm), [tm]);
   const ratioMoney = tm.ratios.money_cn_over_us_2015_21, ratioWords = tm.ratios.statements_us_over_cn;
   const attentionYears = region.attention.length ? `${Math.min(...region.attention.map((r) => r.year))}–${Math.max(...region.attention.map((r) => r.year))}` : null;
+  const financeLastYears = { [LAST_YEAR_LABEL.finance_CN]: lastYear.finance_CN, [LAST_YEAR_LABEL.finance_US]: lastYear.finance_US };
+  // The later window is the DFC years; the EXIM record runs on past it, so the years outside both windows are named with their amount, never left to "runs to".
+  const dfcEnds = tm.finance.US_after.years[1];
+  const outside = afterWindow && afterWindow.to > dfcEnds
+    ? afterWindow.events > 0
+      ? `; EXIM authorisations continue to ${afterWindow.to} (${fmtMusd(afterWindow.musd)} in ${afterWindow.from === afterWindow.to ? afterWindow.from : `${afterWindow.from}–${afterWindow.to}`}, outside both windows)`
+      : `; the EXIM record runs to ${afterWindow.to} with no documented commitment after ${dfcEnds}`
+    : "";
   return (
     <div className="space-y-6">
       {ratioMoney !== null && <GuessFirst id="c1-ratio" question={`For every dollar Washington committed to these twelve countries in ${tm.finance.US.years[0]}–${tm.finance.US.years[1]}, how many did Beijing commit?`} min={0} max={30} step={0.5} answer={ratioMoney} format={(v) => v.toFixed(1)} unit="Chinese dollars per US dollar" />}
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit title="The ledger balance" layer="facts" sources={["manual_statements", "aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["statement:count:bloc", `flow_finance:CN:${tm.finance.CN.years[0]}-${tm.finance.CN.years[1]}`, `flow_finance:US:${tm.finance.US.years[0]}-${tm.finance.US.years[1]}`, `flow_finance:US:${tm.finance.US_after.years[0]}-${tm.finance.US_after.years[1]}`]} explore={{ href: "/lab#ledger", label: "Open the ledger in the Lab" }} note={`${tm.note}; it is the darker base of each money column, in light and dark mode alike.`}>
+          <Exhibit id="c1-ledger" title="The ledger balance" layer="facts" sources={["manual_statements", "aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["statement:count:bloc", `flow_finance:CN:${tm.finance.CN.years[0]}-${tm.finance.CN.years[1]}`, `flow_finance:US:${tm.finance.US.years[0]}-${tm.finance.US.years[1]}`, `flow_finance:US:${tm.finance.US_after.years[0]}-${tm.finance.US_after.years[1]}`]} lastYear={financeLastYears} explore={{ href: "/lab#ledger", label: "Open the ledger in the Lab" }} note={`${tm.note}; it is the darker base of each money column, in light and dark mode alike.`}>
             <LedgerBalance tm={tm} />
           </Exhibit>
           <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -106,18 +119,18 @@ export function Ch1Ledger({ region, lastYear, voices }: { region: InsightRegion;
             <p><strong>Who is louder?</strong> In the statements dataset ({tm.n_statements} in-scope records, on a country or region-wide), officials of the United States account for {tm.by_bloc.find((b) => b.bloc === "United States")?.n ?? 0} and officials of China for {tm.by_bloc.find((b) => b.bloc === "China")?.n ?? 0}. The region&apos;s own executives, {tm.by_bloc.find((b) => b.bloc === "LatAm executive")?.n ?? 0} records, speak well of Washington {pos.ex_on_us?.positive ?? 0} times and badly {pos.ex_on_us?.negative ?? 0}; of Beijing {pos.ex_on_cn?.positive ?? 0} and {pos.ex_on_cn?.negative ?? 0}.</p>
           </StepCard>
           <StepCard>
-            <p><strong>Who writes the cheques?</strong> Documented commitments from Chinese institutions to the twelve countries reached {fmtMusd(tm.finance.CN.musd)} in {tm.finance.CN.years[0]}–{tm.finance.CN.years[1]} ({fmtMusd(tm.finance.CN.mineral_tagged_musd)} of it tagged to a mineral); US DFC and EXIM commitments {fmtMusd(tm.finance.US.musd)} in the same years and {fmtMusd(tm.finance.US_after.musd)} in {tm.finance.US_after.years[0]}–{tm.finance.US_after.years[1]}. The windows differ because the Chinese record ends in {lastYear.finance_CN ?? "–"} and the US record runs to {lastYear.finance_US ?? "–"}; the dashed line keeps them apart.</p>
+            <p><strong>Who writes the cheques?</strong> Documented commitments from Chinese institutions to the twelve countries reached {fmtMusd(tm.finance.CN.musd)} in {tm.finance.CN.years[0]}–{tm.finance.CN.years[1]} ({fmtMusd(tm.finance.CN.mineral_tagged_musd)} of it tagged to a mineral); US DFC and EXIM commitments {fmtMusd(tm.finance.US.musd)} in the same years and {fmtMusd(tm.finance.US_after.musd)} in {tm.finance.US_after.years[0]}–{tm.finance.US_after.years[1]}. The windows differ because the Chinese record ends in {lastYear.finance_CN ?? "–"} and the DFC record in {dfcEnds}{outside}; the dashed line keeps them apart.</p>
           </StepCard>
           <StepCard>
             <p><strong>Read it as counts and sums, nothing more.</strong> A statement is a record the dataset found; a commitment is a documented amount, not a disbursement. The darker part of each money column is the share the adapters could tie to a mineral; the rest went to rail, power, budgets and refinancing. Chapter 3 opens that part.</p>
           </StepCard>
         </div>
       </div>
-      <Exhibit title={`Attention and the cheque book${attentionYears ? `, ${attentionYears}` : ""}`} layer="facts" sources={["congress_gov", "federal_register", "manual_statements", "dfc_projects", "exim_authorizations", "aiddata_gcdf"]} ids={["policy_document:count:year", "statement:count:bloc=United States:year", "flow_finance:US:year", "flow_finance:CN:year"]} note="A bill is not a dollar: the paper trail and the statements climb while the documented US money stays small and the Chinese record ends.">
+      <Exhibit id="c1-attention" title={`Attention and the cheque book${attentionYears ? `, ${attentionYears}` : ""}`} layer="facts" sources={["congress_gov", "federal_register", "manual_statements", "dfc_projects", "exim_authorizations", "aiddata_gcdf"]} ids={["policy_document:count:year", "statement:count:bloc=United States:year", "flow_finance:US:year", "flow_finance:CN:year"]} lastYear={financeLastYears} note="A bill is not a dollar: the paper trail and the statements climb while the documented US money stays small and the Chinese record ends.">
         <Attention rows={region.attention} lastYear={lastYear} />
       </Exhibit>
       {voices.length > 0 && (
-        <Exhibit title="Three US voices beside the US figure" layer="facts" sources={["manual_statements"]} ids={voices.map((v) => `statement:${v.id}`)}>
+        <Exhibit id="c1-voices" title="Three US voices beside the US figure" layer="facts" sources={["manual_statements"]} ids={voices.map((v) => `statement:${v.id}`)}>
           <ul className="grid gap-3 md:grid-cols-3">
             {voices.map((v) => (
               <li key={v.id} className="card p-3 text-sm">

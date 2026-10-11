@@ -281,6 +281,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
           {eventRows.length === 0 ? (
             <p className="text-sm text-ink-3">No event has both pre- and post-event trade years for this country yet.</p>
           ) : (
+            <div className="scroll-x">
             <table className="w-full text-xs">
               <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Event</th><th className="py-1">Toward</th><th className="py-1">Design</th><th className="py-1 text-right">Before</th><th className="py-1 text-right">After</th><th className="py-1 text-right">Change</th><th className="py-1 text-right">Placebo p</th></tr></thead>
               <tbody>
@@ -301,6 +302,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
                 ))}
               </tbody>
             </table>
+            </div>
           )}
         </section>
       )}

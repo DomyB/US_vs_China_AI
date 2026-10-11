@@ -5,8 +5,23 @@ import { useEffect, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
 import { loadInsights, loadRealMeta } from "@/lib/data";
-import { fmtMusd, fmtShare } from "@/lib/format";
+import { fmtDate, fmtMusd, fmtShare } from "@/lib/format";
+import { sourceEntry } from "@/lib/sources";
 import type { InsightCountry, InsightsFile, RealMeta } from "@/lib/types";
+import { useSources } from "@/lib/useSources";
+
+/**
+ * The mining titles the export counts for a country (meta.coverage, from the national cadastre adapter `<iso>_cadastre`,
+ * the id the Actions tab uses too) with the run that read them; null when the release counts none, never a 0.
+ */
+export function cadastreLine(meta: RealMeta | null, iso3: string, sourceName: string | null): { text: string; sourceId: string } | null {
+  const n = meta?.coverage?.[iso3]?.concessions ?? 0;
+  if (!meta || n <= 0) return null;
+  const sourceId = `${iso3.toLowerCase()}_cadastre`;
+  const run = meta.ingest_runs.find((r) => r.source_id === sourceId);
+  const retrieved = run?.finished_at ? fmtDate(run.finished_at.slice(0, 10)) : null;
+  return { text: `${n.toLocaleString("en-GB")} mining titles in the national cadastre (${sourceName ?? sourceId}${retrieved ? `, retrieved ${retrieved}` : ""})`, sourceId };
+}
 
 /** The latest trade line; an absent partner cell is named as absent, never printed as 0%. */
 function tradeLine(t: NonNullable<InsightCountry["trade"]>): string {
@@ -25,6 +40,7 @@ function moneyLine(f: InsightCountry["finance"]): string {
 export function CaseFilesIndex() {
   const [file, setFile] = useState<InsightsFile | null | undefined>(undefined);
   const [meta, setMeta] = useState<RealMeta | null>(null);
+  const registry = useSources();
   useEffect(() => {
     let alive = true;
     loadInsights().then((f) => alive && setFile(f));
@@ -43,6 +59,7 @@ export function CaseFilesIndex() {
         {IN_SCOPE.map((iso3) => {
           const c = file?.countries.find((x) => x.iso3 === iso3);
           const flags = meta?.coverage[iso3]?.flags;
+          const cadastre = cadastreLine(meta, iso3, sourceEntry(registry, `${iso3.toLowerCase()}_cadastre`)?.name ?? null);
           return (
             <li key={iso3}>
               <Link href={`/country/${iso3}`} className="card block p-4 no-underline hover:-translate-y-0.5 hover:shadow-[5px_5px_0_var(--shadow-hard)]">
@@ -56,6 +73,7 @@ export function CaseFilesIndex() {
                     <p className="mt-1 text-xs text-ink-3">{c.words?.n_statements ? `${c.words.n_statements} coded statements` : "no coded statements"} · {typeof flags === "number" ? `${flags} flags` : "flag count absent"}</p>
                   </>
                 )}
+                {cadastre && <p className="mt-1 text-xs text-ink-3">{cadastre.text}; the Actions tab names the source.</p>}
               </Link>
             </li>
           );

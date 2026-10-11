@@ -50,6 +50,12 @@ interface Props {
   onHover: (iso: string | null) => void;
 }
 
+/** The reported world total of a flows.json trade cell: `WLD` (from the 2026-10-11 export), else the three cells when all exist; null otherwise. */
+function worldTotal(e: { US: number | null; CN: number | null; ROW: number | null; WLD?: number | null }): number | null {
+  if (e.WLD !== undefined) return e.WLD;
+  return e.US !== null && e.CN !== null && e.ROW !== null ? e.US + e.CN + e.ROW : null;
+}
+
 export function Compare({ isos, names, indexRows, indexLayer, indexName, flows, flowsLayer, real, mineral, year, onRemove, onAdd, onClear, onHover }: Props) {
   const [measure, setMeasure] = useState<Measure>("net");
   const MEASURES = useMemo(() => measures(indexName), [indexName]);
@@ -68,11 +74,10 @@ export function Compare({ isos, names, indexRows, indexLayer, indexName, flows, 
     } else if (measure === "share_cn" || measure === "share_us") {
       for (const r of flows?.trade ?? []) {
         if (r.mineral !== mineral || !isos.includes(r.iso3)) continue;
-        const { US, CN, ROW } = r.exports_musd;
-        if (US === null || CN === null || ROW === null) continue;
-        const tot = US + CN + ROW;
-        if (tot <= 0) continue;
-        out.push({ iso3: r.iso3, name: names[r.iso3] ?? r.iso3, year: r.year, value: (measure === "share_cn" ? CN : US) / tot });
+        const tot = worldTotal(r.exports_musd);
+        const part = measure === "share_cn" ? r.exports_musd.CN : r.exports_musd.US;
+        if (part === null || tot === null || tot <= 0) continue; // an absent partner row is no share, never 0
+        out.push({ iso3: r.iso3, name: names[r.iso3] ?? r.iso3, year: r.year, value: part / tot });
       }
     } else {
       const origin = measure === "fin_cn" ? "CN" : "US";
@@ -87,7 +92,7 @@ export function Compare({ isos, names, indexRows, indexLayer, indexName, flows, 
   const fmt = (v: number) => (measure === "net" ? fmtSigned(v, 0) : measure === "us" || measure === "cn" ? v.toFixed(0) : measure.startsWith("share") ? fmtPct(v, 1) : fmtAmount(v));
   const options = useMemo(() => {
     // the net lean is drawn on the ±60 scale the map, the heatmap and the ranking use
-    const yScale = measure === "net" ? { label: `Net lean (China minus US), ${INDEX_PHRASE[indexName]}`, domain: [-NET_LEAN_MAX, NET_LEAN_MAX] as [number, number], grid: true } : measure === "us" || measure === "cn" ? { label: `${INDEX_LABEL[indexName]} (0–100)`, domain: [0, 100] as [number, number], grid: true } : measure.startsWith("share") ? { label: "Share of exports", domain: [0, 1] as [number, number], grid: true, tickFormat: (d: number) => fmtPct(d) } : { label: "M US$", grid: true };
+    const yScale = measure === "net" ? { label: `Net lean (China minus US), ${INDEX_PHRASE[indexName]}`, domain: [-NET_LEAN_MAX, NET_LEAN_MAX] as [number, number], clamp: true, grid: true } : measure === "us" || measure === "cn" ? { label: `${INDEX_LABEL[indexName]} (0–100)`, domain: [0, 100] as [number, number], grid: true } : measure.startsWith("share") ? { label: "Share of exports", domain: [0, 1] as [number, number], grid: true, tickFormat: (d: number) => fmtPct(d) } : { label: "M US$", grid: true };
     return {
       height: 300,
       marginLeft: 48,
@@ -103,13 +108,15 @@ export function Compare({ isos, names, indexRows, indexLayer, indexName, flows, 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rows, isos, measure, year, indexName]);
 
+  const clamped = useMemo(() => (measure === "net" ? rows.filter((r) => Math.abs(r.value) > NET_LEAN_MAX).length : 0), [rows, measure]);
+
   const table = useMemo(
     () =>
       isos.map((iso) => {
         const us = lookup.get(indexKey(iso, year, "US", mineral))?.value ?? null;
         const cn = lookup.get(indexKey(iso, year, "CN", mineral))?.value ?? null;
         const t = flows?.trade.find((r) => r.iso3 === iso && r.year === year && r.mineral === mineral);
-        const tot = t && t.exports_musd.US !== null && t.exports_musd.CN !== null && t.exports_musd.ROW !== null ? t.exports_musd.US + t.exports_musd.CN + t.exports_musd.ROW : null;
+        const tot = t ? worldTotal(t.exports_musd) : null;
         const fin = (origin: "US" | "CN") => (flows?.finance ?? []).filter((r) => r.iso3 === iso && r.origin === origin && r.year >= YEAR_MIN).reduce((n, r) => n + r.amount_musd, 0);
         const cov = real?.coverage?.[iso];
         return {
@@ -170,6 +177,7 @@ export function Compare({ isos, names, indexRows, indexLayer, indexName, flows, 
           </select>
         </label>
         {rows.length === 0 ? <p className="text-sm text-ink-3">No values for this measure{mineral !== "all" ? ` and mineral${indexName !== "composite" && spec.layer === "model" ? " (the sub-indices are computed for all minerals together)" : ""}` : ""}.</p> : <PlotFigure options={options} ariaLabel={`${spec.label} over time for ${isos.map((i) => names[i] ?? i).join(", ")}`} />}
+        {clamped > 0 && <p className="mt-1 text-[11px] text-ink-3">{clamped} country-year{clamped === 1 ? " lies" : "s lie"} beyond ±{NET_LEAN_MAX} and {clamped === 1 ? "is" : "are"} drawn at the edge; the tooltip and the table keep the full value.</p>}
         <DataTable rows={rows} caption={`${spec.label} by year and country`} columns={[{ key: "year", label: "Year" }, { key: "name", label: "Country" }, { key: "value", label: "Value", format: (v) => fmt(Number(v)) }]} />
       </section>
       <section aria-labelledby="cmpt-h">

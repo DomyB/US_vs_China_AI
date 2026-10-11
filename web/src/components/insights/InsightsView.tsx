@@ -127,6 +127,16 @@ export function InsightsView() {
   const horizon = file.meta.horizon_year;
   const interp = { generated: [], human: file.human, template_version: file.version, generated_on: file.generated_on, label: file.label };
   const forecastCountries = file.countries.filter((c) => c.forecast);
+  // The panel's own span and size, from its regression rows (every row carries them), so the lead and the drawer's caveat
+  // cannot drift from the table beneath; without rows the sentences carry no number.
+  const reg0 = file.region.regressions.rows[0];
+  const regSpan = reg0 ? reg0.years.split(/[–-]/).map(Number) : [];
+  const regYears = regSpan.length === 2 && regSpan.every(Number.isFinite) ? regSpan[1] - regSpan[0] + 1 : null;
+  const panelLead = reg0
+    ? `${reg0.n_countries} countries, ${reg0.years}${regYears ? ` (${regYears} years, ${reg0.n_obs} country-years)` : ` (${reg0.n_obs} country-years)`}, country and year effects: which recorded ties move together, and which do not.`
+    : "Country and year effects: which recorded ties move together, and which do not.";
+  const panelProvenance = labProvenance("panel", realMeta);
+  const panelCaveat = reg0 ? `${reg0.n_countries} countries and ${regYears ?? reg0.years} years: an association, not a cause.` : panelProvenance?.caveat;
 
   return (
     <div ref={revealRoot} className="mx-auto max-w-7xl px-4 pb-10 pt-6">
@@ -136,7 +146,7 @@ export function InsightsView() {
           <p className="eyebrow">Lab</p>
           <h1 className="serif mt-1 text-2xl font-bold leading-tight sm:text-4xl">What the words, the money and the minerals say together</h1>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-2">
-            Every other page shows one layer at a time. This one sets them against each other: what governments say (the owner&apos;s coded statements), what legislatures and the press say (text-model outputs), what the money and the ore actually do (documented commitments, reported trade) and what the backtested models expect to 2030. Move the levers to build your own scenario; every number stays traceable and nothing you set is stored.
+            Every other page shows the layers exhibit by exhibit, each labelled. This one sets them against each other: what governments say (the owner&apos;s coded statements), what legislatures and the press say (text-model outputs), what the money and the ore actually do (documented commitments, reported trade) and what the backtested models expect to 2030. Move the levers to build your own scenario; every number stays traceable and nothing you set is stored.
           </p>
         </div>
         <ul className="flex flex-wrap gap-1.5 text-[11px] text-ink-3">
@@ -183,7 +193,7 @@ export function InsightsView() {
         <Shocks echoes={file.region.event_echoes} titles={file.region.event_titles} selected={levers?.shock ?? null} />
       </Block>
 
-      <Block id="panel" provenance={labProvenance("panel", realMeta)} n={8} title="What the panel says" lead="Twelve countries, thirteen years, country and year effects: which recorded ties move together, and which do not." layer="model">
+      <Block id="panel" provenance={panelProvenance ? { ...panelProvenance, caveat: panelCaveat } : undefined} n={8} title="What the panel says" lead={panelLead} layer="model">
         <PanelLever reg={file.region.regressions} />
       </Block>
 
