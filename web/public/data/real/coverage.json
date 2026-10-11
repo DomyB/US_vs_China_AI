@@ -167,11 +167,12 @@
    "parliament_from": null,
    "parliament_note": "The Asamblea Legislativa Plurinacional publishes no API, no roll-call data and no transcripts; the Gaceta's full text is paywalled.",
    "media_available": true,
-   "media_articles": 3,
+   "media_articles": 73,
    "media_from": 2026,
    "media_sources": [
     "bol_opinion",
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
    "media_history_from": "2026-08",
    "concessions": 0,
@@ -259,14 +260,15 @@
    "parliament_from": 1996,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 5,
+   "media_articles": 41,
    "media_from": 2026,
    "media_sources": [
     "bra_estadao",
     "bra_folha",
     "bra_oglobo",
     "bra_valor",
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
    "media_history_from": "2026-08",
    "concessions": 0,
