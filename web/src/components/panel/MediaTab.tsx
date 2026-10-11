@@ -14,8 +14,8 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
 /** A feed's history row carries how many fetches the month had (`n_fetches`; GDELT and Media Cloud rows do not):
  *  its counts are the items seen at the month's fullest fetch, never the sum over fetch days. */
 type HistoryRowIn = MediaHistoryRow & { n_fetches?: number };
-/** A year whose Media Cloud headline list was cut to the newest stories (`freshness.headlines_window`): the window
- *  the kept headlines come from. Absent in files exported before 2026-10-11. */
+/** A year whose Media Cloud headline list was cut (`freshness.headlines_window`): the API answers matches in its own
+ *  order, so the kept list is a sample dated within the window. Absent in files exported before 2026-10-11. */
 interface HeadlinesWindow {
   source_id: string;
   year: number;
@@ -222,7 +222,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
     return years.reduce((best, y) => (Math.abs(y - year) < Math.abs(best - year) ? y : best), years[0]);
   }, [years, year]);
   const listTitle = onlyYear ? `Articles in ${year}` : fromYear || toYear ? `Articles, ${fromYear || (years[0] ?? "…")}–${toYear || (years[years.length - 1] ?? "…")}` : "Articles, all years";
-  // the years whose headline list was cut (Media Cloud keeps the newest stories of a year with more matches than its cap),
+  // the years whose headline list was cut (a year with more matches than the adapter's cap keeps a sample of them),
   // for the years the list shows; the export writes `freshness.headlines_window` from the 2026-10-11 release on
   const headlineWindows = useMemo(() => {
     const all = ((data.freshness.media as (typeof data.freshness.media & { headlines_window?: HeadlinesWindow[] }) | undefined)?.headlines_window ?? []).filter((w) => w && typeof w.year === "number");
@@ -327,7 +327,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
         </p>
         {headlineWindows.length > 0 && (
           <p className="mb-1 text-xs text-ink-3">
-            {headlineWindows.map((w) => `${SOURCE_NAME[w.source_id] ?? w.source_id} headlines, ${w.year}: the newest ${w.kept !== null ? w.kept.toLocaleString("en-GB") : "—"} of ${w.matched !== null ? w.matched.toLocaleString("en-GB") : "—"} matches${w.from ? `, from ${fmtDate(w.from)}` : ""}${w.to ? ` to ${fmtDate(w.to)}` : ""}`).join("; ")}; the year&apos;s earlier stories are not in the list.
+            {headlineWindows.map((w) => `${SOURCE_NAME[w.source_id] ?? w.source_id} headlines, ${w.year}: ${w.kept !== null ? w.kept.toLocaleString("en-GB") : "—"} of ${w.matched !== null ? w.matched.toLocaleString("en-GB") : "—"} matching headlines kept${w.from ? `, dated ${fmtDate(w.from)}` : ""}${w.to ? ` to ${fmtDate(w.to)}` : ""}`).join("; ")}; the rest are not in the list, the monthly counts above cover them all.
           </p>
         )}
         <div className="mb-2 flex flex-wrap items-center gap-1.5 text-xs">

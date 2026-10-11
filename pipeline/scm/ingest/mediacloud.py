@@ -5,8 +5,9 @@ keeps one national collection per country ("Argentina - National"). It is the hi
 record: GDELT throttles GitHub's runner addresses and starts in 2017, while Media Cloud answers a registered
 key (MEDIACLOUD_KEY, free; 4,000 requests a week, the count endpoints two a minute) and its collections reach back to about 2010. Per country and year the adapter asks
 for three daily count series (the mineral query; mineral AND China; mineral AND the United States) and one
-story list (the mineral query, newest first, paginated, capped at MAX_STORIES per country-year: a big
-collection matches tens of thousands of stories a year, so the list holds the newest ones and the cut is
+story list (the mineral query, requested newest first though the API answers in its own order, paginated, capped
+at MAX_STORIES per country-year: a big collection matches tens of thousands of stories a year, so the list is a
+sample of them and the cut is
 recorded, per country-year, as `headlines_window` {from, to, kept, matched, truncated} in the manifest and in
 the ingest_run record, from which the export tells the reader the window the headlines come from). The daily
 rows are summed into MONTHLY `media_volume` rows (`period = YYYY-MM-01`); `items_total` is the collection's
@@ -172,7 +173,7 @@ def headline_windows(pages: dict[tuple[str, int], dict[int, tuple[list[str], int
     stories on the page, has a next-page token)): `from`/`to` the oldest and newest publish date in the list, `kept` the
     stories the list holds, `matched` the year's matches of the same query (the daily mining counts summed; None when
     that count call failed) and `truncated` when the last stored page still carried a next-page token, i.e. the year
-    has more matches than MAX_STORIES and the list holds the newest ones only."""
+    has more matches than MAX_STORIES and the list holds a sample of them only."""
     out: dict[str, dict] = {}
     for (iso, year), by_page in sorted(pages.items()):
         dates = [d for _, (ds, _, _) in sorted(by_page.items()) for d in ds]
@@ -369,8 +370,8 @@ class MediaCloud(Adapter):
         snap.save()
 
     def _stories(self, snap: Snapshot, iso: str, year: int, common: dict) -> None:
-        """The story list of a country-year, newest first, at most MAX_STORIES stories. A year with more matches than
-        the cap is cut: the list then holds the newest stories only, and the cut is recorded in the manifest under
+        """The story list of a country-year (requested newest first; the API answers in its own order), at most
+        MAX_STORIES stories. A year with more matches than the cap is cut: the list then holds a sample of them only, and the cut is recorded in the manifest under
         `stories_truncated` ({"ISO/year": {from, to, kept}}) so a reader never takes a few weeks for the year."""
         token: str | None = None
         got = 0

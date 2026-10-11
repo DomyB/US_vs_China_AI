@@ -293,11 +293,12 @@ parser's own measure, which flags an item naming a mineral or mining; the kept `
 narrower flag and are not used), and `n_fetches` the number of fetches; the Media tab words a feed month
 as "items seen at the month's fullest fetch". The yearly attention
 series uses the same monthly feed totals, so a denominator no longer grows with the number of fetches.
-Media Cloud's headline lists are fetched newest first, and when a country-year has more matches than the
-2,000 the adapter keeps, the cut is recorded (`headlines_window`: source, year, the first and last
+Media Cloud's headline lists are requested newest first, but the API answers matches in its own order, so
+when a country-year has more matches than the 2,000 the adapter keeps, the kept list is a sample spread
+over the year; the cut is recorded (`headlines_window`: source, year, the first and last
 publication date kept, how many were kept and how many matched) in the ingest-run record, from which the
 export writes `freshness.headlines_window` into the media file and the Media tab says, for example,
-"headlines: the newest 2,000 of 13,809 matches, from 2026-09-14".
+"headlines, 2013: 2,000 of 6,640 matching headlines kept, dated 2 Jan to 24 Nov 2013".
 
 Each ingestion run first restores the Parquet warehouse from the latest `data-v*` release, so
 running a subset of adapters (`targets: wb_wgi usgs_mcs`) refreshes only those tables and keeps
