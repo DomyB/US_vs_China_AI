@@ -167,6 +167,94 @@ sources:
     verified_on: 2026-10-01
     verified_method: search
     notes: "Executive orders, Section 232 proclamations (critical minerals Apr 2025; copper Jul 2025), list notices."
+  - id: us_state_press
+    name: U.S. Department of State, press releases
+    url: https://www.state.gov
+    api_url: https://www.state.gov/rss-feed/press-releases/feed/
+    category: press
+    scope: US
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    reliability: official
+    orientation: "official"
+    paywall: none
+    license: "Public domain (U.S. government work)"
+    access: rss
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: weekly
+    coverage_from: 2008
+    coverage_to: 2026
+    language: en
+    status: uncertain
+    verified_on: 2026-10-11
+    verified_method: search
+    notes: "Official press room of the Department of State (statements, readouts, fact sheets). Regional outlet: a release is filed under each of the twelve countries it names and dropped when it names none. Feed URL unverified; the weekly liveness check confirms it."
+  - id: us_treasury_press
+    name: U.S. Department of the Treasury, press releases
+    url: https://home.treasury.gov
+    api_url: https://home.treasury.gov/news/press-releases/rss
+    category: press
+    scope: US
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    reliability: official
+    orientation: "official"
+    paywall: none
+    license: "Public domain (U.S. government work)"
+    access: rss
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: weekly
+    coverage_from: 2008
+    coverage_to: 2026
+    language: en
+    status: uncertain
+    verified_on: 2026-10-11
+    verified_method: search
+    notes: "Official press room of the Treasury (sanctions, OFAC designations, investment screening). Regional outlet: a release is filed under each of the twelve countries it names and dropped when it names none. Feed URL unverified; the weekly liveness check confirms it."
+  - id: ustr_press
+    name: Office of the U.S. Trade Representative, press releases
+    url: https://ustr.gov
+    api_url: https://ustr.gov/about-us/policy-offices/press-office/press-releases/rss
+    category: press
+    scope: US
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    reliability: official
+    orientation: "official"
+    paywall: none
+    license: "Public domain (U.S. government work)"
+    access: rss
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: weekly
+    coverage_from: 2008
+    coverage_to: 2026
+    language: en
+    status: uncertain
+    verified_on: 2026-10-11
+    verified_method: search
+    notes: "Official press room of USTR (trade agreements, Section 301 and 232 actions, critical-minerals agreements). Regional outlet: a release is filed under each of the twelve countries it names and dropped when it names none. Feed URL unverified; the weekly liveness check confirms it."
+  - id: dfc_press
+    name: U.S. International Development Finance Corporation, press releases
+    url: https://www.dfc.gov
+    api_url: https://www.dfc.gov/media/press-releases/rss
+    category: press
+    scope: US
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    reliability: official
+    orientation: "official"
+    paywall: none
+    license: "Public domain (U.S. government work)"
+    access: rss
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: weekly
+    coverage_from: 2008
+    coverage_to: 2026
+    language: en
+    status: uncertain
+    verified_on: 2026-10-11
+    verified_method: search
+    notes: "Official press room of the DFC (financing announcements; the project list itself is the dfc_projects source). Regional outlet: a release is filed under each of the twelve countries it names and dropped when it names none. Feed URL unverified; the weekly liveness check confirms it."
   # ---- China (7c)
   - id: mofcom_ofdi_bulletin
     name: MOFCOM Statistical Bulletin of China's Outward Foreign Direct Investment
@@ -246,7 +334,10 @@ sources:
     api_url: http://spanish.xinhuanet.com/rss/rss.html
     category: press
     scope: CN
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
     reliability: state_media
+    orientation: "state media (People's Republic of China)"
+    paywall: none
     license: "Copyright Xinhua; headlines and links only"
     access: rss
     auth: none
@@ -256,17 +347,20 @@ sources:
     coverage_to: 2026
     language: es
     status: live
-    verified_on: 2026-10-01
+    verified_on: 2026-10-11
     verified_method: search
-    notes: "State-controlled media. RSS feeds include China-Iberoamérica."
+    notes: "State-controlled media. Regional outlet: a headline is filed under each of the twelve countries it names. The RSS index page (/rss/rss.html) lists a China-Iberoamérica feed; the adapter harvests the feed links from that page, then tries the homepage and the common feed paths. Feed URL to be confirmed by the weekly liveness check."
   - id: peoples_daily_es
     name: People's Daily (Spanish edition)
     url: http://spanish.people.com.cn
     category: press
     scope: CN
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
     reliability: state_media
+    orientation: "state media (People's Republic of China)"
+    paywall: none
     license: "Copyright; headlines and links only"
-    access: html
+    access: rss
     auth: none
     update_frequency: continuous
     refresh_schedule: daily
@@ -274,9 +368,30 @@ sources:
     coverage_to: 2026
     language: es
     status: uncertain
-    verified_on: 2026-10-01
+    verified_on: 2026-10-11
     verified_method: search
-    notes: "State-controlled media. RSS availability unverified."
+    notes: "State-controlled media. Regional outlet: a headline is filed under each of the twelve countries it names. No feed URL is known; discovery will try the homepage (declared feeds) and the common feed paths. Feed URL to be confirmed by the weekly liveness check."
+  - id: cgtn_es
+    name: CGTN en Español
+    url: https://espanol.cgtn.com
+    category: press
+    scope: CN
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    reliability: state_media
+    orientation: "state media (People's Republic of China)"
+    paywall: none
+    license: "Copyright CGTN; headlines and links only"
+    access: rss
+    auth: none
+    update_frequency: continuous
+    refresh_schedule: daily
+    coverage_from: 2016
+    coverage_to: 2026
+    language: es
+    status: uncertain
+    verified_on: 2026-10-11
+    verified_method: search
+    notes: "State-controlled media (China Media Group). Regional outlet: a headline is filed under each of the twelve countries it names. Feed to be confirmed: discovery will try the homepage and the common feed paths; the weekly liveness check confirms it."
   # ---- China-Latin America databases (7d)
   - id: bu_codf
     name: Boston University GDP Center, China's Overseas Development Finance Database

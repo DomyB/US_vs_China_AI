@@ -1,7 +1,11 @@
 """National press: one RSS adapter per registry outlet -> document (doc_type news) and media_volume.
 
 Only headline, date, outlet and URL are stored (brief section 4). Feeds expose the most recent
-items, so these adapters are incremental and run weekly; history comes from GDELT.
+items, so these adapters are incremental and run weekly; history comes from GDELT and Media Cloud.
+
+An outlet registered with one country (a national daily) has every headline filed under that country. An
+outlet registered with several (Xinhua's Spanish service, a US department's press room) covers the whole
+region: a headline is filed under each country it names (`countries_mentioned`) and dropped when it names none.
 """
 from __future__ import annotations
 
@@ -14,7 +18,7 @@ from ..registry import sources
 from .base import Adapter
 from .docs import DOCUMENT_COLUMNS, MEDIA_VOLUME_COLUMNS, make_document
 from .feeds import FEED_CANDIDATES, discover_feeds, parse_feed, today_iso
-from .keywords import is_relevant, relevance
+from .keywords import countries_mentioned, is_relevant, relevance
 
 MAX_FEEDS = 3
 
@@ -98,7 +102,8 @@ class RSSPress(Adapter):
             return False
         if not self._is_feed(snap, name):
             # an HTML page where a feed was expected is often the publisher's RSS index: harvest its links once
-            if snap.has(name) and not url.endswith(".html") and "index_" not in name:
+            # (a page the registry declares as api_url is harvested even when it ends in .html, e.g. Xinhua's rss.html)
+            if snap.has(name) and (url == self.src.api_url or not url.endswith(".html")) and "index_" not in name:
                 html = snap.path(name).read_text(encoding="utf-8", errors="ignore")
                 links = [u for u in discover_feeds(html, url, anchors=True) if u != url and _same_site(u, self.src.url)][:12]
                 snap.manifest.setdefault("index_pages", []).append({"url": url, "links": links})
@@ -117,7 +122,8 @@ class RSSPress(Adapter):
         return True
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
-        country = self.src.countries[0]
+        countries = list(self.src.countries)
+        regional = len(countries) > 1  # a regional outlet: headlines are filed by the countries they name
         lang = self.src.language if self.src.language in ("es", "pt", "en", "nl") else "multi"
         rows: dict[str, dict] = {}
         volume: list[dict] = []
@@ -126,24 +132,36 @@ class RSSPress(Adapter):
             if not name.startswith("feed_") or not snap.has(name):
                 continue
             items = parse_feed(snap.path(name))
-            tot = mining = cn = us = 0
+            tot = 0
+            counts = {iso: {"items_mining": 0, "items_cn": 0, "items_us": 0} for iso in countries}
             for it in items:
                 rel = relevance(it.title)
                 tot += 1
-                mining += rel.mining or bool(rel.minerals)
-                cn += rel.mentions_cn
-                us += rel.mentions_us
-                if not is_relevant(rel, "news", it.title):
+                # a national outlet files everything under its country; a regional one under each country the
+                # headline names (none named: counted in the feed's size only, no document row)
+                targets = [c for c in countries_mentioned(it.title) if c in counts] if regional else countries
+                for iso in targets:
+                    counts[iso]["items_mining"] += rel.mining or bool(rel.minerals)
+                    counts[iso]["items_cn"] += rel.mentions_cn
+                    counts[iso]["items_us"] += rel.mentions_us
+                if not targets or not is_relevant(rel, "news", it.title):
                     continue
                 date = it.published or period
                 prec = "day" if it.published else "seen"
                 if int(date[:4]) < 1990:
                     continue
-                row = make_document(source_id=self.source_id, country=country, doc_type="news", date=date, date_precision=prec, title=it.title,
-                                    language=lang, venue=self.src.name, url=it.link, rel=rel, outlet_source_id=self.source_id)
-                rows.setdefault(row["doc_id"], row)
-            volume.append({"country": country, "period": period, "items_total": tot, "items_mining": int(mining), "items_cn": int(cn), "items_us": int(us),
-                           "source_record_url": snap.files[name]["url"]})
+                for iso in targets:  # one document row per country (make_document keys the id on the country)
+                    row = make_document(source_id=self.source_id, country=iso, doc_type="news", date=date, date_precision=prec, title=it.title,
+                                        language=lang, venue=self.src.name, url=it.link, rel=rel, outlet_source_id=self.source_id)
+                    rows.setdefault(row["doc_id"], row)
+            # One media_volume row per country. `items_total` is always the feed's size (what the outlet published);
+            # for a national outlet the three other counts cover the whole feed, for a regional outlet they are
+            # restricted to the headlines naming that country, so items_mining / items_total reads as the share
+            # of the outlet's output that is about mining in that country (a zero row says the feed was read and
+            # nothing named the country).
+            for iso in countries:
+                volume.append({"country": iso, "period": period, "items_total": tot, "items_mining": int(counts[iso]["items_mining"]),
+                               "items_cn": int(counts[iso]["items_cn"]), "items_us": int(counts[iso]["items_us"]), "source_record_url": snap.files[name]["url"]})
         return {
             "document": self.stamp(snap, pd.DataFrame(list(rows.values()), columns=DOCUMENT_COLUMNS)),
             "media_volume": self.stamp(snap, pd.DataFrame(volume, columns=MEDIA_VOLUME_COLUMNS)),

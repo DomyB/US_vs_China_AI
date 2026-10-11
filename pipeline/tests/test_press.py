@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from scm import schema
+from scm.ingest.keywords import countries_mentioned
 from scm.ingest.national_guy import GGMC
 from scm.ingest.press import RSSPress, _looks_like_feed_url, make_rss_adapters
 
@@ -25,9 +26,75 @@ def test_rss_press_headlines_only(snap_factory):
     assert docs.set_index("title_original").loc["China amplia compras de nióbio brasileiro", "url_norm"] == "https://www1.folha.uol.com.br/mercado/2026/10/x.shtml"
     undated = docs.set_index("title_original").loc["EUA e lítio: acordo"]
     assert undated["date_precision"] == "seen"
+    assert len(out["media_volume"]) == 1 and (docs["country"] == "BRA").all()  # a national outlet: one country, one volume row per feed
     vol = out["media_volume"].iloc[0]
     assert vol["items_total"] == 4 and vol["items_mining"] == 3 and vol["items_cn"] == 1 and vol["items_us"] == 1
     assert set(docs.columns) >= {"outlet_source_id", "venue"} and docs.iloc[0]["venue"].startswith("Folha")
+
+
+REGIONAL_FEED = ('<?xml version="1.0"?><rss><channel>'
+                 '<item><title>China y Argentina firman acuerdo sobre litio</title><link>http://spanish.xinhuanet.com/a.htm</link><pubDate>Thu, 01 Oct 2026 08:00:00 +0800</pubDate></item>'
+                 '<item><title>Inversión china en el cobre de Chile y Perú crece</title><link>http://spanish.xinhuanet.com/b.htm</link><pubDate>Thu, 01 Oct 2026 09:00:00 +0800</pubDate></item>'
+                 '<item><title>China amplía cooperación minera con América Latina</title><link>http://spanish.xinhuanet.com/c.htm</link></item>'
+                 '<item><title>Xi Jinping recibe al presidente de Bolivia</title><link>http://spanish.xinhuanet.com/d.htm</link></item>'
+                 '</channel></rss>')
+
+
+def test_countries_mentioned_names_and_demonyms_with_accents_folded():
+    assert countries_mentioned("China y Argentina firman acuerdo sobre litio") == ["ARG"]
+    assert countries_mentioned("Inversión china en el cobre de Chile y Perú") == ["CHL", "PER"]  # registry order, accent folded
+    assert countries_mentioned("Brasil e Peru ampliam exportações") == ["BRA", "PER"]
+    assert countries_mentioned("Brazilian niobium and Guyanese gold draw US interest") == ["BRA", "GUY"]  # English demonyms
+    assert countries_mentioned("Litio boliviano y cobre chileno") == ["BOL", "CHL"]
+    assert countries_mentioned("Mineração no Equador e no Paraguai; o garimpo brasileiro") == ["BRA", "ECU", "PRY"]  # Portuguese forms
+    assert countries_mentioned("El canciller surinamés y el uruguayo") == ["SUR", "URY"]
+    assert countries_mentioned("Empresas ecuatorianas, colombianas y venezolanas") == ["COL", "ECU", "VEN"]
+    assert countries_mentioned("Guianense recebe delegação") == ["GUY"]
+    assert countries_mentioned("Guiana Francesa lança foguete; French Guiana launch") == []  # not Guyana
+    assert countries_mentioned("China amplía cooperación minera con América Latina") == []
+    assert countries_mentioned("ARGENTINAS: las empresas") == ["ARG"] and countries_mentioned("") == [] and countries_mentioned(None) == []
+
+
+def test_regional_feed_files_each_headline_under_the_countries_it_names(snap_factory):
+    cls = type("RSS_xinhua_es", (RSSPress,), {"source_id": "xinhua_es"})
+    snap = snap_factory("xinhua_es", {"feed_0.xml": REGIONAL_FEED})
+    out = cls().parse(snap)
+    for k, v in out.items():
+        assert len(schema.validate(k, v.copy())) == len(v)
+    docs = out["document"]
+    # one row per (headline, country): CHL and PER share a headline and a URL but get distinct doc ids
+    assert sorted(docs["country"]) == ["ARG", "CHL", "PER"] and docs["doc_id"].is_unique
+    assert set(docs[docs["country"] != "ARG"]["title_original"]) == {"Inversión china en el cobre de Chile y Perú crece"}
+    assert (docs["source_id"] == "xinhua_es").all() and (docs["reliability"] == "state_media").all() and (docs["outlet_source_id"] == "xinhua_es").all()
+    # a mining headline naming no country is dropped; a presidential visit naming Bolivia is not relevant
+    assert "China amplía cooperación minera con América Latina" not in set(docs["title_original"]) and "BOL" not in set(docs["country"])
+    vol = out["media_volume"].set_index("country")
+    assert len(vol) == 12 and (vol["items_total"] == 4).all()  # one row per registered country, items_total = the feed's size
+    assert vol.loc["ARG", "items_mining"] == 1 and vol.loc["CHL", "items_mining"] == 1 and vol.loc["PER", "items_mining"] == 1
+    assert vol.loc["ARG", "items_cn"] == 1 and vol.loc["BOL", "items_cn"] == 1 and vol.loc["BOL", "items_mining"] == 0  # Bolivia: named, not mining
+    assert vol.loc["URY", "items_mining"] == 0 and vol.loc["URY", "items_cn"] == 0 and vol.loc["URY", "items_us"] == 0
+    assert vol["items_mining"].sum() == 3 < 4  # the headline naming no country counts in the feed's size only
+
+
+def test_declared_rss_index_page_is_harvested_even_when_it_ends_in_html(snap_factory, monkeypatch):
+    cls = type("RSS_xinhua_es", (RSSPress,), {"source_id": "xinhua_es"})
+    ad = cls()
+    index_url = ad.src.api_url
+    assert index_url.endswith(".html") and _looks_like_feed_url(index_url)
+    feed_url = "http://spanish.xinhuanet.com/rss/iberoamerica.xml"
+    snap = snap_factory("xinhua_es", {})
+
+    def fake_get(url, name, params=None, **kw):
+        p = snap.path(name)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text('<html><body><a href="/rss/iberoamerica.xml">Iberoamérica</a></body></html>' if url == index_url else REGIONAL_FEED, encoding="utf-8")
+        snap.record(name, url, status=200)
+        return p
+
+    monkeypatch.setattr(snap, "get", fake_get)
+    assert ad._try_feed(snap, index_url, "feed_0.xml") is True
+    assert snap.has("feed_0.xml") and snap.files["feed_0.xml"]["url"] == feed_url
+    assert snap.manifest["index_pages"][0] == {"url": index_url, "links": [feed_url]} and snap.manifest["feed_urls"] == [feed_url]
 
 
 def test_declared_feed_may_live_on_a_syndication_host():
@@ -43,6 +110,13 @@ def test_declared_feed_may_live_on_a_syndication_host():
 def test_rss_adapters_come_from_registry():
     ids = [a.source_id for a in make_rss_adapters()]
     assert "bra_folha" in ids and "arg_clarin" in ids and len(ids) >= 20
+    # the regional outlets: Chinese state media and the US official press rooms, each registered with the twelve countries
+    regional = {"xinhua_es", "peoples_daily_es", "cgtn_es", "us_state_press", "us_treasury_press", "ustr_press", "dfc_press"}
+    assert regional <= set(ids)
+    from scm.registry import IN_SCOPE, sources
+    assert all(list(sources()[sid].countries) == IN_SCOPE for sid in regional)
+    assert all(sources()[sid].reliability == "official" for sid in regional if sid.startswith(("us_", "ustr", "dfc")))
+    assert all(sources()[sid].reliability == "state_media" for sid in ("xinhua_es", "peoples_daily_es", "cgtn_es"))
     assert _looks_like_feed_url("https://www.clarin.com/rss/lo-ultimo/") and not _looks_like_feed_url("https://servicios.lanacion.com.ar/herramientas/rss/ayuda")
 
 

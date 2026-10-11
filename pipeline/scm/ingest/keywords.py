@@ -11,7 +11,7 @@ import re
 import unicodedata
 from dataclasses import dataclass, field
 
-from ..registry import minerals
+from ..registry import IN_SCOPE, minerals
 from .util import _KEYWORDS
 
 KEYWORDS_VERSION = "2026.10.2"
@@ -76,6 +76,38 @@ _NL_MINERALS = {"lithium": [r"lithium"], "copper": [r"koper"], "gold": [r"goud",
 for _m, _ws in _NL_MINERALS.items():
     if _m in MINERAL_RE:
         MINERAL_RE[_m] = _compile(_KEYWORDS[_m] + _ws)
+
+
+# The twelve countries in scope, by name and demonym in Spanish, Portuguese and English (accents are folded by
+# `_compile`, so "Perú", "Brasília" and "brasileño" match their unaccented forms). A regional outlet (Xinhua's
+# Spanish service, a US press room) covers all twelve: `countries_mentioned` says which ones a headline names.
+COUNTRY_TERMS: dict[str, list[str]] = {
+    "ARG": [r"argentina", r"argentin[oa]s?", r"argentines?", r"argentinians?", r"argentineans?"],
+    "BOL": [r"bolivia", r"bolivian[oa]s?", r"bolivians?"],
+    "BRA": [r"brasil", r"brazil", r"brasile[ñn][oa]s?", r"brasileir[oa]s?", r"brazilians?"],
+    "CHL": [r"chile", r"chilen[oa]s?", r"chileans?"],
+    "COL": [r"colombia", r"colombian[oa]s?", r"colombians?"],
+    "ECU": [r"ecuador", r"equador", r"ecuatorian[oa]s?", r"equatorian[oa]s?", r"ecuador[ie]ans?"],
+    "GUY": [r"guyana", r"guiana", r"guyan[eé]s(?:a|as|es)?", r"guianense?s?", r"guian[eê]s(?:a|as|es)?", r"guyanese"],
+    "PRY": [r"paraguay", r"paraguai", r"paraguay[oa]s?", r"paraguai[oa]s?", r"paraguayans?"],
+    "PER": [r"per[uú]", r"peruan[oa]s?", r"peruvians?"],
+    "SUR": [r"surinam", r"suriname", r"surinam[eé]s(?:a|as|es)?", r"surinam[eê]s(?:a|as|es)?", r"surinamese"],
+    "URY": [r"uruguay", r"uruguai", r"uruguay[oa]s?", r"uruguai[oa]s?", r"uruguayans?"],
+    "VEN": [r"venezuela", r"venezolan[oa]s?", r"venezuelan[oa]s?", r"venezuelans?"],
+}
+assert list(COUNTRY_TERMS) == IN_SCOPE
+COUNTRY_RE: dict[str, re.Pattern] = {iso: _compile(ws) for iso, ws in COUNTRY_TERMS.items()}
+# Surface forms that contain a country name without naming that country: French Guiana would otherwise count as
+# Guyana. Blanked before the country match, as `actor_text` does for the United States.
+NON_COUNTRY = [r"guiana\s+francesa", r"guayana\s+francesa", r"french\s+guiana", r"guyane\s+fran[cç]aise", r"guyane"]
+NON_COUNTRY_RE = re.compile(r"(?<![\w])(?:" + "|".join(f"(?:{_fold(p)})" for p in NON_COUNTRY) + r")(?![\w])", re.IGNORECASE)
+
+
+def countries_mentioned(text: object) -> list[str]:
+    """ISO3 codes of the in-scope countries the text names (country name or demonym; Spanish, Portuguese or
+    English; accents folded), in registry order and without duplicates. Empty when none is named."""
+    t = NON_COUNTRY_RE.sub(" ", _fold(str(text or "")))
+    return [iso for iso, pat in COUNTRY_RE.items() if pat.search(t)]
 
 
 @dataclass
