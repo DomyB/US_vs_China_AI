@@ -9,8 +9,8 @@
    },
    "status": 200,
    "bytes": 37622,
-   "sha256": "d32375ce83ded0aab319edb67859635fe2b2e4ba8aa6a2badcd7724f26c73fb1",
-   "retrieved_at": "2026-10-04T12:05:35+00:00",
+   "sha256": "8261330d4b9ba821ef77ed3c6f22cacf23550d0a652d35f9f4f261e354b21eca",
+   "retrieved_at": "2026-10-11T00:05:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -23,7 +23,7 @@
    "status": 200,
    "bytes": 14121,
    "sha256": "71afd685c6382de804bdf136a281049f6c423e9570e5d89a055ead075cd4241e",
-   "retrieved_at": "2026-10-04T12:05:35+00:00",
+   "retrieved_at": "2026-10-11T00:05:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -36,17 +36,17 @@
    "status": 200,
    "bytes": 14121,
    "sha256": "71afd685c6382de804bdf136a281049f6c423e9570e5d89a055ead075cd4241e",
-   "retrieved_at": "2026-10-04T12:05:36+00:00",
+   "retrieved_at": "2026-10-11T00:05:31+00:00",
    "note": null,
    "trimmed": true
   },
   "proyectos/0.csv": {
-   "url": "https://datos.hcdn.gob.ar:443/dataset/839441fc-1b5c-45b8-82c9-8b0f18ac7c9b/resource/22b2d52c-7a0e-426b-ac0a-a3326c388ba6/download/proyectos_parlamentarios2.5.csv",
+   "url": "https://datos.hcdn.gob.ar:443/dataset/839441fc-1b5c-45b8-82c9-8b0f18ac7c9b/resource/22b2d52c-7a0e-426b-ac0a-a3326c388ba6/download/proyectos_parlamentarios2.6.csv",
    "params": {},
    "status": 200,
-   "bytes": 31542244,
-   "sha256": "8cfed1df1ae01d593587e4e29b225eabf910f6474d899b36ef9000b7cc61686d",
-   "retrieved_at": "2026-10-04T12:05:46+00:00",
+   "bytes": 31681773,
+   "sha256": "73915a50837d586232f9f174ec70fdc10e06f26ecbf9a99995ad5bc5cd7fe243",
+   "retrieved_at": "2026-10-11T00:05:39+00:00",
    "note": null,
    "trimmed": true
   },
@@ -56,7 +56,7 @@
    "status": 200,
    "bytes": 187178,
    "sha256": "797bd3dd10323245a7df8283e22aa24bcbeb8814248b51c19e60e4c5d850e66e",
-   "retrieved_at": "2026-10-04T12:05:46+00:00",
+   "retrieved_at": "2026-10-11T00:05:39+00:00",
    "note": null,
    "trimmed": true
   },
@@ -66,18 +66,18 @@
    "status": 200,
    "bytes": 18463248,
    "sha256": "033b3bc2489a6b43547dee94347a769b225cd99519874aa1fdb540d93f4a6353",
-   "retrieved_at": "2026-10-04T12:05:53+00:00",
+   "retrieved_at": "2026-10-11T00:05:44+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_hcdn/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_hcdn/2026-10-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "resource_candidates": {
   "proyectos": [
    {
     "name": "Proyectos Parlamentarios",
-    "url": "https://datos.hcdn.gob.ar:443/dataset/839441fc-1b5c-45b8-82c9-8b0f18ac7c9b/resource/22b2d52c-7a0e-426b-ac0a-a3326c388ba6/download/proyectos_parlamentarios2.5.csv",
+    "url": "https://datos.hcdn.gob.ar:443/dataset/839441fc-1b5c-45b8-82c9-8b0f18ac7c9b/resource/22b2d52c-7a0e-426b-ac0a-a3326c388ba6/download/proyectos_parlamentarios2.6.csv",
     "package": "Proyectos Parlamentarios",
     "format": "csv"
    }

@@ -1501,15 +1501,15 @@
    "SUR"
   ]
  },
- "generated_on": "2026-10-10",
+ "generated_on": "2026-10-11",
  "status": "computed",
  "quant_model": {
   "status": "computed",
   "method_version": "2026.10",
   "weights_version": "2026.10.eq",
-  "run_id": "quant-20261010T205155Z",
-  "inputs_release": "data-v2026.10.10.54",
-  "created_at": "2026-10-10T20:53:23+00:00",
+  "run_id": "quant-20261011T000959Z",
+  "inputs_release": "data-v2026.10.10.55",
+  "created_at": "2026-10-11T00:11:03+00:00",
   "draws": 500,
   "rank_stability": 0.613,
   "text_model_label": "zero-shot baseline, not yet validated",

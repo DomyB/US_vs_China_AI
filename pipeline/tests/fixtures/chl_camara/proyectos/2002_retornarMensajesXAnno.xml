@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>3377</ns0:Id>
+    <ns0:NumeroBoletin>3075-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula nueva política de personal a los funcionarios públicos que indica. </ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3329</ns0:Id>
+    <ns0:NumeroBoletin>3029-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre el Gobierno de la República de Chile y el Gobierno de la República de Polonia para evitar la doble tributación y para Prevenir la Evasión Fiscal en relación al impuesto a la renta y al patrimonio, y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-08-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3169</ns0:Id>
+    <ns0:NumeroBoletin>2888-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Posterga la vigencia del reavalúo de bienes raíces agrícolas y faculta al Presidente de la República para dictar texto refundido y actualizado que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-03-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3170</ns0:Id>
+    <ns0:NumeroBoletin>2886-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Procedimiento para otorgar la posesión efectiva de la herencia.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-03-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3375</ns0:Id>
+    <ns0:NumeroBoletin>3073-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula las condiciones de trabajo y contratación de artistas y técnicos de espectáculos.  </ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3172</ns0:Id>
+    <ns0:NumeroBoletin>2892-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 17.235, sobre Impuesto Territorial; el decreto ley N° 3.063, sobre Rentas Municipales; la ley N° 18.695, Orgánica Constitucional de Municipalidades y faculta a las municipalidades para otorgar condonaciones que indica. (Rentas Municipales II).</ns0:Nombre>
+    <ns0:FechaIngreso>2002-03-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3179</ns0:Id>
+    <ns0:NumeroBoletin>2898-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre el Gobierno de Chile y el Centro de Justicia de las Américas, suscrito en Santiago, el 22 de enero de 2.001.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-04-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3180</ns0:Id>
+    <ns0:NumeroBoletin>2899-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Precisa régimen tributario aplicable al mayor valor de la enajenación de acciones de sociedades anónimas abiertas. </ns0:Nombre>
+    <ns0:FechaIngreso>2002-04-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3186</ns0:Id>
+    <ns0:NumeroBoletin>2904-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica diversos cuerpos legales en materia de multas de tránsito.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-04-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3327</ns0:Id>
+    <ns0:NumeroBoletin>3027-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre Chile y el Reino de Noruega para evitar la doble imposición y para prevenir la evasión fiscal en relación a los impuestos a la renta y al patrimonio, y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-08-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3328</ns0:Id>
+    <ns0:NumeroBoletin>3028-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre República de Chile y República Federativa del Brasil para evitar la doble imposición y para prevenir la evasión fiscal en relación a los impuestos a la renta y al Patrimonio y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-08-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3330</ns0:Id>
+    <ns0:NumeroBoletin>3030-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio de seguridad social entre Chile y Venezuela.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-08-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3331</ns0:Id>
+    <ns0:NumeroBoletin>3026-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modernización y rediseño funcional del Ministerio de Educación.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-08-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3334</ns0:Id>
+    <ns0:NumeroBoletin>3034-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 19.479, que dicta normas sobre gestión y personal del Servicio Nacional de Aduanas.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-09-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3335</ns0:Id>
+    <ns0:NumeroBoletin>3035-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Convenio de Seguridad Social de 1993 entre el Gobierno de Chile y el Gobierno de la República Federativa del Brasil, suscrito en Arica el 20 de marzo del año 2002</ns0:Nombre>
+    <ns0:FechaIngreso>2002-09-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3336</ns0:Id>
+    <ns0:NumeroBoletin>3039-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que establece la obligatoriedad  y gratuidad de la educación media. </ns0:Nombre>
+    <ns0:FechaIngreso>2002-09-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3146</ns0:Id>
+    <ns0:NumeroBoletin>2889-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Concede amnistía por infracciones a las normas del tránsito cuyo elemento probatorio se hubiere fundado en los denominados fotorradares, y suspende por noventa días la vigencia de los equipos de registro de tales infracciones</ns0:Nombre>
+    <ns0:FechaIngreso>2002-01-23T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3204</ns0:Id>
+    <ns0:NumeroBoletin>2920-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga un bono a los funcionarios públicos que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-04-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3207</ns0:Id>
+    <ns0:NumeroBoletin>2922-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula sistemas de energía eléctrica, establece un nuevo régimen de tarifas para sistemas eléctricos medianos e introduce las adecuaciones que indica a la ley general de servicios eléctricos.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3208</ns0:Id>
+    <ns0:NumeroBoletin>2923-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Prorroga la vigencia de concesiones de radiodifusión sonora que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3209</ns0:Id>
+    <ns0:NumeroBoletin>2921-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley Nº 18.290, de Tránsito, en lo relativo al cobro eléctronico de peajes, y la ley Nº 18.287, que establece procedimientos ante los Juzgados de Policía Local.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3214</ns0:Id>
+    <ns0:NumeroBoletin>2926-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Dicta normas para pago de hora no lectiva adicional.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3378</ns0:Id>
+    <ns0:NumeroBoletin>3076-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el plazo y el procedimiento para adecuar estatutos de organizaciones deportivas, establecido en la ley N° 19.172, del deporte. </ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3217</ns0:Id>
+    <ns0:NumeroBoletin>2931-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga beneficios a la Salud Primaria</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3218</ns0:Id>
+    <ns0:NumeroBoletin>2932-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Ley que modifica el decreto ley N° 3.063, sobre rentas municipales en materia de recaudación de derechos por transferencias de vehículos motorizados.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3348</ns0:Id>
+    <ns0:NumeroBoletin>3047-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece beneficios a concesionarios y ocupantes del borde costero de la Isla Róbinson Crusoe de la comuna de Juan Fernández. </ns0:Nombre>
+    <ns0:FechaIngreso>2002-09-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3349</ns0:Id>
+    <ns0:NumeroBoletin>3048-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Código Penal y el Código de Justicia Militar en materia de desacato. </ns0:Nombre>
+    <ns0:FechaIngreso>2002-09-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3350</ns0:Id>
+    <ns0:NumeroBoletin>3049-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga garantía del Estado a las obligaciones que indica, dispone la suscripción del convenio de programación con el sistema de empresas y modifica la ley N° 19.767.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-09-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3230</ns0:Id>
+    <ns0:NumeroBoletin>2936-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo para la promoción y protección recíproca de las inversiones y su protocolo, entre Chile y El Líbano.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3231</ns0:Id>
+    <ns0:NumeroBoletin>2937-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo para la promoción y protección recíproca de las inversiones y su protocolo, entre Chile e Indonesia.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3232</ns0:Id>
+    <ns0:NumeroBoletin>2938-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo para la promoción y protección recíproca de las inversiones y su protocolo, entre Chile y la República Helénica.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3233</ns0:Id>
+    <ns0:NumeroBoletin>2940-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo para la promoción y protección recíproca de las inversiones y su protocolo, entre Chile y la República Arabe de Egipto.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3235</ns0:Id>
+    <ns0:NumeroBoletin>2939-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo Multilateral sobre la Liberalización del Transporte Aéreo Internacional y su Anexo, suscrito en Washington el 11 de mayo de 2001.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3237</ns0:Id>
+    <ns0:NumeroBoletin>2945-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Reajusta el Monto de Ingreso Mínimo Mensual.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3238</ns0:Id>
+    <ns0:NumeroBoletin>2942-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 18.695, de Municipalidades en materia de dietas de concejales.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-05-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3252</ns0:Id>
+    <ns0:NumeroBoletin>2956-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo entre Chile y Vietnam para la promoción y protección recíproca de las inversiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3253</ns0:Id>
+    <ns0:NumeroBoletin>2957-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo entre Chile y Nueva Zelandia para la promoción y protección recíproca de las inversiones</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3254</ns0:Id>
+    <ns0:NumeroBoletin>2958-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo entre Chile y Turquía para la promoción y protección recíproca de las inversiones</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3255</ns0:Id>
+    <ns0:NumeroBoletin>2959-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo entre Chile y Colombia para la promoción y protección recíproca de las inversiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3256</ns0:Id>
+    <ns0:NumeroBoletin>2960-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo entre Chile y la República Dominicana para la promoción y protección recíproca de las inversiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3257</ns0:Id>
+    <ns0:NumeroBoletin>2961-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo entre Chile y la República de Túnez para la promoción y protección recíproca de las inversiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3258</ns0:Id>
+    <ns0:NumeroBoletin>2965-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de Acuerdo entre Chile y Sudáfrica para la promoción y protección recíproca de las inversiones y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3259</ns0:Id>
+    <ns0:NumeroBoletin>2966-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga bonificación anticipada a funcionarios de los Servicios de Salud y de las entidades que se mencionan.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3454</ns0:Id>
+    <ns0:NumeroBoletin>3168-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo de servicios aéreos entre los Gobiernos de la República de Chile y el Reino de Dinamarca y su anexo, suscritos en Copenhague el 27 de junio 2001.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-12-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3433</ns0:Id>
+    <ns0:NumeroBoletin>3173-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un mecanismo para compensar los menores ingresos municipales, con ocasión de una nueva determinación de los coeficientes de distribución del Fondo Común Municipal.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-12-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3572</ns0:Id>
+    <ns0:NumeroBoletin>3180-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Fortalecimiento de la transparencia en la administración privada de las quiebras</ns0:Nombre>
+    <ns0:FechaIngreso>2002-12-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3266</ns0:Id>
+    <ns0:NumeroBoletin>2970-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley que modifica la Ley general de Pesca y Acuicultura, en lo relativo a principios de conservación, medidas de administración, planes de manejo, desconcentración funcional, límite máximo de captura por armador, pesca artesanal e institucionalidad del sector pesquero.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3269</ns0:Id>
+    <ns0:NumeroBoletin>2964-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece nuevas normas para la reprogramación de deudas provenientes del crédito solidario de la educación superior.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3271</ns0:Id>
+    <ns0:NumeroBoletin>2975-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la unidad de Análisis e inteligencia Financiera y modifica el Código penal en materia de lavado o blanqueo de activos.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-06-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3277</ns0:Id>
+    <ns0:NumeroBoletin>2980-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el D.L. 2763 de 1979, con la finalidad de establecer una nueva concepción de la autoridad sanitaria, distintas modalidades de gestión y fortalecer la participación ciudadana.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-07-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3278</ns0:Id>
+    <ns0:NumeroBoletin>2981-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 18.933, sobre instituciones de salud previsional</ns0:Nombre>
+    <ns0:FechaIngreso>2002-07-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3279</ns0:Id>
+    <ns0:NumeroBoletin>2982-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece el financiamiento del gasto fiscal representado por el Plan Auge y Chile Solidario</ns0:Nombre>
+    <ns0:FechaIngreso>2002-07-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3285</ns0:Id>
+    <ns0:NumeroBoletin>2993-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de acuerdo entre las Repúblicas de Chile y de Hungría para la promoción y protección recíproca de las inversiones y su protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-07-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3373</ns0:Id>
+    <ns0:NumeroBoletin>3077-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Presupuesto del Sector Público para el año 2003.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3374</ns0:Id>
+    <ns0:NumeroBoletin>3071-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Protocolo Facultativo de la Convención Sobre los Derechos del Niño relativo a la participación de niños en los conflictos armados.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-01T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3401</ns0:Id>
+    <ns0:NumeroBoletin>3098-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un sistema de protección social para familias en situación de extrema pobreza denominado Chile Solidario.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3403</ns0:Id>
+    <ns0:NumeroBoletin>3101-12</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica normas relativas a la regularización de la posesión y ocupación sobre inmuebles</ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3405</ns0:Id>
+    <ns0:NumeroBoletin>3107-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea una bonificación a la contratación de mano de obra en las regiones I, XI, XII y provincias de Chiloé y Palena.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-10-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3414</ns0:Id>
+    <ns0:NumeroBoletin>3115-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Ley Nº 19.281, sobre arrendamiento de viviendas con promesa de compraventa</ns0:Nombre>
+    <ns0:FechaIngreso>2002-11-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3131</ns0:Id>
+    <ns0:NumeroBoletin>2850-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece el sistema de jueces de turno y de dedicación exclusiva en materia penal e introduce modificaciones a la tramitación de la segunda instancia en materia penal.</ns0:Nombre>
+    <ns0:FechaIngreso>2002-01-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

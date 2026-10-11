@@ -1,8 +1,8 @@
 {
  "source_id": "congress_gov",
  "files": {
-  "bills_110_0.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=0&sort=updateDate%2Bdesc",
+  "bills_106_0.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=0&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -11,14 +11,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 192875,
-   "sha256": "f7c7ece604530f5e8b0e73dcf39d622835447dcb75f1b7ac5e7a4d483ffc739c",
-   "retrieved_at": "2026-10-07T13:36:07+00:00",
+   "bytes": 171027,
+   "sha256": "d7af2f992e04a46f88a64ee27cef566744c801a9aed85902a14ee9413a3aa672",
+   "retrieved_at": "2026-10-10T22:24:36+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_250.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=250&sort=updateDate%2Bdesc",
+  "bills_106_250.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=250&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -27,14 +27,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 189206,
-   "sha256": "a31e3595e599dd6d0af841f1094479c91f16c9e051c6aa566002aab246fc076d",
-   "retrieved_at": "2026-10-07T13:36:15+00:00",
+   "bytes": 172465,
+   "sha256": "838f9216749c74ad8fbdac4212e5160aaa23e5071f3c9d826ee3b43c16529c4c",
+   "retrieved_at": "2026-10-10T22:24:40+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_500.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=500&sort=updateDate%2Bdesc",
+  "bills_106_500.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=500&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -43,14 +43,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 189481,
-   "sha256": "e2ca4359ab750b5dc75835f9e476fa264c49b463fede36fa7c72528d26a18849",
-   "retrieved_at": "2026-10-07T13:36:26+00:00",
+   "bytes": 173014,
+   "sha256": "0294e87eeccb8584b0c76bcbbda820172e155cca30e96db68e1e67c4182302c6",
+   "retrieved_at": "2026-10-10T22:24:45+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_750.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=750&sort=updateDate%2Bdesc",
+  "bills_106_750.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=750&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -59,14 +59,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 178707,
-   "sha256": "369c8aa7e24b254b907bfa7c0c7ef5c2f97652270c1735f1ad57e58835ba2327",
-   "retrieved_at": "2026-10-07T13:36:32+00:00",
+   "bytes": 173294,
+   "sha256": "fd7b1c6aac6dd53c1c704b41a718515d6978046dcd2389357bccb7b3ee183102",
+   "retrieved_at": "2026-10-10T22:24:49+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_1000.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=1000&sort=updateDate%2Bdesc",
+  "bills_106_1000.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=1000&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -75,14 +75,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 197203,
-   "sha256": "94e9e53a21796cac814da8a26b4f94b784c747619f53e2655ca2ef47a6042ff6",
-   "retrieved_at": "2026-10-07T13:36:40+00:00",
+   "bytes": 171677,
+   "sha256": "7d1163fda756efd200f01931026635f9a86d9d0eaaddced05c84e65a5d795d30",
+   "retrieved_at": "2026-10-10T22:24:53+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_1250.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=1250&sort=updateDate%2Bdesc",
+  "bills_106_1250.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=1250&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -91,14 +91,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 179955,
-   "sha256": "4947dc3ac63c5053d12d0666e231fe067e2a31f842e069e6221470185715feed",
-   "retrieved_at": "2026-10-07T13:36:46+00:00",
+   "bytes": 172738,
+   "sha256": "e63bfe9e5fc9b0264ae849036f05cab7a33f800a37a06b3fa58bdedea83085af",
+   "retrieved_at": "2026-10-10T22:25:01+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_1500.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=1500&sort=updateDate%2Bdesc",
+  "bills_106_1500.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=1500&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -107,14 +107,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 169972,
-   "sha256": "55cf1d07a94d68eff4c0a167db311a27cc1ecb413a1068acf2fef455b34a7c09",
-   "retrieved_at": "2026-10-07T13:36:53+00:00",
+   "bytes": 174617,
+   "sha256": "5e46188b09609ad0bf9f002b4b112ab8618dea3859f1003e0834bae4b9f21797",
+   "retrieved_at": "2026-10-10T22:25:08+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_1750.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=1750&sort=updateDate%2Bdesc",
+  "bills_106_1750.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=1750&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -123,14 +123,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 170368,
-   "sha256": "77b5ffab37e0e4cf9c0c5e9a8dd959c3aefcf437190815c64ec60137508e42ff",
-   "retrieved_at": "2026-10-07T13:37:01+00:00",
+   "bytes": 180421,
+   "sha256": "2a7bcb48c0351fab4b508b8f874a19596b91394ffcd7bf3a7d6e23d6c93db62b",
+   "retrieved_at": "2026-10-10T22:25:12+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_2000.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=2000&sort=updateDate%2Bdesc",
+  "bills_106_2000.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=2000&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -139,14 +139,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 174012,
-   "sha256": "ca1916258c17c8d6dca16933faea8420cf7d1b0bcb5307050d08facf47d5dd71",
-   "retrieved_at": "2026-10-07T13:37:12+00:00",
+   "bytes": 184137,
+   "sha256": "0788d10896397b588956fdd934828ea83b2f7d5fef19e84d63f270ee3b93aed9",
+   "retrieved_at": "2026-10-10T22:25:16+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_2250.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=2250&sort=updateDate%2Bdesc",
+  "bills_106_2250.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=2250&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -155,14 +155,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 174144,
-   "sha256": "8f9d56f39ad33f288540fd4ffa593a4294067deaecd89996de24fb8936c5907e",
-   "retrieved_at": "2026-10-07T13:37:18+00:00",
+   "bytes": 173011,
+   "sha256": "8fbc1f9cf3f94d192eebef23ac1b0374a112ff3e6817ba1d923844687d62b234",
+   "retrieved_at": "2026-10-10T22:25:21+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_2500.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=2500&sort=updateDate%2Bdesc",
+  "bills_106_2500.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=2500&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -171,14 +171,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 171180,
-   "sha256": "47d5ec0672784d703f09658f777148d9106411c188d14b731258f91ff7eaec34",
-   "retrieved_at": "2026-10-07T13:37:25+00:00",
+   "bytes": 171131,
+   "sha256": "fbfb5ae99c68a31f1e3e26821363c3aac9c61dff1072f60774ffcbb079924832",
+   "retrieved_at": "2026-10-10T22:25:24+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_2750.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=2750&sort=updateDate%2Bdesc",
+  "bills_106_2750.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=2750&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -187,14 +187,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 169064,
-   "sha256": "845461872f5f2e80b4db2b2a56a4e03e77bd176c43ade1dc3efe9d6535d186b5",
-   "retrieved_at": "2026-10-07T13:37:31+00:00",
+   "bytes": 181156,
+   "sha256": "f85c9de3b63aec57f2ea7559938b77cc86e7f1bc986dc4a326cb74379ca70976",
+   "retrieved_at": "2026-10-10T22:25:30+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_3000.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=3000&sort=updateDate%2Bdesc",
+  "bills_106_3000.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=3000&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -203,14 +203,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 172662,
-   "sha256": "31434baa1e5ca369092430def555581ff3bf186190055c4e09f7cee297c759fa",
-   "retrieved_at": "2026-10-07T13:37:36+00:00",
+   "bytes": 180218,
+   "sha256": "6e33a251e393008e8af64ea8312720c48f3866f14b42e67893f295196f7fe5f7",
+   "retrieved_at": "2026-10-10T22:25:34+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_3250.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=3250&sort=updateDate%2Bdesc",
+  "bills_106_3250.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=3250&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -219,14 +219,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 170523,
-   "sha256": "40b23680c853601291dbcc5c7c9b58f850bf2a6f322b22acc4ec421c6a060357",
-   "retrieved_at": "2026-10-07T13:37:42+00:00",
+   "bytes": 171339,
+   "sha256": "b300f290b8715baf57c382e8c9e1652cd224812b2a522d3a4ef45f1166955f5e",
+   "retrieved_at": "2026-10-10T22:25:38+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_3500.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=3500&sort=updateDate%2Bdesc",
+  "bills_106_3500.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=3500&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -235,14 +235,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 172129,
-   "sha256": "d2acf94e0c7bb35d5718f078388962754024bc3bf570b071cd480c06a167a907",
-   "retrieved_at": "2026-10-07T13:37:46+00:00",
+   "bytes": 175358,
+   "sha256": "0e1fe3c454a0314194efb8730b6fb0d6dc42290d2bf3ef4e8e7ceb842840d0f6",
+   "retrieved_at": "2026-10-10T22:25:43+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_3750.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=3750&sort=updateDate%2Bdesc",
+  "bills_106_3750.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=3750&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -251,14 +251,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 167130,
-   "sha256": "db7eceed650da8898ce784147e6f044ad5f23c7168640baeeb522ed659ebeacd",
-   "retrieved_at": "2026-10-07T13:37:51+00:00",
+   "bytes": 177842,
+   "sha256": "811a06b702153458e7fc3a9059964c3162ce83b965af6ff2d785c3ea858f0a36",
+   "retrieved_at": "2026-10-10T22:25:46+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_4000.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=4000&sort=updateDate%2Bdesc",
+  "bills_106_4000.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=4000&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -267,14 +267,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 168770,
-   "sha256": "864f69acccf5484ef6c75dfe34e70c57e85b7014e34321630490534786a1e595",
-   "retrieved_at": "2026-10-07T13:37:57+00:00",
+   "bytes": 175743,
+   "sha256": "0ac0cc4e3b68d58d67687259a9e30052dce02803e216f9aab754bdf9c192ac03",
+   "retrieved_at": "2026-10-10T22:25:50+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_4250.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=4250&sort=updateDate%2Bdesc",
+  "bills_106_4250.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=4250&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -283,14 +283,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 175343,
-   "sha256": "d3be9063c9a2e36728e835b0225ca8fc5a63d848240576a104b16d5a8b803122",
-   "retrieved_at": "2026-10-07T13:38:04+00:00",
+   "bytes": 169774,
+   "sha256": "8f93dd49165595a712540c0e067d6174edfc352c8da1ecec39839dcea8dcd33f",
+   "retrieved_at": "2026-10-10T22:25:54+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_4500.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=4500&sort=updateDate%2Bdesc",
+  "bills_106_4500.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=4500&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -299,14 +299,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 182075,
-   "sha256": "ad4279ce53dcbaba6b3020aed44a55f0d00065b049db698f188d3a9cbe6b5461",
-   "retrieved_at": "2026-10-07T13:38:13+00:00",
+   "bytes": 178205,
+   "sha256": "d100983df9ad52012f82f969c645ca44c1fb675ad2d3de8f2c0a6be80dccc724",
+   "retrieved_at": "2026-10-10T22:25:57+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_4750.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=4750&sort=updateDate%2Bdesc",
+  "bills_106_4750.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=4750&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -315,14 +315,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 173136,
-   "sha256": "33845c35e2879cc6668747e2528af7267955fb157fc0957fc69eabfbb1947599",
-   "retrieved_at": "2026-10-07T13:38:26+00:00",
+   "bytes": 170027,
+   "sha256": "39be800bb6d9ab3fa7c463c805b5266758e6a440da4d4274c1c79685acb9b80f",
+   "retrieved_at": "2026-10-10T22:26:01+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_5000.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=5000&sort=updateDate%2Bdesc",
+  "bills_106_5000.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=5000&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -331,14 +331,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 189051,
-   "sha256": "dd12beb36407cd6213b38fd09b47a2f7eeb15da5295293be597da8a8bb360dbf",
-   "retrieved_at": "2026-10-07T13:38:31+00:00",
+   "bytes": 171055,
+   "sha256": "a8b5fa61d39ade712d0874a28459c75a4be7638df259ad837ce2d4eeb065d985",
+   "retrieved_at": "2026-10-10T22:26:05+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_5250.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=5250&sort=updateDate%2Bdesc",
+  "bills_106_5250.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=5250&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -347,14 +347,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 188498,
-   "sha256": "c55693927ac3eb2a538bb9be3d61e0f065e678354037ca1ace4d80b2bf32eac0",
-   "retrieved_at": "2026-10-07T13:38:37+00:00",
+   "bytes": 172335,
+   "sha256": "4e6442b693c4c91199253788216232164de46fdf84d0f0395ae86668d7fcd726",
+   "retrieved_at": "2026-10-10T22:26:08+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_5500.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=5500&sort=updateDate%2Bdesc",
+  "bills_106_5500.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=5500&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -363,14 +363,14 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 207991,
-   "sha256": "ba50e4b79611494ed56bf2ff40ee42b0f83aa355fe16daf929c3ec417691167b",
-   "retrieved_at": "2026-10-07T13:38:44+00:00",
+   "bytes": 168934,
+   "sha256": "cab7be650f3f3868eea9b6f9d9076c8b8f90be2bbb08c105d0cfaac90bc32f6b",
+   "retrieved_at": "2026-10-10T22:26:14+00:00",
    "note": null,
    "trimmed": true
   },
-  "bills_110_5750.json": {
-   "url": "https://api.congress.gov/v3/bill/110?format=json&limit=250&offset=5750&sort=updateDate%2Bdesc",
+  "bills_106_5750.json": {
+   "url": "https://api.congress.gov/v3/bill/106?format=json&limit=250&offset=5750&sort=updateDate%2Bdesc",
    "params": {
     "api_key": "***",
     "format": "json",
@@ -379,16 +379,20 @@
     "sort": "updateDate+desc"
    },
    "status": 200,
-   "bytes": 172726,
-   "sha256": "c0807811ed81bd17d18ff851b269ffba3ae5d0c8100b98673c44eac188ee583a",
-   "retrieved_at": "2026-10-07T13:38:48+00:00",
+   "bytes": 167855,
+   "sha256": "bd9a45091d9ec2ffd3eee6afc6a8d812ca34e66b200e32c12845be4a1c5367f3",
+   "retrieved_at": "2026-10-10T22:26:19+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/congress_gov/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/congress_gov/2026-10-10",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "bills_listed_per_congress": {
+  "106": 10840,
+  "107": 10791,
+  "108": 10669,
+  "109": 13072,
   "110": 14042,
   "111": 13683,
   "112": 12305,
@@ -398,9 +402,193 @@
   "116": 16606,
   "117": 17828,
   "118": 19315,
-  "119": 19602
+  "119": 19633
  },
  "omitted": [
+  "bills_106_6000.json",
+  "bills_106_6250.json",
+  "bills_106_6500.json",
+  "bills_106_6750.json",
+  "bills_106_7000.json",
+  "bills_106_7250.json",
+  "bills_106_7500.json",
+  "bills_106_7750.json",
+  "bills_106_8000.json",
+  "bills_106_8250.json",
+  "bills_106_8500.json",
+  "bills_106_8750.json",
+  "bills_106_9000.json",
+  "bills_106_9250.json",
+  "bills_106_9500.json",
+  "bills_106_9750.json",
+  "bills_106_10000.json",
+  "bills_106_10250.json",
+  "bills_106_10500.json",
+  "bills_106_10750.json",
+  "bills_107_0.json",
+  "bills_107_250.json",
+  "bills_107_500.json",
+  "bills_107_750.json",
+  "bills_107_1000.json",
+  "bills_107_1250.json",
+  "bills_107_1500.json",
+  "bills_107_1750.json",
+  "bills_107_2000.json",
+  "bills_107_2250.json",
+  "bills_107_2500.json",
+  "bills_107_2750.json",
+  "bills_107_3000.json",
+  "bills_107_3250.json",
+  "bills_107_3500.json",
+  "bills_107_3750.json",
+  "bills_107_4000.json",
+  "bills_107_4250.json",
+  "bills_107_4500.json",
+  "bills_107_4750.json",
+  "bills_107_5000.json",
+  "bills_107_5250.json",
+  "bills_107_5500.json",
+  "bills_107_5750.json",
+  "bills_107_6000.json",
+  "bills_107_6250.json",
+  "bills_107_6500.json",
+  "bills_107_6750.json",
+  "bills_107_7000.json",
+  "bills_107_7250.json",
+  "bills_107_7500.json",
+  "bills_107_7750.json",
+  "bills_107_8000.json",
+  "bills_107_8250.json",
+  "bills_107_8500.json",
+  "bills_107_8750.json",
+  "bills_107_9000.json",
+  "bills_107_9250.json",
+  "bills_107_9500.json",
+  "bills_107_9750.json",
+  "bills_107_10000.json",
+  "bills_107_10250.json",
+  "bills_107_10500.json",
+  "bills_107_10750.json",
+  "bills_108_0.json",
+  "bills_108_250.json",
+  "bills_108_500.json",
+  "bills_108_750.json",
+  "bills_108_1000.json",
+  "bills_108_1250.json",
+  "bills_108_1500.json",
+  "bills_108_1750.json",
+  "bills_108_2000.json",
+  "bills_108_2250.json",
+  "bills_108_2500.json",
+  "bills_108_2750.json",
+  "bills_108_3000.json",
+  "bills_108_3250.json",
+  "bills_108_3500.json",
+  "bills_108_3750.json",
+  "bills_108_4000.json",
+  "bills_108_4250.json",
+  "bills_108_4500.json",
+  "bills_108_4750.json",
+  "bills_108_5000.json",
+  "bills_108_5250.json",
+  "bills_108_5500.json",
+  "bills_108_5750.json",
+  "bills_108_6000.json",
+  "bills_108_6250.json",
+  "bills_108_6500.json",
+  "bills_108_6750.json",
+  "bills_108_7000.json",
+  "bills_108_7250.json",
+  "bills_108_7500.json",
+  "bills_108_7750.json",
+  "bills_108_8000.json",
+  "bills_108_8250.json",
+  "bills_108_8500.json",
+  "bills_108_8750.json",
+  "bills_108_9000.json",
+  "bills_108_9250.json",
+  "bills_108_9500.json",
+  "bills_108_9750.json",
+  "bills_108_10000.json",
+  "bills_108_10250.json",
+  "bills_108_10500.json",
+  "bills_109_0.json",
+  "bills_109_250.json",
+  "bills_109_500.json",
+  "bills_109_750.json",
+  "bills_109_1000.json",
+  "bills_109_1250.json",
+  "bills_109_1500.json",
+  "bills_109_1750.json",
+  "bills_109_2000.json",
+  "bills_109_2250.json",
+  "bills_109_2500.json",
+  "bills_109_2750.json",
+  "bills_109_3000.json",
+  "bills_109_3250.json",
+  "bills_109_3500.json",
+  "bills_109_3750.json",
+  "bills_109_4000.json",
+  "bills_109_4250.json",
+  "bills_109_4500.json",
+  "bills_109_4750.json",
+  "bills_109_5000.json",
+  "bills_109_5250.json",
+  "bills_109_5500.json",
+  "bills_109_5750.json",
+  "bills_109_6000.json",
+  "bills_109_6250.json",
+  "bills_109_6500.json",
+  "bills_109_6750.json",
+  "bills_109_7000.json",
+  "bills_109_7250.json",
+  "bills_109_7500.json",
+  "bills_109_7750.json",
+  "bills_109_8000.json",
+  "bills_109_8250.json",
+  "bills_109_8500.json",
+  "bills_109_8750.json",
+  "bills_109_9000.json",
+  "bills_109_9250.json",
+  "bills_109_9500.json",
+  "bills_109_9750.json",
+  "bills_109_10000.json",
+  "bills_109_10250.json",
+  "bills_109_10500.json",
+  "bills_109_10750.json",
+  "bills_109_11000.json",
+  "bills_109_11250.json",
+  "bills_109_11500.json",
+  "bills_109_11750.json",
+  "bills_109_12000.json",
+  "bills_109_12250.json",
+  "bills_109_12500.json",
+  "bills_109_12750.json",
+  "bills_109_13000.json",
+  "bills_110_0.json",
+  "bills_110_250.json",
+  "bills_110_500.json",
+  "bills_110_750.json",
+  "bills_110_1000.json",
+  "bills_110_1250.json",
+  "bills_110_1500.json",
+  "bills_110_1750.json",
+  "bills_110_2000.json",
+  "bills_110_2250.json",
+  "bills_110_2500.json",
+  "bills_110_2750.json",
+  "bills_110_3000.json",
+  "bills_110_3250.json",
+  "bills_110_3500.json",
+  "bills_110_3750.json",
+  "bills_110_4000.json",
+  "bills_110_4250.json",
+  "bills_110_4500.json",
+  "bills_110_4750.json",
+  "bills_110_5000.json",
+  "bills_110_5250.json",
+  "bills_110_5500.json",
+  "bills_110_5750.json",
   "bills_110_6000.json",
   "bills_110_6250.json",
   "bills_110_6500.json",

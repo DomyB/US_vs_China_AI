@@ -8,9 +8,9 @@
     "limit": 1000
    },
    "status": 200,
-   "bytes": 20564,
-   "sha256": "816e733aed7f74b63d0c8f482b756de7a0d08da018205353ef786b6be60a2950",
-   "retrieved_at": "2026-10-04T12:06:27+00:00",
+   "bytes": 20574,
+   "sha256": "1fee425be200c39edd21af7260018068518ba397e2227f0fe4390b670c1a369b",
+   "retrieved_at": "2026-10-11T00:06:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -21,9 +21,9 @@
     "q": "\"asuntos entrados\" OR \"proyectos de ley\" OR parlamento OR legislativo"
    },
    "status": 200,
-   "bytes": 220,
-   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-04T12:06:27+00:00",
+   "bytes": 5962,
+   "sha256": "658eeaad7e3af68ef31539fe077f040db80e37373f8b0428b4e74ebc2ec53452",
+   "retrieved_at": "2026-10-11T00:06:26+00:00",
    "note": null,
    "trimmed": true
   },
@@ -34,9 +34,9 @@
     "q": "parlamento"
    },
    "status": 200,
-   "bytes": 220,
-   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-04T12:06:28+00:00",
+   "bytes": 296914,
+   "sha256": "a282a6b4a8c7d839aeafae957abbe0a445379edc4da4cf904481eda783495924",
+   "retrieved_at": "2026-10-11T00:06:28+00:00",
    "note": null,
    "trimmed": true
   },
@@ -49,7 +49,7 @@
    "status": 200,
    "bytes": 220,
    "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-04T12:06:29+00:00",
+   "retrieved_at": "2026-10-11T00:06:31+00:00",
    "note": null,
    "trimmed": true
   },
@@ -60,9 +60,9 @@
     "q": "proyectos de ley"
    },
    "status": 200,
-   "bytes": 220,
-   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-04T12:06:30+00:00",
+   "bytes": 1466662,
+   "sha256": "07c57c49fc9b2a315a6a4e11127c42fd30502b04b7b7e6e6b75f9b5bbbec95bd",
+   "retrieved_at": "2026-10-11T00:06:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -73,9 +73,9 @@
     "q": "legislativo"
    },
    "status": 200,
-   "bytes": 220,
-   "sha256": "2773f079dfb5ee226b408ae20f0abebd2f7ddaa9c113e49d98c6038f500f536a",
-   "retrieved_at": "2026-10-04T12:06:31+00:00",
+   "bytes": 28498,
+   "sha256": "4f122bdb7f867df233468df54fbc242f3f35e56b6a751ff66401a3c73b4b4538",
+   "retrieved_at": "2026-10-11T00:06:37+00:00",
    "note": null,
    "trimmed": true
   },
@@ -86,17 +86,321 @@
     "q": "*:*"
    },
    "status": 200,
-   "bytes": 27655,
-   "sha256": "b070b8d1168d315fd4331b5ca69996d51cb336812ac7338c9bb89bc1fc9cba6e",
-   "retrieved_at": "2026-10-04T12:06:33+00:00",
+   "bytes": 29536,
+   "sha256": "e8394580b4ba913135c1c8cc35928e02a2a022d18391db88abcc43ec3a3b8f5d",
+   "retrieved_at": "2026-10-11T00:06:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/0.csv": {
+   "url": "https://catalogodatos.gub.uy/dataset/99fbf967-c682-4653-a87a-c6479f590474/resource/fa35342c-3144-4125-bf5a-7f863cc1239c/download/acau_apoyos_y_reembolsos_a_proyectos_audiovisuales_2013-2024.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 515065,
+   "sha256": "6b1bcc471aa89682887e7e3f00535f1be0fb52c11ec231448ffbd12c3ef2d08b",
+   "retrieved_at": "2026-10-11T00:06:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/2.csv": {
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/fba75e7a-57a7-4621-aac2-5480910d2f83/download/datos-del-estudio-de-poblacin-de-abril-2019.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 44425462,
+   "sha256": "6de257cef96bd834e51ba3c29a7e788cf13ec1e5efa9d1e6a764684179aae53b",
+   "retrieved_at": "2026-10-11T00:07:04+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "asuntos/4.csv": {
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/3a9b90d4-3a0f-45a7-a500-5f0077f97b9b/download/datos-del-estudio-de-poblacin-de-agosto-2019.csv",
+   "params": {},
+   "status": 200,
+   "bytes": 43072996,
+   "sha256": "38b03963d6cfcc853620cd7b77230e6ea8c716373e2ecd3192f2ad7de308f6df",
+   "retrieved_at": "2026-10-11T00:07:25+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_parlamento/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_parlamento/2026-10-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "organizations": [],
- "catalogue_total": 8,
- "packages_seen": [],
- "resource_candidates": []
+ "catalogue_total": 2718,
+ "packages_seen": [
+  {
+   "name": "crr-balance-legislativo",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "parlamento-del-uruguay-proyectos-entrados-al-parlamento",
+   "organization": "parlamento-uruguayo",
+   "resources": 19
+  },
+  {
+   "name": "mides-indicador-6128",
+   "organization": "mides",
+   "resources": 4
+  },
+  {
+   "name": "parlamento-del-uruguay-crr-remuneraciones",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "parlamento-del-uruguay-comisiones-de-la-camara-de-representantes",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "parlamento-del-uruguay-leyes-promulgadas-del-poder-ejecutivo",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "parlamento-del-uruguay-crr-diario_de_sesiones",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "crr-nominarepresentanteslegactual2",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "crr-estructura-organica",
+   "organization": "parlamento-uruguayo",
+   "resources": 4
+  },
+  {
+   "name": "parlamento-uruguayo-caso-piloto-2-embarcaciones-deportivas",
+   "organization": "parlamento-uruguayo",
+   "resources": 7
+  },
+  {
+   "name": "nominarepresentanteslegactual",
+   "organization": "parlamento-uruguayo",
+   "resources": 5
+  },
+  {
+   "name": "parlamento-del-uruguay-comisiones-de-la-camara-de-senadores",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "parlamento-uruguayo-caso-piloto-3-panes",
+   "organization": "parlamento-uruguayo",
+   "resources": 11
+  },
+  {
+   "name": "crr-pedidos-de-informes",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "parlamento-uruguayo-caso-piloto-1-caducidad",
+   "organization": "parlamento-uruguayo",
+   "resources": 4
+  },
+  {
+   "name": "parlamento-del-uruguay-asistencias-a-la-camara-de-representantes",
+   "organization": "parlamento-uruguayo",
+   "resources": 11
+  },
+  {
+   "name": "parlamento-del-uruguay-remuneraciones-de-la-camara-de-senadores",
+   "organization": "parlamento-uruguayo",
+   "resources": 3
+  },
+  {
+   "name": "parlamento-del-uruguay-actividades-de-la-camara-de-representantes",
+   "organization": "parlamento-uruguayo",
+   "resources": 13
+  },
+  {
+   "name": "parlamento-del-uruguay-repartidos-de-la-camara-de-representantes",
+   "organization": "parlamento-uruguayo",
+   "resources": 13
+  },
+  {
+   "name": "parlamento-del-uruguay-actividades-del-senado",
+   "organization": "parlamento-uruguayo",
+   "resources": 11
+  },
+  {
+   "name": "parlamento-del-uruguay-asistencias-a-la-camara-de-senadores",
+   "organization": "parlamento-uruguayo",
+   "resources": 11
+  },
+  {
+   "name": "parlamento-del-uruguay-proyectos-entrados-a-la-camara-de-representantes",
+   "organization": "parlamento-uruguayo",
+   "resources": 19
+  },
+  {
+   "name": "parlamento-del-uruguay-pedidos-de-informes-de-la-camara-de-representantes",
+   "organization": "parlamento-uruguayo",
+   "resources": 19
+  },
+  {
+   "name": "parlamento-del-uruguay-pedidos-de-informes-de-la-camara-de-senadores",
+   "organization": "parlamento-uruguayo",
+   "resources": 21
+  },
+  {
+   "name": "parlamento-del-uruguay-repartidos-de-la-camara-de-senadores",
+   "organization": "parlamento-uruguayo",
+   "resources": 17
+  },
+  {
+   "name": "centro-ceibal-proyectos",
+   "organization": "centro_ceibal",
+   "resources": 4
+  },
+  {
+   "name": "correo-proyectos_correo",
+   "organization": "correo",
+   "resources": 4
+  },
+  {
+   "name": "banco-central-del-uruguay-proyectos",
+   "organization": "banco-central-del-uruguay",
+   "resources": 4
+  },
+  {
+   "name": "ancap-proyectos",
+   "organization": "ancap",
+   "resources": 4
+  },
+  {
+   "name": "inau-poblacion_y_proyectos",
+   "organization": "inau",
+   "resources": 115
+  },
+  {
+   "name": "ministerio-de-trabajo-y-seguridad-social-de-uruguay-ley-de-promocion-del-empleo",
+   "organization": "ministerio-de-trabajo-y-seguridad-social-de-uruguay",
+   "resources": 4
+  },
+  {
+   "name": "opp-monto-ejecutado-en-proyectos-de-inversi-n",
+   "organization": "opp",
+   "resources": 2
+  },
+  {
+   "name": "acau-apoyos-y-reembolsos-a-proyectos-audiovisuales",
+   "organization": "acau",
+   "resources": 2
+  },
+  {
+   "name": "corte-electoral-referendum2022",
+   "organization": "corte-electoral",
+   "resources": 8
+  },
+  {
+   "name": "suprema-corte-de-justicia-faltas-2017-procesos-concluidos-por-ley-n-19-120",
+   "organization": "suprema-corte-de-justicia",
+   "resources": 2
+  },
+  {
+   "name": "suprema-corte-de-justicia-faltas-poder-judicial",
+   "organization": "suprema-corte-de-justicia",
+   "resources": 3
+  },
+  {
+   "name": "correo-responsable_procedimiento_correo",
+   "organization": "correo",
+   "resources": 4
+  },
+  {
+   "name": "mides-indicador-10540",
+   "organization": "mides",
+   "resources": 4
+  },
+  {
+   "name": "mides-indicador-11687",
+   "organization": "mides",
+   "resources": 4
+  },
+  {
+   "name": "mides-indicador-11689",
+   "organization": "mides",
+   "resources": 4
+  }
+ ],
+ "resource_candidates": [
+  {
+   "name": "Apoyos y reembolsos a proyectos de ACAU",
+   "url": "https://catalogodatos.gub.uy/dataset/99fbf967-c682-4653-a87a-c6479f590474/resource/fa35342c-3144-4125-bf5a-7f863cc1239c/download/acau_apoyos_y_reembolsos_a_proyectos_audiovisuales_2013-2024.csv",
+   "package": "Apoyos y reembolsos a proyectos audiovisuales",
+   "format": "csv"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Abril 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/fdcea198-8c66-4ff6-9602-04062c3792a6/download/201904_poblacion.xlsx",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "xls"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Abril 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/fba75e7a-57a7-4621-aac2-5480910d2f83/download/datos-del-estudio-de-poblacin-de-abril-2019.csv",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "csv"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Agosto 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/e9067441-9e9a-4712-a614-000cc769a448/download/201908_poblacion.xlsx",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "xls"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Agosto 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/3a9b90d4-3a0f-45a7-a500-5f0077f97b9b/download/datos-del-estudio-de-poblacin-de-agosto-2019.csv",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "csv"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Diciembre 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/b55ef759-250f-45c8-a663-6fd057befabd/download/201912_poblacion_proyectos.xlsx",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "xls"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Diciembre 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/4dfd5df8-3b2d-469c-9021-ee5723c93a27/download/datos-del-estudio-de-poblacin-de-diciembre-2019.csv",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "csv"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Enero 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/a03b1763-1bff-4198-a3db-ecedb3d9b96c/download/poblacion_2019.csv",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "csv"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Enero 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/ef2582bf-4ca2-4779-bf08-af9c40b1da61/download/poblacion_2019.xlsx",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "xlsx"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Enero 2020",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/5d1a8ae6-5935-4f76-8289-f499e5c48dd6/download/202001_poblacion_proyectos.xlsx",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "xls"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Enero 2020",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/ea2f77f3-beeb-4146-a9be-43ae7f2bcd15/download/datos-del-estudio-de-poblacin-de-enero-2020.csv",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "csv"
+  },
+  {
+   "name": "Datos de Poblaci\u00f3n y Proyectos - Febrero 2019",
+   "url": "https://catalogodatos.gub.uy/dataset/5f8de388-6599-4763-bae7-af6ab54071bd/resource/50df3fbd-2a40-405c-988d-43b91710b561/download/201902_poblacion.xlsx",
+   "package": "Poblaci\u00f3n y Proyectos",
+   "format": "xls"
+  }
+ ]
 }

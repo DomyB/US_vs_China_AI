@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>765</ns0:Id>
+  <ns0:NumeroBoletin>2463-03</ns0:NumeroBoletin>
+  <ns0:Nombre>Establece régimen de zona franca industrial de insumos, partes y piezas  para la minería, en la comuna de Tocopilla.</ns0:Nombre>
+  <ns0:FechaIngreso>2000-01-26T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+  <ns0:MinisteriosPatrocinantes>
+    <ns0:Ministerio>
+      <ns0:Id>1</ns0:Id>
+      <ns0:Nombre>Ministerio de Economía, Fomento y Turism</ns0:Nombre>
+    </ns0:Ministerio>
+  </ns0:MinisteriosPatrocinantes>
+  <ns0:Votaciones />
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>1381</ns0:Id>
+      <ns0:Nombre>ZONA FRANCA</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>3235</ns0:Id>
+  <ns0:NumeroBoletin>2939-10</ns0:NumeroBoletin>
+  <ns0:Nombre>Proyecto de Acuerdo Multilateral sobre la Liberalización del Transporte Aéreo Internacional y su Anexo, suscrito en Washington el 11 de mayo de 2001.</ns0:Nombre>
+  <ns0:FechaIngreso>2002-05-16T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+  <ns0:MinisteriosPatrocinantes>
+    <ns0:Ministerio>
+      <ns0:Id>51</ns0:Id>
+      <ns0:Nombre>Ministerio de Relaciones Exteriores</ns0:Nombre>
+    </ns0:Ministerio>
+  </ns0:MinisteriosPatrocinantes>
+  <ns0:Votaciones>
+    <ns0:VotacionProyectoLey>
+      <ns0:Id>16487</ns0:Id>
+      <ns0:Descripcion>Boletín N°2939-10</ns0:Descripcion>
+      <ns0:Fecha>2002-07-04T11:26:14</ns0:Fecha>
+      <ns0:TotalSi>47</ns0:TotalSi>
+      <ns0:TotalNo>0</ns0:TotalNo>
+      <ns0:TotalAbstencion>0</ns0:TotalAbstencion>
+      <ns0:TotalDispensado>0</ns0:TotalDispensado>
+      <ns0:Quorum Valor="1">Quórum Simple</ns0:Quorum>
+      <ns0:Tipo Valor="1">Proyecto de Ley</ns0:Tipo>
+      <ns0:TipoVotacionProyectoLey Valor="1">General</ns0:TipoVotacionProyectoLey>
+      <ns0:Articulo />
+      <ns0:TramiteConstitucional Id="1">Primer Trámite</ns0:TramiteConstitucional>
+      <ns0:TramiteReglamentario Id="1">Primer Informe</ns0:TramiteReglamentario>
+    </ns0:VotacionProyectoLey>
+  </ns0:Votaciones>
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>1746</ns0:Id>
+      <ns0:Nombre>TRANSPORTE AÉREO</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

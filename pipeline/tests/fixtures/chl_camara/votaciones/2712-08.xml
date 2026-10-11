@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectoLey xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:Id>2092</ns0:Id>
+  <ns0:NumeroBoletin>2712-08</ns0:NumeroBoletin>
+  <ns0:Nombre>Sustituye el artículo 1º de la ley Nº 16.624, relativo al concepto de las empresas productoras de cobre de la Gran Minería, para los efectos que indica</ns0:Nombre>
+  <ns0:FechaIngreso>2001-06-05T00:00:00</ns0:FechaIngreso>
+  <ns0:TipoIniciativa Valor="2">Moción</ns0:TipoIniciativa>
+  <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+  <ns0:Autores>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>24</ns0:Id>
+        <ns0:Nombre>Ricardo</ns0:Nombre>
+        <ns0:ApellidoPaterno>Núñez</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Muñoz</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>69</ns0:Id>
+        <ns0:Nombre>Jorge</ns0:Nombre>
+        <ns0:ApellidoPaterno>Lavandero</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Illanes</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>155</ns0:Id>
+        <ns0:Nombre>Fernando</ns0:Nombre>
+        <ns0:ApellidoPaterno>Cordero</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Rusque</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>159</ns0:Id>
+        <ns0:Nombre>Augusto</ns0:Nombre>
+        <ns0:ApellidoPaterno>Parra</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Muñoz</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+    <ns0:ParlamentarioAutor>
+      <ns0:Orden>0</ns0:Orden>
+      <ns0:Senador>
+        <ns0:Id>164</ns0:Id>
+        <ns0:Nombre>Enrique</ns0:Nombre>
+        <ns0:ApellidoPaterno>Silva</ns0:ApellidoPaterno>
+        <ns0:ApellidoMaterno>Cimma</ns0:ApellidoMaterno>
+      </ns0:Senador>
+    </ns0:ParlamentarioAutor>
+  </ns0:Autores>
+  <ns0:Votaciones />
+  <ns0:Materias>
+    <ns0:Materia>
+      <ns0:Id>1934</ns0:Id>
+      <ns0:Nombre>MINERÍA DEL COBRE</ns0:Nombre>
+    </ns0:Materia>
+  </ns0:Materias>
+  <ns0:Admisible>true</ns0:Admisible>
+</ns0:ProyectoLey>

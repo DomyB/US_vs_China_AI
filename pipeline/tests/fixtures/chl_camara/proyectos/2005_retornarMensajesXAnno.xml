@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>4457</ns0:Id>
+    <ns0:NumeroBoletin>4059-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 17.997, Orgánica Constitucional del Tribunal Constitucional.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-12-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4282</ns0:Id>
+    <ns0:NumeroBoletin>3892-21</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica ley General de Pesca y Acuicultura en materia de acuicultura.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-06-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4283</ns0:Id>
+    <ns0:NumeroBoletin>3878-17</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Instituto Nacional de Derechos Humanos.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-06-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4449</ns0:Id>
+    <ns0:NumeroBoletin>4047-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo Estratégico Transpacífico de Asociación Económica entre Chile, Brunei Darussalam, Nueva Zelanda y la República de Singapur y sus Anexos.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-12-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4432</ns0:Id>
+    <ns0:NumeroBoletin>4040-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el decreto ley N° 3063, de 1979, sobre rentas municipales, la ley N° 18.695, Orgánica Constitucional de Municipalidades y otros cuerpos legales, en relación con el Fondo Común Municipal y otras materias municipales.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-11-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4459</ns0:Id>
+    <ns0:NumeroBoletin>4064-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Concede bonificación por retiro voluntario a los funcionarios  municipales que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-12-21T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4448</ns0:Id>
+    <ns0:NumeroBoletin>4048-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la XV Región de Arica y Parinacota y la provincia del Tamarugal en la Región de Tarapacá.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-12-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4264</ns0:Id>
+    <ns0:NumeroBoletin>3871-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre Chile y Canadá sobre transporte aéreo.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-05-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4265</ns0:Id>
+    <ns0:NumeroBoletin>3872-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo de transporte aéreo entre Chile y el Consejo Federal Suizo.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-05-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4268</ns0:Id>
+    <ns0:NumeroBoletin>3875-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas sobre igualdad de oportunidades e inclusión social de personas con discapacidad</ns0:Nombre>
+    <ns0:FechaIngreso>2005-05-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4392</ns0:Id>
+    <ns0:NumeroBoletin>4000-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre responsabilidad fiscal.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4393</ns0:Id>
+    <ns0:NumeroBoletin>4002-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Fija plazo extraordinario de declaración de candidaturas para el proceso eleccionario 2005.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4412</ns0:Id>
+    <ns0:NumeroBoletin>4015-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Prorroga aplicación de los coeficientes de distribución del Fondo Común Municipal vigentes durante el año 2005 para el año 2006, y establece un mecanismo de compensación.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4458</ns0:Id>
+    <ns0:NumeroBoletin>4062-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo 1° de la ley N° 20.059, sobre modernización del Ministerio de Educación.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-12-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4401</ns0:Id>
+    <ns0:NumeroBoletin>4008-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Proyecto de ley sobre remuneraciones en el exterior del personal que se desempeñe en unidades militares en operaciones de paz o misiones equivalentes.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4391</ns0:Id>
+    <ns0:NumeroBoletin>3993-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Presupuesto del Sector Público para el año 2006.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4388</ns0:Id>
+    <ns0:NumeroBoletin>3994-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Moderniza el Ministerio de Defensa Nacional.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-09-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4345</ns0:Id>
+    <ns0:NumeroBoletin>3949-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Consejo Superior de Empresas Públicas, regula las Empresas de Auditoría Externa, modifica estatuto de los directores de las sociedades anónimas, las normas de administración de las mismas y los estatutos de las empresas públicas.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4347</ns0:Id>
+    <ns0:NumeroBoletin>3955-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que establece los territorios especiales de Isla de Pascua y Archipiélago Juan Fernández.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4354</ns0:Id>
+    <ns0:NumeroBoletin>3964-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea y regula el Registro Nacional de Revisores Independientes de Obras de Edificación.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4355</ns0:Id>
+    <ns0:NumeroBoletin>3953-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el decreto con fuerza de ley N° 2, de 1998, sobre subvenciones a establecimientos educacionales y otros cuerpos legales.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4356</ns0:Id>
+    <ns0:NumeroBoletin>3960-11</ns0:NumeroBoletin>
+    <ns0:Nombre>Restablece la bonificación fiscal para enfermedades catastróficas, establecidas en la ley N° 19.779.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4357</ns0:Id>
+    <ns0:NumeroBoletin>3963-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga bono compensatorio para los aguinaldos de Fiestas Patrias y Navidad para el sector pasivo.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-30T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4364</ns0:Id>
+    <ns0:NumeroBoletin>3968-12</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el espacio costero marítimo de los pueblos originarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4366</ns0:Id>
+    <ns0:NumeroBoletin>3973-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre Chile y Nueva Zelandia para evitar la doble imposición y para evitar la evasión fiscal con relación a los impuestos a la renta y su Protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-09-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4367</ns0:Id>
+    <ns0:NumeroBoletin>3974-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convención de las Naciones Unidas contra la corrupción.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-09-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4369</ns0:Id>
+    <ns0:NumeroBoletin>3978-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea Fondo de Estabilización de precios de combustibles derivados del petróleo.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-09-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4371</ns0:Id>
+    <ns0:NumeroBoletin>3975-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Mejora condiciones de retiro de los trabajadores del sector público con bajas tasas de reemplazo de sus pensiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-09-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4394</ns0:Id>
+    <ns0:NumeroBoletin>4001-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea nuevos escalafones en las plantas de la Policía de Investigaciones de Chile.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4424</ns0:Id>
+    <ns0:NumeroBoletin>4030-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece una subvención preferencial para niños y niñas socio-económicamente vulnerables.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-11-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4427</ns0:Id>
+    <ns0:NumeroBoletin>4031-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo 23 del Código del Trabajo, estableciendo normas sobre descansos en tierra entre recalada y zarpe, para los trabajadores que se desempeñan a bordo de naves de pesca.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-11-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4447</ns0:Id>
+    <ns0:NumeroBoletin>4049-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la XIV Región de Los Ríos y la provincia de Ranco en su territorio.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-12-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4455</ns0:Id>
+    <ns0:NumeroBoletin>4061-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Reforma constitucional que establece un principio proporcional y representativo en el sistema electoral.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-12-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4428</ns0:Id>
+    <ns0:NumeroBoletin>4035-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Reajusta remuneraciones de los funcionarios del Sector Público, concede aguinaldos que señala, reajusta las asignaciones familiar y maternal, del subsidio familiar y concede otros beneficios que indica. </ns0:Nombre>
+    <ns0:FechaIngreso>2005-11-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4314</ns0:Id>
+    <ns0:NumeroBoletin>3919-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo de Cooperación entre los Gobiernos de las Repúblicas de Chile y de Turquía sobre Entrenamiento Militar, Industria de Defensa, Tecnología y Ciencia</ns0:Nombre>
+    <ns0:FechaIngreso>2005-07-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4315</ns0:Id>
+    <ns0:NumeroBoletin>3920-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre las Repúblicas de Chile y de Corea sobre Cooperación en los usos pacíficos de la energía nuclear</ns0:Nombre>
+    <ns0:FechaIngreso>2005-07-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4402</ns0:Id>
+    <ns0:NumeroBoletin>4009-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Amplía el concepto de accidente del trabajo contemplado en la ley N° 16.744, sobre Accidentes del Trabajo y Enfermedades Profesionales.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4317</ns0:Id>
+    <ns0:NumeroBoletin>3924-14</ns0:NumeroBoletin>
+    <ns0:Nombre>Permite renegociar, reprogramar o condonar parcialmente los créditos hipotecarios y saldos relacionados con préstamos para vivienda que se indican.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-07-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4165</ns0:Id>
+    <ns0:NumeroBoletin>3772-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un impuesto específico a la actividad minera.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-01-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4174</ns0:Id>
+    <ns0:NumeroBoletin>3780-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 19.961, sobre evaluación docente. </ns0:Nombre>
+    <ns0:FechaIngreso>2005-01-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4324</ns0:Id>
+    <ns0:NumeroBoletin>3930-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Suspende el reemplazo de inscripciones en el Registro Pesquero Artesanal.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-07-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4191</ns0:Id>
+    <ns0:NumeroBoletin>3797-19</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Código de Procedimiento Civil y la ley N° 19.799, sobre documento electrónico, firma electrónica y los servicios de certificación de dichas firmas.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4196</ns0:Id>
+    <ns0:NumeroBoletin>3803-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica leyes 18.556 sobre sistema de inscripciones electorales y servicio electoral y 18.700, sobre votaciones populares y escrutinios.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4197</ns0:Id>
+    <ns0:NumeroBoletin>3801-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Ley General de Pesca y Acuicultura en lo que respecta a la regulación de la investigación necesaria para la administración de la pesca y la acuicultura.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4200</ns0:Id>
+    <ns0:NumeroBoletin>3802-09</ns0:NumeroBoletin>
+    <ns0:Nombre>Bases de contratos administrativos de estudio y proyectos de inversiones de obras públicas.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4201</ns0:Id>
+    <ns0:NumeroBoletin>3806-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce modificaciones al marco normativo que rige al sector eléctrico.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4202</ns0:Id>
+    <ns0:NumeroBoletin>3807-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo General de Cooperación entre los Gobiernos de la República de Chile y del Reino de Marruecos.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4203</ns0:Id>
+    <ns0:NumeroBoletin>3808-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba las Actas que indica del XXII Congreso de la unión Postal Universal.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4206</ns0:Id>
+    <ns0:NumeroBoletin>3813-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo 53, de  la ley N° 19.542, con el objeto de perfeccionar el concepto de puerto, terminal o recinto portuario</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-22T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4207</ns0:Id>
+    <ns0:NumeroBoletin>3815-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece medidas contra la discriminación</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-22T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4403</ns0:Id>
+    <ns0:NumeroBoletin>3995-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece régimen transitorio para la aplicación del nuevo impuesto al gas como combustibles en la XII Región, y modifica el artículo primero de la ley N° 19.709.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4209</ns0:Id>
+    <ns0:NumeroBoletin>3816-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre empalme entre el antiguo y el nuevo sistema de enjuiciamiento criminal.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-03-22T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4330</ns0:Id>
+    <ns0:NumeroBoletin>3937-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Consejo de Auditoría Interna de Gobierno; modifica el Estatuto Administrativo, en lo relativo a procedimientos sumariales, Juntas Calificadoras, incompatibilidades e inhabilidades; regula contratos a honorarios y contratación de bienes y servicios; otorga flexibilidad financiera a la Contraloría General de la República, y confiere facultades delegadas al Presidente de la República</ns0:Nombre>
+    <ns0:FechaIngreso>2005-07-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4331</ns0:Id>
+    <ns0:NumeroBoletin>3906-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Convenio entre los Gobiernos de Chile  de la República Francesa para evitar la doble imposición y para Prevenir la evasión Fiscal en relación a los impuestos a la renta y al patrimonio y su Protocolo.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-06-22T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4332</ns0:Id>
+    <ns0:NumeroBoletin>3939-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre transparencia, límite y control del gasto electoral.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-08-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4404</ns0:Id>
+    <ns0:NumeroBoletin>4010-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Convenio entre los Gobiernos de  las Repúblicas de Chile y de la República Federal de Alemania, sobre Cooperación Financiera, suscrito en Santiago el 4 de julio de 2005.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4406</ns0:Id>
+    <ns0:NumeroBoletin>4013-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Introduce una disposición transitoria al decreto ley N° 3063, de 1979, sobre rentas municipales.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-10-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4182</ns0:Id>
+    <ns0:NumeroBoletin>3788-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el sistema de nombramiento y calificaciones de los ministros, jueces, auxiliares de la administración de justicia y empleados del Poder Judicial.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-01-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4183</ns0:Id>
+    <ns0:NumeroBoletin>3792-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre protección de derechos de la infancia y de la adolescencia</ns0:Nombre>
+    <ns0:FechaIngreso>2005-01-19T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4184</ns0:Id>
+    <ns0:NumeroBoletin>3789-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Flexibiliza el manejo de los fondos asignados al Poder Judicial en la Ley de Presupuestos.</ns0:Nombre>
+    <ns0:FechaIngreso>2005-01-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

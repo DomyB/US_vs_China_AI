@@ -9,7 +9,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:57:46+00:00",
+   "retrieved_at": "2026-10-10T23:56:23+00:00",
    "note": null,
    "trimmed": true
   },
@@ -21,7 +21,7 @@
    "status": 200,
    "bytes": 2516,
    "sha256": "dcaee92bc4d558f147da2afa64f6825a1d58b2693d3cd46a1cb6ff52cb97d72b",
-   "retrieved_at": "2026-10-04T11:57:47+00:00",
+   "retrieved_at": "2026-10-10T23:56:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -33,7 +33,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:57:49+00:00",
+   "retrieved_at": "2026-10-10T23:56:26+00:00",
    "note": null,
    "trimmed": true
   },
@@ -45,7 +45,7 @@
    "status": 200,
    "bytes": 2440,
    "sha256": "6f45e26487da4c8e66ecb231883cf1c182ac2deccb9de8e164cc119f239bd8f4",
-   "retrieved_at": "2026-10-04T11:57:50+00:00",
+   "retrieved_at": "2026-10-10T23:56:27+00:00",
    "note": null,
    "trimmed": true
   },
@@ -57,7 +57,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:57:52+00:00",
+   "retrieved_at": "2026-10-10T23:56:29+00:00",
    "note": null,
    "trimmed": true
   },
@@ -69,7 +69,7 @@
    "status": 200,
    "bytes": 1952,
    "sha256": "dee6b0254eb12600ba50c1e3cd1bf7aae9e4bc5c76ec26c60950c6c49d17a22a",
-   "retrieved_at": "2026-10-04T11:57:53+00:00",
+   "retrieved_at": "2026-10-10T23:56:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -81,7 +81,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:57:55+00:00",
+   "retrieved_at": "2026-10-10T23:56:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -93,7 +93,7 @@
    "status": 200,
    "bytes": 4405,
    "sha256": "399408324f9d054eb7a095ddad37624db06614cf9591a3874d601660b4cf86a9",
-   "retrieved_at": "2026-10-04T11:57:56+00:00",
+   "retrieved_at": "2026-10-10T23:56:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -105,7 +105,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:57:58+00:00",
+   "retrieved_at": "2026-10-10T23:56:35+00:00",
    "note": null,
    "trimmed": true
   },
@@ -117,7 +117,7 @@
    "status": 200,
    "bytes": 2435,
    "sha256": "8d628da975ac4da8325cef482ea4e6e8868220ca70bbd9b29d906a31904f43fc",
-   "retrieved_at": "2026-10-04T11:57:59+00:00",
+   "retrieved_at": "2026-10-10T23:56:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -129,7 +129,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:58:01+00:00",
+   "retrieved_at": "2026-10-10T23:56:38+00:00",
    "note": null,
    "trimmed": true
   },
@@ -141,7 +141,7 @@
    "status": 200,
    "bytes": 6113,
    "sha256": "432124bac170a1093dd60e1dd0725e83a2b5acb7e25fcc76e1ce1266ffb2d0a8",
-   "retrieved_at": "2026-10-04T11:58:02+00:00",
+   "retrieved_at": "2026-10-10T23:56:39+00:00",
    "note": null,
    "trimmed": true
   },
@@ -151,9 +151,9 @@
     "boletin": "18259"
    },
    "status": 200,
-   "bytes": 3913,
-   "sha256": "98ce67ff6b551829d05667823713aede210ea350677485b5c3ede43f45d128e4",
-   "retrieved_at": "2026-10-04T11:58:04+00:00",
+   "bytes": 13872,
+   "sha256": "90b0633b5f6a819d7160f20ce49747033b30cc2c87a8a01d86600cb71fe11c20",
+   "retrieved_at": "2026-10-10T23:56:41+00:00",
    "note": null,
    "trimmed": true
   },
@@ -165,7 +165,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:58:06+00:00",
+   "retrieved_at": "2026-10-10T23:56:43+00:00",
    "note": null,
    "trimmed": true
   },
@@ -177,7 +177,7 @@
    "status": 200,
    "bytes": 2302,
    "sha256": "9e29e95fa434fa624f0baabddcf5c8b1ac9cbfcba5d16efa1118c274464ab7ec",
-   "retrieved_at": "2026-10-04T11:58:07+00:00",
+   "retrieved_at": "2026-10-10T23:56:44+00:00",
    "note": null,
    "trimmed": true
   },
@@ -189,7 +189,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:58:09+00:00",
+   "retrieved_at": "2026-10-10T23:56:46+00:00",
    "note": null,
    "trimmed": true
   },
@@ -201,7 +201,7 @@
    "status": 200,
    "bytes": 2442,
    "sha256": "a147c2aae23da461b373edb2b0fca170792357051d47eee9a9680007ee8d63d8",
-   "retrieved_at": "2026-10-04T11:58:10+00:00",
+   "retrieved_at": "2026-10-10T23:56:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -213,7 +213,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:58:12+00:00",
+   "retrieved_at": "2026-10-10T23:56:49+00:00",
    "note": null,
    "trimmed": true
   },
@@ -225,7 +225,7 @@
    "status": 200,
    "bytes": 2317,
    "sha256": "25a16d9acde0f460044e3bca5ec4cc53645d770283a79453aece9163f40aaaf8",
-   "retrieved_at": "2026-10-04T11:58:13+00:00",
+   "retrieved_at": "2026-10-10T23:56:50+00:00",
    "note": null,
    "trimmed": true
   },
@@ -237,7 +237,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:58:15+00:00",
+   "retrieved_at": "2026-10-10T23:56:52+00:00",
    "note": null,
    "trimmed": true
   },
@@ -249,7 +249,7 @@
    "status": 200,
    "bytes": 2250,
    "sha256": "5ebc1b4a3032edab6f69dfd552e3b012edc575d35d4fbe50a42d26b41ecc7aac",
-   "retrieved_at": "2026-10-04T11:58:16+00:00",
+   "retrieved_at": "2026-10-10T23:56:53+00:00",
    "note": null,
    "trimmed": true
   },
@@ -261,7 +261,7 @@
    "status": 200,
    "bytes": 26,
    "sha256": "d1072f807986a084d943bf837d499d2c78b1108024c136f426c47879fa353a4a",
-   "retrieved_at": "2026-10-04T11:58:18+00:00",
+   "retrieved_at": "2026-10-10T23:56:55+00:00",
    "note": null,
    "trimmed": true
   },
@@ -273,7 +273,7 @@
    "status": 200,
    "bytes": 2467,
    "sha256": "1736d7fb7da9e6bae4363b15f64109ab5b9a74ee8d85a05363119e67a7c3532a",
-   "retrieved_at": "2026-10-04T11:58:19+00:00",
+   "retrieved_at": "2026-10-10T23:56:56+00:00",
    "note": null,
    "trimmed": true
   },
@@ -285,14 +285,14 @@
    "status": 200,
    "bytes": 2079,
    "sha256": "cc2fe72fc32c9299e4acf686b13a179e90be3d4c23376ffaca1e23658cce7130",
-   "retrieved_at": "2026-10-04T11:58:22+00:00",
+   "retrieved_at": "2026-10-10T23:56:59+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_senado/2026-10-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_senado/2026-10-10",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "boletines_from_camara": 173,
+ "boletines_from_camara": 199,
  "boletines": {
   "18653-08": {
    "doc_id": "50bf04ed8d6fb8f6",
@@ -350,10 +350,6 @@
    "doc_id": "1a115baaaf87ac17",
    "title": "Bolet\u00edn 17883-07: Modifica la Carta Fundamental para asegurar la participaci\u00f3n mayoritaria del Estado en empresas que tengan por objeto la exploraci\u00f3n, explotaci\u00f3n o beneficio del litio"
   },
-  "17479-10": {
-   "doc_id": "33ba78844c4a15d2",
-   "title": "Bolet\u00edn 17479-10: Aprueba el Protocolo por el cual se adicionan los cap\u00edtulos de G\u00e9nero y Comercio, y de Micro, Peque\u00f1as y Medianas Empresas, al Tratado de Libre Comercio entre la Rep\u00fablica de Chile y"
-  },
   "17372-08": {
    "doc_id": "baa24a0efd9f9530",
    "title": "Bolet\u00edn 17372-08: Moderniza el gobierno corporativo de la Empresa Nacional de Miner\u00eda"
@@ -389,10 +385,6 @@
   "16605-08": {
    "doc_id": "8f9496e788040d36",
    "title": "Bolet\u00edn 16605-08: Dispone el resguardo de la capacidad de fundici\u00f3n de la Empresa Nacional de Miner\u00eda"
-  },
-  "16596-10": {
-   "doc_id": "65a1dcaa7727f55b",
-   "title": "Bolet\u00edn 16596-10: Aprueba el Tercer Protocolo Modificatorio del Protocolo Adicional al Acuerdo Marco de la Alianza del Pac\u00edfico, suscrito entre la Rep\u00fablica de Chile, la Rep\u00fablica de Colombia, los Est"
   },
   "16600-07": {
    "doc_id": "61d63699b5abe292",
@@ -562,10 +554,6 @@
    "doc_id": "58721d61ca9eeea0",
    "title": "Bolet\u00edn 12324-08: Modifica la ley N\u00b020.551, que regula el cierre de las faenas e instalaciones mineras."
   },
-  "12195-10": {
-   "doc_id": "7b10ad5552c18b64",
-   "title": "Bolet\u00edn 12195-10: Aprueba el Tratado Integral y Progresista de Asociaci\u00f3n Transpac\u00edfico entre Australia, Brun\u00e9i Darussalam, Canad\u00e1, los Estados Unidos Mexicanos, Jap\u00f3n, Malasia, Nueva Zelanda, la Rep\u00fa"
-  },
   "12196-08": {
    "doc_id": "e67b9ec38996e955",
    "title": "Bolet\u00edn 12196-08: Modifica el C\u00f3digo de Miner\u00eda en materia de aprovechamiento de aguas en faenas mineras"
@@ -638,10 +626,6 @@
    "doc_id": "54ac328c389bbb73",
    "title": "Bolet\u00edn 11261-07: Modifica la Carta Fundamental para crear la Empresa Nacional del Litio"
   },
-  "11172-10": {
-   "doc_id": "ec52004cc7f5442b",
-   "title": "Bolet\u00edn 11172-10: Aprueba el Segundo Protocolo Modificatorio del Protocolo Adicional al Acuerdo Marco de la Alianza del Pac\u00edfico, suscrito entre la Rep\u00fablica de Colombia, la Rep\u00fablica de Chile, los Es"
-  },
   "11028-05": {
    "doc_id": "f7166afb86397882",
    "title": "Bolet\u00edn 11028-05: Autoriza traspasar recursos provenientes de la aplicaci\u00f3n de la ley Reservada del Cobre al Tesoro P\u00fablico, permitiendo una capitalizaci\u00f3n extraordinaria a la Corporaci\u00f3n Nacional del"
@@ -657,10 +641,6 @@
   "10852-06": {
    "doc_id": "663ae7a62e33efdc",
    "title": "Bolet\u00edn 10852-06: Establece como feriado el d\u00eda 10 de agosto de cada a\u00f1o en la Regi\u00f3n de Atacama, con motivo de celebrarse el D\u00eda del Minero"
-  },
-  "10776-10": {
-   "doc_id": "80a726d32f6c0420",
-   "title": "Bolet\u00edn 10776-10: Aprueba el Primer Protocolo Modificatorio del Protocolo Adicional al Acuerdo Marco de la Alianza del Pac\u00edfico, suscrito entre la Rep\u00fablica de Colombia, la Rep\u00fablica de Chile, los Est"
   },
   "10638-08": {
    "doc_id": "3750f492252f6594",
@@ -709,10 +689,6 @@
   "10244-10": {
    "doc_id": "a8a77ed92cb9d246",
    "title": "Bolet\u00edn 10244-10: Proyecto de Acuerdo que aprueba el &quot;Acuerdo entre el Gobierno de la Rep\u00fablica de Chile y el Banco Internacional de Reconstrucci\u00f3n y Fomento, la Asociaci\u00f3n Internacional de Fomen"
-  },
-  "10205-10": {
-   "doc_id": "e1d65fb315092bd0",
-   "title": "Bolet\u00edn 10205-10: Aprueba el protocolo adicional al acuerdo marco de la alianza del pac\u00edfico, suscrito entre la Rep\u00fablica de Colombia, la Rep\u00fablica de Chile, los Estados Unidos Mexicanos y la Rep\u00fablic"
   },
   "10187-07": {
    "doc_id": "c6ec2b89ccd93807",
@@ -830,10 +806,6 @@
    "doc_id": "8ebce4fcbccd5b54",
    "title": "Bolet\u00edn 9002-10: Aprueba el Acuerdo Suplementario sobre Inversiones del Tratado de Libre Comercio entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de la Rep\u00fablica Popular de China, suscrito en"
   },
-  "8952-10": {
-   "doc_id": "3d8ef3d65f810df1",
-   "title": "Bolet\u00edn 8952-10: Acuerdo que aprueba Convenio entre la Rep\u00fablica de Chile y los Estados Unidos Mexicanos, sobre Protecci\u00f3n y Restituci\u00f3n de Bienes Culturales, suscrito en Ciudad de M\u00e9xico, el 8 de jul"
-  },
   "8840-08": {
    "doc_id": "09479d280eee1a93",
    "title": "Bolet\u00edn 8840-08: Modifica D.F.L. N\u00b0 1, de 1987, que crea la Comisi\u00f3n Chilena del Cobre."
@@ -841,10 +813,6 @@
   "8841-08": {
    "doc_id": "a413331073afb5e1",
    "title": "Bolet\u00edn 8841-08: Modifica el Decreto Ley que crea la Corporaci\u00f3n Nacional del Cobre CODELCO, en lo referido Gobierno Corporativo de la Empresa. BOLET\u00cdN N\u00b0 8841-08."
-  },
-  "8801-10": {
-   "doc_id": "3380c24528acbdfb",
-   "title": "Bolet\u00edn 8801-10: Acuerdo Marco de la Alianza del Pac\u00edfico, entre la Rep\u00fablica de Chile, la Rep\u00fablica de Colombia, los Estados Unidos Mexicanos y la Rep\u00fablica del Per\u00fa, suscrito en Paranal&quot;, Antof"
   },
   "8746-07": {
    "doc_id": "51b74ac6c1c0ce43",
@@ -985,6 +953,142 @@
   "6088-05": {
    "doc_id": "da553ac0763ae99d",
    "title": "Bolet\u00edn 6088-05: Incorpora a la ley N\u00b0 20.063, el combustible gas natural licuado y modifica el decreto con fuerza de ley N\u00b0 1, de 1978, del Ministerio de Miner\u00eda."
+  },
+  "5597-08": {
+   "doc_id": "04ddf8c717e8c04e",
+   "title": "Bolet\u00edn 5597-08: Impone al Presidente de la Rep\u00fablica, la obligaci\u00f3n de justificar que el Estado o sus empresas no se dediquen a la exploraci\u00f3n, explotaci\u00f3n o beneficio de los yacimientos que indican."
+  },
+  "5225-08": {
+   "doc_id": "11b730b1204cfd33",
+   "title": "Bolet\u00edn 5225-08: Otorga car\u00e1cter permanente a la patente especial para peque\u00f1os mineros y mineros artesanales regulada en el art\u00edculo 142 del C\u00f3digo de Miner\u00eda."
+  },
+  "5020-05": {
+   "doc_id": "34430f0b5d3efb9d",
+   "title": "Bolet\u00edn 5020-05: Establece el registro de recicladores de chatarra de cobre y aluminio y la certificaci\u00f3n, cuando proceda, por el Servicio Nacional de Aduanas, de los embarques de exportaci\u00f3n respecti"
+  },
+  "4989-24": {
+   "doc_id": "724272288c0a7b39",
+   "title": "Bolet\u00edn 4989-24: Autoriza la construcci\u00f3n de un monumento en homenaje a los ex mineros del carb\u00f3n."
+  },
+  "4964-10": {
+   "doc_id": "cb39b26756c3f67a",
+   "title": "Bolet\u00edn 4964-10: Tratado de Cooperaci\u00f3n en materia de patentes (PCT), elaborado en Washington el 19 de junio de 1970, enmendado el 28 de septiembre de 1979, modificado el 3 de febrero de 1984 y el 3 d"
+  },
+  "4946-07": {
+   "doc_id": "e77250c1fff004a6",
+   "title": "Bolet\u00edn 4946-07: Introduce una nueva disposici\u00f3n transitoria en la Constituci\u00f3n Pol\u00edtica de la Rep\u00fablica, a fin de regular la aplicaci\u00f3n del impuesto espec\u00edfico a la actividad minera para el financiam"
+  },
+  "4901-08": {
+   "doc_id": "2563128a5dcd98de",
+   "title": "Bolet\u00edn 4901-08: Modifica el Estatuto Org\u00e1nico de la Corporaci\u00f3n Nacional del Cobre de Chile, CODELCO, y las normas sobre disposici\u00f3n de sus pertenencias mineras"
+  },
+  "4728-08": {
+   "doc_id": "13a8454148df1c0a",
+   "title": "Bolet\u00edn 4728-08: Modifica el C\u00f3digo de Miner\u00eda con el objeto de mantener la existencia de los Boletines Oficiales de Miner\u00eda."
+  },
+  "4741-08": {
+   "doc_id": "7b1b25d61e00b991",
+   "title": "Bolet\u00edn 4741-08: Sobre publicaciones ordenadas por el C\u00f3digo de Miner\u00eda."
+  },
+  "4418-04": {
+   "doc_id": "185ad0cd8ab9baa0",
+   "title": "Bolet\u00edn 4418-04: Instaura el D\u00eda del Minero."
+  },
+  "4267-07": {
+   "doc_id": "e851d22621bfe090",
+   "title": "Bolet\u00edn 4267-07: Modifica el C\u00f3digo Penal en lo referente a delitos relacionados con el robo y receptaci\u00f3n de cables de cobre y metales del mobiliario urbano."
+  },
+  "4170-10": {
+   "doc_id": "682d46fbee77d8cc",
+   "title": "Bolet\u00edn 4170-10: Aprueba el Tratado de Libre Comercio entre los Gobiernos de la Rep\u00fablica de Chile y de la Rep\u00fablica Popular China y sus Anexos, suscrito en Busan, Corea del Sur, el 18 de noviembre de"
+  },
+  "4095-05": {
+   "doc_id": "c63e13d99e34f8c8",
+   "title": "Bolet\u00edn 4095-05: Introduce modificaciones al art\u00edculo 2\u00b0 de la ley N\u00b0 20.026, que establece un impuesto espec\u00edfico a la renta de la actividad minera y agrega nuevo art\u00edculo transitorio."
+  },
+  "4065-08": {
+   "doc_id": "0409fd40f4f16f52",
+   "title": "Bolet\u00edn 4065-08: Regula la figura de las personas competentes y crea la Comisi\u00f3n Calificadora de Competencias de Recursos y Reservas Mineras."
+  },
+  "3893-05": {
+   "doc_id": "1cb54eaaa39536b4",
+   "title": "Bolet\u00edn 3893-05: Modifica el decreto con fuerza de ley N\u00b0 1, de 1982, del Ministerio de Miner\u00eda, con el objeto de otorgar un subsidio al consumo el\u00e9ctrico."
+  },
+  "3864-08": {
+   "doc_id": "d65e3af0c0e6a301",
+   "title": "Bolet\u00edn 3864-08: Exige a las empresas de la gran miner\u00eda a constituirse como sociedad an\u00f3nima."
+  },
+  "3865-08": {
+   "doc_id": "926740587d99fea7",
+   "title": "Bolet\u00edn 3865-08: Incorpora al cobre entre las sustancias no susceptibles de concesi\u00f3n."
+  },
+  "3772-08": {
+   "doc_id": "28c2f735fa481de8",
+   "title": "Bolet\u00edn 3772-08: Establece un impuesto espec\u00edfico a la actividad minera."
+  },
+  "3692-10": {
+   "doc_id": "c5090265e67f7a44",
+   "title": "Bolet\u00edn 3692-10: Acuerdo de Transporte Mar\u00edtimo entre los Gobiernos de las Rep\u00fablicas de Chile y Popular China"
+  },
+  "3469-08": {
+   "doc_id": "f49c11d3fe06df5d",
+   "title": "Bolet\u00edn 3469-08: Modifica la ley N\u00b018.097, Org\u00e1nica Constitucional de Concesiones Mineras, estableciendo una justa compensaci\u00f3n por la explotaci\u00f3n de determinados recursos naturales no renovables"
+  },
+  "3413-04": {
+   "doc_id": "9c6c8669c98a3391",
+   "title": "Bolet\u00edn 3413-04: Permite erigir monumentos al trabajador del cobre en ciudades que indica."
+  },
+  "3406-03": {
+   "doc_id": "ed039c22a67fee22",
+   "title": "Bolet\u00edn 3406-03: Adecua la legislaci\u00f3n que indica al Tratado de Libre Comercio con los Estados Unidos de Am\u00e9rica."
+  },
+  "3318-10": {
+   "doc_id": "c650300645aa885e",
+   "title": "Bolet\u00edn 3318-10: Aprueba el Tratado de Libre Comercio entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica y sus anexos, adoptados en Miami el 6 de Junio del 2003."
+  },
+  "3298-08": {
+   "doc_id": "a25e622f6663db77",
+   "title": "Bolet\u00edn 3298-08: Autoriza a la Empresa Nacional de Miner\u00eda (ENAMI) transferir a la Empresa Corporaci\u00f3n Nacional del Cobre de Chile (CODELCO) la fundici\u00f3n y refiner\u00eda Las Ventanas."
+  },
+  "3162-10": {
+   "doc_id": "a7699f8a6a210446",
+   "title": "Bolet\u00edn 3162-10: Aprueba el protocolo del Acuerdo Multilateral sobre liberaci\u00f3n del Transporte A\u00e9reo Internacional, adoptado en Washington, el 1 de mayo de 2001."
+  },
+  "3163-10": {
+   "doc_id": "a6672120cba3cd45",
+   "title": "Bolet\u00edn 3163-10: Proyecto de acuerdo sobre convenio de transporte a\u00e9reo entre el Gobierno de las Rep\u00fablicas de Chile y Popular China relacionado con el transporte a\u00e9reo civil y su anexo, suscritos en "
+  },
+  "3170-08": {
+   "doc_id": "36fa4e0ee474a7ee",
+   "title": "Bolet\u00edn 3170-08: Proyecto de ley que modifica los art\u00edculos 147 y 156 del C\u00f3digo de Miner\u00eda, en relaci\u00f3n con las menciones que deben contener n\u00f3minas que se\u00f1ala."
+  },
+  "2976-03": {
+   "doc_id": "fa8e869b9616e8ab",
+   "title": "Bolet\u00edn 2976-03: Proyecto de ley que sustituye el art\u00edculo 47 de la Ley General de Pesca y Acuicultura, a fin de reservar a la pesca artesanal el ejercicio de las actividades extractivas en aguas que "
+  },
+  "2939-10": {
+   "doc_id": "49029b0a04000904",
+   "title": "Bolet\u00edn 2939-10: Proyecto de Acuerdo Multilateral sobre la Liberalizaci\u00f3n del Transporte A\u00e9reo Internacional y su Anexo, suscrito en Washington el 11 de mayo de 2001."
+  },
+  "2712-08": {
+   "doc_id": "f3dcd2c06d34a546",
+   "title": "Bolet\u00edn 2712-08: Sustituye el art\u00edculo 1\u00ba de la ley N\u00ba 16.624, relativo al concepto de las empresas productoras de cobre de la Gran Miner\u00eda, para los efectos que indica"
+  },
+  "2632-08": {
+   "doc_id": "712c4122f677f61a",
+   "title": "Bolet\u00edn 2632-08: Establece una patente minera especial para peque\u00f1os mineros y mineros artesanales, a la vez que condona recargos legales y concede facilidades de pago para patentes atrasadas."
+  },
+  "2613-10": {
+   "doc_id": "1d32f187996d7f5c",
+   "title": "Bolet\u00edn 2613-10: Acuerdo B\u00e1sico de Cooperaci\u00f3n Cient\u00edfica y Tecnol\u00f3gica entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica, adoptado por cambio de notas de fecha"
+  },
+  "2546-10": {
+   "doc_id": "ffed46935059739e",
+   "title": "Bolet\u00edn 2546-10: Acuerdo que Aprueba el Transporte a\u00e9reo entre el Gobierno de la Rep\u00fablica de Chile y el Gobierno de los Estados Unidos de Am\u00e9rica y sus Anexos."
+  },
+  "2463-03": {
+   "doc_id": "5f9179ad3cbf8ad9",
+   "title": "Bolet\u00edn 2463-03: Establece r\u00e9gimen de zona franca industrial de insumos, partes y piezas  para la miner\u00eda, en la comuna de Tocopilla."
   }
  },
  "sample_response": {
@@ -996,8 +1100,6 @@
   "votaciones/17954-06.xml",
   "votaciones/17883-07.xml",
   "tramitacion/17883-07.xml",
-  "votaciones/17479-10.xml",
-  "tramitacion/17479-10.xml",
   "votaciones/17372-08.xml",
   "tramitacion/17372-08.xml",
   "votaciones/17262-06.xml",
@@ -1014,7 +1116,6 @@
   "tramitacion/16785-07.xml",
   "votaciones/16605-08.xml",
   "tramitacion/16605-08.xml",
-  "votaciones/16596-10.xml",
   "votaciones/16600-07.xml",
   "tramitacion/16600-07.xml",
   "votaciones/16587-25.xml",
@@ -1089,7 +1190,6 @@
   "votaciones/12518-13.xml",
   "tramitacion/12518-13.xml",
   "votaciones/12324-08.xml",
-  "votaciones/12195-10.xml",
   "votaciones/12196-08.xml",
   "tramitacion/12196-08.xml",
   "votaciones/12173-07.xml",
@@ -1111,6 +1211,7 @@
   "votaciones/11749-10.xml",
   "votaciones/11611-10.xml",
   "votaciones/11582-10.xml",
+  "tramitacion/11582-10.xml",
   "votaciones/11568-10.xml",
   "votaciones/11498-08.xml",
   "tramitacion/11498-08.xml",
@@ -1118,13 +1219,11 @@
   "votaciones/11346-10.xml",
   "votaciones/11261-07.xml",
   "tramitacion/11261-07.xml",
-  "votaciones/11172-10.xml",
   "votaciones/11028-05.xml",
   "votaciones/10995-08.xml",
   "votaciones/10941-21.xml",
   "tramitacion/10941-21.xml",
   "votaciones/10852-06.xml",
-  "votaciones/10776-10.xml",
   "votaciones/10638-08.xml",
   "tramitacion/10638-08.xml",
   "votaciones/10629-12.xml",
@@ -1144,7 +1243,6 @@
   "votaciones/10312-08.xml",
   "tramitacion/10312-08.xml",
   "votaciones/10244-10.xml",
-  "votaciones/10205-10.xml",
   "votaciones/10187-07.xml",
   "tramitacion/10187-07.xml",
   "votaciones/10168-07.xml",
@@ -1194,13 +1292,10 @@
   "votaciones/9017-13.xml",
   "tramitacion/9017-13.xml",
   "votaciones/9002-10.xml",
-  "votaciones/8952-10.xml",
   "votaciones/8840-08.xml",
   "tramitacion/8840-08.xml",
   "votaciones/8841-08.xml",
   "tramitacion/8841-08.xml",
-  "votaciones/8801-10.xml",
-  "tramitacion/8801-10.xml",
   "votaciones/8746-07.xml",
   "tramitacion/8746-07.xml",
   "votaciones/8485-10.xml",
@@ -1263,6 +1358,62 @@
   "tramitacion/6411-21.xml",
   "votaciones/6415-08.xml",
   "votaciones/6373-03.xml",
-  "votaciones/6088-05.xml"
+  "votaciones/6088-05.xml",
+  "votaciones/5597-08.xml",
+  "tramitacion/5597-08.xml",
+  "votaciones/5225-08.xml",
+  "tramitacion/5225-08.xml",
+  "votaciones/5020-05.xml",
+  "tramitacion/5020-05.xml",
+  "votaciones/4989-24.xml",
+  "votaciones/4964-10.xml",
+  "votaciones/4946-07.xml",
+  "votaciones/4901-08.xml",
+  "votaciones/4728-08.xml",
+  "votaciones/4741-08.xml",
+  "tramitacion/4741-08.xml",
+  "votaciones/4418-04.xml",
+  "votaciones/4267-07.xml",
+  "tramitacion/4267-07.xml",
+  "votaciones/4170-10.xml",
+  "votaciones/4095-05.xml",
+  "votaciones/4065-08.xml",
+  "votaciones/3893-05.xml",
+  "votaciones/3864-08.xml",
+  "tramitacion/3864-08.xml",
+  "votaciones/3865-08.xml",
+  "tramitacion/3865-08.xml",
+  "votaciones/3772-08.xml",
+  "votaciones/3692-10.xml",
+  "tramitacion/3692-10.xml",
+  "votaciones/3469-08.xml",
+  "tramitacion/3469-08.xml",
+  "votaciones/3413-04.xml",
+  "tramitacion/3413-04.xml",
+  "votaciones/3406-03.xml",
+  "tramitacion/3406-03.xml",
+  "votaciones/3318-10.xml",
+  "tramitacion/3318-10.xml",
+  "votaciones/3298-08.xml",
+  "votaciones/3162-10.xml",
+  "tramitacion/3162-10.xml",
+  "votaciones/3163-10.xml",
+  "tramitacion/3163-10.xml",
+  "votaciones/3170-08.xml",
+  "tramitacion/3170-08.xml",
+  "votaciones/2976-03.xml",
+  "tramitacion/2976-03.xml",
+  "votaciones/2939-10.xml",
+  "tramitacion/2939-10.xml",
+  "votaciones/2712-08.xml",
+  "tramitacion/2712-08.xml",
+  "votaciones/2632-08.xml",
+  "tramitacion/2632-08.xml",
+  "votaciones/2613-10.xml",
+  "tramitacion/2613-10.xml",
+  "votaciones/2546-10.xml",
+  "tramitacion/2546-10.xml",
+  "votaciones/2463-03.xml",
+  "tramitacion/2463-03.xml"
  ]
 }

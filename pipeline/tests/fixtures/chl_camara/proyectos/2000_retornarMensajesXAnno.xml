@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>1053</ns0:Id>
+    <ns0:NumeroBoletin>2453-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la moneda de quinientos pesos.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1054</ns0:Id>
+    <ns0:NumeroBoletin>2454-19</ns0:NumeroBoletin>
+    <ns0:Nombre>Autoriza a la Universidad de Chile para la contratación de empréstito para la construcción de un parque científico-tecnológico, y faculta al Presidente de la República para otorgar la garantía del Estado.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1056</ns0:Id>
+    <ns0:NumeroBoletin>2456-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga compensaciones y otros beneficios que indica a funcionarios públicos estudiantes de carreras técnicas de nivel superior.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1091</ns0:Id>
+    <ns0:NumeroBoletin>2446-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Concede beneficios económicos al personal de la Contraloría General de la República.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1092</ns0:Id>
+    <ns0:NumeroBoletin>2449-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Convenio del Programa Cooperativo para el Fondo Regional de Tecnología Agropecuaria y el Convenio de Administración de dicho Programa Cooperativo.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1095</ns0:Id>
+    <ns0:NumeroBoletin>2450-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Permite el incremento de la subvención educacional del art. 9° del D.F.L. N° 2, de 1998, de Educación, con el objeto de contribuir al financiamiento de la asignación de perfeccionamiento docente.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>765</ns0:Id>
+    <ns0:NumeroBoletin>2463-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece régimen de zona franca industrial de insumos, partes y piezas  para la minería, en la comuna de Tocopilla.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-26T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>766</ns0:Id>
+    <ns0:NumeroBoletin>2459-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Convenio de transporte aéreo entre Chile y Costa Rica y su anexo.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-25T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>767</ns0:Id>
+    <ns0:NumeroBoletin>2461-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece indemnización para los Ministros de la Excma Corte Suprema</ns0:Nombre>
+    <ns0:FechaIngreso>2000-01-25T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1242</ns0:Id>
+    <ns0:NumeroBoletin>2467-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Tratado de Libre Comercio entre Chile y Centroamérica con Costa Rica; El Salvador; Guatemala; Honduras y Nicaragua</ns0:Nombre>
+    <ns0:FechaIngreso>2000-03-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1429</ns0:Id>
+    <ns0:NumeroBoletin>2517-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Protocolo de Ushuaia sobre Compromiso Democrático en el MERCOSUR, la República de Bolivia y la República de Chile, suscrito el 24 de julio de 1998, en Argentina.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-06-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1244</ns0:Id>
+    <ns0:NumeroBoletin>2469-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Instituto de Propiedad Industrial</ns0:Nombre>
+    <ns0:FechaIngreso>2000-03-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1248</ns0:Id>
+    <ns0:NumeroBoletin>2475-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Incrementa el Fondo de Estabilización de Precios del Petrólero, a que se refiere la ley N° 19.030</ns0:Nombre>
+    <ns0:FechaIngreso>2000-03-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1490</ns0:Id>
+    <ns0:NumeroBoletin>2578-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece como medida de administración el límite máximo de captura por armador a las principales pesquerías industriales nacionales y la regularización del Registro Pesquero Artesanal. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1494</ns0:Id>
+    <ns0:NumeroBoletin>2580-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Otorga un bono extraordinario y dispone devolución anticipada de impuestos. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-09-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1503</ns0:Id>
+    <ns0:NumeroBoletin>2589-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Presupuesto del Sector Público para el año 2001. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-10-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1504</ns0:Id>
+    <ns0:NumeroBoletin>2590-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Registro Nacional de Transporte de Carga terrestre. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1506</ns0:Id>
+    <ns0:NumeroBoletin>2592-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece el reintegro parcial de los peajes pagados en vías concesionadas por vehículos pesados y establece facultades para facilitar la fiscalización sobre combustibles. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1507</ns0:Id>
+    <ns0:NumeroBoletin>2593-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Regula la responsabilidad de los directores y limita las indemnizaciones en las empresas del Estado.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1508</ns0:Id>
+    <ns0:NumeroBoletin>2594-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece bases de los procedimientos administrativos que rigen los actos de los órganos de la administración del Estado.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-10-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1515</ns0:Id>
+    <ns0:NumeroBoletin>2603-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N°  18.010 que establece normas para las operaciones de crédito y otras operaciones de dinero que indica. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-10-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1519</ns0:Id>
+    <ns0:NumeroBoletin>2605-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea el Defensor del Ciudadano.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-10-18T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1523</ns0:Id>
+    <ns0:NumeroBoletin>2609-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Concede beneficio indemnizatorio a funcionarios municipales que se acojan a jubilación en período que se indica. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1525</ns0:Id>
+    <ns0:NumeroBoletin>2612-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo  entre la República  de Chile y la República de Bolivia sobre reconocimiento recíproco de licencias de conducir, suscrito en Arica el 3 de septiembre de 1999.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1539</ns0:Id>
+    <ns0:NumeroBoletin>2621-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Sustituye la denominación de la comuna de Navarino por comuna de Cabo de Hornos y establece una agrupación de comunas. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1540</ns0:Id>
+    <ns0:NumeroBoletin>2622-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el acuerdo entrre la República de Chile y la Confederación Suiza sobre  la promoción y la protección recíproca de inversiones y su protocolo, suscritos en Berna, el 24 de septiembre de 1999.  </ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1545</ns0:Id>
+    <ns0:NumeroBoletin>2627-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 19.518, sobre Estatuto de Capacitación y Empleo. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1546</ns0:Id>
+    <ns0:NumeroBoletin>2628-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el decreto ley N° 3.500, de 1980, en materia de inversiones de los Fondos de Pensiones. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1547</ns0:Id>
+    <ns0:NumeroBoletin>2629-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba enmiendas al anexo del convenio internacional sobre normas de formación, titulación y guardia para la gente de mar.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1548</ns0:Id>
+    <ns0:NumeroBoletin>2630-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba las Enmiendas al Anexo del Convenio Internacional sobre normas de Formación, Titulación y Guardia para la Gente de Mar, 1978, y la parte A del Código de Formación, Titulación y Guardia para la Gente de mar.  </ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1551</ns0:Id>
+    <ns0:NumeroBoletin>2632-08</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece una patente minera especial para pequeños mineros y mineros artesanales, a la vez que condona recargos legales y concede facilidades de pago para patentes atrasadas.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-11-28T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1558</ns0:Id>
+    <ns0:NumeroBoletin>2640-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Protocolo de 1992 y su Anexo, que enmienda el Convenio Internacional sobre Responsabilidad Civil nacida de daños debidos a contaminación por hidrocarburos, 1969, adoptado en londres el 27 de noviembre de 1992. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-12-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1559</ns0:Id>
+    <ns0:NumeroBoletin>2641-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Código Orgánico de Tribunales y la ley Nº 19.665, en relación al nuevo Código Procesal Penal.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-12-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1430</ns0:Id>
+    <ns0:NumeroBoletin>2518-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba las enmiendas al Convenio de Basilea sobre el Control de los Movimientos Transfronterizos de los Desechos Peligrosos y su eliminación, adoptadas en la Tercera y Cuarta Reunión de la Conferencia de las Partes, en Ginebra el 22 de septiembre de 1995 y Kuching, Malasia, el 27 de febrero de 1998.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-06-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1431</ns0:Id>
+    <ns0:NumeroBoletin>2519-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba las rectificaciones al texto de la Convención Marco de las Naciones Unidas sobre el Cambio Climático, adoptada en Nueva York el 9 de mayo de 1992.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-06-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1432</ns0:Id>
+    <ns0:NumeroBoletin>2520-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece la obligación de secreto para quienes reciban información conducente a la ubicación de los detenidos desaparecidos. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-06-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1438</ns0:Id>
+    <ns0:NumeroBoletin>2525-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Protocolo de la Convención Marco de las Naciones Unidas sobre el Cambio Climático y sus Anexos A y B, adoptado en Kyoto, Japón, el 11 de diciembre de 1997.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-06-22T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1442</ns0:Id>
+    <ns0:NumeroBoletin>2527-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Acuerdo de Exención de Visas para los Titulares de Pasaportes Diplomáticos, Oficiales y Especiales entre la Repoública de Chile y el Reino Hachemita de Jordania.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1443</ns0:Id>
+    <ns0:NumeroBoletin>2528-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre el Gobierno de la República de Chile y el de la República de Honduras, referente a la exención del requisito de Visa para Titulares de Pasaportes Diplomáticos, Oficiales y Especiales.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1444</ns0:Id>
+    <ns0:NumeroBoletin>2529-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de la República de Chile y de la República de Ucrania referente a la Exención del Requisito de Visa para Titulares de Pasaportes Diplomáticos y Oficiales o de Servicio.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1445</ns0:Id>
+    <ns0:NumeroBoletin>2530-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre el Gobierno de la República de Chile y de la República de Lituania referente a la Exención del Requisito de Visa para Titulares de Pasaportes Diplomáticos, Oficiales y Especiales.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1446</ns0:Id>
+    <ns0:NumeroBoletin>2531-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de la República de Chile y el Gobierno de la República de Albania para la supresión de Visado en Pasaportes Diplomáticos, Oficiales, Especiales y de Servicio.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1451</ns0:Id>
+    <ns0:NumeroBoletin>2538-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre el Gobierno de la República de Chile y el Gobierno del Reino Unido de Dinamarca que autoriza el trabajo remunerado de familiares dependientes del personal Diplomático, Consular, Administrativo y Técnico de las Misiones Diplomáticas y Consulares en ambos Países.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1452</ns0:Id>
+    <ns0:NumeroBoletin>2539-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de la República de Chile y el Gobierno de la República de Finlandia, autorizando a los familiares dependientes de los empleados del Estado de origen destinados en misión oficial al Estado receptor como miembros de una Misión Diplomática o Representación Consular o como miembros de una Misión ante un Organismo Internacional, para desempeñar un trabajo remunerado en el Estado receptor.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1453</ns0:Id>
+    <ns0:NumeroBoletin>2540-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de la República de Chile y el Gobierno de la República del Paraguay sobre el ejercicio de actividades remuneradas por parte de familiares dependientes del personal Diplomático, Consular, Administrativo y Técnico, suscrito en Santiago, el 24 de abril de 1997.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1485</ns0:Id>
+    <ns0:NumeroBoletin>2571-19</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre firma electrónica y los servicios de certificación de firma electrónica. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1407</ns0:Id>
+    <ns0:NumeroBoletin>2504-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica  la ley N° 18.290, en lo relativo a la obtención de las licencias de conducir.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-06-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1560</ns0:Id>
+    <ns0:NumeroBoletin>2644-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Prorroga la vigencia del subsidio a la contratación de la mano de obra en zonas extremas. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-12-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1454</ns0:Id>
+    <ns0:NumeroBoletin>2541-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de la República de Chile y el Gobierno de Rumania, por el que autoriza a los Familiares Dependientes del Personal Diplomático, Consular, Administrativo y Técnico de las Misiones Diplomáticas y Consulares, Administrativo y Técnico de las Misiones Diplomáticas y Consulares de ambos Países, para desempeñar Actividades Remuneradas en el Estado Receptor, beneficio que se extiende, igualmente, a los Familiares Dependientes de Nacionales Chilenos o Rumanos Acreditados ante Organizaciones Internacionales con sede en cualquiera de los dos Países.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1455</ns0:Id>
+    <ns0:NumeroBoletin>2542-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de la República de Chile y el Gobierno de Nueva Zelandia sobre trabajo remunerado de los familiares dependientes del personal de las Misiones Diplomáticas y Consulares, suscrito en Wellington, Nueva Zelandia, el 14 de octubre de 1996.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1459</ns0:Id>
+    <ns0:NumeroBoletin>2546-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo que Aprueba el Transporte aéreo entre el Gobierno de la República de Chile y el Gobierno de los Estados Unidos de América y sus Anexos.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-07-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1337</ns0:Id>
+    <ns0:NumeroBoletin>2493-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre Chile y la Comisión Económica para América Latina  y el Caribe para regular el ejercicio de las actividades remuneradas de los cónyuges de los funcionarios de dicho organismo internacional.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-05-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1338</ns0:Id>
+    <ns0:NumeroBoletin>2494-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece un seguro de desempleo.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-05-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1342</ns0:Id>
+    <ns0:NumeroBoletin>2499-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Sobre transparencia, límite y control del gasto electoral. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-05-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1470</ns0:Id>
+    <ns0:NumeroBoletin>2556-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la Ley Orgánica Constitucional de Municipalidades, en lo relativo a materias electorales.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1475</ns0:Id>
+    <ns0:NumeroBoletin>2560-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo sobre el contrato de transporte y la responsabilidad civil del porteador en el transporte internacional de mercancías por carretera, entre la Rep. de Bolivia, la Rep. Federativa del Brasil, la Rep. de Chile, la Rep. del Paraguay, la Rep. del Perú y la Rep. Oriental del Uruguay.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-08T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1476</ns0:Id>
+    <ns0:NumeroBoletin>2564-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 19.677 referida al Fondo de Garantía para Pequeños Empresarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-09T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1480</ns0:Id>
+    <ns0:NumeroBoletin>2566-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Autoriza a las municipalidades para otorgar prestaciones de bienestar a sus funcionarios.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1483</ns0:Id>
+    <ns0:NumeroBoletin>2569-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo que aprueba el protocolo de 1992 que enmienda el Convenio Internacional sobre la Constitución de un Fondo Internacional de Indemnización de daños debidos a contaminación por hidrocarburos, adoptado en Londres el 27 de noviembre de de 1992.</ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>1484</ns0:Id>
+    <ns0:NumeroBoletin>2570-09</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N° 18.902, que crea la Superintendencia de Servicios Sanitarios y deroga la ley N° 3.133, sobre neutralización de los residuos provenientes de establecimientos industriales y su reglamento. </ns0:Nombre>
+    <ns0:FechaIngreso>2000-08-29T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>

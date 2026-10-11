@@ -1,0 +1,543 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:ProyectosLeyColeccion xmlns:ns0="http://opendata.camara.cl/camaradiputados/v1">
+  <ns0:ProyectoLey>
+    <ns0:Id>4144</ns0:Id>
+    <ns0:NumeroBoletin>3755-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre los gobiernos de las Repúblicas de Chile y República Dominicana sobre el libre ejercicio de actividades remuneradas para familiares dependientes del personal diplomático, consular, administrativo y técnico de misiones diplomáticas y oficinas consulares.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4095</ns0:Id>
+    <ns0:NumeroBoletin>3693-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo Básico de Cooperación Técnica, Científica y Tecnológica  entre los Gobiernos de Chile y de Rumania, adoptado en Santiago el 20 de noviembre de 1998</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-13T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4099</ns0:Id>
+    <ns0:NumeroBoletin>3708-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Código Orgánico de Tribunales y la ley N° 18.776, incorporando las comunas de Alto Hospicio, Hualpén, Alto Bíobío, Cholchol, San Pedro de la Paz y Chiguayante a los territorios jurisdiccionales de los tribunales que indica.  </ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-20T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4102</ns0:Id>
+    <ns0:NumeroBoletin>3712-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece facultades para la Tesorería General de la República y modifica la ley N° 19.848, sobre reprogramación de deudas a los fondos de crédito solidario.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-11-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4128</ns0:Id>
+    <ns0:NumeroBoletin>3762-17</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece pensión de reparación y otorga otros beneficios a favor de las personas que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4129</ns0:Id>
+    <ns0:NumeroBoletin>3740-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Protocolo sobre Cooperación, preparación y lucha contra los sucesos de contaminación por sustancias nocivas y potencialmente peligrosas y su Anexo.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4130</ns0:Id>
+    <ns0:NumeroBoletin>3741-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio de Seguridad Social entre las Repúblicas de Chile y de Colombia</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4131</ns0:Id>
+    <ns0:NumeroBoletin>3742-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Memorándum de Entendimiento sobre Cooperación en materia de educación, suscrito con Canadá.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4132</ns0:Id>
+    <ns0:NumeroBoletin>3743-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Tratado para la Creación del Consejo Sudamericano del Deporte \&amp;quot;CONSUDE\&amp;quot;.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4133</ns0:Id>
+    <ns0:NumeroBoletin>3744-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acta Constitutiva de la Asociación de Estados Iberoamericanos para el Desarrollo de las Bibliotecas Nacionales de los Países de Iberoamérica, ABINIA.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4134</ns0:Id>
+    <ns0:NumeroBoletin>3745-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Modificación al párrafo 4° de las Reglas de Financiación anexas a los Estatutos de la Organización Mundial de Turismo (OMT).</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4135</ns0:Id>
+    <ns0:NumeroBoletin>3746-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convención sobre Defensa del patrimonio Arqueológico, Histórico y Artístico de las Naciones Americanas.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4136</ns0:Id>
+    <ns0:NumeroBoletin>3747-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre los gobiernos de las Repúblicas de Chile y Socialista de Vietnam, sobre exención del requisito de visa para los titulares de pasaportes diplomáticos y oficiales.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4137</ns0:Id>
+    <ns0:NumeroBoletin>3748-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Cooperación turística entre los gobiernos de las Repúblicas de Chile y Guatemala.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4138</ns0:Id>
+    <ns0:NumeroBoletin>3749-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre  los Gobiernos de las Repúblicas de Chile y de las Islas Marshall referente a la exención del requisito de visa para portadores de pasaportes diplomáticos, oficiales y especiales.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4139</ns0:Id>
+    <ns0:NumeroBoletin>3750-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo Marco de Cooperación entre el Gobierno de la República de Chile, por una parte, y el Gobierno de la Región de Valona y el Gobierno de la Comunidad Francesa de Bélgica, por otra parte.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4140</ns0:Id>
+    <ns0:NumeroBoletin>3751-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Cooperación Científica y Técnica entre los Gobiernos de las Repúblicas de Chile y de las Islas Marshall.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4141</ns0:Id>
+    <ns0:NumeroBoletin>3752-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba las Enmiendas al Reglamento Internacional para Prevenir los Abordajes, 1972, adoptadas por la Resolución A.910 (22) de 29 de Noviembre de 2001, de la Asamblea de la Organización Marítima Internaciona (OMI).</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4142</ns0:Id>
+    <ns0:NumeroBoletin>3753-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo de Cooperación Turística entre las Repúblicas de Chile y de Túnez.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4143</ns0:Id>
+    <ns0:NumeroBoletin>3754-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre el Gobierno de la República de Chile y el Gobierno de Mongolia sobre supresión de visa para los portadores de pasaportes diplomáticos, oficiales y especiales de la República de Chile y portadores de pasaportes diplomáticos y oficiales de Mongolia.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4145</ns0:Id>
+    <ns0:NumeroBoletin>3756-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre los Gobiernos de las Repúblicas de Chile y de Perú, adoptado por intercambio, de notas por el cual se autoriza a familiares dependientes del personal diplomático, consular, administrativo y técnico de las misiones diplomáticas y consulares de ambos países para desempeñar actividades remuneradas en el Estado receptor.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4146</ns0:Id>
+    <ns0:NumeroBoletin>3757-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio Complementario al Convenio de Seguridad Social entre la República de Chile y el Reino de España.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4147</ns0:Id>
+    <ns0:NumeroBoletin>3758-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo entre las Repúblicas de Chile y de Estonia referente a la exención del requisito de visa para pasaportes que indica.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4148</ns0:Id>
+    <ns0:NumeroBoletin>3759-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre los Gobiernos de las Repúblicas de Chile y de la Federación de Rusia sobre cooperación y asistencia mutua en materia aduanera.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4149</ns0:Id>
+    <ns0:NumeroBoletin>3760-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio sobre cooperación comercial y económica entre los Gobiernos de las Repúblicas de Chile y del Líbano.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4150</ns0:Id>
+    <ns0:NumeroBoletin>3761-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio entre los Gobiernos de las Repúblicas de Chile y de Islandia para la promoción y protección recíproca de las inversiones.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4151</ns0:Id>
+    <ns0:NumeroBoletin>3736-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece asignaciones que indica para funcionarios municipales y jueces de policía local</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4153</ns0:Id>
+    <ns0:NumeroBoletin>3763-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Prorroga la vigencia de los avalúos de los bienes raíces no agrícolas de todo el país y la vigencia del mecanismo de compensación de los ingresos municipales establecido en la ley N° 19.850.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4158</ns0:Id>
+    <ns0:NumeroBoletin>3768-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica diversos cuerpos legales en materia de modernización municipal</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4159</ns0:Id>
+    <ns0:NumeroBoletin>3771-17</ns0:NumeroBoletin>
+    <ns0:Nombre>Concede nacionalidad chilena a Horacio De La Peña</ns0:Nombre>
+    <ns0:FechaIngreso>2004-12-16T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3773</ns0:Id>
+    <ns0:NumeroBoletin>3461-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley N°17.336, sobre propiedad intelectual, estableciendo un estatuto normativo especial respecto de los delitos de piratería y conexos con éste</ns0:Nombre>
+    <ns0:FechaIngreso>2004-01-22T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3787</ns0:Id>
+    <ns0:NumeroBoletin>3465-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica los Códigos Procesal Penal y Penal en diversas materias relativas al funcionamiento de la Reforma Procesal Penal.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-03-02T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3795</ns0:Id>
+    <ns0:NumeroBoletin>3444-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el protocolo contra el tráfico ilícito de migrantes por tierra, mar y aire, que complementa la Convención de las Naciones Unidas contra la delincuencia organizada transnacional, aprobado por la Asamblea General de las Naciones Unidas, el 15 de noviembre de 2000, y suscrito por Chile el 8 de agosto de 2002 </ns0:Nombre>
+    <ns0:FechaIngreso>2004-03-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4012</ns0:Id>
+    <ns0:NumeroBoletin>3623-04</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Estatuto Docente</ns0:Nombre>
+    <ns0:FechaIngreso>2004-08-03T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3840</ns0:Id>
+    <ns0:NumeroBoletin>3516-10</ns0:NumeroBoletin>
+    <ns0:Nombre>APRUEBA LAS ENMIENDAS AL CONVENIO INTERNACIONAL PARA LA SEGURIDAD DE LA VIDA HUMANA EN EL MAR, 1974, ENMENDADO, ADOPTADAS POR EL COMITÉ DE SEGURIDAD MARITIMA DE LA ORGANIZACIÓN MARÍTIMA INTERNACIONAL MEDIANTE LA RESOLUCIÓN MSC. 99 (73), DE 5 DE DICIEMBRE DE 2000, Y LAS ENMIENDAS AL PROTOCOLO DE 1988, RELATIVO AL CONVENIO INTERNACIONAL PARA LA SEGURIDAD DE LA VIDA HUMANA EN EL MAR, 1974, ENMENDADO, ADOPTADAS POR EL COMITÉ DE SEGURIDAD MARÍTIMA DE LA ORGANIZACIÓN MARÍTIMA INTERNACIONAL MEDIANTE RESOLUCIÓN MSC. 100 (73), DE 5 DE DICIEMBRE DE 2000.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-05-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3841</ns0:Id>
+    <ns0:NumeroBoletin>3517-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba las enmiendas de 1997 al anexo del Protocolo de 1978 relativo al Convenio Internacional para Prevenir la Contaminación por los Buques 1973, adoptados por resolución mepc.75 (40) de 1997.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-05-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3843</ns0:Id>
+    <ns0:NumeroBoletin>3519-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley Nº 19.884, sobre transparencia, límite y control del gasto electoral, estableciendo sanciones y el procedimiento para su aplicación.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-05-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>3853</ns0:Id>
+    <ns0:NumeroBoletin>3531-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Corrige situación tributaria que indica en la XII Región.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-05-12T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4016</ns0:Id>
+    <ns0:NumeroBoletin>3624-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el Acuerdo entre el Gobierno de la República de Chile y la Organización de las Naciones Unidas, suscrito en Santiago, el 19 de junio de 2003.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-08-04T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4019</ns0:Id>
+    <ns0:NumeroBoletin>3630-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece normas relativas al mejoramiento de la gestión institucional del Ministerio de Relaciones Exteriores.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-08-10T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4026</ns0:Id>
+    <ns0:NumeroBoletin>3636-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo sexto transitorio de la ley N° 19.578, prorrogando vigencia de cotización extraordinaria para el seguro social contra riegos de accidentes del trabajo y enfermedades profesionales.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-08-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4027</ns0:Id>
+    <ns0:NumeroBoletin>3637-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el procedimiento de confección de ternas para el nombramiento de Jueces de Garantía y de Tribunales de Juicio Oral en lo Penal</ns0:Nombre>
+    <ns0:FechaIngreso>2004-08-17T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4029</ns0:Id>
+    <ns0:NumeroBoletin>3642-07</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley Nº 16.271, en lo relativo al cobro de aranceles por parte de los conservadores de bienes raíces</ns0:Nombre>
+    <ns0:FechaIngreso>2004-08-31T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4038</ns0:Id>
+    <ns0:NumeroBoletin>3651-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convención Interamericana sobre Transparencia en las adquisiciones de armas convencionales y sus Anexos I y II adoptado el 7 de junio de 1999 por la Asamblea General de la Organización de los Estado Americanos .</ns0:Nombre>
+    <ns0:FechaIngreso>2004-09-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4039</ns0:Id>
+    <ns0:NumeroBoletin>3652-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Convenio de Cooperación en materia de Cultura, Educación y Ciencia, entre el Gobierno de Ucrania y el Gobierno de la República de Chile, suscrito en Kiev el 26 de marzo de 1997.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-09-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4040</ns0:Id>
+    <ns0:NumeroBoletin>3653-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el instrumento de enmienda a la Constitucion de la Organización Internacional del Trabajo, 1997, adoptado el 19 de junio de 1997, en la 85ª reunión de la Conferencia Internacional del Trabajo.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-09-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4041</ns0:Id>
+    <ns0:NumeroBoletin>3654-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba el acuerdo sobre la conservación de albatros y petreles y sus dos anexos, adoptado el 19 de junio de 2001, en Canberra, Australia</ns0:Nombre>
+    <ns0:FechaIngreso>2004-09-07T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4057</ns0:Id>
+    <ns0:NumeroBoletin>3671-03</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica la ley Nº 18.175, de Quiebras, en materia de convenios concursales</ns0:Nombre>
+    <ns0:FechaIngreso>2004-09-14T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4063</ns0:Id>
+    <ns0:NumeroBoletin>3674-01</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea Sistema Nacional de Certificación de productos orgánicos agrícolas.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-09-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4075</ns0:Id>
+    <ns0:NumeroBoletin>3691-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Presupuesto del Sector Público para el año 2005.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4076</ns0:Id>
+    <ns0:NumeroBoletin>3686-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea la Organización Internacional de la Viña y el Vino y sus Anexos</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4077</ns0:Id>
+    <ns0:NumeroBoletin>3692-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Acuerdo de Transporte Marítimo entre los Gobiernos de las Repúblicas de Chile y Popular China</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4078</ns0:Id>
+    <ns0:NumeroBoletin>3695-06</ns0:NumeroBoletin>
+    <ns0:Nombre>Fija como feriado, en la Región Metropolitana, el día 19 de noviembre de 2004</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4079</ns0:Id>
+    <ns0:NumeroBoletin>3696-13</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el Código del Trabajo en materia de remuneraciones por jornada extraordinaria y de trabajadores agrícolas.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4082</ns0:Id>
+    <ns0:NumeroBoletin>3689-12</ns0:NumeroBoletin>
+    <ns0:Nombre>Regulariza la situación de ocupaciones irregulares en el borde costero de sectores que indica, y modifica el decreto ley Nº 1.939, de 1977</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-05T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="2">Senado</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4086</ns0:Id>
+    <ns0:NumeroBoletin>3694-02</ns0:NumeroBoletin>
+    <ns0:Nombre>Fusiona los Escalafones Femeninos y Masculinos de Oficiales de Carabineros de Chile</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4087</ns0:Id>
+    <ns0:NumeroBoletin>3697-15</ns0:NumeroBoletin>
+    <ns0:Nombre>Crea un Registro Nacional de Servicios de Transporte Privado Remunerado de Pasajeros</ns0:Nombre>
+    <ns0:FechaIngreso>2004-10-06T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4109</ns0:Id>
+    <ns0:NumeroBoletin>3716-05</ns0:NumeroBoletin>
+    <ns0:Nombre>Establece una bonificación por egreso al personal de Gendarmería de Chile.</ns0:Nombre>
+    <ns0:FechaIngreso>2004-11-11T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4113</ns0:Id>
+    <ns0:NumeroBoletin>3722-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Aprueba Convenio Marco de la Organización Mundial de la Salud para el Control del Tabaco</ns0:Nombre>
+    <ns0:FechaIngreso>2004-11-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  <ns0:ProyectoLey>
+    <ns0:Id>4114</ns0:Id>
+    <ns0:NumeroBoletin>3711-10</ns0:NumeroBoletin>
+    <ns0:Nombre>Modifica el artículo 3° de la ley N° 18.340, que fija el arancel consular</ns0:Nombre>
+    <ns0:FechaIngreso>2004-11-15T00:00:00</ns0:FechaIngreso>
+    <ns0:TipoIniciativa Valor="1">Mensaje</ns0:TipoIniciativa>
+    <ns0:CamaraOrigen Valor="1">Cámara de Diputados</ns0:CamaraOrigen>
+    <ns0:Admisible>true</ns0:Admisible>
+  </ns0:ProyectoLey>
+  </ns0:ProyectosLeyColeccion>
