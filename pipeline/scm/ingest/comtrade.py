@@ -23,6 +23,7 @@ KEYED = "https://comtradeapi.un.org/data/v1/get/C/A/HS"
 
 
 MAX_QUOTA_FAILURES = 3
+PROBE_CODE = "260300"  # copper ores and concentrates: in every HS edition, so a 400 on it alone is about the years, not the codes
 CHUNK_ANCHOR = 2008  # chunks are aligned on 2008 so the file names of the 2008+ fetches (and the recorded fixtures) do not move with the period
 
 
@@ -79,7 +80,9 @@ class Comtrade(Adapter):
                 # keep the start (the status) and the end (the API's body) of the message: the URL in between is long
                 snap.manifest.setdefault("errors", []).append({"name": name, "attempt": attempt, "error": msg[:120] + (" … " + msg[-380:] if len(msg) > 500 else msg[120:])})
                 snap.save()
-                if "429" in msg or "403" in msg or "503" in msg:
+                # the refusal is read from the status, never from the message: the request URL carries HS codes such
+                # as 740311 and 250490 that contain "403" and "503", which once turned a 400 into a quota refusal
+                if self._last_status in (429, 403, 503):
                     _time.sleep(65 * (attempt + 1))
                     continue
                 return None
@@ -116,6 +119,17 @@ class Comtrade(Adapter):
         them (the manifest lists them under rejected_codes)."""
         key = tuple(periods)
         rejected = self._rejected.setdefault(key, set())
+        # one probe with a code every edition has had since 1988: a 400 on it means the API refuses the years
+        # themselves on this endpoint (the keyed one may not), so the range is skipped for every reporter at once
+        if PROBE_CODE in codes:
+            probe_name = f"{name[:-5]}_c{PROBE_CODE}.json"
+            if self._fetch_one(snap, probe_name, reporter, periods, partners, [PROBE_CODE]) is None:
+                if self._last_status == 400:
+                    rejected.update(codes)
+                    snap.manifest.setdefault("rejected_periods", []).append(f"{periods[0]}-{periods[-1]}")
+                    snap.save()
+                return
+            codes = [c for c in codes if c != PROBE_CODE]
         stack: list[list[str]] = [codes]
         while stack:
             part = stack.pop()
