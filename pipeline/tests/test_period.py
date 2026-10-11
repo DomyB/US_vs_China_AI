@@ -36,3 +36,33 @@ def test_release_counts_are_bounded_by_the_registry():
     c = release_counts(["un_comtrade", "aiddata_gcdf", "not_an_adapter"])
     assert c["adapters_ok"] == {"ok": 2, "total": len(ADAPTERS)}
     assert 0 < c["sources_live"]["live"] <= c["sources_live"]["total"]
+
+
+def test_comtrade_halves_the_code_list_when_the_api_rejects_a_code(snap_factory, monkeypatch):
+    """A 400 for a code the reporter's HS edition lacks: the adapter finds it by halving, fetches the rest and
+    remembers it for the other reporters' same years."""
+    from scm.ingest import comtrade
+
+    calls: list[tuple[str, tuple[int, ...], tuple[str, ...]]] = []
+
+    def fake_call(self, snap, name, reporter, periods, partners, codes=None):
+        codes = self.codes if codes is None else codes
+        calls.append((name, tuple(periods), tuple(codes)))
+        if periods[0] < 2008 and "811292" in codes:
+            self._last_status = 400
+            return None
+        self._last_status = None
+        return {"count": 1, "data": [{"reporterCode": reporter, "partnerCode": partners[0], "cmdCode": codes[0], "flowCode": "X", "refYear": periods[0], "primaryValue": 1.0}]}
+
+    monkeypatch.setattr(comtrade.Comtrade, "_call", fake_call)
+    monkeypatch.setattr(comtrade, "IN_SCOPE", ["ARG", "CHL"])
+    snap = snap_factory("un_comtrade", {})
+    c = comtrade.Comtrade(years=[2006, 2007, 2008])
+    c.fetch(snap)
+    assert snap.manifest["rejected_codes"] == {"2006-2007": ["811292"]}
+    arg_pre = [k for k in calls if k[0].startswith("rep_ARG_2006-2007")]
+    assert len(arg_pre) > 2  # the whole list, then the halves
+    chl_pre = [k for k in calls if k[0].startswith("rep_CHL_2006-2007")]
+    assert len(chl_pre) == 1 and "811292" not in chl_pre[0][2]  # the second reporter skips the rejected code at once
+    assert all("811292" in k[2] for k in calls if k[1] == (2008,))  # 2008 keeps the full list
+    assert c._rejected[(2006, 2007)] == {"811292"}

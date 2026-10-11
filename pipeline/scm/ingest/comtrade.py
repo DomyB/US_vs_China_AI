@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from datetime import date
 
 import pandas as pd
@@ -45,15 +46,19 @@ class Comtrade(Adapter):
         self.codes = sorted(hs6_to_mineral())
         self.key = os.environ.get("COMTRADE_KEY")
         self._quota_failures = 0  # consecutive calls refused with 429/403/503 after back-off
+        self._last_status: int | None = None  # the HTTP status of the last failed call
+        self._rejected: dict[tuple[int, ...], set[str]] = {}  # codes the API refused for a chunk of years, learnt by halving
 
-    def _call(self, snap: Snapshot, name: str, reporter: int, periods: list[int], partners: list[int]) -> dict | None:
-        """One preview/keyed call; returns the parsed payload (or None on failure). Backs off on 429/403."""
+    def _call(self, snap: Snapshot, name: str, reporter: int, periods: list[int], partners: list[int], codes: list[str] | None = None) -> dict | None:
+        """One preview/keyed call; returns the parsed payload (or None on failure). Backs off on 429/403; a 400 is
+        recorded with its body (the API's reason) and returned at once."""
         import json as _json
         import time as _time
 
+        codes = self.codes if codes is None else codes
         params = {
             "reporterCode": reporter, "period": ",".join(map(str, periods)), "partnerCode": ",".join(map(str, partners)),
-            "cmdCode": ",".join(self.codes), "flowCode": "X,M", "partner2Code": 0, "customsCode": "C00", "motCode": 0,
+            "cmdCode": ",".join(codes), "flowCode": "X,M", "partner2Code": 0, "customsCode": "C00", "motCode": 0,
             "includeDesc": "false", "maxRecords": 500,
         }
         url = PREVIEW
@@ -61,6 +66,7 @@ class Comtrade(Adapter):
             url = KEYED
             params["subscription-key"] = self.key
             params["maxRecords"] = 250000
+        self._last_status = None
         for attempt in range(4):
             try:
                 path = snap.get(url, name, params=params, allow_statuses=(200,))
@@ -68,7 +74,10 @@ class Comtrade(Adapter):
                 return _json.loads(path.read_text(encoding="utf-8"))
             except FetchError as e:
                 msg = str(e)
-                snap.manifest.setdefault("errors", []).append({"name": name, "attempt": attempt, "error": msg[:300]})
+                m = re.search(r"HTTP (\d{3})", msg)
+                self._last_status = int(m.group(1)) if m else None
+                # keep the start (the status) and the end (the API's body) of the message: the URL in between is long
+                snap.manifest.setdefault("errors", []).append({"name": name, "attempt": attempt, "error": msg[:120] + (" … " + msg[-380:] if len(msg) > 500 else msg[120:])})
                 snap.save()
                 if "429" in msg or "403" in msg or "503" in msg:
                     _time.sleep(65 * (attempt + 1))
@@ -84,22 +93,57 @@ class Comtrade(Adapter):
             )
         return None
 
+    def _fetch_one(self, snap: Snapshot, name: str, reporter: int, periods: list[int], partners: list[int], codes: list[str]) -> dict | None:
+        """One chunk with one code list; a response truncated at the record cap is refetched year by year."""
+        payload = self._call(snap, name, reporter, periods, partners, codes)
+        if payload is None:
+            return None
+        count = int(payload.get("count") or 0)
+        got = len(payload.get("data") or [])
+        if count > got or (not self.key and got >= 500):
+            snap.manifest.setdefault("truncated", []).append(name)
+            for y in periods:
+                self._call(snap, f"{name[:-5]}_{y}.json", reporter, [y], partners, codes)
+            snap.path(name).unlink(missing_ok=True)
+            snap.files.pop(name, None)
+            snap.save()
+        return payload
+
+    def _fetch_bisecting(self, snap: Snapshot, name: str, reporter: int, periods: list[int], partners: list[int], codes: list[str]) -> None:
+        """The API answers 400 when a requested code does not exist in the HS edition the reporter used for those
+        years ("HS as reported": 811292, for one, only exists from the 2007 edition). Find the codes it rejects by
+        halving the list, fetch the rest in parts, and remember the rejects so the other reporters' same years skip
+        them (the manifest lists them under rejected_codes)."""
+        key = tuple(periods)
+        rejected = self._rejected.setdefault(key, set())
+        stack: list[list[str]] = [codes]
+        while stack:
+            part = stack.pop()
+            part_name = f"{name[:-5]}_c{part[0]}-{part[-1]}.json"
+            if self._fetch_one(snap, part_name, reporter, periods, partners, part) is not None:
+                continue
+            if self._last_status != 400:
+                return  # a refusal or a dropped connection: nothing more to learn from this chunk
+            if len(part) == 1:
+                rejected.add(part[0])
+                snap.manifest.setdefault("rejected_codes", {})[f"{periods[0]}-{periods[-1]}"] = sorted(rejected)
+                snap.save()
+                continue
+            mid = len(part) // 2
+            stack.append(part[:mid])
+            stack.append(part[mid:])
+
     def _fetch_chunked(self, snap: Snapshot, prefix: str, reporter: int, partners: list[int], years_per_call: int) -> None:
         """Fetch several years per call; if a response is truncated at the record cap, refetch year by year."""
         for chunk in chunk_years(self.years, years_per_call):
             name = f"{prefix}_{chunk[0]}-{chunk[-1]}.json"
-            payload = self._call(snap, name, reporter, chunk, partners)
-            if payload is None:
+            known = self._rejected.get(tuple(chunk), set())
+            codes = [c for c in self.codes if c not in known]
+            if not codes:
                 continue
-            count = int(payload.get("count") or 0)
-            got = len(payload.get("data") or [])
-            if count > got or (not self.key and got >= 500):
-                snap.manifest.setdefault("truncated", []).append(name)
-                for y in chunk:
-                    self._call(snap, f"{prefix}_{y}.json", reporter, [y], partners)
-                snap.path(name).unlink(missing_ok=True)
-                snap.files.pop(name, None)
-                snap.save()
+            payload = self._fetch_one(snap, name, reporter, chunk, partners, codes)
+            if payload is None and self._last_status == 400 and len(codes) > 1:
+                self._fetch_bisecting(snap, name, reporter, chunk, partners, codes)
 
     def fetch(self, snap: Snapshot) -> None:
         # reported: 12 reporters, partners China / US / World, 3 years per call (max observed 168 rows per year)
