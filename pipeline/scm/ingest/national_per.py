@@ -1,4 +1,10 @@
-"""Peru: BCRPData API -> production (annual mine production series chosen from the series metadata)."""
+"""Peru: BCRPData API -> production (annual mine production series chosen from the series metadata).
+
+The series list comes from the metadata export when it answers CSV; since 2026-10-04 that endpoint answers
+an Incapsula (Imperva) bot-challenge page instead, so the adapter falls back to the committed list in
+pipeline/config/bcrp_series.json (the selection of the last successful metadata read) and only requests the
+JSON API. The manifest says which (`series_source`: metadata | fallback).
+"""
 from __future__ import annotations
 
 import io
@@ -6,17 +12,28 @@ import json
 import re
 
 import pandas as pd
+import requests
 
-from ..http import Snapshot
+from ..http import FetchError, Snapshot
+from ..paths import CONFIG_DIR
 from .base import Adapter, to_float
 from .util import tag_mineral
 
 API = "https://estadisticas.bcrp.gob.pe/estadisticas/series/api"
 METADATA = "https://estadisticas.bcrp.gob.pe/estadisticas/series/metadata"
+SERIES_FALLBACK = CONFIG_DIR / "bcrp_series.json"
 FIRST_YEAR, LAST_YEAR = 2000, 2026
 PROD_COLUMNS = ["country", "mineral", "measure", "year", "qty", "unit", "value_type", "note", "source_record_url"]
 WANT = re.compile(r"producci[oó]n", re.I)
 MINERAL_WORDS = re.compile(r"cobre|oro|plata|zinc|esta[ñn]o|molibdeno|hierro|plomo|litio|uranio|tungsteno", re.I)
+
+
+def fallback_series() -> list[tuple[str, str]]:
+    """The committed [code, name] pairs, or [] when the file is missing."""
+    if not SERIES_FALLBACK.exists():
+        return []
+    payload = json.loads(SERIES_FALLBACK.read_text(encoding="utf-8"))
+    return [(str(c), str(n)) for c, n in payload.get("series", [])]
 
 
 class BCRP(Adapter):
@@ -26,8 +43,15 @@ class BCRP(Adapter):
     min_interval = 1.5
 
     def fetch(self, snap: Snapshot) -> None:
-        snap.get(METADATA, "metadata.csv", timeout=300)
-        codes = self._select_codes(snap)
+        codes = self._codes_from_metadata(snap)
+        if codes is None:
+            codes = fallback_series()
+            snap.manifest["series_source"] = "fallback"
+            if not codes:
+                raise FetchError(f"{self.source_id}: metadata endpoint answered an HTML page (Incapsula challenge), not CSV, "
+                                 f"and no fallback series list exists at {SERIES_FALLBACK}")
+        else:
+            snap.manifest["series_source"] = "metadata"
         snap.manifest["series_selected"] = codes
         for i in range(0, len(codes), 10):
             chunk = codes[i:i + 10]
@@ -36,6 +60,23 @@ class BCRP(Adapter):
             except Exception as e:  # noqa: BLE001
                 snap.manifest.setdefault("errors", []).append({"name": f"series_{i // 10}", "error": str(e)[:200]})
         snap.save()
+
+    def _codes_from_metadata(self, snap: Snapshot) -> list[tuple[str, str]] | None:
+        """The series chosen from the metadata export, or None when that download is unusable (the answer is
+        not CSV, e.g. the Incapsula challenge page, or the request itself fails); the reason is in the manifest."""
+        try:
+            snap.get(METADATA, "metadata.csv", timeout=300)
+        except (FetchError, requests.RequestException) as e:
+            snap.manifest.setdefault("errors", []).append({"name": "metadata.csv", "error": f"metadata endpoint: {str(e)[:300]}"})
+            return None
+        if not snap.looks_like("metadata.csv", "csv"):
+            snap.discard("metadata.csv", "metadata endpoint answered an HTML page (Incapsula challenge), not CSV; using the committed series list")
+            return None
+        codes = self._select_codes(snap)
+        if not codes:
+            snap.discard("metadata.csv", "metadata export lists no annual mine-production series; using the committed series list")
+            return None
+        return codes
 
     def _select_codes(self, snap: Snapshot) -> list[tuple[str, str]]:
         raw = snap.path("metadata.csv").read_bytes()
@@ -47,6 +88,8 @@ class BCRP(Adapter):
         sep = max([",", ";", "\t"], key=first.count)
         df = pd.read_csv(io.StringIO(text), sep=sep, dtype=str, keep_default_na=False, on_bad_lines="skip", engine="python")
         snap.manifest["metadata_columns"] = list(map(str, df.columns))[:20]
+        if len(df.columns) < 2:
+            return []  # not the metadata table (a one-column frame is what an HTML page parses to)
         c_code = next((c for c in df.columns if "digo" in str(c).lower() and "serie" in str(c).lower()), df.columns[0])
         c_name = next((c for c in df.columns if "nombre" in str(c).lower()), df.columns[1])
         c_group = next((c for c in df.columns if "grupo" in str(c).lower()), None)

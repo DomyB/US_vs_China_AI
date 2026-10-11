@@ -154,6 +154,9 @@ def test_words_vs_trade_quadrants_hedging_and_mineral_mismatch():
     u = byid["us_words_vs_us_money"]
     assert u["n_us_statements"] == 1 and u["n_cn_negative"] == 1 and u["us_2022_24_musd"] == 10.0 and u["cn_2015_21_musd"] == 1000.0
     assert c["words"]["executive_counts"]["us"]["positive"] == 10 and c["gdp_latest"]["usd"] == 6.0e11
+    # the same mentions against US$1 m of reported exports: no value share is worth stating, so no talk-vs-trade contrast (and no finding)
+    tiny = _country(trade=[_trade("ARG", 2025, "all", 0.0, None, 1.0), _trade("ARG", 2025, "lithium", 0.0, None, 1.0)], stm=stm)
+    assert "talk_vs_trade_minerals" not in {x["id"] for x in tiny["contrasts"]} and tiny["trade"]["total_musd"] == 1.0
 
 
 def test_component_scales_reproduce_the_published_normalisation():
@@ -162,8 +165,9 @@ def test_component_scales_reproduce_the_published_normalisation():
     lo, hi = np.percentile(raw, 2.5), np.percentile(raw, 97.5)
     rows = [{"component": "trade_export_share", "available": True, "raw_value": float(v), "normalized_value": float((np.clip(v, lo, hi) - lo) / (hi - lo) * 100)} for v in raw]
     rows.append({"component": "trade_export_share", "available": False, "raw_value": None, "normalized_value": None})
+    rows += [{"component": "trade_export_share", "available": True, "raw_value": 9.0 + k, "normalized_value": 100.0, "mineral": f"m{k}"} for k in range(15)]  # per-mineral rows: not in the pool
     s = insights.component_scales(rows)
-    assert set(s) == {"trade_export_share"} and s["trade_export_share"]["n"] == 60
+    assert set(s) == {"trade_export_share"} and s["trade_export_share"]["n"] == 60 and abs(s["trade_export_share"]["hi"] - hi) < 1e-12
     for r in rows[:60]:
         got = (min(max(r["raw_value"], s["trade_export_share"]["lo"]), s["trade_export_share"]["hi"]) - s["trade_export_share"]["lo"]) / (s["trade_export_share"]["hi"] - s["trade_export_share"]["lo"]) * 100
         assert abs(got - r["normalized_value"]) < 0.01
@@ -224,3 +228,76 @@ def test_load_human_defaults_drafted_by_to_owner(tmp_path):
     p = tmp_path / "CHL.md"
     p.write_text("---\ntitle: T\nreviewed: true\n---\n\nText.\n", encoding="utf-8")
     assert load_human(p)["drafted_by"] == "owner"
+
+
+def _reg(spec, term, coef, years="2002–2021"):
+    return {"variant": "twfe", "spec": spec, "outcome": "share_x", "actor": "CN" if spec == "exports_to_cn" else "US", "term": term, "coef": coef, "se": 0.01, "p_cluster": 0.5, "p_wild": 0.71,
+            "jk_min": coef - 0.009, "jk_max": coef + 0.021, "n_obs": 226, "n_countries": 12, "years": years, "r2_within": 0.1}
+
+
+def test_regression_years_come_from_the_rows_and_the_caveats_state_the_sample(tmp_path):
+    gov = [{"country": iso, "year": y, "indicator": "v2x_polyarchy", "value": 0.3 + 0.02 * (y - 2000) + (0.1 if iso == "URY" else 0.0)} for iso in ("ARG", "URY", "VEN") for y in range(2000, 2024)]
+    gov += [{"country": "ARG", "year": 2024, "indicator": "NY.GDP.MKTP.CD", "value": 6.0e11}]
+    reg_rows = [_reg("exports_to_cn", "finance_flow_lag1", -0.007), _reg("imports_from_us", "electoral_democracy", 0.092)]
+    block = insights.regression_block(reg_rows, gov)
+    sd = block["regressor_sd"]["electoral_democracy"]
+    assert sd["years"] == [2002, 2021] and sd["n"] == 3 * 20 and sd["min"]["year"] >= 2002 and sd["max"]["year"] <= 2021 and "2002–2021" in sd["note"]
+    assert insights.regression_block([], gov)["regressor_sd"] == {}  # no estimation sample, no standard deviation over an invented window
+    assert insights.years_span("2002-2021") == (2002, 2021) and insights.years_span("all") is None
+    # the fork finding needs a 2030 contrast: a reported China share and paths for every scenario
+    stm = [_stm(i, 2025, cn="positive", us="positive") for i in range(4)]
+    fc = [_fc_row("ARG", a, sc, 2030, p) for a in ("CN", "US") for sc, p in (("baseline", 0.5), ("china_pull", 0.6), ("us_reshoring", 0.4))]
+    flows = {"finance": [], "trade": [_trade("ARG", 2025, "all", 50.0, 450.0, 500.0)]}
+    quant_status = {"last_year": {"trade": 2025}, "forecast": {"targets": {"export_share:CN": {"origins": "2007–2024", "windows": {"ARG": {"years": [2000, 2025], "n_obs": 26, "n_absent": 0}, "PER": {"years": [2001, 2025], "n_obs": 25, "n_absent": 0}}},
+                                                                            "influence_index:US": {"origins": "2007–2024", "windows": {"ARG": {"years": [2000, 2024], "n_obs": 25, "n_absent": 0}}}}}}
+    out = insights.build_insights(flows=flows, idx_rows=[], comp_rows=[], fc_rows=fc, effect_rows=[], reg_rows=reg_rows, sd_rows=[], flag_rows=[], stm=stm, stance_by_iso={}, volume_by_iso={},
+                                  gov=gov, prices=[], policy=[], fin=[], core=CORE, quant_status=quant_status, today="2026-10-11", human_dir=tmp_path)
+    assert out["region"]["forecast_sample"] == {"max_obs": 26, "years": [2000, 2025], "origins": "2007–2024"}
+    by = {f["id"]: f for f in out["findings"]}
+    panel = by["panel"]
+    rows = out["region"]["regressions"]["rows"]
+    assert panel["caveat"].startswith("12 clusters and 20 years (2002–2021): ") and str(rows[0]["n_countries"]) in panel["caveat"] and rows[0]["years"] in panel["caveat"]
+    assert "(about 0.1" in panel["sentences"][1]["text"]  # the SD sentence still reads from the block
+    fork = by["fork_2030"]
+    assert fork["caveat"].startswith("Five-year paths from annual series of at most 26 points (2000–2025) carry wide bands") and "origins 2007–2024" in fork["strength"]["basis"]
+    # without a forecast status the caveat says "short annual series" rather than a count
+    out2 = insights.build_insights(flows=flows, idx_rows=[], comp_rows=[], fc_rows=fc, effect_rows=[], reg_rows=reg_rows, sd_rows=[], flag_rows=[], stm=stm, stance_by_iso={}, volume_by_iso={},
+                                   gov=gov, prices=[], policy=[], fin=[], core=CORE, quant_status={}, today="2026-10-11", human_dir=tmp_path)
+    assert out2["region"]["forecast_sample"] is None and "from short annual series carry wide bands" in next(f for f in out2["findings"] if f["id"] == "fork_2030")["caveat"]
+
+
+def _event(iso, year, origin, usd, sid, conf="documented"):
+    return {"actor_from_origin": origin, "country": iso, "year": year, "confidence": conf, "amount_usd": usd, "description": "loan", "type": "loan", "mineral": None, "source_id": sid}
+
+
+def test_us_money_is_named_by_source_and_years_outside_a_record_are_null(tmp_path):
+    """EXIM authorisations run 2007–2026, the DFC record ends 2022, AidData covers 2016 only: the years before a record's first
+    event are null (not zero), the findings say "DFC and EXIM", and the latest US year is said to be EXIM only."""
+    stm = [_stm(100 + i, 2025, bloc="United States", speaker_country="USA", cn="negative", us="positive", country="REG") for i in range(4)]
+    stm += [_stm(200, 2025, bloc="China", speaker_country="CHN", cn="positive", country="REG")]
+    flows = {"finance": [_fin("ARG", 2016, "CN", 1000.0), _fin("ARG", 2007, "US", 5.0), _fin("ARG", 2020, "US", 100.0), _fin("ARG", 2022, "US", 1100.0), _fin("ARG", 2026, "US", 24.0)],
+             "trade": [_trade("ARG", 2025, "all", 50.0, 450.0, 500.0)]}
+    fin = [_event("ARG", 2016, "CN", 1.0e9, "aiddata_gcdf"), _event("ARG", 2007, "US", 5.0e6, "exim_authorizations"), _event("ARG", 2020, "US", 1.0e8, "dfc_projects"),
+           _event("ARG", 2022, "US", 1.0e9, "dfc_projects"), _event("ARG", 2022, "US", 1.0e8, "exim_authorizations"), _event("ARG", 2026, "US", 2.4e7, "exim_authorizations"),
+           _event("ARG", 1987, "US", 1.0e6, "dfc_projects")]  # a pre-period legacy row: outside the record
+    policy = [{"jurisdiction": "US", "year": y, "source_id": "congress_gov"} for y in (2000, 2015, 2015, 2025, 2025, 2025)]
+    out = insights.build_insights(flows=flows, idx_rows=[], comp_rows=[], fc_rows=[], effect_rows=[], reg_rows=[], sd_rows=[], flag_rows=[], stm=stm, stance_by_iso={}, volume_by_iso={},
+                                  gov=[], prices=[], policy=policy, fin=fin, core=CORE, quant_status={"last_year": {"finance_US": 2026, "finance_CN": 2021}}, today="2026-10-11", human_dir=tmp_path)
+    tm = out["region"]["talk_vs_money"]
+    assert tm["coverage"] == {"US": [2007, 2026], "CN": [2016, 2016]}
+    src = tm["finance"]["US"]["by_source"]
+    assert src["dfc_projects"]["first_year"] == 2020 and src["dfc_projects"]["last_year"] == 2022 and src["exim_authorizations"]["last_year"] == 2026
+    assert src["dfc_projects"]["musd_by_year"] == {2020: 100.0, 2022: 1000.0} and src["exim_authorizations"]["musd_by_year"][2022] == 100.0
+    att = {a["year"]: a for a in out["region"]["attention"]}
+    assert att[2000]["dfc_musd"] is None and att[2000]["cn_musd"] is None  # before either record's first event: no source, not zero
+    assert att[2007]["dfc_musd"] == 5.0 and att[2015]["dfc_musd"] == 0.0 and att[2015]["cn_musd"] is None  # inside the US record, a year without a commitment is a zero
+    assert att[2016]["cn_musd"] == 1000.0 and att[2025]["cn_musd"] is None and att[2026]["dfc_musd"] == 24.0
+    assert "null outside the record's coverage" in tm["note"]
+    by = {f["id"]: f for f in out["findings"]}
+    assert "US DFC and EXIM commitments US$100 m in the same years" in by["who_talks_who_pays"]["sentences"][1]["text"]
+    attention = by["attention"]
+    text = attention["sentences"][0]["text"]
+    assert "DFC and EXIM commitments to the twelve countries were US$24 m so far in 2026 (EXIM only; the DFC record ends 2022); the largest year on record is 2022 with US$1.1 bn (DFC US$1.0 bn, EXIM US$100 m)." in text
+    assert attention["headline"].endswith("US DFC and EXIM money peaked at US$1.1 bn in 2022") and attention["strength"]["basis"].endswith("documented DFC and EXIM commitments")
+    assert "flow_finance:US:2026" in attention["sentences"][0]["ids"] and "flow_finance:US:2022" in attention["sentences"][0]["ids"]
+    assert insights.us_finance_short(tm) == "DFC and EXIM" and insights.us_finance_short({"finance": {"US": {"sources": ["dfc_projects"]}}}) == "DFC"

@@ -28,7 +28,7 @@ export function IntroCard({ indexLayer, open, onToggle }: { indexLayer: "real" |
       <HeroArt className="mx-auto mt-2 hidden h-28 w-auto [@media(min-height:820px)]:block" />
       <h1 className="mt-2 text-2xl leading-[1.1]">Who is gaining ground, where, and in which minerals?</h1>
       <p className="mt-1.5 text-[13px] leading-relaxed text-ink-2">
-        Countries are coloured by the influence index{indexLayer === "real" ? ", computed from sourced trade, finance, debt, UN-vote and legislative records" : " (sample data until the first computation)"}; switch to money or trade flows, or open a country for its five tabs.
+        Countries are coloured by the net lean of the composite influence index, China index minus US index{indexLayer === "real" ? ", computed from sourced trade, finance, debt, UN-vote and legislative records" : " (sample data until the first computation)"}. The dock switches the index, the actor and the view (money or trade flows); open a country for its five tabs.
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
         <Link href="/explore?tour=1" className="btn btn-md btn-primary no-underline">Take the tour</Link>

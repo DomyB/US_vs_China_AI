@@ -27,7 +27,7 @@ describe("sample dataset contract", () => {
   it("keeps index values and bands inside 0 to 100", () => {
     for (const r of index.rows) {
       expect(r.lower).toBeLessThanOrEqual(r.value);
-      expect(r.value).toBeLessThanOrEqual(r.upper);
+      expect(r.value).toBeLessThanOrEqual(r.upper ?? NaN); // a sample row never carries a null band
       expect(r.lower).toBeGreaterThanOrEqual(0);
       expect(r.upper).toBeLessThanOrEqual(100);
     }

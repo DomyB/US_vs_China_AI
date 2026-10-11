@@ -33,53 +33,107 @@ def stance_series(docs: pd.DataFrame, cls: pd.DataFrame) -> dict[str, list[dict]
     return {k: sorted(v, key=lambda r: r["year"]) for k, v in out.items()}
 
 
+MEDIACLOUD = "mediacloud"
+WINDOW_SOURCES = ("gdelt", MEDIACLOUD)  # sources whose media_volume rows are disjoint windows (half-months, months): summed into the month
+MONTHLY_COUNTS = ("items_total", "items_mining", "items_cn", "items_us")
+MONTH_KEYS = ["country", "period", "source_id"]
+NEWS_FLAGS = {"mining_related": "items_mining", "mentions_cn": "items_cn", "mentions_us": "items_us"}
+
+
 def media_series(docs: pd.DataFrame, cls: pd.DataFrame, media_volume: pd.DataFrame | None = None) -> tuple[dict[str, list[dict]], str]:
-    """({iso3: [{year, articles_us, articles_cn, total_articles, tone_us, tone_cn}]}, basis). total_articles comes
-    from the feed/GDELT window totals (media_volume.items_total) when present for the year, else from the kept headlines."""
-    news = docs[docs["doc_type"] == "news"][["doc_id", "country", "year", "mentions_us", "mentions_cn"]].copy()
+    """({iso3: [{year, basis, articles_us, articles_cn, articles_us_mediacloud, articles_cn_mediacloud, total_articles,
+    tone_us, tone_cn}]}, basis).
+
+    total_articles is the sum of the monthly items_total of the feeds and the GDELT windows (`monthly_frame`: a feed
+    counts once a month, at its fullest fetch, so the denominator does not grow with the number of fetches) when the
+    year has any; the row's `basis` is then "feed_totals" and articles_us / articles_cn count the kept headlines of
+    those same sources, while the Media Cloud headlines of the year are counted apart in articles_us_mediacloud /
+    articles_cn_mediacloud (Media Cloud's own totals are a whole national collection, tens of thousands of stories a
+    month, so they are never in the denominator and its headlines never in the numerator). A year without such totals
+    falls back to the kept headlines of every source (`basis` "kept_headlines", total_articles = their number). The
+    tone means are over every kept headline that names the actor."""
+    cols = ["doc_id", "country", "year", "mentions_us", "mentions_cn"] + (["source_id"] if "source_id" in docs.columns else [])
+    news = docs[docs["doc_type"] == "news"][cols].copy()
     if news.empty:
         return {}, "kept_headlines"
     news = news.merge(cls[["doc_id", "tone"]], on="doc_id", how="left") if not cls.empty else news.assign(tone=None)
+    news["_mediacloud"] = news["source_id"].astype(str).eq(MEDIACLOUD) if "source_id" in news.columns else False
     totals: dict[tuple[str, int], int] = {}
     basis = "kept_headlines"
-    if media_volume is not None and not media_volume.empty:
-        mv = media_volume.copy()
-        if "source_id" in mv.columns:
-            # Media Cloud's items_total is the whole national collection (every story of every outlet, tens of
-            # thousands a month), not the mineral-related items a GDELT window or a feed carried: summed in here it would
-            # swamp the denominator and show attention collapsing in the years it covers. Its share stays in the
-            # monthly history (`media_monthly`), source by source.
-            mv = mv[mv["source_id"].astype(str) != "mediacloud"]
+    monthly = monthly_frame(media_volume)
+    if monthly is not None:
+        mv = monthly[~monthly["source_id"].astype(str).eq(MEDIACLOUD)].copy()
         mv["year"] = mv["period"].astype(str).str[:4].astype(int)
-        totals = mv.groupby(["country", "year"])["items_total"].sum().to_dict()
+        totals = {k: int(v) for k, v in mv.groupby(["country", "year"])["items_total"].sum().to_dict().items()}
         basis = "feed_totals"
     out: dict[str, list[dict]] = {}
     for (iso, year), g in news.groupby(["country", "year"]):
-        us, cn = g[g["mentions_us"].astype(bool)], g[g["mentions_cn"].astype(bool)]
-        out.setdefault(iso, []).append({"year": int(year), "articles_us": int(len(us)), "articles_cn": int(len(cn)),
-                                        "total_articles": int(totals.get((iso, int(year)), len(g))) or int(len(g)),
-                                        "tone_us": _mean(us["tone"]), "tone_cn": _mean(cn["tone"])})
+        total = totals.get((iso, int(year)), 0)
+        row_basis = "feed_totals" if total > 0 else "kept_headlines"
+        counted = g[~g["_mediacloud"]] if row_basis == "feed_totals" else g
+        mc = g[g["_mediacloud"]]
+        us_all, cn_all = g[g["mentions_us"].astype(bool)], g[g["mentions_cn"].astype(bool)]
+        out.setdefault(iso, []).append({"year": int(year), "basis": row_basis,
+                                        "articles_us": int(counted["mentions_us"].astype(bool).sum()), "articles_cn": int(counted["mentions_cn"].astype(bool).sum()),
+                                        "articles_us_mediacloud": int(mc["mentions_us"].astype(bool).sum()), "articles_cn_mediacloud": int(mc["mentions_cn"].astype(bool).sum()),
+                                        "total_articles": total if row_basis == "feed_totals" else int(len(g)),
+                                        "tone_us": _mean(us_all["tone"]), "tone_cn": _mean(cn_all["tone"])})
     return {k: sorted(v, key=lambda r: r["year"]) for k, v in out.items()}, basis
 
 
-MONTHLY_COUNTS = ("items_total", "items_mining", "items_cn", "items_us")
+def monthly_frame(media_volume: pd.DataFrame | None, news: pd.DataFrame | None = None) -> pd.DataFrame | None:
+    """One row per (country, period "YYYY-MM", source_id) with the four counts and `n_fetches`, or None without rows.
 
-
-def media_monthly(media_volume: pd.DataFrame | None) -> dict[str, list[dict]]:
-    """{iso3: [{period: "YYYY-MM", source_id, items_total, items_mining, items_cn, items_us}]} from the media_volume table,
-    every source kept apart and summed into calendar months: GDELT windows are half-months (period = window start), feed
-    rows are fetch days and Media Cloud rows are already monthly (period = YYYY-MM-01), so the month is the common grain."""
+    GDELT windows (half-months) and Media Cloud months are disjoint, so their rows are summed into the calendar month.
+    A feed's rows are fetch days of the same rolling list (weekly runs: four or five a month, mostly the same headlines),
+    so they are never summed: `items_total` is the feed's largest fetch of the month (the most items it exposed at
+    once), `n_fetches` the number of fetches, and items_mining / items_cn / items_us are the distinct kept headlines of
+    that feed dated in the month, counted from the `document` rows (`news`: source_id, country, date and the three
+    flags). Without `news` the three counts are those of the fullest fetch, the only fetch-level figure that is not a
+    multiple of the fetch count."""
     if media_volume is None or media_volume.empty:
-        return {}
-    mv = media_volume[["country", "period", "source_id", *MONTHLY_COUNTS]].copy()
+        return None
+    mv = media_volume.copy()
+    if "source_id" not in mv.columns:
+        mv["source_id"] = ""  # rows of unknown source (older frames, test fixtures) are summed like windows
+    mv = mv[[*MONTH_KEYS, *MONTHLY_COUNTS]].copy()
     mv["period"] = mv["period"].astype(str).str[:7]
+    mv["source_id"] = mv["source_id"].astype(str)
     for c in MONTHLY_COUNTS:
         mv[c] = pd.to_numeric(mv[c], errors="coerce").fillna(0).astype(int)
-    g = mv.groupby(["country", "period", "source_id"], as_index=False)[list(MONTHLY_COUNTS)].sum()
+    is_window = mv["source_id"].isin(WINDOW_SOURCES) | (mv["source_id"] == "")
+    windows = mv[is_window].groupby(MONTH_KEYS, as_index=False)[list(MONTHLY_COUNTS)].sum()
+    fetches = mv[~is_window]
+    feeds = fetches.sort_values("items_total", ascending=False).drop_duplicates(MONTH_KEYS, keep="first").copy()
+    sizes = fetches.groupby(MONTH_KEYS).size()
+    feeds["n_fetches"] = [int(sizes.get(k, 1)) for k in zip(feeds["country"], feeds["period"], feeds["source_id"], strict=True)]
+    if not feeds.empty and news is not None and not news.empty and {"source_id", "country", "date", *NEWS_FLAGS} <= set(news.columns):
+        d = news[["source_id", "country", "date", *NEWS_FLAGS]].copy()
+        if "doc_type" in news.columns:
+            d = d[news["doc_type"] == "news"]
+        d["period"] = d["date"].astype(str).str[:7]
+        d["source_id"] = d["source_id"].astype(str)
+        for flag, col in NEWS_FLAGS.items():
+            d[col] = d[flag].astype(bool).astype(int)
+        distinct = d.groupby(MONTH_KEYS, as_index=False)[list(NEWS_FLAGS.values())].sum()
+        feeds = feeds.drop(columns=list(NEWS_FLAGS.values())).merge(distinct, on=MONTH_KEYS, how="left")
+        for col in NEWS_FLAGS.values():
+            feeds[col] = feeds[col].fillna(0).astype(int)  # a month with fetches and no kept headline of the feed: zero headlines, a count
+    return pd.concat([windows, feeds], ignore_index=True).sort_values(MONTH_KEYS).reset_index(drop=True)
+
+
+def media_monthly(media_volume: pd.DataFrame | None, news: pd.DataFrame | None = None) -> dict[str, list[dict]]:
+    """{iso3: [{period: "YYYY-MM", source_id, items_total, items_mining, items_cn, items_us, n_fetches?}]}: the history
+    rows of the media files, one per source and month (see `monthly_frame`); `n_fetches` on feed rows only."""
+    g = monthly_frame(media_volume, news)
+    if g is None:
+        return {}
     out: dict[str, list[dict]] = {}
-    for r in g.sort_values(["country", "period", "source_id"]).itertuples(index=False):
-        out.setdefault(str(r.country), []).append({"period": str(r.period), "source_id": str(r.source_id),
-                                                  **{c: int(getattr(r, c)) for c in MONTHLY_COUNTS}})
+    for r in g.itertuples(index=False):
+        row = {"period": str(r.period), "source_id": str(r.source_id), **{c: int(getattr(r, c)) for c in MONTHLY_COUNTS}}
+        if pd.notna(r.n_fetches):  # NaN on the summed window rows
+            row["n_fetches"] = int(r.n_fetches)
+        out.setdefault(str(r.country), []).append(row)
     return out
 
 

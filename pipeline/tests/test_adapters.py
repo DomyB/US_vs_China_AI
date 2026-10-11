@@ -362,3 +362,35 @@ def test_congress_fetch_pages_through_each_congress_and_masks_the_key(snap_facto
     assert snap.manifest["bills_listed_per_congress"] == {118: 3, 119: 2}
     recorded = json.dumps(snap.files)
     assert "SECRET-VALUE" not in recorded and snap.files["bills_118_0.json"]["params"]["api_key"] == "***"
+
+
+def test_purge_list_drops_rows_stored_from_the_wrong_feed(tmp_path):
+    """Contract 6: rows an earlier run stored under a listed source_record_url substring are dropped when the previous
+    release's rows are merged (arg_infobae: the US-edition category feed read as Argentine news)."""
+    from scm.ingest.base import PURGE_RECORD_URL_SUBSTRINGS, purge_rows
+    from scm.ingest.press import RSSPress
+
+    assert PURGE_RECORD_URL_SUBSTRINGS["arg_infobae"] == ["/category/estados-unidos/"]
+    cls = type("RSS_arg_infobae", (RSSPress,), {"source_id": "arg_infobae"})
+    ad = cls()
+    cols = ["country", "period", "items_total", "items_mining", "items_cn", "items_us", "source_record_url",
+            "source_id", "source_url", "retrieved_at", "original_language", "reliability", "confidence"]
+    prov = {"source_id": "arg_infobae", "source_url": ad.src.url, "retrieved_at": "2026-10-07T11:19:42+00:00", "original_language": "es", "reliability": ad.src.reliability, "confidence": "documented"}
+    old = pd.DataFrame([
+        {"country": "ARG", "period": "2026-10-07", "items_total": 60, "items_mining": 1, "items_cn": 3, "items_us": 15, "source_record_url": "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/", **prov},
+        {"country": "ARG", "period": "2026-09-30", "items_total": 60, "items_mining": 0, "items_cn": 2, "items_us": 14, "source_record_url": "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/", **prov},
+        {"country": "ARG", "period": "2026-09-23", "items_total": 50, "items_mining": 2, "items_cn": 1, "items_us": 1, "source_record_url": "https://www.infobae.com/arc/outboundfeeds/rss/", **prov},
+    ], columns=cols)
+    out_dir = tmp_path / "wh"
+    (out_dir / "media_volume").mkdir(parents=True)
+    old.to_parquet(out_dir / "media_volume" / "arg_infobae.parquet", index=False)
+    new = pd.DataFrame([{"country": "ARG", "period": "2026-10-14", "items_total": 55, "items_mining": 3, "items_cn": 2, "items_us": 1,
+                         "source_record_url": "https://www.infobae.com/arc/outboundfeeds/rss/", **prov, "retrieved_at": "2026-10-14T11:00:00+00:00"}], columns=cols)
+    rows = ad.load({"media_volume": new}, out_dir=out_dir)
+    stored = pd.read_parquet(out_dir / "media_volume" / "arg_infobae.parquet")
+    assert sorted(stored["period"]) == ["2026-09-23", "2026-10-14"] and rows["media_volume"] == 2 and rows["media_volume_purged"] == 2
+    assert not stored["source_record_url"].str.contains("/category/estados-unidos/").any()
+    # a source without an entry, or a frame without the column, is untouched
+    assert purge_rows("bra_folha", old)[1] == 0 and purge_rows("arg_infobae", old.drop(columns=["source_record_url"]))[1] == 0
+    kept, dropped = purge_rows("arg_infobae", old)
+    assert dropped == 2 and len(kept) == 1

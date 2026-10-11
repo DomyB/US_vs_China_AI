@@ -10,7 +10,7 @@ from scm import export_site, schema, warehouse
 from scm.quant import concentration as conc_mod
 from scm.quant import inputs as inputs_mod
 from scm.quant import run as quant_run
-from scm.quant.index import MIN_COMPONENTS, NAMES, components, index, normalise
+from scm.quant.index import FINANCE_SOURCES, MIN_COMPONENTS, NAMES, components, index, lagging_hold, normalise
 from tests.test_warehouse_export import _doc, _prov, _trade
 
 GDP_CHL = 300e9
@@ -31,7 +31,8 @@ def _fin(event_id, country, year, lender, recipient, amount, origin="CN", desc="
             **{**_prov(sid, rel="independent_academic"), "confidence": conf}}
 
 
-def _synthetic_warehouse(tmp_path):
+def _synthetic_warehouse(tmp_path, unga_to: int = 2023, extra_fin: list | None = None):
+    """Chile and Peru, 2020–2023; `unga_to` is the last year with UNGA rows (the source's coverage), `extra_fin` adds finance events."""
     wh = tmp_path / "wh"
     trade = []
     shares = {2020: 0.3, 2021: 0.3, 2022: 0.6, 2023: 0.6}  # the 2022 jump is a sudden shift
@@ -48,12 +49,13 @@ def _synthetic_warehouse(tmp_path):
            _fin("e2", "CHL", 2021, "People's Bank of China (PBC)", "Banco Central de Chile", 5.0e9, desc="drawdown under currency swap agreement"),
            _fin("e3", "CHL", 2020, "Unspecified Chinese Government Institution", None, 1.0e8),
            _fin("e4", "CHL", 2022, "US International Development Finance Corporation", "Codelco", 2.0e8, origin="US", sid="dfc_projects"),
-           _fin("e5", "CHL", 2021, "China Eximbank", "Government of Chile", 9.0e9, conf="strongly_indicated")]
+           _fin("e5", "CHL", 2021, "China Eximbank", "Government of Chile", 9.0e9, conf="strongly_indicated"), *(extra_fin or [])]
     _write(wh, "finance_event", "x", fin)
     gov = []
     for year in range(2019, 2024):
-        gov += [_gov("CHL", year, "NY.GDP.MKTP.CD", GDP_CHL, "wb_wdi"), _gov("CHL", year, "unga_agreement_CHN", 0.7, "unga_votes"), _gov("CHL", year, "unga_agreement_USA", 0.3, "unga_votes"),
-                _gov("CHL", year, "DT.DOD.DPPG.CD:730", 1.0e9 * (year - 2018), "wb_ids"), _gov("PER", year, "NY.GDP.MKTP.CD", 200e9, "wb_wdi"), _gov("PER", year, "unga_agreement_CHN", 0.6, "unga_votes")]
+        gov += [_gov("CHL", year, "NY.GDP.MKTP.CD", GDP_CHL, "wb_wdi"), _gov("CHL", year, "DT.DOD.DPPG.CD:730", 1.0e9 * (year - 2018), "wb_ids"), _gov("PER", year, "NY.GDP.MKTP.CD", 200e9, "wb_wdi")]
+        if year <= unga_to:
+            gov += [_gov("CHL", year, "unga_agreement_CHN", 0.7, "unga_votes"), _gov("CHL", year, "unga_agreement_USA", 0.3, "unga_votes"), _gov("PER", year, "unga_agreement_CHN", 0.6, "unga_votes")]
     _write(wh, "governance", "x", gov)
     docs = [_doc("BRA", "bill", f"2023-0{i + 1}-01", f"PL {i}/2023: acordo com a China", "bra_camara_api", f"https://www.camara.leg.br/p?id={i}", native=str(i), cn=True) for i in range(5)]
     _write(wh, "document", "bra_camara_api", docs)
@@ -114,6 +116,89 @@ def test_index_components_missing_stays_missing_and_swaps_excluded(tmp_path):
     # the mineral-specific composite exists only where the country traded the mineral
     assert set(idx[idx["mineral"] == "lithium"]["country"]) == {"CHL"} and set(idx[idx["mineral"] == "copper"]["country"]) == {"PER"}
     assert stability is None  # fewer than six ranked countries
+
+
+def test_composite_is_held_back_while_a_source_release_lags(tmp_path):
+    """UNGA voting stops in 2022 while trade runs to 2023: the 2023 composite would rest on a different set than 2022, so it
+    is held back (null, components kept) while the lag is recent; two years later the source counts as ended and the index goes on."""
+    wh = _synthetic_warehouse(tmp_path, unga_to=2022)
+    inp = inputs_mod.load_inputs(wh)
+    assert inp.last_year["unga"] == 2022 and inp.last_year["finance_CN"] == 2021
+    comp = normalise(components(inp, conc_mod.concentration(inp.trade)))
+    chl = comp[(comp["country"] == "CHL") & (comp["actor"] == "CN") & (comp["mineral"] == "all")].set_index(["year", "component"])
+    assert chl.loc[(2023, "diplomatic_alignment"), "note"] == "source coverage ends 2022" and chl.loc[(2022, "finance_flow"), "note"] == "source coverage ends 2021"
+    idx, _ = index(comp, draws=20, seed=1, current_year=2024)  # in 2024 a source whose last year is 2022 is lagging, one that ends 2021 has ended
+    inf = idx[(idx["index_name"] == "influence") & (idx["country"] == "CHL") & (idx["actor"] == "CN")]
+    cn = inf[inf["mineral"] == "all"].set_index("year")
+    assert cn.loc[2022, "value"] == cn.loc[2022, "value"] and cn.loc[2022, "n_components"] == 4  # AidData's end is old news: published on the rest
+    assert pd.isna(cn.loc[2023, "value"]) and pd.isna(cn.loc[2023, "lower"]) and pd.isna(cn.loc[2023, "upper"])  # held: UNGA's 2023 is late, not absent
+    assert cn.loc[2023, "n_components"] == 3 and cn.loc[2023, "components_available"] == "trade_export_share,trade_import_share,debt_stock"
+    assert pd.isna(inf[inf["mineral"] == "lithium"].set_index("year").loc[2023, "value"])  # the per-mineral composite of the same country-year follows
+    eco = idx[(idx["index_name"] == "economic_ties") & (idx["country"] == "CHL") & (idx["actor"] == "CN") & (idx["mineral"] == "all")].set_index("year")
+    assert eco.loc[2023, "value"] == eco.loc[2023, "value"]  # the sub-index is the "economic ties only" view and stays published
+    later, _ = index(comp, draws=20, seed=1, current_year=2025)
+    cn_later = later[(later["index_name"] == "influence") & (later["country"] == "CHL") & (later["actor"] == "CN") & (later["mineral"] == "all")].set_index("year")
+    assert cn_later.loc[2023, "value"] == cn_later.loc[2023, "value"] and cn_later.loc[2023, "n_components"] == 3  # 2022 is now an ended series: published on three
+
+
+def test_lagging_hold_rules_on_a_hand_built_panel():
+    def row(iso, year, component, available, note=None, mineral="all"):
+        return {"country": iso, "year": year, "actor": "CN", "mineral": mineral, "component": component, "raw_value": 0.5 if available else None, "available": available, "note": note, "source_ids": "x"}
+
+    rows = []
+    for y in range(2021, 2027):  # Chile: trade always, AidData to 2021, UNGA to 2024 (lagging in 2026), debt never; Peru: never any UNGA row
+        rows += [row("CHL", y, "trade_export_share", True), row("CHL", y, "trade_import_share", True), row("CHL", y, "finance_flow", y <= 2021, None if y <= 2021 else "source coverage ends 2021"),
+                 row("CHL", y, "debt_stock", False, "not reported by the World Bank IDS for the country and year"),
+                 row("CHL", y, "diplomatic_alignment", y <= 2024, None if y <= 2024 else "source coverage ends 2024"), row("CHL", y, "legislative_stance", False, "no scored legislative records naming the actor"),
+                 row("CHL", y, "trade_export_share", True, mineral="lithium"), row("CHL", y, "diplomatic_alignment", y <= 2024, None if y <= 2024 else "source coverage ends 2024", mineral="lithium"),
+                 row("PER", y, "trade_export_share", True), row("PER", y, "trade_import_share", True), row("PER", y, "finance_flow", True),
+                 row("PER", y, "diplomatic_alignment", False, "no UNGA voting data for the year" if y <= 2024 else "source coverage ends 2024")]
+    comp = pd.DataFrame(rows)
+    keys = comp[["country", "year", "actor", "mineral"]].drop_duplicates().reset_index(drop=True)
+    held = {(r.country, int(r.year), r.mineral) for r, h in zip(keys.itertuples(index=False), lagging_hold(comp, keys, current_year=2026), strict=True) if h}
+    # 2022: AidData's end (2021) is older than the lag window, not a hold; 2025: UNGA's 2024 is a lagging release and the component was in the 2024 index;
+    # 2026: carried while the lag lasts; the lithium rows follow the "all" decision; Peru never had the component, nothing to hold
+    assert held == {("CHL", 2025, "all"), ("CHL", 2025, "lithium"), ("CHL", 2026, "all"), ("CHL", 2026, "lithium")}
+    assert not lagging_hold(comp, keys, current_year=2027).any()  # a year later the 2024 release counts as ended: the index goes on without it
+    assert lagging_hold(comp, keys, current_year=2023).sum() == 5 * 2  # from 2023's view the AidData end (2021) is still a lag: held from 2022 on, both minerals
+    assert not lagging_hold(comp.iloc[0:0], keys.iloc[0:0], current_year=2026).any()
+
+
+def test_normalisation_bounds_come_from_the_all_rows():
+    """A country that trades many minerals adds per-mineral rows to the component table; the composite's scale must not move."""
+    def row(iso, year, value, mineral="all"):
+        return {"country": iso, "year": year, "actor": "CN", "mineral": mineral, "component": "trade_export_share", "raw_value": value, "available": True, "note": None, "source_ids": "un_comtrade"}
+
+    rng = __import__("numpy").random.default_rng(2)
+    base = [row(iso, y, float(v)) for iso, vals in (("CHL", rng.uniform(0.2, 0.7, 20)), ("PER", rng.uniform(0.0, 0.5, 20))) for y, v in zip(range(2004, 2024), vals, strict=True)]
+    base.append({**row("ARG", 2023, None), "available": False, "note": "no reported trade for the year"})
+    minerals = [row("CHL", y, 0.95 + 0.004 * k, mineral=f"m{k}") for y in range(2004, 2024) for k in range(12)]  # twelve minerals, all near 100%
+    only_all = normalise(pd.DataFrame(base)).set_index(["country", "year", "mineral"])
+    both = normalise(pd.DataFrame(base + minerals)).set_index(["country", "year", "mineral"])
+    for key in only_all.index:
+        assert both.loc[key, "normalized_value"] == only_all.loc[key, "normalized_value"] or (pd.isna(both.loc[key, "normalized_value"]) and pd.isna(only_all.loc[key, "normalized_value"]))
+        assert both.loc[key, "rank_value"] == only_all.loc[key, "rank_value"] or pd.isna(only_all.loc[key, "rank_value"])
+    # the "all" ranks are pandas' average percentile rank within the pool; a per-mineral row is clipped to the pool's bounds, never above 100
+    pool = only_all[only_all["available"]]["raw_value"].astype(float)
+    assert (abs(pool.rank(pct=True, method="average") * 100.0 - only_all[only_all["available"]]["rank_value"]) < 1e-9).all()
+    mins = both.xs("m0", level="mineral")
+    assert (mins["normalized_value"] == 100.0).all() and (mins["rank_value"] <= 100.0).all() and (mins["rank_value"] > 99.0).all()
+    assert pd.isna(both.loc[("ARG", 2023, "all"), "normalized_value"])
+
+
+def test_finance_component_names_the_sources_behind_the_summed_rows(tmp_path):
+    exim = _fin("e6", "CHL", 2020, "Export-Import Bank of the United States", "Codelco", 5.0e7, origin="US", sid="exim_authorizations")
+    wh = _synthetic_warehouse(tmp_path, extra_fin=[exim])
+    inp = inputs_mod.load_inputs(wh)
+    comp = components(inp, conc_mod.concentration(inp.trade))
+    us = comp[(comp["actor"] == "US") & (comp["mineral"] == "all") & (comp["component"] == "finance_flow")].set_index(["country", "year"])
+    assert us.loc[("CHL", 2020), "source_ids"] == "exim_authorizations,wb_wdi" and abs(us.loc[("CHL", 2020), "raw_value"] - 5.0e7 / GDP_CHL) < 1e-15  # an EXIM-only window is not attributed to the DFC
+    assert us.loc[("CHL", 2022), "source_ids"] == "dfc_projects,exim_authorizations,wb_wdi"  # 2020–2022: both
+    assert us.loc[("PER", 2021), "raw_value"] == 0.0 and us.loc[("PER", 2021), "source_ids"] == ",".join([*FINANCE_SOURCES["US"], "wb_wdi"])  # nothing recorded: the registry's US sources
+    assert FINANCE_SOURCES == {"US": ["dfc_projects", "exim_authorizations"], "CN": ["aiddata_gcdf"]}
+    from scm.quant.anomalies import _pct
+
+    assert [_pct(x) for x in (0.0004, 0.0028, 0.0093, 0.0, 0.2, 0.0149)] == ["under 0.1%", "0.3%", "0.9%", "0%", "20%", "1%"]  # as the site's fmtShare
 
 
 def test_finance_without_trade_response_never_rests_on_an_absent_partner_cell():
@@ -203,7 +288,7 @@ def test_run_writes_tables_flags_network_and_export(tmp_path):
     assert idx["layer"] == "real" and all(0 <= r["lower"] <= r["value"] <= r["upper"] <= 100 for r in idx["rows"]) and {r["mineral"] for r in idx["rows"]} >= {"all", "lithium"}
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["analysis"] == "real" and meta["tables"]["index_value"] > 0 and meta["quant_model"]["draws"] == 40
-    cov = json.loads((out / "coverage.json").read_text())["countries"]
+    cov = meta["coverage"]  # coverage travels in meta.json only
     assert cov["CHL"]["analysis_available"] and cov["CHL"]["analysis_years"] == [2020, 2023] and cov["ARG"]["analysis_available"] is False
     q = json.loads((out / "quant.json").read_text())
     assert q["status"] == "computed" and q["rules"]["min_components"] == MIN_COMPONENTS and q["flags_by_type"]["sudden_trade_shift"]["documented"] >= 1

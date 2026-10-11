@@ -1,12 +1,17 @@
 """Composite influence index per country, year, actor and mineral, built along the OECD/JRC handbook steps:
 component selection (six observable ties to the actor), no imputation (a missing input leaves the component
 unavailable and the index rests on the rest, never on fewer than three), winsorised min–max normalisation pooled
-over the whole panel so both actors share one scale, equal weights renormalised over the available components,
-arithmetic aggregation, and an uncertainty analysis: weights redrawn from a Dirichlet around equal weights and
-the normalisation switched to percentile ranks in half of the draws; the 5th–95th percentile band is stored
-with every value and the rank stability (mean Spearman correlation of the perturbed rankings with the
-baseline) is reported for the methodology page."""
+over the country × year × actor panel (the mineral "all" rows, both actors on one scale; the same bounds apply to
+the per-mineral rows), equal weights renormalised over the available components, arithmetic aggregation, and an
+uncertainty analysis: weights redrawn from a Dirichlet around equal weights and the normalisation switched to
+percentile ranks in half of the draws; the 5th–95th percentile band is stored with every value and the rank
+stability (mean Spearman correlation of the perturbed rankings with the baseline) is reported for the methodology
+page. A composite is held back (null, with its components still listed) in a year where a component it rested on
+the year before is missing only because its source's release lags (`LAG_YEARS`), so a late release never changes
+the index's composition silently; a source that stopped years ago is an ended series and the index goes on without it."""
 from __future__ import annotations
+
+from datetime import UTC, datetime
 
 import numpy as np
 import pandas as pd
@@ -24,19 +29,23 @@ DIRICHLET_ALPHA = 10.0  # concentration of the weight draws around equal weights
 RANK_SHARE = 0.5  # share of draws that use percentile-rank normalisation instead of min–max
 MIN_RANKED = 6  # countries needed in a year to measure rank stability
 FIRST_YEAR = PERIOD_FROM
+LAG_YEARS = 2  # a source whose last year is within this many years of the current year is lagging, not ended
+COVERAGE_NOTE = "source coverage ends "  # the note a component carries beyond its source's last year
 
 # name, group, definition, registry source ids
 COMPONENTS: list[tuple[str, str, str, list[str]]] = [
     ("trade_export_share", "economic_ties", "Share of the country's mineral exports (reported to UN Comtrade) that go to the actor.", ["un_comtrade"]),
     ("trade_import_share", "economic_ties", "Share of the country's mineral imports that come from the actor.", ["un_comtrade"]),
-    ("finance_flow", "economic_ties", "Documented official-finance commitments from the actor's institutions over the last three years, relative to GDP; central-bank swap-line drawdowns excluded.", ["aiddata_gcdf", "dfc_projects", "wb_wdi"]),
+    ("finance_flow", "economic_ties", "Documented official-finance commitments from the actor's institutions over the last three years, relative to GDP; central-bank swap-line drawdowns excluded.", ["aiddata_gcdf", "dfc_projects", "exim_authorizations", "wb_wdi"]),
     ("debt_stock", "economic_ties", "Public and publicly guaranteed external debt owed to the actor, relative to GDP (World Bank IDS reports China as a creditor; no equivalent source exists for the United States).", ["wb_ids", "wb_wdi"]),
     ("diplomatic_alignment", "political_alignment", "UN General Assembly voting agreement with the actor in the year.", ["unga_votes"]),
     ("legislative_stance", "political_alignment", "Mean stance toward the actor (−2 to +2) in the legislature's mineral-related records, years with at least five scored records; a text-model output carried with its validation status.", []),
 ]
 NAMES = [c[0] for c in COMPONENTS]
 GROUPS = {"economic_ties": 2, "political_alignment": 1}  # minimum available components per sub-index
-FINANCE_SOURCE = {"US": "dfc_projects", "CN": "aiddata_gcdf"}
+# the registry sources behind each actor's finance component (AidData for China; the DFC and EXIM for the United States)
+FINANCE_SOURCES: dict[str, list[str]] = {"US": ["dfc_projects", "exim_authorizations"], "CN": ["aiddata_gcdf"]}
+FINANCE_SOURCE = {actor: ",".join(ids) for actor, ids in FINANCE_SOURCES.items()}  # the same, comma-joined
 
 
 def _lookup(df: pd.DataFrame, keys: list[str], value: str) -> dict:
@@ -65,6 +74,9 @@ def components(inp: Inputs, conc: pd.DataFrame) -> pd.DataFrame:
     debt = _lookup(inp.debt_cn, ["country", "year"], "value")
     fin = inp.finance[inp.finance["documented"] & ~inp.finance["swap"] & inp.finance["amount_usd"].notna()] if not inp.finance.empty else inp.finance
     fin_year = fin.groupby(["country", "origin", "year"])["amount_usd"].sum().to_dict() if not fin.empty else {}
+    # the sources the summed rows came from, so a window of EXIM-only rows is never attributed to the DFC
+    fin_src = (fin.groupby(["country", "origin", "year"])["source_id"].agg(lambda s: {str(x) for x in s.dropna() if str(x)}).to_dict()
+               if not fin.empty and "source_id" in fin.columns else {})
     stance = inp.stance.groupby(["country", "year", "actor"]).agg(mean=("stance", "mean"), n=("stance", "size")).to_dict("index") if not inp.stance.empty else {}
     leg_sources = sorted(inp.stance["source_id"].unique()) if not inp.stance.empty else []
     src = {name: ",".join(ids) for name, _, _, ids in COMPONENTS}
@@ -94,8 +106,10 @@ def components(inp: Inputs, conc: pd.DataFrame) -> pd.DataFrame:
                     elif g is None or g <= 0:
                         add("finance_flow", None, "GDP not available for the year")
                     else:
-                        total = sum(fin_year.get((iso, actor, y), 0.0) for y in range(year - ROLLING_YEARS + 1, year + 1))
-                        add("finance_flow", total / g, source_ids=f"{FINANCE_SOURCE[actor]},wb_wdi")
+                        window = range(year - ROLLING_YEARS + 1, year + 1)
+                        total = sum(fin_year.get((iso, actor, y), 0.0) for y in window)
+                        ids = sorted(set().union(*(fin_src.get((iso, actor, y), set()) for y in window))) or FINANCE_SOURCES[actor]
+                        add("finance_flow", total / g, source_ids=",".join([*ids, "wb_wdi"]))
                     if actor == "US":
                         add("debt_stock", None, "no source for debt owed to the United States")
                     else:
@@ -119,8 +133,11 @@ def components(inp: Inputs, conc: pd.DataFrame) -> pd.DataFrame:
 
 
 def normalise(comp: pd.DataFrame) -> pd.DataFrame:
-    """Add `normalized_value` (winsorised min–max, 0–100, pooled over the panel per component) and `rank_value`
-    (percentile rank, 0–100) for the available rows."""
+    """Add `normalized_value` (winsorised min–max, 0–100) and `rank_value` (percentile rank, 0–100) for the available rows.
+    The bounds and the rank reference of each component come from its mineral "all" rows (one country × year × actor
+    panel, both actors on one scale) and apply to every row: the per-mineral composites share the composite's scale and a
+    country that trades many minerals weighs no more in the pool than one that trades one. Only if a component has no
+    "all" row at all do its available rows form the pool."""
     comp = comp.copy()
     comp["normalized_value"] = np.nan
     comp["rank_value"] = np.nan
@@ -128,11 +145,17 @@ def normalise(comp: pd.DataFrame) -> pd.DataFrame:
         mask = (comp["component"] == name) & comp["available"]
         if not mask.any():
             continue
+        pool = mask & (comp["mineral"] == "all")
+        ref = np.sort(comp.loc[pool if pool.any() else mask, "raw_value"].astype(float).to_numpy())
+        lo, hi = np.nanpercentile(ref, WINSOR[0]), np.nanpercentile(ref, WINSOR[1])
         v = comp.loc[mask, "raw_value"].astype(float)
-        lo, hi = np.nanpercentile(v, WINSOR[0]), np.nanpercentile(v, WINSOR[1])
         w = v.clip(lo, hi)
         comp.loc[mask, "normalized_value"] = 50.0 if hi <= lo else ((w - lo) / (hi - lo) * 100.0)
-        comp.loc[mask, "rank_value"] = v.rank(pct=True, method="average") * 100.0
+        # percentile rank within the "all" pool (ties share their mean rank, as pandas' average rank); a per-mineral
+        # value is ranked against the same pool, so the two normalisations agree on the "all" rows
+        x = v.to_numpy()
+        rank = (np.searchsorted(ref, x, side="left") + np.searchsorted(ref, x, side="right") + 1) / 2.0 / len(ref) * 100.0
+        comp.loc[mask, "rank_value"] = np.clip(rank, 0.0, 100.0)
     return comp
 
 
@@ -144,10 +167,11 @@ def _aggregate(x: np.ndarray, mask: np.ndarray, w: np.ndarray) -> np.ndarray:
         return np.where(den > 0, num / den, np.nan)
 
 
-def index(comp: pd.DataFrame, draws: int = 500, seed: int = 20261009) -> tuple[pd.DataFrame, float | None]:
+def index(comp: pd.DataFrame, draws: int = 500, seed: int = 20261009, current_year: int | None = None) -> tuple[pd.DataFrame, float | None]:
     """Baseline index values with their sensitivity band, for the composite and the two sub-indices, and the rank
     stability of the composite (mean Spearman correlation between the baseline and the perturbed rankings in the
-    latest year with enough countries, averaged over the two actors)."""
+    latest year with enough countries, averaged over the two actors). Composite rows held back by `lagging_hold`
+    (`current_year` defaults to today's) keep their n_components and components_available with a null value and band."""
     keys = ["country", "year", "actor", "mineral"]
     cols = [*keys, "index_name", "value", "lower", "upper", "n_components", "components_available"]
     if comp.empty:
@@ -184,18 +208,63 @@ def index(comp: pd.DataFrame, draws: int = 500, seed: int = 20261009) -> tuple[p
             lower[ok] = np.nanpercentile(band[ok], 5, axis=1)
             upper[ok] = np.nanpercentile(band[ok], 95, axis=1)
         lower, upper = np.minimum(lower, value), np.maximum(upper, value)
+        if name == "influence":
+            held = lagging_hold(comp, index_keys, current_year)
+            value[held], lower[held], upper[held] = np.nan, np.nan, np.nan
         names_avail = [",".join(c for c, a in zip(NAMES, row, strict=True) if a) for row in m]
         df = index_keys.assign(index_name=name, value=np.round(value, 2), lower=np.round(np.clip(lower, 0, 100), 2), upper=np.round(np.clip(upper, 0, 100), 2),
                                n_components=n.astype(int), components_available=names_avail)
         if name == "influence":
             composite = band
-            df = df[n > 0]  # keep null composites (with the reason: too few components) where anything is available
+            df = df[n > 0]  # keep null composites (too few components, or held back for a lagging source) where anything is available
         else:
             df = df[ok]
         out.append(df)
     result = pd.concat(out, ignore_index=True)[cols]
     stability = _rank_stability(index_keys, result, composite) if composite is not None else None
     return result, stability
+
+
+def coverage_end(note: str | None) -> int | None:
+    """The last year L in a "source coverage ends L" note, else None."""
+    text = str(note or "")
+    if not text.startswith(COVERAGE_NOTE):
+        return None
+    try:
+        return int(text[len(COVERAGE_NOTE):].split()[0])
+    except (ValueError, IndexError):
+        return None
+
+
+def lagging_hold(comp: pd.DataFrame, index_keys: pd.DataFrame, current_year: int | None = None, lag_years: int = LAG_YEARS) -> np.ndarray:
+    """One flag per row of `index_keys`: True where the composite is held back because a component that was available
+    the year before (or was itself held in the year before, while the lag lasts) is unavailable only because its source's
+    release lags: its note reads "source coverage ends L" with L ≥ current_year − lag_years. A source whose last year is
+    older than that (AidData, 2021) is an ended series: the index goes on without it, as documented. The decision is
+    taken on the mineral "all" rows of a country, actor and year and applied to its per-mineral rows too."""
+    if comp.empty or "note" not in comp.columns:
+        return np.zeros(len(index_keys), dtype=bool)
+    year_now = int(current_year) if current_year is not None else datetime.now(UTC).year
+    cutoff = year_now - lag_years
+    rows = comp[comp["mineral"] == "all"]
+    avail = {(r.country, r.actor, int(r.year), r.component) for r in rows[rows["available"].astype(bool)].itertuples(index=False)}
+    lag: dict[tuple[str, str], dict[int, set[str]]] = {}
+    for r in rows[~rows["available"].astype(bool)].itertuples(index=False):
+        last = coverage_end(r.note)
+        if last is not None and last >= cutoff:
+            lag.setdefault((r.country, r.actor), {}).setdefault(int(r.year), set()).add(r.component)
+    held: set[tuple[str, str, int]] = set()
+    for (iso, actor), by_year in lag.items():
+        carried: set[str] = set()
+        prev: int | None = None
+        for year in sorted(by_year):
+            if prev is None or year != prev + 1:
+                carried = set()
+            carried = {c for c in by_year[year] if (iso, actor, year - 1, c) in avail or c in carried}
+            if carried:
+                held.add((iso, actor, year))
+            prev = year
+    return np.array([(r.country, r.actor, int(r.year)) in held for r in index_keys.itertuples(index=False)], dtype=bool)
 
 
 def _rank_stability(index_keys: pd.DataFrame, result: pd.DataFrame, band: np.ndarray) -> float | None:

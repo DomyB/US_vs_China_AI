@@ -5,10 +5,13 @@ keeps one national collection per country ("Argentina - National"). It is the hi
 record: GDELT throttles GitHub's runner addresses and starts in 2017, while Media Cloud answers a registered
 key (MEDIACLOUD_KEY, free; 4,000 requests a week, the count endpoints two a minute) and its collections reach back to about 2010. Per country and year the adapter asks
 for three daily count series (the mineral query; mineral AND China; mineral AND the United States) and one
-story list (the mineral query, paginated, capped at MAX_STORIES per country-year). The daily rows are summed
-into MONTHLY `media_volume` rows (`period = YYYY-MM-01`); `items_total` is the collection's own daily total,
-so a share `items_mining / items_total` is the share of that collection, not of all press. Headlines are kept
-as `document` rows (headline, date, outlet, URL; never text) when the keyword filter admits them.
+story list (the mineral query, newest first, paginated, capped at MAX_STORIES per country-year: a big
+collection matches tens of thousands of stories a year, so the list holds the newest ones and the cut is
+recorded, per country-year, as `headlines_window` {from, to, kept, matched, truncated} in the manifest and in
+the ingest_run record, from which the export tells the reader the window the headlines come from). The daily
+rows are summed into MONTHLY `media_volume` rows (`period = YYYY-MM-01`); `items_total` is the collection's
+own daily total, so a share `items_mining / items_total` is the share of that collection, not of all press.
+Headlines are kept as `document` rows (headline, date, outlet, URL; never text) when the keyword filter admits them.
 
 The exact response shapes could not be verified from the sandbox (no network), so the parser accepts the
 documented nesting and the flat form, stores every raw response in the snapshot and lists anything it cannot
@@ -25,11 +28,13 @@ import os
 import re
 import time
 from datetime import UTC, date, datetime, timedelta
+from pathlib import Path
 from urllib.parse import urlsplit
 
 import pandas as pd
 
 from ..http import Snapshot
+from ..paths import WAREHOUSE_DIR
 from ..registry import COUNTRIES, IN_SCOPE, sources
 from .base import Adapter
 from .docs import DOCUMENT_COLUMNS, MEDIA_VOLUME_COLUMNS, make_document
@@ -157,6 +162,27 @@ def _int(x: object) -> int:
         return 0
 
 
+def _publish_date(story: dict) -> str | None:
+    d = str(story.get("publish_date") or "")[:10]
+    return d if re.match(r"^\d{4}-\d{2}-\d{2}$", d) else None
+
+
+def headline_windows(pages: dict[tuple[str, int], dict[int, tuple[list[str], int, bool]]], counts: dict[tuple[str, int], dict[str, list[dict]]]) -> dict[str, dict]:
+    """{"ISO/year": {from, to, kept, matched, truncated}} from the stored story pages of a run (page -> (publish dates,
+    stories on the page, has a next-page token)): `from`/`to` the oldest and newest publish date in the list, `kept` the
+    stories the list holds, `matched` the year's matches of the same query (the daily mining counts summed; None when
+    that count call failed) and `truncated` when the last stored page still carried a next-page token, i.e. the year
+    has more matches than MAX_STORIES and the list holds the newest ones only."""
+    out: dict[str, dict] = {}
+    for (iso, year), by_page in sorted(pages.items()):
+        dates = [d for _, (ds, _, _) in sorted(by_page.items()) for d in ds]
+        mining = (counts.get((iso, year)) or {}).get("count_mining")
+        out[f"{iso}/{year}"] = {"from": min(dates) if dates else None, "to": max(dates) if dates else None, "kept": sum(n for _, n, _ in by_page.values()),
+                                "matched": sum(r["count"] for r in mining) if mining is not None else None,
+                                "truncated": by_page[max(by_page)][2]}
+    return out
+
+
 def _host(url: str) -> str:
     h = urlsplit(url).netloc.lower()
     return h[4:] if h.startswith("www.") else h
@@ -237,6 +263,7 @@ class MediaCloud(Adapter):
     TIME_BUDGET_MIN = 40  # minutes of fetching per run (MEDIACLOUD_TIME_BUDGET_MIN); unfetched country-years wait for the next run
     _errors = 0  # consecutive failed requests in this run
     _calls: dict[str, list[float]]  # endpoint -> monotonic times of its recent requests, for the two-a-minute pacing
+    _windows: dict[str, dict]  # "ISO/year" -> the story list's window (see headline_windows), set by parse and recorded by load
 
     def _pause(self, seconds: float) -> None:
         time.sleep(seconds)
@@ -342,10 +369,14 @@ class MediaCloud(Adapter):
         snap.save()
 
     def _stories(self, snap: Snapshot, iso: str, year: int, common: dict) -> None:
+        """The story list of a country-year, newest first, at most MAX_STORIES stories. A year with more matches than
+        the cap is cut: the list then holds the newest stories only, and the cut is recorded in the manifest under
+        `stories_truncated` ({"ISO/year": {from, to, kept}}) so a reader never takes a few weeks for the year."""
         token: str | None = None
         got = 0
+        dates: list[str] = []
         for page in range(1, MAX_STORIES // PAGE_SIZE + 1):
-            params = {"q": mineral_query(), **common, "page_size": PAGE_SIZE, "sort_order": "asc"}
+            params = {"q": mineral_query(), **common, "page_size": PAGE_SIZE, "sort_order": "desc"}
             if token:
                 params["pagination_token"] = token
             self._pace("search/story-list")
@@ -358,8 +389,23 @@ class MediaCloud(Adapter):
                 return
             stories, token = parsed
             got += len(stories)
-            if not token or not stories or got >= MAX_STORIES:
+            dates.extend(d for d in (_publish_date(s) for s in stories) if d)
+            if not token or not stories:
                 return
+            if got >= MAX_STORIES:
+                # the cap stopped the loop with a page still to come: the year has more matches than the list holds
+                snap.manifest.setdefault("stories_truncated", {})[f"{iso}/{year}"] = {"from": min(dates) if dates else None, "to": max(dates) if dates else None, "kept": got}
+                return
+
+    def load(self, tables: dict[str, pd.DataFrame], out_dir: Path = WAREHOUSE_DIR) -> dict[str, int]:
+        """The usual row counts plus `headlines_window` (per fetched country-year: the story list's date window, how
+        many stories it holds, how many the query matched and whether it was cut). Raw snapshots are not kept between
+        runs, so the window travels in the ingest_run record, which the data release restores and the export reads."""
+        rows = super().load(tables, out_dir=out_dir)
+        windows = self.__dict__.get("_windows") or {}
+        if windows:
+            rows["headlines_window"] = windows  # type: ignore[assignment]
+        return rows
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         domains = outlet_domains()
@@ -367,6 +413,7 @@ class MediaCloud(Adapter):
         counts: dict[tuple[str, int], dict[str, list[dict]]] = {}
         rows: dict[str, dict] = {}
         unmatched: dict[str, int] = {}
+        pages: dict[tuple[str, int], dict[int, tuple[list[str], int, bool]]] = {}  # (iso, year) -> page -> (publish dates, stories, has a next-page token)
         for name in sorted(snap.files):
             m = re.match(r"([A-Z]{3})/(\d{4})_(count_mining|count_cn|count_us|stories_\d+)\.json$", name)
             if not m or not snap.has(name):
@@ -388,10 +435,14 @@ class MediaCloud(Adapter):
             if parsed is None:
                 snap.manifest.setdefault("unparsed", []).append(name)
                 continue
-            for s in parsed[0]:
+            stories, token = parsed
+            pages.setdefault((iso, year), {})[int(kind.split("_")[1])] = ([d for d in (_publish_date(s) for s in stories) if d], len(stories), bool(token))
+            for s in stories:
                 row = self._document(s, iso, year, domains, reg, unmatched)
                 if row is not None:
                     rows.setdefault(row["doc_id"], row)
+        self._windows = headline_windows(pages, counts)
+        snap.manifest["headlines_window"] = self._windows
         volume: list[dict] = []
         incomplete: list[str] = []
         for (iso, year), kinds in sorted(counts.items()):

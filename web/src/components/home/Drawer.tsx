@@ -3,12 +3,13 @@
 import type { ReactNode } from "react";
 import { Icon } from "@/components/ui/Icons";
 
-/** The floating panel: a right-hand card on wide screens, a bottom sheet with two heights on phones. */
+/** The floating panel: a right-hand card on wide screens, a bottom sheet with two heights on phones. Hidden, the wide card
+ *  is `inert` as well as aria-hidden, so its links and buttons leave the tab order with it. */
 export function Drawer({ lg, open, onToggle, width, collapsedHeight, label, children }: { lg: boolean; open: boolean; onToggle: () => void; width: number; collapsedHeight: number; label: string; children: ReactNode }) {
   if (lg) {
     return (
       <>
-        <div className={`pointer-events-auto absolute top-3 right-3 bottom-3 transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-[calc(100%+1rem)]"}`} style={{ width }} aria-hidden={!open}>
+        <div className={`pointer-events-auto absolute top-3 right-3 bottom-3 transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-[calc(100%+1rem)]"}`} style={{ width }} aria-hidden={!open} inert={!open}>
           <div className="card flex h-full flex-col overflow-hidden" data-tour="panel">{children}</div>
         </div>
         <button

@@ -51,7 +51,7 @@
    "language": "en",
    "status": "moved",
    "python_package": "sdmx1",
-   "notes": "Legacy DOTS portal retired Nov 2025; dataservices.imf.org no longer resolves. Bilateral totals used for cross-checks against Comtrade.",
+   "notes": "Legacy DOTS portal retired Nov 2025; dataservices.imf.org no longer resolves. Bilateral totals used for cross-checks against Comtrade. The SDMX root (api_url) answers 404 by design, only dataflow paths below it answer, so the Monday check's 404 on it is expected.",
    "liveness": {
     "checked_at": "2026-10-05T12:23:40+00:00",
     "status": 200,
@@ -310,7 +310,7 @@
    "language": "en",
    "status": "moved",
    "python_package": "sdmx1",
-   "notes": "Chinese FDI is often routed through Hong Kong and offshore centres; paired with MOFCOM and AEI CGIT.",
+   "notes": "Chinese FDI is often routed through Hong Kong and offshore centres; paired with MOFCOM and AEI CGIT. The SDMX root (api_url) answers 404 by design, only dataflow paths below it answer, so the Monday check's 404 on it is expected.",
    "liveness": {
     "checked_at": "2026-10-05T12:24:11+00:00",
     "status": 200,
@@ -959,13 +959,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
+   "verified_on": "2026-10-11",
    "verified_method": "search",
    "auth": "none",
    "id": "arg_infobae",
    "name": "Infobae",
    "url": "https://www.infobae.com",
-   "api_url": "https://www.infobae.com/feeds/rss",
+   "api_url": "https://www.infobae.com/arc/outboundfeeds/rss/",
    "countries": [
     "ARG"
    ],
@@ -980,7 +980,8 @@
    "coverage_from": 2008,
    "coverage_to": 2026,
    "language": "es",
-   "status": "live",
+   "status": "uncertain",
+   "notes": "The home page geo-redirects to the US edition (/estados-unidos/) from US runners, and until 2026-10-11 the only feed read was that section's (/arc/outboundfeeds/rss/category/estados-unidos/, US news filed under Argentina; those rows are purged from the warehouse). The general Arc feed set here is the pattern the other Arc outlets serve but could not be verified from the sandbox (2026-10-11); the Monday liveness check and the Wednesday press run settle it. The old api_url /feeds/rss answered 404 on 2026-10-05.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:25:24+00:00",
@@ -992,12 +993,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "arg_pagina12",
    "name": "Página/12",
    "url": "https://www.pagina12.com.ar",
+   "api_url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada",
    "countries": [
     "ARG"
    ],
@@ -1024,13 +1026,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "arg_cronista",
    "name": "El Cronista",
    "url": "https://www.cronista.com",
-   "api_url": "https://www.cronista.com/rss/feed.xml",
+   "api_url": "https://www.cronista.com/arc/outboundfeeds/rss/",
    "countries": [
     "ARG"
    ],
@@ -1046,6 +1048,7 @@
    "coverage_to": 2026,
    "language": "es",
    "status": "live",
+   "notes": "Feed read by the press run of 2026-10-07 (the former /rss/feed.xml answers 404). The home page geo-redirects to /usa/ from US runners, so declared feeds are ignored and the registry feed is read directly.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:25:27+00:00",
@@ -1107,7 +1110,7 @@
    "coverage_to": 2025,
    "language": "es",
    "status": "live",
-   "notes": "PDF only; tables extracted.",
+   "notes": "PDF only; tables extracted. Answered HTTP 523 (origin unreachable) on the 2026-10-05 direct check; re-assessed after the next Monday check.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:25:34+00:00",
@@ -1119,8 +1122,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "bol_comibol",
    "name": "COMIBOL",
@@ -1137,8 +1140,8 @@
    "coverage_from": 2010,
    "coverage_to": 2025,
    "language": "es",
-   "status": "uncertain",
-   "notes": "State mining corporation; site not verifiable from the sandbox.",
+   "status": "live",
+   "notes": "State mining corporation; answered 200 on the 2026-10-05 direct check.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:25:41+00:00",
@@ -1341,13 +1344,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "bol_opinion",
    "name": "Opinión",
    "url": "https://www.opinion.com.bo",
-   "api_url": "https://www.opinion.com.bo/rss/listado/",
+   "api_url": "https://www.opinion.com.bo/rss/",
    "countries": [
     "BOL"
    ],
@@ -1374,8 +1377,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "bra_anm",
    "name": "ANM dados abertos (AMB production, SIGMINE, CFEM)",
@@ -1392,8 +1395,8 @@
    "coverage_from": 2010,
    "coverage_to": 2026,
    "language": "pt",
-   "status": "moved",
-   "notes": "Address changed from anm.gov.br/acesso-a-informacao/dados-abertos. Mining rights shapefiles, production by substance and municipality, royalties.",
+   "status": "live",
+   "notes": "Address changed from anm.gov.br/acesso-a-informacao/dados-abertos (the new address answered 200 on the 2026-10-05 direct check). Mining rights shapefiles, production by substance and municipality, royalties.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:26:20+00:00",
@@ -1625,13 +1628,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "bra_folha",
    "name": "Folha de S.Paulo",
    "url": "https://www.folha.uol.com.br",
-   "api_url": "https://www1.folha.uol.com.br/feed/",
+   "api_url": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
    "countries": [
     "BRA"
    ],
@@ -1658,12 +1661,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "bra_estadao",
    "name": "Estadão",
    "url": "https://www.estadao.com.br",
+   "api_url": "https://www.estadao.com.br/arc/outboundfeeds/feeds/rss/sections/geral/?body=%7B%22layout%22:%22google-news%22%7D",
    "countries": [
     "BRA"
    ],
@@ -1690,12 +1694,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "bra_oglobo",
    "name": "O Globo",
    "url": "https://oglobo.globo.com",
+   "api_url": "https://oglobo.globo.com/rss/oglobo",
    "countries": [
     "BRA"
    ],
@@ -2063,12 +2068,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "chl_latercera",
    "name": "La Tercera",
    "url": "https://www.latercera.com",
+   "api_url": "https://www.latercera.com/rss",
    "countries": [
     "CHL"
    ],
@@ -2127,12 +2133,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "chl_biobio",
    "name": "BioBioChile",
    "url": "https://www.biobiochile.cl",
+   "api_url": "https://feeds.feedburner.com/radiobiobio/NNeJ",
    "countries": [
     "CHL"
    ],
@@ -2410,8 +2417,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "col_gaceta_congreso",
    "name": "Gaceta del Congreso (Imprenta Nacional)",
@@ -2428,8 +2435,8 @@
    "coverage_from": 2008,
    "coverage_to": 2026,
    "language": "es",
-   "status": "uncertain",
-   "notes": "PDF gazettes with actas and votes; search by number and date; exact search URL to confirm.",
+   "status": "live",
+   "notes": "PDF gazettes with actas and votes; search by number and date; exact search URL to confirm (the portal answered 200 on the 2026-10-05 direct check).",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:28:51+00:00",
@@ -2472,12 +2479,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
+   "verified_on": "2026-10-11",
    "verified_method": "search",
    "auth": "none",
    "id": "col_eltiempo",
    "name": "El Tiempo",
    "url": "https://www.eltiempo.com",
+   "api_url": "https://www.eltiempo.com/rss/colombia.xml",
    "countries": [
     "COL"
    ],
@@ -2492,7 +2500,8 @@
    "coverage_from": 2008,
    "coverage_to": 2026,
    "language": "es",
-   "status": "live",
+   "status": "uncertain",
+   "notes": "Until 2026-10-11 the adapter read the first feed of the publisher's RSS index, the Opinión column feed, so the counts described opinion pieces only. The national news feed set here is listed by that index (https://www.eltiempo.com/rss) but could not be fetched from the sandbox (2026-10-11); the Monday liveness check and the Wednesday press run settle it.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:28:58+00:00",
@@ -2504,12 +2513,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "col_elespectador",
    "name": "El Espectador",
    "url": "https://www.elespectador.com",
+   "api_url": "https://www.elespectador.com/arc/outboundfeeds/discover/",
    "countries": [
     "COL"
    ],
@@ -2525,6 +2535,7 @@
    "coverage_to": 2026,
    "language": "es",
    "status": "live",
+   "notes": "Of the three feeds the home page declares, the WordPress /feed/ answered an empty channel and /comments/feed/ is reader comments (2026-10-07); the Arc 'discover' feed carries the articles and is the one read.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:28:59+00:00",
@@ -2757,13 +2768,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "ecu_eluniverso",
    "name": "El Universo",
    "url": "https://www.eluniverso.com",
-   "api_url": "https://www.eluniverso.com/rss/",
+   "api_url": "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml",
    "countries": [
     "ECU"
    ],
@@ -2791,12 +2802,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "ecu_elcomercio",
    "name": "El Comercio (Ecuador)",
    "url": "https://www.elcomercio.com",
+   "api_url": "https://www.elcomercio.com/feed/",
    "countries": [
     "ECU"
    ],
@@ -2812,6 +2824,7 @@
    "coverage_to": 2026,
    "language": "es",
    "status": "live",
+   "notes": "The home page answers 403 (a bot challenge) to generic clients, including the Monday liveness check; the feed itself is served and was read by the press run of 2026-10-07.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:29:27+00:00",
@@ -3292,12 +3305,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "pry_abc",
    "name": "ABC Color",
    "url": "https://www.abc.com.py",
+   "api_url": "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml",
    "countries": [
     "PRY"
    ],
@@ -3491,7 +3505,7 @@
    "countries": [
     "PER"
    ],
-   "category": "trade",
+   "category": "production",
    "reliability": "official",
    "license": "Open",
    "access": "api",
@@ -3501,7 +3515,7 @@
    "coverage_to": 2026,
    "language": "es",
    "status": "live",
-   "notes": "Exports by product (copper, gold, zinc...), JSON/CSV, no auth.",
+   "notes": "Annual mine production by product (copper, gold, zinc, silver, lead, tin, iron, molybdenum), JSON API, no auth. The series metadata export is behind an Incapsula bot challenge since 2026-10-04; the adapter then uses the committed series list (pipeline/config/bcrp_series.json) and requests the JSON API only.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:31:04+00:00",
@@ -3611,7 +3625,7 @@
    "id": "per_congreso_spley",
    "name": "Congreso de la República, SPLEY bills portal and API (bicameral since July 2026)",
    "url": "https://wb2server.congreso.gob.pe/spley-portal/",
-   "api_url": "https://api.congreso.gob.pe/spley-portal-service",
+   "api_url": "https://wb2server.congreso.gob.pe/spley-portal-service",
    "countries": [
     "PER"
    ],
@@ -3701,12 +3715,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "per_larepublica",
    "name": "La República",
    "url": "https://larepublica.pe",
+   "api_url": "https://larepublica.pe/rss.xml",
    "countries": [
     "PER"
    ],
@@ -3798,12 +3813,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "per_idl_reporteros",
    "name": "IDL-Reporteros",
    "url": "https://www.idl-reporteros.pe",
+   "api_url": "https://www.idl-reporteros.pe/feed/",
    "countries": [
     "PER"
    ],
@@ -3861,8 +3877,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "sur_eiti",
    "name": "Suriname EITI reports",
@@ -3879,8 +3895,8 @@
    "coverage_from": 2016,
    "coverage_to": 2024,
    "language": "en",
-   "status": "moved",
-   "notes": "Site moved from eiti.sr. Suspended Mar 2025, lifted mid-2025.",
+   "status": "live",
+   "notes": "Site moved from eiti.sr (the new address answered 200 on the 2026-10-05 direct check). Suspended Mar 2025, lifted mid-2025.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:32:33+00:00",
@@ -3892,8 +3908,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "sur_natural_resources",
    "name": "Ministry of Natural Resources",
@@ -3910,7 +3926,8 @@
    "coverage_from": 2015,
    "coverage_to": 2026,
    "language": "nl",
-   "status": "uncertain",
+   "status": "live",
+   "notes": "gov.sr is the generic government portal (answered 200 on the 2026-10-05 direct check); no ministry statistics page is known.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:32:36+00:00",
@@ -3967,14 +3984,14 @@
    "orientation": "independent",
    "paywall": "none",
    "license": "Copyright; headlines, dates, URLs only",
-   "access": "rss",
+   "access": "html",
    "update_frequency": "continuous",
    "refresh_schedule": "daily",
    "coverage_from": 2008,
    "coverage_to": 2026,
    "language": "nl",
    "status": "live",
-   "notes": "robots.txt disallows automated clients (checked 2026-10-02); feed not fetched, headlines via GDELT only.",
+   "notes": "robots.txt disallows automated clients (checked 2026-10-02 and by every press run since); no feed adapter is generated (access html), headlines via GDELT only.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:32:40+00:00",
@@ -4172,13 +4189,13 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-07",
+   "verified_method": "direct",
    "auth": "none",
    "id": "ury_elobservador",
    "name": "El Observador",
    "url": "https://www.elobservador.com.uy",
-   "api_url": "https://www.elobservador.com.uy/rss",
+   "api_url": "https://www.elobservador.com.uy/rss/pages/home.xml",
    "countries": [
     "URY"
    ],
@@ -4194,6 +4211,7 @@
    "coverage_to": 2026,
    "language": "es",
    "status": "live",
+   "notes": "Feed read by the press run of 2026-10-07 (the former /rss answers 404). The home page geo-redirects to /estados-unidos from US runners, so declared feeds are ignored and the registry feed is read directly.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:32:57+00:00",
@@ -4456,8 +4474,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "ven_an_2015",
    "name": "Asamblea Nacional elected 2015 (opposition-led; Comisión Delegada)",
@@ -4474,8 +4492,8 @@
    "coverage_from": 2016,
    "coverage_to": 2025,
    "language": "es",
-   "status": "uncertain",
-   "notes": "Contested legitimacy flag; holds 2016-2020 gacetas and acuerdos (incl. on the Arco Minero); post-2025 activity to confirm.",
+   "status": "dead",
+   "notes": "Domain lapsed: asambleanacionalvenezuela.org redirects to an unrelated commercial site (2026-10-05 direct check), so the 2016-2020 gacetas and acuerdos (incl. on the Arco Minero) it held are only reachable through web archives. Contested legitimacy flag.",
    "scope": "country",
    "liveness": {
     "checked_at": "2026-10-05T12:33:18+00:00",
@@ -4701,12 +4719,12 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-09",
+   "verified_method": "direct",
    "auth": "none",
    "id": "exim_authorizations",
    "name": "Export-Import Bank of the United States, authorizations",
-   "url": "https://catalog.data.gov/organization/exim-gov",
+   "url": "https://catalog.data.gov/dataset/?q=exim+authorizations&organization=exim-gov",
    "category": "finance",
    "scope": "US",
    "reliability": "official",
@@ -4717,8 +4735,8 @@
    "coverage_from": 2007,
    "coverage_to": 2025,
    "language": "en",
-   "status": "moved",
-   "notes": "data.exim.gov closed Sept 2023. The dataset id changes with each refresh (the old 'thru-12-31-2022' id returned 404 on 2026-10-01), so the adapter discovers the current package through the data.gov search API.",
+   "status": "live",
+   "notes": "data.exim.gov closed Sept 2023. The dataset id changes with each refresh (the old 'thru-12-31-2022' id returned 404 on 2026-10-01; the organisation page /organization/exim-gov answered 404 on 2026-10-05), so the registry URL is the catalog's search listing the adapter itself reads and the adapter discovers the current package through the data.gov search API (2,396 rows on 2026-10-09).",
    "liveness": {
     "checked_at": "2026-10-05T12:33:31+00:00",
     "status": 404,
@@ -4758,8 +4776,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "state_msp_forge",
    "name": "US State Department, Minerals Security Partnership (2022-2025) and FORGE (2026-)",
@@ -4774,8 +4792,8 @@
    "coverage_from": 2022,
    "coverage_to": 2026,
    "language": "en",
-   "status": "moved",
-   "notes": "MSP superseded in Feb 2026 by the Forum on Resource Geostrategic Engagement (FORGE); MSP pages live only in the 2021-2025 archive.",
+   "status": "live",
+   "notes": "MSP superseded in Feb 2026 by the Forum on Resource Geostrategic Engagement (FORGE); MSP pages live only in the 2021-2025 archive (answered 200 on the 2026-10-05 direct check).",
    "liveness": {
     "checked_at": "2026-10-05T12:33:35+00:00",
     "status": 200,
@@ -4786,8 +4804,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "us_embassies",
    "name": "US embassy press releases (ar, bo, br, cl, co, ec, gy, py, pe, sr, uy, ve .usembassy.gov)",
@@ -4802,8 +4820,8 @@
    "coverage_from": 2010,
    "coverage_to": 2026,
    "language": "multi",
-   "status": "uncertain",
-   "notes": "WordPress platform, so /feed/ RSS is likely but unverified; tested in the first Actions run.",
+   "status": "dead",
+   "notes": "Answers 403 to automated clients (2026-10-05 direct check): by the project's rules a site answering 403 is not fetched (DECISIONS 29), so no adapter is generated and nothing is read from it; the WordPress /feed/ path was never confirmed.",
    "liveness": {
     "checked_at": "2026-10-05T12:33:36+00:00",
     "status": 403,
@@ -5402,15 +5420,32 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
+   "verified_on": "2026-10-11",
    "verified_method": "search",
    "auth": "none",
    "id": "dialogue_earth",
    "name": "Dialogue Earth (formerly Diálogo Chino)",
    "url": "https://dialogue.earth/es/",
+   "api_url": "https://dialogue.earth/es/feed/",
    "category": "press",
    "scope": "international",
+   "countries": [
+    "ARG",
+    "BOL",
+    "BRA",
+    "CHL",
+    "COL",
+    "ECU",
+    "GUY",
+    "PRY",
+    "PER",
+    "SUR",
+    "URY",
+    "VEN"
+   ],
    "reliability": "independent_academic",
+   "orientation": "independent non-profit specialist outlet (environment, China and Latin America)",
+   "paywall": "none",
    "license": "CC BY-NC-ND (to confirm); headlines and links only",
    "access": "rss",
    "update_frequency": "continuous",
@@ -5418,8 +5453,8 @@
    "coverage_from": 2014,
    "coverage_to": 2026,
    "language": "multi",
-   "status": "live",
-   "notes": "Rebranded 2024; RSS likely at /es/feed/.",
+   "status": "uncertain",
+   "notes": "Rebranded 2024. Regional outlet: a headline is filed under each of the twelve countries it names and dropped when it names none. The feed path is the WordPress default and could not be verified from the sandbox (2026-10-11); the Monday liveness check and the Wednesday press run confirm it (the home page answered 200 on 2026-10-05). robots.txt is honoured at run time.",
    "liveness": {
     "checked_at": "2026-10-05T12:34:13+00:00",
     "status": 200,
@@ -5514,7 +5549,7 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
+   "verified_on": "2026-10-05",
    "verified_method": "direct",
    "auth": "none",
    "id": "imf_pcps",
@@ -5530,9 +5565,9 @@
    "coverage_from": 1990,
    "coverage_to": 2026,
    "language": "en",
-   "status": "uncertain",
+   "status": "live",
    "python_package": "sdmx1",
-   "notes": "Includes cobalt and uranium; lithium inclusion to confirm. The IMF.STA:PCPS path returned 404 on the first direct check (2026-10-01); IMF.RES:PCPS is the current dataset id to confirm.",
+   "notes": "Includes cobalt and uranium; lithium inclusion to confirm. The IMF.STA:PCPS path returned 404 on the first direct check (2026-10-01); IMF.RES:PCPS answered 200 on 2026-10-05. No api_url: the SDMX dataflow path is unconfirmed.",
    "liveness": {
     "checked_at": "2026-10-05T12:34:19+00:00",
     "status": 200,
@@ -5655,8 +5690,8 @@
    }
   },
   {
-   "verified_on": "2026-10-01",
-   "verified_method": "search",
+   "verified_on": "2026-10-05",
+   "verified_method": "direct",
    "auth": "none",
    "id": "idb_integra",
    "name": "IDB INTEGRA (formerly INTrade) and IDB open data",
@@ -5671,8 +5706,8 @@
    "coverage_from": 2000,
    "coverage_to": 2025,
    "language": "multi",
-   "status": "moved",
-   "notes": "INTrade replaced by INTEGRA; CSV export; API uncertain.",
+   "status": "live",
+   "notes": "INTrade replaced by INTEGRA (integra.iadb.org answered 200 on the 2026-10-05 direct check); CSV export; API uncertain.",
    "liveness": {
     "checked_at": "2026-10-05T12:34:32+00:00",
     "status": 200,

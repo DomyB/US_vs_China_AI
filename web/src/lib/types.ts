@@ -44,16 +44,32 @@ export interface Meta {
   freshness: Record<"actions" | "parliament" | "media" | "analysis" | "forecast", Freshness>;
 }
 
+/** Which index a row of index.json belongs to: the composite influence index (every mineral) or one of its two
+ *  sub-indices (all minerals together). Absent in older files and in the sample set, which hold composite rows only. */
+export type IndexName = "composite" | "economic_ties" | "political_alignment";
+
 export interface IndexRow {
   iso3: string;
   year: number;
   actor: Actor;
   mineral: string;
   value: number;
-  lower: number;
-  upper: number;
-  /** real index only: how many of the six components carried the value */
+  /** the 5th–95th percentile band; null on a sub-index row when the run stored no band for it */
+  lower: number | null;
+  upper: number | null;
+  /** real index only: how many of the components carried the value */
   n_components?: number;
+  /** missing in older files: read as "composite" */
+  index?: IndexName;
+  /** real index only: the component names behind the value */
+  components_available?: string[];
+  /** composite rows for all minerals only: the component available for BOTH actors with the widest gap between their
+   *  normalised values (`lead_gap` China minus United States in points of the 0–100 component scale; `lead_cn`,
+   *  `lead_us` the two values), the same on both actors' rows; null when the actors share no component */
+  lead?: string | null;
+  lead_gap?: number | null;
+  lead_cn?: number | null;
+  lead_us?: number | null;
 }
 
 export interface IndexFile {

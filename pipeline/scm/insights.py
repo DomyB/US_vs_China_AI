@@ -36,8 +36,8 @@ MIN_STANCE_N = 3  # coded statements needed for a pooled stance
 MIN_HEDGE_N = 4  # positive statements toward the two actors together needed for a hedging balance
 MIN_ECHO_N = 3  # event-country windows needed before an event family is offered as a shock
 MIN_MENTIONS = 5  # specific mineral mentions needed for a talk-vs-trade contrast
-MIN_PRICE_MUSD = 10.0  # exports of a mineral below this are not worth a price lever
-CN_WINDOW, US_WINDOW = (2015, 2021), (2022, 2024)  # AidData's last seven years; the DFC years after them
+MIN_PRICE_MUSD = 10.0  # reported exports (US$ m) below this are not worth a price lever, nor a base for a talk-vs-trade value share
+CN_WINDOW, US_WINDOW = (2015, 2021), (2022, 2024)  # AidData's last seven years; the US (DFC and EXIM) years after them
 WARM, COOL = 0.34, -0.34  # mean coded stance above/below which words are called warm/cool
 BIG, SMALL = 0.25, 0.10  # export shares above/below which trade is called large/small
 GENERAL = {"critical_minerals_general", "mining_general"}
@@ -234,11 +234,13 @@ def finance_summary(fin_rows: list[dict], iso: str) -> dict:
 
 
 def component_scales(comp_rows: list[dict]) -> dict[str, dict]:
-    """The normalisation bounds the index used (winsorised percentiles of the raw values, pooled over the panel), so the
-    client can map a what-if raw value to the 0–100 scale with the same formula as `quant.index.normalise`."""
+    """The normalisation bounds the index used (winsorised percentiles of the raw values over the country × year × actor
+    panel, i.e. the mineral "all" rows, as `quant.index.normalise`), so the client can map a what-if raw value to the
+    0–100 scale with the same formula. Rows without a mineral key count as "all" rows."""
     out = {}
     for name in NAMES:
-        v = np.array([x for x in (_num(r["raw_value"]) for r in comp_rows if r["component"] == name and bool(r.get("available"))) if x is not None], dtype=float)
+        v = np.array([x for x in (_num(r["raw_value"]) for r in comp_rows
+                                  if r["component"] == name and bool(r.get("available")) and (r.get("mineral") or "all") == "all") if x is not None], dtype=float)
         if len(v) == 0:
             continue
         lo, hi = float(np.nanpercentile(v, WINSOR[0])), float(np.nanpercentile(v, WINSOR[1]))
@@ -317,21 +319,44 @@ def event_echoes(effect_rows: list[dict]) -> list[dict]:
     return sorted(out, key=lambda e: (e["family"], e["actor"]))
 
 
+def years_span(text) -> tuple[int, int] | None:
+    """(first, last) from a regression row's `years` field ("2002–2021", en dash or hyphen), else None."""
+    m = re.fullmatch(r"\s*(\d{4})\s*[–-]\s*(\d{4})\s*", str(text or ""))
+    return (int(m.group(1)), int(m.group(2))) if m else None
+
+
 def regression_block(reg_rows: list[dict], gov: list[dict]) -> dict:
+    """The two-way fixed-effects rows and, for the regressors the findings put in words, the standard deviation of the
+    raw values over the rows' own estimation years (read from their `years` field, never a literal)."""
     rows = [{"spec": r["spec"], "outcome": r["outcome"], "actor": r["actor"], "term": r["term"], "coef": _num(r["coef"]), "se": _num(r["se"]), "p_cluster": _num(r.get("p_cluster")),
              "p_wild": _num(r.get("p_wild")), "jk_min": _num(r.get("jk_min")), "jk_max": _num(r.get("jk_max")), "n_obs": int(r["n_obs"]), "n_countries": int(r["n_countries"]),
              "years": r["years"], "r2_within": _num(r.get("r2_within"))} for r in reg_rows if r.get("variant") == "twfe"]
-    sds = {}
-    for ind, name in (("v2x_polyarchy", "electoral_democracy"), ("RL.EST", "rule_of_law")):
-        vals = [(float(g["value"]), g["country"], int(g["year"])) for g in gov
-                if g.get("indicator") == ind and g.get("country") in IN_SCOPE and 2009 <= int(g["year"]) <= 2021 and _num(g.get("value")) is not None]
-        if len(vals) >= 10:
-            v = np.array([x[0] for x in vals])
-            lo, hi = min(vals), max(vals)
-            sds[name] = {"sd": _r(float(v.std()), 4), "mean": _r(float(v.mean()), 4), "n": len(vals), "min": {"value": _r(lo[0], 3), "country": lo[1], "year": lo[2]},
-                         "max": {"value": _r(hi[0], 3), "country": hi[1], "year": hi[2]},
-                         "note": "standard deviation of the twelve countries' 2009–2021 values in the governance table, approximately the estimation sample"}
+    spans = [sp for sp in (years_span(r["years"]) for r in rows) if sp]
+    sds: dict = {}
+    if spans:
+        y0, y1 = min(sp[0] for sp in spans), max(sp[1] for sp in spans)
+        for ind, name in (("v2x_polyarchy", "electoral_democracy"), ("RL.EST", "rule_of_law")):
+            vals = [(float(g["value"]), g["country"], int(g["year"])) for g in gov
+                    if g.get("indicator") == ind and g.get("country") in IN_SCOPE and y0 <= int(g["year"]) <= y1 and _num(g.get("value")) is not None]
+            if len(vals) >= 10:
+                v = np.array([x[0] for x in vals])
+                lo, hi = min(vals), max(vals)
+                sds[name] = {"sd": _r(float(v.std()), 4), "mean": _r(float(v.mean()), 4), "n": len(vals), "years": [y0, y1],
+                             "min": {"value": _r(lo[0], 3), "country": lo[1], "year": lo[2]}, "max": {"value": _r(hi[0], 3), "country": hi[1], "year": hi[2]},
+                             "note": f"standard deviation of the twelve countries' {y0}–{y1} values in the governance table, the years of the estimation sample"}
     return {"rows": rows, "regressor_sd": sds, "note": "two-way fixed effects (country and year); regressors standardised, a coefficient is share points per one standard deviation; associations, not causal estimates"}
+
+
+def forecast_sample(fc_status: dict | None) -> dict | None:
+    """The longest fitted series over every forecast target (from the status `windows`) and the backtest origins, so the
+    findings state the sample they rest on instead of a literal; None when no forecast has been computed."""
+    targets = (fc_status or {}).get("targets") or {}
+    windows = [w for t in targets.values() for w in (t.get("windows") or {}).values() if w.get("n_obs")]
+    if not windows:
+        return None
+    best = max(windows, key=lambda w: int(w["n_obs"]))
+    origins = sorted({str(t["origins"]) for t in targets.values() if t.get("origins")})
+    return {"max_obs": int(best["n_obs"]), "years": [int(best["years"][0]), int(best["years"][1])], "origins": ", ".join(origins) if origins else None}
 
 
 def price_block(prices: list[dict], core: list[str]) -> dict:
@@ -397,22 +422,55 @@ def talk_vs_money(stm: list[dict], flow_finance: list[dict], fin: list[dict], la
     def sources(origin: str) -> list[str]:
         return sorted({str(r["source_id"]) for r in fin if r.get("actor_from_origin") == origin and r.get("country") in IN_SCOPE and r.get("source_id")})
 
-    finance = {"CN": {"years": list(CN_WINDOW), "musd": window("CN", *CN_WINDOW), "mineral_tagged_musd": tagged("CN", *CN_WINDOW), "sources": sources("CN")},
-               "US": {"years": list(CN_WINDOW), "musd": window("US", *CN_WINDOW), "mineral_tagged_musd": tagged("US", *CN_WINDOW), "sources": sources("US")},
+    def record(origin: str) -> dict:
+        """The origin's record from the de-duplicated events, {PERIOD_FROM} onward (the pre-2000 DFC legacy rows are
+        outside the period): the years any event falls in, and per source (the kept row's own id) its first and last
+        year and its documented, non-swap commitments by year in US$ m."""
+        years = {r["year"] for r in flow_finance if r["origin"] == origin and r["year"] >= PERIOD_FROM}
+        per: dict[str, dict] = {}
+        for r in fin:
+            if r.get("actor_from_origin") != origin or r.get("country") not in IN_SCOPE or r.get("year") is None or int(r["year"]) < PERIOD_FROM:
+                continue
+            y = int(r["year"])
+            years.add(y)
+            sid = str(r.get("source_id") or "").split(",")[0] or str(r.get("source_ids") or "").split(",")[0]
+            if not sid:
+                continue
+            p = per.setdefault(sid, {"first_year": y, "last_year": y, "musd_by_year": {}})
+            p["first_year"], p["last_year"] = min(p["first_year"], y), max(p["last_year"], y)
+            if r.get("confidence") == "documented" and r.get("amount_usd") is not None and not swap.search(f"{r.get('description') or ''} {r.get('type') or ''}"):
+                p["musd_by_year"][y] = round(p["musd_by_year"].get(y, 0.0) + float(r["amount_usd"]) / 1e6, 2)
+        return {"coverage": [min(years), max(years)] if years else None, "by_source": dict(sorted(per.items()))}
+
+    rec = {origin: record(origin) for origin in ("US", "CN")}
+    finance = {"CN": {"years": list(CN_WINDOW), "musd": window("CN", *CN_WINDOW), "mineral_tagged_musd": tagged("CN", *CN_WINDOW), "sources": sources("CN"),
+                      "by_source": rec["CN"]["by_source"]},
+               "US": {"years": list(CN_WINDOW), "musd": window("US", *CN_WINDOW), "mineral_tagged_musd": tagged("US", *CN_WINDOW), "sources": sources("US"),
+                      "by_source": rec["US"]["by_source"]},
                "US_after": {"years": list(US_WINDOW), "musd": window("US", *US_WINDOW), "mineral_tagged_musd": tagged("US", *US_WINDOW)}}
     n_us, n_cn = len(blocs.get(BLOC_US, [])), len(blocs.get(BLOC_CN, []))
     ratios = {"statements_us_over_cn": round(n_us / n_cn, 2) if n_cn else None,
               "money_cn_over_us_2015_21": round(finance["CN"]["musd"] / finance["US"]["musd"], 1) if finance["US"]["musd"] else None}
     years = sorted({int(r["year"]) for r in kept} | {r["year"] for r in flow_finance})
     ly = last_year or {}
+    # the years each origin's record covers: [first event year, last event year] from the rows; an older caller without
+    # event rows falls back to the quant run's last year (an open start)
+    coverage = {origin: rec[origin]["coverage"] or ([PERIOD_FROM, int(ly[f"finance_{origin}"])] if ly.get(f"finance_{origin}") else None) for origin in ("US", "CN")}
+
+    def covered(origin: str, y: int) -> bool:
+        c = coverage[origin]
+        return c is not None and c[0] <= y <= c[1]
+
     attention = []
-    for y in years:  # a year beyond a finance source's coverage is null, never zero
+    for y in years:  # a year before a finance record's first event or after its last is null, never zero
         us_sum = round(sum(r["amount_musd"] for r in flow_finance if r["origin"] == "US" and r["year"] == y), 2)
         cn_sum = round(sum(r["amount_musd"] for r in flow_finance if r["origin"] == "CN" and r["year"] == y), 2)
         attention.append({"year": y, "statements": sum(1 for r in kept if int(r["year"]) == y), "us_statements": sum(1 for r in blocs.get(BLOC_US, []) if int(r["year"]) == y),
-                          "dfc_musd": None if ly.get("finance_US") and y > ly["finance_US"] else us_sum, "cn_musd": None if ly.get("finance_CN") and y > ly["finance_CN"] else cn_sum})
-    return {"n_statements": len(kept), "by_bloc": by_bloc, "finance": finance, "ratios": ratios, "by_year": attention,
-            "note": "both finance sources record commitments in every sector; the part the adapters tagged to a mineral is shown apart"}
+                          "dfc_musd": us_sum if covered("US", y) else None, "cn_musd": cn_sum if covered("CN", y) else None})
+    return {"n_statements": len(kept), "by_bloc": by_bloc, "finance": finance, "ratios": ratios, "by_year": attention, "coverage": coverage,
+            "note": "both finance sources record commitments in every sector; the part the adapters tagged to a mineral is shown apart. "
+                    "by_year.dfc_musd sums every US source (the DFC and EXIM; finance.US.by_source has each one's years and sums) and cn_musd the Chinese "
+                    "record; both are null outside the record's coverage (years with no source, not zero money)"}
 
 
 # ---------------------------------------------------------------- per-country assembly and contrasts
@@ -446,7 +504,7 @@ def country_contrasts(c: dict) -> list[dict]:
         specific = {k: v for k, v in mentions.items() if k not in ("general", "other")}
         n_m = sum(specific.values())
         tot = t["total_musd"] or 0.0
-        if n_m >= MIN_MENTIONS and tot > 0:
+        if n_m >= MIN_MENTIONS and tot >= MIN_PRICE_MUSD:  # a value share needs a base worth stating
             val = {m["mineral"]: (m["total_musd"] or 0.0) / tot for m in t["minerals"]}
             rest = 1.0 - sum(val.values())
             if rest > 0.005:
@@ -482,7 +540,7 @@ def country_contrasts(c: dict) -> list[dict]:
         out.append({"id": "us_words_vs_us_money", "kind": "us_words_vs_money", "n_us_statements": w["us_officials"]["n"], "n_cn_negative": cnt["negative"], "n_cn_positions": _n_positions(cnt),
                     "us_2022_24_musd": f["us_2022_24"], "us_2015_21_musd": f["us_2015_21"], "cn_2015_21_musd": f["cn_2015_21"],
                     "inputs": [f"statement:count:bloc=United States:{iso}", f"flow_finance:US:{iso}:2022-2024", f"flow_finance:CN:{iso}:2015-2021"],
-                    "caveat": "statements by US officials about the country; the finance windows differ because AidData ends in 2021 and the DFC record continues"})
+                    "caveat": "statements by US officials about the country; the finance windows differ because AidData ends in 2021 and the US record (DFC and EXIM) continues"})
     cnt = w["executive_counts"]
     pos_cn, pos_us = cnt["cn"]["positive"], cnt["us"]["positive"]
     if pos_cn + pos_us >= MIN_HEDGE_N:
@@ -602,6 +660,13 @@ def us_finance_sources(tm: dict) -> str:
     return "no US finance source is loaded"
 
 
+def us_finance_short(tm: dict) -> str:
+    """'DFC and EXIM' (or 'DFC'), the US sources behind the rows as a noun phrase: 'US DFC and EXIM commitments'."""
+    ids = (tm.get("finance") or {}).get("US", {}).get("sources") or []
+    names = [SOURCE_NAME.get(i, i).removeprefix("the ") for i in ids]
+    return join(names) if names else "official"
+
+
 def build_findings(countries: list[dict], region: dict, today: str) -> list[dict]:
     out: list[dict] = []
     tm = region["talk_vs_money"]
@@ -616,7 +681,7 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
               f"{cn['stance']['cn']['positive']} of the {_n_positions(cn['stance']['cn'])} Chinese statements with a position praise China's role.",
               ["statement:count:bloc=United States", "statement:count:bloc=China", "statement:stance_counts:blocs"])
         s.add(f"The money runs the other way: documented commitments from Chinese institutions to the twelve countries reached {_m(fin['CN']['musd'])} in "
-              f"{CN_WINDOW[0]}–{CN_WINDOW[1]} ({_m(fin['CN']['mineral_tagged_musd'])} of it tagged to a mineral by the adapters), US DFC commitments {_m(fin['US']['musd'])} "
+              f"{CN_WINDOW[0]}–{CN_WINDOW[1]} ({_m(fin['CN']['mineral_tagged_musd'])} of it tagged to a mineral by the adapters), US {us_finance_short(tm)} commitments {_m(fin['US']['musd'])} "
               f"in the same years and {_m(fin['US_after']['musd'])} in {US_WINDOW[0]}–{US_WINDOW[1]}.",
               [f"flow_finance:CN:{CN_WINDOW[0]}-{CN_WINDOW[1]}", f"flow_finance:US:{CN_WINDOW[0]}-{CN_WINDOW[1]}", f"flow_finance:US:{US_WINDOW[0]}-{US_WINDOW[1]}"])
         r_s, r_m = tm["ratios"]["statements_us_over_cn"], tm["ratios"]["money_cn_over_us_2015_21"]
@@ -748,8 +813,12 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
             s.add(f"{c['name']}: China took {pct(x['share_cn_now'])} of mineral exports in {x['year_now']}; the 2030 medians are {pct(cn['baseline'])} at baseline, {pct(cn['china_pull'])} if the China pull accelerates "
                   f"and {pct(cn['us_reshoring'])} if US sourcing rules bite{us_part}.", x["inputs"])
         floor = min(x["min_cn_2030"] for _, x in forks)
+        fs = region.get("forecast_sample")
+        series = f"annual series of at most {fs['max_obs']} points ({fs['years'][0]}–{fs['years'][1]})" if fs else "short annual series"
+        origins = f"; backtest origins {fs['origins']}" if fs and fs.get("origins") else ""
         out.append(_finding("fork_2030", "The 2030 fork", f"Under every published path China still takes at least {pct(floor)} of {join([c['name'] for c, _ in forks])}'s minerals in 2030", s, "moderate",
-                            "backtested models (persistence where nothing beat it) with scenarios as stated yearly shifts", "Five-year paths from annual series of at most eighteen points carry wide bands; the scenarios are what-ifs with stated assumptions, not predictions.",
+                            f"backtested models (persistence where nothing beat it{origins}) with scenarios as stated yearly shifts",
+                            f"Five-year paths from {series} carry wide bands; the scenarios are what-ifs with stated assumptions, not predictions.",
                             [c["iso3"] for c, _ in forks]))
     # F9 after the shock
     echoes = sorted([e for e in region["event_echoes"] if e["n"] >= MIN_ECHO_N and e["actor"] == "CN"], key=lambda e: -abs(e["mean"]))[:3]
@@ -783,27 +852,53 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
             s.add(f"The one robust political association runs through imports: a country one standard deviation more democratic{sd_part} buys {pts(r2['coef'], signed=False)} more of its mineral imports from the United States "
                   f"(wild-cluster p {r2['p_wild']:.2f}; {pts(r2['jk_min'])} to {pts(r2['jk_max'])} dropping one country at a time).", ["regression_result:imports_from_us:twfe:electoral_democracy", "governance:v2x_polyarchy:sd"])
         head = "Chinese money does not buy export share" + ("; democracy buys American imports" if r2 else "") if r1 else "Democracy buys American imports"
+        r0 = r1 or r2
+        span = years_span(r0["years"])
+        sample = f"{r0['n_countries']} clusters and {span[1] - span[0] + 1} years ({r0['years']})" if span else f"{r0['n_countries']} clusters over {r0['years']}"
         out.append(_finding("panel", "What the panel says", head, s, "moderate", "two-way fixed-effects panel with cluster-robust and wild-bootstrap inference and leave-one-country-out ranges; associations only",
-                            "Eleven clusters and thirteen years: a single country can move a coefficient, and year effects absorb the price swings that drive most of the variation.", IN_SCOPE))
+                            f"{sample}: a single country can move a coefficient, and year effects absorb the price swings that drive most of the variation.", IN_SCOPE))
     # F11 attention vs money
     att = region["attention"]
     with_docs = [a for a in att if a["policy_docs"] > 0]
     if len(with_docs) >= 3:
         first, last_full = with_docs[0], max((a for a in with_docs if a["year"] < int(today[:4])), key=lambda a: a["year"], default=with_docs[-1])
         latest = with_docs[-1]
-        dfc_years = [a for a in att if a["dfc_musd"] is not None]
-        dfc_last = max(dfc_years, key=lambda a: a["year"]) if dfc_years else None
-        dfc_peak = max(dfc_years, key=lambda a: a["dfc_musd"]) if dfc_years else None
+        us_years = [a for a in att if a["dfc_musd"] is not None]  # dfc_musd sums every US source (DFC and EXIM); null outside the record
+        us_last = max(us_years, key=lambda a: a["year"]) if us_years else None
+        us_peak = max(us_years, key=lambda a: a["dfc_musd"]) if us_years else None
+        by_source = fin["US"].get("by_source") or {}
+        short = us_finance_short(tm)
+
+        def composition(year: int) -> str:
+            """'DFC US$1.1 bn, EXIM US$57 m': the year's sum by source, when more than one source is loaded."""
+            parts = [f"{SOURCE_NAME.get(sid, sid).removeprefix('the ')} {_m(p['musd_by_year'][year])}" for sid, p in by_source.items() if p["musd_by_year"].get(year)]
+            return f" ({', '.join(parts)})" if len(by_source) > 1 and parts else ""
+
         s = Section("attention", "Attention and money")
         so_far = f" ({latest['policy_docs']} so far in {latest['year']})" if latest["year"] > last_full["year"] else ""
-        dfc_part = f"{_m(dfc_last['dfc_musd'])} in {dfc_last['year']}, the last year the DFC record covers (its largest year on record: {_m(dfc_peak['dfc_musd'])} in {dfc_peak['year']})" if dfc_last and dfc_peak else "not recorded"
+        if us_last and us_peak:
+            y = us_last["year"]
+            running = " so far" if y >= int(today[:4]) else ""
+            in_year = [sid for sid, p in by_source.items() if p["musd_by_year"].get(y)]
+            ended = [(sid, p["last_year"]) for sid, p in by_source.items() if p["last_year"] < y]
+            if in_year and ended and len(by_source) > 1:  # the latest year rests on part of the record: say which part, and where the rest ends
+                only = join([SOURCE_NAME.get(sid, sid).removeprefix("the ") for sid in in_year])
+                ends = join([f"the {SOURCE_NAME.get(sid, sid).removeprefix('the ')} record ends {ly}" for sid, ly in ended])
+                reach = f" ({only} only; {ends})"
+            else:
+                reach = ", the last year the US finance record covers" if not running else ""
+            money_part = (f"{_m(us_last['dfc_musd'])}{running} in {y}{reach}; the largest year on record is {us_peak['year']} with "
+                          f"{_m(us_peak['dfc_musd'])}{composition(us_peak['year'])}")
+        else:
+            money_part = "not recorded"
         s.add(f"US policy documents on minerals in the warehouse rose from {first['policy_docs']} in {first['year']} to {last_full['policy_docs']} in {last_full['year']}{so_far}, "
-              f"and US officials' statements on the region's minerals from {first['us_statements']} to {last_full['us_statements']}; DFC commitments to the twelve countries were {dfc_part}.",
-              [f"policy_document:count:{first['year']}", f"policy_document:count:{last_full['year']}", "statement:count:bloc=United States:by_year"] + ([f"flow_finance:US:{dfc_last['year']}"] if dfc_last else []))
+              f"and US officials' statements on the region's minerals from {first['us_statements']} to {last_full['us_statements']}; {short} commitments to the twelve countries were {money_part}.",
+              [f"policy_document:count:{first['year']}", f"policy_document:count:{last_full['year']}", "statement:count:bloc=United States:by_year"]
+              + ([f"flow_finance:US:{us_last['year']}", f"flow_finance:US:{us_peak['year']}"] if us_last and us_peak else []))
         ratio = last_full["policy_docs"] / first["policy_docs"]
-        money = f"DFC money peaked at {_m(dfc_peak['dfc_musd'])} in {dfc_peak['year']}" if dfc_peak else "no DFC commitment is recorded"
+        money = f"US {short} money peaked at {_m(us_peak['dfc_musd'])} in {us_peak['year']}" if us_peak else "no US commitment is recorded"
         out.append(_finding("attention", "Attention and money", f"Washington's paper trail grew {ratio:.0f}-fold since {first['year']}; {money}", s, "strong",
-                            "document counts from Congress.gov and the Federal Register and documented DFC commitments", "The document counts depend on the title filters that select mineral-related records, and a bill is not a dollar.",
+                            f"document counts from Congress.gov and the Federal Register and documented {short} commitments", "The document counts depend on the title filters that select mineral-related records, and a bill is not a dollar.",
                             IN_SCOPE))
     # F12 media (thin)
     media = [(c, _contrast(c, "media_vs_executive")) for c in countries]
@@ -859,11 +954,18 @@ def build_insights(*, flows: dict, idx_rows: list[dict], comp_rows: list[dict], 
     tm = talk_vs_money(stm, flows["finance"], fin, last_year)
     docs = {p["year"]: p for p in policy_attention(policy)}
     years = sorted(set(docs) | {a["year"] for a in tm["by_year"]})
+    by_year = {a["year"]: a for a in tm["by_year"]}
+
+    def money_row(y: int) -> dict:
+        """A year with neither a statement nor a finance row: zero money where the record covers it, null where it does not."""
+        inside = {o: c is not None and c[0] <= y <= c[1] for o, c in tm["coverage"].items()}
+        return {"statements": 0, "us_statements": 0, "dfc_musd": 0.0 if inside["US"] else None, "cn_musd": 0.0 if inside["CN"] else None}
+
     attention = [{"year": y, "policy_docs": docs.get(y, {}).get("n", 0), "policy_by_source": docs.get(y, {}).get("by_source", {}),
-                  **{k: v for k, v in next((a for a in tm["by_year"] if a["year"] == y), {"statements": 0, "us_statements": 0, "dfc_musd": None, "cn_musd": None}).items() if k != "year"}} for y in years if y >= PERIOD_FROM]
+                  **{k: v for k, v in by_year.get(y, money_row(y)).items() if k != "year"}} for y in years if y >= PERIOD_FROM]
     region = {"talk_vs_money": tm, "hedgers": [{"iso3": c["iso3"], **{k: v for k, v in h.items() if k not in ("id", "kind")}} for c in countries for h in [_contrast(c, "hedging")] if h],
               "event_echoes": event_echoes(effect_rows), "event_titles": {r["event_id"]: r.get("event_title") for r in effect_rows if r.get("event_id")},
-              "regressions": regression_block(reg_rows, gov), "prices": price_series, "attention": attention,
+              "regressions": regression_block(reg_rows, gov), "prices": price_series, "attention": attention, "forecast_sample": forecast_sample(quant_status.get("forecast")),
               "scenarios": [{"id": sc["id"], "name": sc["name"], "assumptions": sc["assumptions"], "delta": sc["delta"]} for sc in SCENARIOS],
               "scales": component_scales(comp_rows),
               "index_rules": {"weight": round(1 / len(COMPONENTS), 4), "min_components": MIN_COMPONENTS, "winsor": list(WINSOR),

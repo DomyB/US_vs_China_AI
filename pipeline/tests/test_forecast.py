@@ -52,3 +52,23 @@ def test_the_fitted_series_is_the_latest_unbroken_run():
     assert cn["countries"] == ["ARG", "CHL", "PER"] and cn["windows"]["CHL"] == {"years": [2014, 2025], "n_obs": 12, "n_absent": 0}
     assert cn["skipped"] == {"BOL": "last reported year 2019, before 2023"}
     assert (out["last_observed_year"] == 2025).all() and (out["country"] != "BOL").all()
+
+
+def test_index_series_anchor_on_the_last_published_composite():
+    """A composite held back (null) in the latest year is not an observation: the fitted run ends at the last published value and the
+    forecast's first step re-covers the held year, instead of anchoring on a composite computed from a different component set."""
+    years = list(range(2008, 2026))
+    rows = []
+    for iso, start in (("CHL", 40.0), ("PER", 30.0), ("ARG", 20.0)):
+        for i, y in enumerate(years):
+            value = np.nan if (y == 2025 and iso != "ARG") else start + 0.5 * i  # Chile's and Peru's 2025 composites are held back
+            rows.append({"country": iso, "year": y, "actor": "US", "mineral": "all", "index_name": "influence", "value": value})
+    idx = pd.DataFrame(rows)
+    shares = pd.DataFrame(columns=["country", "year", "share_us", "share_cn"])
+    out, _, status = fc.forecasts(idx, shares, seed=1, n_sims=200, n_backtest=50)
+    us = status["targets"]["influence_index:US"]
+    assert us["countries"] == ["ARG", "CHL", "PER"] and us["windows"]["CHL"] == {"years": [2008, 2024], "n_obs": 17, "n_absent": 0} and us["windows"]["ARG"]["years"] == [2008, 2025]
+    chl = out[(out["country"] == "CHL") & (out["scenario_id"] == "baseline")].sort_values("horizon_year")
+    assert (chl["last_observed_year"] == 2024).all() and list(chl["horizon_year"]) == [2025, 2026, 2027, 2028, 2029, 2030]
+    arg = out[(out["country"] == "ARG") & (out["scenario_id"] == "baseline")]
+    assert (arg["last_observed_year"] == 2025).all() and int(arg["horizon_year"].min()) == 2026

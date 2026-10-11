@@ -1,6 +1,8 @@
 """Press adapters (RSS) and national statistics adapters on synthetic fixtures."""
 from __future__ import annotations
 
+import pytest
+
 from scm import schema
 from scm.ingest.keywords import countries_mentioned
 from scm.ingest.national_guy import GGMC
@@ -92,9 +94,246 @@ def test_declared_rss_index_page_is_harvested_even_when_it_ends_in_html(snap_fac
         return p
 
     monkeypatch.setattr(snap, "get", fake_get)
-    assert ad._try_feed(snap, index_url, "feed_0.xml") is True
+    assert ad._try_feed(snap, index_url, 0) == 1
     assert snap.has("feed_0.xml") and snap.files["feed_0.xml"]["url"] == feed_url
     assert snap.manifest["index_pages"][0] == {"url": index_url, "links": [feed_url]} and snap.manifest["feed_urls"] == [feed_url]
+
+
+def _fake_get(snap, pages: dict[str, object], calls: list[str] | None = None):
+    """A snap.get stand-in: `pages` maps a URL to its body (str), an Exception instance to raise, or a (body, final_url)
+    pair recorded as a redirect; any other URL answers HTTP 404 as a FetchError."""
+    from scm.http import FetchError
+
+    def get(url, name, params=None, **kw):
+        if calls is not None:
+            calls.append(url)
+        answer = pages.get(url)
+        if isinstance(answer, Exception):
+            raise answer
+        if answer is None:
+            raise FetchError(f"{snap.source_id}: HTTP 404 on GET {url}")
+        body, final = answer if isinstance(answer, tuple) else (answer, None)
+        p = snap.path(name)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(body, encoding="utf-8")
+        snap.record(name, url, status=200, final_url=final)
+        return p
+
+    return get
+
+
+def test_connection_error_on_one_candidate_does_not_abort_discovery(snap_factory, monkeypatch):
+    """sources-2: Emol's run died on one reset connection before the common paths were tried."""
+    import requests
+
+    cls = type("RSS_chl_elmercurio", (RSSPress,), {"source_id": "chl_elmercurio"})
+    ad = cls()
+    assert ad.src.api_url is None
+    snap = snap_factory("chl_elmercurio", {})
+    home = '<html><head><link rel="alternate" type="application/rss+xml" href="http://www.emol.com/todas/"></head></html>'
+    calls: list[str] = []
+    monkeypatch.setattr(snap, "get", _fake_get(snap, {
+        ad.src.url: home,
+        "http://www.emol.com/todas/": requests.exceptions.ConnectionError("HTTPConnectionPool(host='www.emol.com', port=80): Connection reset by peer"),
+        ad.src.url + "/rss": FEED.replace("folha.uol.com.br", "emol.com"),
+    }, calls))
+    ad.fetch(snap)
+    assert snap.manifest["feeds_found"] == 1 and snap.manifest["feed_urls"] == [ad.src.url + "/rss"]
+    assert snap.manifest["feeds_tried"] == ["http://www.emol.com/todas/", ad.src.url + "/rss"]  # the declared link first, then the common paths
+    errors = [e for e in snap.manifest["errors"] if e["name"] == "http://www.emol.com/todas/"]
+    assert len(errors) == 1 and "Connection reset" in errors[0]["error"]
+
+
+class _ForbidAll:
+    """A robots cache that forbids every URL (De Ware Tijd's robots.txt)."""
+
+    def allowed(self, url):
+        return False
+
+    def crawl_delay(self, url):
+        return None
+
+
+def test_outlet_forbidden_everywhere_by_robots_is_skipped_not_failed(snap_factory, monkeypatch, tmp_path):
+    """sources-3: when the home page and every candidate are robots-blocked, fetch raises RobotsDisallowed and the run
+    record says skipped (base.py), instead of a RuntimeError recorded as failed."""
+    from scm.http import RobotsDisallowed
+
+    cls = type("RSS_x", (RSSPress,), {"source_id": "sur_starnieuws"})  # any single-country outlet without api_url
+    ad = cls()
+    snap = snap_factory("sur_starnieuws", {})
+    snap.robots = _ForbidAll()
+    snap.min_interval = 0
+    with pytest.raises(RobotsDisallowed, match="every feed URL tried"):
+        ad.fetch(snap)
+    assert snap.manifest["feeds_found"] == 0 and len(snap.manifest["robots_blocked"]) == 1 + len(snap.manifest["feeds_tried"])
+    # end to end: Adapter.run records the honest status
+    snap2 = snap_factory("sur_starnieuws_run", {})
+    snap2.robots = _ForbidAll()
+    snap2.min_interval = 0
+    monkeypatch.setattr(cls, "snapshot", lambda self, base: snap2)
+    rec = ad.run(raw_base=tmp_path / "raw", out_dir=tmp_path / "wh")
+    assert rec["status"] == "skipped" and rec["error"].startswith("robots.txt disallows")
+
+
+def test_several_feeds_make_one_media_volume_row_counting_distinct_items(snap_factory):
+    """sources-5: an outlet declaring several feeds produced one media_volume row per feed with the same key; the
+    warehouse kept the first (El Espectador: items_total 0 although 30 headlines were read)."""
+    cls = type("RSS_col_elespectador", (RSSPress,), {"source_id": "col_elespectador"})
+    feed_a = ('<?xml version="1.0"?><rss><channel><title>EL ESPECTADOR</title>'
+              '<item><title>China compra cobre colombiano</title><link>https://www.elespectador.com/economia/a?utm_source=rss</link></item>'
+              '<item><title>Clima en Bogotá</title><link>https://www.elespectador.com/bogota/b</link></item>'
+              '</channel></rss>')
+    feed_b = ('<?xml version="1.0"?><rss><channel><title>El Espectador - Discover</title>'
+              '<item><title>China compra cobre colombiano</title><link>https://www.elespectador.com/economia/a</link></item>'
+              '<item><title>EE. UU. y el litio</title><link>https://www.elespectador.com/mundo/c</link></item>'
+              '<item><title>Fútbol: resultados</title><link>https://www.elespectador.com/deportes/d</link></item>'
+              '</channel></rss>')
+    snap = snap_factory("col_elespectador", {"feed_0.xml": feed_a, "feed_1.xml": feed_b})
+    snap.manifest["feed_urls"] = ["https://www.elespectador.com/feed/", "https://www.elespectador.com/arc/outboundfeeds/discover/"]
+    out = cls().parse(snap)
+    vol = out["media_volume"]
+    assert len(vol) == 1  # one row per outlet, country and run, not per feed
+    row = vol.iloc[0]
+    assert row["items_total"] == 4 and row["items_cn"] == 1 and row["items_us"] == 1  # the shared item counted once (URL normalised)
+    assert row["source_record_url"] == "https://www.elespectador.com/feed/"
+    assert len(out["document"]) == 2 and out["document"]["doc_id"].is_unique
+    # the warehouse merge then holds exactly one row for the key
+    assert len(vol.drop_duplicates(subset=schema.KEY_COLUMNS["media_volume"])) == 1
+
+
+def test_comment_feeds_are_never_harvested(snap_factory, monkeypatch):
+    """sources-6: WordPress declares /comments/feed/ next to /feed/; reader comments (and their spam) must not count."""
+    from scm.ingest.feeds import discover_feeds
+    from scm.ingest.press import _declared_feed_ok, _is_comment_feed_url
+
+    head = ('<html><head>'
+            '<link rel="alternate" type="application/rss+xml" title="IDL &raquo; Feed" href="https://www.idl-reporteros.pe/feed/" />'
+            '<link rel="alternate" type="application/rss+xml" title="IDL &raquo; Feed de los comentarios" href="https://www.idl-reporteros.pe/comments/feed/" />'
+            '</head></html>')
+    site = "https://www.idl-reporteros.pe"
+    declared = [u for u in discover_feeds(head, site) if _declared_feed_ok(u, site)]
+    assert declared == ["https://www.idl-reporteros.pe/feed/"]
+    assert _is_comment_feed_url("https://x.test/comment/feed") and _is_comment_feed_url("https://x.test/?feed=comments-rss2")  # WordPress query form
+    assert _is_comment_feed_url("https://x.test/?feed=comments") and not _is_comment_feed_url("https://x.test/feed/")
+    # a feed reached by any path whose channel title says it is comments is discarded
+    cls = type("RSS_per_idl_reporteros", (RSSPress,), {"source_id": "per_idl_reporteros"})
+    ad = cls()
+    snap = snap_factory("per_idl_reporteros", {})
+    comments = ('<?xml version="1.0"?><rss><channel><title>\n\tComentarios en IDL\t</title>'
+                '<item><title>Comentario en El shock sanitario por binance register</title><link>https://www.idl-reporteros.pe/x/#comment-1</link></item></channel></rss>')
+    monkeypatch.setattr(snap, "get", _fake_get(snap, {"https://www.idl-reporteros.pe/other.xml": comments, "https://www.idl-reporteros.pe/comments/feed/": comments}))
+    assert ad._try_feed(snap, "https://www.idl-reporteros.pe/other.xml", 0) == 0 and not snap.has("feed_0.xml")
+    assert ad._try_feed(snap, "https://www.idl-reporteros.pe/comments/feed/", 0) == 0 and not snap.has("feed_0.xml")
+    assert "feed_urls" not in snap.manifest and any("reader-comments" in e["error"] for e in snap.manifest["errors"])
+
+
+def test_geo_redirected_home_page_declares_no_feeds(snap_factory, monkeypatch):
+    """sources-7: Infobae's home page is geo-redirected to /estados-unidos/ from a US runner; the feed declared there is
+    the US-edition category feed and must not be read as Argentine news; the common paths are tried instead."""
+    cls = type("RSS_arg_infobae", (RSSPress,), {"source_id": "arg_infobae"})
+    ad = cls()
+    api = ad.src.api_url
+    home = '<html><head><link rel="alternate" type="application/rss+xml" href="https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/"></head></html>'
+    general = FEED.replace("folha.uol.com.br", "infobae.com")
+    snap = snap_factory("arg_infobae", {})
+    calls: list[str] = []
+    monkeypatch.setattr(snap, "get", _fake_get(snap, {
+        ad.src.url: (home, "https://www.infobae.com/estados-unidos/"),
+        "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/": general,
+        "https://www.infobae.com/rss": general,  # the first common path answers
+    }, calls))
+    ad.fetch(snap)
+    assert snap.manifest["home_redirected"] == "https://www.infobae.com/estados-unidos/"
+    assert snap.manifest["feeds_declared_on_redirect"] == ["https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/"]
+    assert snap.manifest["discovered_feeds"] == [] and "category/estados-unidos" not in " ".join(calls)
+    assert snap.manifest["feed_urls"] == ["https://www.infobae.com/rss"] and calls[0] == api  # the registry feed is tried first (404 here)
+    # a redirect that only adds an index file or a trailing slash is not a section
+    from scm.ingest.press import _redirected_to_section
+    assert not _redirected_to_section("http://spanish.xinhuanet.com", "http://spanish.xinhuanet.com/index.htm")
+    assert not _redirected_to_section("https://www.site.test", "https://www.site.test/") and not _redirected_to_section("https://www.site.test", None)
+    assert _redirected_to_section("https://www.cronista.com", "https://www.cronista.com/usa/")
+
+
+def test_index_page_harvest_prefers_news_sections_and_reads_several(snap_factory, monkeypatch):
+    """sources-8: El Tiempo's RSS index lists the Opinión feeds first; the harvest read the first link only."""
+    cls = type("RSS_col_eltiempo", (RSSPress,), {"source_id": "col_eltiempo"})
+    ad = cls()
+    index = ('<html><body><a href="/rss/opinion.xml">Opinión</a><a href="/rss/opinion_editorial.xml">Editorial</a>'
+             '<a href="/rss/colombia.xml">Colombia</a><a href="/rss/comments/feed/">x</a><a href="/rss/mundo.xml">Mundo</a>'
+             '<a href="/rss/bogota.xml">Bogotá</a></body></html>')
+    feed = lambda t: f'<?xml version="1.0"?><rss><channel><title>{t}</title><item><title>{t}: nota</title><link>https://www.eltiempo.com/{t}/1</link></item></channel></rss>'  # noqa: E731
+    snap = snap_factory("col_eltiempo", {})
+    pages = {"https://www.eltiempo.com/rss": index, **{f"https://www.eltiempo.com/rss/{s}.xml": feed(s) for s in ("opinion", "opinion_editorial", "colombia", "mundo", "bogota")}}
+    monkeypatch.setattr(snap, "get", _fake_get(snap, pages))
+    assert ad._try_feed(snap, "https://www.eltiempo.com/rss", 0) == 3
+    assert snap.manifest["feed_urls"] == [f"https://www.eltiempo.com/rss/{s}.xml" for s in ("colombia", "mundo", "bogota")]  # news first, opinion last, comments never
+    assert "https://www.eltiempo.com/rss/comments/feed/" not in snap.manifest["index_pages"][0]["links"]
+    assert all(snap.has(f"feed_{i}.xml") for i in range(3)) and not snap.has("feed_3.xml")
+
+
+def test_bcrp_falls_back_to_the_committed_series_when_metadata_is_a_challenge_page(snap_factory, monkeypatch):
+    """sources-1: the metadata endpoint answers an Incapsula page; the adapter must not fail on it."""
+    import json
+    from pathlib import Path
+
+    from scm.ingest.national_per import API, BCRP, METADATA, SERIES_FALLBACK, fallback_series
+
+    challenge = (Path(__file__).parent / "fixtures" / "per_bcrp_api" / "metadata.csv").read_text(encoding="utf-8")
+    assert "_Incapsula_Resource" in challenge and SERIES_FALLBACK.exists()
+    fallback = fallback_series()
+    assert len(fallback) == 60 and fallback[0][0] == "PM05146AA"
+    snap = snap_factory("per_bcrp_api", {})
+    asked: list[str] = []
+
+    def fake_get(url, name, params=None, **kw):
+        asked.append(url)
+        p = snap.path(name)
+        if url == METADATA:
+            p.write_text(challenge, encoding="utf-8")
+        else:
+            codes = url.split(f"{API}/", 1)[1].split("/json/")[0].split("-")
+            p.write_text(json.dumps({"config": {"series": [{"name": f"Producción minera - Cobre {c} (miles de toneladas)"} for c in codes]},
+                                     "periods": [{"name": "2024", "values": ["1" for _ in codes]}]}), encoding="utf-8")
+        snap.record(name, url, status=200)
+        return p
+
+    monkeypatch.setattr(snap, "get", fake_get)
+    a = BCRP()
+    a.fetch(snap)
+    assert snap.manifest["series_source"] == "fallback" and [tuple(c) for c in snap.manifest["series_selected"]] == fallback
+    assert not snap.has("metadata.csv") and any("Incapsula" in e["error"] for e in snap.manifest["errors"])
+    assert asked[0] == METADATA and len(asked) == 1 + 6 and all(u.startswith(API + "/") for u in asked[1:])  # 60 codes, ten per request
+    df = schema.validate("production", a.parse(snap)["production"].copy())
+    assert len(df) == 60 and (df["mineral"] == "copper").all()
+    # and the raw selection on the challenge page no longer raises
+    snap2 = snap_factory("per_bcrp_api_2", {"metadata.csv": challenge})
+    assert a._select_codes(snap2) == []
+    # a 403 on the metadata endpoint falls back the same way
+    from scm.http import FetchError
+    snap3 = snap_factory("per_bcrp_api_3", {})
+
+    def refused(url, name, params=None, **kw):
+        if url == METADATA:
+            raise FetchError("per_bcrp_api: HTTP 403 on GET " + url)
+        return fake_get(url, name, params, **kw)
+
+    monkeypatch.setattr(snap3, "get", refused)
+    a.fetch(snap3)
+    assert snap3.manifest["series_source"] == "fallback" and len(snap3.manifest["series_selected"]) == 60
+
+
+def test_bcrp_without_a_fallback_file_names_the_challenge(snap_factory, monkeypatch):
+    from pathlib import Path
+
+    from scm.http import FetchError
+    from scm.ingest import national_per
+
+    monkeypatch.setattr(national_per, "SERIES_FALLBACK", Path("/nonexistent/bcrp_series.json"))
+    snap = snap_factory("per_bcrp_api", {})
+    monkeypatch.setattr(snap, "get", _fake_get(snap, {national_per.METADATA: "<!DOCTYPE html><html><body>challenge</body></html>"}))
+    with pytest.raises(FetchError, match="Incapsula challenge"):
+        national_per.BCRP().fetch(snap)
 
 
 def test_declared_feed_may_live_on_a_syndication_host():

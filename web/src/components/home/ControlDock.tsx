@@ -7,6 +7,7 @@ import { YearControl } from "@/components/controls/YearControl";
 import type { FlowSpan, FlowView } from "@/components/map/flows";
 import { Segmented } from "@/components/ui/Segmented";
 import { YEAR_MIN } from "@/lib/constants";
+import { INDEX_FORMULA, type IndexName } from "@/lib/indexView";
 import type { ActorMode, FlowsFile, MineralMeta } from "@/lib/types";
 
 interface Props {
@@ -23,6 +24,11 @@ interface Props {
   onView: (v: FlowView) => void;
   span: FlowSpan;
   onSpan: (s: FlowSpan) => void;
+  /** which index colours the map: the composite or one of its two sub-indices */
+  indexName: IndexName;
+  onIndex: (n: IndexName) => void;
+  /** whether the loaded file carries sub-index rows (the switch is hidden otherwise) */
+  indexSwitch: boolean;
   compareMode: boolean;
   onCompareMode: (on: boolean) => void;
   selectionCount: number;
@@ -33,7 +39,7 @@ interface Props {
 }
 
 const VIEW_OPTIONS: { value: FlowView; label: string; title: string }[] = [
-  { value: "index", label: "Index", title: "Colour each country by the influence index" },
+  { value: "index", label: "Index", title: "Colour each country by the composite influence index or one of its sub-indices" },
   { value: "money", label: "Money flows", title: "Arcs: documented finance commitments from each actor" },
   { value: "trade", label: "Trade flows", title: "Arcs: reported mineral exports to each actor" },
 ];
@@ -41,6 +47,11 @@ const SPAN_OPTIONS: { value: FlowSpan; label: string }[] = [
   { value: "1", label: "This year" },
   { value: "3", label: "3 years" },
   { value: "all", label: `Since ${YEAR_MIN}` },
+];
+const INDEX_OPTIONS: { value: IndexName; label: string; title: string }[] = [
+  { value: "composite", label: "Composite", title: `Composite influence index: ${INDEX_FORMULA.composite}` },
+  { value: "economic_ties", label: "Economic ties", title: `Economic ties sub-index: ${INDEX_FORMULA.economic_ties}` },
+  { value: "political_alignment", label: "Political alignment", title: `Political alignment sub-index: ${INDEX_FORMULA.political_alignment}` },
 ];
 
 function flowNote(view: FlowView, m: FlowsFile["meta"] | null | undefined, layer: "real" | "sample" | null | undefined): string | null {
@@ -61,6 +72,8 @@ export function ControlDock(p: Props) {
   );
   const viewSwitch = <Segmented label="Map view" value={p.view} options={VIEW_OPTIONS} onChange={p.onView} />;
   const spanSwitch = p.view !== "index" ? <Segmented label="Window" value={p.span} options={SPAN_OPTIONS} onChange={p.onSpan} /> : null;
+  // the index switch belongs to the index view; the legend names the index in every view
+  const indexSwitch = p.view === "index" && p.indexSwitch ? <Segmented label="Map index" value={p.indexName} options={INDEX_OPTIONS} onChange={p.onIndex} /> : null;
   const actor = <div className="min-w-[13rem] flex-1"><ActorToggle value={p.mode} onChange={p.onMode} /></div>;
   const mineral = <div className="min-w-[12rem] flex-1"><MineralFilter value={p.mineral} minerals={p.minerals} onChange={p.onMineral} /></div>;
 
@@ -72,6 +85,7 @@ export function ControlDock(p: Props) {
           {viewSwitch}
           {compareButton}
         </div>
+        {indexSwitch && <div className="mt-2">{indexSwitch}</div>}
         <details className="mt-1 text-xs">
           <summary className="text-xs font-medium text-ink-2">More: actor, mineral{p.view !== "index" ? ", window" : ""}, legend</summary>
           <div className="mt-2 space-y-2">
@@ -93,6 +107,7 @@ export function ControlDock(p: Props) {
           <div className="flex flex-wrap items-center gap-2">
             {viewSwitch}
             {spanSwitch}
+            {indexSwitch}
             {compareButton}
           </div>
           <div className="flex flex-wrap items-center gap-2">

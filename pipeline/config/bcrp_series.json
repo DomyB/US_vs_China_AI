@@ -1,0 +1,246 @@
+{
+ "note": "Fallback series list for the per_bcrp_api adapter (annual mine production, BCRPData). Used when the metadata export at https://estadisticas.bcrp.gob.pe/estadisticas/series/metadata is unusable (an Incapsula bot-challenge page since 2026-10-04). Recorded from the series_selected of the last successful metadata read (run of 2026-10-03, fixture manifest in commit 7cb1e09); refresh it from a later successful run's manifest when the metadata endpoint answers again.",
+ "recorded_from": "per_bcrp_api run 2026-10-03 (series_selected), commit 7cb1e09",
+ "series": [
+  [
+   "PM05146AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Cobre (miles de toneladas)"
+  ],
+  [
+   "PM05147AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Estaño (miles de toneladas)"
+  ],
+  [
+   "PM05148AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Hierro (miles de toneladas)"
+  ],
+  [
+   "PM05149AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Oro (Kilogramos)"
+  ],
+  [
+   "PM05150AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Plata (Kilogramos)"
+  ],
+  [
+   "PM05151AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Plomo (miles de toneladas)"
+  ],
+  [
+   "PM05152AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Zinc (miles de toneladas)"
+  ],
+  [
+   "PM05153AA",
+   "Producción minera e hidrocarburos por principales productos (miles de unidades recuperables) - Minería Metálica - Molibdeno (miles de toneladas)"
+  ],
+  [
+   "CD10504DA",
+   "Valor de la producción minera, 1929-1971 (miles de soles oro) - Total"
+  ],
+  [
+   "CD10505DA",
+   "Valor de la producción minera, 1929-1971 (miles de soles oro) - Metálicos"
+  ],
+  [
+   "CD10506DA",
+   "Valor de la producción minera, 1929-1971 (miles de soles oro) - No Metálicos - Total"
+  ],
+  [
+   "CD10507DA",
+   "Valor de la producción minera, 1929-1971 (miles de soles oro) - No Metálicos - Combustibles"
+  ],
+  [
+   "CD10508DA",
+   "Valor de la producción minera, 1929-1971 (miles de soles oro) - No Metálicos - Otros"
+  ],
+  [
+   "CD10509DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Cobre (toneladas metricas)"
+  ],
+  [
+   "CD10510DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Cobre (miles de soles oro)"
+  ],
+  [
+   "CD10511DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Hierro - Bruto (toneladas metricas)"
+  ],
+  [
+   "CD10512DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Hierro - Fino (toneladas metricas)"
+  ],
+  [
+   "CD10513DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Hierro (miles de soles oro)"
+  ],
+  [
+   "CD10514DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Oro (gramos)"
+  ],
+  [
+   "CD10515DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Oro (miles de soles oro)"
+  ],
+  [
+   "CD10516DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Plata (kilogramos)"
+  ],
+  [
+   "CD10517DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Plata (miles de soles oro)"
+  ],
+  [
+   "CD10518DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Plomo (toneladas metricas)"
+  ],
+  [
+   "CD10519DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Plomo (miles de soles oro)"
+  ],
+  [
+   "CD10520DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Zinc (toneladas metricas)"
+  ],
+  [
+   "CD10521DA",
+   "Producción minera metálica (cantidad y valor), 1929-1980 - Zinc (miles de soles oro)"
+  ],
+  [
+   "CD10523DA",
+   "Producción minera no metálica (cantidad y valor), 1929-1980 - Carbón Mineral (miles de soles oro)"
+  ],
+  [
+   "CD10525DA",
+   "Producción minera no metálica (cantidad y valor), 1929-1980 - Gasolina Natural (miles de soles oro)"
+  ],
+  [
+   "CD10527DA",
+   "Producción minera no metálica (cantidad y valor), 1929-1980 - Petróleo Crudo (miles de soles oro)"
+  ],
+  [
+   "CD12781DA",
+   "Acuñación estimada de plata en la Casa de la Moneda de Potosí entre 1575-1599 - Producción minera en pesos ensayados de 450 mrs."
+  ],
+  [
+   "RD15516DA",
+   "Producción de productos mineros según departamentos - Cobre - Total (tm.f)"
+  ],
+  [
+   "RD15517DA",
+   "Producción de productos mineros según departamentos - Cobre - Ancash (tm.f)"
+  ],
+  [
+   "RD15518DA",
+   "Producción de productos mineros según departamentos - Cobre - Apurimac (tm.f)"
+  ],
+  [
+   "RD15519DA",
+   "Producción de productos mineros según departamentos - Cobre - Arequipa (tm.f)"
+  ],
+  [
+   "RD15520DA",
+   "Producción de productos mineros según departamentos - Cobre - Ayacucho (tm.f)"
+  ],
+  [
+   "RD15521DA",
+   "Producción de productos mineros según departamentos - Cobre - Cajamarca (tm.f)"
+  ],
+  [
+   "RD15522DA",
+   "Producción de productos mineros según departamentos - Cobre - Cusco (tm.f)"
+  ],
+  [
+   "RD15523DA",
+   "Producción de productos mineros según departamentos - Cobre - Huancavelica (tm.f)"
+  ],
+  [
+   "RD15524DA",
+   "Producción de productos mineros según departamentos - Cobre - Huánuco (tm.f)"
+  ],
+  [
+   "RD15525DA",
+   "Producción de productos mineros según departamentos - Cobre - Ica (tm.f)"
+  ],
+  [
+   "RD15526DA",
+   "Producción de productos mineros según departamentos - Cobre - Junín (tm.f)"
+  ],
+  [
+   "RD15527DA",
+   "Producción de productos mineros según departamentos - Cobre - La Libertad (tm.f)"
+  ],
+  [
+   "RD15528DA",
+   "Producción de productos mineros según departamentos - Cobre - Lima (tm.f)"
+  ],
+  [
+   "RD15529DA",
+   "Producción de productos mineros según departamentos - Cobre - Moquegua (tm.f)"
+  ],
+  [
+   "RD15530DA",
+   "Producción de productos mineros según departamentos - Cobre - Pasco (tm.f)"
+  ],
+  [
+   "RD15531DA",
+   "Producción de productos mineros según departamentos - Cobre - Puno (tm.f)"
+  ],
+  [
+   "RD15532DA",
+   "Producción de productos mineros según departamentos - Cobre - Tacna (tm.f)"
+  ],
+  [
+   "RD15533DA",
+   "Producción de productos mineros según departamentos - Estaño - Total (tm.f)"
+  ],
+  [
+   "RD15534DA",
+   "Producción de productos mineros según departamentos - Estaño - Puno (tm.f)"
+  ],
+  [
+   "RD15535DA",
+   "Producción de productos mineros según departamentos - Hierro - Total (tm.f)"
+  ],
+  [
+   "RD15536DA",
+   "Producción de productos mineros según departamentos - Hierro - Ica (tm.f)"
+  ],
+  [
+   "RD15537DA",
+   "Producción de productos mineros según departamentos - Molibdeno - Total (tm.f)"
+  ],
+  [
+   "RD15538DA",
+   "Producción de productos mineros según departamentos - Molibdeno - Ancash (tm.f)"
+  ],
+  [
+   "RD15539DA",
+   "Producción de productos mineros según departamentos - Molibdeno - Arequipa (tm.f)"
+  ],
+  [
+   "RD15540DA",
+   "Producción de productos mineros según departamentos - Molibdeno - Junín (tm.f)"
+  ],
+  [
+   "RD15541DA",
+   "Producción de productos mineros según departamentos - Molibdeno - Moquegua (tm.f)"
+  ],
+  [
+   "RD15542DA",
+   "Producción de productos mineros según departamentos - Molibdeno - Tacna (tm.f)"
+  ],
+  [
+   "RD15543DA",
+   "Producción de productos mineros según departamentos - Oro - Total (grs.f)"
+  ],
+  [
+   "RD15544DA",
+   "Producción de productos mineros según departamentos - Oro - Ancash (grs.f)"
+  ],
+  [
+   "RD15545DA",
+   "Producción de productos mineros según departamentos - Oro - Apurimac (grs.f)"
+  ]
+ ]
+}

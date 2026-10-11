@@ -7,6 +7,7 @@ from __future__ import annotations
 import pandas as pd
 
 from .concentration import NOTE_ABSENT, wide
+from .index import FINANCE_SOURCES
 
 SHIFT_POINTS = 0.20  # change in an export share, in share units, that counts as sudden
 MIN_WLD_USD = 1e8  # exports in both years must reach this for a share change to be flagged
@@ -17,11 +18,15 @@ DEBT_RISE = 0.20  # relative rise of the debt stock owed to China in one year
 DEBT_RISE_USD = 1e8
 GAP_SD = 2.0  # say–do gap (in standard deviations) that counts as a divergence
 ACTOR_NAME = {"US": "the United States", "CN": "China"}
-FINANCE_SOURCE = {"US": "dfc_projects", "CN": "aiddata_gcdf"}
 
 
 def _pct(x: float) -> str:
-    return f"{x * 100:.0f}%"
+    """A share as the site prints it (web/src/lib/format.ts fmtShare): "under 0.1%" below 0.05%, one decimal under 1%,
+    whole points above; a printed "0%" is a reported zero, never a small share rounded away."""
+    p = float(x) * 100.0
+    if 0 < p < 0.05:
+        return "under 0.1%"
+    return f"{p:.1f}%" if 0 < p < 1 else f"{p:.0f}%"
 
 
 def _musd(x: float) -> str:
@@ -78,12 +83,12 @@ def anomalies(conc: pd.DataFrame, finance: pd.DataFrame, gdp: pd.DataFrame, debt
                 top = g.sort_values("amount_usd", ascending=False).iloc[0]
                 add(iso, year, actor, "large_commitment", "documented",
                     f"Documented commitments from {ACTOR_NAME[actor]}'s institutions reached {_musd(total)} in {int(year)}, {_pct(total / gd)} of GDP; the largest: {top['actor_from']} ({_musd(float(top['amount_usd']))}).",
-                    [FINANCE_SOURCE[actor], "wb_wdi"], round(total / gd, 4))
+                    [*FINANCE_SOURCES[actor], "wb_wdi"], round(total / gd, 4))
         for (iso, actor, year), g in doc[doc["swap"]].groupby(["country", "origin", "year"]):
             total = float(g["amount_usd"].sum())
             add(iso, year, actor, "rescue_lending", "documented",
                 f"Central-bank swap-line drawdowns of {_musd(total)} recorded in {int(year)}; counted here as emergency liquidity and left out of the finance component of the index.",
-                [FINANCE_SOURCE[actor]], None)
+                [*FINANCE_SOURCES[actor]], None)
         # 4. commitment without a trade response (strongly indicated: finance and mineral trade decoupled)
         if not ex.empty:
             all_ex = ex[ex["mineral"] == "all"].set_index(["country", "year"])
@@ -101,7 +106,7 @@ def anomalies(conc: pd.DataFrame, finance: pd.DataFrame, gdp: pd.DataFrame, debt
                 if abs(float(after) - float(before)) < FOLLOW_POINTS:
                     add(iso, year, actor, "finance_without_trade_response", "strongly_indicated",
                         f"Commitments of {_musd(total)} ({_pct(total / gd)} of GDP) in {int(year)} were not followed by a change in the share of mineral exports going to {ACTOR_NAME[actor]} ({_pct(float(before))} in {int(year) - 1}, {_pct(float(after))} in {int(year) + 2}): the finance is tied to other sectors, or its mineral side is not in the trade record.",
-                        [FINANCE_SOURCE[actor], "un_comtrade", "wb_wdi"], round(total / gd, 4))
+                        [*FINANCE_SOURCES[actor], "un_comtrade", "wb_wdi"], round(total / gd, 4))
 
     # 5. debt stock owed to China rising with no commitment recorded that year (strongly indicated: unrecorded lending or disbursement of earlier loans)
     if not debt_cn.empty:
@@ -127,7 +132,7 @@ def anomalies(conc: pd.DataFrame, finance: pd.DataFrame, gdp: pd.DataFrame, debt
                 direction = "warmer" if r.gap > 0 else "cooler"
                 add(r.country, r.year, r.actor, "say_do_divergence", "speculative",
                     f"Legislative stance toward {ACTOR_NAME[r.actor]} in {int(r.year)} ({r.n_docs} scored records) was {direction} than the movement of economic ties would suggest (gap {float(r.gap):+.1f} standard deviations); the stance values come from the text model ({r.text_model_status}).",
-                    [*leg.get(r.country, []), "un_comtrade", FINANCE_SOURCE[r.actor]], round(abs(float(r.gap)), 3))
+                    [*leg.get(r.country, []), "un_comtrade", *FINANCE_SOURCES[r.actor]], round(abs(float(r.gap)), 3))
 
     out = pd.DataFrame(rows, columns=cols)
     if not out.empty:

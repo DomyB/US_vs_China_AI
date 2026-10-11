@@ -6,8 +6,8 @@ but labelled apart: every model value carries the method, model name and codeboo
 says whether the classifier is a zero-shot baseline or validated against the hand-coded sample. From Phase 4
 the quant outputs (influence index with its sensitivity band, concentration, say–do gap, flags, finance network)
 go into each country file's `analysis` block, `index.json` and `quant.json`, stamped with `quant_model` (method
-and weights version, data release, draws). A coverage file tells the UI which countries and tables have real
-data so it can fall back to sample per layer.
+and weights version, data release, draws). `meta.json` carries, per country, which tables have real data
+(`coverage`) so the UI can fall back to sample per layer.
 """
 from __future__ import annotations
 
@@ -22,6 +22,7 @@ import pandas as pd
 from .insights import build_insights
 from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
 from .period import data_from, period
+from .quant.briefs import FRONT_RE, HUMAN_DIR
 from .quant.concentration import NOTE_ABSENT
 from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, DIRICHLET_ALPHA, MIN_COMPONENTS, MIN_DOCS, RANK_SHARE
@@ -40,6 +41,7 @@ NO_STRUCTURED_LEGISLATURE = {
     "SUR": "De Nationale Assemblée publishes bills as Dutch PDFs; debates and roll-calls are not online.",
     "VEN": "Two assemblies claim legitimacy; neither publishes structured bill or vote records.",
     "URY": "parlamento.gub.uy refuses automated clients and is not reachable from abroad; the national open-data catalogue lists no Parliament dataset yet (candidates are recorded on every run).",
+    "ECU": "The Asamblea adapter ran and returned no records: the bills database is HTML only and the plenary-votes page is a script-rendered application whose data service is not exposed.",
 }
 # fields a news item may carry on the site: headline, date, outlet and URL plus derived flags; never article text
 ARTICLE_KEYS = {"id", "date", "date_precision", "outlet", "outlet_source_id", "orientation", "reliability", "headline_original", "language", "headline_en",
@@ -129,6 +131,23 @@ def _event_rows(iso: str, effect_rows: list[dict]) -> list[dict]:
     return sorted(out, key=lambda r: (r["year"], r["event_id"], r["actor"], r["design"]))
 
 
+def brief_data_release(scope: str, iso: str | None, human_dir: Path = HUMAN_DIR) -> str | None:
+    """The `data_release:` front-matter field of the brief's Markdown file (data/manual/interpretation/<ISO>.md or
+    regional.md): the data release the brief's numbers were read from, so the site can say when the current release
+    differs. Read from the file while the analysis_text table carries no such column; None when absent."""
+    path = human_dir / (f"{iso}.md" if scope == "country" and iso else "regional.md")
+    if not path.exists():
+        return None
+    m = FRONT_RE.match(path.read_text(encoding="utf-8"))
+    if not m:
+        return None
+    for line in m.group(1).splitlines():
+        k, _, v = line.partition(":")
+        if k.strip().lower() == "data_release":
+            return v.strip().strip('"').strip("'") or None
+    return None
+
+
 def _interpretation_block(text_rows: list[dict], scope: str, iso: str | None) -> dict | None:
     rows = [r for r in text_rows if r["scope"] == scope and (r["country"] == iso if iso else r["country"] is None)]
     if not rows:
@@ -136,8 +155,11 @@ def _interpretation_block(text_rows: list[dict], scope: str, iso: str | None) ->
     generated = [{"section": r["section"], "title": r["title"], "sentences": json.loads(r["sentences_json"] or "[]"), "indicators": [x for x in str(r["supporting_indicator_ids"] or "").split(",") if x],
                   "changed_since_previous": bool(r["changed_since_previous"]), "previous_date": r["previous_date"]}
                  for r in sorted((r for r in rows if r["model"] != "human"), key=lambda r: int(r["position"]))]
+    # data_release: the release the brief's numbers were read from (its front matter), from the table row when the
+    # column exists, else from the Markdown file itself; null when the brief does not say
     human = next(({"title": r["title"], "author": r["author"], "date": r["generated_on"], "reviewed": bool(r["reviewed_by_human"]), "text_md": r["text_md"],
-                   "changed_since_previous": bool(r["changed_since_previous"]), "drafted_by": r.get("drafted_by") or "owner"} for r in rows if r["model"] == "human"), None)
+                   "changed_since_previous": bool(r["changed_since_previous"]), "drafted_by": r.get("drafted_by") or "owner",
+                   "data_release": r.get("data_release") or brief_data_release(scope, iso)} for r in rows if r["model"] == "human"), None)
     first = rows[0]
     return {"generated": generated, "human": human, "template_version": first["template_version"], "generated_on": max(r["generated_on"] for r in rows if r["model"] != "human") if generated else first["generated_on"],
             "label": "Generated from named indicators by fixed templates; each sentence lists the indicators it rests on. The owner's writing, where present, is shown apart."}
@@ -157,6 +179,12 @@ def _forecast_block(iso: str, fc_rows: list[dict], status: dict) -> dict | None:
     fs = (status.get("forecast") or {})
     targets = fs.get("targets") or {}
     model_status = {k: v for k, v in targets.items() if iso in (v.get("countries") or [])}
+    for k, v in targets.items():
+        # a target the pipeline skipped for this country travels with its reason (the tab says why there is no share
+        # forecast instead of showing nothing), never as an empty model
+        reason = (v.get("skipped") or {}).get(iso)
+        if reason and k not in model_status:
+            model_status[k] = {"countries": [], "model": None, "skipped": reason}
     return {"series": sorted(rows, key=lambda r: (r["target"], r["actor"], r["scenario_id"], r["year"])), "scenarios": list(SCENARIO_TEXT.values()),
             "model_status": model_status, "horizon_year": fs.get("horizon_year", HORIZON_YEAR), "n_sims": fs.get("n_sims"), "models": fs.get("models"),
             "label": "Computed · backtested models; naive persistence published where no model beat it"}
@@ -309,6 +337,102 @@ def _story_file(stm: list[dict], conc_rows: list[dict], today: str) -> dict:
             "quotes": quotes, "series": series}
 
 
+def region_mineral_shares(trade: list[dict], core: list[str]) -> list[dict]:
+    """Per year and core mineral: the two actors' shares of the reported exports summed over the twelve reporters, with
+    the number of reporters behind the sum and how many of them have no partner row for China / the United States
+    (an absent partner row is read as no reported flow, DECISIONS 47, so the shares are sums over the reporters that
+    have one; the counts let the chart say so instead of presenting the sum as complete)."""
+    shares: dict[tuple[int, str], dict] = {}
+    for r in trade:
+        if r["value_type"] != "reported" or r["mineral"] not in core:
+            continue
+        slot = FLOW_PARTNER.get(r["partner"])
+        if not slot:
+            continue
+        k = (int(r["year"]), r["mineral"])
+        s = shares.setdefault(k, {"year": k[0], "mineral": k[1], "CN": 0.0, "US": 0.0, "WLD": 0.0, "reporters": set(), "with_cn": set(), "with_us": set()})
+        s[slot] += float(r["value_usd"])
+        s["reporters"].add(r["reporter"])
+        if slot == "CN":
+            s["with_cn"].add(r["reporter"])
+        elif slot == "US":
+            s["with_us"].add(r["reporter"])
+    out = []
+    for s in sorted(shares.values(), key=lambda x: (x["year"], x["mineral"])):
+        if s["WLD"] > 0:
+            cn, us = s["CN"] / s["WLD"], s["US"] / s["WLD"]
+            out.append({"year": s["year"], "mineral": s["mineral"], "share_cn": round(cn, 4), "share_us": round(us, 4), "share_other": round(max(0.0, 1 - cn - us), 4),
+                        "exports_wld_musd": round(s["WLD"] / 1e6, 1), "n_reporters": len(s["reporters"]),
+                        "n_absent_cn": len(s["reporters"] - s["with_cn"]), "n_absent_us": len(s["reporters"] - s["with_us"])})
+    return out
+
+
+INDEX_SITE_NAME = {"influence": "composite", "economic_ties": "economic_ties", "political_alignment": "political_alignment"}
+
+
+def _lead_components(comp_rows: list[dict]) -> dict[tuple[str, int], dict]:
+    """(country, year) -> {lead, lead_gap, lead_cn, lead_us} for the all-minerals index: among the components available
+    for BOTH actors, the one with the largest absolute gap between the two normalised values (China minus United
+    States, in points of the 0–100 component scale); ties keep the COMPONENTS order. Null fields when the actors
+    share no component."""
+    by: dict[tuple[str, int], dict[str, dict[str, float]]] = {}
+    for r in comp_rows:
+        if r["mineral"] != "all" or not r["available"] or r["normalized_value"] is None:
+            continue
+        by.setdefault((r["country"], int(r["year"])), {}).setdefault(r["component"], {})[r["actor"]] = float(r["normalized_value"])
+    order = {name: i for i, (name, _, _, _) in enumerate(COMPONENTS)}
+    out: dict[tuple[str, int], dict] = {}
+    for key, comps in by.items():
+        shared = [(name, v["CN"], v["US"]) for name, v in comps.items() if "CN" in v and "US" in v]
+        if not shared:
+            out[key] = {"lead": None, "lead_gap": None, "lead_cn": None, "lead_us": None}
+            continue
+        name, cn, us = max(shared, key=lambda t: (abs(t[1] - t[2]), -order.get(t[0], len(order))))
+        out[key] = {"lead": name, "lead_gap": round(cn - us, 2), "lead_cn": round(cn, 2), "lead_us": round(us, 2)}
+    return out
+
+
+def _index_rows(idx_rows: list[dict], comp_rows: list[dict]) -> list[dict]:
+    """The index.json rows: every composite value (all minerals and each mineral) plus the two sub-indices for mineral
+    "all", each row naming its `index` and the components behind it; the composite all-minerals rows also carry the
+    component that leads the gap between the actors (`_lead_components`), the same values on both actors' rows. A
+    cell without a value (too few components, or a composite not published because a component's source lags) has no
+    row: missing stays missing."""
+    lead = _lead_components(comp_rows)
+    out = []
+    for r in idx_rows:
+        name = INDEX_SITE_NAME.get(r["index_name"])
+        if name is None or r["value"] is None or (name != "composite" and r["mineral"] != "all"):
+            continue
+        row = {"iso3": r["country"], "year": int(r["year"]), "actor": r["actor"], "mineral": r["mineral"], "value": r["value"], "lower": r["lower"], "upper": r["upper"],
+               "n_components": int(r["n_components"]), "index": name, "components_available": [c for c in str(r.get("components_available") or "").split(",") if c]}
+        if name == "composite" and r["mineral"] == "all":
+            row.update(lead.get((r["country"], int(r["year"])), {"lead": None, "lead_gap": None, "lead_cn": None, "lead_us": None}))
+        out.append(row)
+    return out
+
+
+def headline_windows(run_rows: list[dict]) -> dict[str, list[dict]]:
+    """{iso3: [{source_id, year, from, to, kept, matched}]} for the country-years whose Media Cloud story list was cut:
+    read from the `headlines_window` entry the adapter writes into its ingest_run record (`rows`, JSON; newest run
+    first, so a later fetch of the same year replaces an earlier one), kept only where `truncated` is set."""
+    seen: dict[str, dict] = {}
+    for run in run_rows:
+        try:
+            windows = json.loads(run.get("rows") or "{}").get("headlines_window") or {}
+        except (ValueError, AttributeError):
+            continue
+        for key, w in windows.items():
+            seen.setdefault(key, w)
+    out: dict[str, list[dict]] = {}
+    for key, w in sorted(seen.items()):
+        if not (isinstance(w, dict) and w.get("truncated")):
+            continue
+        iso, _, year = key.partition("/")
+        out.setdefault(iso, []).append({"source_id": "mediacloud", "year": int(year), "from": w.get("from"), "to": w.get("to"), "kept": w.get("kept"), "matched": w.get("matched")})
+    return out
+
+
 def release_counts(ok_sources: list[str]) -> dict:
     """The two counts the site's release line prints: adapters that ran clean out of those registered, and registry
     sources marked live out of all registered sources (DECISIONS 73)."""
@@ -405,6 +529,21 @@ def _statements_block(rows: list[dict], iso: str | None) -> dict:
 
 
 FLOW_PARTNER = {"CHN": "CN", "USA": "US", "WLD": "WLD"}
+MUSD_DECIMALS = 6  # US$ million to six decimals: a US$1 grain, so a reported flow under US$500 never collapses to 0.0
+
+
+def musd(value_usd: float | None, digits: int = MUSD_DECIMALS) -> float | None:
+    return None if value_usd is None else round(float(value_usd) / 1e6, digits)
+
+
+def export_cells(us_usd: float | None, cn_usd: float | None, wld_usd: float | None) -> dict[str, float | None]:
+    """The four export cells of a reporter-year-mineral in US$ million: the two partners, the reported world total
+    (`WLD`) and the rest of the world (`ROW`), which is world minus the two partners only when both partner rows exist
+    and the world total is reported; with any of the three absent it is null (a derived sum over an absent cell is
+    never published as a number, DECISIONS 47: the site reads an absent partner as "no reported flow", not as 0)."""
+    us, cn, wld = musd(us_usd), musd(cn_usd), musd(wld_usd)
+    row = round(wld - cn - us, MUSD_DECIMALS) if us is not None and cn is not None and wld is not None else None
+    return {"US": us, "CN": cn, "ROW": row, "WLD": wld}
 
 
 def build_flows(fin: list[dict], trade: list[dict], core: list[str], last_year: dict, today: str) -> dict:
@@ -415,7 +554,7 @@ def build_flows(fin: list[dict], trade: list[dict], core: list[str], last_year: 
     lower-confidence records (`undocumented_musd`) are reported apart, never mixed in. A year with events but no
     published amount keeps `amount_musd = 0` with `n_with_amount = 0`, so the site can say so instead of drawing
     nothing silently. Trade: reported exports to the United States, China and the rest of the world, for all minerals
-    together and for each core mineral; ROW is world minus the two and is null when the world total is missing.
+    together and for each core mineral, with the reported world total as its own cell (`export_cells`).
     """
     swap = re.compile(SWAP_RE)
     finance: dict[tuple[str, int, str], dict] = {}
@@ -458,10 +597,7 @@ def build_flows(fin: list[dict], trade: list[dict], core: list[str], last_year: 
             a[slot] = (a[slot] or 0.0) + float(r["value_usd"])
     trade_rows = []
     for (iso, year, mineral), a in sorted(agg.items()):
-        cn = round(a["CN"] / 1e6, 3) if a["CN"] is not None else None
-        us = round(a["US"] / 1e6, 3) if a["US"] is not None else None
-        row = round((a["WLD"] - (a["CN"] or 0.0) - (a["US"] or 0.0)) / 1e6, 3) if a["WLD"] is not None else None
-        trade_rows.append({"iso3": iso, "year": year, "mineral": mineral, "exports_musd": {"US": us, "CN": cn, "ROW": row}, "source_id": a["source_id"]})
+        trade_rows.append({"iso3": iso, "year": year, "mineral": mineral, "exports_musd": export_cells(a["US"], a["CN"], a["WLD"]), "source_id": a["source_id"]})
 
     def _max_year(rows: list[dict], pred) -> int | None:
         ys = [r["year"] for r in rows if pred(r)]
@@ -470,7 +606,9 @@ def build_flows(fin: list[dict], trade: list[dict], core: list[str], last_year: 
     meta = {"last_year": {"finance_CN": last_year.get("finance_CN") or _max_year(finance_rows, lambda r: r["origin"] == "CN"),
                           "finance_US": last_year.get("finance_US") or _max_year(finance_rows, lambda r: r["origin"] == "US"),
                           "trade": last_year.get("trade") or _max_year(trade_rows, lambda r: True)},
-            "note": "Finance: documented commitments from the de-duplicated finance events, summed by origin and year; swap-line drawdowns and lower-confidence amounts are reported apart. Trade: reported exports (UN Comtrade); the rest of the world is the world total minus the two actors."}
+            "note": "Finance: documented commitments from the de-duplicated finance events, summed by origin and year; swap-line drawdowns and lower-confidence amounts are reported apart. "
+                    "Trade: reported exports (UN Comtrade) in US$ million to six decimals (a US$1 grain, so a small flow never reads as 0); WLD is the reported world total, "
+                    "ROW the world total minus the two actors and null whenever either partner has no row (an absent cell is never read as 0)."}
     meta["period"] = period(today, data_from(trade_rows))
     return {"dataset": "REAL", "generated_on": today, "meta": meta, "finance": finance_rows, "trade": trade_rows}
 
@@ -532,7 +670,11 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     stance_by_iso = text_series.stance_series(docs_df, cls_df)
     mv_df = pd.DataFrame(mv_rows) if mv_rows else None
     volume_by_iso, volume_basis = text_series.media_series(docs_df, cls_df, mv_df)
-    history_by_iso = text_series.media_monthly(mv_df)  # monthly counts per source (GDELT, Media Cloud, feeds), coded or not
+    # the raw document rows (one per source, country and headline, before the RSS/GDELT merge): a feed's distinct
+    # headlines per month, for the history rows of the feeds (text.series.monthly_frame)
+    news_rows = _rows(con, "SELECT source_id, country, date, mining_related, mentions_cn, mentions_us FROM document WHERE doc_type = 'news'")
+    history_by_iso = text_series.media_monthly(mv_df, pd.DataFrame(news_rows) if news_rows else None)  # monthly counts per source (GDELT, Media Cloud, feeds), coded or not
+    windows_by_iso = headline_windows(_rows(con, "SELECT rows FROM ingest_run WHERE source_id = 'mediacloud' AND status = 'ok' ORDER BY finished_at DESC"))
     news_ids = {d["doc_id"] for d in docs if d["doc_type"] == "news"}
     media_topics = [r for r in doc_topic_rows if r["doc_id"] in news_ids]  # the Media tab shows press narratives only
     narratives_by_iso = text_series.narratives(docs_df, pd.DataFrame(media_topics) if media_topics else pd.DataFrame(),
@@ -561,33 +703,29 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
         c_rows = [r for r in contracts if r["country"] == iso]
         p_rows = [r for r in prod if r["country"] == iso]
 
-        # trade block: year x mineral with CN/US/ROW from reported rows and CN/US mirrors
+        # trade block: year x mineral with CN/US/ROW/WLD from reported rows (export_cells: ROW only when both partners
+        # and the world total have rows) and CN/US mirrors
         by: dict[tuple[int, str], dict] = {}
         for r in t_rows:
             key = (int(r["year"]), r["mineral"])
-            b = by.setdefault(key, {"year": key[0], "mineral": key[1], "exports_musd": {"CN": None, "US": None, "ROW": None}, "mirror_musd": {"CN": None, "US": None}, "value_type": "reported", "source": None, "sources": {}})
-            musd = round(float(r["value_usd"]) / 1e6, 3)
+            b = by.setdefault(key, {"year": key[0], "mineral": key[1], "exports_musd": {}, "mirror_musd": {"CN": None, "US": None}, "value_type": "reported", "source": None, "sources": {},
+                                    "_reported": {"CN": None, "US": None, "WLD": None}})
             if r["value_type"] == "reported":
-                if r["partner"] == "CHN":
-                    b["exports_musd"]["CN"] = musd
-                elif r["partner"] == "USA":
-                    b["exports_musd"]["US"] = musd
-                elif r["partner"] == "WLD":
-                    b["_wld"] = musd
+                slot = FLOW_PARTNER.get(r["partner"])
+                if slot:
+                    b["_reported"][slot] = float(r["value_usd"])
                 b["sources"]["reported"] = _src(r["source_id"], r["url"])
             else:
                 if r["partner"] == "CHN":
-                    b["mirror_musd"]["CN"] = musd
+                    b["mirror_musd"]["CN"] = musd(r["value_usd"])
                 elif r["partner"] == "USA":
-                    b["mirror_musd"]["US"] = musd
+                    b["mirror_musd"]["US"] = musd(r["value_usd"])
                 b["sources"]["mirror"] = _src(r["source_id"], r["url"])
         trade_block = []
         for b in by.values():
-            wld = b.pop("_wld", None)
-            e = b["exports_musd"]
-            if wld is not None:
-                e["ROW"] = round(wld - (e["CN"] or 0) - (e["US"] or 0), 3)
-            if e["CN"] is None and e["US"] is None and wld is None:
+            rep = b.pop("_reported")
+            b["exports_musd"] = export_cells(rep["US"], rep["CN"], rep["WLD"])
+            if all(v is None for v in rep.values()):
                 b["value_type"] = "mirror"
             b["source"] = b["sources"].get("reported") or b["sources"].get("mirror")
             trade_block.append(b)
@@ -692,7 +830,10 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             # `text_model` are model outputs and appear only once some headline is coded.
             media_file = {"dataset": "REAL", "iso3": iso, "generated_on": today, "articles": articles, "outlets": outlets,
                           "freshness": {"last_updated": today, "source_ids": media_sources,
-                                        "schedule": "weekly (RSS feeds and Media Cloud) and monthly windows (GDELT)"},
+                                        "schedule": "weekly (RSS feeds and Media Cloud) and monthly windows (GDELT)",
+                                        # the years whose headline list was cut (Media Cloud keeps the newest stories of a year
+                                        # with more matches than its cap): the window the kept headlines come from
+                                        "headlines_window": windows_by_iso.get(iso, [])},
                           "volume": volume_by_iso.get(iso, []), "volume_basis": volume_basis,
                           "history": history, "media_sources": media_sources,
                           "history_from": min((h["period"] for h in history), default=None)}
@@ -749,21 +890,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "statements": len(s_rows),
         }
 
-    # region: mineral shares from reported exports summed over the 12 countries
-    shares: dict[tuple[int, str], dict] = {}
-    for r in trade:
-        if r["value_type"] != "reported" or r["mineral"] not in core:
-            continue
-        k = (int(r["year"]), r["mineral"])
-        s = shares.setdefault(k, {"year": k[0], "mineral": k[1], "CN": 0.0, "US": 0.0, "WLD": 0.0})
-        slot = {"CHN": "CN", "USA": "US", "WLD": "WLD"}.get(r["partner"])
-        if slot:
-            s[slot] += float(r["value_usd"])
-    mineral_shares = []
-    for s in sorted(shares.values(), key=lambda x: (x["year"], x["mineral"])):
-        if s["WLD"] > 0:
-            cn, us = s["CN"] / s["WLD"], s["US"] / s["WLD"]
-            mineral_shares.append({"year": s["year"], "mineral": s["mineral"], "share_cn": round(cn, 4), "share_us": round(us, 4), "share_other": round(max(0.0, 1 - cn - us), 4), "exports_wld_musd": round(s["WLD"] / 1e6, 1)})
+    mineral_shares = region_mineral_shares(trade, core)
     flows = build_flows(fin, trade, core, quant_status.get("last_year") or {}, today)
     (out / "flows.json").write_text(json.dumps(flows, ensure_ascii=False, default=str), encoding="utf-8")
     # the period the site reads at build time (web/src/lib/constants.ts imports it): tiny, so it may live in the bundle
@@ -790,11 +917,15 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                       "countries": {iso: sum(1 for r in kept if r["country"] == iso) for iso in IN_SCOPE}, "excluded": excluded}
     (out / "region.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "mineral_shares": mineral_shares, "source": _src("un_comtrade"), "interpretation": regional_interp, "statements": region_stm}, ensure_ascii=False), encoding="utf-8")
     (out / "story.json").write_text(json.dumps(_story_file(stm, conc_rows, today), ensure_ascii=False, default=str), encoding="utf-8")
-    influence = [{"iso3": r["country"], "year": int(r["year"]), "actor": r["actor"], "mineral": r["mineral"], "value": r["value"], "lower": r["lower"], "upper": r["upper"], "n_components": int(r["n_components"])}
-                 for r in idx_rows if r["index_name"] == "influence" and r["value"] is not None]
+    index_rows = _index_rows(idx_rows, comp_rows)
+    influence = [r for r in index_rows if r["index"] == "composite"]
     (out / "index.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "layer": "real" if influence else "none",
                                                 "method": f"Composite influence index, method {quant_status.get('method_version')}, weights {quant_status.get('weights_version')}; band = 5th–95th percentile over {quant_status.get('draws')} weight and normalisation draws",
-                                                "quant_model": quant_status, "rows": influence}, ensure_ascii=False, default=str), encoding="utf-8")
+                                                "note": "`index` names the row's index: composite (every mineral), or the economic_ties / political_alignment sub-index (mineral all only; "
+                                                        "lower/upper null where the run stored no band). `lead` on the composite rows for all minerals: the component available for both actors "
+                                                        "with the largest gap between their normalised values, `lead_gap` China minus United States in points of the 0–100 component scale, "
+                                                        "`lead_cn` / `lead_us` the two values; null when the actors share no component.",
+                                                "quant_model": quant_status, "rows": index_rows}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today, reg_rows, effect_rows, fc_rows, bt_rows), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
@@ -824,7 +955,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     }
     (out / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     (out / "validation.json").write_text(json.dumps(_validation_file(metrics, sample_rows, text_status, today), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
-    (out / "coverage.json").write_text(json.dumps({"generated_on": today, "countries": coverage}, indent=1), encoding="utf-8")
+    # coverage travels in meta.json only (the site reads `meta.coverage`; a separate coverage.json was a duplicate and is no longer written)
     con.close()
     return {"countries": len(coverage), "tables": meta["tables"], "sources_ok": ok_sources, "flows": {"finance_rows": len(flows["finance"]), "trade_rows": len(flows["trade"])},
             "insights": {"findings": len(insights["findings"]), "contrasts": sum(len(c["contrasts"]) for c in insights["countries"]), "human": bool(insights["human"])}}

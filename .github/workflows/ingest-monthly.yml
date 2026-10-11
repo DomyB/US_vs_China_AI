@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
     inputs:
       targets:
-        description: "Adapters to run (space-separated source ids, or all / tier1 / legislature / press / national / monthly / annual; none = recompute, rebuild and re-export only)"
-        default: "tier1 legislature national"
+        description: "Adapters to run (space-separated source ids, or all / tier1 / tier2 / legislature / press / national / monthly / annual; none = recompute, rebuild and re-export only). tier2 adapters gated by a missing secret record an instant skipped"
+        default: "tier1 tier2 legislature national"
       fetch_only:
         description: "Only download raw snapshots (no parse)"
         type: boolean
@@ -130,7 +130,7 @@ jobs:
         id: run
         continue-on-error: true
         run: |
-          python -u -m scm run ${{ inputs.targets || 'tier1 legislature national' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
+          python -u -m scm run ${{ inputs.targets || 'tier1 tier2 legislature national' }} ${{ inputs.fetch_only && '--fetch-only' || '' }} 2> ../ingest.log | tee ../ingest-results.jsonl
       - name: Runner resources after ingestion
         if: always()
         run: df -h / && free -m && du -sh ../data/raw/* 2>/dev/null | sort -h | tail -15

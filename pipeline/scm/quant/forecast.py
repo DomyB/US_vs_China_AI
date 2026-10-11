@@ -1,8 +1,9 @@
 """Forecasts to 2030 with backtests (Phase 5), plain numpy.
 
 Targets per country and actor: the influence index (mineral "all") and the share of mineral exports going to
-the actor. Annual series of at most eighteen points allow simple models only, so five are fitted and compared
-on expanding-window backtests: naive persistence (last value, bootstrapped yearly changes), random walk with
+the actor. Short annual series (the record starts in 2000, so a couple of dozen points at most; the fitted length
+of every series is in the status `windows`) allow simple models only, so five are fitted and compared on
+expanding-window backtests: naive persistence (last value, bootstrapped yearly changes), random walk with
 drift, drift partially pooled across countries (empirical Bayes), AR(1) on first differences, and a damped local
 linear trend fitted by maximum likelihood with a Kalman filter. Every model produces simulated paths; the
 continuous ranked probability score (CRPS), the mean absolute error of the point forecast and the coverage of
@@ -11,8 +12,9 @@ only if its pooled CRPS beats naive persistence; otherwise naive persistence its
 Scenarios are Monte Carlo paths of the selected model with an explicit, stated shift of the yearly change.
 
 A share cell with no partner row (absent, not zero: `absent_us` / `absent_cn` from `concentration.wide`) is never an
-observation. The fitted series is a country's latest unbroken run of reported years; a country whose run is too short
-or not current is left out and listed in the status with the reason, never fitted on zeros."""
+observation, and neither is a null index value (a composite held back for a lagging source): the fitted series is a
+country's latest unbroken run of published years, so the forecast anchors on the last published composite. A country
+whose run is too short or not current is left out and listed in the status with the reason, never fitted on zeros."""
 from __future__ import annotations
 
 import numpy as np

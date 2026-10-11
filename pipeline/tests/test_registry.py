@@ -77,3 +77,48 @@ def test_mineral_tagging_uses_whole_words():
     assert tag_mineral("Puerto de La Plata, Argentina") is None
     assert tag_mineral("rare-earth separation plant") == "rare_earths"
     assert tag_mineral("San Rafael tin mine (Minsur)") == "tin"
+
+
+def test_press_api_url_is_the_feed_the_last_run_read():
+    """sources-9: api_url is the feed the adapter actually reads (one request per run, a green Monday check). An
+    outlet whose fixture records the feeds it read must list its api_url among them; entries still `uncertain`
+    (a feed set from the publisher's index or a pattern, awaiting the next run) are exempt."""
+    import json
+
+    fixtures = ROOT / "pipeline" / "tests" / "fixtures"
+    drift = []
+    for s in build_sources.load_registry():
+        if s["category"] != "press" or s["access"] != "rss" or not s.get("countries") or s["status"] != "live":
+            continue
+        manifest = fixtures / s["id"] / "manifest.json"
+        if not manifest.exists():
+            continue
+        read = json.loads(manifest.read_text(encoding="utf-8")).get("feed_urls") or []
+        if read and s.get("api_url") not in read:
+            drift.append(f"{s['id']}: api_url {s.get('api_url')} not among the feeds read {read}")
+    assert not drift, drift
+
+
+def test_rss_adapters_follow_the_registry_access_and_countries():
+    """sources-3 and sources-13: no adapter for a robots-forbidden outlet registered as html; one for the regional specialist outlet."""
+    from scm.ingest import ADAPTERS
+    from scm.registry import IN_SCOPE, sources
+
+    reg = {s["id"]: s for s in build_sources.load_registry()}
+    assert reg["sur_dwt"]["access"] == "html" and "sur_dwt" not in ADAPTERS
+    assert list(sources()["dialogue_earth"].countries) == IN_SCOPE and "dialogue_earth" in ADAPTERS
+    assert reg["dialogue_earth"]["status"] == "uncertain" and reg["dialogue_earth"].get("orientation") and reg["dialogue_earth"].get("paywall")
+
+
+def test_statuses_settled_by_the_direct_check():
+    """sources-11 and sources-1: the registry reflects the 2026-10-05 liveness check and the adapters' own reads."""
+    reg = {s["id"]: s for s in build_sources.load_registry()}
+    for sid in ("bra_anm", "sur_eiti", "idb_integra", "state_msp_forge", "imf_pcps", "bol_comibol", "col_gaceta_congreso", "sur_natural_resources"):
+        assert reg[sid]["status"] == "live" and reg[sid]["verified_method"] == "direct", sid
+    assert reg["ven_an_2015"]["status"] == "dead" and "unrelated" in reg["ven_an_2015"]["notes"]
+    assert reg["us_embassies"]["status"] == "dead" and "403" in reg["us_embassies"]["notes"]
+    assert reg["exim_authorizations"]["status"] == "live" and reg["exim_authorizations"]["url"].startswith("https://catalog.data.gov/dataset/?q=exim")
+    assert reg["per_congreso_spley"]["api_url"] == "https://wb2server.congreso.gob.pe/spley-portal-service"
+    assert reg["per_bcrp_api"]["category"] == "production"
+    assert reg["arg_infobae"]["status"] == "uncertain" and "estados-unidos" not in reg["arg_infobae"]["api_url"]
+    assert reg["col_eltiempo"]["status"] == "uncertain" and reg["col_eltiempo"]["api_url"].endswith("/rss/colombia.xml")

@@ -40,7 +40,9 @@ def test_finance_clusters_merge_only_across_sources():
 
 def test_build_and_export_end_to_end(tmp_path):
     wh = tmp_path / "wh"
-    trade = pd.DataFrame([_trade("CHL", "CHN", "CHL", 2022, 2.0e9, "reported"), _trade("CHL", "USA", "CHL", 2022, 5.0e8, "reported"), _trade("CHL", "WLD", "CHL", 2022, 4.0e9, "reported"), _trade("CHL", "CHN", "CHN", 2022, 2.1e9, "mirror")])
+    trade = pd.DataFrame([_trade("CHL", "CHN", "CHL", 2022, 2.0e9, "reported"), _trade("CHL", "USA", "CHL", 2022, 5.0e8, "reported"), _trade("CHL", "WLD", "CHL", 2022, 4.0e9, "reported"), _trade("CHL", "CHN", "CHN", 2022, 2.1e9, "mirror"),
+                          # 2021: a world total and a US row, no China partner row (absent, never 0): ROW cannot be derived
+                          _trade("CHL", "USA", "CHL", 2021, 1.0e8, "reported"), _trade("CHL", "WLD", "CHL", 2021, 1.0e9, "reported")])
     (wh / "trade_flow").mkdir(parents=True)
     schema.validate("trade_flow", trade).to_parquet(wh / "trade_flow" / "un_comtrade.parquet", index=False)
     fin = pd.DataFrame([
@@ -63,25 +65,31 @@ def test_build_and_export_end_to_end(tmp_path):
     res = export_site.run(wh, out)
     assert res["countries"] == 12
     chl = json.loads((out / "country" / "CHL.json").read_text())
-    tb = chl["actions"]["trade"][0]
-    assert tb["exports_musd"] == {"CN": 2000.0, "US": 500.0, "ROW": 1500.0} and tb["mirror_musd"]["CN"] == 2100.0
+    tb = {(b["year"], b["mineral"]): b for b in chl["actions"]["trade"]}
+    assert tb[(2022, "lithium")]["exports_musd"] == {"CN": 2000.0, "US": 500.0, "ROW": 1500.0, "WLD": 4000.0} and tb[(2022, "lithium")]["mirror_musd"]["CN"] == 2100.0
+    # the world total travels as its own cell; ROW is never derived over an absent partner row
+    assert tb[(2021, "lithium")]["exports_musd"] == {"CN": None, "US": 100.0, "ROW": None, "WLD": 1000.0} and tb[(2021, "lithium")]["value_type"] == "reported"
     ev = chl["actions"]["events"][0]
     assert ev["actor_side"] == "CN" and ev["amount_musd"] == 4070.0 and ev["source"]["sample"] is False and ev["source"]["reliability"] == "independent_academic"
     assert chl["governance"][0]["indicator"] == "CC.EST"
-    cov = json.loads((out / "coverage.json").read_text())["countries"]
-    assert cov["CHL"]["trade_years"] == [2022] and cov["ARG"]["actions"] is False
-    region = json.loads((out / "region.json").read_text())
-    assert region["mineral_shares"][0]["share_cn"] == 0.5
+    assert not (out / "coverage.json").exists(), "coverage lives in meta.json only"
     meta = json.loads((out / "meta.json").read_text())
+    cov = meta["coverage"]
+    assert cov["CHL"]["trade_years"] == [2021, 2022] and cov["ARG"]["actions"] is False
+    region = json.loads((out / "region.json").read_text())
+    shares = {(r["year"], r["mineral"]): r for r in region["mineral_shares"]}
+    assert shares[(2022, "lithium")] == {"year": 2022, "mineral": "lithium", "share_cn": 0.5, "share_us": 0.125, "share_other": 0.375, "exports_wld_musd": 4000.0, "n_reporters": 1, "n_absent_cn": 0, "n_absent_us": 0}
+    assert shares[(2021, "lithium")]["share_cn"] == 0.0 and shares[(2021, "lithium")]["n_absent_cn"] == 1 and shares[(2021, "lithium")]["n_absent_us"] == 0, "the sum over reporters says how many lack the partner row"
     assert meta["layers"]["facts"] == "real" and meta["layers"]["model_outputs"] == "sample"
     flows = json.loads((out / "flows.json").read_text())
-    assert flows["dataset"] == "REAL" and res["flows"] == {"finance_rows": 3, "trade_rows": 2}
+    assert flows["dataset"] == "REAL" and res["flows"] == {"finance_rows": 3, "trade_rows": 4}
     by = {(r["year"], r["origin"]): r for r in flows["finance"] if r["iso3"] == "CHL"}
     assert by[(2018, "CN")] == {"iso3": "CHL", "year": 2018, "origin": "CN", "amount_musd": 4070.0, "n_events": 1, "n_with_amount": 1, "n_undocumented": 0, "undocumented_musd": 0.0, "n_swap": 0, "swap_musd": 0.0, "source_ids": ["aiddata_gcdf"]}
     assert by[(2020, "CN")]["amount_musd"] == 0.0 and by[(2020, "CN")]["swap_musd"] == 1000.0 and by[(2020, "CN")]["n_swap"] == 1 and by[(2020, "CN")]["n_with_amount"] == 0
     assert by[(2021, "US")]["amount_musd"] == 0.0 and by[(2021, "US")]["undocumented_musd"] == 200.0 and by[(2021, "US")]["n_undocumented"] == 1
-    tr = {r["mineral"]: r for r in flows["trade"] if r["iso3"] == "CHL"}
-    assert tr["all"]["exports_musd"] == {"US": 500.0, "CN": 2000.0, "ROW": 1500.0} and tr["lithium"]["exports_musd"]["CN"] == 2000.0 and tr["all"]["source_id"] == "un_comtrade"
+    tr = {(r["year"], r["mineral"]): r for r in flows["trade"] if r["iso3"] == "CHL"}
+    assert tr[(2022, "all")]["exports_musd"] == {"US": 500.0, "CN": 2000.0, "ROW": 1500.0, "WLD": 4000.0} and tr[(2022, "lithium")]["exports_musd"]["CN"] == 2000.0 and tr[(2022, "all")]["source_id"] == "un_comtrade"
+    assert tr[(2021, "all")]["exports_musd"] == {"US": 100.0, "CN": None, "ROW": None, "WLD": 1000.0}, "an absent partner row leaves ROW null; the world total is still reported"
     assert flows["meta"]["last_year"]["finance_CN"] == 2020 and flows["meta"]["last_year"]["trade"] == 2022
     # the Insights file: every country present, contrasts only where inputs exist, the parity gap from the fixture trade
     ins = json.loads((out / "insights.json").read_text())
@@ -91,7 +99,7 @@ def test_build_and_export_end_to_end(tmp_path):
     gap = next(x for x in chl["contrasts"] if x["id"] == "parity_gap")
     assert gap == {"id": "parity_gap", "kind": "parity_gap", "year": 2022, "musd": 750.0, "cn_musd": 2000.0, "us_musd": 500.0, "multiple_of_us": 1.5, "us_ahead": False, "top_mineral": "lithium",
                    "top_mineral_cn_musd": 2000.0, "reachable_with_top_mineral": True, "inputs": ["flow_trade:CHL:all:2022", "flow_trade:CHL:lithium:2022"], "caveat": gap["caveat"]}
-    assert chl["finance"]["cn_2015_21"] == 4070.0 and chl["trade_series"] == [{"year": 2022, "share_cn": 0.5, "share_us": 0.125, "total_musd": 4000.0}]
+    assert chl["finance"]["cn_2015_21"] == 4070.0 and [r for r in chl["trade_series"] if r["year"] == 2022] == [{"year": 2022, "share_cn": 0.5, "share_us": 0.125, "total_musd": 4000.0}]
     assert next(c for c in ins["countries"] if c["iso3"] == "ARG")["contrasts"] == [] and ins["region"]["scales"] == {} and ins["region"]["event_echoes"] == []
     assert [f["id"] for f in ins["findings"]] == ["parity", "cannot_see"] and meta["layers"]["insights"] == "real"
 
@@ -142,11 +150,13 @@ def test_export_parliament_and_media_layers(tmp_path):
     assert a["date"] == "2026-10-01" and a["via"] == "rss" and a["also_reported_by"] == ["gdelt"] and a["outlet"].startswith("Folha") and a["orientation"]
     assert a["tone"] is None and "summary" not in a and "text" not in a
     assert media["outlets"]["bra_folha"]["orientation"]
-    cov = json.loads((out / "coverage.json").read_text())["countries"]
+    assert media["freshness"]["headlines_window"] == [], "no Media Cloud run: no cut headline list"
+    meta = json.loads((out / "meta.json").read_text())
+    cov = meta["coverage"]
     assert cov["BRA"]["parliament_available"] and cov["BRA"]["parliament_votes"] == 1 and cov["BRA"]["media_available"] and cov["BRA"]["media_from"] == 2026
     assert cov["BOL"]["parliament_available"] is False and "Asamblea" in cov["BOL"]["parliament_note"] and cov["BRA"]["parliament_note"] is None
     assert cov["URY"]["parliament_available"] is False and "catalogue" in cov["URY"]["parliament_note"]
-    meta = json.loads((out / "meta.json").read_text())
+    assert cov["ECU"]["parliament_available"] is False and "adapter ran and returned no records" in cov["ECU"]["parliament_note"]
     assert meta["layers"]["parliament"] == "facts_only" and meta["layers"]["media"] == "facts_only" and meta["tables"]["document"] == 3
     assert not (out / "parliament" / "CHL.json").exists()
 
@@ -202,7 +212,8 @@ def test_export_with_model_outputs(tmp_path):
     media = json.loads((out / "media" / "BRA.json").read_text())
     a = media["articles"][0]
     assert a["tone"] == -0.3 and a["stance_cn"] == -1 and a["classification"] == "coded" and a["headline_en"] is None
-    assert media["volume"] == [{"year": 2026, "articles_us": 0, "articles_cn": 1, "total_articles": 1, "tone_us": None, "tone_cn": -0.3}] and media["volume_basis"] == "kept_headlines"
+    assert media["volume"] == [{"year": 2026, "basis": "kept_headlines", "articles_us": 0, "articles_cn": 1, "articles_us_mediacloud": 0, "articles_cn_mediacloud": 0, "total_articles": 1, "tone_us": None, "tone_cn": -0.3}]
+    assert media["volume_basis"] == "kept_headlines"
     assert media["narratives"] == [] and "narratives" in media  # parliament topics never feed the press narratives chart
     meta = json.loads((out / "meta.json").read_text())
     assert meta["layers"]["parliament"] == "real" and meta["layers"]["media"] == "real" and meta["layers"]["model_outputs"] == "zero_shot_baseline"
@@ -216,24 +227,37 @@ def _volume(sid, country, period, total, mining, cn, us):
             **_prov(sid, rel="independent_academic"), "source_record_url": f"https://x.test/{sid}/{period}"}
 
 
-def test_media_monthly_sums_windows_and_days_per_source():
+def test_media_monthly_sums_windows_and_counts_a_feed_once_a_month():
     from scm.text.series import media_monthly
 
     mv = pd.DataFrame([
         _volume("gdelt", "BRA", "2024-03-01", 100, 10, 4, 2),  # first half-month window
         _volume("gdelt", "BRA", "2024-03-16", 50, 5, 1, 1),  # second half-month window
-        _volume("bra_folha", "BRA", "2024-03-07", 30, 3, 1, 0),  # a daily feed fetch
-        _volume("bra_folha", "BRA", "2024-03-14", 20, 2, 1, 1),
+        _volume("bra_folha", "BRA", "2024-03-07", 30, 3, 1, 0),  # a feed fetch (the same rolling list of ~30 items ...)
+        _volume("bra_folha", "BRA", "2024-03-14", 20, 2, 1, 1),  # ... fetched again a week later: never added up)
         _volume("mediacloud", "BRA", "2024-02-01", 900, 40, 12, 9),  # already monthly
         _volume("gdelt", "CHL", "2024-03-01", 7, 1, 1, 0),
     ])
     out = media_monthly(mv)
+    # windows are summed; a feed counts once, at its fullest fetch, and says how many fetches the month had
     assert out["BRA"] == [
         {"period": "2024-02", "source_id": "mediacloud", "items_total": 900, "items_mining": 40, "items_cn": 12, "items_us": 9},
-        {"period": "2024-03", "source_id": "bra_folha", "items_total": 50, "items_mining": 5, "items_cn": 2, "items_us": 1},
+        {"period": "2024-03", "source_id": "bra_folha", "items_total": 30, "items_mining": 3, "items_cn": 1, "items_us": 0, "n_fetches": 2},
         {"period": "2024-03", "source_id": "gdelt", "items_total": 150, "items_mining": 15, "items_cn": 5, "items_us": 3},
     ]
     assert out["CHL"] == [{"period": "2024-03", "source_id": "gdelt", "items_total": 7, "items_mining": 1, "items_cn": 1, "items_us": 0}]
+    # with the document rows, a feed's mining / China / US counts are its distinct kept headlines dated in the month
+    news = pd.DataFrame([
+        {"source_id": "bra_folha", "country": "BRA", "date": "2024-03-05", "mining_related": True, "mentions_cn": True, "mentions_us": False},
+        {"source_id": "bra_folha", "country": "BRA", "date": "2024-03-12", "mining_related": True, "mentions_cn": False, "mentions_us": True},
+        {"source_id": "bra_folha", "country": "BRA", "date": "2024-03-13", "mining_related": False, "mentions_cn": True, "mentions_us": True},
+        {"source_id": "bra_folha", "country": "BRA", "date": "2024-02-28", "mining_related": True, "mentions_cn": True, "mentions_us": False},  # another month
+        {"source_id": "gdelt", "country": "BRA", "date": "2024-03-05", "mining_related": True, "mentions_cn": True, "mentions_us": False},  # a window source: untouched
+    ])
+    out = media_monthly(mv, news)
+    folha = next(r for r in out["BRA"] if r["source_id"] == "bra_folha")
+    assert folha == {"period": "2024-03", "source_id": "bra_folha", "items_total": 30, "items_mining": 2, "items_cn": 2, "items_us": 2, "n_fetches": 2}
+    assert next(r for r in out["BRA"] if r["source_id"] == "gdelt")["items_mining"] == 15
     assert media_monthly(None) == {} and media_monthly(pd.DataFrame()) == {}
 
 
@@ -242,13 +266,33 @@ def test_media_series_totals_leave_the_media_cloud_collection_out():
 
     docs = pd.DataFrame([{"doc_id": "d1", "country": "BRA", "year": 2024, "doc_type": "news", "mentions_us": False, "mentions_cn": True},
                          {"doc_id": "d2", "country": "BRA", "year": 2012, "doc_type": "news", "mentions_us": True, "mentions_cn": False}])
-    mv = pd.DataFrame([_volume("gdelt", "BRA", "2024-03-01", 100, 10, 4, 2), _volume("bra_folha", "BRA", "2024-03-07", 30, 3, 1, 0),
+    mv = pd.DataFrame([_volume("gdelt", "BRA", "2024-03-01", 100, 10, 4, 2), _volume("bra_folha", "BRA", "2024-03-07", 30, 3, 1, 0), _volume("bra_folha", "BRA", "2024-03-14", 20, 2, 1, 0),
                        _volume("mediacloud", "BRA", "2024-03-01", 60000, 40, 12, 9), _volume("mediacloud", "BRA", "2012-05-01", 50000, 30, 5, 8)])
     out, basis = media_series(docs, pd.DataFrame(), mv)
     assert basis == "feed_totals"
     by_year = {r["year"]: r for r in out["BRA"]}
-    assert by_year[2024]["total_articles"] == 130, "the feed and GDELT totals, never the whole Media Cloud collection"
-    assert by_year[2012]["total_articles"] == 1, "a year with Media Cloud counts only falls back to the kept headlines"
+    assert by_year[2024]["total_articles"] == 130 and by_year[2024]["basis"] == "feed_totals", "the feed (once a month) and GDELT totals, never the whole Media Cloud collection"
+    assert by_year[2012]["total_articles"] == 1 and by_year[2012]["basis"] == "kept_headlines", "a year with Media Cloud counts only falls back to the kept headlines"
+    # without a source_id column every kept headline is counted (the fixtures of the text tests have none)
+    assert by_year[2024]["articles_cn"] == 1 and by_year[2024]["articles_cn_mediacloud"] == 0
+
+
+def test_media_series_keeps_media_cloud_headlines_out_of_a_feed_denominator():
+    from scm.text.series import media_series
+
+    docs = pd.DataFrame([
+        {"doc_id": "d1", "country": "BRA", "year": 2024, "doc_type": "news", "mentions_us": False, "mentions_cn": True, "source_id": "bra_folha"},
+        {"doc_id": "d2", "country": "BRA", "year": 2024, "doc_type": "news", "mentions_us": True, "mentions_cn": True, "source_id": "mediacloud"},
+        {"doc_id": "d3", "country": "BRA", "year": 2024, "doc_type": "news", "mentions_us": True, "mentions_cn": False, "source_id": "mediacloud"},
+        {"doc_id": "d4", "country": "BRA", "year": 2012, "doc_type": "news", "mentions_us": True, "mentions_cn": False, "source_id": "mediacloud"},
+    ])
+    mv = pd.DataFrame([_volume("gdelt", "BRA", "2024-03-01", 100, 10, 4, 2), _volume("mediacloud", "BRA", "2024-03-01", 60000, 40, 12, 9), _volume("mediacloud", "BRA", "2012-05-01", 50000, 30, 5, 8)])
+    out, _ = media_series(docs, pd.DataFrame(), mv)
+    by_year = {r["year"]: r for r in out["BRA"]}
+    # 2024 has a GDELT denominator: the numerator counts the feed/GDELT headlines only; the Media Cloud ones are reported apart, not dropped
+    assert by_year[2024] == {"year": 2024, "basis": "feed_totals", "articles_us": 0, "articles_cn": 1, "articles_us_mediacloud": 2, "articles_cn_mediacloud": 1, "total_articles": 100, "tone_us": None, "tone_cn": None}
+    # 2012 has no feed/GDELT total: the kept headlines are the denominator, so every headline counts
+    assert by_year[2012] == {"year": 2012, "basis": "kept_headlines", "articles_us": 1, "articles_cn": 0, "articles_us_mediacloud": 1, "articles_cn_mediacloud": 0, "total_articles": 1, "tone_us": None, "tone_cn": None}
 
 
 def test_article_cap_keeps_the_newest_per_source_evenly():
@@ -273,31 +317,145 @@ def test_media_file_carries_history_without_coding(tmp_path):
     docs = pd.DataFrame([_doc("BRA", "news", "2026-10-02", "China amplia compras de nióbio", "gdelt", "https://www1.folha.uol.com.br/x.shtml", prec="seen", outlet="bra_folha", minerals="niobium", cn=True)])
     (wh / "document").mkdir(parents=True)
     schema.validate("document", docs).to_parquet(wh / "document" / "gdelt.parquet", index=False)
+    # the feed's own kept headlines: two in October (one seen at both of the month's fetches is one row), one dated September
+    folha = pd.DataFrame([_doc("BRA", "news", "2026-10-05", "Lítio: acordo com os Estados Unidos", "bra_folha", "https://www1.folha.uol.com.br/a.shtml", outlet="bra_folha", minerals="lithium", us=True),
+                          _doc("BRA", "news", "2026-10-09", "Mineração de nióbio e a China", "bra_folha", "https://www1.folha.uol.com.br/b.shtml", outlet="bra_folha", minerals="niobium", cn=True),
+                          _doc("BRA", "news", "2026-09-28", "Cobre: exportações à China", "bra_folha", "https://www1.folha.uol.com.br/c.shtml", outlet="bra_folha", minerals="copper", cn=True)])
+    schema.validate("document", folha).to_parquet(wh / "document" / "bra_folha.parquet", index=False)
     mv = pd.DataFrame([_volume("gdelt", "BRA", "2026-09-16", 40, 4, 1, 0), _volume("gdelt", "BRA", "2026-10-01", 60, 6, 2, 1),
-                       _volume("bra_folha", "BRA", "2026-10-03", 25, 2, 1, 0), _volume("mediacloud", "BRA", "2012-05-01", 500, 30, 5, 8),
-                       _volume("mediacloud", "CHL", "2011-01-01", 300, 9, 2, 1)])
+                       _volume("bra_folha", "BRA", "2026-10-03", 25, 2, 1, 0), _volume("bra_folha", "BRA", "2026-10-10", 20, 3, 2, 1),  # two fetches of the feed in October
+                       _volume("mediacloud", "BRA", "2012-05-01", 500, 30, 5, 8), _volume("mediacloud", "CHL", "2011-01-01", 300, 9, 2, 1)])
     (wh / "media_volume").mkdir()
     schema.validate("media_volume", mv).to_parquet(wh / "media_volume" / "x.parquet", index=False)
     (wh / "ingest_run").mkdir()
-    schema.validate("ingest_run", pd.DataFrame([{"run_id": "r", "source_id": "gdelt", "started_at": "t", "finished_at": "t", "status": "ok", "rows": "{}", "error": None, "snapshot_dir": None}])).to_parquet(wh / "ingest_run" / "x.parquet", index=False)
+    # the Media Cloud run record carries the story-list windows: Brazil's 2026 list was cut at the cap, Chile's 2011 was not
+    windows = {"BRA/2026": {"from": "2026-09-14", "to": "2026-10-10", "kept": 2000, "matched": 13809, "truncated": True},
+               "CHL/2011": {"from": "2011-01-02", "to": "2011-12-30", "kept": 700, "matched": 700, "truncated": False}}
+    older = {"BRA/2026": {"from": "2026-01-01", "to": "2026-01-09", "kept": 2000, "matched": 169451, "truncated": True}}  # an earlier run of the same year: superseded
+    schema.validate("ingest_run", pd.DataFrame([
+        {"run_id": "r", "source_id": "gdelt", "started_at": "t", "finished_at": "t", "status": "ok", "rows": "{}", "error": None, "snapshot_dir": None},
+        {"run_id": "m1", "source_id": "mediacloud", "started_at": "2026-10-04", "finished_at": "2026-10-04", "status": "ok", "rows": json.dumps({"document": 30, "headlines_window": older}), "error": None, "snapshot_dir": None},
+        {"run_id": "m2", "source_id": "mediacloud", "started_at": "2026-10-11", "finished_at": "2026-10-11", "status": "ok", "rows": json.dumps({"document": 33, "headlines_window": windows}), "error": None, "snapshot_dir": None},
+    ])).to_parquet(wh / "ingest_run" / "x.parquet", index=False)
 
     warehouse.build(wh)
     out = tmp_path / "site"
     export_site.run(wh, out)
     media = json.loads((out / "media" / "BRA.json").read_text())
     assert "narratives" not in media and "text_model" not in media, "model outputs stay absent until something is coded"
+    # the feed's month: its fullest fetch (25 items), two fetches, and its distinct kept headlines dated in the month (2, one naming each actor)
     assert media["history"] == [
         {"period": "2012-05", "source_id": "mediacloud", "items_total": 500, "items_mining": 30, "items_cn": 5, "items_us": 8},
         {"period": "2026-09", "source_id": "gdelt", "items_total": 40, "items_mining": 4, "items_cn": 1, "items_us": 0},
-        {"period": "2026-10", "source_id": "bra_folha", "items_total": 25, "items_mining": 2, "items_cn": 1, "items_us": 0},
+        {"period": "2026-10", "source_id": "bra_folha", "items_total": 25, "items_mining": 2, "items_cn": 1, "items_us": 1, "n_fetches": 2},
         {"period": "2026-10", "source_id": "gdelt", "items_total": 60, "items_mining": 6, "items_cn": 2, "items_us": 1},
     ]
     assert media["media_sources"] == ["bra_folha", "gdelt", "mediacloud"] and media["history_from"] == "2012-05"
-    assert media["volume"] == [{"year": 2026, "articles_us": 0, "articles_cn": 1, "total_articles": 125, "tone_us": None, "tone_cn": None}] and media["volume_basis"] == "feed_totals"
+    assert media["volume"] == [{"year": 2026, "basis": "feed_totals", "articles_us": 1, "articles_cn": 3, "articles_us_mediacloud": 0, "articles_cn_mediacloud": 0, "total_articles": 125, "tone_us": None, "tone_cn": None}]
+    assert media["volume_basis"] == "feed_totals"
+    assert media["freshness"]["headlines_window"] == [{"source_id": "mediacloud", "year": 2026, "from": "2026-09-14", "to": "2026-10-10", "kept": 2000, "matched": 13809}], "the newest run's window of the cut year"
     # Media Cloud counts alone (no kept headline yet) still give the country a media file and a history
     chl = json.loads((out / "media" / "CHL.json").read_text())
     assert chl["articles"] == [] and chl["history"][0]["source_id"] == "mediacloud" and chl["volume"] == [] and chl["history_from"] == "2011-01"
+    assert chl["freshness"]["headlines_window"] == [], "a list that was not cut has no window"
     cov = json.loads((out / "meta.json").read_text())["coverage"]
     assert cov["BRA"]["media_sources"] == ["bra_folha", "gdelt", "mediacloud"] and cov["BRA"]["media_history_from"] == "2012-05"
     assert cov["CHL"]["media_available"] and cov["CHL"]["media_articles"] == 0 and cov["CHL"]["media_from"] is None
     assert cov["ARG"]["media_available"] is False and cov["ARG"]["media_sources"] == [] and cov["ARG"]["media_history_from"] is None
+
+
+def test_export_cells_never_derive_row_over_an_absent_partner():
+    assert export_site.export_cells(5.0e8, 2.0e9, 4.0e9) == {"US": 500.0, "CN": 2000.0, "ROW": 1500.0, "WLD": 4000.0}
+    assert export_site.export_cells(5.0e8, None, 4.0e9) == {"US": 500.0, "CN": None, "ROW": None, "WLD": 4000.0}
+    assert export_site.export_cells(None, None, 4.0e9) == {"US": None, "CN": None, "ROW": None, "WLD": 4000.0}
+    assert export_site.export_cells(5.0e8, 2.0e9, None) == {"US": 500.0, "CN": 2000.0, "ROW": None, "WLD": None}
+    # six decimals: a US$367 flow is 0.000367 m, never a reported 0.0
+    assert export_site.export_cells(367.0, 0.0, 191000.0) == {"US": 0.000367, "CN": 0.0, "ROW": 0.190633, "WLD": 0.191}
+    rows = export_site.build_flows([], [_trade("PRY", "WLD", "PRY", 2025, 65_400.0, "reported"), _trade("PRY", "USA", "PRY", 2025, 420.0, "reported")], ["lithium"], {}, "2026-10-11")["trade"]
+    assert {(r["year"], r["mineral"]): r["exports_musd"] for r in rows} == {(2025, "all"): {"US": 0.00042, "CN": None, "ROW": None, "WLD": 0.0654}, (2025, "lithium"): {"US": 0.00042, "CN": None, "ROW": None, "WLD": 0.0654}}
+
+
+def test_region_mineral_shares_count_the_reporters_without_a_partner_row():
+    trade = [_trade("CHL", "WLD", "CHL", 2000, 8.0e8, "reported"), _trade("CHL", "CHN", "CHL", 2000, 1.0e8, "reported"), _trade("CHL", "USA", "CHL", 2000, 2.0e8, "reported"),
+             _trade("ARG", "WLD", "ARG", 2000, 2.0e8, "reported"), _trade("ARG", "USA", "ARG", 2000, 5.0e7, "reported"),  # no China row
+             _trade("BOL", "WLD", "BOL", 2000, 1.0e8, "reported"),  # neither partner
+             _trade("CHL", "CHN", "CHN", 2000, 1.2e8, "mirror")]  # mirrors never enter the reporters' sum
+    rows = export_site.region_mineral_shares(trade, ["lithium"])
+    assert rows == [{"year": 2000, "mineral": "lithium", "share_cn": round(1.0e8 / 1.1e9, 4), "share_us": round(2.5e8 / 1.1e9, 4), "share_other": round(1 - 1.0e8 / 1.1e9 - 2.5e8 / 1.1e9, 4),
+                     "exports_wld_musd": 1100.0, "n_reporters": 3, "n_absent_cn": 2, "n_absent_us": 1}]
+    assert export_site.region_mineral_shares(trade, ["copper"]) == []
+
+
+def _idx(country, year, actor, name, value, mineral="all", comps="trade_export_share,trade_import_share,finance_flow,diplomatic_alignment", n=4, lower=None, upper=None):
+    return {"country": country, "year": year, "actor": actor, "mineral": mineral, "index_name": name, "value": value, "lower": lower, "upper": upper, "n_components": n, "components_available": comps}
+
+
+def _comp(country, year, actor, name, norm, available=True):
+    return {"country": country, "year": year, "actor": actor, "mineral": "all", "component": name, "normalized_value": norm, "available": available}
+
+
+def test_index_rows_name_the_index_and_the_component_carrying_the_lean():
+    idx = [_idx("CHL", 2000, "CN", "influence", 24.77, lower=16.22, upper=56.98), _idx("CHL", 2000, "US", "influence", 11.91, lower=9.12, upper=53.38),
+           _idx("CHL", 2000, "CN", "economic_ties", 3.04, comps="trade_export_share,trade_import_share,finance_flow", n=3), _idx("CHL", 2000, "US", "economic_ties", 4.66, comps="trade_export_share,trade_import_share,finance_flow", n=3),
+           _idx("CHL", 2000, "CN", "political_alignment", 89.95, comps="diplomatic_alignment", n=1), _idx("CHL", 2000, "US", "political_alignment", 33.66, comps="diplomatic_alignment", n=1),
+           _idx("CHL", 2000, "CN", "influence", 30.0, mineral="copper"), _idx("CHL", 2000, "CN", "economic_ties", 5.0, mineral="copper", n=3),  # a per-mineral sub-index stays in the country file
+           _idx("CHL", 2001, "CN", "influence", None, n=2), _idx("ARG", 2000, "CN", "influence", 21.75)]  # a cell without a value has no row
+    comps = [_comp("CHL", 2000, "CN", "trade_export_share", 8.21), _comp("CHL", 2000, "US", "trade_export_share", 0.91),
+             _comp("CHL", 2000, "CN", "trade_import_share", 8.96), _comp("CHL", 2000, "US", "trade_import_share", 5.01),
+             _comp("CHL", 2000, "CN", "finance_flow", 0.0), _comp("CHL", 2000, "US", "finance_flow", 0.0),
+             _comp("CHL", 2000, "CN", "debt_stock", 40.0), _comp("CHL", 2000, "US", "debt_stock", None, available=False),  # one actor only: never the lead
+             _comp("CHL", 2000, "CN", "diplomatic_alignment", 89.95), _comp("CHL", 2000, "US", "diplomatic_alignment", 33.66),
+             _comp("ARG", 2000, "CN", "diplomatic_alignment", 86.43)]  # no shared component: lead null
+    rows = export_site._index_rows(idx, comps)
+    by = {(r["iso3"], r["year"], r["actor"], r["index"], r["mineral"]): r for r in rows}
+    assert len(rows) == 8 and {r["index"] for r in rows} == {"composite", "economic_ties", "political_alignment"}
+    cn = by[("CHL", 2000, "CN", "composite", "all")]
+    assert cn == {"iso3": "CHL", "year": 2000, "actor": "CN", "mineral": "all", "value": 24.77, "lower": 16.22, "upper": 56.98, "n_components": 4, "index": "composite",
+                  "components_available": ["trade_export_share", "trade_import_share", "finance_flow", "diplomatic_alignment"],
+                  "lead": "diplomatic_alignment", "lead_gap": 56.29, "lead_cn": 89.95, "lead_us": 33.66}
+    us = by[("CHL", 2000, "US", "composite", "all")]
+    assert (us["lead"], us["lead_gap"], us["lead_cn"], us["lead_us"]) == ("diplomatic_alignment", 56.29, 89.95, 33.66), "the same lead on both actors' rows"
+    pol = by[("CHL", 2000, "CN", "political_alignment", "all")]
+    assert pol["value"] == 89.95 and pol["lower"] is None and pol["n_components"] == 1 and pol["components_available"] == ["diplomatic_alignment"] and "lead" not in pol
+    assert by[("CHL", 2000, "CN", "economic_ties", "all")]["components_available"] == ["trade_export_share", "trade_import_share", "finance_flow"]
+    assert "lead" not in by[("CHL", 2000, "CN", "composite", "copper")] and ("CHL", 2000, "CN", "economic_ties", "copper") not in by
+    arg = by[("ARG", 2000, "CN", "composite", "all")]
+    assert arg["lead"] is None and arg["lead_gap"] is None and arg["lead_cn"] is None and arg["lead_us"] is None
+    assert ("CHL", 2001, "CN", "composite", "all") not in by
+
+
+def test_forecast_block_carries_the_skip_reason_of_a_target():
+    fc = [{"country": "ARG", "target": "influence_index", "actor": "CN", "horizon_year": 2030, "last_observed_year": 2024, "model": "naive", "scenario_id": "baseline", "point": 50.0, "p05": 40.0, "p25": 45.0, "p75": 55.0, "p95": 60.0}]
+    reason = "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 7 years with no partner row left out (absent, not zero)"
+    status = {"forecast": {"targets": {"influence_index:CN": {"countries": ["ARG", "CHL"], "model": "naive"},
+                                       "export_share:CN": {"countries": ["CHL"], "model": "pooled_drift", "skipped": {"ARG": reason}},
+                                       "export_share:US": {"countries": ["CHL"], "model": "naive", "skipped": {}}}}}
+    block = export_site._forecast_block("ARG", fc, status)
+    assert set(block["model_status"]) == {"influence_index:CN", "export_share:CN"}
+    assert block["model_status"]["export_share:CN"] == {"countries": [], "model": None, "skipped": reason}
+    assert block["model_status"]["influence_index:CN"]["model"] == "naive" and "skipped" not in block["model_status"]["influence_index:CN"]
+    assert export_site._forecast_block("VEN", fc, status) is None, "no forecast rows: no block (the layer stays absent, not an empty one)"
+
+
+def test_brief_data_release_reads_the_front_matter(tmp_path):
+    (tmp_path / "CHL.md").write_text("---\ntitle: Chile\ndrafted_by: ai\ndata_release: data-v2026.10.11.61\n---\n\nText.\n", encoding="utf-8")
+    (tmp_path / "ARG.md").write_text("---\ntitle: Argentina\n---\n\nText.\n", encoding="utf-8")
+    (tmp_path / "regional.md").write_text("No front matter.\n", encoding="utf-8")
+    assert export_site.brief_data_release("country", "CHL", tmp_path) == "data-v2026.10.11.61"
+    assert export_site.brief_data_release("country", "ARG", tmp_path) is None and export_site.brief_data_release("regional", None, tmp_path) is None
+    assert export_site.brief_data_release("country", "BOL", tmp_path) is None
+    rows = [{"scope": "country", "country": "CHL", "section": "human", "position": 99, "title": "Chile", "text_md": "Text.", "sentences_json": "[]", "supporting_indicator_ids": "",
+             "template_version": "1", "model": "human", "author": "x", "reviewed_by_human": False, "changed_since_previous": False, "previous_date": None, "generated_on": "2026-10-09", "drafted_by": "ai"}]
+    human = export_site._interpretation_block([{**rows[0], "data_release": "data-v2026.10.12.1"}], "country", "CHL")["human"]
+    assert human["data_release"] == "data-v2026.10.12.1" and human["drafted_by"] == "ai", "the table's column wins when it exists"
+
+
+def test_headline_windows_keep_the_newest_cut_per_country_year():
+    runs = [{"rows": json.dumps({"document": 1, "headlines_window": {"ARG/2026": {"from": "2026-09-14", "to": "2026-10-11", "kept": 2000, "matched": 13809, "truncated": True},
+                                                                       "BOL/2026": {"from": "2026-01-19", "to": "2026-08-08", "kept": 70, "matched": 70, "truncated": False}}})},
+            {"rows": json.dumps({"document": 1, "headlines_window": {"ARG/2026": {"from": "2026-01-01", "to": "2026-01-09", "kept": 2000, "matched": 169451, "truncated": True},
+                                                                       "ARG/2025": {"from": "2025-11-20", "to": "2025-12-31", "kept": 2000, "matched": 150000, "truncated": True}}})},
+            {"rows": "{}"}, {"rows": None}, {"rows": "not json"}]
+    assert export_site.headline_windows(runs) == {"ARG": [{"source_id": "mediacloud", "year": 2025, "from": "2025-11-20", "to": "2025-12-31", "kept": 2000, "matched": 150000},
+                                                          {"source_id": "mediacloud", "year": 2026, "from": "2026-09-14", "to": "2026-10-11", "kept": 2000, "matched": 13809}]}
+    assert export_site.headline_windows([]) == {}

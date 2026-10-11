@@ -22,6 +22,29 @@ log = logging.getLogger("scm")
 class AdapterTimeout(RuntimeError):
     """Raised inside an adapter when its wall-clock budget runs out (see scm.__main__.with_budget)."""
 
+
+# Rows an earlier run stored under the wrong feed, keyed by source id: when an incremental adapter merges its
+# new rows with the previous release's rows, any row whose `source_record_url` contains one of the listed
+# substrings is dropped (the keep-first merge would otherwise preserve it for ever). Each entry says why.
+#   arg_infobae: the US runner is geo-redirected to Infobae's US edition and, until 2026-10-11, the only
+#   feed declared on that page (/arc/outboundfeeds/rss/category/estados-unidos/) was read as Argentine news.
+PURGE_RECORD_URL_SUBSTRINGS: dict[str, list[str]] = {
+    "arg_infobae": ["/category/estados-unidos/"],
+}
+
+
+def purge_rows(source_id: str, df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
+    """Drop the rows PURGE_RECORD_URL_SUBSTRINGS lists for this source; returns (frame, rows dropped)."""
+    needles = PURGE_RECORD_URL_SUBSTRINGS.get(source_id)
+    if not needles or "source_record_url" not in df.columns or df.empty:
+        return df, 0
+    urls = df["source_record_url"].astype("string").fillna("")
+    bad = pd.Series(False, index=df.index)
+    for n in needles:
+        bad |= urls.str.contains(n, regex=False).fillna(False).astype(bool)
+    return df[~bad].reset_index(drop=True), int(bad.sum())
+
+
 class Adapter(ABC):
     """One adapter per registry source.
 
@@ -103,15 +126,20 @@ class Adapter(ABC):
                 log.warning("%s -> %s: no rows parsed, the %d stored rows are kept", self.source_id, target, rows[name])
                 continue
             new_rows = len(df)
+            purged = 0
             if self.incremental and target.exists() and name in schema.KEY_COLUMNS:
                 old = pd.read_parquet(target)
                 merged = pd.concat([old, df], ignore_index=True).drop_duplicates(subset=schema.KEY_COLUMNS[name], keep="first")
+                merged, purged = purge_rows(self.source_id, merged)
                 df = schema.validate(name, merged.reset_index(drop=True))
                 new_rows = len(df) - len(old)
             df.to_parquet(target, index=False)
             rows[name] = len(df)
             if self.incremental:
                 rows[f"{name}_new"] = new_rows
+            if purged:
+                rows[f"{name}_purged"] = purged
+                log.warning("%s -> %s: %d stored rows dropped (PURGE_RECORD_URL_SUBSTRINGS)", self.source_id, target, purged)
             log.info("%s -> %s (%d rows)", self.source_id, target, len(df))
         return rows
 

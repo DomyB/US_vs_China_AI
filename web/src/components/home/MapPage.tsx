@@ -9,11 +9,12 @@ import { divergingScale, sequentialScale } from "@/components/map/scales";
 import type { FitTarget, Padding } from "@/components/map/SouthAmericaMap";
 import { CountryPanel, type TabId } from "@/components/panel/CountryPanel";
 import { ACTOR_ANCHOR, IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
-import { buildIndexLookup, loadFlows, loadIndex, loadMeta, loadRealMeta, mapValue } from "@/lib/data";
+import { buildIndexLookup, indexKey, loadFlows, loadIndex, loadMeta, loadRealMeta, mapValue } from "@/lib/data";
 import { fmtSigned } from "@/lib/format";
+import { INDEX_PHRASE, carriedBy, defaultIndexYear, hasSubIndices, leadLookup, leadSummary, missingIndexNote, noIndexReason, parseIndexName, rowsForIndex, type IndexName } from "@/lib/indexView";
 import { useTheme } from "@/lib/theme";
 import { useMediaQuery } from "@/lib/useMediaQuery";
-import type { ActorMode, FlowsFile, IndexFile, Meta, RealMeta } from "@/lib/types";
+import type { Actor, ActorMode, FlowsFile, IndexFile, Meta, RealMeta } from "@/lib/types";
 import { Compare } from "./Compare";
 import { ControlDock } from "./ControlDock";
 import { Drawer } from "./Drawer";
@@ -36,6 +37,8 @@ const VIEWS: FlowView[] = ["index", "money", "trade"];
 const SPANS: FlowSpan[] = ["1", "3", "all"];
 const DRAWER_WIDTH = 600;
 const SHEET_COLLAPSED = 300;
+/** The year shown before the index file has said which year most countries are last indexed in (`defaultIndexYear`). */
+const FALLBACK_YEAR = 2024;
 /** World view for the arcs: Beijing on the neighbouring world copy (116.4 − 360), Washington and the continent. */
 const FLOW_BOUNDS: [[number, number], [number, number]] = [[-262, -58], [-30, 60]];
 
@@ -44,14 +47,16 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   const pathname = usePathname();
   const params = useSearchParams();
 
-  const year = clampYear(Number(params.get("year")) || 2024);
   const mode = (["US", "CN", "both"].includes(params.get("actor") ?? "") ? params.get("actor") : "both") as ActorMode;
   const mineral = params.get("mineral") ?? "all";
   const country = IN_SCOPE.includes(params.get("country") ?? "") ? params.get("country") : null;
-  const tabParam = params.get("tab") ?? "actions";
+  // `politics` is the tab's visible name; `parliament` its id in the URL (the tour and the chapter links use it)
+  const rawTab = params.get("tab");
+  const tabParam = rawTab === "politics" ? "parliament" : rawTab ?? "actions";
   const tab = (TABS.includes(tabParam as TabId) ? tabParam : "actions") as TabId;
   const view = (VIEWS.includes(params.get("view") as FlowView) ? params.get("view") : "index") as FlowView;
   const span = (SPANS.includes(params.get("span") as FlowSpan) ? params.get("span") : "1") as FlowSpan;
+  const indexParam = parseIndexName(params.get("index"));
   const compare = useMemo(() => (params.get("compare") ?? "").split(",").filter((c, i, arr) => IN_SCOPE.includes(c) && arr.indexOf(c) === i).slice(0, 4), [params]);
   const selection = useMemo(() => (compare.length ? compare : country ? [country] : []), [compare, country]);
 
@@ -86,6 +91,15 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   useEffect(() => {
     if (!lg || view !== "index" || selection.length > 0) setIntroOpen(false);
   }, [lg, view, selection.length]);
+
+  // the index rows: the composite everywhere, the sub-indices (contract: `index` on each row) only when the file has them
+  const subIndices = useMemo(() => (index ? hasSubIndices(index.rows) : false), [index]);
+  const indexName: IndexName = subIndices ? indexParam : "composite";
+  const compositeRows = useMemo(() => (index ? rowsForIndex(index.rows, "composite") : []), [index]);
+  const indexRows = useMemo(() => (index ? (indexName === "composite" ? compositeRows : rowsForIndex(index.rows, indexName)) : []), [index, indexName, compositeRows]);
+  const defaultYear = useMemo(() => defaultIndexYear(compositeRows, FALLBACK_YEAR), [compositeRows]);
+  const lastYear = index?.quant_model?.last_year ?? null;
+  const year = clampYear(Number(params.get("year")) || defaultYear, defaultYear);
 
   /** One URL update per interaction, built from the live location so two updates in one tick do not lose each other. */
   const setParams = useCallback(
@@ -129,7 +143,8 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
     [compare, setParams],
   );
 
-  const lookup = useMemo(() => (index ? buildIndexLookup(index.rows) : null), [index]);
+  const lookup = useMemo(() => (index ? buildIndexLookup(indexRows) : null), [index, indexRows]);
+  const leads = useMemo(() => leadLookup(compositeRows), [compositeRows]);
   const values = useMemo(() => {
     const v: Record<string, number | null> = {};
     for (const iso of IN_SCOPE) v[iso] = lookup ? mapValue(lookup, iso, year, mode, mineral) : null;
@@ -148,12 +163,21 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   const indexLayer = index?.layer ?? "sample";
   const describeValue = useCallback(
     (iso3: string, v: number | null) => {
-      if (v === null) return indexLayer === "real" ? "no index (no trade in the selected mineral, or fewer than three components)" : "no data";
-      const tag = indexLayer === "real" ? "computed" : "sample";
-      if (mode === "both") return `net lean ${fmtSigned(v, 0)} (${v > 0 ? "China-leaning" : v < 0 ? "US-leaning" : "balanced"}) · ${tag}`;
-      return `${mode === "US" ? "US" : "China"} influence index ${v.toFixed(0)} / 100 · ${tag}`;
+      if (indexLayer !== "real") {
+        if (v === null) return "no data";
+        return mode === "both" ? `net lean ${fmtSigned(v, 0)} (${v > 0 ? "China-leaning" : v < 0 ? "US-leaning" : "balanced"}) · sample` : `${mode === "US" ? "US" : "China"} influence index ${v.toFixed(0)} / 100 · sample`;
+      }
+      if (v === null) {
+        const missing = (["US", "CN"] as Actor[]).filter((a) => (mode === "both" || a === mode) && !lookup?.has(indexKey(iso3, year, a, mineral)));
+        return noIndexReason({ year, mineral, indexName, missing, lastYear, defaultYear });
+      }
+      if (mode === "both") {
+        const lead = indexName === "composite" && mineral === "all" ? carriedBy(leads.get(`${iso3}|${year}`)) : null;
+        return `net lean ${fmtSigned(v, 0)} (${v > 0 ? "China-leaning" : v < 0 ? "US-leaning" : "balanced"}) · ${INDEX_PHRASE[indexName]}, China minus US${lead ? ` · ${lead}` : ""} · computed`;
+      }
+      return `${mode === "US" ? "US" : "China"} ${INDEX_PHRASE[indexName]} ${v.toFixed(0)} / 100 · computed`;
     },
-    [mode, indexLayer],
+    [mode, indexLayer, lookup, year, mineral, indexName, lastYear, defaultYear, leads],
   );
 
   const names = useMemo(() => Object.fromEntries((meta?.countries ?? []).map((c) => [c.iso3, c.name])), [meta]);
@@ -165,6 +189,14 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
         .sort((a, b) => b.v - a.v),
     [names, values],
   );
+  // the ranking's note on the countries without an index in the year, with the reason the data gives
+  const indexNote = useMemo(() => {
+    if (indexLayer !== "real" || !lookup) return null;
+    const missingAny = IN_SCOPE.filter((iso) => values[iso] === null).length;
+    const missingFor = (a: Actor) => (mode === "both" || mode === a ? IN_SCOPE.filter((iso) => !lookup.has(indexKey(iso, year, a, mineral))).length : 0);
+    return missingIndexNote({ year, mineral, indexName, missingAny, missingCN: missingFor("CN"), missingUS: missingFor("US"), lastYear, defaultYear });
+  }, [indexLayer, lookup, values, mode, year, mineral, indexName, lastYear, defaultYear]);
+  const leadLine = useMemo(() => (index && indexLayer === "real" && mode === "both" && mineral === "all" ? leadSummary(index.rows, year) : null), [index, indexLayer, mode, mineral, year]);
   const aggs = useMemo(() => (flows ? aggregateFlows(flows.data, view, year, span, mineral) : []), [flows, view, year, span, mineral]);
   const selectionSet = useMemo(() => new Set(selection), [selection]);
   const flowsGeo = useMemo(() => (view === "index" || !meta ? null : flowsToGeoJSON(aggs, view, centroids, ACTOR_ANCHOR, selectionSet, names, sourceNames)), [view, meta, aggs, centroids, selectionSet, names, sourceNames]);
@@ -174,11 +206,11 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
 
   const drawerLabel = selection.length >= 2 ? `Compare ${selection.length} countries` : compareMode ? "Compare" : country ? names[country] ?? country : "Overview";
   const content = !meta ? null : selection.length >= 2 ? (
-    <Compare isos={selection} names={names} index={index} flows={flows?.data ?? null} flowsLayer={flows?.layer ?? null} real={real} mineral={mineral} year={year} onRemove={(iso) => selectCountry(iso, true)} onClear={() => selectCountry(null)} onHover={setHover} />
+    <Compare isos={selection} names={names} indexRows={indexRows} indexLayer={index?.layer ?? null} indexName={indexName} flows={flows?.data ?? null} flowsLayer={flows?.layer ?? null} real={real} mineral={mineral} year={year} onRemove={(iso) => selectCountry(iso, true)} onAdd={(iso) => selectCountry(iso, true)} onClear={() => selectCountry(null)} onHover={setHover} />
   ) : country && index && !compareMode ? (
-    <CountryPanel iso3={country} year={year} mineral={mineral} meta={meta} indexRows={index.rows} indexLayer={index.layer} tab={tab} onTab={(t) => setParams({ tab: t })} onClose={() => selectCountry(null)} sourceNames={sourceNames} />
+    <CountryPanel iso3={country} year={year} mineral={mineral} meta={meta} indexRows={compositeRows} indexLayer={index.layer} tab={tab} onTab={(t) => setParams({ tab: t })} onClose={() => selectCountry(null)} sourceNames={sourceNames} />
   ) : (
-    <Overview meta={meta} real={real} indexLayer={indexLayer} year={year} mode={mode} mineral={mineral} ranked={ranked} onSelect={selectCountry} onHover={setHover} hover={hover} view={view} aggs={aggs} flowsLastYear={flows?.data.meta.last_year ?? null} window={spanYears(year, span)} sourceNames={sourceNames} compareMode={compareMode} selection={selection} />
+    <Overview meta={meta} real={real} indexLayer={indexLayer} year={year} mode={mode} mineral={mineral} indexName={indexName} ranked={ranked} leads={leads} leadLine={leadLine} indexNote={indexNote} onSelect={selectCountry} onHover={setHover} hover={hover} view={view} aggs={aggs} flowsLastYear={flows?.data.meta.last_year ?? null} window={spanYears(year, span)} sourceNames={sourceNames} compareMode={compareMode} selection={selection} />
   );
 
   return (
@@ -206,7 +238,12 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
         <div className="pointer-events-auto absolute left-14 right-3 top-3 lg:right-auto lg:w-[22rem] xl:w-[24rem]">
           <IntroCard indexLayer={indexLayer} open={introOpen} onToggle={setIntroOpen} />
         </div>
-        <div className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-24"}`} style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : undefined} data-tour="dock">
+        {/* on a phone the open dock may not fit between the top bar and the collapsed sheet, so it scrolls (6rem = top-24) */}
+        <div
+          className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-24"}`}
+          style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : { maxHeight: `calc(100svh - var(--chrome-h, 96px) - 6rem - ${SHEET_COLLAPSED + 12}px)`, overflowY: "auto" }}
+          data-tour="dock"
+        >
           {meta && (
             <ControlDock
               year={year}
@@ -222,12 +259,15 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
               onView={(v) => setParams({ view: v === "index" ? null : v })}
               span={span}
               onSpan={(s) => setParams({ span: s === "1" ? null : s })}
+              indexName={indexName}
+              onIndex={(n) => setParams({ index: n === "composite" ? null : n })}
+              indexSwitch={subIndices}
               compareMode={compareMode}
               onCompareMode={toggleCompareMode}
               selectionCount={selection.length}
               flowsMeta={flows?.data.meta ?? null}
               flowsLayer={flows?.layer ?? null}
-              legend={<Legend mode={mode} theme={theme} view={view} flowMax={Math.max(0, ...aggs.map((a) => a.amount))} />}
+              legend={<Legend mode={mode} theme={theme} view={view} indexName={indexName} flowMax={Math.max(0, ...aggs.map((a) => a.amount))} />}
               compact={!lg}
             />
           )}
@@ -240,7 +280,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   );
 }
 
-function clampYear(y: number): number {
-  if (!Number.isFinite(y)) return 2024;
+function clampYear(y: number, fallback: number): number {
+  if (!Number.isFinite(y)) return fallback;
   return Math.min(YEAR_MAX, Math.max(YEAR_MIN, Math.round(y)));
 }

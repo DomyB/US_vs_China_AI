@@ -6,47 +6,57 @@ import * as Plot from "@observablehq/plot";
 import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { fmtAmount } from "@/components/map/flows";
+import { NET_LEAN_MAX } from "@/components/map/scales";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
-import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { buildIndexLookup, indexKey } from "@/lib/data";
 import { fmtPct, fmtSigned } from "@/lib/format";
-import type { FlowsFile, IndexFile, RealMeta } from "@/lib/types";
+import { INDEX_LABEL, INDEX_PHRASE, type IndexName } from "@/lib/indexView";
+import type { FlowsFile, IndexRow, RealMeta } from "@/lib/types";
 
 type Measure = "net" | "us" | "cn" | "share_cn" | "share_us" | "fin_cn" | "fin_us";
-const MEASURES: { value: Measure; label: string; layer: "model" | "facts" }[] = [
-  { value: "net", label: "Net lean of the influence index (China minus US)", layer: "model" },
-  { value: "us", label: "US influence index", layer: "model" },
-  { value: "cn", label: "China influence index", layer: "model" },
-  { value: "share_cn", label: "Share of mineral exports going to China", layer: "facts" },
-  { value: "share_us", label: "Share of mineral exports going to the United States", layer: "facts" },
-  { value: "fin_cn", label: "Documented Chinese finance commitments per year", layer: "facts" },
-  { value: "fin_us", label: "Documented US finance commitments per year", layer: "facts" },
-];
-/** Countries are told apart by dash pattern and an end label, so the actor hues keep their meaning elsewhere. */
+function measures(indexName: IndexName): { value: Measure; label: string; layer: "model" | "facts" }[] {
+  const idx = INDEX_PHRASE[indexName];
+  return [
+    { value: "net", label: `Net lean of the ${idx} (China minus US)`, layer: "model" },
+    { value: "us", label: `US ${idx}`, layer: "model" },
+    { value: "cn", label: `China ${idx}`, layer: "model" },
+    { value: "share_cn", label: "Share of mineral exports going to China", layer: "facts" },
+    { value: "share_us", label: "Share of mineral exports going to the United States", layer: "facts" },
+    { value: "fin_cn", label: "Documented Chinese finance commitments per year", layer: "facts" },
+    { value: "fin_us", label: "Documented US finance commitments per year", layer: "facts" },
+  ];
+}
+/** Countries are told apart by dash pattern (the chips under the title and the tooltips name each line). */
 const DASH = ["", "6,3", "2,3", "9,3,2,3"];
 const YEARS = Array.from({ length: YEAR_MAX - YEAR_MIN + 1 }, (_, i) => YEAR_MIN + i);
 
 interface Props {
   isos: string[];
   names: Record<string, string>;
-  index: IndexFile | null;
+  /** the rows of the index chosen in the dock (composite or a sub-index), already filtered to it */
+  indexRows: IndexRow[];
+  indexLayer: "real" | "sample" | "none" | null;
+  indexName: IndexName;
   flows: FlowsFile | null;
   flowsLayer: "real" | "sample" | null;
   real: RealMeta | null;
   mineral: string;
   year: number;
   onRemove: (iso: string) => void;
+  /** adds a country from the select (the map click and the ranking do the same elsewhere) */
+  onAdd: (iso: string) => void;
   onClear: () => void;
   onHover: (iso: string | null) => void;
 }
 
-export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, year, onRemove, onClear, onHover }: Props) {
+export function Compare({ isos, names, indexRows, indexLayer, indexName, flows, flowsLayer, real, mineral, year, onRemove, onAdd, onClear, onHover }: Props) {
   const [measure, setMeasure] = useState<Measure>("net");
-  const lookup = useMemo(() => (index ? buildIndexLookup(index.rows) : null), [index]);
+  const MEASURES = useMemo(() => measures(indexName), [indexName]);
+  const lookup = useMemo(() => buildIndexLookup(indexRows), [indexRows]);
   const rows = useMemo(() => {
     const out: { iso3: string; name: string; year: number; value: number }[] = [];
     if (measure === "net" || measure === "us" || measure === "cn") {
-      if (!lookup) return out;
       for (const iso of isos) {
         for (const y of YEARS) {
           const us = lookup.get(indexKey(iso, y, "US", mineral))?.value ?? null;
@@ -76,34 +86,34 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
 
   const fmt = (v: number) => (measure === "net" ? fmtSigned(v, 0) : measure === "us" || measure === "cn" ? v.toFixed(0) : measure.startsWith("share") ? fmtPct(v, 1) : fmtAmount(v));
   const options = useMemo(() => {
-    const yScale = measure === "net" ? { label: "Net lean (China minus US)", domain: [-100, 100] as [number, number], grid: true } : measure === "us" || measure === "cn" ? { label: "Index (0–100)", domain: [0, 100] as [number, number], grid: true } : measure.startsWith("share") ? { label: "Share of exports", domain: [0, 1] as [number, number], grid: true, tickFormat: (d: number) => fmtPct(d) } : { label: "M US$", grid: true };
-    const last = isos.map((iso) => rows.filter((r) => r.iso3 === iso).at(-1)).filter((r): r is NonNullable<typeof r> => !!r);
+    // the net lean is drawn on the ±60 scale the map, the heatmap and the ranking use
+    const yScale = measure === "net" ? { label: `Net lean (China minus US), ${INDEX_PHRASE[indexName]}`, domain: [-NET_LEAN_MAX, NET_LEAN_MAX] as [number, number], grid: true } : measure === "us" || measure === "cn" ? { label: `${INDEX_LABEL[indexName]} (0–100)`, domain: [0, 100] as [number, number], grid: true } : measure.startsWith("share") ? { label: "Share of exports", domain: [0, 1] as [number, number], grid: true, tickFormat: (d: number) => fmtPct(d) } : { label: "M US$", grid: true };
     return {
       height: 300,
       marginLeft: 48,
-      marginRight: 80,
+      marginRight: 16,
       x: { label: null, tickFormat: (d: number) => String(d), domain: [YEAR_MIN, YEAR_MAX] },
       y: yScale,
       marks: [
         ...(measure === "net" ? [Plot.ruleY([0], { stroke: "#8a8f98" })] : []),
         ...isos.map((iso, i) => Plot.lineY(rows.filter((r) => r.iso3 === iso), { x: "year", y: "value", stroke: "#1b1d20", strokeWidth: 2, strokeDasharray: DASH[i], curve: "monotone-x", tip: true, title: (d: { year: number; name: string; value: number }) => `${d.year} ${d.name}: ${fmt(d.value)}` })),
-        Plot.text(last, { x: "year", y: "value", text: "name", dx: 6, textAnchor: "start", fill: "#4a4f57", fontSize: 11 }),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
       ],
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rows, isos, measure, year]);
+  }, [rows, isos, measure, year, indexName]);
 
   const table = useMemo(
     () =>
       isos.map((iso) => {
-        const us = lookup?.get(indexKey(iso, year, "US", mineral))?.value ?? null;
-        const cn = lookup?.get(indexKey(iso, year, "CN", mineral))?.value ?? null;
+        const us = lookup.get(indexKey(iso, year, "US", mineral))?.value ?? null;
+        const cn = lookup.get(indexKey(iso, year, "CN", mineral))?.value ?? null;
         const t = flows?.trade.find((r) => r.iso3 === iso && r.year === year && r.mineral === mineral);
         const tot = t && t.exports_musd.US !== null && t.exports_musd.CN !== null && t.exports_musd.ROW !== null ? t.exports_musd.US + t.exports_musd.CN + t.exports_musd.ROW : null;
         const fin = (origin: "US" | "CN") => (flows?.finance ?? []).filter((r) => r.iso3 === iso && r.origin === origin && r.year >= YEAR_MIN).reduce((n, r) => n + r.amount_musd, 0);
         const cov = real?.coverage?.[iso];
         return {
+          iso,
           name: names[iso] ?? iso,
           us: us === null ? "—" : us.toFixed(0),
           cn: cn === null ? "—" : cn.toFixed(0),
@@ -112,12 +122,13 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
           share_us: tot && t && t.exports_musd.US !== null ? fmtPct(t.exports_musd.US / tot, 1) : "—",
           fin_cn: fmtAmount(fin("CN")),
           fin_us: fmtAmount(fin("US")),
-          records: cov ? `${cov.events} events · ${cov.parliament_documents} records · ${cov.media_articles} headlines` : "sample",
+          records: cov ? `${cov.events} events · ${cov.parliament_documents} legislative records · ${cov.media_articles} headlines` : "sample",
         };
       }),
     [isos, lookup, year, mineral, flows, real, names],
   );
   const spec = MEASURES.find((m) => m.value === measure)!;
+  const addable = IN_SCOPE.filter((c) => !isos.includes(c));
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-y-auto p-4">
@@ -128,7 +139,7 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
         </div>
         <button type="button" className="btn btn-sm" onClick={onClear}>Clear</button>
       </div>
-      <ul className="flex flex-wrap gap-1.5">
+      <ul className="flex flex-wrap items-center gap-1.5">
         {isos.map((iso, i) => (
           <li key={iso}>
             <span className="inline-flex items-center gap-1.5 rounded-full border-2 border-outline bg-card px-2 py-0.5 text-xs font-medium" onMouseEnter={() => onHover(iso)} onMouseLeave={() => onHover(null)}>
@@ -138,45 +149,64 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
             </span>
           </li>
         ))}
-        {isos.length < 4 && <li className="self-center text-[11px] text-ink-3">Click the map or the ranking to add up to four</li>}
+        {isos.length < 4 && (
+          <li className="flex items-center gap-1.5 text-[11px] text-ink-3">
+            <select className="input" aria-label="Add a country" value="" onChange={(e) => e.target.value && onAdd(e.target.value)}>
+              <option value="">Add a country…</option>
+              {addable.map((c) => <option key={c} value={c}>{names[c] ?? c}</option>)}
+            </select>
+            <span>or click the map, up to four</span>
+          </li>
+        )}
       </ul>
       <section aria-labelledby="cmp-h">
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
           <h2 id="cmp-h" className="text-base">Over time</h2>
-          <span className="flex items-center gap-1.5">{spec.layer === "model" ? <LayerLabel layer="model" /> : <LayerLabel layer="facts" />}<DataLayerTag layer={spec.layer === "model" ? (index?.layer === "real" ? "real" : "sample") : flowsLayer ?? "sample"} /></span>
+          <span className="flex items-center gap-1.5">{spec.layer === "model" ? <LayerLabel layer="model" /> : <LayerLabel layer="facts" />}<DataLayerTag layer={spec.layer === "model" ? (indexLayer === "real" ? "real" : "sample") : flowsLayer ?? "sample"} /></span>
         </div>
         <label className="mb-2 flex items-center gap-2 text-xs"><span className="text-ink-2">Measure</span>
           <select className="input flex-1" value={measure} onChange={(e) => setMeasure(e.target.value as Measure)}>
             {MEASURES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
           </select>
         </label>
-        {rows.length === 0 ? <p className="text-sm text-ink-3">No values for this measure{mineral !== "all" ? ` and mineral` : ""}.</p> : <PlotFigure options={options} ariaLabel={`${spec.label} over time for ${isos.map((i) => names[i] ?? i).join(", ")}`} />}
+        {rows.length === 0 ? <p className="text-sm text-ink-3">No values for this measure{mineral !== "all" ? ` and mineral${indexName !== "composite" && spec.layer === "model" ? " (the sub-indices are computed for all minerals together)" : ""}` : ""}.</p> : <PlotFigure options={options} ariaLabel={`${spec.label} over time for ${isos.map((i) => names[i] ?? i).join(", ")}`} />}
         <DataTable rows={rows} caption={`${spec.label} by year and country`} columns={[{ key: "year", label: "Year" }, { key: "name", label: "Country" }, { key: "value", label: "Value", format: (v) => fmt(Number(v)) }]} />
       </section>
       <section aria-labelledby="cmpt-h">
-        <h2 id="cmpt-h" className="mb-1 text-base">In {year}</h2>
+        <h2 id="cmpt-h" className="mb-1 text-base">In {year} <span className="text-xs font-normal text-ink-3">· {INDEX_PHRASE[indexName]}</span></h2>
         <div className="scroll-x">
-          <table className="w-full min-w-[40rem] text-xs [&_td]:px-1 [&_th]:px-1 [&_th]:whitespace-nowrap">
-            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US index</th><th className="py-1 text-right">CN index</th><th className="py-1 text-right">Net</th><th className="py-1 text-right">Exports to CN</th><th className="py-1 text-right">Exports to US</th><th className="py-1 text-right">CN finance since {YEAR_MIN}</th><th className="py-1 text-right">US finance since {YEAR_MIN}</th><th className="py-1">Records</th></tr></thead>
+          <table className="w-full text-xs [&_td]:px-1 [&_th]:px-1">
+            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US index</th><th className="py-1 text-right">CN index</th><th className="py-1 text-right">Net</th><th className="py-1 text-right">Exports to CN</th><th className="py-1 text-right">Exports to US</th><th className="py-1 text-right">CN finance since {YEAR_MIN}</th><th className="py-1 text-right">US finance since {YEAR_MIN}</th></tr></thead>
             <tbody>
               {table.map((r) => (
-                <tr key={r.name} className="border-t border-rule align-top">
-                  <td className="py-1 font-medium">{r.name}</td>
-                  <td className="py-1 text-right tabular-nums">{r.us}</td>
-                  <td className="py-1 text-right tabular-nums">{r.cn}</td>
-                  <td className="py-1 text-right tabular-nums">{r.net}</td>
-                  <td className="py-1 text-right tabular-nums">{r.share_cn}</td>
-                  <td className="py-1 text-right tabular-nums">{r.share_us}</td>
-                  <td className="py-1 text-right tabular-nums">{r.fin_cn}</td>
-                  <td className="py-1 text-right tabular-nums">{r.fin_us}</td>
-                  <td className="py-1 text-ink-3">{r.records}</td>
-                </tr>
+                <Row key={r.iso} r={r} />
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-1 text-[11px] text-ink-3">Index values are model outputs; shares and finance totals are facts from UN Comtrade, AidData and the DFC and EXIM (documented commitments since {YEAR_MIN}). A dash means no value, not zero.</p>
+        <p className="mt-1 text-[11px] text-ink-3">Index values are model outputs; shares and finance totals are facts from UN Comtrade, AidData and the DFC and EXIM (documented commitments since {YEAR_MIN}). A dash means no value, not zero. The record counts under each country are the case file&apos;s coverage.</p>
       </section>
     </div>
+  );
+}
+
+/** One country: its numbers on one line, its record counts on a second, so the table fits the drawer without a ninth column. */
+function Row({ r }: { r: { iso: string; name: string; us: string; cn: string; net: string; share_cn: string; share_us: string; fin_cn: string; fin_us: string; records: string } }) {
+  return (
+    <>
+      <tr className="border-t border-rule align-top">
+        <td className="py-1 font-medium">{r.name}</td>
+        <td className="py-1 text-right tabular-nums whitespace-nowrap">{r.us}</td>
+        <td className="py-1 text-right tabular-nums whitespace-nowrap">{r.cn}</td>
+        <td className="py-1 text-right tabular-nums whitespace-nowrap">{r.net}</td>
+        <td className="py-1 text-right tabular-nums whitespace-nowrap">{r.share_cn}</td>
+        <td className="py-1 text-right tabular-nums whitespace-nowrap">{r.share_us}</td>
+        <td className="py-1 text-right tabular-nums whitespace-nowrap">{r.fin_cn}</td>
+        <td className="py-1 text-right tabular-nums whitespace-nowrap">{r.fin_us}</td>
+      </tr>
+      <tr>
+        <td colSpan={8} className="pb-1 text-[10px] text-ink-3">{r.records}</td>
+      </tr>
+    </>
   );
 }

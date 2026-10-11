@@ -284,7 +284,7 @@ def test_a_throttled_request_succeeds_on_its_retry(snap_factory, monkeypatch):
     assert pauses == [3.0] and snap.manifest["throttled"] == 1 and snap.manifest["errors"] == [] and adapter._errors == 0
 
 
-def test_story_pagination_is_capped(snap_factory, monkeypatch):
+def test_story_pagination_is_capped_newest_first_and_the_cut_recorded(snap_factory, monkeypatch):
     monkeypatch.setenv("MEDIACLOUD_KEY", "k")
     monkeypatch.setattr(mc, "PAGE_SIZE", 2)
     monkeypatch.setattr(mc, "MAX_STORIES", 4)
@@ -293,9 +293,11 @@ def test_story_pagination_is_capped(snap_factory, monkeypatch):
     pages = []
 
     def fake_get(url, name, params=None, headers=None, **kw):
-        pages.append(params.get("pagination_token"))
+        pages.append((params.get("pagination_token"), params.get("sort_order")))
+        n = len(pages)
         snap.path(name).parent.mkdir(parents=True, exist_ok=True)
-        snap.path(name).write_text(json.dumps({"stories": [{"id": 1}, {"id": 2}], "pagination_token": f"t{len(pages)}"}))
+        snap.path(name).write_text(json.dumps({"stories": [{"id": 2 * n - 1, "publish_date": f"2020-12-{20 - 2 * n:02d}T10:00:00Z"}, {"id": 2 * n, "publish_date": f"2020-12-{19 - 2 * n:02d}"}],
+                                               "pagination_token": f"t{n}"}))
         snap.record(name, url, params=params, status=200)
         return snap.path(name)
 
@@ -303,7 +305,50 @@ def test_story_pagination_is_capped(snap_factory, monkeypatch):
     adapter = MediaCloud()
     adapter._errors = 0
     adapter._stories(snap, "ARG", 2020, {"start": "2020-01-01", "end": "2020-12-31", "cs": 1, "platform": "onlinenews-mediacloud"})
-    assert pages == [None, "t1"] and snap.has("ARG/2020_stories_2.json")  # two pages of two, then the cap
+    assert pages == [(None, "desc"), ("t1", "desc")] and snap.has("ARG/2020_stories_2.json")  # two pages of two, newest first, then the cap
+    # the cap stopped the loop with a token still present: the year has more matches than the list, and the manifest says which window it holds
+    assert snap.manifest["stories_truncated"] == {"ARG/2020": {"from": "2020-12-15", "to": "2020-12-18", "kept": 4}}
+    # a list that ends by itself (no token) is complete: nothing recorded
+    snap2 = snap_factory("mediacloud2", {})
+    snap2.manifest["errors"] = []
+
+    def short(url, name, params=None, headers=None, **kw):
+        snap2.path(name).parent.mkdir(parents=True, exist_ok=True)
+        snap2.path(name).write_text(json.dumps({"stories": [{"id": 1, "publish_date": "2020-03-01"}], "pagination_token": None}))
+        snap2.record(name, url, params=params, status=200)
+        return snap2.path(name)
+
+    monkeypatch.setattr(snap2, "get", short)
+    adapter._stories(snap2, "ARG", 2020, {"start": "2020-01-01", "end": "2020-12-31", "cs": 1, "platform": "onlinenews-mediacloud"})
+    assert "stories_truncated" not in snap2.manifest and snap2.has("ARG/2020_stories_1.json") and not snap2.has("ARG/2020_stories_2.json")
+
+
+def test_parse_records_the_headline_window_and_load_carries_it(snap_factory, tmp_path):
+    snap = _year_snapshot(snap_factory)
+    # a second page whose token survived the cap: the 2024 list was cut; a 2023 list that ended by itself was not
+    snap.files["BRA/2024_stories_1.json"]["params"] = {"start": "2024-01-01", "end": "2024-03-31"}
+    snap.path("BRA/2024_stories_1.json").write_text(json.dumps({**STORIES, "pagination_token": "t1"}), encoding="utf-8")
+    page2 = {"stories": [{"id": 9, "title": "Cobre: nova mina", "url": "https://valor.globo.com/q", "publish_date": "2024-01-02", "media_name": "Valor", "language": "pt"}], "pagination_token": "t2"}
+    snap.path("BRA/2024_stories_2.json").parent.mkdir(parents=True, exist_ok=True)
+    snap.path("BRA/2024_stories_2.json").write_text(json.dumps(page2), encoding="utf-8")
+    snap.record("BRA/2024_stories_2.json", "https://example.test/p2", status=200)
+    snap.path("BRA/2023_stories_1.json").write_text(json.dumps({"stories": [{"id": 7, "title": "x", "url": "https://valor.globo.com/w", "publish_date": "2023-06-01"}], "pagination_token": None}), encoding="utf-8")
+    snap.record("BRA/2023_stories_1.json", "https://example.test/p3", status=200)
+    adapter = MediaCloud()
+    out = adapter.parse(snap)
+    windows = snap.manifest["headlines_window"]
+    # 2024: five stories over two pages (one without a date), the newest dated 2024-01-05, the oldest 2024-01-02, 6 matches in the mining count series
+    assert windows["BRA/2024"] == {"from": "2024-01-02", "to": "2024-01-05", "kept": 5, "matched": 6, "truncated": True}
+    assert windows["BRA/2023"] == {"from": "2023-06-01", "to": "2023-06-01", "kept": 1, "matched": None, "truncated": False}  # no count series for 2023
+    assert mc.headline_windows({}, {}) == {}
+    # the window travels in the run record's row counts, where the data release keeps it for the export
+    rows = adapter.load(out, out_dir=tmp_path / "wh")
+    assert rows["document"] == len(out["document"]) and rows["headlines_window"] == windows
+    assert json.loads(json.dumps(rows))["headlines_window"]["BRA/2024"]["kept"] == 5
+    # the next run's parse rewrites the entry, so a year fetched again without a cut replaces the old record
+    snap.path("BRA/2024_stories_2.json").write_text(json.dumps({**page2, "pagination_token": None}), encoding="utf-8")
+    adapter.parse(snap)
+    assert snap.manifest["headlines_window"]["BRA/2024"]["truncated"] is False
 
 
 def test_skipped_without_the_key(tmp_path, monkeypatch):

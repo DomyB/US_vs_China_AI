@@ -1,9 +1,10 @@
-import { MAP_PALETTE, legendStops } from "./scales";
+import { MAP_PALETTE, NET_LEAN_MAX, legendStops } from "./scales";
 import { fmtAmount, type FlowView } from "./flows";
+import { INDEX_FORMULA_SHORT, INDEX_LABEL, type IndexName } from "@/lib/indexView";
 import type { Theme } from "@/lib/theme";
 import type { ActorMode } from "@/lib/types";
 
-export function Legend({ mode, theme = "light", view = "index", flowMax = 0 }: { mode: ActorMode; theme?: Theme; view?: FlowView; flowMax?: number }) {
+export function Legend({ mode, theme = "light", view = "index", indexName = "composite", flowMax = 0 }: { mode: ActorMode; theme?: Theme; view?: FlowView; indexName?: IndexName; flowMax?: number }) {
   const stops = legendStops(mode, 9, theme);
   const p = MAP_PALETTE[theme];
   return (
@@ -24,9 +25,13 @@ export function Legend({ mode, theme = "light", view = "index", flowMax = 0 }: {
           <p className="mt-1 text-ink-3">The faint end is where the flow starts. Hover an arc for the numbers and sources.</p>
         </div>
       )}
-      <div className="mb-1 font-semibold text-ink">
-        {mode === "both" ? "Net lean of the influence index" : `${mode === "US" ? "US" : "China"} influence index (0–100)`}
+      <div className="mb-0.5 font-semibold text-ink">
+        {mode === "both" ? `Net lean · ${INDEX_LABEL[indexName].toLowerCase()}` : `${mode === "US" ? "US" : "China"} · ${INDEX_LABEL[indexName].toLowerCase()} (0–100)`}
       </div>
+      <p className="mb-1 text-ink-3">
+        {mode === "both" ? `China index − US index, in points of the 0–100 scale, clamped at ±${NET_LEAN_MAX}. ` : ""}
+        {INDEX_LABEL[indexName]}: {INDEX_FORMULA_SHORT[indexName]}.
+      </p>
       <div className="flex h-3 w-full overflow-hidden rounded-full border border-outline" aria-hidden="true">
         {stops.map((s, i) => (
           <div key={i} className="flex-1" style={{ background: s.color }} />
@@ -35,9 +40,9 @@ export function Legend({ mode, theme = "light", view = "index", flowMax = 0 }: {
       <div className="mt-0.5 flex justify-between">
         {mode === "both" ? (
           <>
-            <span>US-leaning</span>
-            <span>balanced</span>
-            <span>China-leaning</span>
+            <span>−{NET_LEAN_MAX} · US-leaning</span>
+            <span>0 · balanced</span>
+            <span>+{NET_LEAN_MAX} · China-leaning</span>
           </>
         ) : (
           <>

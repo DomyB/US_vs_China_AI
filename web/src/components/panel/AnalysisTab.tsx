@@ -1,28 +1,38 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, EvidenceBadge, LayerLabel, QuantStatusTag } from "@/components/ui/Badges";
+import { Segmented } from "@/components/ui/Segmented";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { Interpretation } from "./Interpretation";
 import { WeightsPlayground } from "./WeightsPlayground";
 import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtPct, fmtShare, fmtSigned } from "@/lib/format";
+import { COMPONENT_LABEL, INDEX_FORMULA, INDEX_LABEL, INDEX_MIN_COMPONENTS, INDEX_N_COMPONENTS, INDEX_PHRASE, carriedBy, leadLookup, rowIndex, type IndexName } from "@/lib/indexView";
 import { provenanceFor } from "@/lib/provenance";
 import { useRealMeta } from "@/lib/useRealMeta";
 import type { ComponentValue, CountryData, IndexRow } from "@/lib/types";
 
-const COMPONENT_LABEL: Record<string, string> = {
-  trade_export_share: "Export share to actor",
-  trade_import_share: "Import share from actor",
-  finance_flow: "Official finance (3 yr) / GDP",
-  debt_stock: "Debt owed to actor / GDP",
-  diplomatic_alignment: "UN voting agreement",
-  legislative_stance: "Legislative stance",
-};
 const actorName = (a: string) => (a === "US" ? ACTOR_LABEL.US : ACTOR_LABEL.CN);
+/** the country file's `index_name` for each index of the switch */
+const FILE_INDEX_NAME: Record<IndexName, "influence" | "economic_ties" | "political_alignment"> = { composite: "influence", economic_ties: "economic_ties", political_alignment: "political_alignment" };
+const INDEX_OPTIONS: { value: IndexName; label: string; title: string }[] = [
+  { value: "composite", label: "Composite", title: INDEX_FORMULA.composite },
+  { value: "economic_ties", label: "Economic ties", title: INDEX_FORMULA.economic_ties },
+  { value: "political_alignment", label: "Political alignment", title: INDEX_FORMULA.political_alignment },
+];
+/** one row of whichever index series is drawn: index.json's composite rows or the country file's sub-index rows */
+interface SeriesRow {
+  year: number;
+  actor: string;
+  value: number;
+  lower: number | null;
+  upper: number | null;
+  n_components?: number;
+}
 
 export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { data: CountryData; year: number; indexRows: IndexRow[]; indexLayer?: "real" | "sample" | "none" }) {
   const real = data.layers?.analysis === "real";
@@ -30,38 +40,29 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
   const status = data.analysis.quant_model ?? null;
   const tag = real ? "computed" : "sample data";
 
+  // the composite rows from index.json (the panel passes the country's rows for the chosen mineral; an older file's rows
+  // carry no `index` and are composite rows) and, from the country file, the two sub-indices for the switch
+  const [indexName, setIndexName] = useState<IndexName>("composite");
+  const compositeRows = useMemo(() => indexRows.filter((r) => rowIndex(r) === "composite"), [indexRows]);
+  const hasSub = real && (data.analysis.index ?? []).some((r) => r.index_name !== "influence" && r.value !== null);
+  const series = useMemo<SeriesRow[]>(() => {
+    if (indexName === "composite") return compositeRows;
+    return (data.analysis.index ?? []).filter((r): r is typeof r & { value: number } => r.index_name === FILE_INDEX_NAME[indexName] && r.value !== null).map((r) => ({ year: r.year, actor: r.actor, value: r.value, lower: r.lower, upper: r.upper, n_components: r.n_components })).sort((a, b) => a.year - b.year);
+  }, [indexName, compositeRows, data]);
   const indexOptions = useMemo(
     () => ({
       height: 260,
       marginLeft: 40,
       x: { label: null, tickFormat: (d: number) => String(d) },
-      y: { label: "Influence index (0–100)", domain: [0, 100], grid: true },
+      y: { label: `${INDEX_LABEL[indexName]} (0–100)`, domain: [0, 100], grid: true },
       color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => actorName(d) },
       marks: [
-        Plot.areaY(indexRows, { x: "year", y1: "lower", y2: "upper", fill: "actor", fillOpacity: 0.15, curve: "monotone-x" }),
-        Plot.lineY(indexRows, { x: "year", y: "value", stroke: "actor", strokeWidth: 2, curve: "monotone-x", tip: true, title: (d: IndexRow) => `${d.year} ${actorName(d.actor)}: ${d.value.toFixed(1)} (band ${d.lower.toFixed(1)}–${d.upper.toFixed(1)}${d.n_components ? `, ${d.n_components} of 6 components` : ""})` }),
+        Plot.areaY(series.filter((d) => d.lower !== null && d.upper !== null), { x: "year", y1: "lower", y2: "upper", fill: "actor", fillOpacity: 0.15, curve: "monotone-x" }),
+        Plot.lineY(series, { x: "year", y: "value", stroke: "actor", strokeWidth: 2, curve: "monotone-x", tip: true, title: (d: SeriesRow) => `${d.year} ${actorName(d.actor)}: ${d.value.toFixed(1)} (band ${d.lower !== null && d.upper !== null ? `${d.lower.toFixed(1)}–${d.upper.toFixed(1)}` : "not stored"}${d.n_components ? `, ${d.n_components} of ${INDEX_N_COMPONENTS[indexName]} components` : ""})` }),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
       ],
     }),
-    [indexRows, year],
-  );
-
-  const subIndices = useMemo(() => (data.analysis.index ?? []).filter((r) => r.index_name !== "influence" && r.value !== null), [data]);
-  const subOptions = useMemo(
-    () => ({
-      height: 210,
-      marginLeft: 40,
-      x: { label: null, tickFormat: (d: number) => String(d) },
-      y: { label: "Sub-index (0–100)", domain: [0, 100], grid: true },
-      fx: { label: null, tickFormat: (d: string) => prettyLabel(d) },
-      color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN] },
-      facet: { data: subIndices, x: "index_name" },
-      marks: [
-        Plot.lineY(subIndices, { x: "year", y: "value", stroke: "actor", strokeWidth: 1.8, curve: "monotone-x", tip: true, title: (d: { year: number; actor: string; value: number; n_components: number }) => `${d.year} ${actorName(d.actor)}: ${d.value.toFixed(1)} (${d.n_components} components)` }),
-        Plot.ruleX([year], { stroke: "#1b1d20", strokeDasharray: "3,2" }),
-      ],
-    }),
-    [subIndices, year],
+    [series, year, indexName],
   );
 
   const componentRows = useMemo(() => data.analysis.components.filter((c) => c.year === year), [data, year]);
@@ -78,8 +79,9 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
   const componentOptions = useMemo(
     () => ({
       height: 40 + 26 * Math.max(1, new Set(components.map((c) => c.component)).size),
-      marginLeft: 170,
-      x: { label: "Normalised component (0–100)", domain: [0, 100], grid: true },
+      marginLeft: 190,
+      marginBottom: 44,
+      x: { label: "Normalised component (0–100)", labelAnchor: "center" as const, domain: [0, 100], grid: true },
       y: { label: null },
       color: { domain: ["US", "CN"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, tickFormat: (d: string) => actorName(d) },
       marks: [
@@ -90,6 +92,10 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
     [components],
   );
   const indexThisYear = useMemo(() => (data.analysis.index ?? []).filter((r) => r.index_name === "influence" && r.year === year), [data, year]);
+  // the per-year line follows the switch; the composite line also names the component that carries the lean, read from
+  // index.json's all-minerals composite rows (absent for a mineral filter or an older file: the clause is left out)
+  const seriesThisYear = useMemo(() => (data.analysis.index ?? []).filter((r) => r.index_name === FILE_INDEX_NAME[indexName] && r.year === year), [data, year, indexName]);
+  const leadThisYear = useMemo(() => (indexName === "composite" ? carriedBy(leadLookup(compositeRows.filter((r) => r.year === year)).get(`${data.iso3}|${year}`)) : null), [indexName, compositeRows, year, data.iso3]);
 
   const sayDo = useMemo(() => data.analysis.say_do_gap.filter((r) => r.gap !== null), [data]);
   const sayDoOptions = useMemo(
@@ -130,8 +136,9 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
   const concOptions = useMemo(
     () => ({
       height: 40 + 24 * Math.max(1, concentration.length),
-      marginLeft: 130,
-      x: { label: "Share of the country's exports of the mineral", domain: [0, 1], tickFormat: (d: number) => fmtPct(d) },
+      marginLeft: 150,
+      marginBottom: 44,
+      x: { label: "Share of the country's exports of the mineral", labelAnchor: "center" as const, domain: [0, 1], tickFormat: (d: number) => fmtPct(d) },
       y: { label: null },
       color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, "#8a8f98"], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "rest of world" }[d] ?? d) },
       marks: [Plot.barX(concLong, { x: "share", y: "mineral", fill: "partner", order: ["US", "CN", "ROW"], insetTop: 1, insetBottom: 1, tip: true }), Plot.ruleX([0])],
@@ -165,26 +172,27 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
         {header("idx-h", "Influence index with uncertainty")}
         <p className="mb-2 text-xs text-ink-3">
           {real
-            ? "Composite of six observable ties to each actor (trade shares, official finance, debt, UN voting agreement, legislative stance), OECD/JRC method, equal weights over the available components. The band is the 5th–95th percentile across weight and normalisation draws."
+            ? "Composite of six observable ties to each actor (export share and import share, official finance, debt, UN voting agreement, legislative stance), OECD/JRC method, equal weights over the available components. The band is the 5th–95th percentile across weight and normalisation draws."
             : "Composite indicator (OECD/JRC method). Bands show sensitivity to weighting choices once the real index is built."}
-          {indexLayer === "real" && indexRows.length === 0 ? " No index for this selection: the country did not trade the selected mineral, or fewer than three components are available." : ""}
+          {indexLayer === "real" && compositeRows.length === 0 ? " No composite index for this selection: the country did not trade the selected mineral, or fewer than three components are available." : ""}
         </p>
-        <PlotFigure glyph="model" options={indexOptions} ariaLabel={`Influence index of the United States and China in ${data.name} with uncertainty bands, ${tag}`} />
-        <DataTable rows={indexRows} caption="Influence index by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }, { key: "lower", label: "Lower" }, { key: "upper", label: "Upper" }]} />
-        {real && indexThisYear.length > 0 && (
+        {hasSub && (
+          <div className="mb-2">
+            <Segmented label="Index series" value={indexName} options={INDEX_OPTIONS} onChange={setIndexName} className="max-w-md" />
+            <p className="mt-1 text-[11px] text-ink-3">{INDEX_LABEL[indexName]}: {INDEX_FORMULA[indexName]}.{indexName !== "composite" ? " The band is the same 5th–95th percentile where the run stored one." : ""}</p>
+          </div>
+        )}
+        <PlotFigure glyph="model" options={indexOptions} ariaLabel={`${INDEX_LABEL[indexName]} of the United States and China in ${data.name} with uncertainty bands, ${tag}`} />
+        <DataTable rows={series} caption={`${INDEX_LABEL[indexName]} by year and actor`} columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }, { key: "lower", label: "Lower", format: (v) => (v === null || v === undefined ? "—" : String(v)) }, { key: "upper", label: "Upper", format: (v) => (v === null || v === undefined ? "—" : String(v)) }]} />
+        {real && seriesThisYear.length > 0 && (
           <ul className="mt-1 text-[11px] text-ink-3">
-            {indexThisYear.map((r) => (
+            {seriesThisYear.map((r) => (
               <li key={r.actor}>
-                {actorName(r.actor)}, {year}: {r.value === null ? `not computed (${r.n_components} of 6 components available, 3 needed)` : `${r.value.toFixed(1)} from ${r.n_components} components (${r.components_available.map((c) => COMPONENT_LABEL[c] ?? c).join(", ")})`}
+                {actorName(r.actor)}, {year}: {r.value === null ? `${INDEX_PHRASE[indexName]} not computed (${r.n_components} of ${INDEX_N_COMPONENTS[indexName]} components available, ${INDEX_MIN_COMPONENTS[indexName]} needed)` : `${INDEX_PHRASE[indexName]} ${r.value.toFixed(1)} from ${r.n_components} components (${r.components_available.map((c) => COMPONENT_LABEL[c] ?? c).join(", ")})`}
+                {r.value !== null && leadThisYear ? ` · lean ${leadThisYear}` : ""}
               </li>
             ))}
           </ul>
-        )}
-        {real && subIndices.length > 0 && (
-          <div className="mt-3">
-            <p className="mb-1 text-xs text-ink-3">Sub-indices: economic ties (trade shares, finance, debt) and political alignment (UN voting, legislative stance).</p>
-            <PlotFigure glyph="model" options={subOptions} ariaLabel={`Economic ties and political alignment sub-indices for ${data.name}, computed`} />
-          </div>
         )}
       </section>
 
