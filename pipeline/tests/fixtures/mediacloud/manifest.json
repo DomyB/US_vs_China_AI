@@ -1,0 +1,278 @@
+{
+ "source_id": "mediacloud",
+ "files": {
+  "collections/ARG.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Argentina+-+National&limit=50",
+   "params": {
+    "name": "Argentina - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 314,
+   "sha256": "43804643d584330df9ff663d33e801616cb54e07d9aacb12092239d6beff56dc",
+   "retrieved_at": "2026-10-11T13:28:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/BOL.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Bolivia+-+National&limit=50",
+   "params": {
+    "name": "Bolivia - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 356,
+   "sha256": "4577cb1df60c2538f6fe9f824cf1b732f68f7c256e5e5d1e20f1391ebe3e0000",
+   "retrieved_at": "2026-10-11T13:28:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/BRA.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Brazil+-+National&limit=50",
+   "params": {
+    "name": "Brazil - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 403,
+   "sha256": "0766323bfe67eff3f29049c1116681c50990589063df7f9a8c1bf299ddd71916",
+   "retrieved_at": "2026-10-11T13:28:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/CHL.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Chile+-+National&limit=50",
+   "params": {
+    "name": "Chile - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 305,
+   "sha256": "c5266843dec15f0cd57dc44e40dee03bb88de725a23e691cab19403bd78ae2f8",
+   "retrieved_at": "2026-10-11T13:28:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/COL.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Colombia+-+National&limit=50",
+   "params": {
+    "name": "Colombia - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 311,
+   "sha256": "8d4fbbc135787f10c481bbddf29df6fb64ddbf94e338f0b210e4826f561f4777",
+   "retrieved_at": "2026-10-11T13:28:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/ECU.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Ecuador+-+National&limit=50",
+   "params": {
+    "name": "Ecuador - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 308,
+   "sha256": "507996fb9bdb4e4e5039735e1174509f3200d111e36e03368ef615654457953a",
+   "retrieved_at": "2026-10-11T13:28:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/GUY.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Guyana+-+National&limit=50",
+   "params": {
+    "name": "Guyana - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 306,
+   "sha256": "3bc6af254bfff5c47b3129df60b351e67a27287b06055b1cd8415d74d75c0394",
+   "retrieved_at": "2026-10-11T13:28:46+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/PRY.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Paraguay+-+National&limit=50",
+   "params": {
+    "name": "Paraguay - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 310,
+   "sha256": "4cc42cdad7c9633854c8c9058fcae55eb4549548263e46e8d7330dab2092d885",
+   "retrieved_at": "2026-10-11T13:28:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/PER.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Peru+-+National&limit=50",
+   "params": {
+    "name": "Peru - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 302,
+   "sha256": "49405d8f0acdb809b262f72d3fc6fd1aba0581213e278ee9a0c04ee590ac82c5",
+   "retrieved_at": "2026-10-11T13:28:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/SUR.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Suriname+-+National&limit=50",
+   "params": {
+    "name": "Suriname - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 310,
+   "sha256": "e1dfe702d775a9b0c8e3b41cee7e6cef78256675196db2107586b62cff3c58e8",
+   "retrieved_at": "2026-10-11T13:28:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/URY.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Uruguay+-+National&limit=50",
+   "params": {
+    "name": "Uruguay - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 309,
+   "sha256": "111d438aabcc759fed27276df41e8ecf2199211cc11dc7af40897414056fbc96",
+   "retrieved_at": "2026-10-11T13:28:50+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "collections/VEN.json": {
+   "url": "https://search.mediacloud.org/api/sources/collections/?name=Venezuela+-+National&limit=50",
+   "params": {
+    "name": "Venezuela - National",
+    "limit": 50
+   },
+   "status": 200,
+   "bytes": 361,
+   "sha256": "9aac32a10a0396d03333266d4b7c645b6926b482a44080cffe8181be206f9f09",
+   "retrieved_at": "2026-10-11T13:28:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "ARG/2026_stories_1.json": {
+   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-11&cs=34412043&ps=onlinenews&page_size=1000&sort_field=publish_date&sort_order=asc",
+   "params": {
+    "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR minería OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR lítio OR mineração OR mineradora OR nióbio OR \"terras raras\" OR minério OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
+    "start": "2026-01-01",
+    "end": "2026-10-11",
+    "cs": 34412043,
+    "ps": "onlinenews",
+    "page_size": 1000,
+    "sort_field": "publish_date",
+    "sort_order": "asc"
+   },
+   "status": 200,
+   "bytes": 480044,
+   "sha256": "3f0f58423e1cebdc01c0a844b645b0106b89ed44afbd5d48c7d5d06faaa9cccb",
+   "retrieved_at": "2026-10-11T13:28:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "ARG/2026_stories_2.json": {
+   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-11&cs=34412043&ps=onlinenews&page_size=1000&sort_field=publish_date&sort_order=asc&pagination_token=MjAyNi0wMS0wNlQwNDoxOTozMi4zNzA4ODQwMDBaATY4MzUwMTg~",
+   "params": {
+    "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR minería OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR lítio OR mineração OR mineradora OR nióbio OR \"terras raras\" OR minério OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
+    "start": "2026-01-01",
+    "end": "2026-10-11",
+    "cs": 34412043,
+    "ps": "onlinenews",
+    "page_size": 1000,
+    "sort_field": "publish_date",
+    "sort_order": "asc",
+    "pagination_token": "MjAyNi0wMS0wNlQwNDoxOTozMi4zNzA4ODQwMDBaATY4MzUwMTg~"
+   },
+   "status": 200,
+   "bytes": 479460,
+   "sha256": "314e26e3524f404980b869d6c104ab72d7f85b1e087f936da9d1af3a71a03865",
+   "retrieved_at": "2026-10-11T13:29:00+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/mediacloud/2026-10-11",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "ARG/2026_count_mining.json",
+   "error": "non-JSON answer for ARG/2026_count_mining.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "ARG/2026_count_cn.json",
+   "error": "non-JSON answer for ARG/2026_count_cn.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "ARG/2026_count_us.json",
+   "error": "non-JSON answer for ARG/2026_count_us.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "BRA/2026_count_mining.json",
+   "error": "non-JSON answer for BRA/2026_count_mining.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "BRA/2026_count_cn.json",
+   "error": "non-JSON answer for BRA/2026_count_cn.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "BRA/2026_count_us.json",
+   "error": "non-JSON answer for BRA/2026_count_us.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "BRA/2026_stories_1.json",
+   "error": "mediacloud: HTTP 429 on GET https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+min"
+  },
+  {
+   "name": "CHL/2026_count_mining.json",
+   "error": "non-JSON answer for CHL/2026_count_mining.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "CHL/2026_count_cn.json",
+   "error": "non-JSON answer for CHL/2026_count_cn.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "CHL/2026_count_us.json",
+   "error": "non-JSON answer for CHL/2026_count_us.json: Expecting value: line 1 column 1 (char 0)"
+  },
+  {
+   "name": "CHL/2026_stories_1.json",
+   "error": "mediacloud: HTTP 429 on GET https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+min"
+  }
+ ],
+ "unparsed": [
+  "collections/BOL.json",
+  "collections/VEN.json"
+ ],
+ "collections": {
+  "ARG": 34412043,
+  "BRA": 34412257,
+  "CHL": 34412295,
+  "COL": 34412358,
+  "ECU": 34412279,
+  "GUY": 34412443,
+  "PRY": 34412480,
+  "PER": 34412158,
+  "SUR": 34412384,
+  "URY": 34412117
+ },
+ "collections_missing": [
+  "BOL",
+  "VEN"
+ ],
+ "years_planned": 170,
+ "years_bounds": null,
+ "years_fetched": 3,
+ "throttled": 2,
+ "stopped": "5 consecutive requests failed; the remaining years wait for the next run",
+ "years_left": 167,
+ "incomplete_years": [],
+ "unmatched_domains": {
+  "sitiosargentina.com.ar": 1
+ }
+}

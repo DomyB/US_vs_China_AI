@@ -70,8 +70,18 @@
    "parliament_from": 2008,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 16,
+   "media_articles": 49,
    "media_from": 2017,
+   "media_sources": [
+    "arg_clarin",
+    "arg_cronista",
+    "arg_infobae",
+    "arg_lanacion",
+    "arg_pagina12",
+    "gdelt",
+    "mediacloud"
+   ],
+   "media_history_from": "2017-01",
    "concessions": 0,
    "parliament_classified": 1224,
    "parliament_translated": 1224,
@@ -159,6 +169,11 @@
    "media_available": true,
    "media_articles": 3,
    "media_from": 2026,
+   "media_sources": [
+    "bol_opinion",
+    "gdelt"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -246,6 +261,14 @@
    "media_available": true,
    "media_articles": 5,
    "media_from": 2026,
+   "media_sources": [
+    "bra_estadao",
+    "bra_folha",
+    "bra_oglobo",
+    "bra_valor",
+    "gdelt"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 3217,
    "parliament_translated": 3217,
@@ -333,6 +356,12 @@
    "media_available": true,
    "media_articles": 11,
    "media_from": 2026,
+   "media_sources": [
+    "chl_biobio",
+    "chl_latercera",
+    "gdelt"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 165,
    "parliament_translated": 165,
@@ -417,9 +446,15 @@
    "parliament_votes": 0,
    "parliament_from": 2010,
    "parliament_note": null,
-   "media_available": false,
+   "media_available": true,
    "media_articles": 0,
    "media_from": null,
+   "media_sources": [
+    "col_elespectador",
+    "col_eltiempo",
+    "gdelt"
+   ],
+   "media_history_from": "2026-09",
    "concessions": 0,
    "parliament_classified": 69,
    "parliament_translated": 69,
@@ -504,9 +539,15 @@
    "parliament_votes": 0,
    "parliament_from": null,
    "parliament_note": null,
-   "media_available": false,
+   "media_available": true,
    "media_articles": 0,
    "media_from": null,
+   "media_sources": [
+    "ecu_elcomercio",
+    "ecu_eluniverso",
+    "gdelt"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 15447,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -594,6 +635,10 @@
    "media_available": true,
    "media_articles": 6,
    "media_from": 2026,
+   "media_sources": [
+    "gdelt"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -670,6 +715,11 @@
    "media_available": true,
    "media_articles": 1,
    "media_from": 2026,
+   "media_sources": [
+    "gdelt",
+    "pry_abc"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 2,
    "parliament_translated": 2,
@@ -756,6 +806,14 @@
    "media_available": true,
    "media_articles": 11,
    "media_from": 2026,
+   "media_sources": [
+    "gdelt",
+    "per_elcomercio",
+    "per_gestion",
+    "per_idl_reporteros",
+    "per_larepublica"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 140,
    "parliament_translated": 140,
@@ -837,9 +895,13 @@
    "parliament_votes": 0,
    "parliament_from": null,
    "parliament_note": "De Nationale Assembl\u00e9e publishes bills as Dutch PDFs; debates and roll-calls are not online.",
-   "media_available": false,
+   "media_available": true,
    "media_articles": 0,
    "media_from": null,
+   "media_sources": [
+    "gdelt"
+   ],
+   "media_history_from": "2026-07",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -927,6 +989,12 @@
    "media_available": true,
    "media_articles": 1,
    "media_from": 2026,
+   "media_sources": [
+    "gdelt",
+    "ury_elobservador",
+    "ury_ladiaria"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -1001,6 +1069,10 @@
    "media_available": true,
    "media_articles": 2,
    "media_from": 2026,
+   "media_sources": [
+    "gdelt"
+   ],
+   "media_history_from": "2026-08",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
