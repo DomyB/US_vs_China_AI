@@ -1,4 +1,5 @@
 """The project's period: one constant, read by the adapters, the index and the exports."""
+import pytest
 
 from scm.ingest.comtrade import CHUNK_ANCHOR, chunk_years
 from scm.ingest.tier2 import first_congress
@@ -38,6 +39,14 @@ def test_release_counts_are_bounded_by_the_registry():
     assert 0 < c["sources_live"]["live"] <= c["sources_live"]["total"]
 
 
+def _stored(snap, name):
+    """Store an empty response under `name`, as the real session does on a 200."""
+    p = snap.path(name)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text("{}")
+    snap.record(name, "https://example.org", status=200)
+
+
 def test_comtrade_halves_the_code_list_when_the_api_rejects_a_code(snap_factory, monkeypatch):
     """A 400 for a code the reporter's HS edition lacks: the adapter finds it by halving, fetches the rest and
     remembers it for the other reporters' same years."""
@@ -52,6 +61,7 @@ def test_comtrade_halves_the_code_list_when_the_api_rejects_a_code(snap_factory,
             self._last_status = 400
             return None
         self._last_status = None
+        _stored(snap, name)
         return {"count": 1, "data": [{"reporterCode": reporter, "partnerCode": partners[0], "cmdCode": codes[0], "flowCode": "X", "refYear": periods[0], "primaryValue": 1.0}]}
 
     monkeypatch.setattr(comtrade.Comtrade, "_call", fake_call)
@@ -82,6 +92,7 @@ def test_comtrade_skips_a_year_range_the_endpoint_refuses_outright(snap_factory,
             self._last_status = 400
             return None
         self._last_status = None
+        _stored(snap, name)
         return {"count": 1, "data": []}
 
     monkeypatch.setattr(comtrade.Comtrade, "_call", fake_call)
@@ -112,3 +123,58 @@ def test_comtrade_reads_the_refusal_from_the_status_not_the_url(snap_factory, mo
     assert c._call(snap, "rep_ARG_2022.json", 32, [2022], [156]) is None
     assert c._last_status == 400 and c._quota_failures == 0 and len(calls) == 1
     assert snap.manifest["errors"][0]["error"].startswith("un_comtrade: HTTP 400")
+
+
+def test_comtrade_treats_a_refused_probe_for_fetched_years_as_an_outage(snap_factory, monkeypatch):
+    """A 400 on a one-code request for years earlier runs fetched means the endpoint refuses everything: the run
+    stops (the previous rows are kept) instead of marking every range rejected and finishing with nothing."""
+    from scm.ingest import comtrade
+
+    def fake_call(self, snap, name, reporter, periods, partners, codes=None):
+        self._last_status = 400
+        return None
+
+    monkeypatch.setattr(comtrade.Comtrade, "_call", fake_call)
+    monkeypatch.setattr(comtrade, "IN_SCOPE", ["ARG"])
+    snap = snap_factory("un_comtrade", {})
+    with pytest.raises(RuntimeError, match="years earlier runs fetched"):
+        comtrade.Comtrade(years=[2006, 2007, 2008, 2009]).fetch(snap)
+    assert snap.manifest.get("rejected_periods") == ["2006-2007"]  # the pre-2008 range was judged before the 2008 probe failed
+
+
+def test_comtrade_fails_instead_of_succeeding_with_nothing(snap_factory, monkeypatch):
+    from scm.ingest import comtrade
+
+    def fake_call(self, snap, name, reporter, periods, partners, codes=None):
+        self._last_status = 500  # a dropped connection, say: no retry path, nothing stored
+        return None
+
+    monkeypatch.setattr(comtrade.Comtrade, "_call", fake_call)
+    monkeypatch.setattr(comtrade, "IN_SCOPE", ["ARG"])
+    snap = snap_factory("un_comtrade", {})
+    with pytest.raises(RuntimeError, match="no response was stored"):
+        comtrade.Comtrade(years=[2022]).fetch(snap)
+
+
+def test_load_keeps_stored_rows_when_a_run_parses_nothing(tmp_path):
+    import pandas as pd
+
+    from scm.ingest.base import Adapter
+
+    class Fake(Adapter):
+        source_id = "un_comtrade"
+        tables = ("trade_flow",)
+
+        def fetch(self, snap):
+            pass
+
+        def parse(self, snap):
+            return {}
+
+    old = pd.DataFrame([{"reporter": "ARG", "partner": "CHN", "reported_by": "ARG", "hs6": "260300", "mineral": "copper", "stage": "ore", "year": 2022, "month": pd.NA, "flow": "X", "value_usd": 1.0, "qty": None, "qty_unit": None, "value_type": "reported", "source_id": "un_comtrade", "source_url": "https://comtradeplus.un.org", "source_record_url": "u", "retrieved_at": "2026-10-11T00:00:00+00:00", "original_language": "en", "reliability": "official", "confidence": "documented"}])
+    out = tmp_path / "warehouse"
+    (out / "trade_flow").mkdir(parents=True)
+    old.to_parquet(out / "trade_flow" / "un_comtrade.parquet", index=False)
+    rows = Fake().load({"trade_flow": old.iloc[0:0]}, out_dir=out)
+    assert rows == {"trade_flow": 1, "trade_flow_kept": 1}
+    assert len(pd.read_parquet(out / "trade_flow" / "un_comtrade.parquet")) == 1

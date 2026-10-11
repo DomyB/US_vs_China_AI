@@ -125,6 +125,14 @@ class Comtrade(Adapter):
             probe_name = f"{name[:-5]}_c{PROBE_CODE}.json"
             if self._fetch_one(snap, probe_name, reporter, periods, partners, [PROBE_CODE]) is None:
                 if self._last_status == 400:
+                    if periods[0] >= CHUNK_ANCHOR:
+                        # these years were fetched by earlier runs with the same request: the endpoint is refusing
+                        # everything (quota, outage), so stop and keep the previous release's rows
+                        raise RuntimeError(
+                            f"un_comtrade: the endpoint answers 400 even to a one-code request for {periods[0]}–{periods[-1]}, "
+                            "years earlier runs fetched; quota or outage on this address - the previous release's trade_flow "
+                            "is kept; rerun later or set COMTRADE_KEY"
+                        )
                     rejected.update(codes)
                     snap.manifest.setdefault("rejected_periods", []).append(f"{periods[0]}-{periods[-1]}")
                     snap.save()
@@ -167,6 +175,8 @@ class Comtrade(Adapter):
         for mirror in ("CHN", "USA"):
             for iso in IN_SCOPE:
                 self._fetch_chunked(snap, f"mirror_{mirror}_{iso}", M49[mirror], [M49[iso]], years_per_call=6)
+        if not any(snap.has(n) for n in snap.files):
+            raise RuntimeError("un_comtrade: no response was stored (every request was refused); the previous release's trade_flow is kept")
 
     def parse(self, snap: Snapshot) -> dict[str, pd.DataFrame]:
         mapping = hs6_to_mineral()

@@ -75,6 +75,10 @@ def record(ids: list[str] | None = None) -> dict:
         snap = Snapshot.latest(sid)
         if snap is None:
             continue
+        if not any(snap.has(n) for n in snap.files):
+            # a run that stored no response (every request refused) must not erase the previous recording
+            out[sid] = sorted(str(p.relative_to(FIXTURES / sid)) for p in (FIXTURES / sid).rglob("*") if p.is_file()) if (FIXTURES / sid).exists() else []
+            continue
         dest = FIXTURES / sid
         dest.mkdir(parents=True, exist_ok=True)
         kept: list[str] = []

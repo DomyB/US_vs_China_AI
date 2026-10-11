@@ -95,6 +95,13 @@ class Adapter(ABC):
             df = schema.validate(name, df.copy())
             target = out_dir / name / f"{self.source_id}.parquet"
             target.parent.mkdir(parents=True, exist_ok=True)
+            if df.empty and target.exists() and len(pd.read_parquet(target)) > 0:
+                # a run that parsed nothing (every request refused, an empty snapshot) keeps the rows an earlier
+                # run stored instead of wiping the table; the record says so
+                rows[name] = len(pd.read_parquet(target))
+                rows[f"{name}_kept"] = rows[name]
+                log.warning("%s -> %s: no rows parsed, the %d stored rows are kept", self.source_id, target, rows[name])
+                continue
             new_rows = len(df)
             if self.incremental and target.exists() and name in schema.KEY_COLUMNS:
                 old = pd.read_parquet(target)
