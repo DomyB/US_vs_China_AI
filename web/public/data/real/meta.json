@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-11",
- "generated_at": "2026-10-11T13:42:01+00:00",
+ "generated_at": "2026-10-11T16:44:07+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "arg_clarin",
@@ -70,10 +70,10 @@
  },
  "ingest_runs": [
   {
-   "source_id": "arg_clarin",
+   "source_id": "arg_cronista",
    "status": "ok",
-   "finished_at": "2026-10-07T11:19:16+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-07T11:19:37+00:00",
+   "rows": "{\"document\": 2, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
@@ -88,223 +88,6 @@
    "status": "ok",
    "finished_at": "2026-10-07T11:19:53+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "bra_valor",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:20:06+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "chl_elmercurio",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:20:36+00:00",
-   "rows": "{}",
-   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
-  },
-  {
-   "source_id": "col_anm_anna",
-   "status": "ok",
-   "finished_at": "2026-10-04T12:07:48+00:00",
-   "rows": "{\"concession\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "congress_gov",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:22:12+00:00",
-   "rows": "{\"policy_document\": 857}",
-   "error": null
-  },
-  {
-   "source_id": "ecu_cadastre",
-   "status": "ok",
-   "finished_at": "2026-10-04T12:08:07+00:00",
-   "rows": "{\"concession\": 15447}",
-   "error": null
-  },
-  {
-   "source_id": "federal_register",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:22:16+00:00",
-   "rows": "{\"policy_document\": 480}",
-   "error": null
-  },
-  {
-   "source_id": "mediacloud",
-   "status": "ok",
-   "finished_at": "2026-10-11T13:41:00+00:00",
-   "rows": "{\"document\": 139, \"document_new\": 106, \"media_volume\": 0, \"media_volume_new\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "per_elcomercio",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:37+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "per_ojopublico",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:25+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "sur_dwt",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:47+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "ury_ladiaria",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:23:21+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "wb_ids",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:29+00:00",
-   "rows": "{\"governance\": 2268}",
-   "error": null
-  },
-  {
-   "source_id": "aiddata_gcdf",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:49+00:00",
-   "rows": "{\"finance_event\": 1615}",
-   "error": null
-  },
-  {
-   "source_id": "arg_hcdn",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:06:06+00:00",
-   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
-   "error": null
-  },
-  {
-   "source_id": "bra_folha",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:58+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "bra_senado_api",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:48:52+00:00",
-   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
-   "error": null
-  },
-  {
-   "source_id": "chl_cochilco",
-   "status": "ok",
-   "finished_at": "2026-10-04T12:08:26+00:00",
-   "rows": "{\"production\": 709}",
-   "error": null
-  },
-  {
-   "source_id": "chl_senado",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:05:27+00:00",
-   "rows": "{\"vote\": 0, \"vote_member\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "col_eltiempo",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:21+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "exim_authorizations",
-   "status": "ok",
-   "finished_at": "2026-10-09T16:47:14+00:00",
-   "rows": "{\"finance_event\": 2396}",
-   "error": null
-  },
-  {
-   "source_id": "guy_ggmc",
-   "status": "ok",
-   "finished_at": "2026-10-04T12:07:44+00:00",
-   "rows": "{\"production\": 95}",
-   "error": null
-  },
-  {
-   "source_id": "per_bcrp_api",
-   "status": "failed",
-   "finished_at": "2026-10-04T12:08:27+00:00",
-   "rows": "{}",
-   "error": "IndexError: index out of bounds"
-  },
-  {
-   "source_id": "per_idl_reporteros",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:45+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "pry_silpy",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:09:04+00:00",
-   "rows": "{\"document\": 4}",
-   "error": null
-  },
-  {
-   "source_id": "unga_votes",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:34+00:00",
-   "rows": "{\"governance\": 2409}",
-   "error": null
-  },
-  {
-   "source_id": "usgs_mcs",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:00:03+00:00",
-   "rows": "{\"production\": 118, \"price\": 200}",
-   "error": null
-  },
-  {
-   "source_id": "wb_wdi",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:20+00:00",
-   "rows": "{\"governance\": 1872}",
-   "error": null
-  },
-  {
-   "source_id": "arg_cronista",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:37+00:00",
-   "rows": "{\"document\": 2, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "arg_lanacion",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:42+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "bgs_wms",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:01:57+00:00",
-   "rows": "{\"production\": 2684}",
-   "error": null
-  },
-  {
-   "source_id": "bra_camara_api",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:40:13+00:00",
-   "rows": "{\"document\": 3432, \"vote\": 1266, \"vote_member\": 23305}",
    "error": null
   },
   {
@@ -336,17 +119,10 @@
    "error": null
   },
   {
-   "source_id": "ecu_eluniverso",
+   "source_id": "federal_register",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:36+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "gdelt",
-   "status": "ok",
-   "finished_at": "2026-10-10T10:59:36+00:00",
-   "rows": "{\"document\": 39, \"document_new\": 10, \"media_volume\": 183, \"media_volume_new\": 2}",
+   "finished_at": "2026-10-10T23:22:16+00:00",
+   "rows": "{\"policy_document\": 480}",
    "error": null
   },
   {
@@ -357,52 +133,52 @@
    "error": null
   },
   {
-   "source_id": "per_gestion",
+   "source_id": "per_congreso_spley",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:39+00:00",
-   "rows": "{\"document\": 5, \"document_new\": 2, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-11T00:09:52+00:00",
+   "rows": "{\"document\": 140}",
    "error": null
   },
   {
-   "source_id": "pry_abc",
+   "source_id": "per_larepublica",
    "status": "ok",
-   "finished_at": "2026-10-07T11:22:46+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-07T11:21:54+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "un_comtrade",
+   "source_id": "resourcecontracts",
    "status": "ok",
-   "finished_at": "2026-10-11T12:53:20+00:00",
-   "rows": "{\"trade_flow\": 29828}",
+   "finished_at": "2026-10-01T21:02:14+00:00",
+   "rows": "{\"contract\": 487}",
    "error": null
   },
   {
-   "source_id": "ury_parlamento",
+   "source_id": "ury_ladiaria",
    "status": "ok",
-   "finished_at": "2026-10-11T00:08:39+00:00",
-   "rows": "{\"document\": 1}",
+   "finished_at": "2026-10-07T11:23:21+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "wb_pink_sheet",
+   "source_id": "wb_ids",
    "status": "ok",
-   "finished_at": "2026-10-01T20:15:31+00:00",
-   "rows": "{\"price\": 3200}",
+   "finished_at": "2026-10-01T20:15:29+00:00",
+   "rows": "{\"governance\": 2268}",
    "error": null
   },
   {
-   "source_id": "aei_cgit",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:24:13+00:00",
-   "rows": "{}",
-   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+   "source_id": "aiddata_gcdf",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:02:49+00:00",
+   "rows": "{\"finance_event\": 1615}",
+   "error": null
   },
   {
-   "source_id": "arg_infobae",
+   "source_id": "arg_hcdn",
    "status": "ok",
-   "finished_at": "2026-10-07T11:19:42+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-11T00:06:06+00:00",
+   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
    "error": null
   },
   {
@@ -448,10 +224,234 @@
    "error": null
   },
   {
+   "source_id": "ecu_eluniverso",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:36+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "gdelt",
+   "status": "ok",
+   "finished_at": "2026-10-10T10:59:36+00:00",
+   "rows": "{\"document\": 39, \"document_new\": 10, \"media_volume\": 183, \"media_volume_new\": 2}",
+   "error": null
+  },
+  {
+   "source_id": "per_bcrp_api",
+   "status": "failed",
+   "finished_at": "2026-10-04T12:08:27+00:00",
+   "rows": "{}",
+   "error": "IndexError: index out of bounds"
+  },
+  {
+   "source_id": "per_gestion",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:39+00:00",
+   "rows": "{\"document\": 5, \"document_new\": 2, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "pry_silpy",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:09:04+00:00",
+   "rows": "{\"document\": 4}",
+   "error": null
+  },
+  {
+   "source_id": "un_comtrade",
+   "status": "ok",
+   "finished_at": "2026-10-11T12:53:20+00:00",
+   "rows": "{\"trade_flow\": 29828}",
+   "error": null
+  },
+  {
+   "source_id": "ury_parlamento",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:08:39+00:00",
+   "rows": "{\"document\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "wb_pink_sheet",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:31+00:00",
+   "rows": "{\"price\": 3200}",
+   "error": null
+  },
+  {
+   "source_id": "aei_cgit",
+   "status": "failed",
+   "finished_at": "2026-10-01T20:24:13+00:00",
+   "rows": "{}",
+   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+  },
+  {
+   "source_id": "arg_infobae",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:42+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bgs_wms",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:01:57+00:00",
+   "rows": "{\"production\": 2684}",
+   "error": null
+  },
+  {
+   "source_id": "bra_folha",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:58+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bra_valor",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:20:06+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "chl_elmercurio",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:20:36+00:00",
+   "rows": "{}",
+   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "source_id": "col_anm_anna",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:07:48+00:00",
+   "rows": "{\"concession\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "congress_gov",
+   "status": "ok",
+   "finished_at": "2026-10-10T23:22:12+00:00",
+   "rows": "{\"policy_document\": 857}",
+   "error": null
+  },
+  {
    "source_id": "ecu_elcomercio",
    "status": "ok",
    "finished_at": "2026-10-07T11:21:25+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "guy_ggmc",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:07:44+00:00",
+   "rows": "{\"production\": 95}",
+   "error": null
+  },
+  {
+   "source_id": "mediacloud",
+   "status": "ok",
+   "finished_at": "2026-10-11T16:42:18+00:00",
+   "rows": "{\"document\": 7921, \"document_new\": 7782, \"media_volume\": 1260, \"media_volume_new\": 1260}",
+   "error": null
+  },
+  {
+   "source_id": "per_ojopublico",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:25+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "sur_dwt",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:47+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "ury_elobservador",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:23:20+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "usgs_mcs",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:00:03+00:00",
+   "rows": "{\"production\": 118, \"price\": 200}",
+   "error": null
+  },
+  {
+   "source_id": "wb_wdi",
+   "status": "ok",
+   "finished_at": "2026-10-01T20:15:20+00:00",
+   "rows": "{\"governance\": 1872}",
+   "error": null
+  },
+  {
+   "source_id": "arg_clarin",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:16+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "arg_lanacion",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:42+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bra_camara_api",
+   "status": "ok",
+   "finished_at": "2026-10-10T23:40:13+00:00",
+   "rows": "{\"document\": 3432, \"vote\": 1266, \"vote_member\": 23305}",
+   "error": null
+  },
+  {
+   "source_id": "bra_senado_api",
+   "status": "ok",
+   "finished_at": "2026-10-10T23:48:52+00:00",
+   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
+   "error": null
+  },
+  {
+   "source_id": "chl_cochilco",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:08:26+00:00",
+   "rows": "{\"production\": 709}",
+   "error": null
+  },
+  {
+   "source_id": "chl_senado",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:05:27+00:00",
+   "rows": "{\"vote\": 0, \"vote_member\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "col_eltiempo",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:21+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "ecu_cadastre",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:08:07+00:00",
+   "rows": "{\"concession\": 15447}",
+   "error": null
+  },
+  {
+   "source_id": "exim_authorizations",
+   "status": "ok",
+   "finished_at": "2026-10-09T16:47:14+00:00",
+   "rows": "{\"finance_event\": 2396}",
    "error": null
   },
   {
@@ -462,31 +462,31 @@
    "error": null
   },
   {
-   "source_id": "per_congreso_spley",
+   "source_id": "per_elcomercio",
    "status": "ok",
-   "finished_at": "2026-10-11T00:09:52+00:00",
-   "rows": "{\"document\": 140}",
-   "error": null
-  },
-  {
-   "source_id": "per_larepublica",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:54+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "resourcecontracts",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:14+00:00",
-   "rows": "{\"contract\": 487}",
-   "error": null
-  },
-  {
-   "source_id": "ury_elobservador",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:23:20+00:00",
+   "finished_at": "2026-10-07T11:21:37+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "per_idl_reporteros",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:45+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "pry_abc",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:22:46+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "unga_votes",
+   "status": "ok",
+   "finished_at": "2026-10-01T21:02:34+00:00",
+   "rows": "{\"governance\": 2409}",
    "error": null
   },
   {
@@ -512,11 +512,11 @@
   "governance": 11793,
   "contract": 487,
   "policy_document": 1337,
-  "document": 5618,
+  "document": 13400,
   "vote": 1469,
   "vote_member": 44547,
   "concession": 15447,
-  "media_volume": 251,
+  "media_volume": 1511,
   "statement": 417,
   "doc_translation": 5472,
   "doc_classification": 5478,
@@ -566,7 +566,7 @@
   "macro_f1_held_out": null,
   "beats_baseline": null,
   "n_coded": 0,
-  "n_total": 5618,
+  "n_total": 13400,
   "n_classified": 5478,
   "label": "zero-shot baseline, not yet validated"
  },
@@ -574,9 +574,9 @@
   "status": "computed",
   "method_version": "2026.10",
   "weights_version": "2026.10.eq",
-  "run_id": "quant-20261011T134101Z",
-  "inputs_release": "data-v2026.10.11.61",
-  "created_at": "2026-10-11T13:41:56+00:00",
+  "run_id": "quant-20261011T164220Z",
+  "inputs_release": "data-v2026.10.11.62",
+  "created_at": "2026-10-11T16:43:58+00:00",
   "draws": 500,
   "rank_stability": 0.648,
   "text_model_label": "zero-shot baseline, not yet validated",
@@ -1111,7 +1111,7 @@
    "parliament_from": 2008,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 49,
+   "media_articles": 382,
    "media_from": 2017,
    "media_sources": [
     "arg_clarin",
@@ -1208,14 +1208,14 @@
    "parliament_from": null,
    "parliament_note": "The Asamblea Legislativa Plurinacional publishes no API, no roll-call data and no transcripts; the Gaceta's full text is paywalled.",
    "media_available": true,
-   "media_articles": 73,
-   "media_from": 2026,
+   "media_articles": 1087,
+   "media_from": 2018,
    "media_sources": [
     "bol_opinion",
     "gdelt",
     "mediacloud"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -1301,8 +1301,8 @@
    "parliament_from": 1996,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 41,
-   "media_from": 2026,
+   "media_articles": 482,
+   "media_from": 2018,
    "media_sources": [
     "bra_estadao",
     "bra_folha",
@@ -1311,7 +1311,7 @@
     "gdelt",
     "mediacloud"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 3217,
    "parliament_translated": 3217,
@@ -1397,14 +1397,15 @@
    "parliament_from": 2000,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 11,
-   "media_from": 2026,
+   "media_articles": 1379,
+   "media_from": 2018,
    "media_sources": [
     "chl_biobio",
     "chl_latercera",
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 165,
    "parliament_translated": 165,
@@ -1490,14 +1491,15 @@
    "parliament_from": 2010,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 0,
-   "media_from": null,
+   "media_articles": 388,
+   "media_from": 2018,
    "media_sources": [
     "col_elespectador",
     "col_eltiempo",
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
-   "media_history_from": "2026-09",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 69,
    "parliament_translated": 69,
@@ -1583,14 +1585,15 @@
    "parliament_from": null,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 0,
-   "media_from": null,
+   "media_articles": 150,
+   "media_from": 2018,
    "media_sources": [
     "ecu_elcomercio",
     "ecu_eluniverso",
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 15447,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -1676,12 +1679,13 @@
    "parliament_from": null,
    "parliament_note": "The Parliament of Guyana publishes Hansard as PDF only, with no structured bill or vote records.",
    "media_available": true,
-   "media_articles": 6,
-   "media_from": 2026,
+   "media_articles": 2120,
+   "media_from": 2018,
    "media_sources": [
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -1756,13 +1760,14 @@
    "parliament_from": 2005,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 1,
-   "media_from": 2026,
+   "media_articles": 153,
+   "media_from": 2018,
    "media_sources": [
     "gdelt",
+    "mediacloud",
     "pry_abc"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 2,
    "parliament_translated": 2,
@@ -1847,16 +1852,17 @@
    "parliament_from": 2021,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 11,
-   "media_from": 2026,
+   "media_articles": 527,
+   "media_from": 2018,
    "media_sources": [
     "gdelt",
+    "mediacloud",
     "per_elcomercio",
     "per_gestion",
     "per_idl_reporteros",
     "per_larepublica"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 140,
    "parliament_translated": 140,
@@ -1939,12 +1945,13 @@
    "parliament_from": null,
    "parliament_note": "De Nationale Assemblée publishes bills as Dutch PDFs; debates and roll-calls are not online.",
    "media_available": true,
-   "media_articles": 0,
-   "media_from": null,
+   "media_articles": 853,
+   "media_from": 2018,
    "media_sources": [
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
-   "media_history_from": "2026-07",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -2030,14 +2037,15 @@
    "parliament_from": 2021,
    "parliament_note": null,
    "media_available": true,
-   "media_articles": 1,
-   "media_from": 2026,
+   "media_articles": 204,
+   "media_from": 2018,
    "media_sources": [
     "gdelt",
+    "mediacloud",
     "ury_elobservador",
     "ury_ladiaria"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
@@ -2110,12 +2118,13 @@
    "parliament_from": null,
    "parliament_note": "Two assemblies claim legitimacy; neither publishes structured bill or vote records.",
    "media_available": true,
-   "media_articles": 2,
-   "media_from": 2026,
+   "media_articles": 252,
+   "media_from": 2018,
    "media_sources": [
-    "gdelt"
+    "gdelt",
+    "mediacloud"
    ],
-   "media_history_from": "2026-08",
+   "media_history_from": "2018-01",
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
