@@ -21,6 +21,16 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "analysis", label: "Analysis" },
   { id: "forecast", label: "Forecast" },
 ];
+export const TAB_IDS: TabId[] = TABS.map((t) => t.id);
+/** The visible name of the `parliament` tab is "Politics", so a typed or shared `?tab=politics` opens it too. */
+const TAB_ALIAS: Record<string, TabId> = { politics: "parliament" };
+
+/** The tab a `?tab=` value names: its id, the visible name's alias, or the Actions tab for anything else or nothing. */
+export function parseTab(raw: string | null | undefined): TabId {
+  if (!raw) return "actions";
+  const id = TAB_ALIAS[raw.toLowerCase()] ?? raw;
+  return TAB_IDS.includes(id as TabId) ? (id as TabId) : "actions";
+}
 
 interface Props {
   iso3: string;
@@ -58,7 +68,9 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
     };
   }, [iso3]);
 
-  const countryIndex = useMemo(() => indexRows.filter((r) => r.iso3 === iso3 && r.mineral === (mineral === "all" ? "all" : mineral)).sort((a, b) => a.year - b.year), [indexRows, iso3, mineral]);
+  // the country's composite rows for the mineral (an index file with sub-index rows marks them `index`; rows without the
+  // field are composite rows of an older file), so the Analysis and Forecast tabs never mix the three series
+  const countryIndex = useMemo(() => indexRows.filter((r) => r.iso3 === iso3 && r.mineral === (mineral === "all" ? "all" : mineral) && (r.index ?? "composite") === "composite").sort((a, b) => a.year - b.year), [indexRows, iso3, mineral]);
   const country = meta.countries.find((c) => c.iso3 === iso3);
 
   return (
@@ -91,7 +103,8 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
             onClick={() => onTab(t.id)}
             className={`-mb-px flex items-center gap-1.5 border-b-[3px] border-transparent px-2.5 py-2.5 text-[13px] whitespace-nowrap transition-colors sm:px-3 sm:text-sm ${tab === t.id ? "font-semibold text-ink" : "text-ink-2 hover:border-rule-2 hover:text-ink"}`}
           >
-            <Icon name={t.id} className={tab === t.id ? "text-accent" : "text-ink-3"} />
+            {/* under 400 px the five labels only just fit the strip, so the icons go */}
+            <Icon name={t.id} className={`hidden min-[400px]:inline-flex ${tab === t.id ? "text-accent" : "text-ink-3"}`} />
             {t.label}
           </button>
         ))}
@@ -100,7 +113,7 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
       <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`} className="flex-1 overflow-y-auto px-4 py-3">
         {error && <p className="text-sm text-danger">Could not load data: {error}</p>}
         {!data && !error && <PanelSkeleton />}
-        {data && tab === "actions" && <ActionsTab data={data} year={year} mineral={mineral} />}
+        {data && tab === "actions" && <ActionsTab data={data} year={year} mineral={mineral} sourceNames={sourceNames} />}
         {data && tab === "parliament" && <PoliticsTab data={data} year={year} mineral={mineral} />}
         {data && tab === "media" && <MediaTab data={data} year={year} mineral={mineral} />}
         {data && tab === "analysis" && <AnalysisTab data={data} year={year} indexRows={countryIndex} indexLayer={indexLayer} />}

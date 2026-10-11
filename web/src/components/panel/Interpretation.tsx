@@ -2,7 +2,18 @@
 
 import { useState } from "react";
 import { LayerLabel } from "@/components/ui/Badges";
-import type { InterpretationBlock } from "@/lib/types";
+import type { HumanText, InterpretationBlock } from "@/lib/types";
+import { useRealMeta } from "@/lib/useRealMeta";
+
+/** The brief's front matter names the data release its numbers were read from (`data_release`); absent in files
+ *  exported before the field existed. */
+type HumanTextWithRelease = HumanText & { data_release?: string | null };
+
+/** "drafted from data release X", and when the site's current release differs, that the numbers may have moved. */
+export function releaseLine(drafted: string | null | undefined, current: string | null | undefined): string | null {
+  if (!drafted) return null;
+  return `drafted from data release ${drafted}${current && current !== drafted ? ` · the current release is ${current}, numbers may have moved` : ""}`;
+}
 
 /** Minimal rendering of the owner's Markdown: #/## headings and blank-line paragraphs; everything else as typed. */
 function renderMarkdown(md: string) {
@@ -31,6 +42,9 @@ function renderMarkdown(md: string) {
  */
 export function Interpretation({ block, scopeLabel, hideGenerated = false }: { block: InterpretationBlock | null | undefined; scopeLabel: string; hideGenerated?: boolean }) {
   const [open, setOpen] = useState<string | null>(null);
+  const meta = useRealMeta();
+  // the release the brief was drafted from against the release the site shows (meta.quant_model.inputs_release)
+  const release = releaseLine((block?.human as HumanTextWithRelease | null | undefined)?.data_release, meta?.quant_model?.inputs_release);
   if (!block) {
     return (
       <div className="rounded-lg border-2 border-dotted border-interp/70 bg-card p-3 shadow-[3px_3px_0_var(--shadow-hard)] text-sm text-ink-2">
@@ -85,6 +99,7 @@ export function Interpretation({ block, scopeLabel, hideGenerated = false }: { b
           <div>
             <p className="text-sm font-semibold">{block.human.title}{!block.human.reviewed && <span className="ml-1 rounded-sm border border-dotted border-ink-3 px-1 text-[9px] uppercase text-ink-3">draft</span>}</p>
             <p className="mb-1 text-[11px] text-ink-3">{block.human.author ?? "project owner"}{block.human.date ? ` · ${block.human.date}` : ""}{block.human.reviewed ? " · reviewed" : " · not yet reviewed"}</p>
+            {release && <p className="mb-1 text-[11px] text-ink-3">{release}</p>}
             <div className="space-y-1 [overflow-wrap:anywhere]">{renderMarkdown(block.human.text_md)}</div>
           </div>
         ) : (

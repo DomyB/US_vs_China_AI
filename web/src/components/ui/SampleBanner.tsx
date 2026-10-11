@@ -32,14 +32,16 @@ export function SampleBanner() {
   const interp = real.layers?.interpretation;
   const briefs = real.interpretation_briefs;
   const interpReal = interp === "generated" || interp === "generated+human";
-  const interpLabel = !interpReal ? "not in this release" : interp === "generated+human" ? (briefs ? `generated · briefs ${briefs.reviewed}/${briefs.total} reviewed` : "generated + briefs") : "generated";
+  const interpLabel = !interpReal ? "not in this release" : interp === "generated+human" ? (briefs ? `generated · briefs ${briefs.reviewed}/${briefs.total} reviewed` : "generated") : "generated";
   // `value` is the chip's short text, `long` the full form (the title and the strip's explanation carry it)
   const chips: { label: string; value: string; long?: string; tone: "facts" | "model" | "interp" | "sample" }[] = [
     { label: "Facts", value: `real · ${withFacts}/12`, tone: "facts" },
-    { label: "Text", value: `${withParliament}/${withMedia} · ${textShort}`, long: `records ${withParliament}/${withMedia} · stance ${textLabel}`, tone: classified > 0 ? "model" : "facts" },
+    // two counts of countries with records, named so the chip never reads as a fraction (legislatures 7 of 12, press 12 of 12)
+    { label: "Text", value: `legislatures ${withParliament} · press ${withMedia} · ${textShort}`, long: `legislative records for ${withParliament} countries, press for ${withMedia} · stance ${textLabel}`, tone: classified > 0 ? "model" : "facts" },
     { label: "Indices", value: real.layers?.analysis === "real" ? "computed" : "sample", long: real.layers?.analysis === "real" ? `computed · method ${real.quant_model?.method_version ?? "–"}` : undefined, tone: real.layers?.analysis === "real" ? "model" : "sample" },
     { label: "Forecasts", value: real.layers?.forecast === "real" ? "backtested" : "sample", tone: real.layers?.forecast === "real" ? "model" : "sample" },
-    { label: "Analysis", value: interp === "generated+human" && briefs ? `generated · ${briefs.reviewed}/${briefs.total} reviewed` : interpLabel, long: interpLabel, tone: interpReal ? "interp" : "sample" },
+    // "Briefs", not "Analysis": the Analysis tab holds the computed index and flags; this chip is about the written briefs
+    { label: "Briefs", value: interp === "generated+human" && briefs ? `generated · ${briefs.reviewed}/${briefs.total} reviewed` : interpLabel, long: interpReal ? `written briefs, AI-drafted until the owner reviews them${briefs ? ` · ${briefs.reviewed} of ${briefs.total} reviewed` : ""}` : interpLabel, tone: interpReal ? "interp" : "sample" },
     ...(real.layers?.statements === "real" ? [{ label: "Statements", value: `${statements} coded`, long: `${statements} on a country · dataset coding`, tone: "facts" as const }] : []),
   ];
   const toneCls = { facts: "border-facts/40 text-facts", model: "border-model/40 text-model", interp: "border-interp/40 text-interp", sample: "border-sample/50 text-sample" };

@@ -7,59 +7,71 @@ import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyLabel, prettyMineral } from "@/lib/constants";
+import { tradeByYear, type TradeYearRow } from "@/lib/data";
 import { fmtDate, fmtMusd } from "@/lib/format";
-import { provenanceFor } from "@/lib/provenance";
+import { provenanceFor, type Provenance } from "@/lib/provenance";
 import type { CountryData } from "@/lib/types";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import { useRealMeta } from "@/lib/useRealMeta";
 
 const PARTNER: Record<string, string> = { US: "to the United States", CN: "to China", ROW: "to the rest of the world" };
 /** axis ticks in US$ bn from a thousand million up, so "60,000" never runs past the left margin */
 const compactMusd = (v: number) => (v === 0 ? "0" : v >= 1000 ? `${(v / 1000).toFixed(v >= 10000 || Number.isInteger(v / 1000) ? 0 : 1)} bn` : `${v.toFixed(0)} m`);
+/** every year of the record, so a year without trade rows is an empty slot on the band axis and every tick exists */
+const ALL_YEARS = Array.from({ length: YEAR_MAX - YEAR_MIN + 1 }, (_, i) => YEAR_MIN + i);
+/** " (2 of 13 mineral rows with no partner row)" on a partial sum; "" when every row had a cell */
+const absentNote = (d: TradeYearRow) => (d.absent > 0 ? ` (${d.absent} of ${d.n} mineral row${d.n === 1 ? "" : "s"} with no partner row)` : "");
+const printMusd = (v: unknown) => (v === null || v === undefined ? "— (no partner row)" : fmtMusd(v as number));
 
-export function ActionsTab({ data, year, mineral }: { data: CountryData; year: number; mineral: string }) {
+export function ActionsTab({ data, year, mineral, sourceNames }: { data: CountryData; year: number; mineral: string; sourceNames?: Record<string, { name: string; url: string }> }) {
   const isReal = data.layers?.actions === "real";
   const meta = useRealMeta();
-  const trade = useMemo(() => {
-    const rows = data.actions.trade.filter((t) => mineral === "all" || t.mineral === mineral);
-    const byYear = new Map<number, { CN: number; US: number; ROW: number; mCN: number | null; mUS: number | null }>();
-    for (const r of rows) {
-      const cur = byYear.get(r.year) ?? { CN: 0, US: 0, ROW: 0, mCN: null, mUS: null };
-      cur.CN += r.exports_musd.CN ?? 0;
-      cur.US += r.exports_musd.US ?? 0;
-      cur.ROW += r.exports_musd.ROW ?? 0;
-      if (r.mirror_musd?.CN != null) cur.mCN = (cur.mCN ?? 0) + r.mirror_musd.CN;
-      if (r.mirror_musd?.US != null) cur.mUS = (cur.mUS ?? 0) + r.mirror_musd.US;
-      byYear.set(r.year, cur);
-    }
-    const long: { year: number; partner: string; value: number; kind: "reported" | "mirror" }[] = [];
-    for (const [y, v] of byYear) {
-      for (const p of ["CN", "US", "ROW"] as const) long.push({ year: y, partner: p, value: v[p], kind: "reported" });
-      if (v.mCN != null) long.push({ year: y, partner: "CN", value: v.mCN, kind: "mirror" });
-      if (v.mUS != null) long.push({ year: y, partner: "US", value: v.mUS, kind: "mirror" });
-    }
-    return long.sort((a, b) => a.year - b.year);
-  }, [data, mineral]);
+  const narrow = useMediaQuery("(max-width: 479px)");
+  // one value per year and partner; an absent partner cell is left out of the sum and counted, never read as 0
+  const trade = useMemo(() => tradeByYear(data.actions.trade, mineral), [data, mineral]);
   const hasMirror = useMemo(() => trade.some((t) => t.kind === "mirror"), [trade]);
+  const absentYears = useMemo(() => trade.filter((t) => t.kind === "reported" && t.value === null).length, [trade]);
   const tradeSource = useMemo(() => data.actions.trade.find((t) => t.source)?.source ?? null, [data]);
 
   const tradeOptions = useMemo(
     () => ({
       height: 260,
       marginLeft: 56,
-      x: { label: null, ticks: Array.from({ length: Math.floor((YEAR_MAX - YEAR_MIN) / 3) + 1 }, (_, i) => YEAR_MIN + 3 * i), tickFormat: (d: number) => String(d) },
+      // a fixed band domain: absent years render as gaps, and the ticks (every three years, every six on a phone) always exist
+      x: { label: null, domain: ALL_YEARS, ticks: ALL_YEARS.filter((y) => (y - YEAR_MIN) % (narrow ? 6 : 3) === 0), tickFormat: (d: number) => String(d) },
       y: { label: isReal ? "Exports, US$" : "Exports, US$ (SAMPLE)", grid: true, tickFormat: compactMusd },
       color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, OTHER_COLOR], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "to rest of world" }[d] ?? d) },
       marks: [
-        Plot.barY(trade.filter((t) => t.kind === "reported"), { x: "year", y: "value", fill: "partner", insetLeft: 1, insetRight: hasMirror ? 8 : 1, tip: true, order: ["US", "CN", "ROW"], title: (d: { year: number; partner: string; value: number }) => `${d.year} · ${PARTNER[d.partner] ?? d.partner}: ${fmtMusd(d.value)}` }),
+        Plot.barY(trade.filter((t) => t.kind === "reported" && t.value !== null), { x: "year", y: "value", fill: "partner", insetLeft: 1, insetRight: hasMirror ? 8 : 1, tip: true, order: ["US", "CN", "ROW"], title: (d: TradeYearRow) => `${d.year} · ${PARTNER[d.partner] ?? d.partner}: ${fmtMusd(d.value)}${absentNote(d)}` }),
         ...(hasMirror
-          ? [Plot.barY(trade.filter((t) => t.kind === "mirror"), { x: "year", y: "value", fill: "partner", fillOpacity: 0.45, insetLeft: 14, insetRight: 1, tip: true, order: ["US", "CN"], title: (d: { year: number; partner: string; value: number }) => `${d.year} · mirror (partner-reported) ${PARTNER[d.partner] ?? d.partner}: ${fmtMusd(d.value)}` })]
+          ? [Plot.barY(trade.filter((t) => t.kind === "mirror" && t.value !== null), { x: "year", y: "value", fill: "partner", fillOpacity: 0.45, insetLeft: 14, insetRight: 1, tip: true, order: ["US", "CN"], title: (d: TradeYearRow) => `${d.year} · mirror (partner-reported) ${PARTNER[d.partner] ?? d.partner}: ${fmtMusd(d.value)}${absentNote(d)}` })]
           : []),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
         Plot.ruleY([0]),
       ],
     }),
-    [trade, year, hasMirror, isReal],
+    [trade, year, hasMirror, isReal, narrow],
   );
+
+  // the cadastre titles the export counts for the country (meta.coverage) with the run that read them; the titles
+  // themselves are not yet exported, so this is the count with its source and date, nothing more
+  const concessions = useMemo(() => {
+    const n = meta?.coverage?.[data.iso3]?.concessions ?? 0;
+    if (!meta || n <= 0) return null;
+    const sourceId = `${data.iso3.toLowerCase()}_cadastre`;
+    const run = meta.ingest_runs.find((r) => r.source_id === sourceId);
+    const retrieved = run?.finished_at ? run.finished_at.slice(0, 10) : null;
+    const provenance: Provenance = {
+      title: `Mining titles in the national cadastre, ${data.name}`,
+      layer: "facts",
+      tables: ["concession"],
+      ids: [`concession:${data.iso3}`],
+      sources: [sourceId],
+      status: "count only: the titles (holder, mineral, status, area, grant date) are in the warehouse and not yet exported to the site",
+      glossary: ["reliability_rating"],
+    };
+    return { n, sourceId, retrieved, provenance, source: sourceNames?.[sourceId] ?? null };
+  }, [meta, data, sourceNames]);
 
   const [allYears, setAllYears] = useState(false);
   const [eventsShown, setEventsShown] = useState(30);
@@ -110,13 +122,14 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
         <p className="mb-2 text-xs text-ink-3">
           {mineral === "all" ? "All core minerals" : prettyMineral(mineral)}, annual, reported by {data.name}.
           {hasMirror ? " Lighter narrow bars: the same flow as reported by the partner (mirror data, includes freight and insurance)." : " Mirror data appears here once the partner-reported series is ingested."}
+          {trade.length > 0 && ` A dash, and no bar, means Comtrade returned no partner row for that year (read as no reported flow, never as zero)${absentYears > 0 ? `: ${absentYears} such partner-year${absentYears === 1 ? "" : "s"} here` : ""}; a gap on the axis is a year with no trade row at all.`}
         </p>
         {trade.length === 0 ? (
           <p className="text-sm text-ink-3">No trade rows for this selection. Missing means not reported, not zero.</p>
         ) : (
           <>
             <PlotFigure options={tradeOptions} ariaLabel={`Exports of ${mineral === "all" ? "core minerals" : prettyMineral(mineral)} from ${data.name} by destination, ${YEAR_MIN} to ${YEAR_MAX}${isReal ? "" : ", sample data"}`} />
-            <DataTable rows={trade} caption="Exports by destination" columns={[{ key: "year", label: "Year" }, { key: "partner", label: "Destination" }, { key: "kind", label: "Reported by" }, { key: "value", label: "US$ m", format: (v) => fmtMusd(v as number) }]} />
+            <DataTable rows={trade} caption="Exports by destination (a dash: no partner row, never zero; the last column counts the mineral rows with no partner row out of those summed)" columns={[{ key: "year", label: "Year" }, { key: "partner", label: "Destination" }, { key: "kind", label: "Reported by" }, { key: "value", label: "US$ m", format: printMusd }, { key: "absent", label: "No partner row", format: (v) => (Number(v) > 0 ? String(v) : "") }]} />
           </>
         )}
         {tradeSource && (
@@ -137,6 +150,21 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
           </details>
         )}
       </section>
+
+      {concessions && (
+        <section aria-labelledby="conc-h">
+          <SectionHeader id="conc-h" title="Mining titles in the national cadastre" tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={concessions.provenance} />
+          <p className="text-sm text-ink-2">
+            <span className="font-semibold tabular-nums">{concessions.n.toLocaleString("en-GB")}</span> titles in the cadastre
+            {concessions.retrieved ? `, retrieved ${fmtDate(concessions.retrieved)}` : ""}
+            {" · "}
+            <span className="text-xs text-ink-3">
+              Source: {concessions.source ? <a href={concessions.source.url} target="_blank" rel="noopener noreferrer" className="underline">{concessions.source.name}</a> : <a href={`/sources#${concessions.sourceId}`} className="underline">{concessions.sourceId}</a>}
+            </span>
+          </p>
+          <p className="text-xs text-ink-3">The count of titles the ingestion read; the titles themselves (holder, mineral, status, area, grant date) are not yet exported to the site.</p>
+        </section>
+      )}
 
       <section aria-labelledby="events-h">
         <SectionHeader id="events-h" title={allYears ? "Deals, loans, investments and agreements, all years" : `Deals, loans, investments and agreements in ${year}`} tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} provenance={provenanceFor("finance", { iso3: data.iso3, year: allYears ? undefined : year, meta, title: `Finance events, ${data.name}` })} />

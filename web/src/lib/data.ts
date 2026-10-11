@@ -1,4 +1,4 @@
-import type { StoryFile, ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InsightsFile, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData, RegionStatements } from "./types";
+import type { StoryFile, ValidationFile, CountryCoverage, CountryData, FlowsFile, IndexFile, IndexRow, InsightsFile, InterpretationBlock, Meta, QuantFile, RealCountryData, RealMediaFile, RealMeta, RealParliamentFile, RegionData, RegionStatements, TradeRow } from "./types";
 
 const BASE = "/data/sample";
 const REAL = "/data/real";
@@ -200,6 +200,60 @@ export async function loadFlows(): Promise<{ data: FlowsFile; layer: "real" | "s
   return { data: await getJSON<FlowsFile>(`${BASE}/flows.json`), layer: "sample" };
 }
 
+/** One bar segment or table row of the Actions tab's trade chart: a partner's exports in a year, summed over the
+ *  mineral rows selected. `value` is null when EVERY selected row of that partner-year has no partner row (absent,
+ *  never 0); `absent` counts the rows with no partner row and `n` the rows summed, so a partial sum says so. */
+export interface TradeYearRow {
+  year: number;
+  partner: "CN" | "US" | "ROW";
+  value: number | null;
+  kind: "reported" | "mirror";
+  absent: number;
+  n: number;
+}
+
+const TRADE_PARTNERS = ["CN", "US", "ROW"] as const;
+
+/**
+ * The trade rows of a country file summed into one value per year and partner (the Actions tab's chart and table).
+ * An absent partner cell (Comtrade returned no partner row) is never read as 0: it is left out of the sum and
+ * counted in `absent`; a year whose cells are all absent for a partner yields `value: null`. Mirror (partner-reported)
+ * values are summed the same way and listed only where some mirror cell exists.
+ */
+export function tradeByYear(rows: TradeRow[], mineral = "all"): TradeYearRow[] {
+  const selected = rows.filter((t) => mineral === "all" || t.mineral === mineral);
+  type Acc = { sum: number | null; absent: number; n: number };
+  const fresh = (): Acc => ({ sum: null, absent: 0, n: 0 });
+  const byYear = new Map<number, { reported: Record<(typeof TRADE_PARTNERS)[number], Acc>; mirror: Record<"CN" | "US", Acc> }>();
+  for (const r of selected) {
+    const cur = byYear.get(r.year) ?? { reported: { CN: fresh(), US: fresh(), ROW: fresh() }, mirror: { CN: fresh(), US: fresh() } };
+    for (const p of TRADE_PARTNERS) {
+      const v = r.exports_musd?.[p];
+      const a = cur.reported[p];
+      a.n += 1;
+      if (v === null || v === undefined) a.absent += 1;
+      else a.sum = (a.sum ?? 0) + v;
+    }
+    for (const p of ["CN", "US"] as const) {
+      const v = r.mirror_musd?.[p];
+      const a = cur.mirror[p];
+      a.n += 1;
+      if (v === null || v === undefined) a.absent += 1;
+      else a.sum = (a.sum ?? 0) + v;
+    }
+    byYear.set(r.year, cur);
+  }
+  const long: TradeYearRow[] = [];
+  for (const [year, v] of byYear) {
+    for (const p of TRADE_PARTNERS) long.push({ year, partner: p, value: v.reported[p].sum, kind: "reported", absent: v.reported[p].absent, n: v.reported[p].n });
+    for (const p of ["CN", "US"] as const) {
+      const m = v.mirror[p];
+      if (m.sum !== null) long.push({ year, partner: p, value: m.sum, kind: "mirror", absent: m.absent, n: m.n });
+    }
+  }
+  return long.sort((a, b) => a.year - b.year);
+}
+
 export type IndexLookup = Map<string, IndexRow>;
 
 export function indexKey(iso3: string, year: number, actor: string, mineral: string): string {
@@ -212,7 +266,8 @@ export function buildIndexLookup(rows: IndexRow[]): IndexLookup {
   return m;
 }
 
-/** Value shown on the map for a country given the actor mode. "both" returns CN minus US in [-100, 100]. */
+/** Value shown on the map for a country given the actor mode. "both" returns the net lean, China index minus US index
+ *  (in index points; the map and the ranking draw it on the ±60 scale of `NET_LEAN_MAX`, clamped). */
 export function mapValue(lookup: IndexLookup, iso3: string, year: number, mode: "US" | "CN" | "both", mineral: string): number | null {
   if (mode === "both") {
     const us = lookup.get(indexKey(iso3, year, "US", mineral));

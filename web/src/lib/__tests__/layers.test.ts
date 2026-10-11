@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { mergeRealLayers } from "@/lib/data";
-import type { CountryCoverage, CountryData, RealCountryData, RealMediaFile, RealParliamentFile } from "@/lib/types";
+import { parseTab } from "@/components/panel/CountryPanel";
+import { releaseLine } from "@/components/panel/Interpretation";
+import { mergeRealLayers, tradeByYear } from "@/lib/data";
+import type { CountryCoverage, CountryData, RealCountryData, RealMediaFile, RealParliamentFile, TradeRow } from "@/lib/types";
 
 const sample = () =>
   ({
@@ -142,5 +144,75 @@ describe("mergeRealLayers", () => {
     const none = mergeRealLayers(sample(), cov, null, null, null);
     expect(none.layers?.statements).toBe("none");
     expect(none.statements).toBeNull();
+  });
+});
+
+const tradeRow = (year: number, mineral: string, cells: { CN: number | null; US: number | null; ROW: number | null }, mirror?: { CN: number | null; US: number | null }): TradeRow =>
+  ({ year, mineral, exports_musd: cells, mirror_musd: mirror, value_type: "reported", source: null }) as TradeRow;
+
+describe("tradeByYear", () => {
+  const rows = [
+    // 2000: every partner cell absent for China, one of two for the US, both present for the rest of the world
+    tradeRow(2000, "lithium", { CN: null, US: null, ROW: 0.5 }),
+    tradeRow(2000, "copper", { CN: null, US: 2, ROW: 1.5 }),
+    // 2001: every cell present, with a mirror for China only
+    tradeRow(2001, "lithium", { CN: 3, US: 4, ROW: 5 }, { CN: 3.3, US: null }),
+    tradeRow(2001, "copper", { CN: 1, US: 1, ROW: 1 }, { CN: null, US: null }),
+  ];
+  const find = (out: ReturnType<typeof tradeByYear>, year: number, partner: string, kind = "reported") => out.find((t) => t.year === year && t.partner === partner && t.kind === kind);
+
+  it("leaves a partner-year null when every selected row has no partner row, never 0", () => {
+    const out = tradeByYear(rows, "all");
+    expect(find(out, 2000, "CN")).toMatchObject({ value: null, absent: 2, n: 2 });
+  });
+  it("sums the cells that exist and counts the absent ones on a partial year", () => {
+    const out = tradeByYear(rows, "all");
+    expect(find(out, 2000, "US")).toMatchObject({ value: 2, absent: 1, n: 2 });
+    expect(find(out, 2000, "ROW")).toMatchObject({ value: 2, absent: 0, n: 2 });
+    expect(find(out, 2001, "CN")).toMatchObject({ value: 4, absent: 0, n: 2 });
+    expect(find(out, 2001, "US")?.value).toBe(5);
+  });
+  it("lists a mirror value only where some mirror cell exists", () => {
+    const out = tradeByYear(rows, "all");
+    expect(find(out, 2001, "CN", "mirror")).toMatchObject({ value: 3.3, absent: 1, n: 2 });
+    expect(find(out, 2001, "US", "mirror")).toBeUndefined();
+    expect(find(out, 2000, "CN", "mirror")).toBeUndefined();
+  });
+  it("filters to one mineral and keeps the years in order", () => {
+    const out = tradeByYear(rows, "lithium");
+    expect(out.map((t) => t.year)).toEqual([2000, 2000, 2000, 2001, 2001, 2001, 2001]);
+    expect(find(out, 2000, "US")).toMatchObject({ value: null, absent: 1, n: 1 });
+    expect(find(out, 2000, "ROW")?.value).toBe(0.5);
+  });
+  it("reads a reported 0 as 0, apart from an absent cell", () => {
+    const out = tradeByYear([tradeRow(2002, "gold", { CN: 0, US: null, ROW: 0 })]);
+    expect(find(out, 2002, "CN")).toMatchObject({ value: 0, absent: 0 });
+    expect(find(out, 2002, "US")).toMatchObject({ value: null, absent: 1 });
+  });
+});
+
+describe("parseTab", () => {
+  it("opens the Politics tab for its id and for its visible name", () => {
+    expect(parseTab("parliament")).toBe("parliament");
+    expect(parseTab("politics")).toBe("parliament");
+    expect(parseTab("Politics")).toBe("parliament");
+  });
+  it("falls back to Actions for nothing or an unknown value", () => {
+    expect(parseTab(null)).toBe("actions");
+    expect(parseTab("")).toBe("actions");
+    expect(parseTab("nonsense")).toBe("actions");
+    expect(parseTab("forecast")).toBe("forecast");
+  });
+});
+
+describe("releaseLine", () => {
+  it("says nothing when the brief names no data release", () => {
+    expect(releaseLine(undefined, "data-v2")).toBeNull();
+    expect(releaseLine(null, "data-v2")).toBeNull();
+  });
+  it("names the release the brief was drafted from, and the current one only when it differs", () => {
+    expect(releaseLine("data-v1", "data-v1")).toBe("drafted from data release data-v1");
+    expect(releaseLine("data-v1", null)).toBe("drafted from data release data-v1");
+    expect(releaseLine("data-v1", "data-v2")).toBe("drafted from data release data-v1 · the current release is data-v2, numbers may have moved");
   });
 });

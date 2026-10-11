@@ -1,6 +1,7 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { CodedStanceByYear, StatementsByYear } from "@/components/statements/StatementCharts";
@@ -67,6 +68,8 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
 
   const layer = data.layers?.parliament;
   const meta = useRealMeta();
+  // how many of the twelve countries the statements dataset covers, read from the release (never typed)
+  const covered = meta ? Object.values(meta.coverage).filter((c) => (c.statements ?? 0) > 0).length : null;
   const total = data.parliament.documents.length;
   const coded = data.parliament.documents.filter((d) => d.classification === "coded").length;
 
@@ -86,12 +89,12 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
           tags={stm ? <><DataLayerTag layer="real" /><LayerLabel layer="facts" /></> : <DataLayerTag layer="none" />}
           intro={stm
             ? `${stm.n} statements and acts about minerals${stmSpan ? ` (${stmSpan})` : ""}: ${stm.n_domestic} by ${data.name}'s presidents, ministers, governors, legislators, courts and state companies, the rest by US and Chinese officials and others about ${data.name}. Hand-supplied dataset, collected with web search under a fixed codebook; every record names its source.`
-            : `The statements dataset has no record for ${data.name}: it covers seven of the twelve countries (see Limitations). Nothing is shown in its place.`}
+            : <>The statements dataset has no record for {data.name}{covered !== null ? `: it covers ${covered} of the twelve countries` : ""}. Nothing is shown in its place; the dataset and its coverage are described on the <Link href="/methodology#statements" className="underline">methods page</Link>.</>}
         />
         {stm && (
           <>
             <p className="mb-2 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-3">
-              <span className="chip border border-dashed border-ink-3 text-ink-2" title={stm.coding}>Stance: coded under the dataset&apos;s codebook · not validated</span>
+              <span className="chip border border-dashed border-ink-3 text-ink-2 whitespace-normal" title={stm.coding}>Stance: coded under the dataset&apos;s codebook · not validated</span>
               <SourceLink source={stm.dataset_source} compact />
               <span>
                 Download: <a href={`${STATEMENTS_FILES}.csv`} className="underline decoration-dotted">CSV</a> · <a href={`${STATEMENTS_FILES}.xlsx`} className="underline decoration-dotted">readable workbook</a>
@@ -169,7 +172,8 @@ function LegislativeRecords({ data, year, mineral }: { data: CountryData; year: 
     }
     return out;
   }, [docs, shown]);
-  const sel = "input h-7 py-0 text-xs";
+  // max-w-full: a long chamber name must not widen the select past the sheet on a phone
+  const sel = "input h-7 max-w-full py-0 text-xs";
 
   return (
     <section aria-labelledby="docs-h">
@@ -199,7 +203,7 @@ function LegislativeRecords({ data, year, mineral }: { data: CountryData; year: 
             {types.map((t) => <option key={t} value={t}>{prettyLabel(t)}</option>)}
           </select>
         )}
-        <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={onlyYear} onChange={(e) => setOnlyYear(e.target.checked)} /> only {year}</label>
+        <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={onlyYear} onChange={(e) => setOnlyYear(e.target.checked)} /> Only {year}</label>
         <span className="ml-auto text-ink-3">{docs.length} record{docs.length === 1 ? "" : "s"}</span>
       </div>
       {docs.length === 0 ? (
@@ -207,7 +211,7 @@ function LegislativeRecords({ data, year, mineral }: { data: CountryData; year: 
           {data.parliament_note
             ? `No machine-readable legislative records for ${data.name}: ${data.parliament_note}`
             : (layer === "facts_only" || layer === "real") && nearestYear !== null && onlyYear
-              ? `No records match this selection in ${year}. Nearest year with records: ${nearestYear}; untick "only ${year}" to see every year.`
+              ? `No records match this selection in ${year}. Nearest year with records: ${nearestYear}; untick "Only ${year}" to see every year.`
               : "No structured records for this selection. For some legislatures no machine-readable records exist (see Limitations)."}
         </p>
       ) : (

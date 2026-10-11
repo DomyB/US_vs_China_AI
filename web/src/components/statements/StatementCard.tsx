@@ -16,7 +16,8 @@ export function StatementCard({ r, showCountry = false, names }: { r: StatementR
     <li className="py-3 text-sm">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-3">
         <span className="tabular-nums">{r.date_precision === "month" ? r.date.slice(0, 7) : fmtDate(r.date)}</span>
-        <span className="chip border" style={{ borderColor: color, color }}>{blocShort(r.speaker.bloc)}</span>
+        {/* the bloc hue stays on the border (and in the charts); the text uses the theme's ink so it passes contrast in both schemes */}
+        <span className="chip border text-ink-2" style={{ borderColor: color }}>{blocShort(r.speaker.bloc)}</span>
         <span>{prettyLabel(r.channel)}</span>
         {showCountry && <span>· {r.country === "REG" ? "region-wide" : names?.[r.country] ?? r.country}</span>}
         {r.event_context && <span className="text-ink-3">· {r.event_context}</span>}
