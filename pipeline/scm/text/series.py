@@ -44,6 +44,12 @@ def media_series(docs: pd.DataFrame, cls: pd.DataFrame, media_volume: pd.DataFra
     basis = "kept_headlines"
     if media_volume is not None and not media_volume.empty:
         mv = media_volume.copy()
+        if "source_id" in mv.columns:
+            # Media Cloud's items_total is the whole national collection (every story of every outlet, tens of
+            # thousands a month), not the mineral-related items a GDELT window or a feed carried: summed in here it would
+            # swamp the denominator and show attention collapsing in the years it covers. Its share stays in the
+            # monthly history (`media_monthly`), source by source.
+            mv = mv[mv["source_id"].astype(str) != "mediacloud"]
         mv["year"] = mv["period"].astype(str).str[:4].astype(int)
         totals = mv.groupby(["country", "year"])["items_total"].sum().to_dict()
         basis = "feed_totals"
@@ -54,6 +60,27 @@ def media_series(docs: pd.DataFrame, cls: pd.DataFrame, media_volume: pd.DataFra
                                         "total_articles": int(totals.get((iso, int(year)), len(g))) or int(len(g)),
                                         "tone_us": _mean(us["tone"]), "tone_cn": _mean(cn["tone"])})
     return {k: sorted(v, key=lambda r: r["year"]) for k, v in out.items()}, basis
+
+
+MONTHLY_COUNTS = ("items_total", "items_mining", "items_cn", "items_us")
+
+
+def media_monthly(media_volume: pd.DataFrame | None) -> dict[str, list[dict]]:
+    """{iso3: [{period: "YYYY-MM", source_id, items_total, items_mining, items_cn, items_us}]} from the media_volume table,
+    every source kept apart and summed into calendar months: GDELT windows are half-months (period = window start), feed
+    rows are fetch days and Media Cloud rows are already monthly (period = YYYY-MM-01), so the month is the common grain."""
+    if media_volume is None or media_volume.empty:
+        return {}
+    mv = media_volume[["country", "period", "source_id", *MONTHLY_COUNTS]].copy()
+    mv["period"] = mv["period"].astype(str).str[:7]
+    for c in MONTHLY_COUNTS:
+        mv[c] = pd.to_numeric(mv[c], errors="coerce").fillna(0).astype(int)
+    g = mv.groupby(["country", "period", "source_id"], as_index=False)[list(MONTHLY_COUNTS)].sum()
+    out: dict[str, list[dict]] = {}
+    for r in g.sort_values(["country", "period", "source_id"]).itertuples(index=False):
+        out.setdefault(str(r.country), []).append({"period": str(r.period), "source_id": str(r.source_id),
+                                                  **{c: int(getattr(r, c)) for c in MONTHLY_COUNTS}})
+    return out
 
 
 def narratives(docs: pd.DataFrame, doc_topic: pd.DataFrame, topics: pd.DataFrame, top: int = 5) -> dict[str, list[dict]]:

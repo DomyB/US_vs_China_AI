@@ -74,6 +74,7 @@ Dataverse's presigned S3 redirects).
 | bra_senado_api | `ingest/legis_bra.py` | document (bills), vote, vote_member | matters per year (classic and renamed routes tried), votes per matter kept |
 | chl_camara | `ingest/legis_chl.py` | document (bills), vote, vote_member | opendata.camara.cl XML services per year, votes and member detail per boletín |
 | gdelt | `ingest/gdelt.py` | document (news), media_volume (window ledger) | GDELT DOC API per country and window since 2017 (`sourcelang:` for es/pt/nl); outlets matched on registry domains; `GDELT_BACKFILL_WINDOWS` windows and `GDELT_TIME_BUDGET_MIN` minutes per run; stops after repeated HTTP 429 |
+| mediacloud | `ingest/mediacloud.py` | document (news), media_volume (monthly, per national collection) | Media Cloud API v4 (`MEDIACLOUD_KEY`, free registered key): per country and year since 2010, three daily count series (mineral terms; AND China; AND the United States) summed into months plus up to 2,000 headlines; the national collection `<Country> - National` is looked up by name each run; a country-year is done once its months are in the ledger, newest year first; `MEDIACLOUD_TIME_BUDGET_MIN` minutes per run (default 40), `MEDIACLOUD_YEARS=YYYY-YYYY` bounds a run; stops after 5 consecutive failed requests |
 | arg_hcdn | `ingest/legis_arg.py` | document (bills, votes), vote, vote_member | datos.hcdn.gob.ar CKAN; proyectos, votaciones and votos resources found by search (candidates recorded) |
 | ury_parlamento | `ingest/legis_ury.py` | document (bills) | catalogodatos.gub.uy CKAN; no roll-call dataset |
 | col_camara | `ingest/legis_col.py` | document (bills) | Socrata kcxp-nxum paged; votes are PDF only; Senado never fetched (403, terms) |
@@ -221,7 +222,7 @@ provenance shown on the site stays honest.
 |---|---|---|
 | `ingest-monthly.yml` | 3rd of each month, and on demand | Tier 1 adapters, fixtures, `analyse` (Phase 4), build, export, tests, commits `web/public/data/real/`, publishes a Parquet release `data-vYYYY.MM.DD.<run>`, opens an issue on failure; `targets: none` recomputes, rebuilds and re-exports without ingesting |
 | `ingest-annual.yml` | 15 March | USGS, V-Dem, UNGA, DPI, BGS via the same job |
-| `ingest-press.yml` | Wednesdays | The press group (27 RSS adapters, then GDELT with 60 backlog windows and a 45-minute budget) via the same job |
+| `ingest-press.yml` | Wednesdays | The press group (the RSS adapters, then GDELT with 60 backlog windows and a 45-minute budget, then Media Cloud with a 40-minute budget of country-years, newest first) via the same job |
 | `diagnose.yml` | on demand | Read-only probes of the GDELT DOC API (`what: gdelt`, `translingual`) and of Google News's robots rules (`gnews`); the job log is the record |
 | `text-analysis.yml` | Thursdays, and on demand | Phase 3: restores the release, installs the `[ml]` extra (CPU torch), caches model weights, runs `scm classify` (translate, classify, embed, topics), `analyse`, build, export, tests, guard, commits site data, publishes a release; inputs `steps`, `limit`, `force`, `codebook_version`, `fields`, `draw_sample`, `train` |
 | `liveness.yml` | Mondays | HEAD/GET of every registry URL → `data/liveness.json`, regenerates SOURCES.md |
@@ -233,12 +234,31 @@ throttled), `gdelt_time_budget_min` (GDELT stops fetching after this many minute
 next run), `gdelt_countries` (ISO3 codes in priority order; empty = all), `gdelt_backlog_first` (fetch the historical
 windows before the recent ones), `adapter_budget_min` (the cut-off for
 any single adapter: set it above the GDELT budget for a backfill, `0` for no limit), `allow_empty_warehouse`,
+`mediacloud_time_budget_min` and `mediacloud_years` (Media Cloud: minutes per run and an optional `YYYY-YYYY` bound),
 `allow_regression`. A backfill of about 200 windows: `targets: gdelt`, `gdelt_backfill_windows: 200`,
 `gdelt_time_budget_min: 150`, `adapter_budget_min: 175`, `gdelt_backlog_first: true`; the job limit is 300 minutes
 and the run shares its concurrency group with the Wednesday press run and the Thursday text run, which wait for
 it. Expect little from it: the run of the evening of 2026-10-09 got 10 windows in 150 minutes against 39
 throttle responses, so the adapter now stops after 20 throttles in a run, and the history has to come from an
 address GDELT does not throttle (next section).
+
+The press history therefore comes from Media Cloud (`ingest/mediacloud.py`, since 2026-10-11), which answers a
+registered key instead of throttling by address and whose national collections reach back to about 2010, three
+years further than GDELT. The adapter runs in the weekly press group after the feeds and GDELT: per country and
+year it asks for three daily count series over the country's national collection (the mineral terms alone, with
+the China terms, with the United States terms), sums them into monthly `media_volume` rows (`period = YYYY-MM-01`,
+`items_total` = the collection's own daily totals, so `items_mining / items_total` is a share of the indexed
+collection, not of all press) and lists up to 2,000 headlines per country-year, kept as `document` rows through
+the same keyword filter and outlet mapping as GDELT. Only months that have ended are written (the incremental merge
+keeps the first row stored per month, so a half-counted running month would stay so); a country-year is done once
+its twelve months are in the ledger, so each run resumes where the last one stopped, newest year first (the current
+year is refreshed every run and gains the month that has just ended). The yearly attention chart's denominator stays
+the feeds' and GDELT's totals: Media Cloud's `items_total` is its whole collection and is shown apart, by month;
+`MEDIACLOUD_TIME_BUDGET_MIN` (dispatch input `mediacloud_time_budget_min`, default 40) bounds a run in minutes
+and `MEDIACLOUD_YEARS=YYYY-YYYY` (`mediacloud_years`) bounds it in years. A full first fill: `targets: mediacloud`,
+`mediacloud_time_budget_min: 150`, `adapter_budget_min: 175`, repeated until the manifest in `data/raw/mediacloud/`
+reports `years_left: 0`. GDELT keeps running for the recent weeks and as a second index of the same outlets;
+the two sources stay apart in the warehouse (`source_id`) and on the site.
 
 Each ingestion run first restores the Parquet warehouse from the latest `data-v*` release, so
 running a subset of adapters (`targets: wb_wgi usgs_mcs`) refreshes only those tables and keeps

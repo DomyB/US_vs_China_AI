@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { aggregateFlows, arcPoints, describeFlow, flowBounds, flowsToGeoJSON, hexToRgba, spanYears, widthScale } from "@/components/map/flows";
+import { FIRST_FLOW_YEAR, aggregateFlows, arcPoints, describeFlow, flowBounds, flowsToGeoJSON, hexToRgba, spanYears, widthScale } from "@/components/map/flows";
 import { ACTOR_ANCHOR } from "@/lib/constants";
 import type { FlowsFile } from "@/lib/types";
 
@@ -27,8 +27,9 @@ describe("flow windows and aggregation", () => {
   it("builds the year window", () => {
     expect(spanYears(2015, "1")).toEqual([2015, 2015]);
     expect(spanYears(2015, "3")).toEqual([2013, 2015]);
-    expect(spanYears(2009, "3")).toEqual([2008, 2009]);
-    expect(spanYears(2015, "all")).toEqual([2008, 2015]);
+    expect(spanYears(2009, "3")).toEqual([Math.max(FIRST_FLOW_YEAR, 2007), 2009]); // the record's first year floors the window
+    expect(spanYears(2015, "all")).toEqual([FIRST_FLOW_YEAR, 2015]);
+    expect(spanYears(2009, "3", 2008)).toEqual([2008, 2009]);
   });
   it("sums money over the window per origin and keeps the no-amount case visible", () => {
     const a = aggregateFlows(file, "money", 2015, "3", "all");

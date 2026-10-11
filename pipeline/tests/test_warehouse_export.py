@@ -209,3 +209,95 @@ def test_export_with_model_outputs(tmp_path):
     assert meta["coverage"]["BRA"]["parliament_classified"] == 2 and meta["coverage"]["BRA"]["parliament_translated"] == 1 and not meta["coverage"]["BRA"]["narratives_available"]
     val = json.loads((out / "validation.json").read_text())
     assert val["status"] == "not_yet_measured" and val["selected_method"] == "zero_shot" and val["text_model"]["method"] == "zero_shot"
+
+
+def _volume(sid, country, period, total, mining, cn, us):
+    return {"country": country, "period": period, "items_total": total, "items_mining": mining, "items_cn": cn, "items_us": us,
+            **_prov(sid, rel="independent_academic"), "source_record_url": f"https://x.test/{sid}/{period}"}
+
+
+def test_media_monthly_sums_windows_and_days_per_source():
+    from scm.text.series import media_monthly
+
+    mv = pd.DataFrame([
+        _volume("gdelt", "BRA", "2024-03-01", 100, 10, 4, 2),  # first half-month window
+        _volume("gdelt", "BRA", "2024-03-16", 50, 5, 1, 1),  # second half-month window
+        _volume("bra_folha", "BRA", "2024-03-07", 30, 3, 1, 0),  # a daily feed fetch
+        _volume("bra_folha", "BRA", "2024-03-14", 20, 2, 1, 1),
+        _volume("mediacloud", "BRA", "2024-02-01", 900, 40, 12, 9),  # already monthly
+        _volume("gdelt", "CHL", "2024-03-01", 7, 1, 1, 0),
+    ])
+    out = media_monthly(mv)
+    assert out["BRA"] == [
+        {"period": "2024-02", "source_id": "mediacloud", "items_total": 900, "items_mining": 40, "items_cn": 12, "items_us": 9},
+        {"period": "2024-03", "source_id": "bra_folha", "items_total": 50, "items_mining": 5, "items_cn": 2, "items_us": 1},
+        {"period": "2024-03", "source_id": "gdelt", "items_total": 150, "items_mining": 15, "items_cn": 5, "items_us": 3},
+    ]
+    assert out["CHL"] == [{"period": "2024-03", "source_id": "gdelt", "items_total": 7, "items_mining": 1, "items_cn": 1, "items_us": 0}]
+    assert media_monthly(None) == {} and media_monthly(pd.DataFrame()) == {}
+
+
+def test_media_series_totals_leave_the_media_cloud_collection_out():
+    from scm.text.series import media_series
+
+    docs = pd.DataFrame([{"doc_id": "d1", "country": "BRA", "year": 2024, "doc_type": "news", "mentions_us": False, "mentions_cn": True},
+                         {"doc_id": "d2", "country": "BRA", "year": 2012, "doc_type": "news", "mentions_us": True, "mentions_cn": False}])
+    mv = pd.DataFrame([_volume("gdelt", "BRA", "2024-03-01", 100, 10, 4, 2), _volume("bra_folha", "BRA", "2024-03-07", 30, 3, 1, 0),
+                       _volume("mediacloud", "BRA", "2024-03-01", 60000, 40, 12, 9), _volume("mediacloud", "BRA", "2012-05-01", 50000, 30, 5, 8)])
+    out, basis = media_series(docs, pd.DataFrame(), mv)
+    assert basis == "feed_totals"
+    by_year = {r["year"]: r for r in out["BRA"]}
+    assert by_year[2024]["total_articles"] == 130, "the feed and GDELT totals, never the whole Media Cloud collection"
+    assert by_year[2012]["total_articles"] == 1, "a year with Media Cloud counts only falls back to the kept headlines"
+
+
+def test_article_cap_keeps_the_newest_per_source_evenly():
+    def art(sid, date):
+        return {"id": f"{sid}-{date}", "date": date, "source": {"id": sid}}
+
+    gdelt = [art("gdelt", f"2025-0{m}-01") for m in range(1, 7)]  # six recent GDELT headlines
+    mc = [art("mediacloud", f"201{y}-06-01") for y in range(0, 4)]  # four old Media Cloud headlines
+    rss = [art("bra_folha", "2025-09-01")]
+    kept = export_site._cap_per_source(gdelt + mc + rss, 6)
+    assert [a["date"] for a in kept] == sorted((a["date"] for a in kept), reverse=True)
+    ids = {a["source"]["id"] for a in kept}
+    assert ids == {"gdelt", "mediacloud", "bra_folha"}, "the oldest source must survive the cap"
+    # ranks fill in order: the newest of each source (3), then the second newest of the two that have one (2), then one more
+    assert sum(1 for a in kept if a["source"]["id"] == "gdelt") == 3 and sum(1 for a in kept if a["source"]["id"] == "mediacloud") == 2
+    assert kept[0]["source"]["id"] == "bra_folha" and all(a["date"] >= "2025-04-01" for a in kept if a["source"]["id"] == "gdelt")
+    assert len(export_site._cap_per_source(gdelt, 100)) == 6 and export_site._cap_per_source([], 5) == []
+
+
+def test_media_file_carries_history_without_coding(tmp_path):
+    wh = tmp_path / "wh"
+    docs = pd.DataFrame([_doc("BRA", "news", "2026-10-02", "China amplia compras de nióbio", "gdelt", "https://www1.folha.uol.com.br/x.shtml", prec="seen", outlet="bra_folha", minerals="niobium", cn=True)])
+    (wh / "document").mkdir(parents=True)
+    schema.validate("document", docs).to_parquet(wh / "document" / "gdelt.parquet", index=False)
+    mv = pd.DataFrame([_volume("gdelt", "BRA", "2026-09-16", 40, 4, 1, 0), _volume("gdelt", "BRA", "2026-10-01", 60, 6, 2, 1),
+                       _volume("bra_folha", "BRA", "2026-10-03", 25, 2, 1, 0), _volume("mediacloud", "BRA", "2012-05-01", 500, 30, 5, 8),
+                       _volume("mediacloud", "CHL", "2011-01-01", 300, 9, 2, 1)])
+    (wh / "media_volume").mkdir()
+    schema.validate("media_volume", mv).to_parquet(wh / "media_volume" / "x.parquet", index=False)
+    (wh / "ingest_run").mkdir()
+    schema.validate("ingest_run", pd.DataFrame([{"run_id": "r", "source_id": "gdelt", "started_at": "t", "finished_at": "t", "status": "ok", "rows": "{}", "error": None, "snapshot_dir": None}])).to_parquet(wh / "ingest_run" / "x.parquet", index=False)
+
+    warehouse.build(wh)
+    out = tmp_path / "site"
+    export_site.run(wh, out)
+    media = json.loads((out / "media" / "BRA.json").read_text())
+    assert "narratives" not in media and "text_model" not in media, "model outputs stay absent until something is coded"
+    assert media["history"] == [
+        {"period": "2012-05", "source_id": "mediacloud", "items_total": 500, "items_mining": 30, "items_cn": 5, "items_us": 8},
+        {"period": "2026-09", "source_id": "gdelt", "items_total": 40, "items_mining": 4, "items_cn": 1, "items_us": 0},
+        {"period": "2026-10", "source_id": "bra_folha", "items_total": 25, "items_mining": 2, "items_cn": 1, "items_us": 0},
+        {"period": "2026-10", "source_id": "gdelt", "items_total": 60, "items_mining": 6, "items_cn": 2, "items_us": 1},
+    ]
+    assert media["media_sources"] == ["bra_folha", "gdelt", "mediacloud"] and media["history_from"] == "2012-05"
+    assert media["volume"] == [{"year": 2026, "articles_us": 0, "articles_cn": 1, "total_articles": 125, "tone_us": None, "tone_cn": None}] and media["volume_basis"] == "feed_totals"
+    # Media Cloud counts alone (no kept headline yet) still give the country a media file and a history
+    chl = json.loads((out / "media" / "CHL.json").read_text())
+    assert chl["articles"] == [] and chl["history"][0]["source_id"] == "mediacloud" and chl["volume"] == [] and chl["history_from"] == "2011-01"
+    cov = json.loads((out / "meta.json").read_text())["coverage"]
+    assert cov["BRA"]["media_sources"] == ["bra_folha", "gdelt", "mediacloud"] and cov["BRA"]["media_history_from"] == "2012-05"
+    assert cov["CHL"]["media_available"] and cov["CHL"]["media_articles"] == 0 and cov["CHL"]["media_from"] is None
+    assert cov["ARG"]["media_available"] is False and cov["ARG"]["media_sources"] == [] and cov["ARG"]["media_history_from"] is None

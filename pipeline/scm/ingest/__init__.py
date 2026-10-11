@@ -17,6 +17,7 @@ from .legis_chl import CamaraCL, SenadoCL
 from .legis_col import CamaraCO
 from .legis_misc import SPLEY, AsambleaEC, SILpy
 from .legis_ury import ParlamentoUY
+from .mediacloud import MediaCloud
 from .national_chl import Cochilco
 from .national_col import ANMAnna
 from .national_ecu import ECUCadastre
@@ -36,7 +37,7 @@ TIER1: list[type[Adapter]] = [WDI, WGI, IDS, USGSMCS, PinkSheet, Comtrade, AidDa
 TIER2: list[type[Adapter]] = [CongressGov, CensusTrade, BUCODF]
 # Phase 2b national groups
 LEGISLATURE: list[type[Adapter]] = [CamaraBR, SenadoBR, CamaraCL, SenadoCL, HCDN, ParlamentoUY, CamaraCO, SILpy, AsambleaEC, SPLEY]
-PRESS: list[type[Adapter]] = [*make_rss_adapters(), GDELTDoc]  # one class per registry press outlet with access: rss, plus GDELT history
+PRESS: list[type[Adapter]] = [*make_rss_adapters(), GDELTDoc, MediaCloud]  # one class per registry press outlet with access: rss, plus GDELT and Media Cloud history
 NATIONAL: list[type[Adapter]] = [GGMC, ANMAnna, ECUCadastre, Cochilco, BCRP]
 ANNUAL = {"usgs_mcs", "vdem", "unga_votes", "idb_dpi", "bgs_wms", "guy_ggmc", "chl_cochilco"}
 

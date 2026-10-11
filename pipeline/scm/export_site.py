@@ -32,7 +32,7 @@ from .schema import SCHEMAS
 from .text.store import pick_classifications
 
 ORIGIN_TO_SIDE = {"US": "US", "CN": "CN", "other": "other", "unknown": "other"}
-MAX_ARTICLES = 4000  # most recent headlines per country kept in the site file
+MAX_ARTICLES = 4000  # headlines per country kept in the site file (the most recent ones, shared evenly across sources: see _cap_per_source)
 # Legislatures with no machine-readable records (docs/PHASE0_PLAN.md section 3): shown as an explicit absence, never as zero.
 NO_STRUCTURED_LEGISLATURE = {
     "BOL": "The Asamblea Legislativa Plurinacional publishes no API, no roll-call data and no transcripts; the Gaceta's full text is paywalled.",
@@ -319,6 +319,21 @@ def release_counts(ok_sources: list[str]) -> dict:
             "sources_live": {"live": sum(1 for s in reg.values() if s.status == "live"), "total": len(reg)}}
 
 
+def _cap_per_source(articles: list[dict], cap: int) -> list[dict]:
+    """The newest `cap` headlines, shared evenly across sources rather than taken from the newest overall: each source's
+    headlines are ranked newest first and the cap is filled rank by rank (every source's newest, then every source's
+    second newest, ...), so a source with a short recent feed and a source with a long history (GDELT windows, Media
+    Cloud back to 2010) both survive the cap; a source with fewer headlines than its share gives all of them and the
+    remainder goes to the others. The result is sorted newest first."""
+    by_source: dict[str, list[dict]] = {}
+    for a in sorted(articles, key=lambda a: a["date"], reverse=True):
+        by_source.setdefault(a["source"]["id"], []).append(a)
+    ranked = [(rank, a) for rows in by_source.values() for rank, a in enumerate(rows)]
+    ranked.sort(key=lambda t: t[1]["date"], reverse=True)  # newest first within a rank ...
+    ranked.sort(key=lambda t: t[0])  # ... and ranks filled in order (stable sort keeps the date order)
+    return sorted((a for _, a in ranked[:cap]), key=lambda a: a["date"], reverse=True)
+
+
 def _src(sid: str, record_url: str | None = None) -> dict:
     s = sources()[sid]
     return {"id": sid, "name": s.name, "url": record_url or s.url, "registry_url": s.url, "reliability": s.reliability, "sample": False}
@@ -494,7 +509,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     translations = _translations(_rows(con, "SELECT * FROM doc_translation"))
     topic_rows = _rows(con, "SELECT * FROM topic")
     doc_topic_rows = _rows(con, "SELECT * FROM doc_topic")
-    mv_rows = _rows(con, "SELECT country, period, items_total FROM media_volume")
+    mv_rows = _rows(con, "SELECT country, period, source_id, items_total, items_mining, items_cn, items_us FROM media_volume")
     # Phase 4 quant outputs (empty lists until `scm analyse` has run)
     conc_rows = _rows(con, "SELECT country, mineral, year, metric, value, note FROM concentration")
     idx_rows = _rows(con, "SELECT * FROM index_value")
@@ -515,7 +530,9 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     docs_df = pd.DataFrame(docs) if docs else pd.DataFrame(columns=["doc_id", "country", "year", "doc_type", "mentions_us", "mentions_cn"])
     cls_df = pd.DataFrame(list(chosen.values())) if chosen else pd.DataFrame(columns=["doc_id", "stance_us", "stance_cn", "tone"])
     stance_by_iso = text_series.stance_series(docs_df, cls_df)
-    volume_by_iso, volume_basis = text_series.media_series(docs_df, cls_df, pd.DataFrame(mv_rows) if mv_rows else None)
+    mv_df = pd.DataFrame(mv_rows) if mv_rows else None
+    volume_by_iso, volume_basis = text_series.media_series(docs_df, cls_df, mv_df)
+    history_by_iso = text_series.media_monthly(mv_df)  # monthly counts per source (GDELT, Media Cloud, feeds), coded or not
     news_ids = {d["doc_id"] for d in docs if d["doc_type"] == "news"}
     media_topics = [r for r in doc_topic_rows if r["doc_id"] in news_ids]  # the Media tab shows press narratives only
     narratives_by_iso = text_series.narratives(docs_df, pd.DataFrame(media_topics) if media_topics else pd.DataFrame(),
@@ -659,22 +676,27 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                 "stance_us": _json_safe(c["stance_us"]) if c else None, "stance_cn": _json_safe(c["stance_cn"]) if c else None,
                 "tone": _json_safe(c["tone"]) if c else None, "classification": "coded" if c else "not_yet_classified", "classifier": _classifier_block(c),
                 "topic_minerals": [m for m in str(r["minerals"] or "").split(",") if m], "mentions": {"us": bool(r["mentions_us"]), "cn": bool(r["mentions_cn"])},
-                "via": "gdelt" if r["source_id"] == "gdelt" else "rss", "also_reported_by": [s for s in str(r.get("source_ids") or "").split(",") if s and s != r["source_id"]],
+                "via": "gdelt" if r["source_id"] == "gdelt" else "mediacloud" if r["source_id"] == "mediacloud" else "rss", "also_reported_by": [s for s in str(r.get("source_ids") or "").split(",") if s and s != r["source_id"]],
                 "source": _src(r["source_id"], r["source_record_url"]),
             })
-        articles.sort(key=lambda a: a["date"], reverse=True)
-        articles = articles[:MAX_ARTICLES]
+        articles = _cap_per_source(articles, MAX_ARTICLES)
         assert all(set(a) <= ARTICLE_KEYS for a in articles), "article export carries an unexpected field"
         outlets = {sid: {"name": s.name, "orientation": s.orientation, "reliability": s.reliability, "paywall": s.paywall}
                    for sid, s in reg.items() if s.category == "press" and iso in s.countries}
         n_media_coded += sum(1 for a in articles if a["classification"] == "coded")
-        if articles:
+        history = history_by_iso.get(iso, [])
+        media_sources = sorted({a["source"]["id"] for a in articles} | {h["source_id"] for h in history})
+        if articles or history:
+            # `volume` (yearly attention counts; tone null until the text workflow codes the headlines) and `history`
+            # (monthly counts per source from media_volume) are facts and are always written; `narratives` and
+            # `text_model` are model outputs and appear only once some headline is coded.
             media_file = {"dataset": "REAL", "iso3": iso, "generated_on": today, "articles": articles, "outlets": outlets,
-                          "freshness": {"last_updated": today, "source_ids": sorted({a["source"]["id"] for a in articles}),
-                                        "schedule": "weekly (RSS) and monthly windows (GDELT)"}}
+                          "freshness": {"last_updated": today, "source_ids": media_sources,
+                                        "schedule": "weekly (RSS feeds and Media Cloud) and monthly windows (GDELT)"},
+                          "volume": volume_by_iso.get(iso, []), "volume_basis": volume_basis,
+                          "history": history, "media_sources": media_sources,
+                          "history_from": min((h["period"] for h in history), default=None)}
             if any(a["classification"] == "coded" for a in articles):
-                media_file["volume"] = volume_by_iso.get(iso, [])
-                media_file["volume_basis"] = volume_basis
                 media_file["narratives"] = narratives_by_iso.get(iso, [])
                 media_file["text_model"] = text_status
             (out / "media" / f"{iso}.json").write_text(json.dumps(media_file, ensure_ascii=False, default=str), encoding="utf-8")
@@ -713,7 +735,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
             "actions": bool(events or trade_block), "governance_available": bool(g_rows),
             "parliament_available": bool(parl_docs), "parliament_documents": len(parl_docs), "parliament_votes": n_votes,
             "parliament_from": min((int(d["date"][:4]) for d in parl_docs), default=None), "parliament_note": NO_STRUCTURED_LEGISLATURE.get(iso) if not parl_docs else None,
-            "media_available": bool(articles), "media_articles": len(articles), "media_from": min((int(a["date"][:4]) for a in articles), default=None),
+            "media_available": bool(articles or history), "media_articles": len(articles), "media_from": min((int(a["date"][:4]) for a in articles), default=None),
+            "media_sources": media_sources, "media_history_from": media_file["history_from"] if (articles or history) else None,
             "concessions": conc_by_country.get(iso, 0),
             "parliament_classified": sum(1 for d in parl_docs if d["classification"] == "coded"),
             "parliament_translated": sum(1 for d in parl_docs if d["title_en"]),

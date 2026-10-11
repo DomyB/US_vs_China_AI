@@ -14,4 +14,8 @@ jobs:
     uses: ./.github/workflows/ingest-monthly.yml
     with:
       targets: press
+      # Media Cloud (history, keyed) runs in the press group after the feeds and GDELT: 40 minutes of country-years per
+      # week, newest first; the monthly workflow's defaults apply (mediacloud_time_budget_min, mediacloud_years)
+      mediacloud_time_budget_min: "40"
+    # every repository secret the monthly job's env block names (MEDIACLOUD_KEY, COMTRADE_KEY, ...) reaches it this way
     secrets: inherit

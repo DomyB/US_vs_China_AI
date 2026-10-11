@@ -217,7 +217,7 @@ export function coverageWall(meta: RealMeta, flows: FlowsFile) {
       "finance US": { ok: us.length > 0, note: us.length ? `DFC and EXIM authorisations, rows ${span(us)}; the record runs to ${flows.meta.last_year.finance_US ?? "–"}` : "no DFC or EXIM record" },
       statements: { ok: (c.statements ?? 0) > 0, note: c.statements === undefined ? NOT_IN_RELEASE : `${c.statements} coded statements` },
       parliament: { ok: !!c.parliament_available, note: c.parliament_available === undefined ? NOT_IN_RELEASE : c.parliament_available ? `${c.parliament_documents ?? 0} legislative records` : (c.parliament_note ?? "no machine-readable legislature") },
-      media: { ok: (c.media_articles ?? 0) > 0, note: c.media_articles === undefined ? NOT_IN_RELEASE : `${c.media_articles} headlines` },
+      media: { ok: (c.media_articles ?? 0) > 0, note: c.media_articles === undefined ? NOT_IN_RELEASE : c.media_articles === 0 && c.media_history_from ? `no kept headline yet; monthly counts from ${c.media_history_from}` : `${c.media_articles} headlines` },
       forecast: { ok: !!c.forecast_available, note: c.forecast_available === undefined ? NOT_IN_RELEASE : c.forecast_available ? "forecast computed and backtested" : "no forecast computed for this country" },
       analysis: { ok: !!c.analysis_available, note: c.analysis_available === undefined ? NOT_IN_RELEASE : c.analysis_available ? "index computed" : "no index computed for this country" },
     };

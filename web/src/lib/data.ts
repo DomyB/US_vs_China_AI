@@ -84,9 +84,10 @@ export async function loadCountry(iso3: string): Promise<CountryData> {
 
 /**
  * Pure merge of the real layers into the sample country file. Actions and governance are replaced
- * wholesale. For parliament and media the record lists are replaced; when the real file also carries
- * the model-output series (stance series, volume, narratives: Phase 3) they replace the sample series
- * and the layer is "real", otherwise the series stay sample and the layer is "facts_only". When the real
+ * wholesale. For parliament and media the record lists are replaced (and, for media, the monthly history per
+ * source and the yearly counts, which are facts); when the real file also carries the model-output series
+ * (stance series, narratives: Phase 3) they replace the sample series and the layer is "real", otherwise the
+ * model series stay sample and the layer is "facts_only". When the real
  * file carries an `analysis` block (Phase 4) it replaces the sample analysis and the layer is "real".
  */
 export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | undefined, real: RealCountryData | null, parliament: RealParliamentFile | null, media: RealMediaFile | null): CountryData {
@@ -112,14 +113,20 @@ export function mergeRealLayers(sample: CountryData, cov: CountryCoverage | unde
     if (coded) sample.text_model = parliament.text_model ?? null;
   }
   if (media && cov.media_available) {
-    const coded = Array.isArray(media.volume);
-    sample.media = { ...sample.media, articles: media.articles, ...(coded ? { volume: media.volume!, narratives: media.narratives ?? [] } : {}) };
+    // `narratives` (and `text_model`) are written only once the text workflow has coded headlines; `volume` is a
+    // fact (yearly counts, tone null until coded) that every export since the history view carries, and `history`
+    // (monthly counts per source) is always real, so both replace the sample whenever the file has them
+    const coded = Array.isArray(media.narratives);
+    const counted = Array.isArray(media.volume);
+    sample.media = {
+      ...sample.media, articles: media.articles,
+      history: media.history ?? [], media_sources: media.media_sources ?? [], history_from: media.history_from ?? null,
+      ...(counted ? { volume: media.volume! } : {}), ...(coded ? { narratives: media.narratives! } : {}),
+    };
     sample.freshness = { ...sample.freshness, media: media.freshness };
     sample.layers.media = coded ? "real" : "facts_only";
-    if (coded) {
-      sample.text_model = sample.text_model ?? media.text_model ?? null;
-      sample.media_volume_basis = media.volume_basis;
-    }
+    if (counted) sample.media_volume_basis = media.volume_basis;
+    if (coded) sample.text_model = sample.text_model ?? media.text_model ?? null;
   }
   if (real?.analysis) {
     const a = real.analysis;

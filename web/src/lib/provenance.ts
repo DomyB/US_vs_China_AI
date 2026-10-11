@@ -133,7 +133,7 @@ const KINDS: Record<ProvKind, Omit<Provenance, "title"> & { title: string; lastY
   stance: { title: "Legislative stance over time", layer: "model", tables: ["document", "doc_classification"], glossary: ["zero_shot", "evidence_level"], lastYearKeys: ["stance"] },
   records: { title: "Legislative records", layer: "facts", tables: ["document", "vote"], glossary: ["reliability_rating"] },
   statements: { title: "Coded political statements", layer: "facts", tables: ["statement"], sources: ["manual_statements"], glossary: ["reliability_rating", "hedging_balance"], status: "the dataset's own coding; inter-coder agreement not yet measured" },
-  press: { title: "Press coverage", layer: "facts", tables: ["media_volume", "document"], sources: ["gdelt"], glossary: ["zero_shot"] },
+  press: { title: "Press coverage", layer: "facts", tables: ["media_volume", "document"], sources: ["mediacloud", "gdelt"], glossary: ["zero_shot", "reliability_rating"], caveat: "Counts are of what each source indexes, not of all press: Media Cloud counts its per-country collection by month, GDELT its half-month windows, a feed the items it carried on the fetch day. The windows differ by source and the series are not added together." },
 };
 
 /** The provenance of one of the recurring exhibits (case-file tabs, the Lab), from the data the caller has at hand. */

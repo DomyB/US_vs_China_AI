@@ -1,17 +1,38 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel, ModelStatusTag, StanceBadge } from "@/components/ui/Badges";
+import { SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, LANGUAGE_NAME, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtPct } from "@/lib/format";
+import { provenanceFor } from "@/lib/provenance";
 import type { CountryData } from "@/lib/types";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 /** Fixed categorical order (validated for colour vision in both schemes; the fifth is the neutral "other"); globals.css binds each hex to its theme token. */
 const NARRATIVE_COLORS = ["#1f5fa8", "#c8441c", "#6a4fb8", "#1d8f6e", "#8a8f98"];
 
+/** The history chart's series: the two indexes first, then the outlets in id order; the palette's last slot folds every further feed into "other feeds". */
+const INDEX_SOURCES = ["mediacloud", "gdelt"];
+const OTHER_FEEDS = "other feeds";
+const MAX_SERIES = NARRATIVE_COLORS.length;
+const SOURCE_NAME: Record<string, string> = { mediacloud: "Media Cloud", gdelt: "GDELT" };
+
+/** How a source counts: what its monthly `items_total` is. */
+const SOURCE_WINDOW: Record<string, string> = { mediacloud: "its per-country collection, by month", gdelt: "half-month windows of its index", [OTHER_FEEDS]: "the items each feed carried on the fetch day" };
+
+function monthDate(period: string): Date {
+  return new Date(Date.UTC(Number(period.slice(0, 4)), Number(period.slice(5, 7)) - 1, 1));
+}
+
+function fmtMonth(period: string): string {
+  return monthDate(period).toLocaleDateString("en-GB", { year: "numeric", month: "short", timeZone: "UTC" });
+}
+
 export function MediaTab({ data, year, mineral }: { data: CountryData; year: number; mineral: string }) {
+  const phone = useMediaQuery("(max-width: 480px)");
   const volume = useMemo(() => {
     const long: { year: number; actor: string; share: number; count: number; tone: number | null }[] = [];
     for (const r of data.media.volume) {
@@ -69,47 +90,133 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
     [narratives, labels],
   );
 
+  // --- Coverage over time, by source (facts: media_volume summed into months, one series per source) ---
+  const history = useMemo(() => data.media.history ?? [], [data]);
+  const outletName = useMemo(() => {
+    const names: Record<string, string> = { ...SOURCE_NAME };
+    for (const a of data.media.articles) if (a.outlet_source_id && !names[a.outlet_source_id]) names[a.outlet_source_id] = a.outlet;
+    return names;
+  }, [data]);
+  const seriesLabel = useCallback((s: string) => (s === OTHER_FEEDS ? OTHER_FEEDS : outletName[s] ?? s), [outletName]);
+  const shortLabel = useCallback((s: string) => {
+    const name = seriesLabel(s);
+    return phone && name.length > 14 ? `${name.slice(0, 13)}…` : name;
+  }, [seriesLabel, phone]);
+  /** Sources in the history, in the fixed order the colours follow; the ids beyond the palette fold into "other feeds". */
+  const historySeries = useMemo(() => {
+    const present = Array.from(new Set(history.map((h) => h.source_id)));
+    const ordered = [...INDEX_SOURCES.filter((s) => present.includes(s)), ...present.filter((s) => !INDEX_SOURCES.includes(s)).sort()];
+    if (ordered.length <= MAX_SERIES) return { series: ordered, folded: [] as string[] };
+    return { series: [...ordered.slice(0, MAX_SERIES - 1), OTHER_FEEDS], folded: ordered.slice(MAX_SERIES - 1) };
+  }, [history]);
+  const historyRows = useMemo(() => {
+    const byKey = new Map<string, { period: string; date: Date; source: string; items_mining: number; items_total: number; items_cn: number; items_us: number }>();
+    for (const h of history) {
+      const source = historySeries.folded.includes(h.source_id) ? OTHER_FEEDS : h.source_id;
+      const key = `${h.period}|${source}`;
+      const row = byKey.get(key) ?? { period: h.period, date: monthDate(h.period), source, items_mining: 0, items_total: 0, items_cn: 0, items_us: 0 };
+      row.items_mining += h.items_mining;
+      row.items_total += h.items_total;
+      row.items_cn += h.items_cn;
+      row.items_us += h.items_us;
+      byKey.set(key, row);
+    }
+    return Array.from(byKey.values()).sort((a, b) => a.period.localeCompare(b.period) || a.source.localeCompare(b.source));
+  }, [history, historySeries]);
+  type HistoryRow = (typeof historyRows)[number];
+  const historyOptions = useMemo(() => {
+    const maxY = Math.max(0, ...historyRows.map((r) => r.items_mining));
+    const digits = String(Math.round(maxY)).length;
+    const tipTitle = (d: HistoryRow) => `${fmtMonth(d.period)} · ${seriesLabel(d.source)}: ${d.items_mining.toLocaleString("en-GB")} mineral-related stories${d.items_total > 0 ? ` (${fmtPct(d.items_mining / d.items_total, 1)} of its ${d.items_total.toLocaleString("en-GB")} items)` : ""}`;
+    return {
+      height: phone ? 210 : 250,
+      // the left margin follows the widest tick (one digit ≈ 7 px at 13 px type) so a 390 px phone keeps its plot width
+      marginLeft: 14 + 7 * Math.max(2, digits),
+      marginRight: phone ? 8 : 16,
+      x: { label: null, type: "utc" as const },
+      y: { label: phone ? "Stories / month" : "Mineral-related stories per month", grid: true, tickFormat: (d: number) => d.toLocaleString("en-GB") },
+      color: { domain: historySeries.series, range: NARRATIVE_COLORS.slice(0, historySeries.series.length), legend: true, tickFormat: shortLabel },
+      marks: [
+        Plot.areaY(historyRows, { x: "date", y: "items_mining", z: "source", fill: "source", fillOpacity: 0.12, curve: "monotone-x" }),
+        Plot.lineY(historyRows, { x: "date", y: "items_mining", z: "source", stroke: "source", strokeWidth: 2, curve: "monotone-x" }),
+        Plot.tip(historyRows, Plot.pointerX({ x: "date", y: "items_mining", title: tipTitle })),
+        Plot.ruleX([new Date(Date.UTC(year, 0, 1))], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
+        Plot.ruleY([0]),
+      ],
+    };
+  }, [historyRows, historySeries, year, phone, seriesLabel, shortLabel]);
+  /** Which sources cover the country and from when (for the note and the empty state). */
+  const sourceSpan = useMemo(() => {
+    const from: Record<string, string> = {};
+    for (const h of history) if (!from[h.source_id] || h.period < from[h.source_id]) from[h.source_id] = h.period;
+    const ids = Array.from(new Set([...(data.media.media_sources ?? []), ...Object.keys(from)]));
+    const ordered = [...INDEX_SOURCES.filter((s) => ids.includes(s)), ...ids.filter((s) => !INDEX_SOURCES.includes(s)).sort()];
+    return ordered.map((s) => ({ id: s, name: seriesLabel(s), from: from[s] ?? null }));
+  }, [history, data, seriesLabel]);
+  const coverageText = sourceSpan.length ? sourceSpan.map((s) => `${s.name}${s.from ? ` from ${fmtMonth(s.from)}` : ""}`).join(", ") : "";
+  const pressProvenance = useMemo(
+    () => ({ ...provenanceFor("press", { iso3: data.iso3, title: `Press coverage over time, ${data.name}` }), sources: Array.from(new Set([...INDEX_SOURCES, ...sourceSpan.map((s) => s.id)])) }),
+    [data, sourceSpan],
+  );
+
   const [q, setQ] = useState("");
   const [outlet, setOutlet] = useState("");
   const [lang, setLang] = useState("");
   const [onlyYear, setOnlyYear] = useState(true);
+  const [fromYear, setFromYear] = useState("");
+  const [toYear, setToYear] = useState("");
   const outlets = useMemo(() => Array.from(new Set(data.media.articles.map((a) => a.outlet))).sort(), [data]);
   const langs = useMemo(() => Array.from(new Set(data.media.articles.map((a) => a.language))).sort(), [data]);
+  const years = useMemo(() => Array.from(new Set(data.media.articles.map((a) => Number(a.date.slice(0, 4))))).sort((a, b) => a - b), [data]);
   const articles = useMemo(() => {
     const needle = q.trim().toLowerCase();
+    const lo = fromYear ? Number(fromYear) : -Infinity;
+    const hi = toYear ? Number(toYear) : Infinity;
     return data.media.articles
-      .filter((a) => (!onlyYear || Number(a.date.slice(0, 4)) === year) && (mineral === "all" || a.topic_minerals.includes(mineral)))
+      .filter((a) => {
+        const y = Number(a.date.slice(0, 4));
+        return (onlyYear ? y === year : y >= lo && y <= hi) && (mineral === "all" || a.topic_minerals.includes(mineral));
+      })
       .filter((a) => (!outlet || a.outlet === outlet) && (!lang || a.language === lang))
       .filter((a) => !needle || `${a.headline_original} ${a.headline_en ?? ""} ${a.outlet}`.toLowerCase().includes(needle))
       .sort((a, b) => b.date.localeCompare(a.date));
-  }, [data, year, mineral, q, outlet, lang, onlyYear]);
+  }, [data, year, mineral, q, outlet, lang, onlyYear, fromYear, toYear]);
   const layer = data.layers?.media;
+  /** The yearly counts are real once the export wrote them (basis set), coded or not; the tone needs the text workflow. */
+  const countsReal = layer === "real" || (layer === "facts_only" && data.media_volume_basis !== undefined);
+  const toneCoded = volume.some((d) => d.tone !== null);
+  const countsNote = `Counts are the kept headlines that name each actor${data.media_volume_basis === "feed_totals" ? ", as a share of all items the feeds and the GDELT windows carried that year (the Media Cloud collection's totals are shown apart below, by month)" : ", as a share of the kept headlines (feed totals not yet recorded)"}.`;
   const PAGE = 50;
   const [shown, setShown] = useState(PAGE);
-  useEffect(() => setShown(PAGE), [year, mineral, data, q, outlet, lang, onlyYear]);
+  useEffect(() => setShown(PAGE), [year, mineral, data, q, outlet, lang, onlyYear, fromYear, toYear]);
   const nearestYear = useMemo(() => {
-    const years = data.media.articles.map((a) => Number(a.date.slice(0, 4)));
     if (years.length === 0) return null;
     return years.reduce((best, y) => (Math.abs(y - year) < Math.abs(best - year) ? y : best), years[0]);
-  }, [data, year]);
+  }, [years, year]);
+  const listTitle = onlyYear ? `Articles in ${year}` : fromYear || toYear ? `Articles, ${fromYear || (years[0] ?? "…")}–${toYear || (years[years.length - 1] ?? "…")}` : "Articles, all years";
 
   return (
     <div className="space-y-5">
       <section aria-labelledby="vol-h">
         <div className="mb-1 flex items-center justify-between">
           <h3 id="vol-h" className="text-sm font-semibold">Attention: share of national coverage mentioning each actor</h3>
-          <span className="flex items-center gap-1.5"><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</span>
+          <span className="flex items-center gap-1.5"><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer={countsReal ? "facts_only" : "sample"} />}</span>
         </div>
-        {layer === "facts_only" && <p className="mb-1 text-xs text-ink-3">Attention, tone and narratives are SAMPLE until the text workflow classifies the real headlines listed below.</p>}
+        {layer === "facts_only" && !countsReal && <p className="mb-1 text-xs text-ink-3">Attention, tone and narratives are SAMPLE until the text workflow classifies the real headlines listed below.</p>}
+        {layer === "facts_only" && countsReal && <p className="mb-1 text-xs text-ink-3">{countsNote} Tone and narratives are SAMPLE until the text workflow classifies the real headlines listed below.</p>}
         {layer === "real" && (
           <p className="mb-1 text-xs text-ink-3">
-            Counts are the kept headlines that name each actor{data.media_volume_basis === "feed_totals" ? ", as a share of all items the feeds and the GDELT windows carried that year" : ", as a share of the kept headlines (feed totals not yet recorded)"}.
+            {countsNote}
             Tone is a multilingual sentiment model&apos;s positive-minus-negative score{!data.text_model?.validated ? ", not yet validated against hand-coded headlines" : ""}.
           </p>
         )}
-        <PlotFigure options={volumeOptions} ariaLabel={`Share of ${data.name} press coverage mentioning the United States and China, ${layer === "real" ? "model output" : "sample data"}`} />
+        <PlotFigure options={volumeOptions} ariaLabel={`Share of ${data.name} press coverage mentioning the United States and China, ${countsReal ? "real records" : "sample data"}`} />
         <h3 className="mt-3 text-sm font-semibold">Tone of that coverage</h3>
-        <PlotFigure options={toneOptions} ariaLabel={`Mean tone of coverage about the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
+        {toneCoded ? (
+          <PlotFigure options={toneOptions} ariaLabel={`Mean tone of coverage about the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
+        ) : (
+          <p className="mb-1 text-sm text-ink-3">No tone yet: the text workflow has not coded the real headlines of {data.name}.</p>
+        )}
         <DataTable rows={volume} caption="Coverage share and tone by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "count", label: "Articles" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }, { key: "tone", label: "Tone" }]} />
       </section>
 
@@ -130,14 +237,51 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
         {(layer !== "real" || narratives.length > 0) && <PlotFigure options={narrativeOptions} ariaLabel={`Dominant narratives in ${data.name} coverage in ${year}, ${layer === "real" ? "model output" : "sample data"}`} />}
       </section>
 
+      <section aria-labelledby="hist-h">
+        <SectionHeader
+          id="hist-h"
+          title="Coverage over time, by source"
+          tags={<><LayerLabel layer="facts" /><DataLayerTag layer={layer} /></>}
+          provenance={pressProvenance}
+          intro={
+            historyRows.length > 0
+              ? `Mineral-related stories each source counted per month${data.media.history_from ? `, from ${fmtMonth(data.media.history_from)}` : ""}; hover for the share of the source's own items. Media Cloud counts are of its indexed per-country collection, not of all press; the windows differ by source (${Object.entries(SOURCE_WINDOW).filter(([k]) => k === OTHER_FEEDS || historySeries.series.includes(k)).map(([k, v]) => `${seriesLabel(k)}: ${v}`).join("; ")}), so the series sit side by side and are not added together.`
+              : undefined
+          }
+        />
+        {historyRows.length > 0 ? (
+          <>
+            <PlotFigure options={historyOptions} ariaLabel={`Mineral-related stories per month in ${data.name} by source (${historySeries.series.map(seriesLabel).join(", ")}), real records`} />
+            <DataTable
+              rows={historyRows}
+              caption="Mineral-related stories per month and source, with each source's own total and the stories naming each actor"
+              columns={[
+                { key: "period", label: "Month" },
+                { key: "source", label: "Source", format: (v) => seriesLabel(String(v)) },
+                { key: "items_mining", label: "Mineral stories" },
+                { key: "items_total", label: "Source total" },
+                { key: "items_cn", label: "Name China" },
+                { key: "items_us", label: "Name the US" },
+              ]}
+            />
+          </>
+        ) : (
+          <p className="text-sm text-ink-3">
+            {layer === "sample" || layer === undefined
+              ? "Sample data carry no monthly counts per source; the real history arrives with the first ingestion run."
+              : `No monthly counts per source for ${data.name} in this release${coverageText ? ` (headlines from ${coverageText})` : ""}; the next export writes them.`}
+          </p>
+        )}
+      </section>
+
       <section aria-labelledby="art-h">
         <div className="mb-1 flex items-center justify-between">
-          <h3 id="art-h" className="text-sm font-semibold">{onlyYear ? `Articles in ${year}` : "Articles, all years"}</h3>
+          <h3 id="art-h" className="text-sm font-semibold">{listTitle}</h3>
           <span className="flex items-center gap-1.5"><LayerLabel layer="facts" /><DataLayerTag layer={layer} /></span>
         </div>
         <p className="mb-1 text-xs text-ink-3">
           Headline, date, outlet and link only; no article text is stored or republished.
-          {(layer === "facts_only" || layer === "real") && ` ${data.media.articles.length} headlines about minerals and the two powers from the registry's outlets (RSS feeds and the GDELT index; keyword-selected).`}
+          {(layer === "facts_only" || layer === "real") && ` ${data.media.articles.length} headlines about minerals and the two powers from the registry's outlets (RSS feeds, the GDELT index and Media Cloud; keyword-selected; the most recent of each source kept).`}
           {layer === "real" && " Stance and tone are model outputs; English headlines are machine translations."}
         </p>
         <div className="mb-2 flex flex-wrap items-center gap-1.5 text-xs">
@@ -155,11 +299,28 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
             </select>
           )}
           <label className="inline-flex items-center gap-1 text-ink-2"><input type="checkbox" checked={onlyYear} onChange={(e) => setOnlyYear(e.target.checked)} /> Only {year}</label>
+          {years.length > 1 && (
+            <span className="inline-flex items-center gap-1 text-ink-2" title={onlyYear ? `Untick "only ${year}" to filter by a range of years` : undefined}>
+              <select aria-label="From year" value={fromYear} disabled={onlyYear} onChange={(e) => setFromYear(e.target.value)} className="input h-7 py-0 text-xs disabled:opacity-50">
+                <option value="">From {years[0]}</option>
+                {years.filter((y) => !toYear || y <= Number(toYear)).map((y) => <option key={y} value={y}>{y}</option>)}
+              </select>
+              <span aria-hidden="true">–</span>
+              <select aria-label="To year" value={toYear} disabled={onlyYear} onChange={(e) => setToYear(e.target.value)} className="input h-7 py-0 text-xs disabled:opacity-50">
+                <option value="">To {years[years.length - 1]}</option>
+                {years.filter((y) => !fromYear || y >= Number(fromYear)).map((y) => <option key={y} value={y}>{y}</option>)}
+              </select>
+            </span>
+          )}
           <span className="ml-auto text-ink-3">{articles.length} headline{articles.length === 1 ? "" : "s"}</span>
         </div>
         {articles.length === 0 ? (
           <p className="text-sm text-ink-3">
-            {(layer === "facts_only" || layer === "real") && nearestYear !== null && onlyYear ? `No headlines match this selection in ${year}. Nearest year with headlines: ${nearestYear}; untick "only ${year}" to see every year.` : "No articles for this selection."}
+            {(layer === "facts_only" || layer === "real") && nearestYear !== null && onlyYear
+              ? `No headlines match this selection in ${year}. Nearest year with headlines: ${nearestYear}; untick "only ${year}" to see every year.`
+              : (layer === "facts_only" || layer === "real") && coverageText
+                ? `No headlines match this selection. Sources covering ${data.name}: ${coverageText}.`
+                : "No articles for this selection."}
           </p>
         ) : (
           <ol className="divide-y divide-rule border-y border-rule">
@@ -170,6 +331,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
                   <span className="font-medium text-ink-2">{a.outlet}</span>
                   {a.orientation && <span>orientation: {a.orientation}</span>}
                   {a.via === "gdelt" && <span>via GDELT</span>}
+                  {a.via === "mediacloud" && <span>via Media Cloud</span>}
                 </div>
                 <p className="mt-0.5 font-medium" lang={a.language}>
                   {a.url.startsWith("http") ? (

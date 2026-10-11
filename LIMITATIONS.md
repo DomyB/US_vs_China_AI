@@ -67,9 +67,18 @@ owner's own text shown apart where it exists. All six phases are live.
   Recall is limited by the term lists (`pipeline/scm/ingest/keywords.py`, versioned); the terms
   that matched are stored with every row so the filter can be audited and tightened.
 - **Press depth.** RSS feeds expose roughly the last 20–100 items, so the headline record is
-  continuous only from the week the press workflow started; earlier years come from the GDELT
-  index (2017 onward, larger outlets over-represented, 250 results per query window). GDELT
-  dates are indexing dates (`date_precision = seen`), not publication dates.
+  continuous only from the week the press workflow started; earlier years come from two indexes
+  that are kept apart: Media Cloud (the history source since 2026-10-11: per-country national
+  collections, about 2010 onward, monthly counts and up to 2,000 headlines per country-year, a
+  registered key) and the GDELT index (2017 onward, larger outlets over-represented, 250 results per
+  query window). Media Cloud's coverage is uneven by country and year (its collections grew as
+  outlets were added, so an early year's low count can be a thin collection rather than little
+  coverage), and its counts are of the indexed collection, not of all press: the share shown on the
+  site (`items_mining / items_total`) is the share of that collection's stories. The exact response
+  shapes were taken from the API documentation and could not be verified from the sandbox; the
+  parser accepts the documented and the flat forms and lists anything else in the run manifest. GDELT
+  dates are indexing dates (`date_precision = seen`), not publication dates; Media Cloud dates are
+  the story's publication date.
 - **GDELT from GitHub's runners (diagnosed 2026-10-09).** Two findings from probe runs on the Actions runner:
   the DOC API matches query terms against its English translation of every article, so the Spanish and
   Portuguese term sets used until now returned nothing while `lithium sourcelang:spanish` returned

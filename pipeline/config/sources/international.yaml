@@ -360,25 +360,25 @@ sources:
     python_package: acled
     notes: "Latin America coverage starts 2018."
   - id: mediacloud
-    name: Media Cloud
-    url: https://search.mediacloud.org
-    api_url: https://search.mediacloud.org/api
-    category: media
+    name: Media Cloud (story index and per-country collections)
+    url: https://www.mediacloud.org
+    api_url: https://search.mediacloud.org/api/
+    category: events
     scope: international
     reliability: independent_academic
-    license: "Terms of use; counts and URLs only, no article text"
+    license: "Metadata (titles, URLs, dates) under the Media Cloud terms; no full text"
     access: api
-    auth: "Free key; 4,000 requests/week"
-    update_frequency: continuous
-    refresh_schedule: daily
-    coverage_from: 2008
+    auth: "free registered API key (`MEDIACLOUD_KEY`)"
+    update_frequency: daily
+    refresh_schedule: weekly
+    coverage_from: 2010
     coverage_to: 2026
     language: multi
     status: live
-    verified_on: 2026-10-01
-    verified_method: github
+    verified_on: 2026-10-11
+    verified_method: search
     python_package: mediacloud
-    notes: "National collections for Spanish and Portuguese outlets; density varies by country and year."
+    notes: "History source for the press record (adapter `mediacloud`, API v4 over plain HTTPS). Per country it uses the national collection named `<Country> - National` (ids recorded in each run's manifest; a country without one is skipped and listed there) and the online-news platform. Monthly story counts come from the collection's own daily totals, so a share is of the indexed collection, not of all press; headlines are kept as headline, date, outlet and URL only. Density is uneven by country and year and starts around 2010."
   - id: ejatlas
     name: Environmental Justice Atlas (EJAtlas)
     url: https://ejatlas.org

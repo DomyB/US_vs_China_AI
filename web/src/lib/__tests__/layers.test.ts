@@ -50,6 +50,23 @@ describe("mergeRealLayers", () => {
     expect(out.media_volume_basis).toBe("feed_totals");
     expect(out.text_model?.method).toBe("zero_shot");
   });
+  it("carries the monthly history and the yearly counts as facts while the media layer stays facts_only", () => {
+    const history = [{ period: "2012-05", source_id: "mediacloud", items_total: 500, items_mining: 30, items_cn: 5, items_us: 8 }];
+    const mediaCounted = { ...media, volume: [{ year: 2026, articles_us: 0, articles_cn: 1, total_articles: 40, tone_us: null, tone_cn: null }], volume_basis: "feed_totals", history, media_sources: ["bra_folha", "mediacloud"], history_from: "2012-05" } as unknown as RealMediaFile;
+    const out = mergeRealLayers(sample(), cov, null, parliament, mediaCounted);
+    expect(out.layers?.media).toBe("facts_only"); // no narratives: nothing is coded yet
+    expect(out.media.volume[0].total_articles).toBe(40);
+    expect(out.media_volume_basis).toBe("feed_totals");
+    expect(out.media.history).toEqual(history);
+    expect(out.media.media_sources).toEqual(["bra_folha", "mediacloud"]);
+    expect(out.media.history_from).toBe("2012-05");
+    expect(out.media.narratives[0].label).toBe("x"); // narratives stay sample
+    expect(out.text_model).toBeNull();
+    const older = mergeRealLayers(sample(), cov, null, parliament, media); // a file exported before the history view
+    expect(older.media.history).toEqual([]);
+    expect(older.media.history_from).toBeNull();
+    expect(older.media.volume[0]).toEqual({ year: 2020 });
+  });
   it("keeps facts_only when only one layer carries model outputs", () => {
     const parlReal = { ...parliament, stance_series: [], text_model: { method: "zero_shot", validated: false } } as unknown as RealParliamentFile;
     const out = mergeRealLayers(sample(), cov, null, parlReal, media);

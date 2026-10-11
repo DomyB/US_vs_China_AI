@@ -25,6 +25,12 @@ on:
         description: "GDELT: fetch the historical windows before the recent ones (a backfill on a throttled address then spends what it gets on history)"
         type: boolean
         default: false
+      mediacloud_time_budget_min:
+        description: "Media Cloud: minutes of fetching before the run stops and leaves the remaining country-years for next time"
+        default: "40"
+      mediacloud_years:
+        description: "Media Cloud: bound the run to these years, YYYY-YYYY (empty = 2010 to today, newest first)"
+        default: ""
       adapter_budget_min:
         description: "Minutes any single adapter may run before it is cut off (set above the GDELT budget for a backfill; 0 = no limit)"
         default: "120"
@@ -56,6 +62,12 @@ on:
       gdelt_backlog_first:
         type: boolean
         default: false
+      mediacloud_time_budget_min:
+        type: string
+        default: "40"
+      mediacloud_years:
+        type: string
+        default: ""
       adapter_budget_min:
         type: string
         default: "120"
@@ -89,6 +101,9 @@ jobs:
       CGIT_FILE_URL: ${{ secrets.CGIT_FILE_URL }}
       EXIM_FILE_URL: ${{ secrets.EXIM_FILE_URL }}
       DPI_FILE_URL: ${{ secrets.DPI_FILE_URL }}
+      MEDIACLOUD_KEY: ${{ secrets.MEDIACLOUD_KEY }}
+      MEDIACLOUD_TIME_BUDGET_MIN: ${{ inputs.mediacloud_time_budget_min || '40' }}
+      MEDIACLOUD_YEARS: ${{ inputs.mediacloud_years || '' }}
       GDELT_BACKFILL_WINDOWS: ${{ inputs.gdelt_backfill_windows || '60' }}
       GDELT_TIME_BUDGET_MIN: ${{ inputs.gdelt_time_budget_min || '45' }}
       GDELT_COUNTRIES: ${{ inputs.gdelt_countries || '' }}

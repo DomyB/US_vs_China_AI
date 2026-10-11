@@ -253,6 +253,10 @@ export interface CountryCoverage {
   media_available?: boolean;
   media_articles?: number;
   media_from?: number | null;
+  /** source ids with headlines or monthly counts for the country (feeds, gdelt, mediacloud) */
+  media_sources?: string[];
+  /** first month ("YYYY-MM") any source counts coverage for the country; null without a history */
+  media_history_from?: string | null;
   concessions?: number;
   parliament_classified?: number;
   parliament_translated?: number;
@@ -327,9 +331,16 @@ export interface RealMediaFile {
   articles: Article[];
   outlets: Record<string, { name: string; orientation: string | null; reliability: Reliability; paywall: string | null }>;
   freshness: Freshness;
-  /** present once the text workflow has classified headlines (Phase 3) */
+  /** yearly attention counts (facts; tone null until headlines are coded); absent in files exported before the history view */
   volume?: MediaVolumeRow[];
   volume_basis?: "feed_totals" | "kept_headlines";
+  /** monthly counts per source (media_volume summed into calendar months); absent in files exported before the history view */
+  history?: MediaHistoryRow[];
+  /** source ids present in the headlines or the history */
+  media_sources?: string[];
+  /** first month ("YYYY-MM") of the history; null without one */
+  history_from?: string | null;
+  /** present once the text workflow has classified headlines (Phase 3) */
   narratives?: NarrativeRow[];
   text_model?: TextModelStatus;
 }
@@ -375,6 +386,18 @@ export interface MediaVolumeRow {
   tone_cn: number | null;
 }
 
+/** One month of one source's counts: all items the source carried (its feed, its GDELT window or its Media Cloud
+ * collection), the mineral-related ones and those naming each actor. */
+export interface MediaHistoryRow {
+  /** "YYYY-MM" */
+  period: string;
+  source_id: string;
+  items_total: number;
+  items_mining: number;
+  items_cn: number;
+  items_us: number;
+}
+
 export interface NarrativeRow {
   year: number;
   label: string;
@@ -400,7 +423,7 @@ export interface Article {
   orientation?: string | null;
   reliability?: Reliability;
   mentions?: { us: boolean; cn: boolean };
-  via?: "rss" | "gdelt";
+  via?: "rss" | "gdelt" | "mediacloud";
   also_reported_by?: string[];
   source?: SourceRef;
   topic_minerals: string[];
@@ -680,7 +703,7 @@ export interface CountryData {
   governance?: GovernanceRow[];
   trade_discrepancies?: TradeDiscrepancy[];
   parliament: { documents: ParliamentDoc[]; stance_series: StanceRow[] };
-  media: { volume: MediaVolumeRow[]; narratives: NarrativeRow[]; articles: Article[] };
+  media: { volume: MediaVolumeRow[]; narratives: NarrativeRow[]; articles: Article[]; history?: MediaHistoryRow[]; media_sources?: string[]; history_from?: string | null };
   analysis: {
     components: ComponentRow[];
     say_do_gap: SayDoRow[];
