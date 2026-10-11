@@ -53,6 +53,9 @@ export function RegionView() {
   const [shareRows, setShareRows] = useState<{ rows: RegionData["mineral_shares"]; layer: "real" | "sample" } | null>(null);
   const [interp, setInterp] = useState<InterpretationBlock | null | undefined>(undefined);
   const [regionStm, setRegionStm] = useState<RegionStatements | null>(null);
+  // the years the in-scope records span, from the export, never typed
+  const stmYears = regionStm?.by_year_bloc.map((r) => r.year) ?? [];
+  const stmSpan = stmYears.length ? `${Math.min(...stmYears)}–${Math.max(...stmYears)}` : null;
   const revealRoot = useRevealChildren<HTMLDivElement>(".region-card", regionStm);
   const [measure, setMeasure] = useState<RegionMeasure>("net");
   const [chartMode, setChartMode] = useState<"lines" | "heatmap">("lines");
@@ -247,7 +250,7 @@ export function RegionView() {
         <section className="card region-card mt-4 p-3" aria-labelledby="stm-h">
           <div className="mb-1 flex flex-wrap items-center justify-between gap-2"><h2 id="stm-h" className="text-lg font-semibold">What leaders say about minerals</h2><span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">
-            {regionStm.n_in_scope} statements and acts about the twelve countries ({regionStm.records.length} of them region-wide) from the project owner&apos;s dataset of {regionStm.n_total} records (2019–2026), collected with web search under a fixed codebook, every record with its source; {Object.entries(regionStm.excluded).map(([k, v]) => `${v} on ${k}`).join(" and ")} lie outside this site&apos;s scope and are not shown. The stance coding is the dataset&apos;s own (interpretive, not validated) and never enters the index.
+            {regionStm.n_in_scope} statements and acts about the twelve countries ({regionStm.records.length} of them region-wide) from the project owner&apos;s dataset of {regionStm.n_total} records{stmSpan ? ` (${stmSpan})` : ""}, collected with web search under a fixed codebook, every record with its source; {Object.entries(regionStm.excluded).map(([k, v]) => `${v} on ${k}`).join(" and ")} lie outside this site&apos;s scope and are not shown. The stance coding is the dataset&apos;s own (interpretive, not validated) and never enters the index.
           </p>
           <div className="grid gap-4 lg:grid-cols-2">
             <div className="min-w-0">

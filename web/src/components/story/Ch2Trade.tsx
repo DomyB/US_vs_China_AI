@@ -23,7 +23,8 @@ function stackedArea(rows: YearShares[]): Plot.PlotOptions {
   const last = rows[rows.length - 1];
   return {
     height: 300,
-    marginLeft: 44,
+    marginTop: 26,
+    marginLeft: 48,
     marginRight: 96,
     x: { label: null, tickFormat: (d: number) => String(d) },
     y: { label: "share of reported mineral exports", tickFormat: (d: number) => `${Math.round(d * 100)}%`, domain: [0, 1] },
@@ -50,10 +51,11 @@ function boardOptions(rows: BoardRow[], narrow: boolean): Plot.PlotOptions {
   const label = (d: string) => (narrow ? d.replace(/_/g, " ") : prettyMineral(d));
   const longest = Math.max(0, ...rows.map((r) => label(r.mineral).length));
   return {
-    height: 30 * rows.length + 40,
+    height: 30 * rows.length + 56,
+    marginBottom: 44,
     marginLeft: longest * 8 + 16,
     marginRight: narrow ? 24 : 150,
-    x: { label: "share of the mineral's reported exports", tickFormat: (d: number) => `${Math.round(d * 100)}%`, domain: [0, 1] },
+    x: { label: narrow ? "share of reported exports" : "share of the mineral's reported exports", labelAnchor: "center", tickFormat: (d: number) => `${Math.round(d * 100)}%`, domain: [0, 1] },
     y: { label: null, domain: rows.map((r) => r.mineral), tickFormat: label },
     color: { domain: ["CN", "ROW", "US"], range: [ACTOR_COLOR.CN, OTHER_COLOR, ACTOR_COLOR.US] },
     marks: [

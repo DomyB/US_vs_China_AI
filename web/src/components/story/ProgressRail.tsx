@@ -6,7 +6,7 @@ import { Meter } from "./Chapter";
 
 export interface RailItem { n: number; label: string; level: EvidenceLevel }
 
-/** The nine chapters with their evidence meters, the current one marked as the reader scrolls. */
+/** The chapters on the page with their evidence meters, the current one marked as the reader scrolls; on its own surface so it reads over the ink stage too. */
 export function ProgressRail({ items }: { items: RailItem[] }) {
   const [active, setActive] = useState<number>(0);
   useEffect(() => {
@@ -22,7 +22,7 @@ export function ProgressRail({ items }: { items: RailItem[] }) {
     return () => io.disconnect();
   }, [items]);
   return (
-    <nav className="progress-rail" aria-label="Chapters">
+    <nav className="progress-rail rounded-2xl bg-surface p-1" aria-label="Chapters">
       <ol className="space-y-0.5">
         {items.map((i) => (
           <li key={i.n}>

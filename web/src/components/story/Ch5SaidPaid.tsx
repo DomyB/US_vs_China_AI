@@ -6,6 +6,7 @@ import { MineralsTalk } from "@/components/insights/MineralsTalk";
 import { WordsVsMoney } from "@/components/insights/WordsVsMoney";
 import { COUNTRY_NAMES } from "@/lib/constants";
 import { fmtMusd, fmtShare } from "@/lib/format";
+import { absentPartnerMinerals } from "@/lib/story";
 import type { InsightCountry, InsightRegion, StatementBloc, StatementRecord } from "@/lib/types";
 import { Exhibit, StepCard } from "./Chapter";
 
@@ -60,21 +61,27 @@ function QuoteCard({ q, receipt }: { q: StatementRecord; receipt: string | null 
   );
 }
 
-export function Ch5SaidPaid({ countries, byBloc, hedgers, quotes }: { countries: InsightCountry[]; byBloc: StatementBloc[]; hedgers: InsightRegion["hedgers"]; quotes: StatementRecord[] }) {
+export function Ch5SaidPaid({ countries, byBloc, hedgers, quotes, storyMissing = false }: { countries: InsightCountry[]; byBloc: StatementBloc[]; hedgers: InsightRegion["hedgers"]; quotes: StatementRecord[]; /** the story export (story.json) is not in this release, so no quote can be drawn */ storyMissing?: boolean }) {
   // The latest reported shares; an absent partner cell is named as absent, never printed as 0%, and a 0.2% share keeps its decimal.
   const receipt = (iso3: string) => {
     const c = countries.find((x) => x.iso3 === iso3);
     if (!c?.trade) return null;
     const t = c.trade;
     const part = (cell: number | null, share: number | null, to: string, row: string) => (cell === null || share === null ? `no ${row} partner row (absent, not zero)` : `${fmtShare(share)} ${to}`);
-    return `In ${t.year}, ${fmtMusd(t.total_musd)} of ${c.name}'s mineral exports were reported: ${part(t.exports_musd.CN, t.share_cn, "went to China", "China")}, ${part(t.exports_musd.US, t.share_us, "to the United States", "United States")}.`;
+    // a mineral inside the total with no partner row (Argentina's gold) is named, so the shares say what they are shares of
+    const absent = absentPartnerMinerals(t);
+    const caveat = absent && absent.musd > 0 ? ` ${fmtMusd(absent.musd)} of that, ${absent.minerals.join(" and ")}, has no partner row (absent, not zero).` : "";
+    return `In ${t.year}, ${fmtMusd(t.total_musd)} of ${c.name}'s mineral exports were reported: ${part(t.exports_musd.CN, t.share_cn, "went to China", "China")}, ${part(t.exports_musd.US, t.share_us, "to the United States", "United States")}.${caveat}`;
   };
+  // the fewest coded executive statements any country rests on, from the export rather than typed
+  const executiveCounts = countries.map((c) => c.words?.n_executive ?? 0).filter((n) => n > 0);
+  const fewest = executiveCounts.length ? Math.min(...executiveCounts) : null;
   const quoteCountries = [...new Set(quotes.map((q) => q.country))].filter((iso3) => iso3 in COUNTRY_NAMES);
   const excluded = countries.filter((c) => c.words?.executive_pooled && !hedgers.some((h) => h.iso3 === c.iso3) && (c.words.n_executive ?? 0) > 0).map((c) => c.name);
   return (
     <div className="space-y-6">
       <StepCard>
-        <p><strong>Read this chapter smaller than the others.</strong> Stance is coded under the dataset&apos;s codebook by the owner&apos;s AI-assisted collection and is not validated against a human judgement; some countries rest on three statements. Shares are facts; the words are a reading of them.</p>
+        <p><strong>Read this chapter smaller than the others.</strong> Stance is coded under the dataset&apos;s codebook by the owner&apos;s AI-assisted collection and is not validated against a human judgement{fewest !== null ? `; some countries rest on as few as ${fewest} statement${fewest === 1 ? "" : "s"}` : ""}. Shares are facts; the words are a reading of them.</p>
       </StepCard>
       <Exhibit title="Words against trade, country by country" layer="model" sources={["manual_statements", "un_comtrade"]} ids={["statement:stance_cn:country:latest-years", "statement:stance_us:country:latest-years", "flow_trade:share_cn:country:latest", "flow_trade:share_us:country:latest"]} explore={{ href: "/lab#words", label: "Open in the Lab" }} note="Executives' coded stance toward the chosen power (−1 to +1, pooled over the latest statement years) against the share of mineral exports going there; bubble area is the country's mineral exports. The stance is the dataset's own coding; the share is reported trade.">
         <WordsVsMoney countries={countries} byBloc={byBloc} />
@@ -84,7 +91,11 @@ export function Ch5SaidPaid({ countries, byBloc, hedgers, quotes }: { countries:
           <HedgingMeter hedgers={hedgers} />
         </Exhibit>
         <Exhibit title="Said and paid: the quotes beside the receipts" layer="interp" sources={["manual_statements", "un_comtrade"]} ids={quotes.map((q) => `statement:${q.id}`)} note="A statement by a domestic executive or the head of a state company (the speaker's bloc is printed on each card) is set beside that country's latest reported trade shares. The pairing is editorial; both halves are facts; nothing here claims the words caused the trade.">
-          <ul className="grid gap-3 sm:grid-cols-2">{quotes.map((q) => <QuoteCard key={q.id} q={q} receipt={receipt(q.country)} />)}</ul>
+          {quotes.length ? (
+            <ul className="grid gap-3 sm:grid-cols-2">{quotes.map((q) => <QuoteCard key={q.id} q={q} receipt={receipt(q.country)} />)}</ul>
+          ) : (
+            <p className="text-sm text-ink-3">No quoted statements in this release{storyMissing ? ": the story export (story.json) has not been written" : ""}; the coded records are in the case files.</p>
+          )}
         </Exhibit>
       </div>
       <Exhibit title="Talks lithium, ships copper: what is mentioned against what is sold" layer="facts" sources={["manual_statements", "un_comtrade"]} ids={["statement:minerals:country", "flow_trade:country:mineral:latest"]} note="Mentions are the minerals named in a country's executives' statements; value is the latest reported export value by mineral.">

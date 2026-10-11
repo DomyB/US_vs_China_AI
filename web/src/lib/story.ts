@@ -1,4 +1,5 @@
-import type { FlowsFile, FlowFinanceRow, FlowTradeRow, InsightCountry, InsightsFile, RealMeta, RegionData } from "./types";
+import { PERIOD_FROM } from "./constants";
+import type { EvidenceLevel, FlowsFile, FlowFinanceRow, FlowTradeRow, InsightCountry, InsightsFile, RealMeta, RegionData, StorySeriesRow } from "./types";
 
 /**
  * The numbers the story page prints, computed from the exported files so the home page, the evidence room and the
@@ -6,7 +7,8 @@ import type { FlowsFile, FlowFinanceRow, FlowTradeRow, InsightCountry, InsightsF
  * into prose; the parity test in __tests__/story.test.ts recomputes the headline figures from the committed export.
  */
 
-export const STORY_SINCE = 2008;
+/** The story's window opens with the project's period (period.json); records before it are named apart, never summed in. */
+export const STORY_SINCE: number = PERIOD_FROM;
 
 export interface YearShares {
   year: number;
@@ -138,6 +140,32 @@ export function receiptOf(r: FlowTradeRow): TradeReceipt {
   return { year: r.year, mineral: r.mineral, US: us, CN: cn, ROW: row, total, share_us: us === null || !total ? null : us / total, share_cn: cn === null || !total ? null : cn / total, partners_absent: us === null || cn === null };
 }
 
+/**
+ * One country's destination shares of one mineral by year, in the shape of story.json's series, from the same flows.json
+ * rows the map reads: the fallback when the story export is absent. An absent partner cell is a null share, never 0.
+ */
+export function seriesFromFlows(flows: FlowsFile, iso3: string, mineral: string): StorySeriesRow[] {
+  return flows.trade
+    .filter((r) => r.iso3 === iso3 && r.mineral === mineral)
+    .map((r) => {
+      const t = receiptOf(r);
+      return { year: t.year, share_cn_x: t.share_cn, share_us_x: t.share_us, exports_wld_musd: t.total || null };
+    })
+    .sort((a, b) => a.year - b.year);
+}
+
+/**
+ * The part of a country's latest reported mineral total that has no partner row: the minerals whose US or China cell
+ * is absent, with their value, so a share printed "of the total" can say what that total holds (Argentina's gold has
+ * no partner breakdown and is three quarters of its total). Null when there is no trade block.
+ */
+export function absentPartnerMinerals(trade: InsightCountry["trade"] | null | undefined): { year: number; musd: number; minerals: string[]; share_of_total: number | null } | null {
+  if (!trade) return null;
+  const absent = trade.minerals.filter((m) => m.exports_musd.US === null || m.exports_musd.CN === null);
+  const musd = absent.reduce((s, m) => s + (m.total_musd ?? 0), 0);
+  return { year: trade.year, musd, minerals: absent.map((m) => m.mineral.replace(/_/g, " ")), share_of_total: trade.total_musd ? musd / trade.total_musd : null };
+}
+
 /** Latest-year shares per mineral from region.json, sorted by the share to China, with the world total every bar is a share of. */
 export function mineralBoard(shares: RegionData["mineral_shares"], year?: number) {
   const latest = year ?? Math.max(...shares.map((s) => s.year));
@@ -173,6 +201,8 @@ export function loanThenFlat(insights: InsightsFile) {
  * shows the US cell as missing, not held; the years come from the rows and from flows.meta.last_year.
  */
 export function coverageWall(meta: RealMeta, flows: FlowsFile) {
+  // a column the export did not write is a gap in the release, not a count of zero and not a reason the data did not give
+  const NOT_IN_RELEASE = "not in this release";
   const cols = ["trade", "finance CN", "finance US", "statements", "parliament", "media", "forecast", "analysis"] as const;
   const span = (rows: FlowFinanceRow[]) => {
     const years = rows.map((r) => r.year);
@@ -185,13 +215,56 @@ export function coverageWall(meta: RealMeta, flows: FlowsFile) {
       trade: { ok: (c.trade_years?.length ?? 0) > 0, note: c.trade_years?.length ? `reported ${c.trade_years[0]}–${c.trade_years[c.trade_years.length - 1]}` : "no reported trade" },
       "finance CN": { ok: cn.length > 0, note: cn.length ? `AidData GCDF 3.0, rows ${span(cn)}; the source ends in ${flows.meta.last_year.finance_CN ?? "–"}` : "no Chinese finance record (AidData GCDF 3.0)" },
       "finance US": { ok: us.length > 0, note: us.length ? `DFC and EXIM authorisations, rows ${span(us)}; the record runs to ${flows.meta.last_year.finance_US ?? "–"}` : "no DFC or EXIM record" },
-      statements: { ok: (c.statements ?? 0) > 0, note: `${c.statements ?? 0} coded statements` },
-      parliament: { ok: !!c.parliament_available, note: c.parliament_available ? `${c.parliament_documents ?? 0} legislative records` : (c.parliament_note ?? "no machine-readable legislature") },
-      media: { ok: (c.media_articles ?? 0) > 0, note: `${c.media_articles ?? 0} headlines` },
-      forecast: { ok: !!c.forecast_available, note: c.forecast_available ? "backtested to 2030" : "too few trade years to forecast" },
-      analysis: { ok: !!c.analysis_available, note: c.analysis_available ? "index computed" : "fewer than three components" },
+      statements: { ok: (c.statements ?? 0) > 0, note: c.statements === undefined ? NOT_IN_RELEASE : `${c.statements} coded statements` },
+      parliament: { ok: !!c.parliament_available, note: c.parliament_available === undefined ? NOT_IN_RELEASE : c.parliament_available ? `${c.parliament_documents ?? 0} legislative records` : (c.parliament_note ?? "no machine-readable legislature") },
+      media: { ok: (c.media_articles ?? 0) > 0, note: c.media_articles === undefined ? NOT_IN_RELEASE : `${c.media_articles} headlines` },
+      forecast: { ok: !!c.forecast_available, note: c.forecast_available === undefined ? NOT_IN_RELEASE : c.forecast_available ? "forecast computed and backtested" : "no forecast computed for this country" },
+      analysis: { ok: !!c.analysis_available, note: c.analysis_available === undefined ? NOT_IN_RELEASE : c.analysis_available ? "index computed" : "no index computed for this country" },
     };
     return { iso3, cells };
   });
   return { cols: [...cols], rows };
+}
+
+export interface ChapterMeter {
+  n: number;
+  label: string;
+  level: EvidenceLevel;
+  basis: string;
+}
+
+/** What the chapter meters are read against: each clause of a basis that states a fact is built from these, or left out when the input is absent. */
+export interface EvidenceInputs {
+  /** flows.meta.last_year */
+  lastYear: { finance_CN: number | null; finance_US: number | null; trade: number | null };
+  /** the fewest coded executive statements any country in scope rests on (countries with at least one); null when the words block is absent */
+  fewestStatements: number | null;
+  /** the share-to-China forecast target's backtest; null when quant.json is absent */
+  forecast: { coverage_80: number; n_tests: number | null } | null;
+  /** the dated events block; null when quant.json is absent */
+  events: { draft: number; total: number } | null;
+}
+
+/**
+ * The nine chapters with their evidence meters. The level is an editorial judgement (labelled Interpretation in
+ * chapter 9); every number or year in a basis comes from the export, and a clause whose input is absent is dropped
+ * rather than typed, so the meter cannot contradict the page it sits on.
+ */
+export function chapterEvidence(i: EvidenceInputs): ChapterMeter[] {
+  const join = (...parts: (string | null)[]) => parts.filter(Boolean).join("; ");
+  const cnEnds = i.lastYear.finance_CN !== null ? `the Chinese finance record ends in ${i.lastYear.finance_CN}` : "no Chinese finance year on record";
+  const fewest = i.fewestStatements !== null ? `as few as ${i.fewestStatements} coded executive statement${i.fewestStatements === 1 ? "" : "s"} for a country` : null;
+  const band = i.forecast ? `the forecast band ${i.forecast.coverage_80 < 0.8 ? "under-covers" : "covers as nominal"} (${Math.round(i.forecast.coverage_80 * 100)}% of ${i.forecast.n_tests ?? "–"} backtests)` : "no forecast in this release";
+  const draft = i.events ? `${i.events.draft} of ${i.events.total} dated events draft` : null;
+  return [
+    { n: 1, label: "Who talks, who pays", level: "moderate", basis: join(cnEnds, "the statements favour prominent US voices") },
+    { n: 2, label: "Where the ore went", level: "strong", basis: "reported trade, UN Comtrade" },
+    { n: 3, label: "The money nobody counts", level: "strong", basis: "facts with confidence tiers" },
+    { n: 4, label: "Did the loans buy the ore", level: "moderate", basis: "rule outputs and a panel association" },
+    { n: 5, label: "Said vs paid", level: "thin", basis: join("unvalidated stance coding", fewest) },
+    { n: 6, label: "The hinge: Chile", level: "strong", basis: "money and trade; thin on words" },
+    { n: 7, label: "What it would take, 2030", level: "moderate", basis: join("parity is arithmetic", band) },
+    { n: 8, label: "Back to the sentence", level: "moderate", basis: join("strong on money and trade", draft, "thin words") },
+    { n: 9, label: "What this cannot see", level: "strong", basis: "coverage is a fact about the record" },
+  ];
 }

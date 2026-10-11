@@ -262,17 +262,32 @@ def components_latest(comp_rows: list[dict], idx_rows: list[dict], iso: str) -> 
     return out
 
 
-def forecast_paths(fc_rows: list[dict], iso: str) -> dict | None:
+ABSENT_FORECAST_NOTE = "no partner row for the actor in the last observed year (the share is absent, not zero): no path is drawn from it"
+
+
+def forecast_paths(fc_rows: list[dict], iso: str, series: list[dict] | None = None) -> dict | None:
+    """The country's forecast paths by target, actor and scenario, with the last observed year and model of each target. An
+    export-share target whose last observed year has no partner row for the actor (a null share in `series`) is left out and
+    listed under `absent` with the reason: a series read from absent cells would draw a 2030 path from 0%."""
     rows = [r for r in fc_rows if r["country"] == iso and (r.get("mineral") or "all") == "all"]
     if not rows:
         return None
+    by_year = {s["year"]: s for s in series or []}
     paths: dict = {}
     status: dict = {}
+    absent: dict = {}
     for r in sorted(rows, key=lambda r: int(r["horizon_year"])):
+        key, last = f"{r['target']}:{r['actor']}", int(r["last_observed_year"])
+        observed = by_year.get(last)
+        if r["target"] == "export_share" and observed is not None and observed.get(f"share_{r['actor'].lower()}") is None:
+            absent[key] = {"last_observed_year": last, "note": ABSENT_FORECAST_NOTE}
+            continue
         paths.setdefault(r["target"], {}).setdefault(r["actor"], {}).setdefault(r["scenario_id"], []).append(
             {"year": int(r["horizon_year"]), "point": _r(r["point"], 4), "p05": _r(r["p05"], 4), "p25": _r(r["p25"], 4), "p75": _r(r["p75"], 4), "p95": _r(r["p95"], 4)})
-        status[f"{r['target']}:{r['actor']}"] = {"last_observed_year": int(r["last_observed_year"]), "model": r["model"]}
-    return {"paths": paths, "status": status}
+        status[key] = {"last_observed_year": last, "model": r["model"]}
+    if not paths:
+        return None
+    return {"paths": paths, "status": status, "absent": absent}
 
 
 # ---------------------------------------------------------------- region-wide blocks
@@ -448,7 +463,7 @@ def country_contrasts(c: dict) -> list[dict]:
         if cn_paths:
             cn30 = {sid: next((p["point"] for p in path if p["year"] == HORIZON_YEAR), None) for sid, path in cn_paths.items()}
             us30 = {sid: next((p["point"] for p in path if p["year"] == HORIZON_YEAR), None) for sid, path in fc["paths"]["export_share"].get("US", {}).items()}
-            if all(v is not None for v in cn30.values()) and cn30:
+            if all(v is not None for v in cn30.values()) and cn30 and t["share_cn"] is not None:  # no China partner row in the latest year: nothing to fork from
                 out.append({"id": "dependence_2030", "kind": "dependence_2030", "share_cn_now": t["share_cn"], "share_us_now": t["share_us"], "year_now": t["year"],
                             "cn_2030": cn30, "us_2030": us30, "min_cn_2030": min(cn30.values()), "max_cn_2030": max(cn30.values()),
                             "inputs": [f"forecast:export_share:CN:{sid}:{HORIZON_YEAR}:{iso}" for sid in cn30] + [f"flow_trade:share_cn:{iso}:{t['year']}"],
@@ -546,7 +561,7 @@ def build_country(iso: str, *, stm: list[dict], trade_rows: list[dict], flow_fin
     series = trade_series(trade_rows, iso)
     c = {"iso3": iso, "name": COUNTRIES[iso], "trade": trade_latest(trade_rows, iso, trade_raw), "trade_series": series, "finance": finance_summary(flow_finance, iso),
          "gdp_latest": {"year": int(gdp["year"]), "usd": float(gdp["value"]), "source_id": gdp.get("source_id")} if gdp else None,
-         "components_latest": components_latest(comp_rows, idx_rows, iso), "forecast": forecast_paths(fc_rows, iso),
+         "components_latest": components_latest(comp_rows, idx_rows, iso), "forecast": forecast_paths(fc_rows, iso, series),
          "words": {"n_statements": len(rows), "n_executive": len(exec_rows), "executive": statement_series(exec_rows),
                    "executive_pooled": {a: pooled_stance(exec_rows, a) for a in ("CN", "US")}, "executive_counts": stance_counts(exec_rows),
                    "legislature": {"n": len(leg_rows), "counts": stance_counts(leg_rows)},

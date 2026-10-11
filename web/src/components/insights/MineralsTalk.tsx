@@ -17,8 +17,8 @@ function Country({ c, x }: { c: InsightCountry; x: Contrast }) {
   const options = useMemo(
     () => ({
       height: 40 + 26 * rows.length,
-      marginLeft: 104,
-      marginRight: 16,
+      marginLeft: 124, // "phosphate/potash" at the tick size
+      marginRight: 24, // the right half of the "100%" tick
       x: { label: null, domain: [0, 1], tickFormat: (v: number) => fmtPct(v), ticks: 4 },
       y: { label: null, domain: rows.map((r) => short(r.mineral)) },
       color: { domain: ["share of mentions", "share of export value"], range: [CAT_3, INK], legend: false },

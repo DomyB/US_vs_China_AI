@@ -1,3 +1,5 @@
+import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+
 export interface TourStep {
   /** where the step takes the visitor (the `tour` parameter is appended) */
   href: string;
@@ -9,7 +11,7 @@ export interface TourStep {
 
 export const TOUR_STEPS: TourStep[] = [
   { href: "/explore?year=2024", target: "map", title: "Who leans where", text: "Each country is coloured by the net lean of the influence index in 2024: red toward China, blue toward the United States. The index is a model output built from sourced trade, finance, debt, UN votes and legislative records." },
-  { href: "/explore?year=2024", target: "dock", title: "Move through the years", text: "The slider runs from 2008 to 2026 and the play button animates it; the ranking in the panel reorders as the years pass. Here you also switch the actor, filter by mineral and change the view." },
+  { href: "/explore?year=2024", target: "dock", title: "Move through the years", text: `The slider runs from ${YEAR_MIN} to ${YEAR_MAX} and the play button animates it; the ranking in the panel reorders as the years pass. Here you also switch the actor, filter by mineral and change the view.` },
   { href: "/explore?view=money&span=3&year=2024", target: "map", title: "Follow the money", text: "Arcs show documented finance commitments of the last three years from Beijing and Washington to each country. Width follows the amount and the pulse runs toward the recipient; hover an arc for its numbers and sources." },
   { href: "/explore?country=CHL&tab=actions&year=2024", target: "panel", title: "One country: Chile", text: "The Actions tab lists every recorded deal, loan and agreement on a timeline, the trade by mineral and partner, and the published contracts, each with its source and reliability." },
   { href: "/explore?country=CHL&tab=parliament&year=2024", target: "panel", title: "What leaders say", text: "The Politics tab holds coded statements by presidents, ministers, legislators and foreign officials, with each quote in its original language, next to the legislature's own records." },

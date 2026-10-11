@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { PlotFigure } from "@/components/charts/PlotFigure";
 import { ACTOR_COLOR } from "@/lib/constants";
 import { fmtMusd, fmtShare } from "@/lib/format";
-import type { LedgerSide, TradeReceipt } from "@/lib/story";
+import { STORY_SINCE, absentPartnerMinerals, type LedgerSide, type TradeReceipt } from "@/lib/story";
 import type { IndexRow, InsightCountry, StatementRecord } from "@/lib/types";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
 import { MoneyDefs, WideFigure } from "./Ch3Iceberg";
@@ -14,7 +14,7 @@ import type { Receipt } from "./ColdOpen";
 
 type Event = { id: string; date: string; title: string; status: string; type: string };
 
-/** The ledger page's money columns: documented, lower-confidence (dots), swap drawdowns (hatch) and the US sliver with an outlined framework block. */
+/** The ledger page's money columns: documented, lower-confidence (dots), swap drawdowns (hatch) and the US sliver with an outlined framework block. Captions are 10 viewBox units (8.8 px in the 58% column at 1366, 12.5 px in the phone's scroll box). */
 function MoneyColumns({ cn, us, framework }: { cn: LedgerSide; us: LedgerSide; framework: Event | null }) {
   const max = Math.max(cn.documented_musd, cn.undocumented_musd, cn.swap_musd, 1);
   const h = (m: number) => Math.max(2, (m / max) * 170);
@@ -26,13 +26,13 @@ function MoneyColumns({ cn, us, framework }: { cn: LedgerSide; us: LedgerSide; f
         <g>
           <rect x={40} y={base - h(cn.documented_musd)} width={90} height={h(cn.documented_musd)} fill="var(--cn)" rx="3" />
           <text x={85} y={base - h(cn.documented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.documented_musd)}</text>
-          <text x={85} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">documented</text><text x={85} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">to {cn.last_year}</text>
+          <text x={85} y={base + 14} textAnchor="middle" fontSize="10" className="fill-ink-2">documented</text><text x={85} y={base + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">to {cn.last_year}</text>
           <rect x={150} y={base - h(cn.undocumented_musd)} width={90} height={h(cn.undocumented_musd)} fill={`url(#${defs}-dots)`} stroke="var(--cn)" strokeWidth="1.2" rx="3" />
           <text x={195} y={base - h(cn.undocumented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.undocumented_musd)}</text>
-          <text x={195} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">lower confidence</text><text x={195} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">{cn.undocumented_n} records</text>
+          <text x={195} y={base + 14} textAnchor="middle" fontSize="10" className="fill-ink-2">lower confidence</text><text x={195} y={base + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">{cn.undocumented_n} records</text>
           <rect x={260} y={base - h(cn.swap_musd)} width={90} height={h(cn.swap_musd)} fill={`url(#${defs}-hatch)`} stroke="var(--cn)" strokeWidth="1.2" rx="3" />
           <text x={305} y={base - h(cn.swap_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(cn.swap_musd)}</text>
-          <text x={305} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">swap drawdowns</text><text x={305} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">{cn.swap_n} records</text>
+          <text x={305} y={base + 14} textAnchor="middle" fontSize="10" className="fill-ink-2">swap drawdowns</text><text x={305} y={base + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">{cn.swap_n} records</text>
           <text x={195} y={16} textAnchor="middle" fontSize="11" fontWeight="700" className="fill-ink">CHINA · three ledgers, never summed</text>
         </g>
         <line x1={390} y1={40} x2={390} y2={base + 20} stroke="var(--rule-2)" strokeDasharray="4 3" />
@@ -40,13 +40,13 @@ function MoneyColumns({ cn, us, framework }: { cn: LedgerSide; us: LedgerSide; f
           <text x={520} y={16} textAnchor="middle" fontSize="11" fontWeight="700" className="fill-ink">UNITED STATES</text>
           <rect x={430} y={base - h(us.documented_musd)} width={80} height={h(us.documented_musd)} fill="var(--us)" rx="2" />
           <text x={470} y={base - h(us.documented_musd) - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(us.documented_musd)}</text>
-          <text x={470} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">DFC and EXIM</text><text x={470} y={base + 25} textAnchor="middle" fontSize="8" className="fill-ink-3">to {us.last_year}</text>
+          <text x={470} y={base + 14} textAnchor="middle" fontSize="10" className="fill-ink-2">DFC and EXIM</text><text x={470} y={base + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">to {us.last_year}</text>
           {framework && (
             <>
               <rect x={535} y={base - 120} width={80} height={120} fill="none" stroke="var(--us)" strokeWidth="1.5" strokeDasharray="5 3" rx="3" />
               <text x={575} y={base - 126} textAnchor="middle" fontSize="10" fontWeight="700" className="fill-ink">framework</text>
-              <text x={575} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">no drawdown recorded</text>
-              <text x={575} y={base + 26} textAnchor="middle" fontSize="8" className="fill-ink-3">draft event · {framework.date.slice(0, 7)}</text>
+              <text x={575} y={base + 14} textAnchor="middle" fontSize="10" className="fill-ink-2">no drawdown recorded</text>
+              <text x={575} y={base + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">draft event · {framework.date.slice(0, 7)}</text>
             </>
           )}
         </g>
@@ -65,6 +65,7 @@ function netLean(rows: IndexRow[]): Plot.PlotOptions {
   for (let i = 1; i < labels.length; i++) if (labels[i].ly - labels[i - 1].ly < 6) labels[i].ly = labels[i - 1].ly + 6;
   return {
     height: 240,
+    marginTop: 26,
     marginLeft: 40,
     marginRight: 112,
     x: { label: null, tickFormat: (d: number) => String(d) },
@@ -80,27 +81,34 @@ function netLean(rows: IndexRow[]): Plot.PlotOptions {
   };
 }
 
-function trajectory(rows: IndexRow[]): Plot.PlotOptions {
+/** The years both indices carry, in order: the trajectory's points (a year with one actor's value only is not a point on it). */
+function bothActors(rows: IndexRow[]): { year: number; US: number; CN: number }[] {
   const byYear = new Map<number, { year: number; US?: number; CN?: number }>();
   for (const r of rows) {
     const y = byYear.get(r.year) ?? { year: r.year };
     y[r.actor] = r.value;
     byYear.set(r.year, y);
   }
-  const pts = [...byYear.values()].filter((y) => y.US !== undefined && y.CN !== undefined).sort((a, b) => a.year - b.year) as { year: number; US: number; CN: number }[];
+  return [...byYear.values()].filter((y) => y.US !== undefined && y.CN !== undefined).sort((a, b) => a.year - b.year) as { year: number; US: number; CN: number }[];
+}
+
+function trajectory(rows: IndexRow[]): Plot.PlotOptions {
+  const pts = bothActors(rows);
   const max = Math.max(60, ...pts.map((p) => Math.max(p.US, p.CN))) * 1.1;
   return {
     height: 260,
+    marginTop: 26,
+    marginBottom: 40,
     marginLeft: 40,
     aspectRatio: 1,
-    x: { label: "US index →", domain: [0, max] },
+    x: { label: "US index →", labelAnchor: "center", domain: [0, max] },
     y: { label: "↑ China index", domain: [0, max] },
     marks: [
       Plot.line([{ x: 0, y: 0 }, { x: max, y: max }], { x: "x", y: "y", stroke: "var(--rule-2)", strokeDasharray: "4 3" }),
       Plot.text([{ x: max * 0.95, y: max * 0.95, t: "equal presence" }], { x: "x", y: "y", text: "t", textAnchor: "end", dy: -6, fontSize: 9, fill: "var(--ink-3)" }),
       Plot.line(pts, { x: "US", y: "CN", stroke: "var(--ink)", strokeWidth: 1.4, curve: "linear", markerEnd: "arrow" }),
       Plot.dot(pts, { x: "US", y: "CN", r: 3, fill: (d: { year: number }) => (d.year === pts[pts.length - 1].year ? "var(--cn)" : "var(--card)"), stroke: "var(--ink)", tip: true, title: (d: { year: number; US: number; CN: number }) => `${d.year}: US ${d.US.toFixed(1)}, China ${d.CN.toFixed(1)}` }),
-      Plot.text(pts.filter((p, i) => i === 0 || i === pts.length - 1), { x: "US", y: "CN", text: (d: { year: number }) => String(d.year), dy: -9, fontSize: 10, fill: "var(--ink)" }),
+      Plot.text(pts.slice(-1), { x: "US", y: "CN", text: (d: { year: number }) => String(d.year), textAnchor: "start", dx: 7, dy: -8, fontSize: 10, fill: "var(--ink)", stroke: "var(--card)", strokeWidth: 3 }),
     ],
   };
 }
@@ -112,8 +120,15 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
   const lean = useMemo(() => netLean(rows), [rows]);
   const traj = useMemo(() => trajectory(rows), [rows]);
   const years = rows.map((r) => r.year);
+  const pts = bothActors(rows);
+  const span = pts.length ? { first: pts[0].year, last: pts[pts.length - 1].year } : null;
   const peak = rows.filter((r) => r.actor === "CN").reduce((a, b) => (b.value > a.value ? b : a), rows[0]);
   const swapYears = cn.by_year.filter((y) => y.swap_musd > 0).length;
+  // the swap rows are one AidData row per year of the same renewed line, summed as recorded; the largest year is printed beside the sum
+  const swapPeak = cn.by_year.reduce<LedgerSide["by_year"][number] | null>((a, b) => (b.swap_musd > (a?.swap_musd ?? 0) ? b : a), null);
+  // a mineral inside the reported total with no partner row (Argentina's gold) is named, so the shares say what they are shares of
+  const absentMinerals = absentPartnerMinerals(arg.trade);
+  const absentClause = absentMinerals && absentMinerals.musd > 0 ? `; ${fmtMusd(absentMinerals.musd)} of it, ${absentMinerals.minerals.join(" and ")}, has no partner row: absent, not zero` : "";
   return (
     <div className="space-y-6">
       {quote && (
@@ -143,7 +158,7 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
         </div>
         <div className="card p-4">
           <p className="eyebrow">Ship</p>
-          <p className="mt-1 text-sm text-ink-2">{arg.trade ? `${arg.trade.share_us === null ? "no United States partner row (absent, not zero)" : `${fmtShare(arg.trade.share_us)} of mineral exports to the United States`} and ${arg.trade.share_cn === null ? "no China partner row (absent, not zero)" : `${fmtShare(arg.trade.share_cn)} to China`} in ${arg.trade.year} (${fmtMusd(arg.trade.total_musd)} in total)` : "no reported trade"}{lithium && lithium.CN !== null ? `; lithium ${fmtMusd(lithium.CN)} of ${fmtMusd(lithium.total)} to China` : ""}.</p>
+          <p className="mt-1 text-sm text-ink-2">{arg.trade ? `${arg.trade.share_us === null ? "no United States partner row (absent, not zero)" : `${fmtShare(arg.trade.share_us)} of mineral exports to the United States`} and ${arg.trade.share_cn === null ? "no China partner row (absent, not zero)" : `${fmtShare(arg.trade.share_cn)} to China`} in ${arg.trade.year} (${fmtMusd(arg.trade.total_musd)} in total${absentClause})` : "no reported trade"}{lithium && lithium.CN !== null ? `; lithium ${fmtMusd(lithium.CN)} of ${fmtMusd(lithium.total)} to China` : ""}.</p>
         </div>
       </div>
       <div className="story-grid">
@@ -154,7 +169,7 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
         </div>
         <div className="space-y-4">
           <StepCard>
-            <p><strong>The receipts, read end to end.</strong> The documented Chinese block is {fmtMusd(cn.documented_musd)} since 2008; the swap drawdowns beside it, {fmtMusd(cn.swap_musd)} in {cn.swap_n} record{cn.swap_n === 1 ? "" : "s"} over {swapYears} year{swapYears === 1 ? "" : "s"}, are emergency liquidity the index keeps out; the dotted block is {fmtMusd(cn.undocumented_musd)} a source reported at lower confidence. The US column is {fmtMusd(us.documented_musd)}.</p>
+            <p><strong>The receipts, read end to end.</strong> The documented Chinese block is {fmtMusd(cn.documented_musd)} since {STORY_SINCE}; the swap drawdowns beside it, {fmtMusd(cn.swap_musd)} in {cn.swap_n} record{cn.swap_n === 1 ? "" : "s"} over {swapYears} year{swapYears === 1 ? "" : "s"}{swapPeak ? ` (yearly rows of a renewed line, summed as recorded; the largest ${fmtMusd(swapPeak.swap_musd)} in ${swapPeak.year})` : ""}, are emergency liquidity the index keeps out; the dotted block is {fmtMusd(cn.undocumented_musd)} a source reported at lower confidence. The US column is {fmtMusd(us.documented_musd)}.</p>
           </StepCard>
           {lithium && lithium.CN !== null && (
             <StepCard>
@@ -168,14 +183,21 @@ export function Ch8Argentina({ arg, quote, receipts, pairingNote, cn, us, framew
           )}
         </div>
       </div>
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-        <Exhibit title={`The influence index, ${years.length ? `${Math.min(...years)}–${Math.max(...years)}` : ""}`} layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes", "wb_ids"]} ids={["index_value:influence:ARG:US", "index_value:influence:ARG:CN"]} note={`Model output: six components on one 0–100 scale, equal weights over the components available (never fewer than three), 5th–95th band over 500 weight draws. Every value prints its component count: a changed count is a coverage change, not a swing.${peak ? ` China's peak: ${peak.value.toFixed(1)} in ${peak.year}.` : ""}`}>
-          <PlotFigure options={lean} ariaLabel="Argentina's influence index for the United States and China by year with uncertainty bands" />
+      {/* the index is drawn only from the real export (StoryPage passes no sample rows): without it, one note, never two empty frames */}
+      {rows.length ? (
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+          <Exhibit title={`The influence index, ${Math.min(...years)}–${Math.max(...years)}`} layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes", "wb_ids"]} ids={["index_value:influence:ARG:US", "index_value:influence:ARG:CN"]} note={`Model output: six components on one 0–100 scale, equal weights over the components available (never fewer than three), 5th–95th band over 500 weight draws. Every value prints its component count: a changed count is a coverage change, not a swing.${peak ? ` China's peak: ${peak.value.toFixed(1)} in ${peak.year}.` : ""}`}>
+            <PlotFigure glyph="model" options={lean} ariaLabel="Argentina's influence index for the United States and China by year with uncertainty bands" />
+          </Exhibit>
+          <Exhibit title="The trajectory" layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes"]} ids={["index_value:influence:ARG"]} note={`US index on the horizontal, China index on the vertical, one dot per year joined in order${span ? ` from ${span.first} (in the knot at the left, the year on hover) to ${span.last}` : ""}; the diagonal is equal presence; the last year is filled and labelled.`}>
+            <PlotFigure glyph="model" options={traj} ariaLabel="Argentina's trajectory: US index against China index, one dot per year" expandable={false} />
+          </Exhibit>
+        </div>
+      ) : (
+        <Exhibit title="The influence index" layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes", "wb_ids"]} ids={["index_value:influence:ARG:US", "index_value:influence:ARG:CN"]} note="Model output: the computed index is drawn only from the real export; a seeded sample is never shown in its place.">
+          <p className="py-6 text-sm text-ink-2">The computed influence index is not in this release: nothing is drawn in its place.</p>
         </Exhibit>
-        <Exhibit title="The trajectory" layer="model" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "unga_votes"]} ids={["index_value:influence:ARG"]} note="US index on the horizontal, China index on the vertical, one dot per year joined in order; the diagonal is equal presence; the last year is filled.">
-          <PlotFigure options={traj} ariaLabel="Argentina's trajectory: US index against China index, one dot per year" expandable={false} />
-        </Exhibit>
-      </div>
+      )}
       {voices.length > 0 && (
         <Exhibit title="More of the words around the sentence" layer="facts" sources={["manual_statements"]} ids={voices.map((v) => `statement:${v.id}`)}>
           <ul className="grid gap-3 md:grid-cols-3">

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Illustrated South America with mineral crystals and routes from the United States and China" }],
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og.png"] },
+  twitter: { card: "summary_large_image", images: ["/og.png"] }, // the title and description follow each page's openGraph
 };
 
 export const viewport: Viewport = {

@@ -6,6 +6,7 @@ import { MineralFilter } from "@/components/controls/MineralFilter";
 import { YearControl } from "@/components/controls/YearControl";
 import type { FlowSpan, FlowView } from "@/components/map/flows";
 import { Segmented } from "@/components/ui/Segmented";
+import { YEAR_MIN } from "@/lib/constants";
 import type { ActorMode, FlowsFile, MineralMeta } from "@/lib/types";
 
 interface Props {
@@ -39,7 +40,7 @@ const VIEW_OPTIONS: { value: FlowView; label: string; title: string }[] = [
 const SPAN_OPTIONS: { value: FlowSpan; label: string }[] = [
   { value: "1", label: "This year" },
   { value: "3", label: "3 years" },
-  { value: "all", label: "Since 2008" },
+  { value: "all", label: `Since ${YEAR_MIN}` },
 ];
 
 function flowNote(view: FlowView, m: FlowsFile["meta"] | null | undefined, layer: "real" | "sample" | null | undefined): string | null {

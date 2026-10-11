@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { COUNTRY_NAMES } from "@/lib/constants";
 import { fmtMusd } from "@/lib/format";
-import type { LedgerSide } from "@/lib/story";
+import { STORY_SINCE, type LedgerSide } from "@/lib/story";
 import type { QuantFile } from "@/lib/types";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
 
@@ -20,7 +20,7 @@ export function MoneyDefs({ id }: { id: string }) {
 
 /**
  * A hand-drawn SVG exhibit scales its text with the viewBox, so on a phone the labels would shrink to 4–7 px. Under 640 px the
- * figure keeps `minWidth` (a Tailwind min-w utility, 1.25 × the viewBox width so an 8-unit label renders at 10 px) and scrolls sideways.
+ * figure keeps `minWidth` (a Tailwind min-w utility, 1.25 × the viewBox width so a 10-unit caption renders at 12.5 px) and scrolls sideways.
  */
 export function WideFigure({ minWidth, children }: { minWidth: string; children: ReactNode }) {
   return (
@@ -43,6 +43,8 @@ const isUnspecified = (l: { label: string }) => /^unspecified/i.test(l.label);
 /**
  * The Iceberg: above the waterline the documented commitments by origin; below it, on a dollar axis, the lower-confidence
  * amounts and the swap drawdowns, and on a count axis the events that carry no amount or no recipient. Never summed.
+ * Captions are 10 viewBox units (8.3 px in the 58% column at 1366, 12.5 px in the phone's scroll box) and no caption
+ * line is wider than its block's slot, so two blocks' captions cannot run into each other whatever the bar heights.
  */
 function Iceberg({ cn, us, unattributed }: { cn: LedgerSide; us: LedgerSide; unattributed: number | null }) {
   const W = 680, water = 200, defs = "iceberg";
@@ -51,6 +53,7 @@ function Iceberg({ cn, us, unattributed }: { cn: LedgerSide; us: LedgerSide; una
   const maxCount = Math.max(cn.no_amount_n + cn.undocumented_n + cn.swap_n, unattributed ?? 0, 1);
   const ch = (n: number) => Math.max(2, (n / maxCount) * 90);
   const noAmountAll = cn.no_amount_n + cn.undocumented_n + cn.swap_n;
+  const n = (v: number) => v.toLocaleString("en-US");
   return (
     <WideFigure minWidth="min-w-[850px]">
       <svg viewBox={`0 0 ${W} 440`} className="w-full" role="img" aria-label={`Documented commitments: China ${bn(cn.documented_musd)} over ${cn.events} events, the United States ${bn(us.documented_musd)} over ${us.events}. Below the waterline: ${bn(cn.undocumented_musd)} of lower-confidence Chinese amounts, ${bn(cn.swap_musd)} of swap-line drawdowns, ${noAmountAll} events with no documented amount${unattributed !== null ? `, ${unattributed} naming no recipient` : ""}.`}>
@@ -59,37 +62,40 @@ function Iceberg({ cn, us, unattributed }: { cn: LedgerSide; us: LedgerSide; una
         <g>
           <rect x={60} y={water - h(cn.documented_musd)} width={110} height={h(cn.documented_musd)} fill="var(--cn)" rx="3" />
           <text x={115} y={water - h(cn.documented_musd) - 8} textAnchor="middle" fontSize="14" fontWeight="700" className="fill-ink">{bn(cn.documented_musd)}</text>
-          <text x={115} y={water - h(cn.documented_musd) - 36} textAnchor="middle" fontSize="9" className="fill-ink-3">China · to {cn.last_year}</text>
-          <text x={115} y={water - h(cn.documented_musd) - 24} textAnchor="middle" fontSize="9" className="fill-ink-3">{cn.events.toLocaleString("en-US")} events, {cn.with_amount.toLocaleString("en-US")} with an amount</text>
+          <text x={115} y={water - h(cn.documented_musd) - 38} textAnchor="middle" fontSize="10" className="fill-ink-3">China · to {cn.last_year}</text>
+          <text x={115} y={water - h(cn.documented_musd) - 25} textAnchor="middle" fontSize="10" className="fill-ink-3">{n(cn.events)} events, {n(cn.with_amount)} with an amount</text>
           <rect x={220} y={water - h(us.documented_musd)} width={110} height={h(us.documented_musd)} fill="var(--us)" rx="3" />
           <text x={275} y={water - h(us.documented_musd) - 8} textAnchor="middle" fontSize="14" fontWeight="700" className="fill-ink">{bn(us.documented_musd)}</text>
-          <text x={275} y={water - h(us.documented_musd) - 36} textAnchor="middle" fontSize="9" className="fill-ink-3">United States · to {us.last_year}</text>
-          <text x={275} y={water - h(us.documented_musd) - 24} textAnchor="middle" fontSize="9" className="fill-ink-3">{us.events.toLocaleString("en-US")} events</text>
+          <text x={275} y={water - h(us.documented_musd) - 38} textAnchor="middle" fontSize="10" className="fill-ink-3">United States · to {us.last_year}</text>
+          <text x={275} y={water - h(us.documented_musd) - 25} textAnchor="middle" fontSize="10" className="fill-ink-3">{n(us.events)} events</text>
         </g>
         <line x1={20} y1={water} x2={W - 20} y2={water} stroke="var(--outline)" strokeWidth="2" />
-        <text x={W - 20} y={water + 14} textAnchor="end" fontSize="9" className="fill-ink-3">waterline: what the index counts</text>
+        <text x={W - 20} y={water + 15} textAnchor="end" fontSize="10" className="fill-ink-3">waterline: what the index counts</text>
         <text x={20} y={water + 34} fontSize="11" fontWeight="700" className="fill-ink">BELOW · recorded, shown apart, not counted</text>
-        <text x={20} y={water + 48} fontSize="9" className="fill-ink-3">dollar axis</text>
+        <text x={20} y={water + 48} fontSize="10" className="fill-ink-3">dollar axis</text>
         <g>
           <rect x={60} y={water + 56} width={110} height={h(cn.undocumented_musd)} fill={`url(#${defs}-dots)`} stroke="var(--cn)" strokeWidth="1.2" rx="3" />
           <text x={115} y={water + 56 + h(cn.undocumented_musd) + 14} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{bn(cn.undocumented_musd)}</text>
-          <text x={115} y={water + 56 + h(cn.undocumented_musd) + 26} textAnchor="middle" fontSize="9" className="fill-ink-3">lower-confidence amounts · {cn.undocumented_n} records</text>
+          <text x={115} y={water + 56 + h(cn.undocumented_musd) + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">lower-confidence amounts</text>
+          <text x={115} y={water + 56 + h(cn.undocumented_musd) + 39} textAnchor="middle" fontSize="10" className="fill-ink-3">{n(cn.undocumented_n)} records</text>
           <rect x={220} y={water + 56} width={110} height={h(cn.swap_musd)} fill={`url(#${defs}-hatch)`} stroke="var(--cn)" strokeWidth="1.2" rx="3" />
           <text x={275} y={water + 56 + h(cn.swap_musd) + 14} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{bn(cn.swap_musd)}</text>
-          <text x={275} y={water + 56 + h(cn.swap_musd) + 26} textAnchor="middle" fontSize="9" className="fill-ink-3">swap-line drawdowns · {cn.swap_n} records</text>
+          <text x={275} y={water + 56 + h(cn.swap_musd) + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">swap-line drawdowns</text>
+          <text x={275} y={water + 56 + h(cn.swap_musd) + 39} textAnchor="middle" fontSize="10" className="fill-ink-3">{n(cn.swap_n)} records</text>
         </g>
         <line x1={380} y1={water + 30} x2={380} y2={320} stroke="var(--rule-2)" strokeDasharray="4 3" />
-        <text x={395} y={water + 48} fontSize="9" className="fill-ink-3">count axis (events, not dollars)</text>
+        <text x={395} y={water + 48} fontSize="10" className="fill-ink-3">count axis (events, not dollars)</text>
         <g>
           <rect x={400} y={water + 56} width={110} height={ch(noAmountAll)} fill="none" stroke="var(--ink)" strokeWidth="1.5" rx="3" />
-          <text x={455} y={water + 56 + ch(noAmountAll) + 14} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{noAmountAll.toLocaleString("en-US")}</text>
-          <text x={455} y={water + 56 + ch(noAmountAll) + 26} textAnchor="middle" fontSize="9" className="fill-ink-3">events with no documented amount</text>
-          <text x={455} y={water + 56 + ch(noAmountAll) + 37} textAnchor="middle" fontSize="8" className="fill-ink-3">{cn.undocumented_n} lower-confidence · {cn.swap_n} swaps · {cn.no_amount_n} none at all</text>
+          <text x={455} y={water + 56 + ch(noAmountAll) + 14} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{n(noAmountAll)}</text>
+          <text x={455} y={water + 56 + ch(noAmountAll) + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">no documented amount</text>
+          <text x={455} y={water + 56 + ch(noAmountAll) + 39} textAnchor="middle" fontSize="10" className="fill-ink-3">{n(cn.undocumented_n)} lower-confidence · {n(cn.swap_n)} swaps</text>
+          <text x={455} y={water + 56 + ch(noAmountAll) + 51} textAnchor="middle" fontSize="10" className="fill-ink-3">{n(cn.no_amount_n)} none at all</text>
           {unattributed !== null && (
             <>
-              <rect x={540} y={water + 56} width={110} height={ch(unattributed)} fill="none" stroke="var(--ink)" strokeWidth="1.5" strokeDasharray="4 3" rx="3" />
-              <text x={595} y={water + 56 + ch(unattributed) + 14} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{unattributed.toLocaleString("en-US")}</text>
-              <text x={595} y={water + 56 + ch(unattributed) + 26} textAnchor="middle" fontSize="9" className="fill-ink-3">events naming no recipient</text>
+              <rect x={550} y={water + 56} width={110} height={ch(unattributed)} fill="none" stroke="var(--ink)" strokeWidth="1.5" strokeDasharray="4 3" rx="3" />
+              <text x={605} y={water + 56 + ch(unattributed) + 14} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{n(unattributed)}</text>
+              <text x={605} y={water + 56 + ch(unattributed) + 27} textAnchor="middle" fontSize="10" className="fill-ink-3">naming no recipient</text>
             </>
           )}
         </g>
@@ -100,6 +106,8 @@ function Iceberg({ cn, us, unattributed }: { cn: LedgerSide; us: LedgerSide; una
 
 export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastYearCN }: { cn: LedgerSide; us: LedgerSide; allYearsCN: LedgerSide; undocumentedTop: { iso3: string; musd: number }[]; network: QuantFile["network"] | null; lastYearCN: number | null }) {
   const pre2008 = allYearsCN.undocumented_musd - cn.undocumented_musd;
+  // the swap rows are one AidData row per year of the same renewed line, summed as recorded; the largest year is printed beside the sum
+  const swapPeak = cn.by_year.reduce<LedgerSide["by_year"][number] | null>((a, b) => (b.swap_musd > (a?.swap_musd ?? 0) ? b : a), null);
   const lenders = network?.top_lenders ?? [];
   const named = lenders.filter((l) => !isUnspecified(l));
   const unnamed = lenders.length - named.length;
@@ -115,13 +123,13 @@ export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastY
         </div>
         <div className="space-y-4">
           <StepCard>
-            <p><strong>The number everyone quotes.</strong> {fmtMusd(cn.documented_musd)} of documented Chinese commitments to the twelve countries since 2008, over {cn.events.toLocaleString("en-US")} events of which {cn.with_amount.toLocaleString("en-US")} carry a documented amount; the record ends in {lastYearCN ?? cn.last_year}. The United States: {fmtMusd(us.documented_musd)} over {us.events.toLocaleString("en-US")} DFC and EXIM items to {us.last_year}.</p>
+            <p><strong>The number everyone quotes.</strong> {fmtMusd(cn.documented_musd)} of documented Chinese commitments to the twelve countries since {STORY_SINCE}, over {cn.events.toLocaleString("en-US")} events of which {cn.with_amount.toLocaleString("en-US")} carry a documented amount; the record ends in {lastYearCN ?? cn.last_year}. The United States: {fmtMusd(us.documented_musd)} over {us.events.toLocaleString("en-US")} DFC and EXIM items to {us.last_year}.</p>
           </StepCard>
           <StepCard>
-            <p><strong>The money with a lower confidence.</strong> {fmtMusd(cn.undocumented_musd)} across {cn.undocumented_n} records since 2008{pre2008 > 0 ? `, and a further ${fmtMusd(pre2008)} in records before 2008` : ""}. Largest: {undocumentedTop.slice(0, 4).map((u) => `${COUNTRY_NAMES[u.iso3] ?? u.iso3} ${fmtMusd(u.musd)}`).join(", ")}.</p>
+            <p><strong>The money with a lower confidence.</strong> {fmtMusd(cn.undocumented_musd)} across {cn.undocumented_n} records since {STORY_SINCE}{pre2008 > 0 ? `, and a further ${fmtMusd(pre2008)} in records before ${STORY_SINCE}` : ""}. Largest: {undocumentedTop.slice(0, 4).map((u) => `${COUNTRY_NAMES[u.iso3] ?? u.iso3} ${fmtMusd(u.musd)}`).join(", ")}.</p>
           </StepCard>
           <StepCard>
-            <p><strong>The money that is not a loan for anything.</strong> {fmtMusd(cn.swap_musd)} of central-bank swap drawdowns in {cn.swap_n} records, almost all of it Argentina&apos;s central bank drawing on the People&apos;s Bank of China. The pipeline flags each as rescue lending and keeps it out of the finance component; Chapter 8 draws it beside the opening sentence.</p>
+            <p><strong>The money that is not a loan for anything.</strong> {fmtMusd(cn.swap_musd)} of central-bank swap drawdowns in {cn.swap_n} records{swapPeak ? ` (yearly rows of a renewed line, summed as recorded; the largest year ${fmtMusd(swapPeak.swap_musd)} in ${swapPeak.year})` : ""}, almost all of it Argentina&apos;s central bank drawing on the People&apos;s Bank of China. The pipeline flags each as rescue lending and keeps it out of the finance component; Chapter 8 draws it beside the opening sentence.</p>
           </StepCard>
           <StepCard>
             <p><strong>And the money nobody can place.</strong> {(cn.no_amount_n + cn.undocumented_n + cn.swap_n).toLocaleString("en-US")} events carry no documented amount ({cn.no_amount_n.toLocaleString("en-US")} none at all){network?.unattributed_events ? `, and ${network.unattributed_events.toLocaleString("en-US")} name no recipient` : ""}. Opacity is itself the finding.</p>
@@ -136,9 +144,9 @@ export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastY
                 const max = Math.max(...lenders.map((x) => x.weighted_degree_musd));
                 const color = l.origin === "US" ? "var(--us)" : "var(--cn)";
                 return (
-                  <li key={l.label} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+                  <li key={l.label} className="grid grid-cols-1 gap-x-2 gap-y-0.5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
                     <span className="min-w-0">
-                      <span className="block truncate">{l.label}</span>
+                      <span className="block break-words">{l.label}</span>
                       <span className="block h-1.5 rounded-sm" style={{ width: `${Math.max(2, (l.weighted_degree_musd / max) * 100)}%`, background: isSwapLender(l) ? `repeating-linear-gradient(-45deg, ${color} 0 2px, transparent 2px 5px)` : color }} />
                     </span>
                     <span className="tabular-nums text-xs text-ink-2">{fmtMusd(l.weighted_degree_musd)} · {l.degree} links</span>

@@ -19,7 +19,7 @@ interface Props {
   mode: ActorMode;
   mineral: string;
   ranked: { iso: string; name: string; v: number }[];
-  onSelect: (iso: string) => void;
+  onSelect: (iso: string, additive?: boolean) => void;
   onHover: (iso: string | null) => void;
   hover: string | null;
   view: FlowView;

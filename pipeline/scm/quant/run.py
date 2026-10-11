@@ -57,7 +57,8 @@ def run(warehouse: Path = WAREHOUSE_DIR, draws: int = 500, seed: int = 20261009,
     ex_all = wide(conc, "x")
     effects = event_effects(events, ex_all[ex_all["mineral"] == "all"][["country", "year", "share_us", "share_cn"]] if not ex_all.empty else ex_all, seed=seed)
     regressions = panel_regressions(build_panel(conc, comp, inp.controls), n_boot=n_boot, seed=seed)
-    shares_all = ex_all[ex_all["mineral"] == "all"][["country", "year", "share_us", "share_cn"]] if not ex_all.empty else pd.DataFrame(columns=["country", "year", "share_us", "share_cn"])
+    # the absent flags travel with the shares: a cell with no partner row is never fitted as a reported 0
+    shares_all = ex_all[ex_all["mineral"] == "all"][["country", "year", "share_us", "share_cn", "absent_us", "absent_cn"]] if not ex_all.empty else pd.DataFrame(columns=["country", "year", "share_us", "share_cn", "absent_us", "absent_cn"])
     fc, bt, fc_status = forecasts(idx, shares_all, seed=seed, n_sims=n_sims, n_backtest=n_backtest)
     k = len(COMPONENTS)
     comp_out = comp.drop(columns=["rank_value"]).assign(weight=1.0 / k, weights_version=WEIGHTS_VERSION)

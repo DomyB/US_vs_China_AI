@@ -10,20 +10,25 @@ import { WideFigure } from "./Ch3Iceberg";
 
 const BLOC_COLOR: Record<string, string> = { "United States": ACTOR_COLOR.US, China: ACTOR_COLOR.CN, "LatAm executive": OTHER_COLOR, "LatAm legislature": "#6a4fb8" };
 
-/** The ledger balance: statement counts by bloc beside documented commitments by origin, the mineral-tagged part darker, the two windows kept apart. */
+/**
+ * The ledger balance: statement counts by bloc beside documented commitments by origin, the mineral-tagged part darker, the two windows kept apart.
+ * Captions are 10 viewBox units (8.8 px in the 58% column at 1366, 12.5 px in the phone's scroll box), never the 8 that rendered at 7 px.
+ * The tagged part is the column colour under `--outline` at 60%: that token is dark in light mode and mid-grey in dark mode, so the
+ * base is the darker part in both schemes (the former `--ink` overlay turned pale in dark mode, where `--ink` is near white).
+ */
 function LedgerBalance({ tm }: { tm: InsightRegion["talk_vs_money"] }) {
   const blocs = [...tm.by_bloc].sort((a, b) => b.n - a.n).slice(0, 4);
   const money = tm.finance;
-  const W = 640, H = 310, base = 240;
+  const W = 640, H = 320, base = 240;
   const maxWords = Math.max(...blocs.map((b) => b.n), 1);
   const maxMoney = Math.max(money.CN.musd, money.US.musd, money.US_after.musd, 1);
   const wordsH = (n: number) => (n / maxWords) * 130;
   const moneyH = (m: number) => (m / maxMoney) * 150;
-  const words = blocs.map((b, i) => ({ ...b, x: 40 + i * 58, h: wordsH(b.n) }));
+  const words = blocs.map((b, i) => ({ ...b, x: 36 + i * 64, h: wordsH(b.n) }));
   const cols = [
-    { key: "CN", label: `China ${money.CN.years[0]}–${money.CN.years[1]}`, musd: money.CN.musd, tagged: money.CN.mineral_tagged_musd, x: 310, color: ACTOR_COLOR.CN, curtain: true },
-    { key: "US", label: `United States ${money.US.years[0]}–${money.US.years[1]}`, musd: money.US.musd, tagged: money.US.mineral_tagged_musd, x: 420, color: ACTOR_COLOR.US, curtain: false },
-    { key: "US_after", label: `US ${money.US_after.years[0]}–${money.US_after.years[1]}`, musd: money.US_after.musd, tagged: money.US_after.mineral_tagged_musd, x: 550, color: ACTOR_COLOR.US, curtain: false },
+    { key: "CN", label: "China", years: `${money.CN.years[0]}–${money.CN.years[1]}`, musd: money.CN.musd, tagged: money.CN.mineral_tagged_musd, x: 300, color: ACTOR_COLOR.CN, curtain: true },
+    { key: "US", label: "United States", years: `${money.US.years[0]}–${money.US.years[1]}`, musd: money.US.musd, tagged: money.US.mineral_tagged_musd, x: 420, color: ACTOR_COLOR.US, curtain: false },
+    { key: "US_after", label: "United States", years: `${money.US_after.years[0]}–${money.US_after.years[1]}`, musd: money.US_after.musd, tagged: money.US_after.mineral_tagged_musd, x: 550, color: ACTOR_COLOR.US, curtain: false },
   ];
   return (
     <WideFigure minWidth="min-w-[800px]">
@@ -31,13 +36,13 @@ function LedgerBalance({ tm }: { tm: InsightRegion["talk_vs_money"] }) {
         <defs>
           <pattern id="ledger-curtain" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--surface-2)" /><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-3)" strokeWidth="1.2" /></pattern>
         </defs>
-        <text x={40} y={28} className="fill-ink" fontSize="12" fontWeight="700">WORDS · statements by bloc</text>
-        <text x={310} y={28} className="fill-ink" fontSize="12" fontWeight="700">MONEY · documented commitments</text>
+        <text x={36} y={28} className="fill-ink" fontSize="12" fontWeight="700">WORDS · statements by bloc</text>
+        <text x={300} y={28} className="fill-ink" fontSize="12" fontWeight="700">MONEY · documented commitments</text>
         {words.map((b) => (
           <g key={b.bloc}>
             <rect x={b.x} y={base - b.h} width={44} height={b.h} fill={BLOC_COLOR[b.bloc] ?? OTHER_COLOR} rx="3" />
             <text x={b.x + 22} y={base - b.h - 6} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{b.n}</text>
-            <text x={b.x + 22} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">{b.bloc.replace("LatAm ", "")}</text>
+            <text x={b.x + 22} y={base + 15} textAnchor="middle" fontSize="10" className="fill-ink-2">{b.bloc.replace("LatAm ", "")}</text>
           </g>
         ))}
         {cols.map((c) => {
@@ -45,17 +50,19 @@ function LedgerBalance({ tm }: { tm: InsightRegion["talk_vs_money"] }) {
           return (
             <g key={c.key}>
               <rect x={c.x} y={base - h} width={60} height={h} fill={c.color} rx="3" />
-              <rect x={c.x} y={base - th} width={60} height={th} fill="var(--ink)" fillOpacity="0.55" rx="2" />
+              <rect x={c.x} y={base - th} width={60} height={th} fill="var(--outline)" fillOpacity="0.6" rx="2" />
               {c.curtain && <rect x={c.x} y={base - h - 22} width={60} height={20} fill="url(#ledger-curtain)" stroke="var(--ink-3)" strokeDasharray="3 2" rx="2" />}
-              {c.curtain && <text x={c.x + 30} y={base - h - 40} textAnchor="middle" fontSize="8" className="fill-ink-3">no source after {money.CN.years[1]}</text>}
+              {c.curtain && <text x={c.x + 30} y={base - h - 41} textAnchor="middle" fontSize="10" className="fill-ink-3">no source after {money.CN.years[1]}</text>}
               <text x={c.x + 30} y={base - h - (c.curtain ? 27 : 6)} textAnchor="middle" fontSize="12" fontWeight="700" className="fill-ink">{fmtMusd(c.musd)}</text>
-              <text x={c.x + 30} y={base + 14} textAnchor="middle" fontSize="9" className="fill-ink-2">{c.label}</text>
-              <text x={c.x + 30} y={base + 26} textAnchor="middle" fontSize="8" className="fill-ink-3">mineral-tagged {fmtMusd(c.tagged)}</text>
+              <text x={c.x + 30} y={base + 15} textAnchor="middle" fontSize="10" className="fill-ink-2">{c.label}</text>
+              <text x={c.x + 30} y={base + 28} textAnchor="middle" fontSize="10" className="fill-ink-2">{c.years}</text>
+              <text x={c.x + 30} y={base + 41} textAnchor="middle" fontSize="10" className="fill-ink-3">mineral-tagged</text>
+              <text x={c.x + 30} y={base + 53} textAnchor="middle" fontSize="10" className="fill-ink-3">{fmtMusd(c.tagged)}</text>
             </g>
           );
         })}
-        <line x1={520} y1={50} x2={520} y2={base + 30} stroke="var(--rule-2)" strokeDasharray="4 3" />
-        <text x={632} y={base + 42} textAnchor="end" fontSize="8" className="fill-ink-3">different window, never in the ratio</text>
+        <line x1={515} y1={50} x2={515} y2={base + 58} stroke="var(--rule-2)" strokeDasharray="4 3" />
+        <text x={632} y={base + 70} textAnchor="end" fontSize="10" className="fill-ink-3">different window, never in the ratio</text>
         <line x1={30} y1={base} x2={W - 20} y2={base} stroke="var(--outline)" strokeWidth="1.5" />
       </svg>
     </WideFigure>
@@ -78,12 +85,13 @@ export function Ch1Ledger({ region, lastYear, voices }: { region: InsightRegion;
   const tm = region.talk_vs_money;
   const pos = useMemo(() => positions(tm), [tm]);
   const ratioMoney = tm.ratios.money_cn_over_us_2015_21, ratioWords = tm.ratios.statements_us_over_cn;
+  const attentionYears = region.attention.length ? `${Math.min(...region.attention.map((r) => r.year))}–${Math.max(...region.attention.map((r) => r.year))}` : null;
   return (
     <div className="space-y-6">
       {ratioMoney !== null && <GuessFirst id="c1-ratio" question={`For every dollar Washington committed to these twelve countries in ${tm.finance.US.years[0]}–${tm.finance.US.years[1]}, how many did Beijing commit?`} min={0} max={30} step={0.5} answer={ratioMoney} format={(v) => v.toFixed(1)} unit="Chinese dollars per US dollar" />}
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit title="The ledger balance" layer="facts" sources={["manual_statements", "aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["statement:count:bloc", "flow_finance:CN:2015-2021", "flow_finance:US:2015-2021", "flow_finance:US:2022-2024"]} explore={{ href: "/lab#ledger", label: "Open the ledger in the Lab" }} note={tm.note}>
+          <Exhibit title="The ledger balance" layer="facts" sources={["manual_statements", "aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["statement:count:bloc", `flow_finance:CN:${tm.finance.CN.years[0]}-${tm.finance.CN.years[1]}`, `flow_finance:US:${tm.finance.US.years[0]}-${tm.finance.US.years[1]}`, `flow_finance:US:${tm.finance.US_after.years[0]}-${tm.finance.US_after.years[1]}`]} explore={{ href: "/lab#ledger", label: "Open the ledger in the Lab" }} note={`${tm.note}; it is the darker base of each money column, in light and dark mode alike.`}>
             <LedgerBalance tm={tm} />
           </Exhibit>
           <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -105,7 +113,7 @@ export function Ch1Ledger({ region, lastYear, voices }: { region: InsightRegion;
           </StepCard>
         </div>
       </div>
-      <Exhibit title="Attention and the cheque book, 2008–2026" layer="facts" sources={["congress_gov", "federal_register", "manual_statements", "dfc_projects", "exim_authorizations", "aiddata_gcdf"]} ids={["policy_document:count:year", "statement:count:bloc=United States:year", "flow_finance:US:year", "flow_finance:CN:year"]} note="A bill is not a dollar: the paper trail and the statements climb while the documented US money stays small and the Chinese record ends.">
+      <Exhibit title={`Attention and the cheque book${attentionYears ? `, ${attentionYears}` : ""}`} layer="facts" sources={["congress_gov", "federal_register", "manual_statements", "dfc_projects", "exim_authorizations", "aiddata_gcdf"]} ids={["policy_document:count:year", "statement:count:bloc=United States:year", "flow_finance:US:year", "flow_finance:CN:year"]} note="A bill is not a dollar: the paper trail and the statements climb while the documented US money stays small and the Chinese record ends.">
         <Attention rows={region.attention} lastYear={lastYear} />
       </Exhibit>
       {voices.length > 0 && (

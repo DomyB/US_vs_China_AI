@@ -74,6 +74,11 @@ def test_concentration_shares_and_notes(tmp_path):
     assert hhi["value"].isna().all() and hhi["note"].str.startswith("not computable").all()
     per = conc[(conc["country"] == "PER") & (conc["mineral"] == "copper") & (conc["year"] == 2023)].set_index("metric")
     assert per.loc["share_us_x", "value"] == 0.0 and "no row for this partner" in per.loc["share_us_x", "note"]
+    # the two-power share and the rest need both partner cells: null with the reason, never a bar that sums to 100% beside an absent cell
+    assert pd.isna(per.loc["big2_share_x", "value"]) and pd.isna(per.loc["share_other_x", "value"]) and per.loc["big2_share_x", "note"].startswith("not computable")
+    w = conc_mod.wide(conc, "x").set_index(["country", "mineral", "year"])
+    assert bool(w.loc[("PER", "copper", 2023), "absent_us"]) and not bool(w.loc[("PER", "copper", 2023), "absent_cn"]) and w.loc[("PER", "copper", 2023), "share_us"] == 0.0
+    assert not w.loc[("CHL", "lithium", 2023), ["absent_us", "absent_cn"]].any()
     # RCA against the pooled basket: Chile exports lithium only, Peru copper only
     assert conc[(conc["metric"] == "rca_pool") & (conc["country"] == "CHL") & (conc["year"] == 2023)]["value"].iloc[0] > 1
     assert "all" in set(conc["mineral"])
@@ -133,6 +138,24 @@ def test_finance_without_trade_response_never_rests_on_an_absent_partner_cell():
     assert len(guy) == 1 and "20% in 2016, 20% in 2019" in guy.iloc[0]["description"]
 
 
+def test_sudden_trade_shift_never_rests_on_an_absent_partner_cell():
+    from scm.quant.anomalies import anomalies
+    from scm.quant.concentration import NOTE_ABSENT
+
+    def rows(year, cn, note):
+        base = {"country": "BRA", "mineral": "nickel", "year": year}
+        return [{**base, "metric": "exports_wld_usd", "value": 5.0e8, "note": None}, {**base, "metric": "share_cn_x", "value": cn, "note": note},
+                {**base, "metric": "share_us_x", "value": 0.1, "note": None}]
+
+    # a reported 23% in 2009, no China row in 2010 (0 with the absent note), a reported 25% in 2011: neither a fall to 0% nor a rise from it;
+    # the reported fall to 0% in 2012 is the one shift
+    conc = pd.DataFrame([*rows(2009, 0.23, None), *rows(2010, 0.0, NOTE_ABSENT), *rows(2011, 0.25, None), *rows(2012, 0.0, None)])
+    empty = pd.DataFrame()
+    flags = anomalies(conc, empty, empty, empty, empty, empty, {})
+    shifts = flags[flags["type"] == "sudden_trade_shift"]
+    assert list(shifts["year"]) == [2012] and "fell from 25% to 0% of nickel exports between 2011 and 2012" in shifts.iloc[0]["description"]
+
+
 def test_run_writes_tables_flags_network_and_export(tmp_path):
     wh = _synthetic_warehouse(tmp_path)
     res = quant_run.run(wh, draws=40, seed=3, release="test-release")
@@ -171,6 +194,8 @@ def test_run_writes_tables_flags_network_and_export(tmp_path):
     shift_flag = next(f for f in a["flags"] if f["type"] == "sudden_trade_shift")
     assert shift_flag["evidence"][0]["id"] == "un_comtrade" and shift_flag["evidence"][0]["sample"] is False and shift_flag["evidence_level"] == "documented"
     assert any(c["mineral"] == "lithium" and c["share_cn_x"] == 0.6 and c["hhi_export_dest"] is None for c in a["concentration"])
+    per = next(c for c in json.loads((out / "country" / "PER.json").read_text())["analysis"]["concentration"] if c["mineral"] == "copper" and c["year"] == 2023)
+    assert per["share_us_x"] is None and per["big2_share_x"] is None and per["share_other_x"] is None and per["share_cn_x"] == 0.5  # no US row: absent on the site, never 0 or 100%
     assert any(n["label"] == "China Development Bank (CDB)" for n in a["network"]["nodes"]) and a["network"]["unattributed_events"] == 1
     assert chl["freshness"]["analysis"]["source_ids"]
     assert "analysis" not in json.loads((out / "country" / "URY.json").read_text())

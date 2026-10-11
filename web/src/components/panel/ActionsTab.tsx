@@ -1,7 +1,7 @@
 "use client";
 
 import * as Plot from "@observablehq/plot";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { SourceLink } from "@/components/ui/SourceLink";
@@ -11,6 +11,10 @@ import { fmtDate, fmtMusd } from "@/lib/format";
 import { provenanceFor } from "@/lib/provenance";
 import type { CountryData } from "@/lib/types";
 import { useRealMeta } from "@/lib/useRealMeta";
+
+const PARTNER: Record<string, string> = { US: "to the United States", CN: "to China", ROW: "to the rest of the world" };
+/** axis ticks in US$ bn from a thousand million up, so "60,000" never runs past the left margin */
+const compactMusd = (v: number) => (v === 0 ? "0" : v >= 1000 ? `${(v / 1000).toFixed(v >= 10000 || Number.isInteger(v / 1000) ? 0 : 1)} bn` : `${v.toFixed(0)} m`);
 
 export function ActionsTab({ data, year, mineral }: { data: CountryData; year: number; mineral: string }) {
   const isReal = data.layers?.actions === "real";
@@ -41,14 +45,14 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
   const tradeOptions = useMemo(
     () => ({
       height: 260,
-      marginLeft: 48,
+      marginLeft: 56,
       x: { label: null, ticks: Array.from({ length: Math.floor((YEAR_MAX - YEAR_MIN) / 3) + 1 }, (_, i) => YEAR_MIN + 3 * i), tickFormat: (d: number) => String(d) },
-      y: { label: isReal ? "Exports, US$ m" : "Exports, US$ m (SAMPLE)", grid: true },
+      y: { label: isReal ? "Exports, US$" : "Exports, US$ (SAMPLE)", grid: true, tickFormat: compactMusd },
       color: { domain: ["US", "CN", "ROW"], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN, OTHER_COLOR], legend: true, tickFormat: (d: string) => ({ US: "to United States", CN: "to China", ROW: "to rest of world" }[d] ?? d) },
       marks: [
-        Plot.barY(trade.filter((t) => t.kind === "reported"), { x: "year", y: "value", fill: "partner", insetLeft: 1, insetRight: hasMirror ? 8 : 1, tip: true, order: ["US", "CN", "ROW"] }),
+        Plot.barY(trade.filter((t) => t.kind === "reported"), { x: "year", y: "value", fill: "partner", insetLeft: 1, insetRight: hasMirror ? 8 : 1, tip: true, order: ["US", "CN", "ROW"], title: (d: { year: number; partner: string; value: number }) => `${d.year} · ${PARTNER[d.partner] ?? d.partner}: ${fmtMusd(d.value)}` }),
         ...(hasMirror
-          ? [Plot.barY(trade.filter((t) => t.kind === "mirror"), { x: "year", y: "value", fill: "partner", fillOpacity: 0.45, insetLeft: 14, insetRight: 1, tip: true, order: ["US", "CN"], title: (d: { year: number; partner: string; value: number }) => `${d.year} mirror (partner-reported) to ${d.partner}: ${d.value.toFixed(1)} US$ m` })]
+          ? [Plot.barY(trade.filter((t) => t.kind === "mirror"), { x: "year", y: "value", fill: "partner", fillOpacity: 0.45, insetLeft: 14, insetRight: 1, tip: true, order: ["US", "CN"], title: (d: { year: number; partner: string; value: number }) => `${d.year} · mirror (partner-reported) ${PARTNER[d.partner] ?? d.partner}: ${fmtMusd(d.value)}` })]
           : []),
         Plot.ruleX([year], { stroke: "#1b1d20", strokeWidth: 1.5, strokeDasharray: "3,2" }),
         Plot.ruleY([0]),
@@ -69,7 +73,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
     const hi = Math.max(YEAR_MAX, ...years);
     return {
       height: 150,
-      marginLeft: 84,
+      marginLeft: 92,
       x: { type: "utc" as const, label: null, domain: [new Date(`${lo}-01-01`), new Date(`${hi}-12-31`)] },
       y: { label: null, domain: ["US-linked", "China-linked", "Other"] },
       r: { range: [2.5, 14] },
@@ -111,7 +115,7 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
           <p className="text-sm text-ink-3">No trade rows for this selection. Missing means not reported, not zero.</p>
         ) : (
           <>
-            <PlotFigure options={tradeOptions} ariaLabel={`Exports of ${mineral === "all" ? "core minerals" : prettyMineral(mineral)} from ${data.name} by destination, 2008 to 2026${isReal ? "" : ", sample data"}`} />
+            <PlotFigure options={tradeOptions} ariaLabel={`Exports of ${mineral === "all" ? "core minerals" : prettyMineral(mineral)} from ${data.name} by destination, ${YEAR_MIN} to ${YEAR_MAX}${isReal ? "" : ", sample data"}`} />
             <DataTable rows={trade} caption="Exports by destination" columns={[{ key: "year", label: "Year" }, { key: "partner", label: "Destination" }, { key: "kind", label: "Reported by" }, { key: "value", label: "US$ m", format: (v) => fmtMusd(v as number) }]} />
           </>
         )}
@@ -183,15 +187,11 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
         <section aria-labelledby="prod-h">
           <SectionHeader id="prod-h" title={`Production and reserves in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("production", { iso3: data.iso3, year, meta })} intro={`${productionGroups.length} mineral series; where several sources or units report the same mineral, the first row is shown and the others open on request.`} />
           <table className="w-full text-xs">
-            <thead><tr><th>Mineral</th><th>Measure</th><th className="text-right">Quantity</th><th>Unit</th><th>Source</th></tr></thead>
+            <thead><tr><th>Mineral</th><th>Measure</th><th className="text-right">Quantity</th><th>Unit</th><th className="hidden sm:table-cell">Source</th></tr></thead>
             <tbody>
-              {productionGroups.map((g) => (
-                <tr key={g.key} className="align-top">
-                  <td className="font-medium">{prettyMineral(g.mineral)}</td>
-                  <td>{g.measure}</td>
-                  <td className="text-right tabular-nums">{g.rows[0].qty == null ? "—" : g.rows[0].qty.toLocaleString("en-GB")}</td>
-                  <td>{g.rows[0].unit}</td>
-                  <td>
+              {productionGroups.map((g) => {
+                const source = (
+                  <>
                     <SourceLink source={g.rows[0].source} compact />
                     {g.rows.length > 1 && (
                       <details className="mt-0.5">
@@ -203,9 +203,22 @@ export function ActionsTab({ data, year, mineral }: { data: CountryData; year: n
                         </ul>
                       </details>
                     )}
-                  </td>
-                </tr>
-              ))}
+                  </>
+                );
+                return (
+                  <Fragment key={g.key}>
+                    <tr className="align-top">
+                      <td className="font-medium">{prettyMineral(g.mineral)}</td>
+                      <td>{g.measure}</td>
+                      <td className="text-right tabular-nums">{g.rows[0].qty == null ? "—" : g.rows[0].qty.toLocaleString("en-GB")}</td>
+                      <td>{g.rows[0].unit}</td>
+                      <td className="hidden sm:table-cell">{source}</td>
+                    </tr>
+                    {/* under sm the source takes a line of its own beneath the mineral: in a fifth column it wrapped one word per line */}
+                    <tr className="sm:hidden"><td colSpan={4} className="border-t-0 pt-0">{source}</td></tr>
+                  </Fragment>
+                );
+              })}
             </tbody>
           </table>
         </section>

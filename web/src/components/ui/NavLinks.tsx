@@ -14,7 +14,7 @@ const NAV = [
 export function NavLinks() {
   const path = usePathname() ?? "/";
   return (
-    <nav aria-label="Primary" className="scroll-x -mx-1 flex gap-1 text-sm">
+    <nav aria-label="Primary" className="scroll-x -mx-1 flex gap-0.5 text-sm sm:gap-1">
       {NAV.map((n) => {
         const active = n.href === "/" ? path === "/" : n.href === "/archive" ? path.startsWith("/archive") || path.startsWith("/methodology") || path.startsWith("/sources") || path.startsWith("/region") : path.startsWith(n.href);
         return (

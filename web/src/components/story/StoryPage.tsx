@@ -5,8 +5,8 @@ import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { IN_SCOPE } from "@/lib/constants";
 import { loadFlows, loadIndex, loadInsights, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
 import { fmtMusd, fmtPct } from "@/lib/format";
-import { coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
-import type { EvidenceLevel, FlowsFile, IndexFile, InsightsFile, QuantFile, RealMeta, RegionData, RegionStatements, StatementRecord, StoryFile } from "@/lib/types";
+import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
+import type { FlowsFile, IndexFile, InsightsFile, QuantFile, RealMeta, RegionData, RegionStatements, StatementRecord, StoryFile } from "@/lib/types";
 import { Ch1Ledger } from "./Ch1Ledger";
 import { Ch2Trade } from "./Ch2Trade";
 import { Ch3Iceberg } from "./Ch3Iceberg";
@@ -40,7 +40,8 @@ const SAID_PAID_BLOCS = ["LatAm executive", "LatAm state company"];
 /** Chilean records only; Ch6 filters by country as well, so a record from another country is never drawn on Chile's axis. */
 const CHILE_QUOTES = ["PS-0125", "PS-0347"];
 
-const PAIRING_NOTE = "Records from different years, set beside a sentence as coinciding, not as its effect. The Chinese finance record ends in 2021; the US record runs to 2026. Swap frameworks on both sides are shown apart from commitments.";
+/** The years in the note are the records' own last years (flows.meta.last_year), never typed. */
+const pairingNote = (ly: FlowsFile["meta"]["last_year"]) => `Records from different years, set beside a sentence as coinciding, not as its effect. The Chinese finance record ends in ${ly.finance_CN ?? "–"}; the US record runs to ${ly.finance_US ?? "–"}. Swap frameworks on both sides are shown apart from commitments.`;
 
 function pick(story: StoryFile | null, statements: RegionStatements | null, ids: string[]): StatementRecord[] {
   const pool = new Map<string, StatementRecord>();
@@ -81,10 +82,27 @@ export function StoryPage() {
     const swapTotal = swaps.reduce((s, y) => s + y.musd, 0);
     const framework = d.quant?.events?.list?.find((e) => e.id === "us_arg_swap_line_2025") ?? null;
     const usWindows = arg?.finance;
+    const ly = flows.meta.last_year;
     const receipts: Receipt[] = [];
-    if (argAll && argAll.share_us !== null) receipts.push({ label: "Mineral exports to the United States", window: `${argAll.year}, latest reported year`, value: `${fmtPct(argAll.share_us, 1)} (${fmtMusd(argAll.US)} of ${fmtMusd(argAll.total)})`, source: "UN Comtrade · official", href: "/country/ARG?tab=actions" });
+    if (argAll) {
+      // The total is every reported mineral; a mineral with no partner row (Argentina's gold) is inside it, so the receipt says so rather than reading its cells as zero.
+      const absent = absentPartnerMinerals(arg?.trade);
+      const caveat = absent && absent.year === argAll.year && absent.musd > 0 ? `; ${fmtMusd(absent.musd)} of that total, ${absent.minerals.join(" and ")}, has no partner row: absent, not zero` : "";
+      const usReceipt = { label: "Mineral exports to the United States", window: `${argAll.year}, latest reported year`, source: "UN Comtrade · official", href: "/country/ARG?tab=actions" };
+      if (argAll.share_us !== null) receipts.push({ ...usReceipt, value: `${fmtPct(argAll.share_us, 1)} (${fmtMusd(argAll.US)} of ${fmtMusd(argAll.total)})${caveat}` });
+      else receipts.push({ ...usReceipt, value: `no United States partner row (absent, not zero) in ${fmtMusd(argAll.total)} reported${caveat}`, outlined: true });
+    }
     if (argLithium && argLithium.CN !== null) receipts.push({ label: "Lithium exports to China", window: String(argLithium.year), value: `${fmtMusd(argLithium.CN)} of ${fmtMusd(argLithium.total)}`, source: "UN Comtrade · official", href: `/explore?view=trade&mineral=lithium&year=${argLithium.year}` });
-    if (usWindows) receipts.push({ label: "Documented US commitments (DFC and EXIM authorisations)", window: `${usWindows.windows.US_after[0]}–${usWindows.windows.US_after[1]}`, value: usWindows.us_2022_24 > 0 ? fmtMusd(usWindows.us_2022_24) : `none on record (${fmtMusd(usWindows.us_2015_21)} in ${usWindows.windows.CN[0]}–${usWindows.windows.CN[1]})`, source: "DFC projects, EXIM authorisations · official", outlined: usWindows.us_2022_24 === 0, href: "/country/ARG?tab=actions" });
+    if (usWindows) {
+      receipts.push({ label: "Documented US commitments (DFC and EXIM authorisations)", window: `${usWindows.windows.US_after[0]}–${usWindows.windows.US_after[1]}`, value: usWindows.us_2022_24 > 0 ? fmtMusd(usWindows.us_2022_24) : `none on record (${fmtMusd(usWindows.us_2015_21)} in ${usWindows.windows.CN[0]}–${usWindows.windows.CN[1]})`, source: "DFC projects, EXIM authorisations · official", outlined: usWindows.us_2022_24 === 0, href: "/country/ARG?tab=actions" });
+      // The US record runs past the insights window: the years after it are printed from the same finance rows, so "none on record" never reads as none since the window.
+      const from = usWindows.windows.US_after[1] + 1;
+      if (ly.finance_US !== null && ly.finance_US >= from) {
+        const after = financeLedger(flows, { iso3: "ARG", since: from }).US;
+        const span = after.first_year === after.last_year ? String(after.first_year) : `${after.first_year}–${after.last_year}`;
+        receipts.push({ label: "Documented US commitments after that window", window: `${from}–${ly.finance_US}, to where the record ends`, value: after.events > 0 ? `${fmtMusd(after.documented_musd)} in ${span} (${after.events} record${after.events === 1 ? "" : "s"})` : "none on record", source: "DFC projects, EXIM authorisations · official", outlined: after.events === 0, href: "/country/ARG?tab=actions" });
+      }
+    }
     if (framework) receipts.push({ label: framework.title, window: `${framework.date.slice(0, 7)} · ${framework.status} event, outside the DFC/EXIM record`, value: "no drawn amount recorded; shown apart, like the PBoC swaps", source: "pipeline/config/events.yaml", outlined: true });
     if (swaps.length) {
       // One AidData row per year; the total is the sum of those yearly rows, so the largest single year is printed beside it.
@@ -92,13 +110,16 @@ export function StoryPage() {
       receipts.push({ label: "Chinese central-bank swap drawdowns, yearly rows summed", window: `${swaps[0].year}–${swaps[swaps.length - 1].year}, where the record ends`, value: `${fmtMusd(swapTotal)} over ${swaps.length} yearly rows (largest ${fmtMusd(peak.musd)} in ${peak.year})`, source: "AidData GCDF 3.0 · independent/academic · flagged rescue lending", href: "/country/ARG?tab=analysis" });
     }
     const finance = insights.region.regressions.rows.find((r) => r.spec === "exports_to_cn" && r.term === "finance_flow_lag1" && (r as { variant?: string }).variant !== "ols");
-    const chlLithium = d.story?.series?.CHL?.lithium ?? [];
-    const chlCopper = d.story?.series?.CHL?.copper ?? [];
+    // The story export carries Chile's per-mineral series; without it the same shares are computed from flows.json's rows.
+    const chlLithium = d.story?.series?.CHL?.lithium ?? seriesFromFlows(flows, "CHL", "lithium");
+    const chlCopper = d.story?.series?.CHL?.copper ?? seriesFromFlows(flows, "CHL", "copper");
     const chlFlag = chl?.flags.items.find((f) => f.id.includes("large_commitment") && f.id.includes("2018"))?.id ?? null;
     // The influence index is drawn only from the real export; a seeded sample index is never shown as model output.
     const argRows = d.index.layer === "real" ? d.index.rows.filter((r) => r.iso3 === "ARG" && r.mineral === "all") : [];
     const gold = arg?.contrasts.find((c) => c.id === "price_exposure") as { mineral: string; exports_musd: { US: number | null; CN: number | null; ROW: number | null }; total_musd: number; year: number } | undefined;
     const loans = loanThenFlat(insights);
+    // rule hits the export itself lists apart (flags.share_absent, once it carries them), named in chapter 4 beside the ones it finds in flows.json
+    const setAside = insights.countries.flatMap((c) => (c.flags.share_absent?.items ?? []).filter((f) => f.id.includes("finance_without_trade_response")).map((f) => ({ id: f.id, name: c.name, year: f.year })));
     const wall = d.meta ? coverageWall(d.meta, flows) : null;
     const targets = d.quant?.forecast?.targets;
     const t = targets?.["export_share:CN"];
@@ -109,7 +130,6 @@ export function StoryPage() {
     const stmYear = stm?.by_year_bloc?.length ? Math.max(...stm.by_year_bloc.map((r) => r.year)) : null;
     const stmLatest = stm && stmYear !== null ? stm.by_year_bloc.filter((r) => r.year === stmYear).reduce((s, r) => s + r.n, 0) : null;
     const onCountry = stm ? Object.values(stm.countries ?? {}).reduce((s, n) => s + n, 0) : 0;
-    const ly = flows.meta.last_year;
     const reaches = (y: number | null) => y !== null && stmYear !== null && y >= stmYear;
     const records = [
       { label: "reported trade", last: ly.trade },
@@ -131,7 +151,15 @@ export function StoryPage() {
       headlines !== null ? { text: `${headlines} press headlines in total across the twelve countries; too few to analyse, shown as a record only.`, ids: ["meta:coverage.media_articles"] } : null,
       { text: "Four scales (coded stance −1..+1, zero-shot stance −2..+2, tone, index 0–100) are never added together; a comparison between them is a direction only.", ids: ["insights:region.scales"] },
     ].filter(Boolean) as { text: string; ids: string[] }[];
-    return { years, ledger, ledgerAll, arg, chl, argLedger, argLithium, gold, receipts, finance, chlLithium, chlCopper, chlFlag, argRows, loans, wall, targets, framework, limits, stm2026 };
+    // The chapter meters: editorial levels, but every year or count in a basis is the export's, dropped when its input is absent.
+    const executiveCounts = insights.countries.map((c) => c.words?.n_executive ?? 0).filter((n) => n > 0);
+    const chapters = chapterEvidence({
+      lastYear: ly,
+      fewestStatements: executiveCounts.length ? Math.min(...executiveCounts) : null,
+      forecast: t && t.coverage_80 !== undefined ? { coverage_80: t.coverage_80, n_tests: t.n_tests ?? null } : null,
+      events: events ? { draft: events.draft, total: events.total } : null,
+    });
+    return { years, ledger, ledgerAll, arg, chl, argLedger, argLithium, gold, receipts, finance, chlLithium, chlCopper, chlFlag, argRows, loans, setAside, wall, targets, framework, limits, stm2026, chapters, pairingNote: pairingNote(ly) };
   }, [d]);
 
   if (!d && !failed) return <InsightsSkeleton />;
@@ -150,53 +178,47 @@ export function StoryPage() {
   const { insights, flows } = d;
   const c = computed;
   const release = d.meta ? `Data as of ${d.meta.generated_on} · ${d.meta.quant_model?.inputs_release ?? ""} · ${d.meta.sources_ok.length} sources live` : "";
-  const chapters: { n: number; label: string; level: EvidenceLevel; basis: string }[] = [
-    { n: 1, label: "Who talks, who pays", level: "moderate", basis: "AidData ends 2021; the statements favour prominent US voices" },
-    { n: 2, label: "Where the ore went", level: "strong", basis: "reported trade, UN Comtrade" },
-    { n: 3, label: "The money nobody counts", level: "strong", basis: "facts with confidence tiers" },
-    { n: 4, label: "Did the loans buy the ore", level: "moderate", basis: "rule outputs and a panel association" },
-    { n: 5, label: "Said vs paid", level: "thin", basis: "unvalidated stance coding; three statements for some countries" },
-    { n: 6, label: "The hinge: Chile", level: "strong", basis: "money and trade; thin on words" },
-    { n: 7, label: "What it would take, 2030", level: "moderate", basis: "parity is arithmetic; the forecast band under-covers" },
-    { n: 8, label: "Back to the sentence", level: "moderate", basis: "strong on money and trade, draft events, thin words" },
-    { n: 9, label: "What this cannot see", level: "strong", basis: "coverage is a fact about the record" },
-  ];
+  const meter = (n: number) => c.chapters.find((ch) => ch.n === n);
+  // Chapters 6, 8 and 9 render only with their inputs; the rail and chapter 9's list name the chapters on the page, never a dead anchor.
+  const present = c.chapters.filter((ch) => (ch.n !== 6 || c.chl) && (ch.n !== 8 || c.arg) && (ch.n !== 9 || c.wall));
   const opening = pick(d.story, d.statements, [OPENING_ID])[0] ?? null;
+  const storyMissing = d.story === null;
+  const absence = storyMissing ? "The opening sentence is not in this release: the story export (story.json) has not been written. The receipts below are on record." : `The opening sentence (${OPENING_ID}) is not in this release's story export; the receipts below are on record.`;
   return (
     <div>
-      <ProgressRail items={chapters} />
-      <ColdOpen quote={opening} receipts={c.receipts} release={release} pairingNote={PAIRING_NOTE} />
-      <Chapter n={1} eyebrow="The ledger" question="Who is louder, and who writes the cheques?" meter={chapters[0]}>
+      <ProgressRail items={present} />
+      <ColdOpen quote={opening} absence={absence} receipts={c.receipts} release={release} pairingNote={c.pairingNote} />
+      <Chapter n={1} eyebrow="The ledger" question="Who is louder, and who writes the cheques?" meter={meter(1)}>
         <Ch1Ledger region={insights.region} lastYear={{ finance_US: flows.meta.last_year.finance_US, finance_CN: flows.meta.last_year.finance_CN }} voices={pick(d.story, d.statements, US_VOICES)} />
       </Chapter>
-      <Chapter n={2} eyebrow="The trade" question="While they talked, where did the ore go?" meter={chapters[1]}>
+      <Chapter n={2} eyebrow="The trade" question="While they talked, where did the ore go?" meter={meter(2)}>
         <Ch2Trade years={c.years} board={mineralBoard(d.shares)} prices={insights.region.prices} coverage={d.meta?.coverage ?? null} />
       </Chapter>
-      <Chapter n={3} eyebrow="The money nobody counts" question={`Is ${fmtMusd(c.ledger.CN.documented_musd)} the whole of Beijing's money?`} meter={chapters[2]}>
+      <Chapter n={3} eyebrow="The money nobody counts" question={`Is ${fmtMusd(c.ledger.CN.documented_musd)} the whole of Beijing's money?`} meter={meter(3)}>
         <Ch3Iceberg cn={c.ledger.CN} us={c.ledger.US} allYearsCN={c.ledgerAll.CN} undocumentedTop={undocumentedByCountry(flows)} network={d.quant?.network ?? null} lastYearCN={flows.meta.last_year.finance_CN} />
       </Chapter>
-      <Chapter n={4} eyebrow="Money that did not move the minerals" question="When a large commitment arrived, did the lender's share of the minerals move?" meter={chapters[3]}>
-        <Ch4Loans loans={c.loans} finance={c.finance} chile={c.chlLithium.length ? { series: c.chlLithium, year: 2018, flag: c.chlFlag } : null} />
+      <Chapter n={4} eyebrow="Money that did not move the minerals" question="When a large commitment arrived, did the lender's share of the minerals move?" meter={meter(4)}>
+        <Ch4Loans loans={c.loans} setAside={c.setAside} finance={c.finance} chile={c.chlLithium.length ? { series: c.chlLithium, year: 2018, flag: c.chlFlag } : null} />
       </Chapter>
-      <Chapter n={5} eyebrow="Said vs paid" question="Country by country, what did the executives say, and what share of the ore went there?" meter={chapters[4]}>
-        <Ch5SaidPaid countries={insights.countries} byBloc={insights.region.talk_vs_money.by_bloc} hedgers={insights.region.hedgers} quotes={pick(d.story, d.statements, SAID_PAID).filter((q) => SAID_PAID_BLOCS.includes(q.speaker.bloc))} />
+      <Chapter n={5} eyebrow="Said vs paid" question="Country by country, what did the executives say, and what share of the ore went there?" meter={meter(5)}>
+        <Ch5SaidPaid countries={insights.countries} byBloc={insights.region.talk_vs_money.by_bloc} hedgers={insights.region.hedgers} quotes={pick(d.story, d.statements, SAID_PAID).filter((q) => SAID_PAID_BLOCS.includes(q.speaker.bloc))} storyMissing={storyMissing} />
       </Chapter>
       {c.chl && (
-        <Chapter n={6} eyebrow="The hinge" question="Read end to end, when did money, words and ore move in Chile, and in what order?" meter={chapters[5]}>
+        <Chapter n={6} eyebrow="The hinge" question="Read end to end, when did money, words and ore move in Chile, and in what order?" meter={meter(6)}>
           <Ch6Chile chile={c.chl} lithium={c.chlLithium} copper={c.chlCopper} quotes={pick(d.story, d.statements, CHILE_QUOTES).filter((q) => q.country === "CHL")} />
         </Chapter>
       )}
-      <Chapter n={7} eyebrow="What it would take" question="If Washington meant it, what would have to change hands, and what does 2030 look like?" meter={chapters[6]}>
+      <Chapter n={7} eyebrow="What it would take" question="If Washington meant it, what would have to change hands, and what does 2030 look like?" meter={meter(7)}>
         <Ch7Parity countries={insights.countries} targets={c.targets} scenarios={insights.region.scenarios} />
       </Chapter>
       {c.arg && (
-        <Chapter n={8} eyebrow="Back to the sentence" question="So what was happening while the Foreign Minister spoke?" meter={chapters[7]}>
-          <Ch8Argentina arg={c.arg} quote={opening} receipts={c.receipts} pairingNote={PAIRING_NOTE} cn={c.argLedger.CN} us={c.argLedger.US} framework={c.framework ? { id: c.framework.id, date: c.framework.date, title: c.framework.title, status: c.framework.status, type: c.framework.type } : null} rows={c.argRows} lithium={c.argLithium} gold={c.gold ? { musd: c.gold.total_musd, year: c.gold.year, partners_absent: c.gold.exports_musd.US === null || c.gold.exports_musd.CN === null } : null} voices={pick(d.story, d.statements, ARG_VOICES)} />
+        <Chapter n={8} eyebrow="Back to the sentence" question="So what was happening while the Foreign Minister spoke?" meter={meter(8)}>
+          <Ch8Argentina arg={c.arg} quote={opening} receipts={c.receipts} pairingNote={c.pairingNote} cn={c.argLedger.CN} us={c.argLedger.US} framework={c.framework ? { id: c.framework.id, date: c.framework.date, title: c.framework.title, status: c.framework.status, type: c.framework.type } : null} rows={c.argRows} lithium={c.argLithium} gold={c.gold ? { musd: c.gold.total_musd, year: c.gold.year, partners_absent: c.gold.exports_musd.US === null || c.gold.exports_musd.CN === null } : null} voices={pick(d.story, d.statements, ARG_VOICES)} />
         </Chapter>
       )}
       {c.wall && (
-        <Chapter n={9} eyebrow="The limits, as the last exhibit" question="How strong is each chapter, and what would change the reading?" meter={chapters[8]}>
-          <Ch9Limits wall={c.wall} chapters={chapters} limits={c.limits} changes={["A second coder and a validated text model (the 300-document sample is drawn and waits for the owner).", "DFC and EXIM commitments after 2024 approaching the Chinese figures.", `A ${(flows.meta.last_year.trade ?? 2025) + 1} trade year in which Chile's US share rises more than two points.`, "AidData's next release, covering Chinese finance after 2021.", "The AEI investment tracker and BU's CODF files, supplied by hand.", "The owner's review of the dated events and the thirteen written briefs."]} />
+        <Chapter n={9} eyebrow="The limits, as the last exhibit" question="How strong is each chapter, and what would change the reading?" meter={meter(9)}>
+          <Ch9Limits wall={c.wall} lastYearCN={flows.meta.last_year.finance_CN} chapters={present} limits={c.limits} changes={["A second coder and a validated text model (the 300-document sample is drawn and waits for the owner).", `DFC and EXIM commitments after ${insights.region.talk_vs_money.finance.US_after.years[1]} approaching the Chinese figures.`, ...(flows.meta.last_year.trade !== null ? [`A ${flows.meta.last_year.trade + 1} trade year in which Chile's US share rises more than two points.`] : []), `AidData's next release, covering Chinese finance after ${flows.meta.last_year.finance_CN ?? "its last year"}.`, "The AEI investment tracker and BU's CODF files, supplied by hand.", "The owner's review of the dated events and the thirteen written briefs."]} />
         </Chapter>
       )}
       <p className="sr-only">{IN_SCOPE.length} countries in scope.</p>

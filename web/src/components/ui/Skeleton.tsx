@@ -36,11 +36,11 @@ export function RegionSkeleton() {
   );
 }
 
-/** The Insights page's shape: the title, the chip row, the 2030 board, two blocks. */
+/** The Lab's shape (the Suspense fallback of every data page): the title, the chip row, the 2030 board, two blocks. */
 export function InsightsSkeleton() {
   return (
     <div className="mx-auto max-w-7xl space-y-4 px-4 py-8" aria-busy="true" aria-live="polite">
-      <span className="sr-only">Loading the insights…</span>
+      <span className="sr-only">Loading…</span>
       <Skeleton className="h-10 w-3/4 max-w-2xl" />
       <Skeleton className="h-4 w-1/2 max-w-lg" />
       <div className="flex gap-2">

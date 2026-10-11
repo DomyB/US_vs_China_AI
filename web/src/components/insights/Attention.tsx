@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { fmtMusd } from "@/lib/format";
+import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import type { AttentionYear } from "@/lib/types";
 import { COLORS, INK_3 } from "./shared";
 
@@ -13,14 +14,17 @@ function small(rows: AttentionYear[], key: "policy_docs" | "us_statements" | "df
   const data = rows.filter((r) => r[key] !== null);
   const gap = lastYear !== null && rows.some((r) => r.year > lastYear);
   const maxY = Math.max(1, ...rows.map((r) => r[key] ?? 0));
+  // the axis spans the rows' own years (the period's when there are none), ticked every third year
+  const years = rows.length ? rows.map((r) => r.year) : [YEAR_MIN, YEAR_MAX];
+  const first = Math.min(...years), last = Math.max(...years);
   return {
     height: 160,
     marginLeft: 54,
     marginBottom: 28,
-    x: { label: null, domain: [2007.5, 2026.5], ticks: [2008, 2011, 2014, 2017, 2020, 2023, 2026], tickFormat: (d: number) => String(d) },
+    x: { label: null, domain: [first - 0.5, last + 0.5], ticks: Array.from({ length: Math.floor((last - first) / 3) + 1 }, (_, i) => first + 3 * i), tickFormat: (d: number) => String(d) },
     y: { label, grid: true, tickFormat: tick, domain: [0, maxY * 1.05] },
     marks: [
-      ...(gap ? [Plot.rect([{ x1: (lastYear as number) + 0.5, x2: 2026.5, y1: 0, y2: maxY * 1.05 }], { x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: INK_3, fillOpacity: 0.08 }), Plot.text([{ t: `no source after ${lastYear}` }], { frameAnchor: "top-right", text: "t", fill: INK_3, fontSize: 10, dx: -4, dy: 4 })] : []),
+      ...(gap ? [Plot.rect([{ x1: (lastYear as number) + 0.5, x2: last + 0.5, y1: 0, y2: maxY * 1.05 }], { x1: "x1", x2: "x2", y1: "y1", y2: "y2", fill: INK_3, fillOpacity: 0.08 }), Plot.text([{ t: `no source after ${lastYear}` }], { frameAnchor: "top-right", text: "t", fill: INK_3, fontSize: 10, dx: -4, dy: 4 })] : []),
       Plot.rectY(data, { x1: (d: AttentionYear) => d.year - 0.42, x2: (d: AttentionYear) => d.year + 0.42, y: key, fill, tip: true, title: (d: AttentionYear) => `${d.year}: ${fmt(d[key] as number)}` }),
       Plot.ruleY([0]),
     ],

@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { fmtMusd, fmtShare } from "@/lib/format";
-import { coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
-import type { FlowsFile, InsightsFile, RealMeta, RegionData } from "@/lib/types";
+import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
+import type { FlowsFile, InsightsFile, RealMeta, RegionData, StoryFile } from "@/lib/types";
 
 // Parity test: the headline numbers the story prints are recomputed here from the committed export, so a chapter can
 // never carry a figure the evidence room does not.
@@ -13,6 +13,7 @@ const flows = read<FlowsFile>("flows.json");
 const insights = read<InsightsFile>("insights.json");
 const region = read<RegionData>("region.json");
 const meta = read<RealMeta>("meta.json");
+const story = read<StoryFile>("story.json");
 
 describe("story numbers reproduce from the export", () => {
   it("regional trade shares carry reporter counts and absent partner cells", () => {
@@ -96,5 +97,73 @@ describe("story numbers reproduce from the export", () => {
     expect(fmtMusd(5.912)).toBe("US$6 m");
     expect(fmtMusd(2771.975)).toBe("US$2.8 bn");
     expect(fmtMusd(null)).toBe("—");
+  });
+
+  it("the coverage wall prints a column the export did not write as not in the release, never as a count of zero or an invented reason", () => {
+    const stripped: RealMeta = { ...meta, coverage: Object.fromEntries(Object.entries(meta.coverage).map(([iso3, c]) => [iso3, { ...c, statements: undefined, media_articles: undefined, forecast_available: undefined, analysis_available: undefined, parliament_available: undefined }])) };
+    for (const r of coverageWall(stripped, flows).rows) {
+      for (const col of ["statements", "media", "forecast", "analysis", "parliament"] as const) {
+        expect(r.cells[col].ok).toBe(false);
+        expect(r.cells[col].note).toBe("not in this release");
+      }
+    }
+    // a real zero stays a zero, and a flag the export set false gets no reason the export did not give
+    const wall = coverageWall(meta, flows);
+    const ury = wall.rows.find((r) => r.iso3 === "URY")!;
+    expect(ury.cells.statements.note).toBe(`${meta.coverage.URY.statements} coded statements`);
+    expect(ury.cells.forecast.ok).toBe(false);
+    expect(ury.cells.forecast.note).not.toMatch(/too few|fewer than/);
+    expect(wall.rows.find((r) => r.iso3 === "ARG")!.cells.forecast.ok).toBe(true);
+  });
+
+  it("the chapter meters take their years and counts from the export and drop a clause whose input is absent", () => {
+    const t = { coverage_80: 0.683, n_tests: 240 };
+    const full = chapterEvidence({ lastYear: flows.meta.last_year, fewestStatements: 1, forecast: t, events: { draft: 19, total: 19 } });
+    expect(full.map((c) => c.n)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(full[0].basis).toContain(`ends in ${flows.meta.last_year.finance_CN}`);
+    expect(full[4].basis).toContain("as few as 1 coded executive statement for a country");
+    expect(full[6].basis).toContain("under-covers (68% of 240 backtests)");
+    expect(full[7].basis).toContain("19 of 19 dated events draft");
+    const bare = chapterEvidence({ lastYear: { finance_CN: null, finance_US: null, trade: null }, fewestStatements: null, forecast: null, events: null });
+    expect(bare.map((c) => c.level)).toEqual(full.map((c) => c.level));
+    expect(bare[0].basis).not.toMatch(/\d{4}/);
+    expect(bare[4].basis).toBe("unvalidated stance coding");
+    expect(bare[6].basis).toBe("parity is arithmetic; no forecast in this release");
+    expect(bare[7].basis).toBe("strong on money and trade; thin words");
+    expect(chapterEvidence({ ...{ lastYear: flows.meta.last_year, fewestStatements: null, events: null }, forecast: { coverage_80: 0.83, n_tests: 240 } })[6].basis).toContain("covers as nominal (83% of 240 backtests)");
+  });
+
+  it("Chile's per-mineral series recomputed from flows.json match the story export, so the chapters survive a missing story.json", () => {
+    for (const mineral of ["lithium", "copper"]) {
+      const fromFlows = seriesFromFlows(flows, "CHL", mineral);
+      const exported = story.series.CHL[mineral];
+      expect(fromFlows.length).toBe(exported.length);
+      for (const [i, row] of exported.entries()) {
+        expect(fromFlows[i].year).toBe(row.year);
+        expect(fromFlows[i].exports_wld_musd).toBeCloseTo(row.exports_wld_musd!, 2);
+        if (row.share_cn_x === null) expect(fromFlows[i].share_cn_x).toBeNull();
+        else expect(fromFlows[i].share_cn_x).toBeCloseTo(row.share_cn_x, 4);
+      }
+    }
+    expect(seriesFromFlows(flows, "ARG", "gold")).toEqual([]);
+  });
+
+  it("a mineral with no partner row inside the total is named beside the share, and the US years after the window come from the same rows", () => {
+    const arg = insights.countries.find((c) => c.iso3 === "ARG")!;
+    const absent = absentPartnerMinerals(arg.trade)!;
+    expect(absent.year).toBe(arg.trade!.year);
+    expect(absent.minerals).toContain("gold");
+    const gold = arg.trade!.minerals.find((m) => m.mineral === "gold")!;
+    expect(absent.musd).toBeCloseTo(gold.total_musd!, 3);
+    expect(absent.share_of_total!).toBeGreaterThan(0.5);
+    expect(absentPartnerMinerals(null)).toBeNull();
+    expect(absentPartnerMinerals({ ...arg.trade!, minerals: [] })!.musd).toBe(0);
+    // the insights window stops before the US record ends; the rows after it are not nothing
+    const from = arg.finance.windows.US_after[1] + 1;
+    expect(flows.meta.last_year.finance_US).toBeGreaterThanOrEqual(from);
+    const after = financeLedger(flows, { iso3: "ARG", since: from }).US;
+    expect(after.events).toBeGreaterThan(0);
+    expect(after.first_year).toBeGreaterThanOrEqual(from);
+    expect(after.last_year).toBeLessThanOrEqual(flows.meta.last_year.finance_US!);
   });
 });

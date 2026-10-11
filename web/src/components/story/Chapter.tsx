@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useId, useState, type ReactNode } from "react";
-import { sourceById } from "@/lib/sources";
+import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
 import { RELIABILITY_LABEL } from "@/lib/constants";
+import type { Provenance } from "@/lib/provenance";
+import { sourceEntry } from "@/lib/sources";
 import type { EvidenceLevel, Reliability } from "@/lib/types";
+import { useSources } from "@/lib/useSources";
 
 export type Layer = "facts" | "model" | "interp";
 const LAYER_LABEL: Record<Layer, string> = { facts: "Facts", model: "Model output", interp: "Interpretation" };
@@ -18,8 +21,10 @@ export function Chapter({ n, eyebrow, question, meter, children }: { n: number; 
           <p className="eyebrow !text-[0.7rem] opacity-80">Chapter {n} · {eyebrow}</p>
           <h2 id={`c${n}-title`} className="mt-2">{question}</h2>
           {meter && (
-            <p className="mt-3 flex items-center gap-2 text-xs opacity-85" title={meter.basis}>
-              <Meter level={meter.level} /> evidence {meter.level} · <span className="opacity-80">{meter.basis}</span>
+            <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs opacity-85" title={meter.basis}>
+              {/* the meter and its word stay on one line; the basis wraps beneath on a phone, with the separator only when it sits beside */}
+              <span className="inline-flex items-center gap-2 whitespace-nowrap"><Meter level={meter.level} /> evidence {meter.level}</span>
+              <span className="opacity-80 sm:before:content-['·_']">{meter.basis}</span>
             </p>
           )}
         </div>
@@ -29,10 +34,13 @@ export function Chapter({ n, eyebrow, question, meter, children }: { n: number; 
   );
 }
 
+const METER_BARS: Record<EvidenceLevel, number> = { thin: 1, moderate: 2, strong: 3 };
+
+/** Three bars in the surrounding text colour, so the meter reads the same on the ink stage, the rail and the paper in either scheme. */
 export function Meter({ level }: { level: EvidenceLevel }) {
   return (
     <span className="meter" data-level={level} aria-label={`evidence ${level}`}>
-      <i /><i /><i />
+      {[1, 2, 3].map((n) => <i key={n} className={n <= METER_BARS[level] ? "bg-current" : "bg-current/25"} />)}
     </span>
   );
 }
@@ -42,15 +50,31 @@ export function StepCard({ children, className = "" }: { children: ReactNode; cl
 }
 
 /** A flat exhibit with its provenance ribbon: the layer on the left edge, the sources with their reliability and the table ids beneath. */
-export function Exhibit({ title, layer, sources = [], ids = [], explore, note, children }: { title: ReactNode; layer: Layer; sources?: string[]; ids?: string[]; explore?: { href: string; label?: string }; note?: ReactNode; children: ReactNode }) {
+export function Exhibit({ id, title, layer, sources = [], ids = [], tables, explore, note, evidence, caveat, model, status, findingId, glossary, table, children }: { id?: string; title: ReactNode; layer: Layer; sources?: string[]; ids?: string[]; tables?: string[]; explore?: { href: string; label?: string }; note?: ReactNode; evidence?: Provenance["evidence"]; caveat?: string; model?: Provenance["model"]; status?: string; findingId?: string; glossary?: string[]; table?: ReactNode; children: ReactNode }) {
   const [open, setOpen] = useState(false);
-  const srcs = sources.map((id) => ({ id, s: sourceById(id) }));
+  const registry = useSources();
+  const srcs = sources.map((id) => ({ id, s: sourceEntry(registry, id) }));
+  const provenance: Provenance = {
+    title: typeof title === "string" ? title : "This exhibit",
+    layer: layer === "interp" ? "interpretation" : layer,
+    tables,
+    ids,
+    sources,
+    explore,
+    evidence,
+    caveat,
+    model,
+    status,
+    findingId,
+    glossary,
+    anchor: id,
+  };
   return (
-    <figure className="exhibit" data-layer={layer}>
+    <figure id={id} className="exhibit scroll-mt-12" data-layer={layer}>
       <span className="ribbon-label" aria-hidden="true">{LAYER_LABEL[layer]}</span>
-      <figcaption className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+      <figcaption className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
         <span className="text-sm font-semibold">{title}</span>
-        <span className="text-[11px] text-ink-3">{LAYER_LABEL[layer]}</span>
+        <span className="flex items-center gap-2 text-[11px] text-ink-3"><span>{LAYER_LABEL[layer]}</span><EvidenceButton provenance={provenance} table={table} /></span>
       </figcaption>
       <div className="min-w-0">{children}</div>
       {note && <p className="mt-2 text-[11px] leading-snug text-ink-3">{note}</p>}
@@ -139,7 +163,7 @@ export function GuessFirst({ id, question, min, max, step = 1, answer, format, u
 
 export function Door({ href, title, text, primary = false }: { href: string; title: string; text: string; primary?: boolean }) {
   return (
-    <Link href={href} className={`door ${primary ? "bg-stage-ink/10" : ""}`}>
+    <Link href={href} className={`door ${primary ? "bg-current/10 hover:bg-current/15" : ""}`}>
       <span className="font-semibold">{title} →</span>
       <span className="text-xs opacity-80">{text}</span>
     </Link>

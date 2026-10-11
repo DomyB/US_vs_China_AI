@@ -16,8 +16,8 @@ export interface RankRow {
 interface Props {
   rows: RankRow[];
   mode: ActorMode;
-  /** rows become buttons (home panel) or links (region page) */
-  onSelect?: (iso: string) => void;
+  /** rows become buttons (home panel; a shift-, ctrl- or cmd-click passes `additive`, as on the map) or links (region page) */
+  onSelect?: (iso: string, additive?: boolean) => void;
   href?: (iso: string) => string;
   onHover?: (iso: string | null) => void;
   hover?: string | null;
@@ -68,7 +68,7 @@ export function RankingRace({ rows, mode, onSelect, href, onHover, hover = null,
                 {inner}
               </Link>
             ) : (
-              <button type="button" onClick={() => onSelect?.(r.iso)} className={cls} aria-pressed={picked} {...hoverProps}>
+              <button type="button" onClick={(e) => onSelect?.(r.iso, e.shiftKey || e.ctrlKey || e.metaKey)} className={cls} aria-pressed={picked} {...hoverProps}>
                 {inner}
               </button>
             )}

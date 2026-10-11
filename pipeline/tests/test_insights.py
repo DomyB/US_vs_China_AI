@@ -81,6 +81,32 @@ def test_absent_partner_cells_stay_null_and_are_named():
     assert "parity_gap" not in ids  # an absent partner cell is no input for the parity arithmetic
 
 
+def _fc_row(iso, actor, scenario, year, point, target="export_share"):
+    return {"country": iso, "actor": actor, "target": target, "mineral": "all", "horizon_year": year, "last_observed_year": 2025, "model": "drift", "scenario_id": scenario,
+            "point": point, "p05": max(0.0, point - 0.05), "p25": max(0.0, point - 0.02), "p75": point + 0.02, "p95": point + 0.05}
+
+
+def test_contrasts_never_carry_a_zero_share_for_an_absent_cell():
+    stm = [_stm(i, 2025, cn="positive", us="positive") for i in range(4)]
+    fc = [_fc_row("ARG", a, sc, 2030, p) for a in ("CN", "US") for sc, p in (("baseline", 0.0), ("china_pull", 0.1), ("us_reshoring", 0.0))]
+    # Suriname-like: the China row is absent in the latest year, the US one reported
+    absent = _country(trade=[_trade("ARG", 2025, "all", 5.0, None, 95.0)], stm=stm, fc=fc)
+    byid = {x["id"]: x for x in absent["contrasts"]}
+    assert "words_vs_trade_cn" not in byid and "dependence_2030" not in byid  # no share to China: no words-vs-trade point at 0.0%, no 2030 fork from 0%
+    assert byid["words_vs_trade_us"]["share"] == 0.05 and byid["words_vs_trade_us"]["label"] == "warm words, small trade"
+    assert all(x.get("share") != 0.0 and x.get("share_cn_now") != 0.0 for x in absent["contrasts"])
+    # a path fitted on a series whose last observed year has no China row is not published: listed under `absent` with the reason, never drawn from 0%
+    f = absent["forecast"]
+    assert "CN" not in f["paths"].get("export_share", {}) and "export_share:CN" not in f["status"]
+    assert f["absent"]["export_share:CN"] == {"last_observed_year": 2025, "note": insights.ABSENT_FORECAST_NOTE} and f["paths"]["export_share"]["US"]["baseline"][0]["year"] == 2030
+    assert insights.forecast_paths([r for r in fc if r["actor"] == "CN"], "ARG", absent["trade_series"]) is None  # nothing left to draw: no forecast block
+    # the same rows with a reported China cell: both contrasts, the fork stated from the reported share, the paths published
+    reported = _country(trade=[_trade("ARG", 2025, "all", 5.0, 45.0, 50.0)], stm=stm, fc=fc)
+    byid = {x["id"]: x for x in reported["contrasts"]}
+    assert byid["words_vs_trade_cn"]["share"] == 0.45 and byid["dependence_2030"]["share_cn_now"] == 0.45 and byid["dependence_2030"]["cn_2030"]["china_pull"] == 0.1
+    assert reported["forecast"]["absent"] == {} and reported["forecast"]["status"]["export_share:CN"] == {"last_observed_year": 2025, "model": "drift"}
+
+
 def test_flags_on_absent_shares_are_listed_apart_and_not_counted():
     trade = [_trade("ARG", y, "all", 10.0, None if y in (2015, 2018) else 20.0, 70.0) for y in range(2012, 2021)]
     # 2016/CN looks at 2015 and 2018 (both absent); 2014/CN at 2013 and 2016 (reported); 2017/US at 2016 and 2019 (reported)

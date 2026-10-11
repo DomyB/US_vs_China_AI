@@ -20,6 +20,9 @@ const STATEMENTS_FILES = "https://github.com/DomyB/US_vs_China_AI/raw/main/data/
 /** Politics: what leaders say (the owner's statements dataset) and what the legislature does (records and the model's stance series). */
 export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: number; mineral: string }) {
   const stm = data.statements ?? null;
+  // the years the country's records span, from the export, never typed
+  const stmYears = stm?.records.map((r) => r.year) ?? [];
+  const stmSpan = stmYears.length ? `${Math.min(...stmYears)}–${Math.max(...stmYears)}` : null;
   const byYearBloc = useMemo(() => {
     const m = new Map<string, { year: number; bloc: string; n: number }>();
     for (const r of stm?.records ?? []) {
@@ -82,7 +85,7 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
           title="What leaders say"
           tags={stm ? <><DataLayerTag layer="real" /><LayerLabel layer="facts" /></> : <DataLayerTag layer="none" />}
           intro={stm
-            ? `${stm.n} statements and acts about minerals (2019–2026): ${stm.n_domestic} by ${data.name}'s presidents, ministers, governors, legislators, courts and state companies, the rest by US and Chinese officials and others about ${data.name}. Hand-supplied dataset, collected with web search under a fixed codebook; every record names its source.`
+            ? `${stm.n} statements and acts about minerals${stmSpan ? ` (${stmSpan})` : ""}: ${stm.n_domestic} by ${data.name}'s presidents, ministers, governors, legislators, courts and state companies, the rest by US and Chinese officials and others about ${data.name}. Hand-supplied dataset, collected with web search under a fixed codebook; every record names its source.`
             : `The statements dataset has no record for ${data.name}: it covers seven of the twelve countries (see Limitations). Nothing is shown in its place.`}
         />
         {stm && (

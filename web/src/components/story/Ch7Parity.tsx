@@ -7,18 +7,34 @@ import { PlotFigure } from "@/components/charts/PlotFigure";
 import { ParityChart } from "@/components/insights/ParityChart";
 import { ACTOR_COLOR, COUNTRY_NAMES } from "@/lib/constants";
 import { fmtPct } from "@/lib/format";
-import type { InsightCountry, QuantFile } from "@/lib/types";
+import type { FlowsFile, InsightCountry, QuantFile } from "@/lib/types";
 import { Exhibit, GuessFirst, StepCard } from "./Chapter";
+import { useFlows } from "./Ch4Loans";
 
 type Path = { year: number; point: number; p05: number; p25: number; p75: number; p95: number }[];
 type Scenarios = Record<string, Path>;
+
+/**
+ * Whether a country's share series to China rests on absent partner cells: its latest reported year has no China row in
+ * flows.json (null there, while the published insights export still prints that share as 0.0), or a null share in the
+ * series once the export carries them. No forecast is drawn from such a series; the count of rowless years is printed.
+ */
+function chinaRowAbsence(c: InsightCountry, flows: FlowsFile | null | undefined): { absent: boolean; latest: number | null; rowless: number; years: number } {
+  const rows = (flows?.trade ?? []).filter((r) => r.iso3 === c.iso3 && r.mineral === "all");
+  const latestRow = rows.length ? rows.reduce((a, b) => (b.year > a.year ? b : a)) : null;
+  const latestSeries = c.trade_series.length ? c.trade_series.reduce((a, b) => (b.year > a.year ? b : a)) : null;
+  const rowless = rows.length ? rows.filter((r) => r.exports_musd.CN === null).length : c.trade_series.filter((r) => r.share_cn === null).length;
+  const absent = (latestRow !== null && latestRow.exports_musd.CN === null) || (latestSeries !== null && latestSeries.share_cn === null);
+  return { absent, latest: latestRow?.year ?? latestSeries?.year ?? null, rowless, years: rows.length || c.trade_series.length };
+}
 
 function fan(paths: Scenarios, observed: { year: number; share: number | null }[], lastObserved: number): Plot.PlotOptions {
   const base = paths.baseline ?? [];
   const others = Object.entries(paths).filter(([k]) => k !== "baseline");
   return {
     height: 300,
-    marginLeft: 44,
+    marginTop: 26,
+    marginLeft: 48,
     marginRight: 110,
     x: { label: null, tickFormat: (d: number) => String(d) },
     y: { label: "share of mineral exports to China", tickFormat: (d: number) => `${Math.round(d * 100)}%`, domain: [0, 1] },
@@ -46,7 +62,11 @@ export function Ch7Parity({ countries, targets, scenarios }: { countries: Insigh
   const dep = c?.contrasts.find((x) => x.id === "dependence_2030") as { share_cn_now: number | null; year_now: number; cn_2030: Record<string, number>; us_2030: Record<string, number>; min_cn_2030: number; max_cn_2030: number } | undefined;
   const target = targets?.["export_share:CN"];
   const lastObserved = c?.trade_series.filter((r) => r.share_cn !== null).reduce((m, r) => Math.max(m, r.year), 0) ?? 0;
-  const opts = useMemo(() => (c ? fan(c.forecast!.paths.export_share.CN as unknown as Scenarios, c.trade_series.map((r) => ({ year: r.year, share: r.share_cn })), lastObserved) : null), [c, lastObserved]);
+  const flows = useFlows();
+  // undefined while flows.json resolves: nothing is drawn until the partner cells have been read
+  const absence = c && flows !== undefined ? chinaRowAbsence(c, flows) : null;
+  const opts = useMemo(() => (c && absence && !absence.absent ? fan(c.forecast!.paths.export_share.CN as unknown as Scenarios, c.trade_series.map((r) => ({ year: r.year, share: r.share_cn })), lastObserved) : null), [c, absence, lastObserved]);
+  const noRow = absence?.absent ? `${c?.name} has no reported China partner row in ${absence.latest ?? "its latest reported year"}${absence.rowless ? ` (none in ${absence.rowless} of its ${absence.years} reported years)` : ""}: the share is absent, not zero, and no forecast is drawn from it.` : null;
   return (
     <div className="space-y-6">
       {parity && <GuessFirst id="c7-parity" question="To match China in Chile, how many times what it bought in the latest year would the United States have to add?" min={0} max={10} step={0.1} answer={parity.multiple_of_us} format={(v) => `${v.toFixed(1)}×`} />}
@@ -55,23 +75,29 @@ export function Ch7Parity({ countries, targets, scenarios }: { countries: Insigh
       </Exhibit>
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit title={`The 2030 fan: ${c ? COUNTRY_NAMES[c.iso3] ?? c.name : "–"}`} layer="model" sources={["un_comtrade"]} ids={c ? [`forecast:export_share:CN:baseline:2030:${c.iso3}`, `forecast:export_share:CN:china_pull:2030:${c.iso3}`, `forecast:export_share:CN:us_reshoring:2030:${c.iso3}`] : []} explore={{ href: `/lab?country=${iso}`, label: "Move the levers in the Lab" }} note={target ? `Published model for the share to China: ${target.model} (CRPS ${target.crps ?? "–"} vs ${target.crps_naive ?? "–"} for persistence; the 80% band covered ${Math.round((target.coverage_80 ?? 0) * 100)}% of ${target.n_tests ?? "–"} backtests${(target.coverage_80 ?? 1) < 0.8 ? ", under-covered" : ""}). Solid: reported; dashed: median; bands: 50% and 90% of simulated paths; dotted: the two published scenarios, which are shifts added to every path, not modelled policy.` : undefined}>
+          <Exhibit title={`The 2030 fan: ${c ? COUNTRY_NAMES[c.iso3] ?? c.name : "–"}`} layer="model" sources={["un_comtrade"]} ids={c ? (absence?.absent ? [`flow_trade:${c.iso3}:all:${absence.latest ?? "latest"}`] : [`forecast:export_share:CN:baseline:2030:${c.iso3}`, `forecast:export_share:CN:china_pull:2030:${c.iso3}`, `forecast:export_share:CN:us_reshoring:2030:${c.iso3}`]) : []} explore={{ href: `/lab?country=${iso}`, label: "Move the levers in the Lab" }} note={target ? `Published model for the share to China: ${target.model} (CRPS ${target.crps ?? "–"} vs ${target.crps_naive ?? "–"} for persistence; the 80% band covered ${Math.round((target.coverage_80 ?? 0) * 100)}% of ${target.n_tests ?? "–"} backtests${(target.coverage_80 ?? 1) < 0.8 ? ", under-covered" : ""}). Solid: reported; dashed: median; bands: 50% and 90% of simulated paths; dotted: the two published scenarios, which are shifts added to every path, not modelled policy.` : undefined}>
             <div className="mb-2 flex flex-wrap gap-1" role="group" aria-label="Country">
               {withForecast.map((x) => (
                 <button key={x.iso3} type="button" className={`pill pill-sm ${x.iso3 === iso ? "border-outline bg-card text-ink shadow-[2px_2px_0_var(--outline)]" : ""}`} aria-pressed={x.iso3 === iso} onClick={() => setIso(x.iso3)}>{COUNTRY_NAMES[x.iso3] ?? x.name}</button>
               ))}
             </div>
-            {opts && <PlotFigure options={opts} ariaLabel={`Forecast of the share of ${c?.name}'s mineral exports going to China to 2030, with bands and scenarios`} />}
+            {opts && <PlotFigure glyph="model" options={opts} ariaLabel={`Forecast of the share of ${c?.name}'s mineral exports going to China to 2030, with bands and scenarios`} />}
+            {noRow && <p className="py-6 text-sm text-ink-2">{noRow}</p>}
           </Exhibit>
         </div>
         <div className="space-y-4">
-          {dep && c && (
+          {c && absence?.absent && (
+            <StepCard>
+              <p><strong>{c.name}: no forecast.</strong> {noRow} The published 2030 medians for it rest on that absence read as zero and are not printed.</p>
+            </StepCard>
+          )}
+          {dep && c && absence && !absence.absent && (
             <StepCard>
               <p><strong>{c.name} in 2030.</strong> {dep.share_cn_now === null ? `${c.name}'s share of mineral exports to China in ${dep.year_now} has no partner row (absent, not zero)` : `China took ${fmtPct(dep.share_cn_now)} of ${c.name}'s mineral exports in ${dep.year_now}`}; the medians for 2030 are {fmtPct(dep.cn_2030.baseline)} at baseline, {fmtPct(dep.cn_2030.china_pull)} if the China pull accelerates and {fmtPct(dep.cn_2030.us_reshoring)} if US sourcing rules bite. The US share: {fmtPct(dep.us_2030.baseline)} at baseline, {fmtPct(dep.us_2030.us_reshoring)} under reshoring.</p>
             </StepCard>
           )}
           <StepCard>
-            <p><strong>How good are these?</strong> Five plain models compete on expanding-window backtests from 2015; the published one is the model that beats persistence, or persistence labelled as such. {target && target.crps !== undefined && target.crps_naive ? `For the share to China the ${target.model} model beats persistence by ${Math.round((1 - target.crps / target.crps_naive) * 100)}% on CRPS and its 80% band covered ${Math.round((target.coverage_80 ?? 0) * 100)}% of cases.` : ""} A band that under-covers is said so, here and on the chart.</p>
+            <p><strong>How good are these?</strong> Five plain models compete on expanding-window backtests{target?.origins ? ` (origins ${target.origins})` : ""}; the published one is the model that beats persistence, or persistence labelled as such. {target && target.crps !== undefined && target.crps_naive ? `For the share to China the ${target.model} model beats persistence by ${Math.round((1 - target.crps / target.crps_naive) * 100)}% on CRPS and its 80% band covered ${Math.round((target.coverage_80 ?? 0) * 100)}% of cases.` : ""} A band that under-covers is said so, here and on the chart.</p>
           </StepCard>
           <StepCard>
             <p><strong>The scenarios are arithmetic, not policy.</strong> {scenarios.filter((s) => s.id !== "baseline").map((s) => `${s.name}: ${s.assumptions}`).join(" ")} Your own levers live in the <Link href="/lab" className="underline">Lab</Link>, under a watermark that says they are your scenario, not a forecast.</p>

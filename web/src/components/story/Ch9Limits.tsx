@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { DataTable } from "@/components/charts/PlotFigure";
-import { COUNTRY_NAMES } from "@/lib/constants";
+import { COUNTRY_NAMES, YEAR_MIN } from "@/lib/constants";
 import type { coverageWall } from "@/lib/story";
 import type { EvidenceLevel } from "@/lib/types";
 import { Door, Exhibit, Meter, StepCard } from "./Chapter";
@@ -11,13 +11,13 @@ type Wall = ReturnType<typeof coverageWall>;
 
 export interface Limit { text: string; ids: string[] }
 
-export function Ch9Limits({ wall, chapters, limits, changes }: { wall: Wall; chapters: { n: number; label: string; level: EvidenceLevel; basis: string }[]; limits: Limit[]; changes: string[] }) {
+export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }: { /** flows.meta.last_year.finance_CN: where the Chinese finance source ends */ lastYearCN?: number | null; wall: Wall; chapters: { n: number; label: string; level: EvidenceLevel; basis: string }[]; limits: Limit[]; changes: string[] }) {
   // The same cells as rows of text, so the reason behind every hatched cell is readable without a mouse.
   const tableRows: Record<string, string>[] = wall.rows.map((r) => ({ country: COUNTRY_NAMES[r.iso3] ?? r.iso3, ...Object.fromEntries(wall.cols.map((c) => [c, `${r.cells[c].ok ? "held" : "missing"}: ${r.cells[c].note}`])) }));
   const tableCols: { key: string; label: string }[] = [{ key: "country", label: "Country" }, ...wall.cols.map((c) => ({ key: c, label: c }))];
   return (
     <div className="space-y-6">
-      <Exhibit title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} note="A filled cell is a record the site holds; a hatched cell is a record it does not, with the reason on hover, read out by a screen reader, and listed in the table beneath. The largest hole on every money chart is Chinese finance after 2021: the source ends there, so those years are blank, not zero.">
+      <Exhibit title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} note={`A filled cell is a record the site holds; a hatched cell is a record it does not, with the reason on hover, read out by a screen reader, and listed in the table beneath. The largest hole on every money chart is Chinese finance after ${lastYearCN ?? "the source's last year"}: the source ends there, so those years are blank, not zero.`}>
         <p className="mb-1 text-[11px] text-ink-3 sm:hidden">The wall is wider than the screen: scroll it sideways for the other columns.</p>
         <div className="scroll-x">
           <table className="w-full border-collapse text-xs">
@@ -79,7 +79,7 @@ export function Ch9Limits({ wall, chapters, limits, changes }: { wall: Wall; cha
         <p className="eyebrow !text-[0.68rem] opacity-80">The evidence room</p>
         <p className="serif mt-2 text-2xl sm:text-3xl">The case is laid out. Now walk the evidence.</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
-          <Door href="/explore" title="The map" text="Index lean, money arcs and trade arcs, every year since 2008." primary />
+          <Door href="/explore" title="The map" text={`Index lean, money arcs and trade arcs, every year since ${YEAR_MIN}.`} primary />
           <Door href="/country" title="The case files" text="Twelve countries, five tabs each, every receipt attached." />
           <Door href="/lab" title="The Lab" text="Your own scenario to 2030, labelled as yours." />
         </div>

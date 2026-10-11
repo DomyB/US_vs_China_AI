@@ -105,7 +105,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   const selectCountry = useCallback(
     (iso: string | null, additive = false) => {
       if (iso === null) {
-        setParams({ country: null, compare: null });
+        setParams({ country: null, compare: null, tab: null });
         return;
       }
       if (compareMode || additive) {
@@ -170,15 +170,15 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   const flowsGeo = useMemo(() => (view === "index" || !meta ? null : flowsToGeoJSON(aggs, view, centroids, ACTOR_ANCHOR, selectionSet, names, sourceNames)), [view, meta, aggs, centroids, selectionSet, names, sourceNames]);
 
   const fitTo = useMemo<FitTarget>(() => (view !== "index" ? { kind: "bounds", bounds: FLOW_BOUNDS } : selection.length ? { kind: "countries", isos: selection } : { kind: "home" }), [view, selection]);
-  const fitPadding = useMemo<Padding>(() => (lg ? { top: 24, right: drawerOpen ? DRAWER_WIDTH + 36 : 48, bottom: 170, left: introOpen ? 420 : 64 } : { top: 190, right: 12, bottom: SHEET_COLLAPSED + 12, left: 12 }), [lg, drawerOpen, introOpen]);
+  const fitPadding = useMemo<Padding>(() => (lg ? { top: 24, right: drawerOpen ? DRAWER_WIDTH + 36 : 48, bottom: 170, left: introOpen ? 420 : 64 } : { top: 220, right: 12, bottom: SHEET_COLLAPSED + 12, left: 12 }), [lg, drawerOpen, introOpen]);
 
-  const drawerLabel = selection.length >= 2 ? `Compare ${selection.length} countries` : country ? names[country] ?? country : "Overview";
+  const drawerLabel = selection.length >= 2 ? `Compare ${selection.length} countries` : compareMode ? "Compare" : country ? names[country] ?? country : "Overview";
   const content = !meta ? null : selection.length >= 2 ? (
     <Compare isos={selection} names={names} index={index} flows={flows?.data ?? null} flowsLayer={flows?.layer ?? null} real={real} mineral={mineral} year={year} onRemove={(iso) => selectCountry(iso, true)} onClear={() => selectCountry(null)} onHover={setHover} />
-  ) : country && index ? (
+  ) : country && index && !compareMode ? (
     <CountryPanel iso3={country} year={year} mineral={mineral} meta={meta} indexRows={index.rows} indexLayer={index.layer} tab={tab} onTab={(t) => setParams({ tab: t })} onClose={() => selectCountry(null)} sourceNames={sourceNames} />
   ) : (
-    <Overview meta={meta} real={real} indexLayer={indexLayer} year={year} mode={mode} mineral={mineral} ranked={ranked} onSelect={(iso) => selectCountry(iso)} onHover={setHover} hover={hover} view={view} aggs={aggs} flowsLastYear={flows?.data.meta.last_year ?? null} window={spanYears(year, span)} sourceNames={sourceNames} compareMode={compareMode} selection={selection} />
+    <Overview meta={meta} real={real} indexLayer={indexLayer} year={year} mode={mode} mineral={mineral} ranked={ranked} onSelect={selectCountry} onHover={setHover} hover={hover} view={view} aggs={aggs} flowsLastYear={flows?.data.meta.last_year ?? null} window={spanYears(year, span)} sourceNames={sourceNames} compareMode={compareMode} selection={selection} />
   );
 
   return (
@@ -206,7 +206,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
         <div className="pointer-events-auto absolute left-14 right-3 top-3 lg:right-auto lg:w-[22rem] xl:w-[24rem]">
           <IntroCard indexLayer={indexLayer} open={introOpen} onToggle={setIntroOpen} />
         </div>
-        <div className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-16"}`} style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : undefined} data-tour="dock">
+        <div className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-24"}`} style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : undefined} data-tour="dock">
           {meta && (
             <ControlDock
               year={year}

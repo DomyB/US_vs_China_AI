@@ -70,7 +70,7 @@ LIMITATIONS.md       known gaps and biases
 - [Pipeline](docs/PIPELINE.md): adapters, workflows, secrets, how to add a source
 - [Deployment](docs/DEPLOYMENT.md)
 - [Status log per phase](docs/STATUS.md)
-- [Interpretation files](data/manual/interpretation/README.md): the owner's written analysis and the AI-drafted reading of the Insights page, with its review rule
+- [Interpretation files](data/manual/interpretation/README.md): the owner's written analysis and the AI-drafted reading of the Lab (/lab, formerly the Insights page), with its review rule
 
 ## Running locally
 

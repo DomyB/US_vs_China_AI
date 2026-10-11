@@ -3,7 +3,9 @@ exports (and imports) that go to (come from) the United States and China, the tw
 revealed-comparative-advantage index against the pooled twelve-country export basket.
 
 The warehouse holds partner flows for the United States, China and the world total only, so a Herfindahl
-index over all destinations is not computable: it is stored as null with the reason, never as a guess."""
+index over all destinations is not computable: it is stored as null with the reason, never as a guess. A partner
+row absent from a reporter's answer is read as no reported flow for that partner's share and noted (DECISIONS 47);
+the two-power share and the rest-of-world share need both partner cells and are null when one has no row."""
 from __future__ import annotations
 
 import pandas as pd
@@ -11,6 +13,7 @@ import pandas as pd
 NOTE_HHI = "not computable: the warehouse holds partner flows for the United States, China and the world total only"
 NOTE_ABSENT = "no row for this partner in the reporter's Comtrade data for the year: read as no reported flow"
 NOTE_OVER = "partner value exceeded the reported world total; share capped at 1"
+NOTE_BIG2_ABSENT = "not computable: no row for one of the two partners in the reporter's Comtrade data for the year (absent, not zero)"
 SHARE_COLS = {"US": "USA", "CN": "CHN"}
 
 
@@ -39,19 +42,24 @@ def concentration(trade: pd.DataFrame) -> pd.DataFrame:
             base = {"country": r.reporter, "mineral": r.mineral, "year": int(r.year)}
             rows.append({**base, "metric": total_metric, "value": float(r.WLD), "note": None})
             shares = {}
+            partner_absent = False
             for actor, partner in SHARE_COLS.items():
                 v = getattr(r, partner)
                 note = None
                 if pd.isna(v):
-                    v, note = 0.0, NOTE_ABSENT
+                    v, note, partner_absent = 0.0, NOTE_ABSENT, True
                 share = float(v) / float(r.WLD)
                 if share > 1:
                     share, note = 1.0, NOTE_OVER
                 shares[actor] = share
                 rows.append({**base, "metric": f"share_{actor.lower()}_{suffix}", "value": round(share, 6), "note": note})
-            big2 = min(1.0, shares["US"] + shares["CN"])
-            rows.append({**base, "metric": f"big2_share_{suffix}", "value": round(big2, 6), "note": None})
-            rows.append({**base, "metric": f"share_other_{suffix}", "value": round(max(0.0, 1.0 - big2), 6), "note": None})
+            if partner_absent:  # the two-power share and the rest are arithmetic on both partner cells: null when one has no row, never a bar that sums to 100%
+                rows.append({**base, "metric": f"big2_share_{suffix}", "value": None, "note": NOTE_BIG2_ABSENT})
+                rows.append({**base, "metric": f"share_other_{suffix}", "value": None, "note": NOTE_BIG2_ABSENT})
+            else:
+                big2 = min(1.0, shares["US"] + shares["CN"])
+                rows.append({**base, "metric": f"big2_share_{suffix}", "value": round(big2, 6), "note": None})
+                rows.append({**base, "metric": f"share_other_{suffix}", "value": round(max(0.0, 1.0 - big2), 6), "note": None})
             if flow == "X":
                 rows.append({**base, "metric": "hhi_export_dest", "value": None, "note": NOTE_HHI})
     out = pd.DataFrame(rows, columns=cols)
@@ -73,8 +81,10 @@ def concentration(trade: pd.DataFrame) -> pd.DataFrame:
 
 
 def wide(conc: pd.DataFrame, flow: str = "x") -> pd.DataFrame:
-    """Helper for the index and the flags: country, mineral, year, share_us, share_cn, wld for one flow."""
-    cols = ["country", "mineral", "year", "share_us", "share_cn", "wld"]
+    """Helper for the index and the flags: country, mineral, year, share_us, share_cn, wld for one flow, with absent_us and
+    absent_cn: True where the share is 0 only because the partner row is absent (NOTE_ABSENT). The index reads such a cell as
+    no recorded flow (DECISIONS 47); the flag rules and the forecast read the flag so they never take it for a reported 0."""
+    cols = ["country", "mineral", "year", "share_us", "share_cn", "wld", "absent_us", "absent_cn"]
     if conc.empty:
         return pd.DataFrame(columns=cols)
     total = "exports_wld_usd" if flow == "x" else "imports_wld_usd"
@@ -86,4 +96,8 @@ def wide(conc: pd.DataFrame, flow: str = "x") -> pd.DataFrame:
     for c in ("share_us", "share_cn", "wld"):
         if c not in w.columns:
             w[c] = float("nan")
+    absent = keep[keep["note"] == NOTE_ABSENT] if "note" in keep.columns else keep.iloc[0:0]
+    for actor in ("us", "cn"):
+        cells = {(c, m, int(y)) for c, m, y in absent[absent["metric"] == f"share_{actor}_{flow}"][["country", "mineral", "year"]].itertuples(index=False, name=None)}
+        w[f"absent_{actor}"] = [(c, m, int(y)) in cells for c, m, y in zip(w["country"], w["mineral"], w["year"], strict=True)]
     return w[cols]

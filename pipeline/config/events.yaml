@@ -2,7 +2,7 @@
 #
 # DRAFT for the owner's review. The event studies (scm/quant/events.py) read every event and stamp each result
 # with the event's `status`: `draft` rows are computed and shown with a draft label on the site, in the briefs
-# and on the Insights page; `reviewed` is the owner's sign-off and removes the label. Every event needs a date,
+# and on the Lab (/lab, formerly the Insights page); `reviewed` is the owner's sign-off and removes the label. Every event needs a date,
 # the actor whose policy it is (US, CN, or the ISO3 of the country whose own policy it is), the countries it is
 # expected to touch (`scope: all` for the twelve), the registry source id that documents it
 # (`pipeline/config/sources/*.yaml`) and, when the exact document or date still needs confirming, `verify: true`

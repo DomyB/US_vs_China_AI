@@ -34,7 +34,7 @@ other Markdown is shown as typed.
 
 The twelve country files, `regional.md` and `insights.md` were drafted by an AI session on
 2026-10-09 at the owner's request, from the site's own indicators (the generated brief, the index
-and its components, the contrasts of the Insights page, the flags, the dated events and the
+and its components, the contrasts of the Lab (/lab, formerly the Insights page), the flags, the dated events and the
 forecasts). Their front matter says so (`drafted_by: ai`, `reviewed: false`, an `author` line that
 names no person). The site shows each under the label "AI-drafted from the indicators · not yet
 reviewed by the owner" until the owner edits it and sets `reviewed: true` (keep or drop

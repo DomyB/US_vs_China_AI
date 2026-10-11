@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { ACTOR_LABEL, COUNTRY_NAMES } from "@/lib/constants";
 import type { Actor, EventEcho } from "@/lib/types";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import { COLORS, INK_3, fmtPts } from "./shared";
 
 interface W { label: string; family: string; actor: Actor; country: string; year: number; diff: number; placebo_p: number | null; title: string }
@@ -15,23 +16,26 @@ export function Shocks({ echoes, titles, selected }: { echoes: EventEcho[]; titl
   const means = useMemo(() => echoes.filter((e) => fams.includes(e.label)).map((e) => ({ label: e.label, actor: e.actor, mean: e.mean, n: e.n, family: e.family })), [echoes, fams]);
   const nDraft = useMemo(() => { const ids = new Map<string, string>(); for (const e of echoes) for (const w of e.windows) ids.set(w.event_id, w.status); return [Array.from(ids.values()).filter((s) => s !== "reviewed").length, ids.size]; }, [echoes]);
   const draftNote = nDraft[0] === 0 ? "Every event is reviewed." : nDraft[0] === nDraft[1] ? "Every event is still in draft." : `${nDraft[0]} of ${nDraft[1]} events are still in draft.`;
+  // a 232 px label margin leaves a phone a quarter of its width for the dots: under 640 px the family name sits above its row, inside the frame
+  const narrow = useMediaQuery("(max-width: 639px)");
   const options = useMemo(
     () => ({
-      height: 70 + 44 * fams.length,
-      marginLeft: 232,
+      height: 70 + (narrow ? 60 : 44) * fams.length,
+      marginLeft: narrow ? 12 : 232,
       marginBottom: 44,
-      x: { label: "change in the export share, two years after minus two years before (points)", tickFormat: (v: number) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(0)}`, grid: true },
-      y: { label: null, domain: fams },
+      x: { label: narrow ? "export share, 2 yrs after − before (pts)" : "change in the export share, two years after minus two years before (points)", tickFormat: (v: number) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(0)}`, grid: true },
+      y: { label: null, domain: fams, axis: narrow ? null : undefined },
       color: { domain: ["US", "CN"], range: [COLORS.US, COLORS.CN], legend: true, tickFormat: (d: string) => `share to ${ACTOR_LABEL[d as Actor]}` },
       marks: [
         Plot.ruleX([0], { stroke: INK_3 }),
+        ...(narrow ? [Plot.text(fams, { y: (d: string) => d, frameAnchor: "left", text: (d: string) => d, dy: -22, textAnchor: "start", fontSize: 11, fontWeight: 600, fill: "var(--ink-2)" })] : []),
         ...(["US", "CN"] as Actor[]).flatMap((a) => [
           Plot.dot(windows.filter((w) => w.actor === a), { x: "diff", y: "label", fill: "actor", r: 4, fillOpacity: (d: W) => (selected && d.family !== selected ? 0.25 : 0.65), dy: a === "US" ? -7 : 7, tip: true, title: (d: W) => `${COUNTRY_NAMES[d.country] ?? d.country} after ${d.title} (${d.year}): share to ${ACTOR_LABEL[d.actor]} ${fmtPts(d.diff)}${d.placebo_p !== null ? `, placebo p ${d.placebo_p.toFixed(2)}` : ""}` }),
-          Plot.tickX(means.filter((m) => m.actor === a), { x: "mean", y: "label", stroke: "actor", strokeWidth: 3, dy: a === "US" ? -7 : 7, tip: true, title: (d: { label: string; actor: Actor; mean: number; n: number }) => `${d.label}: mean ${fmtPts(d.mean)} for the share to ${ACTOR_LABEL[d.actor]} over ${d.n} windows` }),
+          Plot.tickX(means.filter((m) => m.actor === a), { x: "mean", y: "label", stroke: "actor", strokeWidth: 3, inset: narrow ? 16 : 0, dy: a === "US" ? -7 : 7, tip: true, title: (d: { label: string; actor: Actor; mean: number; n: number }) => `${d.label}: mean ${fmtPts(d.mean)} for the share to ${ACTOR_LABEL[d.actor]} over ${d.n} windows` }),
         ]),
       ],
     }),
-    [windows, means, fams, selected],
+    [windows, means, fams, selected, narrow],
   );
   if (!fams.length) return <p className="text-sm text-ink-3">No event family has enough windows yet.</p>;
   return (

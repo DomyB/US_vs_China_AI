@@ -8,7 +8,11 @@ linear trend fitted by maximum likelihood with a Kalman filter. Every model prod
 continuous ranked probability score (CRPS), the mean absolute error of the point forecast and the coverage of
 the 80% and 95% bands are measured on every origin and horizon, and a model is used for the published forecast
 only if its pooled CRPS beats naive persistence; otherwise naive persistence itself is published and labelled.
-Scenarios are Monte Carlo paths of the selected model with an explicit, stated shift of the yearly change."""
+Scenarios are Monte Carlo paths of the selected model with an explicit, stated shift of the yearly change.
+
+A share cell with no partner row (absent, not zero: `absent_us` / `absent_cn` from `concentration.wide`) is never an
+observation. The fitted series is a country's latest unbroken run of reported years; a country whose run is too short
+or not current is left out and listed in the status with the reason, never fitted on zeros."""
 from __future__ import annotations
 
 import numpy as np
@@ -206,6 +210,19 @@ def summarise(bt: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+def skip_reason(yrs: np.ndarray, n_absent: int = 0) -> str | None:
+    """Why a country's latest unbroken run of reported years is not fitted, or None when it is."""
+    left_out = f"; {n_absent} year{'s' if n_absent != 1 else ''} with no partner row left out (absent, not zero)" if n_absent else ""
+    if len(yrs) == 0:
+        return "no reported observation" + left_out
+    if len(yrs) < MIN_OBS:
+        run = f"{int(yrs[0])}–{int(yrs[-1])}" if len(yrs) > 1 else str(int(yrs[0]))
+        return f"{len(yrs)} reported year{'s' if len(yrs) != 1 else ''} in the latest unbroken run ({run}), fewer than {MIN_OBS}" + left_out
+    if int(yrs[-1]) < MIN_LAST_YEAR:
+        return f"last reported year {int(yrs[-1])}, before {MIN_LAST_YEAR}" + left_out
+    return None
+
+
 def select_model(summary: pd.DataFrame) -> str:
     """The model with the lowest pooled CRPS over all horizons, if it beats naive persistence; else naive."""
     if summary.empty:
@@ -218,7 +235,9 @@ def select_model(summary: pd.DataFrame) -> str:
 # ---------------------------------------------------------------- orchestration
 
 def forecasts(idx: pd.DataFrame, shares: pd.DataFrame, seed: int = 20261009, n_sims: int = N_SIMS, n_backtest: int = 500) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
-    """(forecast rows, backtest summary rows, status). `idx`: index_value rows; `shares`: country, year, share_us, share_cn."""
+    """(forecast rows, backtest summary rows, status). `idx`: index_value rows; `shares`: country, year, share_us, share_cn and,
+    when the frame carries them, absent_us / absent_cn (a share that is 0 only because the partner row is absent: never fitted).
+    Per target and actor the status lists the countries fitted with their windows, and the countries skipped with the reason."""
     rng = np.random.default_rng(seed)
     f_rows: list[dict] = []
     b_rows: list[dict] = []
@@ -226,21 +245,34 @@ def forecasts(idx: pd.DataFrame, shares: pd.DataFrame, seed: int = 20261009, n_s
     for target, bounds in TARGETS.items():
         for actor in ("US", "CN"):
             if target == "influence_index":
-                d = idx[(idx["index_name"] == "influence") & (idx["mineral"] == "all") & (idx["actor"] == actor) & idx["value"].notna()][["country", "year", "value"]]
+                src = idx[(idx["index_name"] == "influence") & (idx["mineral"] == "all") & (idx["actor"] == actor)][["country", "year", "value"]]
+                absent = pd.Series(False, index=src.index)
             else:
-                col = "share_us" if actor == "US" else "share_cn"
-                d = shares[shares[col].notna()][["country", "year", col]].rename(columns={col: "value"})
+                col, flag = f"share_{actor.lower()}", f"absent_{actor.lower()}"
+                src = shares[["country", "year", col]].rename(columns={col: "value"})
+                absent = shares[flag].eq(True) if flag in shares.columns else pd.Series(False, index=src.index)
+            d = src[src["value"].notna() & ~absent]
+            n_absent = absent.groupby(src["country"]).sum().to_dict() if not src.empty else {}
             series: dict[str, np.ndarray] = {}
             years: dict[str, np.ndarray] = {}
-            for iso, g in d.sort_values("year").groupby("country"):
+            windows: dict[str, dict] = {}
+            skipped: dict[str, str] = {}
+            for iso in sorted(src["country"].unique()):
+                g = d[d["country"] == iso].sort_values("year")
                 yrs = g["year"].to_numpy(dtype=int)
                 vals = g["value"].to_numpy(dtype=float)
-                # a series must be contiguous, long enough and current
-                if len(vals) >= MIN_OBS and yrs[-1] >= MIN_LAST_YEAR and np.all(np.diff(yrs) == 1):
+                breaks = np.flatnonzero(np.diff(yrs) != 1)
+                if len(breaks):  # the latest unbroken run of reported years; earlier years, absent cells among them, are left out
+                    yrs, vals = yrs[breaks[-1] + 1:], vals[breaks[-1] + 1:]
+                reason = skip_reason(yrs, int(n_absent.get(iso, 0)))
+                if reason:
+                    skipped[iso] = reason
+                else:
                     series[iso], years[iso] = vals, yrs
+                    windows[iso] = {"years": [int(yrs[0]), int(yrs[-1])], "n_obs": int(len(yrs)), "n_absent": int(n_absent.get(iso, 0))}
             key = f"{target}:{actor}"
             if not series:
-                status["targets"][key] = {"countries": [], "model": None, "note": "no series long enough"}
+                status["targets"][key] = {"countries": [], "model": None, "note": "no series long enough", "windows": {}, "skipped": skipped}
                 continue
             bt = backtest(series, years, bounds, rng, n=n_backtest)
             summary = summarise(bt)
@@ -254,7 +286,7 @@ def forecasts(idx: pd.DataFrame, shares: pd.DataFrame, seed: int = 20261009, n_s
             status["targets"][key] = {"countries": sorted(series), "model": model, "label": MODEL_LABEL[model], "crps": round(float(pooled["crps"]), 4),
                                       "crps_naive": round(float(pooled["crps_naive"]), 4), "crps_ratio": round(float(pooled["crps_ratio"]), 3), "beats_naive": bool(pooled["beats_naive"]),
                                       "coverage_80": round(float(pooled["coverage_80"]), 3), "coverage_95": round(float(pooled["coverage_95"]), 3), "n_tests": int(pooled["n"]),
-                                      "origins": f"{int(bt['origin'].min())}–{int(bt['origin'].max())}"}
+                                      "origins": f"{int(bt['origin'].min())}–{int(bt['origin'].max())}", "windows": windows, "skipped": skipped}
             for iso, y in series.items():
                 last_year = int(years[iso][-1])
                 h = HORIZON_YEAR - last_year

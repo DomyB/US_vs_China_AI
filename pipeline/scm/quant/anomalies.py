@@ -38,7 +38,7 @@ def anomalies(conc: pd.DataFrame, finance: pd.DataFrame, gdp: pd.DataFrame, debt
                      "evidence_level": level, "description": text, "evidence_source_ids": ",".join(dict.fromkeys(sources)), "score": score})
 
     ex = wide(conc, "x")
-    # a partner cell with no row is 0 in `ex` (NOTE_ABSENT, kept so for the index); rule 4 never reads such a cell as an unmoved 0%
+    # a partner cell with no row is 0 in `ex` (NOTE_ABSENT, kept so for the index); rules 1 and 4 never read such a cell as a 0%
     absent: set[tuple] = set()
     if not conc.empty and "note" in conc.columns:
         for r in conc[conc["note"] == NOTE_ABSENT].itertuples(index=False):
@@ -56,6 +56,8 @@ def anomalies(conc: pd.DataFrame, finance: pd.DataFrame, gdp: pd.DataFrame, debt
                 for year in s.index:
                     if year - 1 not in s.index:
                         continue
+                    if any((iso, mineral, int(y), f"{col}_x") in absent for y in (year - 1, year)):
+                        continue  # no partner row in one of the two years: absent, not a share that fell to or rose from 0%
                     if any(pd.isna(g.loc[y, "wld"]) or g.loc[y, "wld"] < MIN_WLD_USD for y in (year - 1, year)):
                         continue  # too little trade in either year for a share change to mean much
                     delta = float(s[year] - s[year - 1])

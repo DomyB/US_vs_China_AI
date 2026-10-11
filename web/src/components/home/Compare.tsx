@@ -157,7 +157,7 @@ export function Compare({ isos, names, index, flows, flowsLayer, real, mineral, 
         <h2 id="cmpt-h" className="mb-1 text-base">In {year}</h2>
         <div className="scroll-x">
           <table className="w-full min-w-[40rem] text-xs [&_td]:px-1 [&_th]:px-1 [&_th]:whitespace-nowrap">
-            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US index</th><th className="py-1 text-right">CN index</th><th className="py-1 text-right">Net</th><th className="py-1 text-right">Exports to CN</th><th className="py-1 text-right">Exports to US</th><th className="py-1 text-right">CN finance since 2008</th><th className="py-1 text-right">US finance since 2008</th><th className="py-1">Records</th></tr></thead>
+            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US index</th><th className="py-1 text-right">CN index</th><th className="py-1 text-right">Net</th><th className="py-1 text-right">Exports to CN</th><th className="py-1 text-right">Exports to US</th><th className="py-1 text-right">CN finance since {YEAR_MIN}</th><th className="py-1 text-right">US finance since {YEAR_MIN}</th><th className="py-1">Records</th></tr></thead>
             <tbody>
               {table.map((r) => (
                 <tr key={r.name} className="border-t border-rule align-top">

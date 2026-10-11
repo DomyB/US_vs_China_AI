@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { reducedMotion } from "@/lib/motion";
+import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import type { StatementRecord } from "@/lib/types";
 import { Door } from "./Chapter";
 
@@ -18,12 +19,18 @@ export interface Receipt {
 
 const VERIFICATION: Record<string, string> = { primary_verified: "primary source", secondary_reported: "reported by media, not primary", unverified: "unverified" };
 
+/** An amount, a year range or a share never breaks across lines on a narrow screen; a value still wraps between its phrases. */
+const ATOM = /(US\$[\d.,]+(?: (?:k|m|bn|tn))?|\d{4}–\d{4}|\d+(?:\.\d+)?%)/g;
+function unbreakable(value: string) {
+  return value.split(ATOM).map((part, i) => (i % 2 ? <span key={i} className="whitespace-nowrap">{part}</span> : part));
+}
+
 /**
  * The opening: a politician's sentence sets letter by letter on the ink stage, then the receipts print under it one by one,
  * then the title card and the three doors. Skip and Pause are visible from the first frame and go once the sentence is
  * complete; under reduced motion everything renders at once; the full quote stays in the DOM for assistive technology.
  */
-export function ColdOpen({ quote, receipts, release, pairingNote }: { quote: StatementRecord | null; receipts: Receipt[]; release: string; pairingNote: string }) {
+export function ColdOpen({ quote, absence, receipts, release, pairingNote }: { quote: StatementRecord | null; /** printed in the quote's place when the record is not in the release: names the missing file */ absence: string; receipts: Receipt[]; release: string; pairingNote: string }) {
   const text = quote?.quote_original ?? quote?.quote_en ?? "";
   const [typed, setTyped] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -67,8 +74,8 @@ export function ColdOpen({ quote, receipts, release, pairingNote }: { quote: Sta
           <span className="eyebrow !text-[0.68rem] opacity-80">Said &amp; Paid</span>
           {/* hidden rather than removed once the sentence is complete, so the quote does not jump up when the row empties */}
           <span className={`flex gap-2 ${done ? "invisible" : ""}`}>
-            <button type="button" className="rounded-full border border-current px-3 py-1" onClick={togglePause} aria-pressed={paused}>{paused ? "Resume" : "Pause"}</button>
-            <button type="button" className="rounded-full border border-current px-3 py-1" onClick={skip}>Skip intro</button>
+            <button type="button" className="rounded-full border border-current px-3 py-1 pointer-coarse:py-2" onClick={togglePause} aria-pressed={paused}>{paused ? "Resume" : "Pause"}</button>
+            <button type="button" className="rounded-full border border-current px-3 py-1 pointer-coarse:py-2" onClick={skip}>Skip intro</button>
           </span>
         </div>
         {quote ? (
@@ -83,15 +90,16 @@ export function ColdOpen({ quote, receipts, release, pairingNote }: { quote: Sta
             </figcaption>
           </figure>
         ) : (
-          <p className="mt-10 serif text-2xl opacity-80">The opening sentence arrives with the next data release; the receipts below are already on record.</p>
+          <p className="mt-10 serif text-2xl opacity-80">{absence}</p>
         )}
-        <ol className="mt-8 space-y-2" aria-live="polite" aria-label="Receipts">
+        {/* inert until the sentence is complete: the receipts are invisible until then and must not take keyboard focus */}
+        <ol className="mt-8 space-y-2" aria-live="polite" aria-label="Receipts" inert={!done || undefined}>
           {receipts.map((r, i) => (
             <li key={r.label} className={`receipt flex flex-wrap items-baseline gap-x-3 gap-y-0.5 transition-opacity duration-700 ${done ? "" : "opacity-0"}`} style={{ transitionDelay: `${i * 900}ms` }}>
               <span className="w-full opacity-70 sm:w-auto sm:min-w-[22rem]">{r.label} · {r.window}</span>
-              <span className={`text-base sm:text-lg ${r.outlined ? "receipt-outline" : "font-bold"}`}>{r.value}</span>
-              <span className="text-[11px] opacity-60">{r.source}</span>
-              {r.href && <Link href={r.href} className="text-[11px] underline opacity-80 pointer-coarse:-my-2.5 pointer-coarse:py-2.5">open</Link>}
+              <span className={`text-base sm:text-lg ${r.outlined ? "receipt-outline" : "font-bold"}`}>{unbreakable(r.value)}</span>
+              {/* the link follows the source with no break opportunity, so "open" never sits alone on a line */}
+              <span className="text-[11px]"><span className="opacity-60">{r.source}</span>{r.href && <Link href={r.href} className="ml-2 underline opacity-80 pointer-coarse:-my-2.5 pointer-coarse:py-2.5">open</Link>}</span>
             </li>
           ))}
         </ol>
@@ -99,7 +107,7 @@ export function ColdOpen({ quote, receipts, release, pairingNote }: { quote: Sta
         <div className="mt-4 h-px w-24 bg-cn" aria-hidden="true" />
         <div id="story-start" className="mt-10 scroll-mt-4 sm:mt-14">
           <h1 className="serif text-4xl font-bold leading-[1.05] sm:text-6xl">Said &amp; Paid</h1>
-          <p className="mt-3 max-w-2xl text-base opacity-85 sm:text-lg">What leaders said, what the money did. Twelve countries, 2008–2026.</p>
+          <p className="mt-3 max-w-2xl text-base opacity-85 sm:text-lg">What leaders said, what the money did. Twelve countries, {YEAR_MIN}–{YEAR_MAX}.</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <Door href="#c1" title="Read the case" text="Nine chapters, one question each, about twelve minutes." primary />
             <Door href="/explore" title="Go straight to the evidence" text="The map: index lean, money arcs, trade arcs, every country." />

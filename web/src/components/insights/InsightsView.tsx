@@ -197,7 +197,7 @@ export function InsightsView() {
       </Block>
 
       <Block id="reading" provenance={labProvenance("reading", realMeta)} n={11} title="Reading and outlook" lead="The interpretation of the contrasts and the perspective to 2030, kept apart from the facts and the models." layer="interpretation">
-        <Interpretation block={interp} scopeLabel="the insights" hideGenerated />
+        <Interpretation block={interp} scopeLabel="the Lab" hideGenerated />
       </Block>
     </div>
   );
