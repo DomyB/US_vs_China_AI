@@ -37,7 +37,6 @@ MEDIACLOUD = "mediacloud"
 WINDOW_SOURCES = ("gdelt", MEDIACLOUD)  # sources whose media_volume rows are disjoint windows (half-months, months): summed into the month
 MONTHLY_COUNTS = ("items_total", "items_mining", "items_cn", "items_us")
 MONTH_KEYS = ["country", "period", "source_id"]
-NEWS_FLAGS = {"mining_related": "items_mining", "mentions_cn": "items_cn", "mentions_us": "items_us"}
 
 
 def media_series(docs: pd.DataFrame, cls: pd.DataFrame, media_volume: pd.DataFrame | None = None) -> tuple[dict[str, list[dict]], str]:
@@ -81,16 +80,16 @@ def media_series(docs: pd.DataFrame, cls: pd.DataFrame, media_volume: pd.DataFra
     return {k: sorted(v, key=lambda r: r["year"]) for k, v in out.items()}, basis
 
 
-def monthly_frame(media_volume: pd.DataFrame | None, news: pd.DataFrame | None = None) -> pd.DataFrame | None:
+def monthly_frame(media_volume: pd.DataFrame | None) -> pd.DataFrame | None:
     """One row per (country, period "YYYY-MM", source_id) with the four counts and `n_fetches`, or None without rows.
 
     GDELT windows (half-months) and Media Cloud months are disjoint, so their rows are summed into the calendar month.
     A feed's rows are fetch days of the same rolling list (weekly runs: four or five a month, mostly the same headlines),
-    so they are never summed: `items_total` is the feed's largest fetch of the month (the most items it exposed at
-    once), `n_fetches` the number of fetches, and items_mining / items_cn / items_us are the distinct kept headlines of
-    that feed dated in the month, counted from the `document` rows (`news`: source_id, country, date and the three
-    flags). Without `news` the three counts are those of the fullest fetch, the only fetch-level figure that is not a
-    multiple of the fetch count."""
+    so they are never summed: the month's row is the feed's fullest fetch (the one that exposed the most items), all
+    four counts taken from that same fetch so that items_mining / items_total stays the share the parser measured, and
+    `n_fetches` says how many fetches the month had. (The kept `document` rows are not used here: the parser flags a
+    feed item as mineral-related when it names a mineral OR mining, while a kept document's `mining_related` flag is
+    the mining term alone, so counting documents would understate the feed's own measure.)"""
     if media_volume is None or media_volume.empty:
         return None
     mv = media_volume.copy()
@@ -107,25 +106,13 @@ def monthly_frame(media_volume: pd.DataFrame | None, news: pd.DataFrame | None =
     feeds = fetches.sort_values("items_total", ascending=False).drop_duplicates(MONTH_KEYS, keep="first").copy()
     sizes = fetches.groupby(MONTH_KEYS).size()
     feeds["n_fetches"] = [int(sizes.get(k, 1)) for k in zip(feeds["country"], feeds["period"], feeds["source_id"], strict=True)]
-    if not feeds.empty and news is not None and not news.empty and {"source_id", "country", "date", *NEWS_FLAGS} <= set(news.columns):
-        d = news[["source_id", "country", "date", *NEWS_FLAGS]].copy()
-        if "doc_type" in news.columns:
-            d = d[news["doc_type"] == "news"]
-        d["period"] = d["date"].astype(str).str[:7]
-        d["source_id"] = d["source_id"].astype(str)
-        for flag, col in NEWS_FLAGS.items():
-            d[col] = d[flag].astype(bool).astype(int)
-        distinct = d.groupby(MONTH_KEYS, as_index=False)[list(NEWS_FLAGS.values())].sum()
-        feeds = feeds.drop(columns=list(NEWS_FLAGS.values())).merge(distinct, on=MONTH_KEYS, how="left")
-        for col in NEWS_FLAGS.values():
-            feeds[col] = feeds[col].fillna(0).astype(int)  # a month with fetches and no kept headline of the feed: zero headlines, a count
     return pd.concat([windows, feeds], ignore_index=True).sort_values(MONTH_KEYS).reset_index(drop=True)
 
 
-def media_monthly(media_volume: pd.DataFrame | None, news: pd.DataFrame | None = None) -> dict[str, list[dict]]:
+def media_monthly(media_volume: pd.DataFrame | None) -> dict[str, list[dict]]:
     """{iso3: [{period: "YYYY-MM", source_id, items_total, items_mining, items_cn, items_us, n_fetches?}]}: the history
     rows of the media files, one per source and month (see `monthly_frame`); `n_fetches` on feed rows only."""
-    g = monthly_frame(media_volume, news)
+    g = monthly_frame(media_volume)
     if g is None:
         return {}
     out: dict[str, list[dict]] = {}

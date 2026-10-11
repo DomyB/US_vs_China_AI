@@ -37,7 +37,7 @@ const SOURCE_NAME: Record<string, string> = { mediacloud: "Media Cloud", gdelt: 
 /** How a source counts: what its monthly `items_total` is. A feed is a rolling list read weekly, so its month is the
  *  fullest of its fetches, not the sum over fetch days (the same headline would count four or five times). */
 const SOURCE_WINDOW: Record<string, string> = { mediacloud: "its per-country collection, by month", gdelt: "half-month windows of its index" };
-const FEED_WINDOW = "the items seen at the month's fullest fetch (the mineral-related ones are the distinct headlines of the month)";
+const FEED_WINDOW = "the items seen at the month's fullest fetch, with the mineral-related ones counted at that same fetch";
 
 function monthDate(period: string): Date {
   return new Date(Date.UTC(Number(period.slice(0, 4)), Number(period.slice(5, 7)) - 1, 1));

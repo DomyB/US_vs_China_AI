@@ -288,9 +288,10 @@ month, and the three sources are counted differently because their `media_volume
 things. GDELT windows (half-months) and Media Cloud months are disjoint, so their rows are summed into the
 month. A feed's rows are fetch days of the same rolling list (four or five a month in the weekly run, mostly
 the same headlines), so they are never summed: `items_total` is the feed's largest fetch of the month (the
-most items it exposed at once), `n_fetches` the number of fetches, and `items_mining` / `items_cn` /
-`items_us` are the distinct kept headlines of that feed dated in the month, counted from the `document`
-rows; the Media tab words a feed month as "items seen at the month's fullest fetch". The yearly attention
+most items it exposed at once) with its mineral, China and US counts taken from that same fetch (the
+parser's own measure, which flags an item naming a mineral or mining; the kept `document` rows carry a
+narrower flag and are not used), and `n_fetches` the number of fetches; the Media tab words a feed month
+as "items seen at the month's fullest fetch". The yearly attention
 series uses the same monthly feed totals, so a denominator no longer grows with the number of fetches.
 Media Cloud's headline lists are fetched newest first, and when a country-year has more matches than the
 2,000 the adapter keeps, the cut is recorded (`headlines_window`: source, year, the first and last

@@ -246,18 +246,6 @@ def test_media_monthly_sums_windows_and_counts_a_feed_once_a_month():
         {"period": "2024-03", "source_id": "gdelt", "items_total": 150, "items_mining": 15, "items_cn": 5, "items_us": 3},
     ]
     assert out["CHL"] == [{"period": "2024-03", "source_id": "gdelt", "items_total": 7, "items_mining": 1, "items_cn": 1, "items_us": 0}]
-    # with the document rows, a feed's mining / China / US counts are its distinct kept headlines dated in the month
-    news = pd.DataFrame([
-        {"source_id": "bra_folha", "country": "BRA", "date": "2024-03-05", "mining_related": True, "mentions_cn": True, "mentions_us": False},
-        {"source_id": "bra_folha", "country": "BRA", "date": "2024-03-12", "mining_related": True, "mentions_cn": False, "mentions_us": True},
-        {"source_id": "bra_folha", "country": "BRA", "date": "2024-03-13", "mining_related": False, "mentions_cn": True, "mentions_us": True},
-        {"source_id": "bra_folha", "country": "BRA", "date": "2024-02-28", "mining_related": True, "mentions_cn": True, "mentions_us": False},  # another month
-        {"source_id": "gdelt", "country": "BRA", "date": "2024-03-05", "mining_related": True, "mentions_cn": True, "mentions_us": False},  # a window source: untouched
-    ])
-    out = media_monthly(mv, news)
-    folha = next(r for r in out["BRA"] if r["source_id"] == "bra_folha")
-    assert folha == {"period": "2024-03", "source_id": "bra_folha", "items_total": 30, "items_mining": 2, "items_cn": 2, "items_us": 2, "n_fetches": 2}
-    assert next(r for r in out["BRA"] if r["source_id"] == "gdelt")["items_mining"] == 15
     assert media_monthly(None) == {} and media_monthly(pd.DataFrame()) == {}
 
 
@@ -343,11 +331,11 @@ def test_media_file_carries_history_without_coding(tmp_path):
     export_site.run(wh, out)
     media = json.loads((out / "media" / "BRA.json").read_text())
     assert "narratives" not in media and "text_model" not in media, "model outputs stay absent until something is coded"
-    # the feed's month: its fullest fetch (25 items), two fetches, and its distinct kept headlines dated in the month (2, one naming each actor)
+    # the feed's month: its fullest fetch (25 items, with that fetch's own mineral / China / US counts), two fetches
     assert media["history"] == [
         {"period": "2012-05", "source_id": "mediacloud", "items_total": 500, "items_mining": 30, "items_cn": 5, "items_us": 8},
         {"period": "2026-09", "source_id": "gdelt", "items_total": 40, "items_mining": 4, "items_cn": 1, "items_us": 0},
-        {"period": "2026-10", "source_id": "bra_folha", "items_total": 25, "items_mining": 2, "items_cn": 1, "items_us": 1, "n_fetches": 2},
+        {"period": "2026-10", "source_id": "bra_folha", "items_total": 25, "items_mining": 2, "items_cn": 1, "items_us": 0, "n_fetches": 2},
         {"period": "2026-10", "source_id": "gdelt", "items_total": 60, "items_mining": 6, "items_cn": 2, "items_us": 1},
     ]
     assert media["media_sources"] == ["bra_folha", "gdelt", "mediacloud"] and media["history_from"] == "2012-05"

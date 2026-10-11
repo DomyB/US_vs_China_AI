@@ -669,10 +669,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     stance_by_iso = text_series.stance_series(docs_df, cls_df)
     mv_df = pd.DataFrame(mv_rows) if mv_rows else None
     volume_by_iso, volume_basis = text_series.media_series(docs_df, cls_df, mv_df)
-    # the raw document rows (one per source, country and headline, before the RSS/GDELT merge): a feed's distinct
-    # headlines per month, for the history rows of the feeds (text.series.monthly_frame)
-    news_rows = _rows(con, "SELECT source_id, country, date, mining_related, mentions_cn, mentions_us FROM document WHERE doc_type = 'news'")
-    history_by_iso = text_series.media_monthly(mv_df, pd.DataFrame(news_rows) if news_rows else None)  # monthly counts per source (GDELT, Media Cloud, feeds), coded or not
+    history_by_iso = text_series.media_monthly(mv_df)  # monthly counts per source (GDELT, Media Cloud, feeds), coded or not
     windows_by_iso = headline_windows(_rows(con, "SELECT rows FROM ingest_run WHERE source_id = 'mediacloud' AND status = 'ok' ORDER BY finished_at DESC"))
     news_ids = {d["doc_id"] for d in docs if d["doc_type"] == "news"}
     media_topics = [r for r in doc_topic_rows if r["doc_id"] in news_ids]  # the Media tab shows press narratives only
