@@ -628,6 +628,13 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     ok_sources = sorted({r["source_id"] for r in runs if r["status"] == "ok"})
 
     trade = _rows(con, "SELECT reporter, partner, mineral, year, flow, value_type, sum(value_usd) AS value_usd, min(source_id) AS source_id, min(source_record_url) AS url FROM trade_flow WHERE month IS NULL AND flow = 'X' GROUP BY 1,2,3,4,5,6")
+    # the monthly US Census mirror, summed to the year for the complete years only (every month of every code), fills
+    # the US mirror where no annual mirror row exists yet (warehouse.trade_discrepancies applies the same rule)
+    census = _rows(con, "SELECT reporter, partner, mineral, year, flow, 'mirror' AS value_type, sum(value_usd) AS value_usd, min(source_id) AS source_id, min(source_record_url) AS url FROM ("
+                   "SELECT reporter, partner, hs6, mineral, year, flow, sum(value_usd) AS value_usd, min(source_id) AS source_id, min(source_record_url) AS source_record_url FROM trade_flow "
+                   "WHERE month IS NOT NULL AND flow = 'X' AND value_type = 'mirror' GROUP BY 1,2,3,4,5,6 HAVING count(DISTINCT month) >= 12) GROUP BY 1,2,3,4,5")
+    have_mirror = {(r["reporter"], r["partner"], r["mineral"], int(r["year"]), r["flow"]) for r in trade if r["value_type"] == "mirror"}
+    trade += [r for r in census if (r["reporter"], r["partner"], r["mineral"], int(r["year"]), r["flow"]) not in have_mirror]
     fin = _rows(con, "SELECT * FROM finance_event_dedup")
     deals = _rows(con, "SELECT * FROM deal_event")
     gov = _rows(con, "SELECT country, year, indicator, indicator_name, value, source_id, source_record_url, retrieved_at FROM governance")

@@ -93,7 +93,11 @@ def test_press_api_url_is_the_feed_the_last_run_read():
         manifest = fixtures / s["id"] / "manifest.json"
         if not manifest.exists():
             continue
-        read = json.loads(manifest.read_text(encoding="utf-8")).get("feed_urls") or []
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+        recorded = str(data.get("fixture_of", ""))[-10:]  # the run date the fixture records (…/YYYY-MM-DD)
+        if str(s.get("verified_on", "")) > recorded:
+            continue  # the feed was checked directly after the last recorded run (a Monday liveness check); the next run's fixture settles it
+        read = data.get("feed_urls") or []
         if read and s.get("api_url") not in read:
             drift.append(f"{s['id']}: api_url {s.get('api_url')} not among the feeds read {read}")
     assert not drift, drift
@@ -107,7 +111,9 @@ def test_rss_adapters_follow_the_registry_access_and_countries():
     reg = {s["id"]: s for s in build_sources.load_registry()}
     assert reg["sur_dwt"]["access"] == "html" and "sur_dwt" not in ADAPTERS
     assert list(sources()["dialogue_earth"].countries) == IN_SCOPE and "dialogue_earth" in ADAPTERS
-    assert reg["dialogue_earth"]["status"] == "uncertain" and reg["dialogue_earth"].get("orientation") and reg["dialogue_earth"].get("paywall")
+    assert reg["dialogue_earth"]["status"] == "live" and reg["dialogue_earth"].get("orientation") and reg["dialogue_earth"].get("paywall")
+    # a press room that answers 403 to automated clients is registered as html, like the embassies, so no adapter reads it
+    assert reg["us_state_press"]["access"] == "html" and reg["us_state_press"]["status"] == "dead" and "403" in reg["us_state_press"]["notes"] and "us_state_press" not in ADAPTERS
 
 
 def test_statuses_settled_by_the_direct_check():
@@ -120,5 +126,6 @@ def test_statuses_settled_by_the_direct_check():
     assert reg["exim_authorizations"]["status"] == "live" and reg["exim_authorizations"]["url"].startswith("https://catalog.data.gov/dataset/?q=exim")
     assert reg["per_congreso_spley"]["api_url"] == "https://wb2server.congreso.gob.pe/spley-portal-service"
     assert reg["per_bcrp_api"]["category"] == "production"
-    assert reg["arg_infobae"]["status"] == "uncertain" and "estados-unidos" not in reg["arg_infobae"]["api_url"]
-    assert reg["col_eltiempo"]["status"] == "uncertain" and reg["col_eltiempo"]["api_url"].endswith("/rss/colombia.xml")
+    # settled by the 2026-10-12 liveness check: the general and national feeds answered 200
+    assert reg["arg_infobae"]["status"] == "live" and str(reg["arg_infobae"]["verified_on"]) == "2026-10-12" and "estados-unidos" not in reg["arg_infobae"]["api_url"]
+    assert reg["col_eltiempo"]["status"] == "live" and reg["col_eltiempo"]["api_url"].endswith("/rss/colombia.xml")

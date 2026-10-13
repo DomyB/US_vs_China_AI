@@ -22,6 +22,27 @@ def test_trade_discrepancy_flags():
     assert d[d["partner"] == "USA"].iloc[0]["flag"] == "reported_only"
 
 
+def _census(reporter, year, month, value, hs6="283691", mineral="lithium"):
+    """One monthly US Census import row: the US-side mirror of the reporter's exports, reported by the United States."""
+    return {"reporter": reporter, "partner": "USA", "reported_by": "USA", "hs6": hs6, "mineral": mineral, "stage": "intermediate", "year": year, "month": month, "flow": "X", "value_usd": value, "qty": None, "qty_unit": None, "value_type": "mirror", **_prov("us_census_trade")}
+
+
+def test_census_monthly_mirror_fills_complete_years_only():
+    rows = [_trade("CHL", "USA", "CHL", 2024, 1.0e8, "reported"), _trade("CHL", "USA", "USA", 2024, 1.1e8, "mirror"),  # 2024: an annual Comtrade mirror exists
+            _trade("CHL", "USA", "CHL", 2025, 1.2e8, "reported")]  # 2025: Comtrade has not published the US side
+    rows += [_census("CHL", 2024, m, 5.0e7) for m in range(1, 13)]  # a complete Census year that must not replace Comtrade's row
+    rows += [_census("CHL", 2025, m, 1.0e7) for m in range(1, 13)]  # a complete year: fills 2025
+    rows += [_census("CHL", 2026, m, 1.0e7) for m in range(1, 10)]  # nine months: never summed
+    rows += [_census("PER", 2025, m, 2.0e6, hs6="260300", mineral="copper") for m in range(1, 13)]  # another reporter, mirror only
+    annual = warehouse.annual_mirror_from_months(pd.DataFrame(rows))
+    assert sorted(zip(annual["reporter"], annual["year"], annual["value_usd"], strict=True)) == [("CHL", 2024, 6.0e8), ("CHL", 2025, 1.2e8), ("PER", 2025, 2.4e7)]
+    d = warehouse.trade_discrepancies(pd.DataFrame(rows)).set_index(["reporter", "year"])
+    assert d.loc[("CHL", 2024), "mirror_usd"] == 1.1e8 and d.loc[("CHL", 2024), "flag"] == "consistent"
+    assert d.loc[("CHL", 2025), "mirror_usd"] == 1.2e8 and d.loc[("CHL", 2025), "flag"] == "consistent"
+    assert d.loc[("PER", 2025), "flag"] == "mirror_only" and ("CHL", 2026) not in d.index
+    assert warehouse.annual_mirror_from_months(pd.DataFrame([_trade("CHL", "USA", "CHL", 2024, 1.0, "reported")])).empty
+
+
 def test_finance_clusters_merge_only_across_sources():
     base = {"date": None, "actor_from": "CDB", "actor_from_origin": "CN", "actor_to": "x", "type": "loan", "currency": "USD", "sector": None, "mineral": None, "description": "d", "value_type": "reported"}
     rows = [
@@ -45,6 +66,9 @@ def test_build_and_export_end_to_end(tmp_path):
                           _trade("CHL", "USA", "CHL", 2021, 1.0e8, "reported"), _trade("CHL", "WLD", "CHL", 2021, 1.0e9, "reported")])
     (wh / "trade_flow").mkdir(parents=True)
     schema.validate("trade_flow", trade).to_parquet(wh / "trade_flow" / "un_comtrade.parquet", index=False)
+    # the monthly US Census mirror: a complete 2023 (Comtrade has no US mirror for it) and nine months of 2024
+    census = pd.DataFrame([_census("CHL", 2023, m, 1.0e6) for m in range(1, 13)] + [_census("CHL", 2024, m, 1.0e6) for m in range(1, 10)])
+    schema.validate("trade_flow", census).to_parquet(wh / "trade_flow" / "us_census_trade.parquet", index=False)
     fin = pd.DataFrame([
         {"event_id": "e1", "country": "CHL", "date": "2018-12-03", "year": 2018, "actor_from": "Tianqi", "actor_from_origin": "CN", "actor_to": "SQM", "type": "equity", "amount_usd": 4.07e9, "currency": "USD", "sector": "Metals", "mineral": "lithium", "description": "stake", "value_type": "reported", **_prov("aiddata_gcdf", rel="independent_academic")},
         # a swap-line drawdown and a lower-confidence record: both reported apart from the documented commitments in flows.json
@@ -69,6 +93,10 @@ def test_build_and_export_end_to_end(tmp_path):
     assert tb[(2022, "lithium")]["exports_musd"] == {"CN": 2000.0, "US": 500.0, "ROW": 1500.0, "WLD": 4000.0} and tb[(2022, "lithium")]["mirror_musd"]["CN"] == 2100.0
     # the world total travels as its own cell; ROW is never derived over an absent partner row
     assert tb[(2021, "lithium")]["exports_musd"] == {"CN": None, "US": 100.0, "ROW": None, "WLD": 1000.0} and tb[(2021, "lithium")]["value_type"] == "reported"
+    # a complete Census year fills the US mirror where Comtrade has none, named as its own source; a running year never appears
+    assert tb[(2023, "lithium")]["mirror_musd"] == {"CN": None, "US": 12.0} and tb[(2023, "lithium")]["value_type"] == "mirror" and tb[(2023, "lithium")]["sources"]["mirror"]["id"] == "us_census_trade"
+    assert (2024, "lithium") not in tb
+    assert 2023 in json.loads((out / "meta.json").read_text())["coverage"]["CHL"]["mirror_years"]
     ev = chl["actions"]["events"][0]
     assert ev["actor_side"] == "CN" and ev["amount_musd"] == 4070.0 and ev["source"]["sample"] is False and ev["source"]["reliability"] == "independent_academic"
     assert chl["governance"][0]["indicator"] == "CC.EST"

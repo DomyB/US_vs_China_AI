@@ -23,7 +23,11 @@ owner's own text shown apart where it exists. All six phases are live.
   stay in place until the next run.
 - **Mirror data** (partner-reported) includes freight and insurance and transshipment;
   `trade_discrepancy` flags ratios outside 0.5–2 as `large_discrepancy` rather than
-  reconciling them.
+  reconciling them. The US side of the mirror comes from UN Comtrade's US-reported annual
+  rows and, since 2026-10-13, from the Census Bureau's monthly import series where Comtrade
+  has not published the year yet (complete years only; a running year is never summed), so
+  the two US-side figures can differ slightly by edition (general imports in the monthly
+  series) and by revision.
 - **AidData GCDF 3.0** ends with 2021 commitments; **AEI CGIT** has a US$100m threshold and
   is think-tank compiled; **DFC** combines DFC (FY2020 onward) and OPIC legacy records;
   **EXIM** records authorizations, not disbursements.

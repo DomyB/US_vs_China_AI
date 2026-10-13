@@ -102,12 +102,41 @@ def check_not_below(current: dict[str, int], reference: dict[str, int]) -> list[
     return problems
 
 
+MONTHS_IN_YEAR = 12
+
+
+def annual_mirror_from_months(trade: pd.DataFrame) -> pd.DataFrame:
+    """Monthly mirror rows (the US Census import series) summed into annual rows, for the complete years only: a
+    (reporter, partner, hs6, mineral, year, flow) with all twelve months present. A running year is never summed,
+    so a partial year is not shown as a full one. Returns the annual-row columns with `month` null."""
+    if trade.empty or "month" not in trade:
+        return trade.iloc[0:0]
+    m = trade[trade["month"].notna() & (trade["value_type"] == "mirror")]
+    if m.empty:
+        return trade.iloc[0:0]
+    keys = ["reporter", "partner", "hs6", "mineral", "year", "flow"]
+    g = m.groupby(keys)
+    full = g["month"].nunique() >= MONTHS_IN_YEAR
+    summed = g.agg(value_usd=("value_usd", "sum"), source_id=("source_id", "min"), source_record_url=("source_record_url", "min"), reported_by=("reported_by", "min"), stage=("stage", "min")).reset_index()
+    summed = summed[full.reindex(pd.MultiIndex.from_frame(summed[keys])).to_numpy()]
+    summed["month"] = pd.NA
+    summed["value_type"] = "mirror"
+    return summed
+
+
 def trade_discrepancies(trade: pd.DataFrame) -> pd.DataFrame:
-    """Reported vs mirror values for the same reporter/partner/hs6/year/flow (annual only)."""
+    """Reported vs mirror values for the same reporter/partner/hs6/year/flow, on annual rows. A complete year of the
+    monthly US Census mirror fills a (reporter, USA, hs6, year) that has no annual mirror row yet, so the US side of
+    the comparison reaches the years UN Comtrade has not published."""
     if trade.empty:
         return pd.DataFrame(columns=["reporter", "partner", "hs6", "mineral", "year", "flow", "reported_usd", "mirror_usd", "ratio", "flag"])
     t = trade[trade["month"].isna()] if "month" in trade else trade
     keys = ["reporter", "partner", "hs6", "mineral", "year", "flow"]
+    census = annual_mirror_from_months(trade)
+    if not census.empty:
+        have = set(map(tuple, t[t["value_type"] == "mirror"][keys].itertuples(index=False, name=None)))
+        extra = census[[k not in have for k in map(tuple, census[keys].itertuples(index=False, name=None))]]
+        t = pd.concat([t, extra[t.columns.intersection(extra.columns)]], ignore_index=True)
     rep = t[t["value_type"] == "reported"].groupby(keys, as_index=False)["value_usd"].sum().rename(columns={"value_usd": "reported_usd"})
     mir = t[t["value_type"] == "mirror"].groupby(keys, as_index=False)["value_usd"].sum().rename(columns={"value_usd": "mirror_usd"})
     m = rep.merge(mir, on=keys, how="outer")

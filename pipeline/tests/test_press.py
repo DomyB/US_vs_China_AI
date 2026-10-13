@@ -350,8 +350,8 @@ def test_rss_adapters_come_from_registry():
     ids = [a.source_id for a in make_rss_adapters()]
     assert "bra_folha" in ids and "arg_clarin" in ids and len(ids) >= 20
     # the regional outlets: Chinese state media and the US official press rooms, each registered with the twelve countries
-    regional = {"xinhua_es", "peoples_daily_es", "cgtn_es", "us_state_press", "us_treasury_press", "ustr_press", "dfc_press"}
-    assert regional <= set(ids)
+    regional = {"xinhua_es", "peoples_daily_es", "cgtn_es", "us_treasury_press", "ustr_press", "dfc_press"}
+    assert regional <= set(ids) and "us_state_press" not in ids  # the State Department answers 403: registered as html, no adapter
     from scm.registry import IN_SCOPE, sources
     assert all(list(sources()[sid].countries) == IN_SCOPE for sid in regional)
     assert all(sources()[sid].reliability == "official" for sid in regional if sid.startswith(("us_", "ustr", "dfc")))
