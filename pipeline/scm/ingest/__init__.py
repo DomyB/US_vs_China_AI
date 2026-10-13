@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from .aei_cgit import CGIT
 from .aiddata import AidData
+from .baci import BACI
 from .base import Adapter
 from .bgs import BGS
 from .comtrade import Comtrade
@@ -42,4 +43,6 @@ NATIONAL: list[type[Adapter]] = [GGMC, ANMAnna, ECUCadastre, Cochilco, BCRP]
 ANNUAL = {"usgs_mcs", "vdem", "unga_votes", "idb_dpi", "bgs_wms", "guy_ggmc", "chl_cochilco"}
 
 GROUPS: dict[str, list[type[Adapter]]] = {"tier1": TIER1, "tier2": TIER2, "legislature": LEGISLATURE, "press": PRESS, "national": NATIONAL}
-ADAPTERS: dict[str, type[Adapter]] = {a.source_id: a for a in TIER1 + TIER2 + LEGISLATURE + PRESS + NATIONAL}
+# heavy, annual, run by id only (a 2.3 GB download): never part of a group
+HEAVY: list[type[Adapter]] = [BACI]
+ADAPTERS: dict[str, type[Adapter]] = {a.source_id: a for a in TIER1 + TIER2 + LEGISLATURE + PRESS + NATIONAL + HEAVY}

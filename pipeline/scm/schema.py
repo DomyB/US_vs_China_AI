@@ -14,7 +14,7 @@ from .registry import IN_SCOPE
 
 RELIABILITY = ["official", "independent_academic", "partisan", "state_media", "analysis"]
 CONFIDENCE = ["documented", "strongly_indicated", "speculative"]
-VALUE_TYPE = ["reported", "mirror", "estimated"]
+VALUE_TYPE = ["reported", "mirror", "estimated", "reconciled"]  # reconciled: one figure per bilateral flow after matching both sides (CEPII BACI)
 
 PROVENANCE: dict[str, Column] = {
     "source_id": Column(str),

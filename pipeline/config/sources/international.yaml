@@ -21,6 +21,25 @@ sources:
     verified_method: search
     python_package: comtradeapicall
     notes: "Primary trade source for all 12 countries (HS6, annual and monthly). China-reported data here is the proxy for GACC. Venezuela's own reports end around 2013; partner mirror data used after that."
+  - id: cepii_baci
+    name: CEPII BACI (reconciled bilateral trade, HS6)
+    url: https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37
+    api_url: https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip
+    category: trade
+    scope: international
+    reliability: independent_academic
+    license: "CEPII: free for research use with citation (Gaulier and Zignago 2010, CEPII Working Paper 2010-23)"
+    access: bulk
+    auth: none
+    update_frequency: annual
+    refresh_schedule: annual
+    coverage_from: 1995
+    coverage_to: 2023
+    language: en
+    status: live
+    verified_on: 2026-10-13
+    verified_method: probe
+    notes: "One 2.3 GB zip of yearly HS6 CSVs (t, i, j, k, v in thousand US$, q in tonnes) plus a country-code file; the runner reads it once, keeps the tracked products and countries and deletes the zip (DECISIONS 89). Values are FOB after CEPII's reconciliation of the exporter's and importer's reports, stored as value_type reconciled beside Comtrade's reported and mirror rows. The directory listing answers 403 by design; the file itself downloads."
   - id: imf_imts
     name: IMF International Merchandise Trade Statistics (IMTS, formerly Direction of Trade Statistics)
     url: https://data.imf.org/en/datasets/IMF.STA:IMTS
