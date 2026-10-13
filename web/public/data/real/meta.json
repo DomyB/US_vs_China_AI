@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-13",
- "generated_at": "2026-10-13T11:07:05+00:00",
+ "generated_at": "2026-10-13T13:08:50+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "arg_clarin",
@@ -78,10 +78,10 @@
    "error": null
   },
   {
-   "source_id": "arg_hcdn",
+   "source_id": "arg_lanacion",
    "status": "ok",
-   "finished_at": "2026-10-11T00:06:06+00:00",
-   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
+   "finished_at": "2026-10-07T11:19:42+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
@@ -92,10 +92,10 @@
    "error": null
   },
   {
-   "source_id": "bra_senado_api",
+   "source_id": "bra_valor",
    "status": "ok",
-   "finished_at": "2026-10-10T23:48:52+00:00",
-   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
+   "finished_at": "2026-10-07T11:20:06+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
@@ -120,59 +120,52 @@
    "error": null
   },
   {
-   "source_id": "ecu_cadastre",
+   "source_id": "ecu_elcomercio",
    "status": "ok",
-   "finished_at": "2026-10-04T12:08:07+00:00",
-   "rows": "{\"concession\": 15447}",
-   "error": null
-  },
-  {
-   "source_id": "federal_register",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:22:16+00:00",
-   "rows": "{\"policy_document\": 480}",
-   "error": null
-  },
-  {
-   "source_id": "idb_dpi",
-   "status": "ok",
-   "finished_at": "2026-10-09T17:06:32+00:00",
-   "rows": "{\"governance\": 1440}",
-   "error": null
-  },
-  {
-   "source_id": "per_congreso_spley",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:09:52+00:00",
-   "rows": "{\"document\": 140}",
-   "error": null
-  },
-  {
-   "source_id": "per_idl_reporteros",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:45+00:00",
+   "finished_at": "2026-10-07T11:21:25+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "pry_silpy",
+   "source_id": "gdelt",
    "status": "ok",
-   "finished_at": "2026-10-11T00:09:04+00:00",
-   "rows": "{\"document\": 4}",
+   "finished_at": "2026-10-10T10:59:36+00:00",
+   "rows": "{\"document\": 39, \"document_new\": 10, \"media_volume\": 183, \"media_volume_new\": 2}",
    "error": null
   },
   {
-   "source_id": "unga_votes",
+   "source_id": "mediacloud",
    "status": "ok",
-   "finished_at": "2026-10-01T21:02:34+00:00",
-   "rows": "{\"governance\": 2409}",
+   "finished_at": "2026-10-11T20:44:31+00:00",
+   "rows": "{\"document\": 11337, \"document_new\": 3416, \"media_volume\": 2412, \"media_volume_new\": 1152, \"headlines_window\": {\"ARG/2010\": {\"from\": \"2010-02-22\", \"to\": \"2010-12-30\", \"kept\": 53, \"matched\": 53, \"truncated\": false}, \"ARG/2011\": {\"from\": \"2011-01-01\", \"to\": \"2011-12-29\", \"kept\": 109, \"matched\": 109, \"truncated\": false}, \"ARG/2012\": {\"from\": \"2012-01-10\", \"to\": \"2012-12-31\", \"kept\": 50, \"matched\": 50, \"truncated\": false}, \"ARG/2013\": {\"from\": \"2013-01-11\", \"to\": \"2013-12-31\", \"kept\": 858, \"matched\": 858, \"truncated\": false}, \"ARG/2014\": {\"from\": \"2014-01-02\", \"to\": \"2014-12-31\", \"kept\": 2000, \"matched\": 2378, \"truncated\": true}, \"ARG/2015\": {\"from\": \"2015-01-06\", \"to\": \"2015-12-31\", \"kept\": 2000, \"matched\": 4882, \"truncated\": true}, \"ARG/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-10-14\", \"kept\": 2000, \"matched\": 9817, \"truncated\": true}, \"ARG/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-24\", \"kept\": 2000, \"matched\": 14138, \"truncated\": true}, \"ARG/2026\": {\"from\": \"2026-06-07\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 169451, \"truncated\": true}, \"BOL/2010\": {\"from\": \"2010-05-10\", \"to\": \"2010-05-10\", \"kept\": 1, \"matched\": 1, \"truncated\": false}, \"BOL/2011\": {\"from\": \"2011-11-05\", \"to\": \"2011-12-07\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"BOL/2012\": {\"from\": \"2012-04-15\", \"to\": \"2012-12-31\", \"kept\": 12, \"matched\": 12, \"truncated\": false}, \"BOL/2013\": {\"from\": \"2013-01-01\", \"to\": \"2013-12-31\", \"kept\": 1139, \"matched\": 1139, \"truncated\": false}, \"BOL/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-30\", \"kept\": 1343, \"matched\": 1343, \"truncated\": false}, \"BOL/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-31\", \"kept\": 869, \"matched\": 869, \"truncated\": false}, \"BOL/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 2000, \"matched\": 2766, \"truncated\": true}, \"BOL/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 4387, \"truncated\": true}, \"BOL/2026\": {\"from\": \"2026-03-22\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 2770, \"truncated\": true}, \"BRA/2010\": {\"from\": \"2010-01-01\", \"to\": \"2010-12-14\", \"kept\": 2000, \"matched\": 2686, \"truncated\": true}, \"BRA/2011\": {\"from\": \"2011-01-01\", \"to\": \"2011-12-26\", \"kept\": 2000, \"matched\": 3345, \"truncated\": true}, \"BRA/2012\": {\"from\": \"2012-01-01\", \"to\": \"2012-12-10\", \"kept\": 2000, \"matched\": 5450, \"truncated\": true}, \"BRA/2013\": {\"from\": \"2013-01-01\", \"to\": \"2013-10-25\", \"kept\": 2000, \"matched\": 12907, \"truncated\": true}, \"BRA/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-05\", \"kept\": 2000, \"matched\": 39642, \"truncated\": true}, \"BRA/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-29\", \"kept\": 2000, \"matched\": 43786, \"truncated\": true}, \"BRA/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-29\", \"kept\": 2000, \"matched\": 55810, \"truncated\": true}, \"BRA/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-10\", \"kept\": 2000, \"matched\": 45811, \"truncated\": true}, \"BRA/2026\": {\"from\": \"2026-02-01\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 66464, \"truncated\": true}, \"CHL/2010\": {\"from\": \"2010-01-12\", \"to\": \"2010-12-19\", \"kept\": 75, \"matched\": 75, \"truncated\": false}, \"CHL/2011\": {\"from\": \"2011-01-05\", \"to\": \"2011-12-28\", \"kept\": 165, \"matched\": 165, \"truncated\": false}, \"CHL/2012\": {\"from\": \"2012-01-04\", \"to\": \"2012-12-31\", \"kept\": 262, \"matched\": 262, \"truncated\": false}, \"CHL/2013\": {\"from\": \"2013-01-02\", \"to\": \"2013-11-24\", \"kept\": 2000, \"matched\": 6640, \"truncated\": true}, \"CHL/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-28\", \"kept\": 2000, \"matched\": 17658, \"truncated\": true}, \"CHL/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-06-24\", \"kept\": 2000, \"matched\": 30466, \"truncated\": true}, \"CHL/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-11-14\", \"kept\": 2000, \"matched\": 27625, \"truncated\": true}, \"CHL/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 18247, \"truncated\": true}, \"CHL/2026\": {\"from\": \"2026-05-11\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 22388, \"truncated\": true}, \"COL/2010\": {\"from\": \"2010-01-05\", \"to\": \"2010-12-20\", \"kept\": 12, \"matched\": 12, \"truncated\": false}, \"COL/2011\": {\"from\": \"2011-01-08\", \"to\": \"2011-11-29\", \"kept\": 50, \"matched\": 50, \"truncated\": false}, \"COL/2012\": {\"from\": \"2012-01-08\", \"to\": \"2012-12-20\", \"kept\": 138, \"matched\": 138, \"truncated\": false}, \"COL/2013\": {\"from\": \"2013-01-02\", \"to\": \"2013-12-31\", \"kept\": 2000, \"matched\": 2922, \"truncated\": true}, \"COL/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-08\", \"kept\": 2000, \"matched\": 2501, \"truncated\": true}, \"COL/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-10\", \"kept\": 2000, \"matched\": 2551, \"truncated\": true}, \"COL/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-01\", \"kept\": 2000, \"matched\": 5194, \"truncated\": true}, \"COL/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 14846, \"truncated\": true}, \"COL/2026\": {\"from\": \"2026-05-10\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 67935, \"truncated\": true}, \"ECU/2010\": {\"from\": \"2010-08-05\", \"to\": \"2010-11-04\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"ECU/2011\": {\"from\": \"2011-02-09\", \"to\": \"2011-12-08\", \"kept\": 5, \"matched\": 5, \"truncated\": false}, \"ECU/2012\": {\"from\": \"2012-02-05\", \"to\": \"2012-12-31\", \"kept\": 175, \"matched\": 175, \"truncated\": false}, \"ECU/2013\": {\"from\": \"2013-01-01\", \"to\": \"2013-09-02\", \"kept\": 2000, \"matched\": 6708, \"truncated\": true}, \"ECU/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-11\", \"kept\": 2000, \"matched\": 8762, \"truncated\": true}, \"ECU/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-21\", \"kept\": 2000, \"matched\": 13124, \"truncated\": true}, \"ECU/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-28\", \"kept\": 2000, \"matched\": 8587, \"truncated\": true}, \"ECU/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-11\", \"kept\": 2000, \"matched\": 8653, \"truncated\": true}, \"ECU/2026\": {\"from\": \"2026-09-15\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 18060, \"truncated\": true}, \"GUY/2010\": {\"from\": \"2010-02-20\", \"to\": \"2010-02-20\", \"kept\": 1, \"matched\": 1, \"truncated\": false}, \"GUY/2011\": {\"from\": \"2011-02-11\", \"to\": \"2011-10-26\", \"kept\": 2, \"matched\": 2, \"truncated\": false}, \"GUY/2012\": {\"from\": \"2012-01-30\", \"to\": \"2012-11-01\", \"kept\": 4, \"matched\": 4, \"truncated\": false}, \"GUY/2013\": {\"from\": \"2013-03-15\", \"to\": \"2013-12-31\", \"kept\": 151, \"matched\": 151, \"truncated\": false}, \"GUY/2014\": {\"from\": \"2014-01-02\", \"to\": \"2014-12-28\", \"kept\": 372, \"matched\": 372, \"truncated\": false}, \"GUY/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-30\", \"kept\": 419, \"matched\": 419, \"truncated\": false}, \"GUY/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 1818, \"matched\": 1818, \"truncated\": false}, \"GUY/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-02\", \"kept\": 2000, \"matched\": 3354, \"truncated\": true}, \"GUY/2026\": {\"from\": \"2026-03-29\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 3276, \"truncated\": true}, \"PER/2010\": {\"from\": \"2010-03-10\", \"to\": \"2010-11-06\", \"kept\": 18, \"matched\": 18, \"truncated\": false}, \"PER/2011\": {\"from\": \"2011-01-11\", \"to\": \"2011-12-23\", \"kept\": 24, \"matched\": 24, \"truncated\": false}, \"PER/2012\": {\"from\": \"2012-02-22\", \"to\": \"2012-12-26\", \"kept\": 19, \"matched\": 19, \"truncated\": false}, \"PER/2013\": {\"from\": \"2013-03-04\", \"to\": \"2013-09-02\", \"kept\": 2000, \"matched\": 6347, \"truncated\": true}, \"PER/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-09\", \"kept\": 2000, \"matched\": 12015, \"truncated\": true}, \"PER/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-07-02\", \"kept\": 2000, \"matched\": 16799, \"truncated\": true}, \"PER/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-10-14\", \"kept\": 2000, \"matched\": 13363, \"truncated\": true}, \"PER/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 21483, \"truncated\": true}, \"PER/2026\": {\"from\": \"2026-03-19\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 21746, \"truncated\": true}, \"PRY/2010\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"PRY/2011\": {\"from\": \"2011-02-20\", \"to\": \"2011-12-24\", \"kept\": 2, \"matched\": 2, \"truncated\": false}, \"PRY/2012\": {\"from\": \"2012-04-07\", \"to\": \"2012-12-23\", \"kept\": 53, \"matched\": 53, \"truncated\": false}, \"PRY/2013\": {\"from\": \"2013-01-09\", \"to\": \"2013-12-31\", \"kept\": 1241, \"matched\": 1241, \"truncated\": false}, \"PRY/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-31\", \"kept\": 1738, \"matched\": 1738, \"truncated\": false}, \"PRY/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-31\", \"kept\": 1236, \"matched\": 1236, \"truncated\": false}, \"PRY/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 1839, \"matched\": 1839, \"truncated\": false}, \"PRY/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-31\", \"kept\": 1557, \"matched\": 1557, \"truncated\": false}, \"PRY/2026\": {\"from\": \"2026-08-14\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 8973, \"truncated\": true}, \"SUR/2010\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2011\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2012\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2013\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2014\": {\"from\": \"2014-07-08\", \"to\": \"2014-12-31\", \"kept\": 97, \"matched\": 97, \"truncated\": false}, \"SUR/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-20\", \"kept\": 143, \"matched\": 143, \"truncated\": false}, \"SUR/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-30\", \"kept\": 182, \"matched\": 182, \"truncated\": false}, \"SUR/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-29\", \"kept\": 689, \"matched\": 689, \"truncated\": false}, \"SUR/2026\": {\"from\": \"2026-01-01\", \"to\": \"2026-10-11\", \"kept\": 1700, \"matched\": 1700, \"truncated\": false}, \"URY/2010\": {\"from\": \"2010-01-02\", \"to\": \"2010-10-06\", \"kept\": 21, \"matched\": 21, \"truncated\": false}, \"URY/2011\": {\"from\": \"2011-01-06\", \"to\": \"2011-12-08\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"URY/2012\": {\"from\": \"2012-02-02\", \"to\": \"2012-12-21\", \"kept\": 17, \"matched\": 17, \"truncated\": false}, \"URY/2013\": {\"from\": \"2013-01-02\", \"to\": \"2013-12-31\", \"kept\": 1219, \"matched\": 1219, \"truncated\": false}, \"URY/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-23\", \"kept\": 2000, \"matched\": 2353, \"truncated\": true}, \"URY/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-09-21\", \"kept\": 2000, \"matched\": 2936, \"truncated\": true}, \"URY/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-10-14\", \"kept\": 2000, \"matched\": 3020, \"truncated\": true}, \"URY/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 4082, \"truncated\": true}, \"URY/2026\": {\"from\": \"2026-07-03\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 5207, \"truncated\": true}, \"VEN/2010\": {\"from\": \"2010-01-10\", \"to\": \"2010-09-10\", \"kept\": 22, \"matched\": 22, \"truncated\": false}, \"VEN/2011\": {\"from\": \"2011-02-21\", \"to\": \"2011-09-30\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"VEN/2012\": {\"from\": \"2012-01-10\", \"to\": \"2012-12-20\", \"kept\": 9, \"matched\": 9, \"truncated\": false}, \"VEN/2013\": {\"from\": \"2013-01-27\", \"to\": \"2013-12-26\", \"kept\": 113, \"matched\": 113, \"truncated\": false}, \"VEN/2014\": {\"from\": \"2014-01-06\", \"to\": \"2014-12-28\", \"kept\": 630, \"matched\": 630, \"truncated\": false}, \"VEN/2015\": {\"from\": \"2015-01-11\", \"to\": \"2015-09-17\", \"kept\": 2000, \"matched\": 4664, \"truncated\": true}, \"VEN/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 2000, \"matched\": 3711, \"truncated\": true}, \"VEN/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-02\", \"kept\": 2000, \"matched\": 11805, \"truncated\": true}, \"VEN/2026\": {\"from\": \"2026-04-21\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 16647, \"truncated\": true}}}",
    "error": null
   },
   {
-   "source_id": "us_census_trade",
+   "source_id": "per_gestion",
    "status": "ok",
-   "finished_at": "2026-10-13T10:52:04+00:00",
-   "rows": "{\"trade_flow\": 9306}",
+   "finished_at": "2026-10-07T11:21:39+00:00",
+   "rows": "{\"document\": 5, \"document_new\": 2, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "per_ojopublico",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:25+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "sur_dwt",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:47+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "ury_ladiaria",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:23:21+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
    "error": null
   },
   {
@@ -204,24 +197,24 @@
    "error": null
   },
   {
-   "source_id": "bra_valor",
+   "source_id": "bra_senado_api",
    "status": "ok",
-   "finished_at": "2026-10-07T11:20:06+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-10T23:48:52+00:00",
+   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
    "error": null
   },
   {
-   "source_id": "chl_elmercurio",
+   "source_id": "chl_elmostrador",
    "status": "failed",
-   "finished_at": "2026-10-07T11:20:36+00:00",
+   "finished_at": "2026-10-07T11:21:07+00:00",
    "rows": "{}",
-   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+   "error": "RuntimeError: chl_elmostrador: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
   },
   {
-   "source_id": "col_anm_anna",
+   "source_id": "col_camara",
    "status": "ok",
-   "finished_at": "2026-10-04T12:07:48+00:00",
-   "rows": "{\"concession\": 0}",
+   "finished_at": "2026-10-11T00:08:46+00:00",
+   "rows": "{\"document\": 69}",
    "error": null
   },
   {
@@ -232,10 +225,10 @@
    "error": null
   },
   {
-   "source_id": "exim_authorizations",
+   "source_id": "ecu_eluniverso",
    "status": "ok",
-   "finished_at": "2026-10-09T16:47:14+00:00",
-   "rows": "{\"finance_event\": 2396}",
+   "finished_at": "2026-10-07T11:21:36+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
@@ -246,38 +239,38 @@
    "error": null
   },
   {
-   "source_id": "mediacloud",
+   "source_id": "per_bcrp_api",
+   "status": "failed",
+   "finished_at": "2026-10-04T12:08:27+00:00",
+   "rows": "{}",
+   "error": "IndexError: index out of bounds"
+  },
+  {
+   "source_id": "per_idl_reporteros",
    "status": "ok",
-   "finished_at": "2026-10-11T20:44:31+00:00",
-   "rows": "{\"document\": 11337, \"document_new\": 3416, \"media_volume\": 2412, \"media_volume_new\": 1152, \"headlines_window\": {\"ARG/2010\": {\"from\": \"2010-02-22\", \"to\": \"2010-12-30\", \"kept\": 53, \"matched\": 53, \"truncated\": false}, \"ARG/2011\": {\"from\": \"2011-01-01\", \"to\": \"2011-12-29\", \"kept\": 109, \"matched\": 109, \"truncated\": false}, \"ARG/2012\": {\"from\": \"2012-01-10\", \"to\": \"2012-12-31\", \"kept\": 50, \"matched\": 50, \"truncated\": false}, \"ARG/2013\": {\"from\": \"2013-01-11\", \"to\": \"2013-12-31\", \"kept\": 858, \"matched\": 858, \"truncated\": false}, \"ARG/2014\": {\"from\": \"2014-01-02\", \"to\": \"2014-12-31\", \"kept\": 2000, \"matched\": 2378, \"truncated\": true}, \"ARG/2015\": {\"from\": \"2015-01-06\", \"to\": \"2015-12-31\", \"kept\": 2000, \"matched\": 4882, \"truncated\": true}, \"ARG/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-10-14\", \"kept\": 2000, \"matched\": 9817, \"truncated\": true}, \"ARG/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-24\", \"kept\": 2000, \"matched\": 14138, \"truncated\": true}, \"ARG/2026\": {\"from\": \"2026-06-07\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 169451, \"truncated\": true}, \"BOL/2010\": {\"from\": \"2010-05-10\", \"to\": \"2010-05-10\", \"kept\": 1, \"matched\": 1, \"truncated\": false}, \"BOL/2011\": {\"from\": \"2011-11-05\", \"to\": \"2011-12-07\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"BOL/2012\": {\"from\": \"2012-04-15\", \"to\": \"2012-12-31\", \"kept\": 12, \"matched\": 12, \"truncated\": false}, \"BOL/2013\": {\"from\": \"2013-01-01\", \"to\": \"2013-12-31\", \"kept\": 1139, \"matched\": 1139, \"truncated\": false}, \"BOL/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-30\", \"kept\": 1343, \"matched\": 1343, \"truncated\": false}, \"BOL/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-31\", \"kept\": 869, \"matched\": 869, \"truncated\": false}, \"BOL/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 2000, \"matched\": 2766, \"truncated\": true}, \"BOL/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 4387, \"truncated\": true}, \"BOL/2026\": {\"from\": \"2026-03-22\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 2770, \"truncated\": true}, \"BRA/2010\": {\"from\": \"2010-01-01\", \"to\": \"2010-12-14\", \"kept\": 2000, \"matched\": 2686, \"truncated\": true}, \"BRA/2011\": {\"from\": \"2011-01-01\", \"to\": \"2011-12-26\", \"kept\": 2000, \"matched\": 3345, \"truncated\": true}, \"BRA/2012\": {\"from\": \"2012-01-01\", \"to\": \"2012-12-10\", \"kept\": 2000, \"matched\": 5450, \"truncated\": true}, \"BRA/2013\": {\"from\": \"2013-01-01\", \"to\": \"2013-10-25\", \"kept\": 2000, \"matched\": 12907, \"truncated\": true}, \"BRA/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-05\", \"kept\": 2000, \"matched\": 39642, \"truncated\": true}, \"BRA/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-29\", \"kept\": 2000, \"matched\": 43786, \"truncated\": true}, \"BRA/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-29\", \"kept\": 2000, \"matched\": 55810, \"truncated\": true}, \"BRA/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-10\", \"kept\": 2000, \"matched\": 45811, \"truncated\": true}, \"BRA/2026\": {\"from\": \"2026-02-01\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 66464, \"truncated\": true}, \"CHL/2010\": {\"from\": \"2010-01-12\", \"to\": \"2010-12-19\", \"kept\": 75, \"matched\": 75, \"truncated\": false}, \"CHL/2011\": {\"from\": \"2011-01-05\", \"to\": \"2011-12-28\", \"kept\": 165, \"matched\": 165, \"truncated\": false}, \"CHL/2012\": {\"from\": \"2012-01-04\", \"to\": \"2012-12-31\", \"kept\": 262, \"matched\": 262, \"truncated\": false}, \"CHL/2013\": {\"from\": \"2013-01-02\", \"to\": \"2013-11-24\", \"kept\": 2000, \"matched\": 6640, \"truncated\": true}, \"CHL/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-28\", \"kept\": 2000, \"matched\": 17658, \"truncated\": true}, \"CHL/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-06-24\", \"kept\": 2000, \"matched\": 30466, \"truncated\": true}, \"CHL/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-11-14\", \"kept\": 2000, \"matched\": 27625, \"truncated\": true}, \"CHL/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 18247, \"truncated\": true}, \"CHL/2026\": {\"from\": \"2026-05-11\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 22388, \"truncated\": true}, \"COL/2010\": {\"from\": \"2010-01-05\", \"to\": \"2010-12-20\", \"kept\": 12, \"matched\": 12, \"truncated\": false}, \"COL/2011\": {\"from\": \"2011-01-08\", \"to\": \"2011-11-29\", \"kept\": 50, \"matched\": 50, \"truncated\": false}, \"COL/2012\": {\"from\": \"2012-01-08\", \"to\": \"2012-12-20\", \"kept\": 138, \"matched\": 138, \"truncated\": false}, \"COL/2013\": {\"from\": \"2013-01-02\", \"to\": \"2013-12-31\", \"kept\": 2000, \"matched\": 2922, \"truncated\": true}, \"COL/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-08\", \"kept\": 2000, \"matched\": 2501, \"truncated\": true}, \"COL/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-10\", \"kept\": 2000, \"matched\": 2551, \"truncated\": true}, \"COL/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-01\", \"kept\": 2000, \"matched\": 5194, \"truncated\": true}, \"COL/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 14846, \"truncated\": true}, \"COL/2026\": {\"from\": \"2026-05-10\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 67935, \"truncated\": true}, \"ECU/2010\": {\"from\": \"2010-08-05\", \"to\": \"2010-11-04\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"ECU/2011\": {\"from\": \"2011-02-09\", \"to\": \"2011-12-08\", \"kept\": 5, \"matched\": 5, \"truncated\": false}, \"ECU/2012\": {\"from\": \"2012-02-05\", \"to\": \"2012-12-31\", \"kept\": 175, \"matched\": 175, \"truncated\": false}, \"ECU/2013\": {\"from\": \"2013-01-01\", \"to\": \"2013-09-02\", \"kept\": 2000, \"matched\": 6708, \"truncated\": true}, \"ECU/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-11\", \"kept\": 2000, \"matched\": 8762, \"truncated\": true}, \"ECU/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-21\", \"kept\": 2000, \"matched\": 13124, \"truncated\": true}, \"ECU/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-28\", \"kept\": 2000, \"matched\": 8587, \"truncated\": true}, \"ECU/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-11\", \"kept\": 2000, \"matched\": 8653, \"truncated\": true}, \"ECU/2026\": {\"from\": \"2026-09-15\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 18060, \"truncated\": true}, \"GUY/2010\": {\"from\": \"2010-02-20\", \"to\": \"2010-02-20\", \"kept\": 1, \"matched\": 1, \"truncated\": false}, \"GUY/2011\": {\"from\": \"2011-02-11\", \"to\": \"2011-10-26\", \"kept\": 2, \"matched\": 2, \"truncated\": false}, \"GUY/2012\": {\"from\": \"2012-01-30\", \"to\": \"2012-11-01\", \"kept\": 4, \"matched\": 4, \"truncated\": false}, \"GUY/2013\": {\"from\": \"2013-03-15\", \"to\": \"2013-12-31\", \"kept\": 151, \"matched\": 151, \"truncated\": false}, \"GUY/2014\": {\"from\": \"2014-01-02\", \"to\": \"2014-12-28\", \"kept\": 372, \"matched\": 372, \"truncated\": false}, \"GUY/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-30\", \"kept\": 419, \"matched\": 419, \"truncated\": false}, \"GUY/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 1818, \"matched\": 1818, \"truncated\": false}, \"GUY/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-02\", \"kept\": 2000, \"matched\": 3354, \"truncated\": true}, \"GUY/2026\": {\"from\": \"2026-03-29\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 3276, \"truncated\": true}, \"PER/2010\": {\"from\": \"2010-03-10\", \"to\": \"2010-11-06\", \"kept\": 18, \"matched\": 18, \"truncated\": false}, \"PER/2011\": {\"from\": \"2011-01-11\", \"to\": \"2011-12-23\", \"kept\": 24, \"matched\": 24, \"truncated\": false}, \"PER/2012\": {\"from\": \"2012-02-22\", \"to\": \"2012-12-26\", \"kept\": 19, \"matched\": 19, \"truncated\": false}, \"PER/2013\": {\"from\": \"2013-03-04\", \"to\": \"2013-09-02\", \"kept\": 2000, \"matched\": 6347, \"truncated\": true}, \"PER/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-09\", \"kept\": 2000, \"matched\": 12015, \"truncated\": true}, \"PER/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-07-02\", \"kept\": 2000, \"matched\": 16799, \"truncated\": true}, \"PER/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-10-14\", \"kept\": 2000, \"matched\": 13363, \"truncated\": true}, \"PER/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 21483, \"truncated\": true}, \"PER/2026\": {\"from\": \"2026-03-19\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 21746, \"truncated\": true}, \"PRY/2010\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"PRY/2011\": {\"from\": \"2011-02-20\", \"to\": \"2011-12-24\", \"kept\": 2, \"matched\": 2, \"truncated\": false}, \"PRY/2012\": {\"from\": \"2012-04-07\", \"to\": \"2012-12-23\", \"kept\": 53, \"matched\": 53, \"truncated\": false}, \"PRY/2013\": {\"from\": \"2013-01-09\", \"to\": \"2013-12-31\", \"kept\": 1241, \"matched\": 1241, \"truncated\": false}, \"PRY/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-12-31\", \"kept\": 1738, \"matched\": 1738, \"truncated\": false}, \"PRY/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-31\", \"kept\": 1236, \"matched\": 1236, \"truncated\": false}, \"PRY/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 1839, \"matched\": 1839, \"truncated\": false}, \"PRY/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-31\", \"kept\": 1557, \"matched\": 1557, \"truncated\": false}, \"PRY/2026\": {\"from\": \"2026-08-14\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 8973, \"truncated\": true}, \"SUR/2010\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2011\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2012\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2013\": {\"from\": null, \"to\": null, \"kept\": 0, \"matched\": 0, \"truncated\": false}, \"SUR/2014\": {\"from\": \"2014-07-08\", \"to\": \"2014-12-31\", \"kept\": 97, \"matched\": 97, \"truncated\": false}, \"SUR/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-12-20\", \"kept\": 143, \"matched\": 143, \"truncated\": false}, \"SUR/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-30\", \"kept\": 182, \"matched\": 182, \"truncated\": false}, \"SUR/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-29\", \"kept\": 689, \"matched\": 689, \"truncated\": false}, \"SUR/2026\": {\"from\": \"2026-01-01\", \"to\": \"2026-10-11\", \"kept\": 1700, \"matched\": 1700, \"truncated\": false}, \"URY/2010\": {\"from\": \"2010-01-02\", \"to\": \"2010-10-06\", \"kept\": 21, \"matched\": 21, \"truncated\": false}, \"URY/2011\": {\"from\": \"2011-01-06\", \"to\": \"2011-12-08\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"URY/2012\": {\"from\": \"2012-02-02\", \"to\": \"2012-12-21\", \"kept\": 17, \"matched\": 17, \"truncated\": false}, \"URY/2013\": {\"from\": \"2013-01-02\", \"to\": \"2013-12-31\", \"kept\": 1219, \"matched\": 1219, \"truncated\": false}, \"URY/2014\": {\"from\": \"2014-01-01\", \"to\": \"2014-11-23\", \"kept\": 2000, \"matched\": 2353, \"truncated\": true}, \"URY/2015\": {\"from\": \"2015-01-01\", \"to\": \"2015-09-21\", \"kept\": 2000, \"matched\": 2936, \"truncated\": true}, \"URY/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-10-14\", \"kept\": 2000, \"matched\": 3020, \"truncated\": true}, \"URY/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-01\", \"kept\": 2000, \"matched\": 4082, \"truncated\": true}, \"URY/2026\": {\"from\": \"2026-07-03\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 5207, \"truncated\": true}, \"VEN/2010\": {\"from\": \"2010-01-10\", \"to\": \"2010-09-10\", \"kept\": 22, \"matched\": 22, \"truncated\": false}, \"VEN/2011\": {\"from\": \"2011-02-21\", \"to\": \"2011-09-30\", \"kept\": 3, \"matched\": 3, \"truncated\": false}, \"VEN/2012\": {\"from\": \"2012-01-10\", \"to\": \"2012-12-20\", \"kept\": 9, \"matched\": 9, \"truncated\": false}, \"VEN/2013\": {\"from\": \"2013-01-27\", \"to\": \"2013-12-26\", \"kept\": 113, \"matched\": 113, \"truncated\": false}, \"VEN/2014\": {\"from\": \"2014-01-06\", \"to\": \"2014-12-28\", \"kept\": 630, \"matched\": 630, \"truncated\": false}, \"VEN/2015\": {\"from\": \"2015-01-11\", \"to\": \"2015-09-17\", \"kept\": 2000, \"matched\": 4664, \"truncated\": true}, \"VEN/2016\": {\"from\": \"2016-01-01\", \"to\": \"2016-12-31\", \"kept\": 2000, \"matched\": 3711, \"truncated\": true}, \"VEN/2017\": {\"from\": \"2017-01-01\", \"to\": \"2017-12-02\", \"kept\": 2000, \"matched\": 11805, \"truncated\": true}, \"VEN/2026\": {\"from\": \"2026-04-21\", \"to\": \"2026-10-11\", \"kept\": 2000, \"matched\": 16647, \"truncated\": true}}}",
+   "finished_at": "2026-10-07T11:21:45+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "per_gestion",
+   "source_id": "pry_silpy",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:39+00:00",
-   "rows": "{\"document\": 5, \"document_new\": 2, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-11T00:09:04+00:00",
+   "rows": "{\"document\": 4}",
    "error": null
   },
   {
-   "source_id": "pry_abc",
+   "source_id": "unga_votes",
    "status": "ok",
-   "finished_at": "2026-10-07T11:22:46+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-01T21:02:34+00:00",
+   "rows": "{\"governance\": 2409}",
    "error": null
   },
   {
-   "source_id": "un_comtrade",
+   "source_id": "us_census_trade",
    "status": "ok",
-   "finished_at": "2026-10-11T12:53:20+00:00",
-   "rows": "{\"trade_flow\": 29828}",
-   "error": null
-  },
-  {
-   "source_id": "ury_parlamento",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:08:39+00:00",
-   "rows": "{\"document\": 1}",
+   "finished_at": "2026-10-13T10:52:04+00:00",
+   "rows": "{\"trade_flow\": 9306}",
    "error": null
   },
   {
@@ -344,10 +337,10 @@
    "error": null
   },
   {
-   "source_id": "ecu_eluniverso",
+   "source_id": "exim_authorizations",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:36+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-09T16:47:14+00:00",
+   "rows": "{\"finance_event\": 2396}",
    "error": null
   },
   {
@@ -365,24 +358,24 @@
    "error": null
   },
   {
-   "source_id": "per_ojopublico",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:25+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "sur_dwt",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:47+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "ury_ladiaria",
+   "source_id": "pry_abc",
    "status": "ok",
-   "finished_at": "2026-10-07T11:23:21+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-07T11:22:46+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "un_comtrade",
+   "status": "ok",
+   "finished_at": "2026-10-11T12:53:20+00:00",
+   "rows": "{\"trade_flow\": 29828}",
+   "error": null
+  },
+  {
+   "source_id": "ury_parlamento",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:08:39+00:00",
+   "rows": "{\"document\": 1}",
    "error": null
   },
   {
@@ -407,10 +400,10 @@
    "error": null
   },
   {
-   "source_id": "arg_lanacion",
+   "source_id": "arg_hcdn",
    "status": "ok",
-   "finished_at": "2026-10-07T11:19:42+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-11T00:06:06+00:00",
+   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
    "error": null
   },
   {
@@ -435,17 +428,17 @@
    "error": null
   },
   {
-   "source_id": "chl_elmostrador",
+   "source_id": "chl_elmercurio",
    "status": "failed",
-   "finished_at": "2026-10-07T11:21:07+00:00",
+   "finished_at": "2026-10-07T11:20:36+00:00",
    "rows": "{}",
-   "error": "RuntimeError: chl_elmostrador: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
   },
   {
-   "source_id": "col_camara",
+   "source_id": "col_anm_anna",
    "status": "ok",
-   "finished_at": "2026-10-11T00:08:46+00:00",
-   "rows": "{\"document\": 69}",
+   "finished_at": "2026-10-04T12:07:48+00:00",
+   "rows": "{\"concession\": 0}",
    "error": null
   },
   {
@@ -456,25 +449,32 @@
    "error": null
   },
   {
-   "source_id": "ecu_elcomercio",
+   "source_id": "ecu_cadastre",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:25+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-04T12:08:07+00:00",
+   "rows": "{\"concession\": 15447}",
    "error": null
   },
   {
-   "source_id": "gdelt",
+   "source_id": "federal_register",
    "status": "ok",
-   "finished_at": "2026-10-10T10:59:36+00:00",
-   "rows": "{\"document\": 39, \"document_new\": 10, \"media_volume\": 183, \"media_volume_new\": 2}",
+   "finished_at": "2026-10-10T23:22:16+00:00",
+   "rows": "{\"policy_document\": 480}",
    "error": null
   },
   {
-   "source_id": "per_bcrp_api",
-   "status": "failed",
-   "finished_at": "2026-10-04T12:08:27+00:00",
-   "rows": "{}",
-   "error": "IndexError: index out of bounds"
+   "source_id": "idb_dpi",
+   "status": "ok",
+   "finished_at": "2026-10-09T17:06:32+00:00",
+   "rows": "{\"governance\": 1440}",
+   "error": null
+  },
+  {
+   "source_id": "per_congreso_spley",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:09:52+00:00",
+   "rows": "{\"document\": 140}",
+   "error": null
   },
   {
    "source_id": "per_larepublica",
@@ -526,18 +526,18 @@
   "concession": 15447,
   "media_volume": 2663,
   "statement": 417,
-  "doc_translation": 5472,
-  "doc_classification": 5478,
-  "doc_embedding": 5478,
+  "doc_translation": 13680,
+  "doc_classification": 17434,
+  "doc_embedding": 17434,
   "topic_model_run": 2,
-  "topic": 12,
-  "doc_topic": 5450,
+  "topic": 18,
+  "doc_topic": 16795,
   "validation_sample": 300,
   "concentration": 41894,
   "index_value": 14938,
   "index_component": 30384,
-  "say_do_gap": 35,
-  "anomaly_flag": 110,
+  "say_do_gap": 45,
+  "anomaly_flag": 109,
   "network_metric": 2303,
   "network_edge": 2437,
   "event_effect": 316,
@@ -575,18 +575,18 @@
   "beats_baseline": null,
   "n_coded": 0,
   "n_total": 16795,
-  "n_classified": 5478,
+  "n_classified": 17434,
   "label": "zero-shot baseline, not yet validated"
  },
  "quant_model": {
   "status": "computed",
   "method_version": "2026.10.2",
   "weights_version": "2026.10.eq",
-  "run_id": "quant-20261013T110508Z",
-  "inputs_release": "data-v2026.10.13.67",
-  "created_at": "2026-10-13T11:06:52+00:00",
+  "run_id": "quant-20261013T130645Z",
+  "inputs_release": "data-v2026.10.13.68",
+  "created_at": "2026-10-13T13:08:30+00:00",
   "draws": 500,
-  "rank_stability": 0.605,
+  "rank_stability": 0.606,
   "text_model_label": "zero-shot baseline, not yet validated",
   "last_year": {
    "trade": 2025,
@@ -620,14 +620,14 @@
       "SUR",
       "URY"
      ],
-     "model": "naive",
-     "label": "naive persistence (last value; bootstrapped yearly changes)",
-     "crps": 5.5266,
-     "crps_naive": 5.5266,
-     "crps_ratio": 1.0,
-     "beats_naive": false,
-     "coverage_80": 0.72,
-     "coverage_95": 0.847,
+     "model": "damped_trend",
+     "label": "damped local linear trend (Kalman filter, maximum likelihood)",
+     "crps": 5.3779,
+     "crps_naive": 5.4617,
+     "crps_ratio": 0.985,
+     "beats_naive": true,
+     "coverage_80": 0.689,
+     "coverage_95": 0.843,
      "n_tests": 528,
      "origins": "2007–2023",
      "windows": {
@@ -740,12 +740,12 @@
      ],
      "model": "damped_trend",
      "label": "damped local linear trend (Kalman filter, maximum likelihood)",
-     "crps": 3.8375,
-     "crps_naive": 3.8724,
-     "crps_ratio": 0.991,
+     "crps": 3.8155,
+     "crps_naive": 3.8761,
+     "crps_ratio": 0.984,
      "beats_naive": true,
-     "coverage_80": 0.636,
-     "coverage_95": 0.777,
+     "coverage_80": 0.65,
+     "coverage_95": 0.79,
      "n_tests": 528,
      "origins": "2007–2023",
      "windows": {
@@ -854,12 +854,12 @@
      ],
      "model": "naive",
      "label": "naive persistence (last value; bootstrapped yearly changes)",
-     "crps": 0.0573,
-     "crps_naive": 0.0573,
+     "crps": 0.0571,
+     "crps_naive": 0.0571,
      "crps_ratio": 1.0,
      "beats_naive": false,
      "coverage_80": 0.845,
-     "coverage_95": 0.938,
+     "coverage_95": 0.932,
      "n_tests": 354,
      "origins": "2007–2024",
      "windows": {
@@ -940,12 +940,12 @@
      ],
      "model": "pooled_drift",
      "label": "random walk with drift partially pooled across countries (empirical Bayes)",
-     "crps": 0.0378,
-     "crps_naive": 0.0421,
-     "crps_ratio": 0.897,
+     "crps": 0.0381,
+     "crps_naive": 0.0419,
+     "crps_ratio": 0.909,
      "beats_naive": true,
      "coverage_80": 0.685,
-     "coverage_95": 0.832,
+     "coverage_95": 0.835,
      "n_tests": 279,
      "origins": "2007–2024",
      "windows": {
@@ -1132,16 +1132,16 @@
    ],
    "media_history_from": "2010-01",
    "concessions": 0,
-   "parliament_classified": 1224,
-   "parliament_translated": 1224,
-   "media_classified": 7,
-   "narratives_available": false,
+   "parliament_classified": 1227,
+   "parliament_translated": 1227,
+   "media_classified": 554,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
     2024
    ],
-   "flags": 14,
+   "flags": 13,
    "forecast_available": true,
    "interpretation_available": true,
    "human_interpretation": true,
@@ -1227,8 +1227,8 @@
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
-   "media_classified": 0,
-   "narratives_available": false,
+   "media_classified": 1250,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1321,10 +1321,10 @@
    ],
    "media_history_from": "2010-01",
    "concessions": 0,
-   "parliament_classified": 3217,
-   "parliament_translated": 3217,
-   "media_classified": 4,
-   "narratives_available": false,
+   "parliament_classified": 3783,
+   "parliament_translated": 3783,
+   "media_classified": 1200,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1415,10 +1415,10 @@
    ],
    "media_history_from": "2010-01",
    "concessions": 0,
-   "parliament_classified": 165,
-   "parliament_translated": 165,
-   "media_classified": 4,
-   "narratives_available": false,
+   "parliament_classified": 199,
+   "parliament_translated": 199,
+   "media_classified": 2346,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1511,8 +1511,8 @@
    "concessions": 0,
    "parliament_classified": 69,
    "parliament_translated": 69,
-   "media_classified": 0,
-   "narratives_available": false,
+   "media_classified": 492,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1605,8 +1605,8 @@
    "concessions": 15447,
    "parliament_classified": 0,
    "parliament_translated": 0,
-   "media_classified": 0,
-   "narratives_available": false,
+   "media_classified": 211,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1697,8 +1697,8 @@
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
-   "media_classified": 0,
-   "narratives_available": false,
+   "media_classified": 2873,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1777,10 +1777,10 @@
    ],
    "media_history_from": "2010-01",
    "concessions": 0,
-   "parliament_classified": 2,
-   "parliament_translated": 2,
-   "media_classified": 1,
-   "narratives_available": false,
+   "parliament_classified": 4,
+   "parliament_translated": 4,
+   "media_classified": 223,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1874,8 +1874,8 @@
    "concessions": 0,
    "parliament_classified": 140,
    "parliament_translated": 140,
-   "media_classified": 6,
-   "narratives_available": false,
+   "media_classified": 691,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -1963,8 +1963,8 @@
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
-   "media_classified": 0,
-   "narratives_available": false,
+   "media_classified": 888,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -2055,10 +2055,10 @@
    ],
    "media_history_from": "2010-01",
    "concessions": 0,
-   "parliament_classified": 0,
-   "parliament_translated": 0,
-   "media_classified": 0,
-   "narratives_available": false,
+   "parliament_classified": 1,
+   "parliament_translated": 1,
+   "media_classified": 290,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
@@ -2136,8 +2136,8 @@
    "concessions": 0,
    "parliament_classified": 0,
    "parliament_translated": 0,
-   "media_classified": 0,
-   "narratives_available": false,
+   "media_classified": 354,
+   "narratives_available": true,
    "analysis_available": true,
    "analysis_years": [
     2000,
