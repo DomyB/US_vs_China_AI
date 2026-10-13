@@ -14,14 +14,17 @@ export interface Researcher {
   name: string | null;
   contribution: string | null;
 }
-/** five researchers; a null name prints as "name to be added" */
+/** the team, as the owner named it on 13 October 2026 (a sixth member is still to be confirmed); contributions are the owner's to fill in */
 export const TEAM: Researcher[] = [
-  { name: null, contribution: null },
-  { name: null, contribution: null },
-  { name: null, contribution: null },
-  { name: null, contribution: null },
+  { name: "Domenico Bencivenga", contribution: null },
+  { name: "Mateo Wilde Maldonado", contribution: null },
+  { name: "Nicolas Martinez Patiño", contribution: null },
+  { name: "Dieu-Linh Phan", contribution: null },
+  { name: "Paolo Maselli Zepeda", contribution: null },
   { name: null, contribution: null },
 ];
+/** the citation's author list: the named members in the cover's order */
+export const TEAM_CITATION = TEAM.filter((r) => r.name).map((r) => r.name).join(", ");
 /** the companion projects the events, commitments, pressure cases, official finance and statements come from; named by the owner */
 export const COMPANION_PROJECTS: { name: string | null; what: string }[] = [
   { name: "Denial without Substitution (Investigating with AI, Sciences Po, 2026)", what: "events, commitments and pressure cases" },
