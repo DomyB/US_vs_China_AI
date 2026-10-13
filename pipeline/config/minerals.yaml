@@ -19,6 +19,9 @@ minerals:
     on_cn_list: true
     in_region: [ARG, BOL, CHL, BRA, PER]
     note: "Lithium Triangle (ARG, BOL, CHL); Brazil hard-rock (Minas Gerais); Peru (Falchani) exploration."
+    uses: "Rechargeable lithium-ion batteries for electric vehicles and grid storage are the dominant use; ceramics and glass, lubricating greases and pharmaceuticals are the older ones."
+    why_it_matters: "The battery supply chain runs through lithium carbonate and hydroxide, and the brine deposits of the Lithium Triangle (Argentina, Bolivia, Chile) hold the largest share of known resources; refining capacity is concentrated in China, so who buys the carbonate shapes who makes the batteries."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: copper
     name: Copper
     core: true
@@ -26,6 +29,9 @@ minerals:
     on_cn_list: true
     in_region: [CHL, PER, ECU, ARG, BRA, COL, BOL]
     note: "Chile and Peru are the world's two largest producers (USGS MCS 2026)."
+    uses: "Electrical wiring and electronics, construction, industrial machinery and transport; an electric vehicle and a wind turbine use several times the copper of their conventional equivalents."
+    why_it_matters: "Chile and Peru are the two largest producers in the world and most of their concentrate is smelted abroad, above all in China; copper is the largest mineral flow by value in the region and the one the energy transition is expected to tighten first."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: rare_earths
     name: Rare earth elements
     core: true
@@ -33,6 +39,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA, CHL, ARG, PRY]
     note: "Brazil ionic-clay projects (Goiás, Minas Gerais); Paraguay prospecting."
+    uses: "Permanent magnets for electric motors and wind turbines, catalysts, polishing powders, phosphors and defence electronics."
+    why_it_matters: "China mines most of the world's rare earths and refines nearly all of them; the region's ionic-clay projects in Brazil are among the few deposits outside Asia that could change that, which is why both powers watch them."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: niobium
     name: Niobium
     core: true
@@ -40,6 +49,9 @@ minerals:
     on_cn_list: false
     in_region: [BRA]
     note: "Brazil supplies ~90% of world output (CBMM, CMOC)."
+    uses: "High-strength low-alloy steel for pipelines, cars and construction; superalloys for jet engines; superconducting magnets."
+    why_it_matters: "Brazil supplies most of the world's niobium from a handful of mines, so one country's policy and one company's contracts set the market for both the United States and China."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: graphite
     name: Graphite (natural)
     core: true
@@ -47,6 +59,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA]
     note: "Brazil is a top-3 producer; Chinese export controls from Dec 2023."
+    uses: "Anodes of lithium-ion batteries, refractories, lubricants, brake linings, steelmaking electrodes."
+    why_it_matters: "Natural graphite anodes are processed almost entirely in China, whose export controls of 2023 covered graphite; Brazil is one of the few other large producers."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: nickel
     name: Nickel
     core: true
@@ -54,6 +69,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA, COL, GUY, VEN]
     note: "Brazil (Anglo American Barro Alto), Colombia (Cerro Matoso)."
+    uses: "Stainless steel is the main use; nickel-rich cathodes for electric-vehicle batteries are the growing one."
+    why_it_matters: "Battery-grade nickel sulphate is a bottleneck of the transition; the region's laterite and sulphide deposits (Brazil, Colombia, Guyana, Venezuela) sit beside a processing industry led by Chinese and Indonesian capacity."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: tin
     name: Tin
     core: true
@@ -61,6 +79,9 @@ minerals:
     on_cn_list: true
     in_region: [PER, BOL, BRA]
     note: "Peru (Minsur San Rafael), Bolivia (Huanuni, Vinto), Brazil (Rondônia)."
+    uses: "Solder for electronics is the largest use; tinplate, chemicals and alloys follow."
+    why_it_matters: "Peru, Bolivia and Brazil are among the largest producers, and Chinese smelters are large buyers of concentrate; tin is on both critical lists."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: silver
     name: Silver
     core: true
@@ -68,6 +89,9 @@ minerals:
     on_cn_list: false
     in_region: [PER, BOL, CHL, ARG]
     note: "Peru and Bolivia are top-5 producers."
+    uses: "Electronics and photovoltaic cells, jewellery and silverware, coins and investment, photography."
+    why_it_matters: "Peru and Bolivia are top-five producers; silver travels with the copper, lead and zinc ores of the Andes, so its flows follow the same buyers."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: molybdenum
     name: Molybdenum
     core: true
@@ -75,6 +99,9 @@ minerals:
     on_cn_list: true
     in_region: [CHL, PER]
     note: "By-product of porphyry copper."
+    uses: "Alloying element for steels and superalloys (strength and corrosion resistance at high temperature), catalysts, lubricants."
+    why_it_matters: "A by-product of the porphyry copper mines of Chile and Peru, so its supply follows copper policy; China is the largest producer and a large buyer."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   # Additional minerals on the US or Chinese lists with regional production or
   # exploration. Not in the default filter set but ingested.
   - id: cobalt
@@ -84,6 +111,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA]
     note: "Brazil (Piauí Nickel-Cobalt, Vale Onça Puma by-product)."
+    uses: "Cathodes of lithium-ion batteries, superalloys for turbines, hard metals and magnets."
+    why_it_matters: "Most cobalt comes from the Democratic Republic of the Congo and is refined in China; Brazil's nickel-cobalt projects are a small alternative that both powers' sourcing rules reward."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: manganese
     name: Manganese
     core: false
@@ -91,6 +121,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA, GUY]
     note: "Brazil (Azul, Urucum); Guyana (Matthews Ridge, Bosai/GMI)."
+    uses: "Steelmaking (deoxidiser and alloying element) uses most manganese; high-purity manganese sulphate goes into battery cathodes."
+    why_it_matters: "Brazil and Guyana carry deposits; China refines most of the battery-grade material, which is why manganese entered the US critical list."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: bauxite_aluminum
     name: Bauxite / aluminium
     core: false
@@ -98,6 +131,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA, GUY, SUR, VEN]
     note: "Guyana (Bosai, Linden), Suriname (historic Alcoa), Brazil (MRN, Hydro)."
+    uses: "Bauxite is refined to alumina and smelted to aluminium for transport, packaging, construction and electricity transmission."
+    why_it_matters: "Guyana, Suriname and Brazil have long bauxite histories; China is the world's largest smelter, and the Guyanese and Surinamese industries have changed hands between Western and Chinese owners."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: uranium
     name: Uranium
     core: false
@@ -105,6 +141,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA, ARG, PRY, PER]
     note: "Brazil (INB Caetité); Peru (Macusani); Paraguay (Caazapá) exploration."
+    uses: "Fuel for nuclear power reactors; small uses in research reactors and shielding."
+    why_it_matters: "Argentina and Brazil run nuclear programmes and the region holds deposits under exploration; uranium is on both powers' lists because fuel supply is a strategic question."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: tungsten
     name: Tungsten
     core: false
@@ -112,6 +151,9 @@ minerals:
     on_cn_list: true
     in_region: [BOL, BRA, PER]
     note: "Bolivia (La Paz department)."
+    uses: "Hard metals (cemented carbides) for cutting and mining tools, steel alloys, electrical contacts, defence applications."
+    why_it_matters: "China produces most of the world's tungsten and controls its export; Bolivia, Brazil and Peru are among the few other producers."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: zinc
     name: Zinc
     core: false
@@ -119,6 +161,9 @@ minerals:
     on_cn_list: false
     in_region: [PER, BOL, BRA]
     note: "Peru is a top-3 producer; included because Chinese smelters are major buyers of concentrate."
+    uses: "Galvanising steel against corrosion is the main use; brass and other alloys, die casting and chemicals follow."
+    why_it_matters: "Peru is a top-three producer and its concentrate feeds smelters in China and elsewhere; zinc is included because the buyers of the concentrate are the question the site asks."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: gold
     name: Gold
     core: false
@@ -126,6 +171,9 @@ minerals:
     on_cn_list: true
     in_region: [PER, BRA, COL, GUY, SUR, VEN, ECU, ARG, CHL, BOL]
     note: "Not on the US list; on China's strategic list. Included as context for Chinese mining presence (Zijin in Suriname, Colombia, Guyana; Arco Minero in Venezuela)."
+    uses: "Jewellery, investment and central-bank reserves, electronics."
+    why_it_matters: "Not on the US critical list, but on China's strategic list; gold is the largest mineral export of several countries and the commodity behind much Chinese mining presence (Suriname, Colombia, Guyana, Venezuela), so it is kept as context, not as a critical mineral."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: phosphate_potash
     name: Phosphate / potash
     core: false
@@ -133,6 +181,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA, PER]
     note: "Brazil (CMOC phosphate, Mosaic); Peru (Bayóvar)."
+    uses: "Fertiliser is the main use of both; phosphate also goes into animal feed and industrial chemicals."
+    why_it_matters: "Brazil's agriculture imports most of its potash and phosphate, and Chinese and Western producers compete to supply it; the deposits in Brazil and Peru are the regional alternative."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: iron_ore
     name: Iron ore
     core: false
@@ -140,6 +191,9 @@ minerals:
     on_cn_list: true
     in_region: [BRA, PER, CHL, VEN]
     note: "Not on US list; on China's strategic list and the largest China–Brazil mineral flow by value (Vale). Included as a denominator for shares."
+    uses: "Steelmaking."
+    why_it_matters: "Not on the US list, but on China's strategic list; the China–Brazil iron-ore trade is the largest mineral flow between the two powers and the region, so it is kept as a denominator for shares and as context."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: titanium
     name: Titanium
     core: false
@@ -147,6 +201,9 @@ minerals:
     on_cn_list: false
     in_region: [PRY, BRA]
     note: "Paraguay (Alto Paraná deposit, pilot stage)."
+    uses: "Titanium dioxide pigment for paint, paper and plastics is the main use; titanium metal goes into aircraft, medical implants and chemical plant."
+    why_it_matters: "Paraguay's Alto Paraná deposit is at pilot stage; included for the exploration record rather than for current trade."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"
   - id: gallium_germanium_antimony
     name: Gallium, germanium, antimony
     core: false
@@ -154,3 +211,6 @@ minerals:
     on_cn_list: true
     in_region: [BOL]
     note: "Bolivia produces antimony; grouped because the Chinese export controls of 2023-2024 covered them together."
+    uses: "Gallium: semiconductors and LEDs; germanium: fibre optics and infrared optics; antimony: flame retardants, lead-acid batteries and ammunition."
+    why_it_matters: "China's export controls of 2023–2024 covered the three together; Bolivia produces antimony, which is why the group is tracked here."
+    uses_source: "USGS Mineral Commodity Summaries (annual; uses as summarised there) and the registry notes; curated text, no figures"

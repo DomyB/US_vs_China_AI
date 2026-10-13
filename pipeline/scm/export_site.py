@@ -941,6 +941,11 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     emb_rows = _rows(con, "SELECT doc_id, model, dim, vector FROM doc_embedding")
     (out / "words.json").write_text(json.dumps(words_file(docs, emb_rows, translations, chosen, topic_rows, doc_topic_rows, today, human_labels()), ensure_ascii=False, default=str), encoding="utf-8")
     (out / "components.json").write_text(json.dumps(components_file(comp_rows, idx_rows, component_scales(comp_rows), today), ensure_ascii=False, default=str), encoding="utf-8")
+    # the mineral case files (DECISIONS 88): one file per tracked mineral and an index
+    from .minerals_export import write_minerals
+    conc_rows = _rows(con, "SELECT * FROM concession")
+    trade_all = _rows(con, "SELECT reporter, partner, mineral, year, flow, value_type, sum(value_usd) AS value_usd, min(source_id) AS source_id FROM trade_flow WHERE month IS NULL GROUP BY 1,2,3,4,5,6")
+    res_minerals = write_minerals(out, trade_all, prod, prices, conc_rows, idx_rows, today)
     head_path = REPO_ROOT / "data" / "models" / "stance_head_v1.json"
     head = json.loads(head_path.read_text(encoding="utf-8")) if head_path.exists() else None
     (out / "classifier.json").write_text(json.dumps(classifier_file(docs, emb_rows, translations, chosen, _rows(con, "SELECT * FROM validation_sample"), head, today), ensure_ascii=False, default=str), encoding="utf-8")
@@ -975,7 +980,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     # coverage travels in meta.json only (the site reads `meta.coverage`; a separate coverage.json was a duplicate and is no longer written)
     con.close()
     return {"countries": len(coverage), "tables": meta["tables"], "sources_ok": ok_sources, "flows": {"finance_rows": len(flows["finance"]), "trade_rows": len(flows["trade"])},
-            "insights": {"findings": len(insights["findings"]), "contrasts": sum(len(c["contrasts"]) for c in insights["countries"]), "human": bool(insights["human"])}}
+            "insights": {"findings": len(insights["findings"]), "contrasts": sum(len(c["contrasts"]) for c in insights["countries"]), "human": bool(insights["human"])}, "minerals": res_minerals}
 
 
 def _table_exists(con: duckdb.DuckDBPyConnection, name: str) -> bool:

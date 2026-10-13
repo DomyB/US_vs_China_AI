@@ -102,6 +102,8 @@ def test_build_and_export_end_to_end(tmp_path):
     words = json.loads((out / "words.json").read_text())
     assert words["n"] == 0 and words["docs"] == [] and words["layer"] == "model"
     assert "components" in json.loads((out / "components.json").read_text())
+    minerals = json.loads((out / "minerals.json").read_text())
+    assert len(minerals["minerals"]) == 20 and (out / "minerals" / "copper.json").exists() and res["minerals"]["minerals"] == 20
     ev = chl["actions"]["events"][0]
     assert ev["actor_side"] == "CN" and ev["amount_musd"] == 4070.0 and ev["source"]["sample"] is False and ev["source"]["reliability"] == "independent_academic"
     assert chl["governance"][0]["indicator"] == "CC.EST"

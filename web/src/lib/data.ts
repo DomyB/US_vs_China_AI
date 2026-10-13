@@ -331,6 +331,24 @@ export async function loadClassifier(): Promise<import("./classifier").Classifie
   }
 }
 
+export async function loadMinerals(): Promise<import("./minerals").MineralsFile | null> {
+  try {
+    const file = await fetchOnce<import("./minerals").MineralsFile>(`${REAL}/minerals.json`);
+    return Array.isArray(file.minerals) && file.minerals.length > 0 ? file : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadMineral(id: string): Promise<import("./minerals").MineralFile | null> {
+  if (!/^[a-z_]+$/.test(id)) return null;
+  try {
+    return await fetchOnce<import("./minerals").MineralFile>(`${REAL}/minerals/${id}.json`);
+  } catch {
+    return null;
+  }
+}
+
 export async function loadInsights(): Promise<InsightsFile | null> {
   try {
     const file = await fetchOnce<InsightsFile>(`${REAL}/insights.json`);
