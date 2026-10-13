@@ -97,6 +97,10 @@ def test_build_and_export_end_to_end(tmp_path):
     assert tb[(2023, "lithium")]["mirror_musd"] == {"CN": None, "US": 12.0} and tb[(2023, "lithium")]["value_type"] == "mirror" and tb[(2023, "lithium")]["sources"]["mirror"]["id"] == "us_census_trade"
     assert (2024, "lithium") not in tb
     assert 2023 in json.loads((out / "meta.json").read_text())["coverage"]["CHL"]["mirror_years"]
+    # the step-by-step exports exist even before any text run: no embedded document, no point
+    words = json.loads((out / "words.json").read_text())
+    assert words["n"] == 0 and words["docs"] == [] and words["layer"] == "model"
+    assert "components" in json.loads((out / "components.json").read_text())
     ev = chl["actions"]["events"][0]
     assert ev["actor_side"] == "CN" and ev["amount_musd"] == 4070.0 and ev["source"]["sample"] is False and ev["source"]["reliability"] == "independent_academic"
     assert chl["governance"][0]["indicator"] == "CC.EST"
