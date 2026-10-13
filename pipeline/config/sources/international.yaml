@@ -224,9 +224,9 @@ sources:
     coverage_from: 2009
     coverage_to: 2024
     language: en
-    status: moved
-    verified_on: 2026-10-01
-    verified_method: search
+    status: live
+    verified_on: 2026-10-13
+    verified_method: probe
     python_package: sdmx1
     notes: "Chinese FDI is often routed through Hong Kong and offshore centres; paired with MOFCOM and AEI CGIT. The SDMX root (api_url) answers 404 by design, only dataflow paths below it answer, so the Monday check's 404 on it is expected."
   - id: eiti

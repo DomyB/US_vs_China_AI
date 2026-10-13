@@ -130,6 +130,23 @@ governance = DataFrameSchema(
     coerce=True, strict=True, name="governance",
 )
 
+investment_position = DataFrameSchema(
+    {
+        "country": Column(str, Check.str_length(3, 3)),
+        "counterpart": Column(str, Check.str_length(3, 3)),
+        "year": Column(int, Check.in_range(1900, 2100)),
+        "direction": Column(str, Check.isin(["inward", "outward"])),
+        "indicator": Column(str),
+        "indicator_name": Column(str),
+        # "reported": the country's own survey; "derived": the counterpart's report of the same position (DV_TYPE SCC)
+        "basis": Column(str, Check.isin(["reported", "derived"])),
+        "value_usd": Column(float, nullable=True),
+        "value_type": Column(str, Check.isin(VALUE_TYPE)),
+        **PROVENANCE,
+    },
+    coerce=True, strict=True, name="investment_position",
+)
+
 contract = DataFrameSchema(
     {
         "contract_id": Column(str, unique=True),
@@ -705,7 +722,7 @@ statement = DataFrameSchema(
 )
 
 SCHEMAS: dict[str, DataFrameSchema] = {
-    s.name: s for s in [trade_flow, finance_event, deal_event, production, price, governance, contract, policy_document,
+    s.name: s for s in [trade_flow, finance_event, deal_event, production, price, governance, investment_position, contract, policy_document,
                         document, vote, vote_member, concession, media_volume, statement, ingest_run,
                         doc_translation, doc_classification, doc_embedding, topic_model_run, topic, doc_topic,
                         validation_sample, validation_metric,

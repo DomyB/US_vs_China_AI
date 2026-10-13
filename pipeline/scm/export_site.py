@@ -12,6 +12,7 @@ and weights version, data release, draws). `meta.json` carries, per country, whi
 from __future__ import annotations
 
 import json
+import math
 import re
 from datetime import UTC, date, datetime
 from pathlib import Path
@@ -464,6 +465,30 @@ def _src(sid: str, record_url: str | None = None) -> dict:
     return {"id": sid, "name": s.name, "url": record_url or s.url, "registry_url": s.url, "reliability": s.reliability, "sample": False}
 
 
+def investment_file(inv_rows: list[dict], today: str) -> dict:
+    """investment.json (DECISIONS 90): inward direct-investment positions by country, counterpart, year and basis (the
+    country's own report, or the counterpart's report of the same position), US$ million; and the region's yearly
+    sums per counterpart over the countries with a value that year, both bases apart, with the count of countries."""
+    rows = []
+    for r in inv_rows:
+        v = r.get("value_usd")
+        if v is None or (isinstance(v, float) and math.isnan(v)) or r.get("country") not in IN_SCOPE:
+            continue
+        rows.append({"iso3": r["country"], "counterpart": r["counterpart"], "year": int(r["year"]), "direction": r["direction"], "basis": r["basis"], "musd": round(float(v) / 1e6, 3),
+                     "source": _src(r["source_id"], r.get("source_record_url"))})
+    by: dict[tuple[int, str, str], dict] = {}
+    for r in rows:
+        if r["direction"] != "inward":
+            continue
+        k = (r["year"], r["counterpart"], r["basis"])
+        b = by.setdefault(k, {"year": k[0], "counterpart": k[1], "basis": k[2], "musd": 0.0, "countries": set()})
+        b["musd"] += r["musd"]
+        b["countries"].add(r["iso3"])
+    region = [{"year": b["year"], "counterpart": b["counterpart"], "basis": b["basis"], "musd": round(b["musd"], 3), "n": len(b["countries"]), "countries": sorted(b["countries"])} for b in sorted(by.values(), key=lambda x: (x["year"], x["counterpart"], x["basis"]))]
+    return {"dataset": "REAL", "generated_on": today, "layer": "facts", "positions": sorted(rows, key=lambda r: (r["iso3"], r["counterpart"], r["year"], r["basis"])), "region": region,
+            "note": "IMF Direct Investment Positions (the former CDIS): inward position of each country held by the counterpart economy, US$ million as the IMF publishes it; \"reported\" is the country's own survey and \"derived\" the counterpart's report of the same position, kept apart and never added; a year without a cell is absent. Chinese capital routed through Hong Kong SAR appears under HKG, not CHN."}
+
+
 def _json_safe(v):
     if v is None or (isinstance(v, float) and v != v) or v is pd.NA or v is pd.NaT:
         return None
@@ -642,6 +667,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     fin = _rows(con, "SELECT * FROM finance_event_dedup")
     deals = _rows(con, "SELECT * FROM deal_event")
     gov = _rows(con, "SELECT country, year, indicator, indicator_name, value, source_id, source_record_url, retrieved_at FROM governance")
+    inv_rows = _rows(con, "SELECT country, counterpart, year, direction, indicator, basis, value_usd, source_id, source_record_url FROM investment_position")
     contracts = _rows(con, "SELECT * FROM contract")
     prod = _rows(con, "SELECT * FROM production")
     prices = _rows(con, "SELECT mineral, series, date, year, month, price, unit, source_id, source_record_url FROM price")
@@ -855,7 +881,10 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                           "governance": {"last_updated": today, "source_ids": sorted({r["source_id"] for r in g_rows}), "schedule": "annual"}},
             "actions": {"events": events, "trade": trade_block,
                         "contracts": [{"id": r["contract_id"], "title": r["title"], "resource": r["resource"], "mineral": r["mineral"], "companies": r["companies"], "year": r["signature_year"], "type": r["contract_type"], "language": r["language"], "source": _src(r["source_id"], r["source_record_url"])} for r in c_rows],
-                        "production": [{"mineral": r["mineral"], "measure": r["measure"], "year": int(r["year"]), "qty": r["qty"], "unit": r["unit"], "note": r["note"], "source": _src(r["source_id"], r["source_record_url"])} for r in p_rows]},
+                        "production": [{"mineral": r["mineral"], "measure": r["measure"], "year": int(r["year"]), "qty": r["qty"], "unit": r["unit"], "note": r["note"], "source": _src(r["source_id"], r["source_record_url"])} for r in p_rows],
+                        # inward direct-investment positions held by China, the United States and Hong Kong SAR, both bases apart (DECISIONS 90)
+                        "investment": [{"counterpart": r["counterpart"], "year": int(r["year"]), "direction": r["direction"], "basis": r["basis"], "musd": round(float(r["value_usd"]) / 1e6, 3), "source": _src(r["source_id"], r.get("source_record_url"))}
+                                       for r in inv_rows if r["country"] == iso and r.get("value_usd") is not None and not (isinstance(r["value_usd"], float) and math.isnan(r["value_usd"]))]},
             "governance": [{"year": int(r["year"]), "indicator": r["indicator"], "name": r["indicator_name"], "value": r["value"], "source": _src(r["source_id"], r["source_record_url"])} for r in g_rows],
             "trade_discrepancies": [d for d in disc if d["reporter"] == iso and d["flag"] in ("large_discrepancy", "mirror_only")],
         }
@@ -949,6 +978,7 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     head_path = REPO_ROOT / "data" / "models" / "stance_head_v1.json"
     head = json.loads(head_path.read_text(encoding="utf-8")) if head_path.exists() else None
     (out / "classifier.json").write_text(json.dumps(classifier_file(docs, emb_rows, translations, chosen, _rows(con, "SELECT * FROM validation_sample"), head, today), ensure_ascii=False, default=str), encoding="utf-8")
+    (out / "investment.json").write_text(json.dumps(investment_file(inv_rows, today), ensure_ascii=False, default=str), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
     briefs = [r for r in text_rows if r["model"] == "human"]

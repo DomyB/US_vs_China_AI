@@ -12,6 +12,7 @@ from .dpi import DPI
 from .exim import EXIM
 from .federal_register import FederalRegister
 from .gdelt import GDELTDoc
+from .imf_dip import IMFDIP
 from .legis_arg import HCDN
 from .legis_bra import CamaraBR, SenadoBR
 from .legis_chl import CamaraCL, SenadoCL
@@ -34,7 +35,7 @@ from .usgs_mcs import USGSMCS
 from .vdem import VDem
 from .worldbank import IDS, WDI, WGI
 
-TIER1: list[type[Adapter]] = [WDI, WGI, IDS, USGSMCS, PinkSheet, Comtrade, AidData, CGIT, DFC, EXIM, FederalRegister, ResourceContracts, VDem, UNGA, DPI, BGS, Statements]
+TIER1: list[type[Adapter]] = [WDI, WGI, IDS, IMFDIP, USGSMCS, PinkSheet, Comtrade, AidData, CGIT, DFC, EXIM, FederalRegister, ResourceContracts, VDem, UNGA, DPI, BGS, Statements]
 TIER2: list[type[Adapter]] = [CongressGov, CensusTrade, BUCODF]
 # Phase 2b national groups
 LEGISLATURE: list[type[Adapter]] = [CamaraBR, SenadoBR, CamaraCL, SenadoCL, HCDN, ParlamentoUY, CamaraCO, SILpy, AsambleaEC, SPLEY]

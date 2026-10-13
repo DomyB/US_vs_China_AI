@@ -489,3 +489,17 @@ def test_headline_windows_keep_the_newest_cut_per_country_year():
     assert export_site.headline_windows(runs) == {"ARG": [{"source_id": "mediacloud", "year": 2025, "from": "2025-11-20", "to": "2025-12-31", "kept": 2000, "matched": 150000},
                                                           {"source_id": "mediacloud", "year": 2026, "from": "2026-09-14", "to": "2026-10-11", "kept": 2000, "matched": 13809}]}
     assert export_site.headline_windows([]) == {}
+
+
+def test_investment_file_keeps_the_two_bases_apart_and_counts_countries():
+    rows = [
+        {"country": "CHL", "counterpart": "CHN", "year": 2023, "direction": "inward", "indicator": "x", "basis": "reported", "value_usd": 9.0e8, "source_id": "imf_dip", "source_record_url": "u"},
+        {"country": "CHL", "counterpart": "CHN", "year": 2023, "direction": "inward", "indicator": "x", "basis": "derived", "value_usd": 1.6e9, "source_id": "imf_dip", "source_record_url": "u"},
+        {"country": "PER", "counterpart": "CHN", "year": 2023, "direction": "inward", "indicator": "x", "basis": "reported", "value_usd": 1.0e9, "source_id": "imf_dip", "source_record_url": "u"},
+        {"country": "PER", "counterpart": "USA", "year": 2023, "direction": "outward", "indicator": "x", "basis": "reported", "value_usd": 5.0e8, "source_id": "imf_dip", "source_record_url": "u"},
+        {"country": "ZZZ", "counterpart": "CHN", "year": 2023, "direction": "inward", "indicator": "x", "basis": "reported", "value_usd": 1.0, "source_id": "imf_dip", "source_record_url": "u"},
+    ]
+    f = export_site.investment_file(rows, "2026-10-13")
+    assert len(f["positions"]) == 4 and f["positions"][0] == {"iso3": "CHL", "counterpart": "CHN", "year": 2023, "direction": "inward", "basis": "derived", "musd": 1600.0, "source": {"id": "imf_dip", "name": f["positions"][0]["source"]["name"], "url": "u", "registry_url": f["positions"][0]["source"]["registry_url"], "reliability": "official", "sample": False}}
+    region = {(r["counterpart"], r["basis"]): r for r in f["region"]}
+    assert region[("CHN", "reported")]["musd"] == 1900.0 and region[("CHN", "reported")]["n"] == 2 and region[("CHN", "derived")]["musd"] == 1600.0 and ("USA", "reported") not in region  # outward rows do not enter the inward sums
