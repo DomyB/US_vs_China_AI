@@ -9,7 +9,7 @@
    "status": 200,
    "bytes": 17276,
    "sha256": "952fb873cd0543ea57304eee6477b9341061c7832d3c37d821f65dc8e81ea6df",
-   "retrieved_at": "2026-10-01T21:02:15+00:00",
+   "retrieved_at": "2026-10-13T14:33:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -22,7 +22,7 @@
    "bytes": 142732102,
    "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b283445-712460918705",
    "sha256": "b009a2f6be5f408970ed177e56b553a1bc2e5a6f99e95c22b03af70a0296eb39",
-   "retrieved_at": "2026-10-01T21:02:19+00:00",
+   "retrieved_at": "2026-10-13T14:33:41+00:00",
    "note": null,
    "trimmed": true
   },
@@ -35,7 +35,7 @@
    "bytes": 145439690,
    "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19861080685-be76a99cf5fe",
    "sha256": "fc45eafe48e05bf4ed867250dc23a90242969a11248783095a965ed75bed08a6",
-   "retrieved_at": "2026-10-01T21:02:22+00:00",
+   "retrieved_at": "2026-10-13T14:33:44+00:00",
    "note": null,
    "trimmed": true
   },
@@ -48,7 +48,7 @@
    "bytes": 73920212,
    "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19d5006eabe-13854796dc48.orig",
    "sha256": "933f80524d3322dadc455d46afa2a214d3317ae99fd25673fdddb0eb4d143da1",
-   "retrieved_at": "2026-10-01T21:02:24+00:00",
+   "retrieved_at": "2026-10-13T14:33:45+00:00",
    "note": null,
    "trimmed": true
   },
@@ -61,7 +61,7 @@
    "bytes": 1932704,
    "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1904b294248-dc494d2c6343",
    "sha256": "94ce7440bdba9252b2f4294333291585748dfe84dbaf56fe9f26e1af38f66198",
-   "retrieved_at": "2026-10-01T21:02:24+00:00",
+   "retrieved_at": "2026-10-13T14:33:45+00:00",
    "note": null,
    "trimmed": true
   },
@@ -74,7 +74,7 @@
    "bytes": 1419867,
    "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/19f9e87616a-b8c36423d826",
    "sha256": "3ae821bbd19977d4229cde5ac648e4bc915d637ec0dcf93368838cf5bde2a956",
-   "retrieved_at": "2026-10-01T21:02:25+00:00",
+   "retrieved_at": "2026-10-13T14:33:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -87,12 +87,12 @@
    "bytes": 1331515,
    "final_url": "https://dvn-cloud-iqss.s3.amazonaws.com/10.7910/DVN/LEJUQZ/1985108dc4e-741cffb2a4e7.orig",
    "sha256": "fea7fa9414e3643586dbdf95baa1100ceb418e56684d79d801a146cad79443ce",
-   "retrieved_at": "2026-10-01T21:02:27+00:00",
+   "retrieved_at": "2026-10-13T14:33:48+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/unga_votes/2026-10-01",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/unga_votes/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "file_list": [
   "AgreementScoresAll_Jun2024.csv",
@@ -105,8 +105,5 @@
   "IdealpointestimatesAll_Jun2024.csv",
   "IdealpointestimatesFP_2026FP.csv",
   "IdealpointsJuly2025.tab"
- ],
- "unparsed_files": [
-  "files/IdealpointsJuly2025.tab"
  ]
 }

@@ -6,8 +6,8 @@
    "params": {},
    "status": 200,
    "bytes": 121961,
-   "sha256": "1d5bc283bfbf7be5074b5481a51d528d1146f30683fb4a4095bc6a0a9823611d",
-   "retrieved_at": "2026-10-09T16:47:10+00:00",
+   "sha256": "251a313c75fbdd1f69fee5e2045a5b3d8a438abc3ecb6ec3cf79ff19267d44e5",
+   "retrieved_at": "2026-10-13T14:32:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,12 +17,12 @@
    "status": 200,
    "bytes": 19406477,
    "sha256": "27941e3a60181f973cea53c1c371073376405ff35cb650fd32d807349f30e20a",
-   "retrieved_at": "2026-10-09T16:47:12+00:00",
+   "retrieved_at": "2026-10-13T14:32:52+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-10-09",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

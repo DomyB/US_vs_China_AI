@@ -22,7 +22,7 @@
    "status": 200,
    "bytes": 301502,
    "sha256": "4399513830403d5ff88f82fe56e18c28c2d71cd478ee3a09fcfe13fefd15d387",
-   "retrieved_at": "2026-10-10T23:22:13+00:00",
+   "retrieved_at": "2026-10-13T14:32:55+00:00",
    "note": null,
    "trimmed": true
   },
@@ -47,7 +47,7 @@
    "status": 200,
    "bytes": 133143,
    "sha256": "d39ad7f855be084dac82f43b9bc8cf8a761fa7498824691b96d69ac0ac8c1f96",
-   "retrieved_at": "2026-10-10T23:22:13+00:00",
+   "retrieved_at": "2026-10-13T14:32:55+00:00",
    "note": null,
    "trimmed": true
   },
@@ -72,7 +72,7 @@
    "status": 200,
    "bytes": 66351,
    "sha256": "6ed1cf44a6c507170ae8d1a203c3207015e09d61e75c17008b814b7efd57173b",
-   "retrieved_at": "2026-10-10T23:22:14+00:00",
+   "retrieved_at": "2026-10-13T14:32:56+00:00",
    "note": null,
    "trimmed": true
   },
@@ -97,7 +97,7 @@
    "status": 200,
    "bytes": 301191,
    "sha256": "f6b185714790eb770080ff5d0051e00b8eeea103126ac88a1603aa058d797f3c",
-   "retrieved_at": "2026-10-10T23:22:15+00:00",
+   "retrieved_at": "2026-10-13T14:32:58+00:00",
    "note": null,
    "trimmed": true
   },
@@ -122,11 +122,11 @@
    "status": 200,
    "bytes": 46293,
    "sha256": "8b8d41b7062eacc8d198e9210397870f451f79eca86eabe69c2095e7e14690b7",
-   "retrieved_at": "2026-10-10T23:22:16+00:00",
+   "retrieved_at": "2026-10-13T14:32:58+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/federal_register/2026-10-10",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/federal_register/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py"
 }

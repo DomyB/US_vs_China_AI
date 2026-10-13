@@ -2,7 +2,7 @@
  "source_id": "wb_wgi",
  "files": {
   "CC.EST.json": {
-   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/CC.EST?format=json&source=3&per_page=20000",
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/indicator/CC.EST?format=json&source=3&per_page=20000",
    "params": {
     "format": "json",
     "source": 3,
@@ -11,12 +11,12 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T22:04:07+00:00",
+   "retrieved_at": "2026-10-13T14:07:55+00:00",
    "note": null,
    "trimmed": true
   },
   "CC.EST.adv.invalid.txt": {
-   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/CC.EST/time/all?format=json&per_page=20000",
+   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/series/CC.EST/time/all?format=json&per_page=20000",
    "params": {
     "format": "json",
     "per_page": 20000
@@ -24,12 +24,12 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T22:04:08+00:00",
+   "retrieved_at": "2026-10-13T14:08:54+00:00",
    "note": null,
    "trimmed": true
   },
   "GE.EST.json": {
-   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/GE.EST?format=json&source=3&per_page=20000",
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/indicator/GE.EST?format=json&source=3&per_page=20000",
    "params": {
     "format": "json",
     "source": 3,
@@ -38,12 +38,12 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T22:04:09+00:00",
+   "retrieved_at": "2026-10-13T14:09:04+00:00",
    "note": null,
    "trimmed": true
   },
   "GE.EST.adv.invalid.txt": {
-   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/GE.EST/time/all?format=json&per_page=20000",
+   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/series/GE.EST/time/all?format=json&per_page=20000",
    "params": {
     "format": "json",
     "per_page": 20000
@@ -51,12 +51,12 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T22:04:10+00:00",
+   "retrieved_at": "2026-10-13T14:09:19+00:00",
    "note": null,
    "trimmed": true
   },
   "PV.EST.json": {
-   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/PV.EST?format=json&source=3&per_page=20000",
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/indicator/PV.EST?format=json&source=3&per_page=20000",
    "params": {
     "format": "json",
     "source": 3,
@@ -65,12 +65,12 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T22:04:11+00:00",
+   "retrieved_at": "2026-10-13T14:09:21+00:00",
    "note": null,
    "trimmed": true
   },
   "PV.EST.adv.invalid.txt": {
-   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/PV.EST/time/all?format=json&per_page=20000",
+   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/series/PV.EST/time/all?format=json&per_page=20000",
    "params": {
     "format": "json",
     "per_page": 20000
@@ -78,12 +78,12 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T22:04:12+00:00",
+   "retrieved_at": "2026-10-13T14:09:33+00:00",
    "note": null,
    "trimmed": true
   },
   "RL.EST.json": {
-   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/RL.EST?format=json&source=3&per_page=20000",
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/indicator/RL.EST?format=json&source=3&per_page=20000",
    "params": {
     "format": "json",
     "source": 3,
@@ -92,12 +92,12 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T22:04:13+00:00",
+   "retrieved_at": "2026-10-13T14:09:35+00:00",
    "note": null,
    "trimmed": true
   },
   "RL.EST.adv.invalid.txt": {
-   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/RL.EST/time/all?format=json&per_page=20000",
+   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/series/RL.EST/time/all?format=json&per_page=20000",
    "params": {
     "format": "json",
     "per_page": 20000
@@ -105,12 +105,12 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T22:04:14+00:00",
+   "retrieved_at": "2026-10-13T14:09:41+00:00",
    "note": null,
    "trimmed": true
   },
   "RQ.EST.json": {
-   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/RQ.EST?format=json&source=3&per_page=20000",
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/indicator/RQ.EST?format=json&source=3&per_page=20000",
    "params": {
     "format": "json",
     "source": 3,
@@ -119,12 +119,12 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T22:04:15+00:00",
+   "retrieved_at": "2026-10-13T14:09:41+00:00",
    "note": null,
    "trimmed": true
   },
   "RQ.EST.adv.invalid.txt": {
-   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/RQ.EST/time/all?format=json&per_page=20000",
+   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/series/RQ.EST/time/all?format=json&per_page=20000",
    "params": {
     "format": "json",
     "per_page": 20000
@@ -132,12 +132,12 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T22:04:16+00:00",
+   "retrieved_at": "2026-10-13T14:09:51+00:00",
    "note": null,
    "trimmed": true
   },
   "VA.EST.json": {
-   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/indicator/VA.EST?format=json&source=3&per_page=20000",
+   "url": "https://api.worldbank.org/v2/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/indicator/VA.EST?format=json&source=3&per_page=20000",
    "params": {
     "format": "json",
     "source": 3,
@@ -146,12 +146,12 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-01T22:04:17+00:00",
+   "retrieved_at": "2026-10-13T14:09:57+00:00",
    "note": null,
    "trimmed": true
   },
   "VA.EST.adv.invalid.txt": {
-   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN/series/VA.EST/time/all?format=json&per_page=20000",
+   "url": "https://api.worldbank.org/v2/sources/3/country/ARG;BOL;BRA;CHL;COL;ECU;GUY;PRY;PER;SUR;URY;VEN;MEX;GTM;BLZ;HND;SLV;NIC;CRI;PAN/series/VA.EST/time/all?format=json&per_page=20000",
    "params": {
     "format": "json",
     "per_page": 20000
@@ -159,7 +159,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-01T22:04:18+00:00",
+   "retrieved_at": "2026-10-13T14:10:03+00:00",
    "note": null,
    "trimmed": true
   },
@@ -167,10 +167,10 @@
    "url": "https://www.govindicators.org/",
    "params": {},
    "status": 200,
-   "bytes": 56301,
+   "bytes": 56255,
    "final_url": "https://www.worldbank.org/en/publication/worldwide-governance-indicators",
-   "sha256": "5d8a5678f84ef3ea85e51e13f81d3c163a9a496c322a74090b9188c24e22a807",
-   "retrieved_at": "2026-10-01T22:04:19+00:00",
+   "sha256": "0d38d1affac40ae62dce332556c59775441c4e40b0c540a54694524086db6da0",
+   "retrieved_at": "2026-10-13T14:10:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -182,7 +182,7 @@
    "status": 200,
    "bytes": 105,
    "sha256": "3d9433086ddd9de452ef3b437688a9f1a0e0d73b5d76a94356ba72b6b1b53ab9",
-   "retrieved_at": "2026-10-01T22:04:25+00:00",
+   "retrieved_at": "2026-10-13T14:10:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -194,9 +194,9 @@
     "skip": 0
    },
    "status": 200,
-   "bytes": 673814,
-   "sha256": "d2926f465cbdc1f2461b4117629523599c803cf6011c5fb8f85e3b9cdad0158c",
-   "retrieved_at": "2026-10-01T22:04:26+00:00",
+   "bytes": 725814,
+   "sha256": "1c567d3e8bfdc5e52867f110a9e6e7bcb6c720a37b9b9c229fde6b4ac47595b6",
+   "retrieved_at": "2026-10-13T14:10:11+00:00",
    "note": null,
    "trimmed": true
   },
@@ -208,9 +208,9 @@
     "skip": 1000
    },
    "status": 200,
-   "bytes": 673362,
-   "sha256": "c9625254216577b6da18338121d915154517f2b8bad447fd04f1798b5e003df4",
-   "retrieved_at": "2026-10-01T22:04:27+00:00",
+   "bytes": 725362,
+   "sha256": "033b2412c13e61e6df72226d6a5bd2752b42ab1dda21258f5b89102e8c4b0a7d",
+   "retrieved_at": "2026-10-13T14:10:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -222,9 +222,9 @@
     "skip": 2000
    },
    "status": 200,
-   "bytes": 673543,
-   "sha256": "539a1413066fd750798129098f9e9ba3325d31d7006780faa48001782d080f4c",
-   "retrieved_at": "2026-10-01T22:04:28+00:00",
+   "bytes": 725543,
+   "sha256": "0d15f61c93a4543fbf2375818b577feb3627b0208614e46e6a8d463ffc319f0a",
+   "retrieved_at": "2026-10-13T14:10:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -236,9 +236,9 @@
     "skip": 3000
    },
    "status": 200,
-   "bytes": 673607,
-   "sha256": "92e509e789140b042e0b56001ddecc753dfaa4d9abd3baca5fade4eebb56a449",
-   "retrieved_at": "2026-10-01T22:04:29+00:00",
+   "bytes": 725607,
+   "sha256": "5f697a8143b548a8e27320cd87ca02d908edf908e5839a1a493e4da032838f65",
+   "retrieved_at": "2026-10-13T14:10:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -250,9 +250,9 @@
     "skip": 4000
    },
    "status": 200,
-   "bytes": 673586,
-   "sha256": "c64d76c54bbd3cfb36bf18de6efcdd5594f552f40321964e0d01aeec903b0498",
-   "retrieved_at": "2026-10-01T22:04:30+00:00",
+   "bytes": 725586,
+   "sha256": "6dc888fdd2dfe4df83e6dd261d002a5d916eefc3a648479ac8d9e5ec30078d40",
+   "retrieved_at": "2026-10-13T14:10:15+00:00",
    "note": null,
    "trimmed": true
   },
@@ -264,9 +264,9 @@
     "skip": 5000
    },
    "status": 200,
-   "bytes": 676001,
-   "sha256": "92680a1c279c990a2bdbec0d0d0b7ba398265332e142a580034d472e7681d5fd",
-   "retrieved_at": "2026-10-01T22:04:31+00:00",
+   "bytes": 728001,
+   "sha256": "6bd7bc2747c2b93744f24ade1b0b36374720aca416dacfe43d2019c5b383de89",
+   "retrieved_at": "2026-10-13T14:10:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -278,9 +278,9 @@
     "skip": 6000
    },
    "status": 200,
-   "bytes": 681508,
-   "sha256": "e5a424bb2764bb3a530aa365b6bb3188fc65a6b8fdccb032ed045312b7e1bc98",
-   "retrieved_at": "2026-10-01T22:04:32+00:00",
+   "bytes": 733508,
+   "sha256": "8cfade1ac552e81ab62cf26bd0dff5f7ec697744599c15d29e84ee91d4ab6a48",
+   "retrieved_at": "2026-10-13T14:10:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -292,9 +292,9 @@
     "skip": 7000
    },
    "status": 200,
-   "bytes": 681515,
-   "sha256": "059907b08e276669b3e91a68502bb47da280a8f90afc9cda02c9984d15cb0ec1",
-   "retrieved_at": "2026-10-01T22:04:33+00:00",
+   "bytes": 733515,
+   "sha256": "6744205e31f078959165ba2b936b20fc2c54690c15bea7fcdcf1cd5463344b09",
+   "retrieved_at": "2026-10-13T14:10:18+00:00",
    "note": null,
    "trimmed": true
   },
@@ -306,9 +306,9 @@
     "skip": 8000
    },
    "status": 200,
-   "bytes": 681501,
-   "sha256": "efab73bc40a449bc2773af6188e3f7ccc0b5cf32ee57148860f213a461e6bf66",
-   "retrieved_at": "2026-10-01T22:04:34+00:00",
+   "bytes": 733501,
+   "sha256": "cc1e2125fdd16e517dc2b05cdab7da189629bd31f7f88b2f6653fe92a5513c2b",
+   "retrieved_at": "2026-10-13T14:10:19+00:00",
    "note": null,
    "trimmed": true
   },
@@ -320,14 +320,14 @@
     "skip": 9000
    },
    "status": 200,
-   "bytes": 681514,
-   "sha256": "b4efeee21fd60b5d53d48f86590a7d2572f24122af834577c185d34a4103a3c6",
-   "retrieved_at": "2026-10-01T22:04:35+00:00",
+   "bytes": 733514,
+   "sha256": "e5d671521231b7d4a3e411fc78739640fdcc672d88bd8326553e5f2c4d4f127a",
+   "retrieved_at": "2026-10-13T14:10:20+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wgi/2026-10-01",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wgi/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
@@ -387,7 +387,7 @@
   "RQ.EST": "GOV_WGI_RQ",
   "VA.EST": "GOV_WGI_VA"
  },
- "data360_sample": "{\"count\": 33528, \"value\": [{\"OBS_VALUE\": \"56.314648\", \"TIME_FORMAT\": \"602\", \"UNIT_MULT\": 0, \"COMMENT_OBS\": null, \"OBS_STATUS\": \"A\", \"OBS_CONF\": \"PU\", \"AGG_METHOD\": null, \"DECIMALS\": \"2\", \"COMMENT_TS\": null, \"DATA_SOURCE\": null, \"LATEST_DATA\": true, \"DATABASE_ID\": \"WB_WGI\", \"INDICATOR\": \"GOV_WGI_CC\", \"REF_AREA\": \"NAM\", \"SEX\": \"_Z\", \"AGE\": \"_Z\", \"URBANISATION\": \"_Z\", \"COMP_BREAKDOWN_1\": \"WGI_SC_UB\", \"COMP_BREAKDOWN_2\": \"_Z\", \"COMP_BREAKDOWN_3\": \"_Z\", \"TIME_PERIOD\": \"2025\", \"FREQ\": \"A\", \"UNIT_MEASURE\": \"U\", \"UNIT_TYPE\": null}, {\"OBS_VALUE\": \"82.9325\", \"TIME_FORMAT\": \"602\", \"UNIT_MULT\": 0, \"COMMENT_OBS\": null, \"OBS_STATUS\": \"A\", \"OBS_CONF\": \"PU\", \"AGG_METHOD\": null, \"DECIMALS\": \"2\", \"COMMENT_TS\": null, \"DATA_SOURCE\": null, \"LATEST_DATA\": true, \"DATABASE_ID\": \"WB_WGI\", \"INDICATOR\": \"GOV_WGI_CC\", \"REF_AREA\": \"NCL\", \"SEX\": \"_Z\", \"AGE\": \"_Z\", \"URBANISATION\": \"_Z\", \"COMP_BREAKDOWN_1\": \"WGI_SC_UB\", \"COMP_BREAKDOWN_2\": \"_Z\", \"COMP_BREAKDOWN_3\": \"_Z\", \"TIME_PERIOD\": \"2025\", \"FREQ\": \"A\", \"UNIT_MEASURE\": \"U\", \"UNIT_TYPE\": null}, {\"OBS_VALUE\": \"38.466226\", \"TIME_FORMAT\": \"602\", \"UNIT_MULT\": 0, \"COMMENT_OBS\": null, \"OBS_STATUS\": \"A\", \"OBS_CONF\": \"PU\", \"AGG_METHOD\": null, \"DECIMALS\": \"2\", \"COMMENT_TS\": null, \"DATA_SOURCE\": null, \"LATEST_DATA\": true, \"DATABASE_ID\": \"WB_WGI\", \"INDICATOR\": \"GOV_WGI_CC\", \"REF_AREA\": \"NER\", \"SEX\": \"_Z\", \"AGE\": \"_Z\", \"URBANISATION\": \"_Z\", \"COMP_BREAKDOWN_1\": \"WGI_SC_UB\", \"COMP_BREAKDOWN_2\": \"_Z\", \"COMP_BREAKDOWN_3\": \"_Z\", \"TIME_PERIOD\": \"2025\", \"FREQ\": \"A\", \"UNIT_M",
+ "data360_sample": "{\"count\": 33528, \"value\": [{\"OBS_VALUE\": \"56.314648\", \"TIME_FORMAT\": \"602\", \"UNIT_MULT\": 0, \"COMMENT_OBS\": null, \"OBS_STATUS\": \"A\", \"OBS_CONF\": \"PU\", \"AGG_METHOD\": null, \"DECIMALS\": \"2\", \"COMMENT_TS\": null, \"DATA_SOURCE\": null, \"LATEST_DATA\": true, \"SEGMENT\": null, \"EV_CRITERIA\": null, \"DATABASE_ID\": \"WB_WGI\", \"INDICATOR\": \"GOV_WGI_CC\", \"REF_AREA\": \"NAM\", \"SEX\": \"_Z\", \"AGE\": \"_Z\", \"URBANISATION\": \"_Z\", \"COMP_BREAKDOWN_1\": \"WGI_SC_UB\", \"COMP_BREAKDOWN_2\": \"_Z\", \"COMP_BREAKDOWN_3\": \"_Z\", \"TIME_PERIOD\": \"2025\", \"FREQ\": \"A\", \"UNIT_MEASURE\": \"U\", \"UNIT_TYPE\": null}, {\"OBS_VALUE\": \"82.9325\", \"TIME_FORMAT\": \"602\", \"UNIT_MULT\": 0, \"COMMENT_OBS\": null, \"OBS_STATUS\": \"A\", \"OBS_CONF\": \"PU\", \"AGG_METHOD\": null, \"DECIMALS\": \"2\", \"COMMENT_TS\": null, \"DATA_SOURCE\": null, \"LATEST_DATA\": true, \"SEGMENT\": null, \"EV_CRITERIA\": null, \"DATABASE_ID\": \"WB_WGI\", \"INDICATOR\": \"GOV_WGI_CC\", \"REF_AREA\": \"NCL\", \"SEX\": \"_Z\", \"AGE\": \"_Z\", \"URBANISATION\": \"_Z\", \"COMP_BREAKDOWN_1\": \"WGI_SC_UB\", \"COMP_BREAKDOWN_2\": \"_Z\", \"COMP_BREAKDOWN_3\": \"_Z\", \"TIME_PERIOD\": \"2025\", \"FREQ\": \"A\", \"UNIT_MEASURE\": \"U\", \"UNIT_TYPE\": null}, {\"OBS_VALUE\": \"38.466226\", \"TIME_FORMAT\": \"602\", \"UNIT_MULT\": 0, \"COMMENT_OBS\": null, \"OBS_STATUS\": \"A\", \"OBS_CONF\": \"PU\", \"AGG_METHOD\": null, \"DECIMALS\": \"2\", \"COMMENT_TS\": null, \"DATA_SOURCE\": null, \"LATEST_DATA\": true, \"SEGMENT\": null, \"EV_CRITERIA\": null, \"DATABASE_ID\": \"WB_WGI\", \"INDICATOR\": \"GOV_WGI_CC\", \"REF_AREA\": \"NER\", \"SEX\": \"_Z\", \"AGE\": \"_Z\", \"URBANISATION\": \"_Z\", \"COMP_BREAKDOW",
  "data360_breakdowns": {
   "WGI_SC_UB": 5722,
   "WGI_SR": 31052,

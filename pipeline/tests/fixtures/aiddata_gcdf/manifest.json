@@ -6,12 +6,12 @@
    "params": {},
    "status": 200,
    "bytes": 29685,
-   "sha256": "8f9d38ec50c21bf863b9bc5544f9308503d3bfc4b0a20a7c723290901e608f50",
-   "retrieved_at": "2026-10-01T21:02:35+00:00",
+   "sha256": "929ff7ae03d8cd4583ed93874dafb12c8ebabd087c404783762760fe6904d10f",
+   "retrieved_at": "2026-10-13T14:32:23+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/aiddata_gcdf/2026-10-01",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/aiddata_gcdf/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py"
 }

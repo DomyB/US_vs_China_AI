@@ -1,7 +1,7 @@
 {
  "dataset": "REAL",
  "generated_on": "2026-10-13",
- "generated_at": "2026-10-13T13:14:02+00:00",
+ "generated_at": "2026-10-13T15:51:45+00:00",
  "sources_ok": [
   "aiddata_gcdf",
   "arg_clarin",
@@ -71,17 +71,129 @@
  },
  "ingest_runs": [
   {
-   "source_id": "aei_cgit",
-   "status": "failed",
-   "finished_at": "2026-10-01T20:24:13+00:00",
-   "rows": "{}",
-   "error": "FetchError: aei_cgit: GET https://www.aei.org/china-global-investment-tracker/ -> 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=Edge\"><meta name=\"robots\" content=\"noindex,nofollow\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"content-security-policy\" content=\"default-src &#39;none&#39;; script-src &#39;nonce-o5gLJCRRVktr6wpmhxqlXM&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-s"
+   "source_id": "aiddata_gcdf",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:32:38+00:00",
+   "rows": "{\"finance_event\": 1927}",
+   "error": null
+  },
+  {
+   "source_id": "arg_hcdn",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:06:06+00:00",
+   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
+   "error": null
   },
   {
    "source_id": "arg_pagina12",
    "status": "ok",
    "finished_at": "2026-10-07T11:19:48+00:00",
    "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bra_folha",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:58+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bu_codf",
+   "status": "skipped",
+   "finished_at": "2026-10-13T15:46:45+00:00",
+   "rows": "{}",
+   "error": "missing env: CODF_DOWNLOAD_URL"
+  },
+  {
+   "source_id": "chl_elmercurio",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:20:36+00:00",
+   "rows": "{}",
+   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "source_id": "col_anm_anna",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:07:48+00:00",
+   "rows": "{\"concession\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "congress_gov",
+   "status": "ok",
+   "finished_at": "2026-10-13T15:44:52+00:00",
+   "rows": "{\"policy_document\": 857}",
+   "error": null
+  },
+  {
+   "source_id": "ecu_elcomercio",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:25+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "idb_dpi",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:33:58+00:00",
+   "rows": "{\"governance\": 2400}",
+   "error": null
+  },
+  {
+   "source_id": "per_congreso_spley",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:09:52+00:00",
+   "rows": "{\"document\": 140}",
+   "error": null
+  },
+  {
+   "source_id": "per_larepublica",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:54+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "pry_silpy",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:09:04+00:00",
+   "rows": "{\"document\": 4}",
+   "error": null
+  },
+  {
+   "source_id": "un_comtrade",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:32:23+00:00",
+   "rows": "{\"trade_flow\": 45034}",
+   "error": null
+  },
+  {
+   "source_id": "ury_parlamento",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:08:39+00:00",
+   "rows": "{\"document\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "wb_ids",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:14:02+00:00",
+   "rows": "{\"governance\": 3780}",
+   "error": null
+  },
+  {
+   "source_id": "arg_cronista",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:37+00:00",
+   "rows": "{\"document\": 2, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bgs_wms",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:35:25+00:00",
+   "rows": "{\"production\": 3365}",
    "error": null
   },
   {
@@ -99,6 +211,13 @@
    "error": null
   },
   {
+   "source_id": "chl_biobio",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:20:10+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
    "source_id": "chl_elmostrador",
    "status": "failed",
    "finished_at": "2026-10-07T11:21:07+00:00",
@@ -113,122 +232,17 @@
    "error": null
   },
   {
-   "source_id": "congress_gov",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:22:12+00:00",
-   "rows": "{\"policy_document\": 857}",
-   "error": null
-  },
-  {
-   "source_id": "ecu_cadastre",
-   "status": "ok",
-   "finished_at": "2026-10-04T12:08:07+00:00",
-   "rows": "{\"concession\": 15447}",
-   "error": null
-  },
-  {
-   "source_id": "federal_register",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:22:16+00:00",
-   "rows": "{\"policy_document\": 480}",
-   "error": null
-  },
-  {
-   "source_id": "manual_statements",
-   "status": "ok",
-   "finished_at": "2026-10-09T16:47:18+00:00",
-   "rows": "{\"statement\": 417}",
-   "error": null
-  },
-  {
-   "source_id": "per_elcomercio",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:37+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "per_ojopublico",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:25+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "sur_dwt",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:22:47+00:00",
-   "rows": "{}",
-   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
-  },
-  {
-   "source_id": "ury_parlamento",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:08:39+00:00",
-   "rows": "{\"document\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "wb_ids",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:29+00:00",
-   "rows": "{\"governance\": 2268}",
-   "error": null
-  },
-  {
-   "source_id": "arg_clarin",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:16+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "arg_lanacion",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:42+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "bra_folha",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:19:58+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "chl_biobio",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:20:10+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "chl_elmercurio",
-   "status": "failed",
-   "finished_at": "2026-10-07T11:20:36+00:00",
-   "rows": "{}",
-   "error": "ConnectionError: HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
-  },
-  {
-   "source_id": "col_anm_anna",
-   "status": "ok",
-   "finished_at": "2026-10-04T12:07:48+00:00",
-   "rows": "{\"concession\": 0}",
-   "error": null
-  },
-  {
    "source_id": "dfc_projects",
    "status": "ok",
-   "finished_at": "2026-10-01T21:00:06+00:00",
-   "rows": "{\"finance_event\": 84}",
+   "finished_at": "2026-10-13T14:32:41+00:00",
+   "rows": "{\"finance_event\": 176}",
    "error": null
   },
   {
-   "source_id": "ecu_eluniverso",
+   "source_id": "exim_authorizations",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:36+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-13T14:32:54+00:00",
+   "rows": "{\"finance_event\": 6307}",
    "error": null
   },
   {
@@ -236,118 +250,6 @@
    "status": "ok",
    "finished_at": "2026-10-04T12:07:44+00:00",
    "rows": "{\"production\": 95}",
-   "error": null
-  },
-  {
-   "source_id": "per_bcrp_api",
-   "status": "failed",
-   "finished_at": "2026-10-04T12:08:27+00:00",
-   "rows": "{}",
-   "error": "IndexError: index out of bounds"
-  },
-  {
-   "source_id": "per_idl_reporteros",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:45+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "pry_silpy",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:09:04+00:00",
-   "rows": "{\"document\": 4}",
-   "error": null
-  },
-  {
-   "source_id": "unga_votes",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:34+00:00",
-   "rows": "{\"governance\": 2409}",
-   "error": null
-  },
-  {
-   "source_id": "us_census_trade",
-   "status": "ok",
-   "finished_at": "2026-10-13T10:52:04+00:00",
-   "rows": "{\"trade_flow\": 9306}",
-   "error": null
-  },
-  {
-   "source_id": "wb_pink_sheet",
-   "status": "ok",
-   "finished_at": "2026-10-01T20:15:31+00:00",
-   "rows": "{\"price\": 3200}",
-   "error": null
-  },
-  {
-   "source_id": "aiddata_gcdf",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:02:49+00:00",
-   "rows": "{\"finance_event\": 1615}",
-   "error": null
-  },
-  {
-   "source_id": "arg_hcdn",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:06:06+00:00",
-   "rows": "{\"document\": 1227, \"vote\": 2, \"vote_member\": 514}",
-   "error": null
-  },
-  {
-   "source_id": "bgs_wms",
-   "status": "ok",
-   "finished_at": "2026-10-01T21:01:57+00:00",
-   "rows": "{\"production\": 2684}",
-   "error": null
-  },
-  {
-   "source_id": "bra_camara_api",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:40:13+00:00",
-   "rows": "{\"document\": 3432, \"vote\": 1266, \"vote_member\": 23305}",
-   "error": null
-  },
-  {
-   "source_id": "bra_senado_api",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:48:52+00:00",
-   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
-   "error": null
-  },
-  {
-   "source_id": "chl_camara",
-   "status": "ok",
-   "finished_at": "2026-10-10T23:56:18+00:00",
-   "rows": "{\"document\": 199, \"vote\": 186, \"vote_member\": 19513}",
-   "error": null
-  },
-  {
-   "source_id": "chl_senado",
-   "status": "ok",
-   "finished_at": "2026-10-11T00:05:27+00:00",
-   "rows": "{\"vote\": 0, \"vote_member\": 0}",
-   "error": null
-  },
-  {
-   "source_id": "col_eltiempo",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:21+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "ecu_elcomercio",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:21:25+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "gdelt",
-   "status": "ok",
-   "finished_at": "2026-10-10T10:59:36+00:00",
-   "rows": "{\"document\": 39, \"document_new\": 10, \"media_volume\": 183, \"media_volume_new\": 2}",
    "error": null
   },
   {
@@ -365,17 +267,17 @@
    "error": null
   },
   {
-   "source_id": "pry_abc",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:22:46+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
+   "source_id": "per_ojopublico",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:25+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: per_ojopublico: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
   },
   {
    "source_id": "resourcecontracts",
    "status": "ok",
-   "finished_at": "2026-10-01T21:02:14+00:00",
-   "rows": "{\"contract\": 487}",
+   "finished_at": "2026-10-13T14:33:25+00:00",
+   "rows": "{\"contract\": 632}",
    "error": null
   },
   {
@@ -386,24 +288,143 @@
    "error": null
   },
   {
+   "source_id": "us_census_trade",
+   "status": "ok",
+   "finished_at": "2026-10-13T15:46:45+00:00",
+   "rows": "{\"trade_flow\": 13521}",
+   "error": null
+  },
+  {
+   "source_id": "wb_pink_sheet",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:14:06+00:00",
+   "rows": "{\"price\": 3210}",
+   "error": null
+  },
+  {
+   "source_id": "aei_cgit",
+   "status": "skipped",
+   "finished_at": "2026-10-13T14:32:38+00:00",
+   "rows": "{}",
+   "error": "missing env: CGIT_FILE_URL"
+  },
+  {
+   "source_id": "arg_lanacion",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:19:42+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "bra_camara_api",
+   "status": "ok",
+   "finished_at": "2026-10-10T23:40:13+00:00",
+   "rows": "{\"document\": 3432, \"vote\": 1266, \"vote_member\": 23305}",
+   "error": null
+  },
+  {
+   "source_id": "bra_senado_api",
+   "status": "ok",
+   "finished_at": "2026-10-10T23:48:52+00:00",
+   "rows": "{\"document\": 351, \"vote\": 15, \"vote_member\": 1215}",
+   "error": null
+  },
+  {
+   "source_id": "chl_cochilco",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:08:26+00:00",
+   "rows": "{\"production\": 709}",
+   "error": null
+  },
+  {
+   "source_id": "chl_senado",
+   "status": "ok",
+   "finished_at": "2026-10-11T00:05:27+00:00",
+   "rows": "{\"vote\": 0, \"vote_member\": 0}",
+   "error": null
+  },
+  {
+   "source_id": "col_eltiempo",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:21+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "ecu_cadastre",
+   "status": "ok",
+   "finished_at": "2026-10-04T12:08:07+00:00",
+   "rows": "{\"concession\": 15447}",
+   "error": null
+  },
+  {
+   "source_id": "federal_register",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:32:58+00:00",
+   "rows": "{\"policy_document\": 480}",
+   "error": null
+  },
+  {
+   "source_id": "manual_statements",
+   "status": "ok",
+   "finished_at": "2026-10-13T14:35:26+00:00",
+   "rows": "{\"statement\": 417}",
+   "error": null
+  },
+  {
+   "source_id": "per_bcrp_api",
+   "status": "failed",
+   "finished_at": "2026-10-04T12:08:27+00:00",
+   "rows": "{}",
+   "error": "IndexError: index out of bounds"
+  },
+  {
+   "source_id": "per_idl_reporteros",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:21:45+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "pry_abc",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:22:46+00:00",
+   "rows": "{\"document\": 1, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
+   "source_id": "sur_dwt",
+   "status": "failed",
+   "finished_at": "2026-10-07T11:22:47+00:00",
+   "rows": "{}",
+   "error": "RuntimeError: sur_dwt: no RSS/Atom feed found (tried 15 URLs); set api_url to the feed in the registry"
+  },
+  {
+   "source_id": "ury_ladiaria",
+   "status": "ok",
+   "finished_at": "2026-10-07T11:23:21+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
+   "error": null
+  },
+  {
    "source_id": "usgs_mcs",
    "status": "ok",
-   "finished_at": "2026-10-01T21:00:03+00:00",
-   "rows": "{\"production\": 118, \"price\": 200}",
+   "finished_at": "2026-10-13T14:14:04+00:00",
+   "rows": "{\"production\": 155, \"price\": 200}",
    "error": null
   },
   {
    "source_id": "wb_wdi",
    "status": "ok",
-   "finished_at": "2026-10-01T20:15:20+00:00",
-   "rows": "{\"governance\": 1872}",
+   "finished_at": "2026-10-13T14:07:54+00:00",
+   "rows": "{\"governance\": 3120}",
    "error": null
   },
   {
-   "source_id": "arg_cronista",
+   "source_id": "arg_clarin",
    "status": "ok",
-   "finished_at": "2026-10-07T11:19:37+00:00",
-   "rows": "{\"document\": 2, \"document_new\": 1, \"media_volume\": 3, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-07T11:19:16+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
@@ -428,10 +449,10 @@
    "error": null
   },
   {
-   "source_id": "chl_cochilco",
+   "source_id": "chl_camara",
    "status": "ok",
-   "finished_at": "2026-10-04T12:08:26+00:00",
-   "rows": "{\"production\": 709}",
+   "finished_at": "2026-10-10T23:56:18+00:00",
+   "rows": "{\"document\": 199, \"vote\": 186, \"vote_member\": 19513}",
    "error": null
   },
   {
@@ -456,69 +477,55 @@
    "error": null
   },
   {
-   "source_id": "exim_authorizations",
+   "source_id": "ecu_eluniverso",
    "status": "ok",
-   "finished_at": "2026-10-09T16:47:14+00:00",
-   "rows": "{\"finance_event\": 2396}",
+   "finished_at": "2026-10-07T11:21:36+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "idb_dpi",
+   "source_id": "gdelt",
    "status": "ok",
-   "finished_at": "2026-10-09T17:06:32+00:00",
-   "rows": "{\"governance\": 1440}",
+   "finished_at": "2026-10-10T10:59:36+00:00",
+   "rows": "{\"document\": 39, \"document_new\": 10, \"media_volume\": 183, \"media_volume_new\": 2}",
    "error": null
   },
   {
-   "source_id": "per_congreso_spley",
+   "source_id": "per_elcomercio",
    "status": "ok",
-   "finished_at": "2026-10-11T00:09:52+00:00",
-   "rows": "{\"document\": 140}",
+   "finished_at": "2026-10-07T11:21:37+00:00",
+   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
    "error": null
   },
   {
-   "source_id": "per_larepublica",
+   "source_id": "unga_votes",
    "status": "ok",
-   "finished_at": "2026-10-07T11:21:54+00:00",
-   "rows": "{\"document\": 1, \"document_new\": 0, \"media_volume\": 3, \"media_volume_new\": 1}",
-   "error": null
-  },
-  {
-   "source_id": "un_comtrade",
-   "status": "ok",
-   "finished_at": "2026-10-11T12:53:20+00:00",
-   "rows": "{\"trade_flow\": 29828}",
-   "error": null
-  },
-  {
-   "source_id": "ury_ladiaria",
-   "status": "ok",
-   "finished_at": "2026-10-07T11:23:21+00:00",
-   "rows": "{\"document\": 0, \"document_new\": 0, \"media_volume\": 2, \"media_volume_new\": 1}",
+   "finished_at": "2026-10-13T14:33:54+00:00",
+   "rows": "{\"governance\": 4033}",
    "error": null
   },
   {
    "source_id": "vdem",
    "status": "ok",
-   "finished_at": "2026-10-01T20:24:47+00:00",
-   "rows": "{\"governance\": 2184}",
+   "finished_at": "2026-10-13T14:33:36+00:00",
+   "rows": "{\"governance\": 3458}",
    "error": null
   },
   {
    "source_id": "wb_wgi",
    "status": "ok",
-   "finished_at": "2026-10-01T22:06:26+00:00",
-   "rows": "{\"governance\": 1620}",
+   "finished_at": "2026-10-13T14:12:15+00:00",
+   "rows": "{\"governance\": 2700}",
    "error": null
   }
  ],
  "tables": {
-  "trade_flow": 39134,
-  "finance_event": 4095,
-  "production": 4423,
-  "price": 3400,
-  "governance": 11793,
-  "contract": 487,
+  "trade_flow": 58555,
+  "finance_event": 8410,
+  "production": 5141,
+  "price": 3410,
+  "governance": 19491,
+  "contract": 632,
   "policy_document": 1337,
   "document": 16816,
   "vote": 1469,
@@ -533,18 +540,18 @@
   "topic": 18,
   "doc_topic": 16795,
   "validation_sample": 300,
-  "concentration": 41894,
-  "index_value": 14938,
-  "index_component": 30384,
+  "concentration": 64741,
+  "index_value": 24229,
+  "index_component": 49284,
   "say_do_gap": 45,
-  "anomaly_flag": 109,
-  "network_metric": 2303,
-  "network_edge": 2437,
-  "event_effect": 316,
+  "anomaly_flag": 136,
+  "network_metric": 4567,
+  "network_edge": 4729,
+  "event_effect": 508,
   "regression_result": 40,
-  "forecast": 612,
+  "forecast": 1011,
   "backtest": 80,
-  "analysis_text": 104,
+  "analysis_text": 160,
   "quant_run": 1
  },
  "layers": {
@@ -582,11 +589,11 @@
   "status": "computed",
   "method_version": "2026.10.2",
   "weights_version": "2026.10.eq",
-  "run_id": "quant-20261013T131159Z",
-  "inputs_release": "data-v2026.10.13.8",
-  "created_at": "2026-10-13T13:13:42+00:00",
+  "run_id": "quant-20261013T154658Z",
+  "inputs_release": "data-v2026.10.13.69",
+  "created_at": "2026-10-13T15:51:23+00:00",
   "draws": 500,
-  "rank_stability": 0.606,
+  "rank_stability": 0.793,
   "text_model_label": "zero-shot baseline, not yet validated",
   "last_year": {
    "trade": 2025,
@@ -597,7 +604,7 @@
    "finance_US": 2026,
    "finance_CN": 2021
   },
-  "unattributed_finance_events": 846,
+  "unattributed_finance_events": 1028,
   "n_boot": 999,
   "events": {
    "total": 19,
@@ -609,29 +616,45 @@
     "influence_index:US": {
      "countries": [
       "ARG",
+      "BLZ",
       "BOL",
       "BRA",
       "CHL",
       "COL",
+      "CRI",
       "ECU",
+      "GTM",
       "GUY",
+      "HND",
+      "MEX",
+      "NIC",
+      "PAN",
       "PER",
       "PRY",
+      "SLV",
       "SUR",
       "URY"
      ],
      "model": "damped_trend",
      "label": "damped local linear trend (Kalman filter, maximum likelihood)",
-     "crps": 5.3779,
-     "crps_naive": 5.4617,
-     "crps_ratio": 0.985,
+     "crps": 5.3905,
+     "crps_naive": 5.5288,
+     "crps_ratio": 0.975,
      "beats_naive": true,
-     "coverage_80": 0.689,
-     "coverage_95": 0.843,
-     "n_tests": 528,
+     "coverage_80": 0.707,
+     "coverage_95": 0.862,
+     "n_tests": 870,
      "origins": "2007–2023",
      "windows": {
       "ARG": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "BLZ": {
        "years": [
         2000,
         2024
@@ -671,6 +694,14 @@
        "n_obs": 25,
        "n_absent": 0
       },
+      "CRI": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
       "ECU": {
        "years": [
         2000,
@@ -679,7 +710,47 @@
        "n_obs": 25,
        "n_absent": 0
       },
+      "GTM": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
       "GUY": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "HND": {
+       "years": [
+        2014,
+        2024
+       ],
+       "n_obs": 11,
+       "n_absent": 0
+      },
+      "MEX": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "NIC": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "PAN": {
        "years": [
         2000,
         2024
@@ -696,6 +767,14 @@
        "n_absent": 0
       },
       "PRY": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "SLV": {
        "years": [
         2000,
         2024
@@ -731,22 +810,29 @@
       "BRA",
       "CHL",
       "COL",
+      "CRI",
       "ECU",
+      "GTM",
       "GUY",
+      "HND",
+      "MEX",
+      "NIC",
+      "PAN",
       "PER",
       "PRY",
+      "SLV",
       "SUR",
       "URY"
      ],
-     "model": "damped_trend",
-     "label": "damped local linear trend (Kalman filter, maximum likelihood)",
-     "crps": 3.8155,
-     "crps_naive": 3.8761,
-     "crps_ratio": 0.984,
+     "model": "pooled_drift",
+     "label": "random walk with drift partially pooled across countries (empirical Bayes)",
+     "crps": 3.6748,
+     "crps_naive": 3.6967,
+     "crps_ratio": 0.994,
      "beats_naive": true,
-     "coverage_80": 0.65,
-     "coverage_95": 0.79,
-     "n_tests": 528,
+     "coverage_80": 0.69,
+     "coverage_95": 0.824,
+     "n_tests": 864,
      "origins": "2007–2023",
      "windows": {
       "ARG": {
@@ -789,6 +875,14 @@
        "n_obs": 25,
        "n_absent": 0
       },
+      "CRI": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
       "ECU": {
        "years": [
         2000,
@@ -797,7 +891,47 @@
        "n_obs": 25,
        "n_absent": 0
       },
+      "GTM": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
       "GUY": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "HND": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "MEX": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "NIC": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "PAN": {
        "years": [
         2000,
         2024
@@ -814,6 +948,14 @@
        "n_absent": 0
       },
       "PRY": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
+      "SLV": {
        "years": [
         2000,
         2024
@@ -839,6 +981,7 @@
       }
      },
      "skipped": {
+      "BLZ": "1 reported year in the latest unbroken run (2023), fewer than 8",
       "VEN": "last reported year 2013, before 2023"
      }
     },
@@ -848,19 +991,25 @@
       "BRA",
       "CHL",
       "COL",
+      "CRI",
       "ECU",
+      "GTM",
       "GUY",
-      "PER"
+      "HND",
+      "MEX",
+      "NIC",
+      "PER",
+      "SLV"
      ],
      "model": "naive",
      "label": "naive persistence (last value; bootstrapped yearly changes)",
-     "crps": 0.0571,
-     "crps_naive": 0.0571,
+     "crps": 0.0791,
+     "crps_naive": 0.0791,
      "crps_ratio": 1.0,
      "beats_naive": false,
-     "coverage_80": 0.845,
-     "coverage_95": 0.932,
-     "n_tests": 354,
+     "coverage_80": 0.818,
+     "coverage_95": 0.92,
+     "n_tests": 588,
      "origins": "2007–2024",
      "windows": {
       "BOL": {
@@ -895,7 +1044,23 @@
        "n_obs": 26,
        "n_absent": 0
       },
+      "CRI": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
       "ECU": {
+       "years": [
+        2000,
+        2025
+       ],
+       "n_obs": 26,
+       "n_absent": 0
+      },
+      "GTM": {
        "years": [
         2000,
         2025
@@ -911,6 +1076,30 @@
        "n_obs": 26,
        "n_absent": 0
       },
+      "HND": {
+       "years": [
+        2014,
+        2024
+       ],
+       "n_obs": 11,
+       "n_absent": 0
+      },
+      "MEX": {
+       "years": [
+        2000,
+        2025
+       ],
+       "n_obs": 26,
+       "n_absent": 0
+      },
+      "NIC": {
+       "years": [
+        2000,
+        2024
+       ],
+       "n_obs": 25,
+       "n_absent": 0
+      },
       "PER": {
        "years": [
         2000,
@@ -918,10 +1107,20 @@
        ],
        "n_obs": 25,
        "n_absent": 0
+      },
+      "SLV": {
+       "years": [
+        2007,
+        2025
+       ],
+       "n_obs": 19,
+       "n_absent": 4
       }
      },
      "skipped": {
       "ARG": "1 reported year in the latest unbroken run (2025), fewer than 8; 2 years with no partner row left out (absent, not zero)",
+      "BLZ": "1 reported year in the latest unbroken run (2025), fewer than 8; 1 year with no partner row left out (absent, not zero)",
+      "PAN": "2 reported years in the latest unbroken run (2023–2024), fewer than 8; 4 years with no partner row left out (absent, not zero)",
       "PRY": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 4 years with no partner row left out (absent, not zero)",
       "SUR": "1 reported year in the latest unbroken run (2022), fewer than 8; 11 years with no partner row left out (absent, not zero)",
       "URY": "6 reported years in the latest unbroken run (2020–2025), fewer than 8; 10 years with no partner row left out (absent, not zero)",
@@ -935,18 +1134,20 @@
       "CHL",
       "COL",
       "ECU",
+      "GTM",
       "GUY",
+      "MEX",
       "PER"
      ],
      "model": "pooled_drift",
      "label": "random walk with drift partially pooled across countries (empirical Bayes)",
-     "crps": 0.0381,
-     "crps_naive": 0.0419,
-     "crps_ratio": 0.909,
+     "crps": 0.039,
+     "crps_naive": 0.0448,
+     "crps_ratio": 0.87,
      "beats_naive": true,
-     "coverage_80": 0.685,
-     "coverage_95": 0.835,
-     "n_tests": 279,
+     "coverage_80": 0.667,
+     "coverage_95": 0.808,
+     "n_tests": 339,
      "origins": "2007–2024",
      "windows": {
       "BOL": {
@@ -989,6 +1190,14 @@
        "n_obs": 15,
        "n_absent": 6
       },
+      "GTM": {
+       "years": [
+        2014,
+        2025
+       ],
+       "n_obs": 12,
+       "n_absent": 7
+      },
       "GUY": {
        "years": [
         2014,
@@ -996,6 +1205,14 @@
        ],
        "n_obs": 12,
        "n_absent": 10
+      },
+      "MEX": {
+       "years": [
+        2000,
+        2025
+       ],
+       "n_obs": 26,
+       "n_absent": 0
       },
       "PER": {
        "years": [
@@ -1008,7 +1225,13 @@
      },
      "skipped": {
       "ARG": "4 reported years in the latest unbroken run (2022–2025), fewer than 8; 7 years with no partner row left out (absent, not zero)",
+      "BLZ": "2 reported years in the latest unbroken run (2017–2018), fewer than 8; 10 years with no partner row left out (absent, not zero)",
+      "CRI": "1 reported year in the latest unbroken run (2024), fewer than 8; 21 years with no partner row left out (absent, not zero)",
+      "HND": "1 reported year in the latest unbroken run (2022), fewer than 8; 10 years with no partner row left out (absent, not zero)",
+      "NIC": "4 reported years in the latest unbroken run (2021–2024), fewer than 8; 20 years with no partner row left out (absent, not zero)",
+      "PAN": "4 reported years in the latest unbroken run (2020–2023), fewer than 8; 22 years with no partner row left out (absent, not zero)",
       "PRY": "1 reported year in the latest unbroken run (2013), fewer than 8; 18 years with no partner row left out (absent, not zero)",
+      "SLV": "no reported observation; 26 years with no partner row left out (absent, not zero)",
       "SUR": "1 reported year in the latest unbroken run (2012), fewer than 8; 25 years with no partner row left out (absent, not zero)",
       "URY": "2 reported years in the latest unbroken run (2021–2022), fewer than 8; 16 years with no partner row left out (absent, not zero)",
       "VEN": "1 reported year in the latest unbroken run (2013), fewer than 8; 1 year with no partner row left out (absent, not zero)"
@@ -2148,6 +2371,667 @@
    "interpretation_available": true,
    "human_interpretation": true,
    "statements": 5
+  },
+  "MEX": {
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "events": 3172,
+   "contracts": 100,
+   "governance": 1048,
+   "production": 384,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 11,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 43
+  },
+  "GTM": {
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [
+    2004,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "events": 148,
+   "contracts": 6,
+   "governance": 1048,
+   "production": 124,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 8,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 0
+  },
+  "BLZ": {
+   "trade_years": [
+    2004,
+    2006,
+    2007,
+    2008,
+    2011,
+    2012,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2023,
+    2025
+   ],
+   "mirror_years": [
+    2004,
+    2005,
+    2009,
+    2013,
+    2022,
+    2025
+   ],
+   "events": 5,
+   "contracts": 23,
+   "governance": 866,
+   "production": 0,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 1,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 0
+  },
+  "HND": {
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2009,
+    2010,
+    2011,
+    2012,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "events": 184,
+   "contracts": 5,
+   "governance": 1048,
+   "production": 88,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 2,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 0
+  },
+  "SLV": {
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2016,
+    2017,
+    2019,
+    2023
+   ],
+   "events": 224,
+   "contracts": 6,
+   "governance": 1048,
+   "production": 0,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 2,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 0
+  },
+  "NIC": {
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "events": 59,
+   "contracts": 3,
+   "governance": 1048,
+   "production": 50,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 2,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 0
+  },
+  "CRI": {
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "events": 310,
+   "contracts": 1,
+   "governance": 796,
+   "production": 30,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 0,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 0
+  },
+  "PAN": {
+   "trade_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "mirror_years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "events": 213,
+   "contracts": 1,
+   "governance": 796,
+   "production": 42,
+   "actions": true,
+   "governance_available": true,
+   "parliament_available": false,
+   "parliament_documents": 0,
+   "parliament_votes": 0,
+   "parliament_from": null,
+   "parliament_note": null,
+   "media_available": false,
+   "media_articles": 0,
+   "media_from": null,
+   "media_sources": [],
+   "media_history_from": null,
+   "concessions": 0,
+   "parliament_classified": 0,
+   "parliament_translated": 0,
+   "media_classified": 0,
+   "narratives_available": false,
+   "analysis_available": true,
+   "analysis_years": [
+    2000,
+    2024
+   ],
+   "flags": 1,
+   "forecast_available": true,
+   "interpretation_available": true,
+   "human_interpretation": false,
+   "statements": 13
   }
  }
 }

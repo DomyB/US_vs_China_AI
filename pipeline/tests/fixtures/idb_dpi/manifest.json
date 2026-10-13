@@ -9,7 +9,7 @@
    "status": 200,
    "bytes": 146700,
    "sha256": "2a17b8c42067b7fc4dfad376e42b17a6b4a043d7d45458bd9daf7940748e1471",
-   "retrieved_at": "2026-10-09T17:06:30+00:00",
+   "retrieved_at": "2026-10-13T14:33:55+00:00",
    "note": null,
    "trimmed": true
   },
@@ -18,8 +18,8 @@
    "params": {},
    "status": 200,
    "bytes": 160990,
-   "sha256": "8e7ecee7be873a3186f46096e9619ca6ff344fe88c0e6304c9fe9657996144b2",
-   "retrieved_at": "2026-10-09T17:06:30+00:00",
+   "sha256": "9e2bf3294d89721adcc4b79606d90511c33f45240a4be00a57dd34d7034a0670",
+   "retrieved_at": "2026-10-13T14:33:56+00:00",
    "note": null,
    "trimmed": true
   },
@@ -29,12 +29,12 @@
    "status": 200,
    "bytes": 5626170,
    "sha256": "5b5b047b88bdb659fefc73a36764de0fc8ca9f74cbeb20a8d06d74445881d1a2",
-   "retrieved_at": "2026-10-09T17:06:31+00:00",
+   "retrieved_at": "2026-10-13T14:33:57+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-09",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "resource_used": {
   "id": "3ff2fcd2-40ed-45d4-a255-128224afae06",

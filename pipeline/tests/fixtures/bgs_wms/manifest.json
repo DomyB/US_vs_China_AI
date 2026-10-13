@@ -11,8 +11,8 @@
    },
    "status": 200,
    "bytes": 1708616,
-   "sha256": "78cd6bf1ceb4fc8b0edbce9d382dbba9b687bd911195c329f3ab67141d51df49",
-   "retrieved_at": "2026-10-01T21:00:55+00:00",
+   "sha256": "f444ef46e491d94755ad13883784186ca7f25ef2061670140e35ce9ddb5d849f",
+   "retrieved_at": "2026-10-13T14:34:02+00:00",
    "note": null,
    "trimmed": true
   },
@@ -26,8 +26,8 @@
    },
    "status": 200,
    "bytes": 1735359,
-   "sha256": "02508a39003857dc1f13ffe37b260f1e626d18ea803d60f0782ac274ec0b26c6",
-   "retrieved_at": "2026-10-01T21:00:57+00:00",
+   "sha256": "94a4f03363b097dba9b225fda18459440e2386263b755fa57a822be09ffc25dd",
+   "retrieved_at": "2026-10-13T14:34:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -41,8 +41,8 @@
    },
    "status": 200,
    "bytes": 1746924,
-   "sha256": "aab75a9e0460ac2fa9715559bcf21974031e918a9351cae369319081f9ab6b27",
-   "retrieved_at": "2026-10-01T21:00:59+00:00",
+   "sha256": "eb5887834c001dcea005bef3a725914da5cac813222e60627fc506d6e7908edb",
+   "retrieved_at": "2026-10-13T14:34:06+00:00",
    "note": null,
    "trimmed": true
   },
@@ -56,8 +56,8 @@
    },
    "status": 200,
    "bytes": 1723221,
-   "sha256": "857745349496bcba8a38b993e8c21cd9873022a8c500802a865c15dafb7524ec",
-   "retrieved_at": "2026-10-01T21:01:01+00:00",
+   "sha256": "4d8753c047c1fa6b37ec34393a40266f7a06d4b4d50ddcfaedbfef5e627f44ce",
+   "retrieved_at": "2026-10-13T14:34:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -71,8 +71,8 @@
    },
    "status": 200,
    "bytes": 282141,
-   "sha256": "4f7b58879121c4913dccc52ead9cad225df17d87fbfc28e9053f4a5dd1b86d60",
-   "retrieved_at": "2026-10-01T21:01:02+00:00",
+   "sha256": "4262cbda4e54149bd1eb4ff5ffc7584c1647b8e71ed1bae112dd2b8fc16f0edf",
+   "retrieved_at": "2026-10-13T14:34:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -86,8 +86,8 @@
    },
    "status": 200,
    "bytes": 1743682,
-   "sha256": "3c9c36643cb06293cc6d4447655c9a03d51e18711ff69f36a37e62e854a0a140",
-   "retrieved_at": "2026-10-01T21:01:04+00:00",
+   "sha256": "a3d4feaf5fc82bea199b81b24f08d0555ab8fcc00be0cc1e1c551f0b3dcc8532",
+   "retrieved_at": "2026-10-13T14:34:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -101,8 +101,8 @@
    },
    "status": 200,
    "bytes": 921574,
-   "sha256": "5b056edca421aec57271c504c34e62e70b299751bd123bade4d7d1ae10627896",
-   "retrieved_at": "2026-10-01T21:01:05+00:00",
+   "sha256": "8076c02b44b83aa62821a78960996a568a62b7282f23d677dadeb32706b6ecef",
+   "retrieved_at": "2026-10-13T14:34:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -116,8 +116,8 @@
    },
    "status": 200,
    "bytes": 1704452,
-   "sha256": "4d9832029e40ff085c23a987029d5858579a36628496f6f412619b20e68ca363",
-   "retrieved_at": "2026-10-01T21:01:07+00:00",
+   "sha256": "029926e23c426f06c791107ffb2e50f5930b2e3c9661e3aeb0aecb0c2fe86deb",
+   "retrieved_at": "2026-10-13T14:34:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -131,8 +131,8 @@
    },
    "status": 200,
    "bytes": 1721441,
-   "sha256": "131114d34b63ad59e64492f5174a498bb919fd34c2e5fa0aa7d40d1dc14e5285",
-   "retrieved_at": "2026-10-01T21:01:10+00:00",
+   "sha256": "714e8d6f44b1cdcc49c3c247e548309cad93b31d2b33d14e77393f6864eccd18",
+   "retrieved_at": "2026-10-13T14:34:18+00:00",
    "note": null,
    "trimmed": true
   },
@@ -146,8 +146,8 @@
    },
    "status": 200,
    "bytes": 1744315,
-   "sha256": "97063fac2c03dff438359e34ea677abb7b14b27b22fe9975a2782732f60b307a",
-   "retrieved_at": "2026-10-01T21:01:12+00:00",
+   "sha256": "42442791ce30f6b8b009af6bccb25452aae12a0cb06bce28905fc659b84cab6c",
+   "retrieved_at": "2026-10-13T14:34:20+00:00",
    "note": null,
    "trimmed": true
   },
@@ -161,8 +161,8 @@
    },
    "status": 200,
    "bytes": 1759868,
-   "sha256": "0773edc93633027fa51f592035f2de935f5e9b6478a7b097413af8e62e79cb52",
-   "retrieved_at": "2026-10-01T21:01:14+00:00",
+   "sha256": "ca18fc04c6edadd83e1d005d0327d50a63b157683e870a7f1fc79a7fd4bfa5a4",
+   "retrieved_at": "2026-10-13T14:34:23+00:00",
    "note": null,
    "trimmed": true
   },
@@ -176,28 +176,196 @@
    },
    "status": 200,
    "bytes": 1775350,
-   "sha256": "084f45cf671ea668d7c828034310983defb4c64ab5093ec1c74ae90fd82e29cf",
-   "retrieved_at": "2026-10-01T21:01:16+00:00",
+   "sha256": "963d863a365ab41ad156caf4487d06d92f7fe221552592c77ae99cfc4bf3715a",
+   "retrieved_at": "2026-10-13T14:34:25+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_BRA_5.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=5000&country_iso3_code=BRA",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 5000,
+    "country_iso3_code": "BRA"
+   },
+   "status": 200,
+   "bytes": 1731434,
+   "sha256": "c93680600b49447cb897dc36c4eeadc4170355c329692c1978a63577597ab18e",
+   "retrieved_at": "2026-10-13T14:34:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_BRA_6.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=6000&country_iso3_code=BRA",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 6000,
+    "country_iso3_code": "BRA"
+   },
+   "status": 200,
+   "bytes": 1756668,
+   "sha256": "b72705c3208ef55d0ff5a37dbdf36102e4c3494d5a5cd7c955ffc198064e8eb0",
+   "retrieved_at": "2026-10-13T14:34:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_BRA_7.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=7000&country_iso3_code=BRA",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 7000,
+    "country_iso3_code": "BRA"
+   },
+   "status": 200,
+   "bytes": 791975,
+   "sha256": "7538bdf50e8f62ed35ff648cacd3fe17a87d27ba126feda796cd51001bf4f0e1",
+   "retrieved_at": "2026-10-13T14:34:30+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_CHL_0.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=0&country_iso3_code=CHL",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 0,
+    "country_iso3_code": "CHL"
+   },
+   "status": 200,
+   "bytes": 1732406,
+   "sha256": "7fb662e010f342813894c4c9e4865875fd7f579d87d949f296072b12655103c1",
+   "retrieved_at": "2026-10-13T14:34:32+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_CHL_1.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=1000&country_iso3_code=CHL",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 1000,
+    "country_iso3_code": "CHL"
+   },
+   "status": 200,
+   "bytes": 1742164,
+   "sha256": "cb1785a2c79b79a624904211a8d948e6f8b8f8ed57c15b4a68438761ffd4fa58",
+   "retrieved_at": "2026-10-13T14:34:34+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_CHL_2.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=2000&country_iso3_code=CHL",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 2000,
+    "country_iso3_code": "CHL"
+   },
+   "status": 200,
+   "bytes": 1740497,
+   "sha256": "06b5564f9ed6bedb389ac0262e8205426076d937c42b49abbc0a77c583ca34a1",
+   "retrieved_at": "2026-10-13T14:34:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_CHL_3.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=3000&country_iso3_code=CHL",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 3000,
+    "country_iso3_code": "CHL"
+   },
+   "status": 200,
+   "bytes": 385867,
+   "sha256": "46a02ef6d77482509d87ac5abc7a54bb9fa1801c160c9d5c68e165067ccf0ee3",
+   "retrieved_at": "2026-10-13T14:34:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_COL_0.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=0&country_iso3_code=COL",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 0,
+    "country_iso3_code": "COL"
+   },
+   "status": 200,
+   "bytes": 1702712,
+   "sha256": "af473c284f39523e9a987b0af388c1010344a65df590a0cd138a6e86211de8ef",
+   "retrieved_at": "2026-10-13T14:34:39+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_COL_1.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=1000&country_iso3_code=COL",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 1000,
+    "country_iso3_code": "COL"
+   },
+   "status": 200,
+   "bytes": 1745069,
+   "sha256": "82a02b827aab205f5b75966ef739fb035a709d6ba2aa03faccbd79f825872b5d",
+   "retrieved_at": "2026-10-13T14:34:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_COL_2.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=2000&country_iso3_code=COL",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 2000,
+    "country_iso3_code": "COL"
+   },
+   "status": 200,
+   "bytes": 1539340,
+   "sha256": "55bbb82b63b62fa614280a93ed9d2671a4e93928000b65adca4f5024a329d501",
+   "retrieved_at": "2026-10-13T14:34:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_ECU_0.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=0&country_iso3_code=ECU",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 0,
+    "country_iso3_code": "ECU"
+   },
+   "status": 200,
+   "bytes": 1447264,
+   "sha256": "008e2ec06d628a2ada00fff23ce1f54c3d87e97510d10a00b913b9f08c7cd2d6",
+   "retrieved_at": "2026-10-13T14:34:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "items_GUY_0.json": {
+   "url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items?f=json&limit=1000&offset=0&country_iso3_code=GUY",
+   "params": {
+    "f": "json",
+    "limit": 1000,
+    "offset": 0,
+    "country_iso3_code": "GUY"
+   },
+   "status": 200,
+   "bytes": 573414,
+   "sha256": "25fc8c0d87fd19d5290986844b070cc4eb066db48112b25c6684d5ae8291b796",
+   "retrieved_at": "2026-10-13T14:34:45+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bgs_wms/2026-10-01",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bgs_wms/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "unmapped_features": 655,
+ "unmapped_features": 33568,
  "omitted": [
-  "items_BRA_5.json",
-  "items_BRA_6.json",
-  "items_BRA_7.json",
-  "items_CHL_0.json",
-  "items_CHL_1.json",
-  "items_CHL_2.json",
-  "items_CHL_3.json",
-  "items_COL_0.json",
-  "items_COL_1.json",
-  "items_COL_2.json",
-  "items_ECU_0.json",
-  "items_GUY_0.json",
   "items_PRY_0.json",
   "items_PER_0.json",
   "items_PER_1.json",
@@ -207,6 +375,20 @@
   "items_URY_0.json",
   "items_VEN_0.json",
   "items_VEN_1.json",
-  "items_VEN_2.json"
+  "items_VEN_2.json",
+  "items_MEX_0.json",
+  "items_MEX_1.json",
+  "items_MEX_2.json",
+  "items_MEX_3.json",
+  "items_MEX_4.json",
+  "items_MEX_5.json",
+  "items_GTM_0.json",
+  "items_GTM_1.json",
+  "items_BLZ_0.json",
+  "items_HND_0.json",
+  "items_SLV_0.json",
+  "items_NIC_0.json",
+  "items_CRI_0.json",
+  "items_PAN_0.json"
  ]
 }

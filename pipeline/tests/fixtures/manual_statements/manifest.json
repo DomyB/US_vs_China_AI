@@ -7,12 +7,12 @@
    "status": null,
    "bytes": 389408,
    "sha256": "53e8ebb8f1e71a9a74849557f836517b3492b5db65c416bb0f5e9e1db59b8328",
-   "retrieved_at": "2026-10-09T16:47:17+00:00",
+   "retrieved_at": "2026-10-13T14:35:25+00:00",
    "note": "copied from a file supplied by the project owner (data/manual/statements/political_statements_minerals.csv)",
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/manual_statements/2026-10-09",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/manual_statements/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "resource_used": {
   "url": "data/manual/statements/political_statements_minerals.csv",

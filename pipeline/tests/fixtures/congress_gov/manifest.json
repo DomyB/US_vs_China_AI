@@ -13,7 +13,7 @@
    "status": 200,
    "bytes": 171027,
    "sha256": "d7af2f992e04a46f88a64ee27cef566744c801a9aed85902a14ee9413a3aa672",
-   "retrieved_at": "2026-10-10T22:24:36+00:00",
+   "retrieved_at": "2026-10-13T14:35:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -29,7 +29,7 @@
    "status": 200,
    "bytes": 172465,
    "sha256": "838f9216749c74ad8fbdac4212e5160aaa23e5071f3c9d826ee3b43c16529c4c",
-   "retrieved_at": "2026-10-10T22:24:40+00:00",
+   "retrieved_at": "2026-10-13T14:35:39+00:00",
    "note": null,
    "trimmed": true
   },
@@ -45,7 +45,7 @@
    "status": 200,
    "bytes": 173014,
    "sha256": "0294e87eeccb8584b0c76bcbbda820172e155cca30e96db68e1e67c4182302c6",
-   "retrieved_at": "2026-10-10T22:24:45+00:00",
+   "retrieved_at": "2026-10-13T14:35:46+00:00",
    "note": null,
    "trimmed": true
   },
@@ -61,7 +61,7 @@
    "status": 200,
    "bytes": 173294,
    "sha256": "fd7b1c6aac6dd53c1c704b41a718515d6978046dcd2389357bccb7b3ee183102",
-   "retrieved_at": "2026-10-10T22:24:49+00:00",
+   "retrieved_at": "2026-10-13T14:35:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -77,7 +77,7 @@
    "status": 200,
    "bytes": 171677,
    "sha256": "7d1163fda756efd200f01931026635f9a86d9d0eaaddced05c84e65a5d795d30",
-   "retrieved_at": "2026-10-10T22:24:53+00:00",
+   "retrieved_at": "2026-10-13T14:35:57+00:00",
    "note": null,
    "trimmed": true
   },
@@ -93,7 +93,7 @@
    "status": 200,
    "bytes": 172738,
    "sha256": "e63bfe9e5fc9b0264ae849036f05cab7a33f800a37a06b3fa58bdedea83085af",
-   "retrieved_at": "2026-10-10T22:25:01+00:00",
+   "retrieved_at": "2026-10-13T14:36:03+00:00",
    "note": null,
    "trimmed": true
   },
@@ -109,7 +109,7 @@
    "status": 200,
    "bytes": 174617,
    "sha256": "5e46188b09609ad0bf9f002b4b112ab8618dea3859f1003e0834bae4b9f21797",
-   "retrieved_at": "2026-10-10T22:25:08+00:00",
+   "retrieved_at": "2026-10-13T14:36:09+00:00",
    "note": null,
    "trimmed": true
   },
@@ -125,7 +125,7 @@
    "status": 200,
    "bytes": 180421,
    "sha256": "2a7bcb48c0351fab4b508b8f874a19596b91394ffcd7bf3a7d6e23d6c93db62b",
-   "retrieved_at": "2026-10-10T22:25:12+00:00",
+   "retrieved_at": "2026-10-13T14:36:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -141,7 +141,7 @@
    "status": 200,
    "bytes": 184137,
    "sha256": "0788d10896397b588956fdd934828ea83b2f7d5fef19e84d63f270ee3b93aed9",
-   "retrieved_at": "2026-10-10T22:25:16+00:00",
+   "retrieved_at": "2026-10-13T14:36:19+00:00",
    "note": null,
    "trimmed": true
   },
@@ -157,7 +157,7 @@
    "status": 200,
    "bytes": 173011,
    "sha256": "8fbc1f9cf3f94d192eebef23ac1b0374a112ff3e6817ba1d923844687d62b234",
-   "retrieved_at": "2026-10-10T22:25:21+00:00",
+   "retrieved_at": "2026-10-13T14:36:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -173,7 +173,7 @@
    "status": 200,
    "bytes": 171131,
    "sha256": "fbfb5ae99c68a31f1e3e26821363c3aac9c61dff1072f60774ffcbb079924832",
-   "retrieved_at": "2026-10-10T22:25:24+00:00",
+   "retrieved_at": "2026-10-13T14:36:29+00:00",
    "note": null,
    "trimmed": true
   },
@@ -189,7 +189,7 @@
    "status": 200,
    "bytes": 181156,
    "sha256": "f85c9de3b63aec57f2ea7559938b77cc86e7f1bc986dc4a326cb74379ca70976",
-   "retrieved_at": "2026-10-10T22:25:30+00:00",
+   "retrieved_at": "2026-10-13T14:36:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -205,7 +205,7 @@
    "status": 200,
    "bytes": 180218,
    "sha256": "6e33a251e393008e8af64ea8312720c48f3866f14b42e67893f295196f7fe5f7",
-   "retrieved_at": "2026-10-10T22:25:34+00:00",
+   "retrieved_at": "2026-10-13T14:36:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -221,7 +221,7 @@
    "status": 200,
    "bytes": 171339,
    "sha256": "b300f290b8715baf57c382e8c9e1652cd224812b2a522d3a4ef45f1166955f5e",
-   "retrieved_at": "2026-10-10T22:25:38+00:00",
+   "retrieved_at": "2026-10-13T14:36:44+00:00",
    "note": null,
    "trimmed": true
   },
@@ -237,7 +237,7 @@
    "status": 200,
    "bytes": 175358,
    "sha256": "0e1fe3c454a0314194efb8730b6fb0d6dc42290d2bf3ef4e8e7ceb842840d0f6",
-   "retrieved_at": "2026-10-10T22:25:43+00:00",
+   "retrieved_at": "2026-10-13T14:36:49+00:00",
    "note": null,
    "trimmed": true
   },
@@ -253,7 +253,7 @@
    "status": 200,
    "bytes": 177842,
    "sha256": "811a06b702153458e7fc3a9059964c3162ce83b965af6ff2d785c3ea858f0a36",
-   "retrieved_at": "2026-10-10T22:25:46+00:00",
+   "retrieved_at": "2026-10-13T14:36:54+00:00",
    "note": null,
    "trimmed": true
   },
@@ -269,7 +269,7 @@
    "status": 200,
    "bytes": 175743,
    "sha256": "0ac0cc4e3b68d58d67687259a9e30052dce02803e216f9aab754bdf9c192ac03",
-   "retrieved_at": "2026-10-10T22:25:50+00:00",
+   "retrieved_at": "2026-10-13T14:36:59+00:00",
    "note": null,
    "trimmed": true
   },
@@ -285,7 +285,7 @@
    "status": 200,
    "bytes": 169774,
    "sha256": "8f93dd49165595a712540c0e067d6174edfc352c8da1ecec39839dcea8dcd33f",
-   "retrieved_at": "2026-10-10T22:25:54+00:00",
+   "retrieved_at": "2026-10-13T14:37:05+00:00",
    "note": null,
    "trimmed": true
   },
@@ -301,7 +301,7 @@
    "status": 200,
    "bytes": 178205,
    "sha256": "d100983df9ad52012f82f969c645ca44c1fb675ad2d3de8f2c0a6be80dccc724",
-   "retrieved_at": "2026-10-10T22:25:57+00:00",
+   "retrieved_at": "2026-10-13T14:37:09+00:00",
    "note": null,
    "trimmed": true
   },
@@ -317,7 +317,7 @@
    "status": 200,
    "bytes": 170027,
    "sha256": "39be800bb6d9ab3fa7c463c805b5266758e6a440da4d4274c1c79685acb9b80f",
-   "retrieved_at": "2026-10-10T22:26:01+00:00",
+   "retrieved_at": "2026-10-13T14:37:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -333,7 +333,7 @@
    "status": 200,
    "bytes": 171055,
    "sha256": "a8b5fa61d39ade712d0874a28459c75a4be7638df259ad837ce2d4eeb065d985",
-   "retrieved_at": "2026-10-10T22:26:05+00:00",
+   "retrieved_at": "2026-10-13T14:37:21+00:00",
    "note": null,
    "trimmed": true
   },
@@ -349,7 +349,7 @@
    "status": 200,
    "bytes": 172335,
    "sha256": "4e6442b693c4c91199253788216232164de46fdf84d0f0395ae86668d7fcd726",
-   "retrieved_at": "2026-10-10T22:26:08+00:00",
+   "retrieved_at": "2026-10-13T14:37:25+00:00",
    "note": null,
    "trimmed": true
   },
@@ -365,7 +365,7 @@
    "status": 200,
    "bytes": 168934,
    "sha256": "cab7be650f3f3868eea9b6f9d9076c8b8f90be2bbb08c105d0cfaac90bc32f6b",
-   "retrieved_at": "2026-10-10T22:26:14+00:00",
+   "retrieved_at": "2026-10-13T14:37:31+00:00",
    "note": null,
    "trimmed": true
   },
@@ -381,12 +381,12 @@
    "status": 200,
    "bytes": 167855,
    "sha256": "bd9a45091d9ec2ffd3eee6afc6a8d812ca34e66b200e32c12845be4a1c5367f3",
-   "retrieved_at": "2026-10-10T22:26:19+00:00",
+   "retrieved_at": "2026-10-13T14:37:37+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/congress_gov/2026-10-10",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/congress_gov/2026-10-13",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "bills_listed_per_congress": {
   "106": 10840,
