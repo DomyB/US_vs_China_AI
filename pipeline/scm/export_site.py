@@ -17,6 +17,7 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 
 import duckdb
+import numpy as np
 import pandas as pd
 
 from .insights import MUSD_DECIMALS, build_insights
@@ -466,6 +467,9 @@ def _src(sid: str, record_url: str | None = None) -> dict:
 def _json_safe(v):
     if v is None or (isinstance(v, float) and v != v) or v is pd.NA or v is pd.NaT:
         return None
+    if isinstance(v, np.ndarray):
+        # an array cell (a doc_embedding vector) becomes a list; `.item()` would raise on anything but one element
+        return [_json_safe(x) for x in v.tolist()]
     if hasattr(v, "item"):
         return v.item()
     return v

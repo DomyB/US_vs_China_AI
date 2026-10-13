@@ -228,6 +228,8 @@ def test_export_with_model_outputs(tmp_path):
     warehouse.upsert("doc_translation", "opus_mt", pd.DataFrame([{"doc_id": ids[0], "field": "title", "lang_from": "pt", "lang_to": "en", "text": "PL 2780/2024: National Critical Minerals Policy", "method": "mt", "model": "opus", "created_at": "t"}]), wh)
     warehouse.replace_slot("topic", "parliament", pd.DataFrame([{"run_id": "tp", "topic_id": 0, "label": "minerais · política", "keywords": "minerais,politica", "example_doc_ids": ids[0], "n_docs": 2}]), wh)
     warehouse.replace_slot("doc_topic", "parliament", pd.DataFrame([{"doc_id": ids[0], "run_id": "tp", "topic_id": 0, "prob": 0.9}, {"doc_id": ids[1], "run_id": "tp", "topic_id": 0, "prob": 0.8}]), wh)
+    # the embeddings' vector column comes back from DuckDB as a numpy array per row: the export must turn it into a list
+    warehouse.upsert("doc_embedding", "minilm", pd.DataFrame([{"doc_id": d, "model": "minilm", "dim": 3, "vector": v} for d, v in zip(ids, [[1.0, 0.0, 0.0], [0.9, 0.1, 0.0], [0.0, 0.0, 1.0]], strict=True)]), wh)
     (wh / "ingest_run").mkdir()
     schema.validate("ingest_run", pd.DataFrame([{"run_id": "r", "source_id": "bra_camara_api", "started_at": "t", "finished_at": "t", "status": "ok", "rows": "{}", "error": None, "snapshot_dir": None}])).to_parquet(wh / "ingest_run" / "x.parquet", index=False)
 
@@ -252,6 +254,11 @@ def test_export_with_model_outputs(tmp_path):
     assert meta["coverage"]["BRA"]["parliament_classified"] == 2 and meta["coverage"]["BRA"]["parliament_translated"] == 1 and not meta["coverage"]["BRA"]["narratives_available"]
     val = json.loads((out / "validation.json").read_text())
     assert val["status"] == "not_yet_measured" and val["selected_method"] == "zero_shot" and val["text_model"]["method"] == "zero_shot"
+    words = json.loads((out / "words.json").read_text())
+    assert words["n"] == 3 and words["dim"] == 3 and words["model"] == "minilm"
+    w0 = next(d for d in words["docs"] if d["id"] == ids[0])
+    assert w0["nn"][0] == ids[1] and w0["e"].startswith("PL 2780/2024: National") and w0["sc"] == 1 and w0["k"] == 0
+    assert words["featured"][0]["id"] == ids[0] and words["featured"][0]["vector"] == [1.0, 0.0, 0.0] and words["featured"][0]["near"][0]["id"] == ids[1]
 
 
 def _volume(sid, country, period, total, mining, cn, us):
