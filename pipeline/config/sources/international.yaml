@@ -39,7 +39,7 @@ sources:
     status: live
     verified_on: 2026-10-13
     verified_method: probe
-    notes: "One 2.3 GB zip of yearly HS6 CSVs (t, i, j, k, v in thousand US$, q in tonnes) plus a country-code file; the runner reads it once, keeps the tracked products and countries and deletes the zip (DECISIONS 89). Values are FOB after CEPII's reconciliation of the exporter's and importer's reports, stored as value_type reconciled beside Comtrade's reported and mirror rows. The directory listing answers 403 by design; the file itself downloads."
+    notes: "One 2.3 GB zip of yearly HS6 CSVs (t, i, j, k, v in thousand US$, q in tonnes) plus a country-code file; the runner reads it once, keeps every row of the tracked products (all exporters and importers) as yearly CSV slices and deletes the zip (DECISIONS 89); the parse keeps the twenty countries' exports to every destination, US and Chinese imports from every origin, and the intermediaries' legs (DECISIONS 92). Values are FOB after CEPII's reconciliation of the exporter's and importer's reports, stored as value_type reconciled beside Comtrade's reported and mirror rows. The directory listing answers 403 by design; the file itself downloads."
   - id: imf_imts
     name: IMF International Merchandise Trade Statistics (IMTS, formerly Direction of Trade Statistics)
     url: https://data.imf.org/en/datasets/IMF.STA:IMTS
