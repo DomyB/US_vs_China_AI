@@ -13,20 +13,24 @@ export const metadata = { title: "Archive · Strata", description: "Statements, 
  */
 const DOWNLOADS: { file: string; key: string; description: string }[] = [
   { file: "policy.json", key: "documents", description: "US policy documents selected by title: Congress.gov bills and Federal Register notices and rules, each with title, agency, date, topics and the source URL. The documents the Attention block and chapter 1 count by year." },
+  { file: "companion/denial/data.json", key: "claims", description: "The companion project \"Denial without Substitution\" as supplied (DECISIONS 94): 31 studies, 951 claims with page citations, 1,076 dated events with sources, 29 findings, 17 mechanisms, 12 disagreements, 20 country verdicts, 34 projects, gaps and the audit; its governments, UN ideal points, mirror trade and survey are in companion/denial/r4.json, its 2026 records and pictures in r3.json, its correlations in synth.json." },
   { file: "routes.json", key: "origins", description: "Where the ore goes, from the reconciled bilateral trade (CEPII BACI): the two buyers' imports by origin, the region's exports by destination, each country's largest destinations and the intermediaries' two legs (imports from the region, exports to each buyer). The rows behind the routes page; the indirect bound is computed in the browser as the smaller leg." },
   { file: "prices.json", key: "series", description: "World price rows per mineral: the World Bank Pink Sheet monthly series and USGS Mineral Commodity Summaries annual averages, each with unit, date and the source URL. The series behind chapter 2's price strip and the Lab's price lever, there as annual averages." },
 ];
 
 function describe(d: (typeof DOWNLOADS)[number]): ArchiveDownload {
+  // the pipeline's exports live under /data/real; an owner-supplied companion file is served from /data as supplied
+  const base = d.file.startsWith("companion/") ? "public/data" : "public/data/real";
+  const href = d.file.startsWith("companion/") ? `/data/${d.file}` : `/data/real/${d.file}`;
   try {
-    const p = path.join(process.cwd(), "public/data/real", d.file);
-    if (!existsSync(p)) return { file: d.file, href: `/data/real/${d.file}`, bytes: null, rows: null, description: d.description };
+    const p = path.join(process.cwd(), base, d.file);
+    if (!existsSync(p)) return { file: d.file, href, bytes: null, rows: null, description: d.description };
     const bytes = statSync(p).size;
     const parsed = JSON.parse(readFileSync(p, "utf8")) as Record<string, unknown>;
     const rows = Array.isArray(parsed[d.key]) ? (parsed[d.key] as unknown[]).length : null;
-    return { file: d.file, href: `/data/real/${d.file}`, bytes, rows, description: d.description };
+    return { file: d.file, href, bytes, rows, description: d.description };
   } catch {
-    return { file: d.file, href: `/data/real/${d.file}`, bytes: null, rows: null, description: d.description };
+    return { file: d.file, href, bytes: null, rows: null, description: d.description };
   }
 }
 

@@ -201,6 +201,11 @@ not fetched (DECISIONS 29) and is marked accordingly.
 - **Ownership chains**: SEDAR+ and HKEX forbid scraping; chains for Canadian and
   Hong Kong listed intermediaries are built from SEC cross-listings and company
   reports, so smaller juniors may be missed.
+- **The companion project** (`/denial`) is served as supplied: its verdicts,
+  confidence levels, government coding and correlations are that project's
+  reading, labelled so, and its sources (UN votes, WITS mirror trade, the
+  statements dataset) can differ from Strata's own figures by vintage and
+  definition. Its pictures are illustrations with Commons credits, not records.
 - **The indirect route**: the routes page bounds what could have reached a buyer
   through an intermediary (Canada, Spain, Japan, …) by the smaller of that
   economy's imports from the region and its exports to the buyer in the same

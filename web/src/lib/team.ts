@@ -22,6 +22,6 @@ export const TEAM: Researcher[] = [
 ];
 /** the companion projects the events, commitments, pressure cases, official finance and statements come from; named by the owner */
 export const COMPANION_PROJECTS: { name: string | null; what: string }[] = [
-  { name: null, what: "events, commitments and pressure cases" },
-  { name: null, what: "official finance and statements" },
+  { name: "Denial without Substitution (Investigating with AI, Sciences Po, 2026)", what: "events, commitments and pressure cases" },
+  { name: "the Investigating with AI project (Sciences Po, 2026)", what: "official finance and statements" },
 ];

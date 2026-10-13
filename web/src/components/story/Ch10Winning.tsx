@@ -41,6 +41,7 @@ export function Ch10Winning({ verdicts }: { verdicts: MeasureVerdict[] }) {
         </div>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <Door href="/what-we-know" title="What do we know" text="The literature set against the record, claim by claim." primary />
+          <Door href="/denial" title="Denial without Substitution" text="The companion project's answer to why: 31 studies, 1,076 events, 20 country verdicts." />
           <Door href="/mineral" title="The minerals, one file each" text="Where the record stops: the ore at the border, by mineral." />
         </div>
       </div>
