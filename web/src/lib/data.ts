@@ -298,6 +298,25 @@ export async function loadValidation(): Promise<ValidationFile | null> {
 }
 
 /** The Insights page's file (DECISIONS 59): real only, null until the export has written it (the page states the absence). */
+/** The step-by-step exports: every embedded record as a point, and every index component row. Null when absent or empty. */
+export async function loadWords(): Promise<import("./geometry").WordsFile | null> {
+  try {
+    const file = await fetchOnce<import("./geometry").WordsFile>(`${REAL}/words.json`);
+    return Array.isArray(file.docs) && file.docs.length > 0 ? file : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadComponents(): Promise<import("./geometry").ComponentsFile | null> {
+  try {
+    const file = await fetchOnce<import("./geometry").ComponentsFile>(`${REAL}/components.json`);
+    return Array.isArray(file.components) && file.components.length > 0 ? file : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadInsights(): Promise<InsightsFile | null> {
   try {
     const file = await fetchOnce<InsightsFile>(`${REAL}/insights.json`);

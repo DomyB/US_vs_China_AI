@@ -364,6 +364,8 @@
   .plot-figure svg [aria-label="y-axis label"], .plot-figure svg [aria-label="x-axis label"] { fill: var(--ink-2); }
   .plot-figure svg [aria-label="tip"] { font-size: 12px; }
   .plot-figure svg [aria-label="tip"] path { stroke: var(--outline); stroke-width: 1.5; }
+  /* a map whose points are clickable: the tooltip that follows the pointer must not take the click */
+  .records-map svg [aria-label="tip"] { pointer-events: none; }
   .plot-figure { margin: 0.25rem 0; }
   .plot-figure + details { margin-top: 0.25rem; }
 
