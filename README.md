@@ -1,4 +1,4 @@
-# US–China Competition for Critical Minerals in Latin America (2000–2026)
+# Strata: China, the United States and Latin America's critical minerals (2000–2026)
 
 A public research platform that tracks, analyses and forecasts the competition between
 the United States and China for critical minerals in twenty countries: the twelve sovereign

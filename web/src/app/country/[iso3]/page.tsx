@@ -14,7 +14,7 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ iso3: string }> }) {
   const { iso3 } = await params;
-  return { title: `${COUNTRY_NAMES[iso3] ?? iso3} · US–China Critical Minerals Tracker` };
+  return { title: `${COUNTRY_NAMES[iso3] ?? iso3} · Strata` };
 }
 
 export default async function Page({ params }: { params: Promise<{ iso3: string }> }) {

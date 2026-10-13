@@ -2,7 +2,7 @@ import { SourcesTable } from "@/components/sources/SourcesTable";
 import { StatTile } from "@/components/ui/Section";
 import { sourcesOnServer } from "@/lib/sources.server";
 
-export const metadata = { title: "Sources · US–China Critical Minerals Tracker" };
+export const metadata = { title: "Sources · Strata" };
 
 export default function SourcesPage() {
   const counts = { live: 0, moved: 0, dead: 0, uncertain: 0 } as Record<string, number>;

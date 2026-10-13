@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { ArchiveHub, type ArchiveDownload } from "@/components/archive/ArchiveHub";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 
-export const metadata = { title: "Archive · US–China Critical Minerals Tracker", description: "Statements, methods, sources, case files and the flag registry: every record the site reads, kept whole.", openGraph: { title: "Archive · US–China Critical Minerals Tracker", description: "Statements, methods, sources, case files and the flag registry: every record the site reads, kept whole.", images: ["/og.png"] } };
+export const metadata = { title: "Archive · Strata", description: "Statements, methods, sources, case files and the flag registry: every record the site reads, kept whole.", openGraph: { title: "Archive · Strata", description: "Statements, methods, sources, case files and the flag registry: every record the site reads, kept whole.", images: ["/og.png"] } };
 
 /**
  * The exports no page draws but the pipeline publishes for download (DECISIONS: the counts live in insights.json and

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { HeroArt } from "@/components/ui/HeroArt";
 import { COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
 
-export const metadata = { title: "Not found · US–China Critical Minerals Tracker" };
+export const metadata = { title: "Not found · Strata" };
 
 /** The 404 page: says what is missing and offers the country pages and the two ways back. */
 export default function NotFound() {

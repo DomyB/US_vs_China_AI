@@ -14,9 +14,10 @@ import { PageFade } from "@/components/layout/PageFade";
 import { Tour } from "@/components/tour/Tour";
 import { YEAR_MIN, YEAR_MAX, COUNTRY_COUNT } from "@/lib/constants";
 import { SITE_URL } from "@/lib/site";
+import { SITE_NAME, SITE_TAGLINE } from "@/lib/team";
 
-const TITLE = `US–China Critical Minerals Tracker: South America ${YEAR_MIN}–${YEAR_MAX}`;
-const DESCRIPTION = "Tracks, analyses and forecasts the competition between the United States and China for critical minerals in South America: actions, parliaments and media, by country and year.";
+const TITLE = `${SITE_NAME}: ${SITE_TAGLINE}`;
+const DESCRIPTION = `Tracks, analyses and forecasts the competition between the United States and China for the critical minerals of ${COUNTRY_COUNT} Latin American countries: actions, parliaments and media, by country, mineral and year.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -24,10 +25,10 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   openGraph: {
     type: "website",
-    siteName: "US–China Critical Minerals Tracker",
+    siteName: SITE_NAME,
     title: TITLE,
     description: DESCRIPTION,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Illustrated South America with mineral crystals and routes from the United States and China" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Illustrated Latin America with mineral crystals and routes from the United States and China" }],
   },
   twitter: { card: "summary_large_image", images: ["/og.png"] }, // the title and description follow each page's openGraph
 };
@@ -56,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 no-underline sm:flex-none">
               <LogoTile size={36} />
               <span className="leading-tight">
-                <span className="serif block text-[15px] font-bold tracking-tight text-ink sm:text-base">US–China Critical Minerals Tracker</span>
+                <span className="serif block text-[15px] font-bold tracking-tight text-ink sm:text-base">{SITE_NAME}</span>
                 <span className="block text-[11px] text-ink-3">Latin America · {COUNTRY_COUNT} countries · {YEAR_MIN}–{YEAR_MAX}</span>
               </span>
             </Link>
@@ -80,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="mx-auto grid max-w-7xl gap-5 px-4 py-5 sm:grid-cols-[auto_1fr_auto]">
             <LogoTile size={36} className="hidden sm:grid" />
             <div className="max-w-2xl space-y-1.5 leading-relaxed">
-              <p className="serif text-sm font-bold text-ink">US–China Critical Minerals Tracker</p>
+              <p className="serif text-sm font-bold text-ink">{SITE_NAME} · {SITE_TAGLINE}</p>
               <p>
               Open research project. Every number links to its source and every source carries a reliability rating. Facts, model outputs and interpretation are shown as three separate layers, labelled on every block. Nothing is estimated silently: missing data is shown as missing.
               </p>

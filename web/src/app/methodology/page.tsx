@@ -10,7 +10,7 @@ import { GLOSSARY } from "@/lib/glossary";
 import { forecastSeriesSpan } from "@/lib/provenance";
 import type { QuantFile, RealMeta } from "@/lib/types";
 
-export const metadata = { title: "Methodology · US–China Critical Minerals Tracker" };
+export const metadata = { title: "Methodology · Strata" };
 
 /** A real export read from disk when the page is built (it is static, regenerated with each data release); null when the checkout has no such file. */
 function realExport<T>(name: string): T | null {

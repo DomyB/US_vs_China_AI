@@ -3,7 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT_WORD, IN_SCOPE } from "@/lib/constants";
-import { loadFlows, loadIndex, loadInsights, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
+import { loadComponents, loadFlows, loadIndex, loadInsights, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
+import type { ComponentsFile } from "@/lib/geometry";
+import { financeByYear, leanByYear, tradeByYear, votesByYear } from "@/lib/overview";
+import { Ch0Situation } from "./Ch0Situation";
+import { Cover } from "./Cover";
 import { fmtMusd, fmtPct } from "@/lib/format";
 import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
 import type { FlowsFile, IndexFile, InsightsFile, QuantFile, RealMeta, RegionData, RegionStatements, StatementRecord, StoryFile } from "@/lib/types";
@@ -29,6 +33,7 @@ interface Loaded {
   meta: RealMeta | null;
   story: StoryFile | null;
   statements: RegionStatements | null;
+  components: ComponentsFile | null;
 }
 
 const OPENING_ID = "PS-0283";
@@ -56,9 +61,9 @@ export function StoryPage() {
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     let alive = true;
-    Promise.all([loadInsights(), loadFlows(), loadRegionShares(), loadQuant(), loadIndex(), loadRealMeta(), loadStory(), loadRegionStatements()])
-      .then(([insights, flows, shares, quant, index, meta, story, statements]) => {
-        if (alive) setD({ insights, flows: flows.layer === "real" ? flows.data : null, shares: shares.layer === "real" ? shares.rows : [], quant, index, meta, story, statements });
+    Promise.all([loadInsights(), loadFlows(), loadRegionShares(), loadQuant(), loadIndex(), loadRealMeta(), loadStory(), loadRegionStatements(), loadComponents()])
+      .then(([insights, flows, shares, quant, index, meta, story, statements, components]) => {
+        if (alive) setD({ insights, flows: flows.layer === "real" ? flows.data : null, shares: shares.layer === "real" ? shares.rows : [], quant, index, meta, story, statements, components });
       })
       .catch(() => {
         if (alive) setFailed(true);
@@ -181,19 +186,32 @@ export function StoryPage() {
   }
   const { insights, flows } = d;
   const c = computed;
+  const scope = new Set(IN_SCOPE);
+  const overview = {
+    trade: tradeByYear(flows.trade, scope),
+    finance: financeByYear(flows.finance, scope),
+    votes: d.components ? votesByYear(d.components, scope) : [],
+    lean: leanByYear(d.index.rows, scope),
+  };
+  const countriesWithFacts = d.meta ? Object.values(d.meta.coverage ?? {}).filter((cv) => (cv as { trade_years?: unknown[] }).trade_years?.length).length : null;
+  const sourcesLine = d.meta?.sources_live ? `${d.meta.sources_live.live} of ${d.meta.sources_live.total} registered sources answered the last liveness check; ${d.meta.sources_ok?.length ?? 0} adapters ran in the last ingestion.` : null;
   // Two counts, never confused (DECISIONS 73): registry sources that answered the liveness check, and adapters that ran in the last ingestion.
   const release = d.meta
     ? `Data as of ${d.meta.generated_on} · ${d.meta.quant_model?.inputs_release ?? ""} · ${d.meta.sources_live ? `${d.meta.sources_live.live} of ${d.meta.sources_live.total} sources live` : `${d.meta.sources_ok.length} adapters ran`}${d.meta.adapters_ok ? ` · ${d.meta.adapters_ok.ok} of ${d.meta.adapters_ok.total} adapters ran` : ""}`
     : "";
   const meter = (n: number) => c.chapters.find((ch) => ch.n === n);
   // Chapters 6, 8 and 9 render only with their inputs; the rail and chapter 9's list name the chapters on the page, never a dead anchor.
-  const present = c.chapters.filter((ch) => (ch.n !== 6 || c.chl) && (ch.n !== 8 || c.arg) && (ch.n !== 9 || c.wall));
+  const present = [{ n: 0, label: "The whole picture", level: "strong" as const, basis: "reported trade, finance records, UN votes; the index is a model output" }, ...c.chapters].filter((ch) => (ch.n !== 6 || c.chl) && (ch.n !== 8 || c.arg) && (ch.n !== 9 || c.wall));
   const opening = pick(d.story, d.statements, [OPENING_ID])[0] ?? null;
   const storyMissing = d.story === null;
   const absence = storyMissing ? "The opening sentence is not in this release: the story export (story.json) has not been written. The receipts below are on record." : `The opening sentence (${OPENING_ID}) is not in this release's story export; the receipts below are on record.`;
   return (
     <div>
       <ProgressRail items={present} />
+      <Cover release={release} sourcesLine={sourcesLine} />
+      <Chapter n={0} eyebrow="The whole picture" question={`Across ${COUNTRY_COUNT_WORD} countries, who buys the ore, who writes the cheques, and who gets the votes?`} meter={present[0]}>
+        <Ch0Situation trade={overview.trade} finance={overview.finance} votes={overview.votes} lean={overview.lean} lastYear={{ trade: flows.meta.last_year.trade ?? null, finance_CN: flows.meta.last_year.finance_CN ?? null, finance_US: flows.meta.last_year.finance_US ?? null }} countriesWithFacts={countriesWithFacts} />
+      </Chapter>
       <ColdOpen quote={opening} absence={absence} receipts={c.receipts} release={release} pairingNote={c.pairingNote} />
       <Chapter n={1} eyebrow="The ledger" question="Who is louder, and who writes the cheques?" meter={meter(1)}>
         <Ch1Ledger region={insights.region} lastYear={{ finance_US: flows.meta.last_year.finance_US, finance_CN: flows.meta.last_year.finance_CN }} afterWindow={c.usAfterWindow} voices={pick(d.story, d.statements, US_VOICES)} />

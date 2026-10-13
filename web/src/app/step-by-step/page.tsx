@@ -3,7 +3,7 @@ import { LayerLabel } from "@/components/ui/Badges";
 
 const description = "Three walkthroughs over the tracker's own records: how a headline becomes a point in a space where distance is meaning, how a country-year of the influence index becomes a point whose composite is a direction, and how the stance classifier learns from examples. Every stage is a live view of real data.";
 
-export const metadata = { title: "Step by step · US–China Critical Minerals Tracker", description, openGraph: { title: "Step by step · US–China Critical Minerals Tracker", description, images: ["/og.png"] } };
+export const metadata = { title: "Step by step · Strata", description, openGraph: { title: "Step by step · Strata", description, images: ["/og.png"] } };
 
 const PAGES = [
   { href: "/step-by-step/words", n: 1, title: "From words to geometry", lead: "One real headline or bill followed from its title to its vector, its nearest records in four languages, the fold to two dimensions and the map of every embedded record.", ready: true },

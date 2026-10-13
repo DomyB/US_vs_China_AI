@@ -20,7 +20,7 @@ export function IntroCard({ indexLayer, open, onToggle }: { indexLayer: "real" |
   return (
     <div className="card max-h-[calc(100vh-var(--chrome-h,96px)-13rem)] overflow-y-auto p-4">
       <div className="flex items-start justify-between gap-3">
-        <p className="eyebrow">US–China critical minerals · South America</p>
+        <p className="eyebrow">Strata · critical minerals · Latin America</p>
         <button type="button" onClick={() => onToggle(false)} aria-label="Hide the introduction" title="Hide the introduction" className="btn btn-sm btn-icon -mr-1 -mt-1">
           <Icon name="close" />
         </button>

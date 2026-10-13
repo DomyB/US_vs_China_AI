@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { STORY_RESTART_EVENT } from "./Chapter";
 import { reducedMotion } from "@/lib/motion";
-import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { COUNTRY_COUNT_WORD, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import type { StatementRecord } from "@/lib/types";
 import { Door } from "./Chapter";
 
@@ -129,7 +129,7 @@ export function ColdOpen({ quote, absence, receipts, release, pairingNote }: { q
         <div className="mt-4 h-px w-24 bg-cn" aria-hidden="true" />
         <div id="story-start" className="mt-10 scroll-mt-4 sm:mt-14">
           <h1 className="serif text-4xl font-bold leading-[1.05] sm:text-6xl">Said &amp; Paid</h1>
-          <p className="mt-3 max-w-2xl text-base opacity-85 sm:text-lg">What leaders said, what the money did. Twelve countries, {YEAR_MIN}–{YEAR_MAX}.</p>
+          <p className="mt-3 max-w-2xl text-base opacity-85 sm:text-lg">What leaders said, what the money did. {COUNTRY_COUNT_WORD[0].toUpperCase()}{COUNTRY_COUNT_WORD.slice(1)} countries, {YEAR_MIN}–{YEAR_MAX}.</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <Door href="#c1" title="Read the case" text="Nine chapters, one question each, about twelve minutes." primary />
             <Door href="/explore" title="Go straight to the evidence" text="The map: index lean, money arcs, trade arcs, every country." />
