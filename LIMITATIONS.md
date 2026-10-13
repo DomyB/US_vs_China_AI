@@ -201,6 +201,11 @@ not fetched (DECISIONS 29) and is marked accordingly.
 - **Ownership chains**: SEDAR+ and HKEX forbid scraping; chains for Canadian and
   Hong Kong listed intermediaries are built from SEC cross-listings and company
   reports, so smaller juniors may be missed.
+- **The team's prototype** (`/stage`, `/prototype`): its trade panel uses the
+  team's own HS list, two baskets and 33 states, so its shares differ from
+  Strata's reconciled series over twenty countries; its government coding is
+  single-coded, its ladder and cases are selected, and its 2025–2026 years rest
+  on the countries that reported to Comtrade (2026 year to date).
 - **The companion project** (`/denial`) is served as supplied: its verdicts,
   confidence levels, government coding and correlations are that project's
   reading, labelled so, and its sources (UN votes, WITS mirror trade, the

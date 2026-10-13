@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     return [
       ...MAP_KEYS.map((key) => ({ source: "/", has: [{ type: "query" as const, key }], destination: "/explore", permanent: false })),
       { source: "/insights", destination: "/lab", permanent: true },
+      // the team's prototype, served as supplied
+      { source: "/prototype", destination: "/prototype/index.html", permanent: false },
     ];
   },
 };

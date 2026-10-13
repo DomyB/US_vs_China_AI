@@ -5,6 +5,8 @@ import { YEAR_MIN } from "./constants";
  * the team. Names and contributions are the owner's to fill in; a placeholder prints as such and is never invented.
  */
 export const SITE_NAME = "Strata";
+/** the research question, from the team's prototype (draft v0.2, 13 October 2026) */
+export const RESEARCH_QUESTION = "How has the strategic competition between China and the United States over Latin America's natural resources critical to advanced technologies evolved since 2001, and to what extent do geopolitical alignment, domestic political change and economic pragmatism shape Latin American countries' responses?";
 export const SITE_TAGLINE = `China, the United States and Latin America's critical minerals, ${YEAR_MIN}–present`;
 export const COURSE = { name: "AI-assisted Data Analysis for Social Sciences", school: "Sciences Po PSIA", year: "2026–27" };
 export const COVER_VERSION = { label: "Draft v0.3", date: "2026-10-13" };

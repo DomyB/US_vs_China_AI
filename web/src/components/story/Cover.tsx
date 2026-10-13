@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { LayerLabel } from "@/components/ui/Badges";
 import { COUNTRY_COUNT, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
-import { COMPANION_PROJECTS, COURSE, COVER_VERSION, SITE_NAME, SITE_TAGLINE, TEAM } from "@/lib/team";
+import { COMPANION_PROJECTS, COURSE, COVER_VERSION, RESEARCH_QUESTION, SITE_NAME, SITE_TAGLINE, TEAM } from "@/lib/team";
 
 /**
  * The cover: the project's name, question and course, the team, how claims are labelled and where the data comes from.
@@ -16,6 +17,7 @@ export function Cover({ release, sourcesLine }: { release: string; sourcesLine: 
         <h1 id="cover-title" className="serif mt-4 text-6xl font-bold leading-none tracking-tight sm:text-8xl">{SITE_NAME}</h1>
         <p className="serif mt-4 max-w-3xl text-2xl leading-snug sm:text-3xl">{SITE_TAGLINE}.</p>
         <p className="mt-4 max-w-3xl text-base opacity-85 sm:text-lg">A research platform on the competition between China and the United States for the critical minerals of {COUNTRY_COUNT} Latin American countries, {YEAR_MIN}–{YEAR_MAX}: what the record shows, by country, mineral and year, with every number linked to its source.</p>
+        <p className="mt-3 max-w-3xl text-sm opacity-85"><strong>Research question.</strong> {RESEARCH_QUESTION} Three actors, not two: the region&apos;s governments set the rules, choose partners and bargain over terms. The team&apos;s own framing of the question, its five acts and its hypothesis cards are on the <Link href="/stage" className="underline">Two powers, one stage</Link> page.</p>
         <div className="mt-8 grid gap-6 sm:grid-cols-[1fr_1fr]">
           <div>
             <p className="eyebrow">Team</p>
@@ -36,7 +38,7 @@ export function Cover({ release, sourcesLine }: { release: string; sourcesLine: 
             </div>
             <div>
               <p className="eyebrow">Data</p>
-              <p className="mt-1 opacity-85">{sourcesLine ?? "Sourced trade, finance, debt, UN votes, legislative and press records; the registry on the sources page names each with its reliability."} Trade figures are own calculations on UN Comtrade (BACI 2001–2024 to follow). {COMPANION_PROJECTS.map((p, i) => `${i === 0 ? p.what[0].toUpperCase() + p.what.slice(1) : p.what} come from ${p.name ?? "a companion project, to be named"}`).join("; ")}, credited where used.</p>
+              <p className="mt-1 opacity-85">{sourcesLine ?? "Sourced trade, finance, debt, UN votes, legislative and press records; the registry on the sources page names each with its reliability."} Trade figures are own calculations on UN Comtrade and, from the release of 13 October 2026, on CEPII BACI (reconciled, 2001–2024). {COMPANION_PROJECTS.map((p, i) => `${i === 0 ? p.what[0].toUpperCase() + p.what.slice(1) : p.what} come from ${p.name ?? "a companion project, to be named"}`).join("; ")}, credited where used.</p>
             </div>
           </div>
         </div>
