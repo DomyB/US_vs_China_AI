@@ -823,7 +823,7 @@ export interface SourcesFile {
   sources: SourceEntry[];
 }
 
-/** flows.json: per-country yearly totals the map draws as arcs (one small file for all twelve countries). */
+/** flows.json: per-country yearly totals the map draws as arcs (one small file for every country). */
 export interface FlowFinanceRow {
   iso3: string;
   year: number;

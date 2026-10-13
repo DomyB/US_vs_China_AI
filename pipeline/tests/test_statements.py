@@ -53,7 +53,7 @@ def test_export_statements_block(tmp_path):
         _row(id="PS-0002", date="2024-07-04", stance_china="negative", stance_us="positive", speaker_bloc="LatAm legislature", speaker_type="legislator"),
         _row(id="PS-0003", date="2024-09-01", country="PER", speaker_bloc="United States", speaker_country="USA", stance_china="negative", stance_us="positive"),
         _row(id="PS-0004", date="2025-01-10", country="REG", speaker_bloc="China", speaker_country="CHN", stance_china="positive"),
-        _row(id="PS-0005", date="2025-02-10", country="MEX", speaker_country="MEX"),
+        _row(id="PS-0005", date="2025-02-10", country="CUB", speaker_country="CUB"),
     ]))
     for k, v in {"source_id": "manual_statements", "source_url": "https://x.test", "retrieved_at": "2026-10-09T00:00:00+00:00"}.items():
         out[k] = v
@@ -75,7 +75,7 @@ def test_export_statements_block(tmp_path):
     assert blk["by_bloc"][0]["n"] == 1 and blk["coding"].startswith("dataset codebook") and blk["dataset_source"]["id"] == "manual_statements"
     assert per["freshness"]["statements"]["source_ids"] == ["manual_statements"]
     region = json.loads((site / "region.json").read_text())["statements"]
-    assert region["n_total"] == 5 and region["n_in_scope"] == 4 and region["excluded"] == {"MEX": 1} and region["records"][0]["id"] == "PS-0004"
+    assert region["n_total"] == 5 and region["n_in_scope"] == 4 and region["excluded"] == {"CUB": 1} and region["records"][0]["id"] == "PS-0004"
     assert {(r["year"], r["bloc"]): r["n"] for r in region["by_year_bloc"]}[(2024, "LatAm legislature")] == 1
     assert region["countries"]["PER"] == 3 and region["countries"]["BRA"] == 0
     meta = json.loads((site / "meta.json").read_text())

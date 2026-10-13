@@ -4,7 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { fmtMusd } from "@/lib/format";
-import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { COUNTRY_COUNT_WORD, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import type { AttentionYear } from "@/lib/types";
 import { COLORS, INK_3 } from "./shared";
 
@@ -43,8 +43,8 @@ export function Attention({ rows, lastYear }: { rows: AttentionYear[]; lastYear:
       <div className="grid gap-3 sm:grid-cols-2">
         <PlotFigure options={o1} ariaLabel="US policy documents on minerals per year" expandable={false} />
         <PlotFigure options={o2} ariaLabel="Statements by US officials on the region's minerals per year" expandable={false} />
-        <PlotFigure options={o3} ariaLabel="US DFC and EXIM documented commitments to the twelve countries per year" expandable={false} />
-        <PlotFigure options={o4} ariaLabel="Chinese documented commitments to the twelve countries per year" expandable={false} />
+        <PlotFigure options={o3} ariaLabel={`US DFC and EXIM documented commitments to the ${COUNTRY_COUNT_WORD} countries per year`} expandable={false} />
+        <PlotFigure options={o4} ariaLabel={`Chinese documented commitments to the ${COUNTRY_COUNT_WORD} countries per year`} expandable={false} />
       </div>
       <p className="mt-1 text-[11px] leading-snug text-ink-3">Same years on every panel. Policy documents: Congress.gov bills and Federal Register notices and rules selected by title (a bill is not a dollar). Statements: the owner&apos;s dataset{firstStatements !== null ? `, which begins in ${firstStatements}` : ""}. Commitments: documented amounts in the de-duplicated finance events; a shaded year has no source, not zero money.</p>
       <DataTable rows={rows} caption="Attention and money by year" columns={[{ key: "year", label: "Year" }, { key: "policy_docs", label: "Policy docs" }, { key: "us_statements", label: "US statements" }, { key: "statements", label: "All statements" }, { key: "dfc_musd", label: "DFC and EXIM (US$ m)", format: (v) => (v === null ? "no source" : String(v)) }, { key: "cn_musd", label: "China (US$ m)", format: (v) => (v === null ? "no source" : String(v)) }]} />

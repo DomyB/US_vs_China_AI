@@ -5,6 +5,7 @@ import json
 import pandas as pd
 
 from scm import export_site, schema, warehouse
+from scm.registry import COUNTRY_COUNT
 
 
 def _prov(sid, lang="en", rel="official"):
@@ -87,7 +88,7 @@ def test_build_and_export_end_to_end(tmp_path):
     warehouse.build(wh)
     out = tmp_path / "site"
     res = export_site.run(wh, out)
-    assert res["countries"] == 12
+    assert res["countries"] == COUNTRY_COUNT
     chl = json.loads((out / "country" / "CHL.json").read_text())
     tb = {(b["year"], b["mineral"]): b for b in chl["actions"]["trade"]}
     assert tb[(2022, "lithium")]["exports_musd"] == {"CN": 2000.0, "US": 500.0, "ROW": 1500.0, "WLD": 4000.0} and tb[(2022, "lithium")]["mirror_musd"]["CN"] == 2100.0

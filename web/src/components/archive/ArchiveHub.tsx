@@ -1,5 +1,6 @@
 "use client";
 
+import { COUNTRY_COUNT_WORD } from "@/lib/constants";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { loadQuant, loadRealMeta, loadRegionStatements } from "@/lib/data";
@@ -48,7 +49,7 @@ export function ArchiveHub({ downloads = [] }: { downloads?: ArchiveDownload[] }
     { href: "/region", title: "Statements and the region", text: statements && onCountry !== null ? `${statements.n_in_scope} in-scope coded political statements (${onCountry} on a country, ${statements.n_in_scope - onCountry} region-wide) with their original-language quotes, the regional ranking, the mineral shares and the synthesis.` : "Coded political statements with their original-language quotes, the regional ranking, the mineral shares and the synthesis." },
     { href: "/methodology", title: "Methods", text: "Every index, model, rule and limitation, with the live validation tables and the glossary." },
     { href: "/sources", title: "Sources", text: sourcesText },
-    { href: "/country", title: "Case files", text: "The twelve countries, five tabs each; every finance event, trade row, statement, flag and forecast." },
+    { href: "/country", title: "Case files", text: `The ${COUNTRY_COUNT_WORD} countries, five tabs each; every finance event, trade row, statement, flag and forecast.` },
   ];
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">

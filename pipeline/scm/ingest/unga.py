@@ -12,7 +12,7 @@ from .util import col
 DATASET = "https://dataverse.harvard.edu/api/datasets/:persistentId/"
 DOI = "doi:10.7910/DVN/LEJUQZ"
 FILE = "https://dataverse.harvard.edu/api/access/datafile/{id}"
-COW = {"ARG": 160, "BOL": 145, "BRA": 140, "CHL": 155, "COL": 100, "ECU": 130, "GUY": 110, "PRY": 150, "PER": 135, "SUR": 115, "URY": 165, "VEN": 101, "USA": 2, "CHN": 710}
+COW = {"ARG": 160, "BOL": 145, "BRA": 140, "CHL": 155, "COL": 100, "ECU": 130, "GUY": 110, "PRY": 150, "PER": 135, "SUR": 115, "URY": 165, "VEN": 101, "MEX": 70, "GTM": 90, "BLZ": 80, "HND": 91, "SLV": 92, "NIC": 93, "CRI": 94, "PAN": 95, "USA": 2, "CHN": 710}
 COW_TO_ISO = {v: k for k, v in COW.items()}
 
 

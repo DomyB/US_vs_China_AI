@@ -1,3 +1,4 @@
+import { COUNTRY_COUNT } from "@/lib/constants";
 import { describe, expect, it } from "vitest";
 import { carriedBy, defaultIndexYear, hasSubIndices, laggingSources, lastIndexedYears, leadLookup, leadSentence, leadSummary, missingIndexNote, noIndexReason, parseIndexName, rowIndex, rowsForIndex } from "@/lib/indexView";
 import type { IndexRow } from "@/lib/types";
@@ -128,15 +129,15 @@ describe("the ranking's note", () => {
   });
   it("explains 2025 by the sources that end before it and names the last broadly indexed year", () => {
     expect(missingIndexNote({ year: 2025, mineral: "all", indexName: "composite", missingAny: 11, missingCN: 11, missingUS: 2, lastYear, defaultYear: 2024 })).toBe(
-      "11 of 12 countries have no composite influence index in 2025: the China index is missing for 11 (UN voting to 2024, debt owed to China to 2024, Chinese finance to 2021); the US index is missing for 2 (UN voting to 2024). The index is not published where a component it rested on the year before has no data yet, or with fewer than 3 components. The last year with both indices for most countries is 2024.",
+      `11 of ${COUNTRY_COUNT} countries have no composite influence index in 2025: the China index is missing for 11 (UN voting to 2024, debt owed to China to 2024, Chinese finance to 2021); the US index is missing for 2 (UN voting to 2024). The index is not published where a component it rested on the year before has no data yet, or with fewer than 3 components. The last year with both indices for most countries is 2024.`,
     );
   });
   it("explains 2026 by the trade record and a mineral filter by the mineral", () => {
-    expect(missingIndexNote({ year: 2026, mineral: "all", indexName: "composite", missingAny: 12, missingCN: 12, missingUS: 12, lastYear, defaultYear: 2024 })).toBe("12 of 12 countries have no composite influence index in 2026: no trade reported for 2026 yet (UN Comtrade runs to 2025).");
-    expect(missingIndexNote({ year: 2024, mineral: "lithium", indexName: "composite", missingAny: 7, missingCN: 7, missingUS: 5, lastYear, defaultYear: 2024 })).toBe("7 of 12 countries have no composite influence index in 2024: no reported trade in the mineral that year, or fewer than 3 components.");
-    expect(missingIndexNote({ year: 2024, mineral: "lithium", indexName: "economic_ties", missingAny: 12, missingCN: 12, missingUS: 12, lastYear, defaultYear: 2024 })).toBe("12 of 12 countries have no economic ties sub-index in 2024: the sub-indices are computed for all minerals together.");
+    expect(missingIndexNote({ year: 2026, mineral: "all", indexName: "composite", missingAny: 12, missingCN: 12, missingUS: 12, lastYear, defaultYear: 2024 })).toBe(`12 of ${COUNTRY_COUNT} countries have no composite influence index in 2026: no trade reported for 2026 yet (UN Comtrade runs to 2025).`);
+    expect(missingIndexNote({ year: 2024, mineral: "lithium", indexName: "composite", missingAny: 7, missingCN: 7, missingUS: 5, lastYear, defaultYear: 2024 })).toBe(`7 of ${COUNTRY_COUNT} countries have no composite influence index in 2024: no reported trade in the mineral that year, or fewer than 3 components.`);
+    expect(missingIndexNote({ year: 2024, mineral: "lithium", indexName: "economic_ties", missingAny: 12, missingCN: 12, missingUS: 12, lastYear, defaultYear: 2024 })).toBe(`12 of ${COUNTRY_COUNT} countries have no economic ties sub-index in 2024: the sub-indices are computed for all minerals together.`);
   });
   it("points at the case file for a gap inside the indexed years", () => {
-    expect(missingIndexNote({ year: 2024, mineral: "all", indexName: "composite", missingAny: 1, missingCN: 1, missingUS: 1, lastYear, defaultYear: 2024 })).toBe("1 of 12 countries have no composite influence index in 2024: fewer than 3 components (each case file's Analysis tab says which).");
+    expect(missingIndexNote({ year: 2024, mineral: "all", indexName: "composite", missingAny: 1, missingCN: 1, missingUS: 1, lastYear, defaultYear: 2024 })).toBe(`1 of ${COUNTRY_COUNT} countries have no composite influence index in 2024: fewer than 3 components (each case file's Analysis tab says which).`);
   });
 });

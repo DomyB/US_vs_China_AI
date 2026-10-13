@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { Attention } from "@/components/insights/Attention";
-import { ACTOR_COLOR, OTHER_COLOR } from "@/lib/constants";
+import { ACTOR_COLOR, COUNTRY_COUNT_WORD, OTHER_COLOR } from "@/lib/constants";
 import { fmtMusd } from "@/lib/format";
 import { LAST_YEAR_LABEL } from "@/lib/provenance";
 import type { InsightRegion, StatementRecord } from "@/lib/types";
@@ -101,7 +101,7 @@ export function Ch1Ledger({ region, lastYear, afterWindow = null, voices }: { re
     : "";
   return (
     <div className="space-y-6">
-      {ratioMoney !== null && <GuessFirst id="c1-ratio" question={`For every dollar Washington committed to these twelve countries in ${tm.finance.US.years[0]}–${tm.finance.US.years[1]}, how many did Beijing commit?`} min={0} max={30} step={0.5} answer={ratioMoney} format={(v) => v.toFixed(1)} unit="Chinese dollars per US dollar" />}
+      {ratioMoney !== null && <GuessFirst id="c1-ratio" question={`For every dollar Washington committed to these ${COUNTRY_COUNT_WORD} countries in ${tm.finance.US.years[0]}–${tm.finance.US.years[1]}, how many did Beijing commit?`} min={0} max={30} step={0.5} answer={ratioMoney} format={(v) => v.toFixed(1)} unit="Chinese dollars per US dollar" />}
       <div className="story-grid">
         <div className="story-sticky">
           <Exhibit id="c1-ledger" title="The ledger balance" layer="facts" sources={["manual_statements", "aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["statement:count:bloc", `flow_finance:CN:${tm.finance.CN.years[0]}-${tm.finance.CN.years[1]}`, `flow_finance:US:${tm.finance.US.years[0]}-${tm.finance.US.years[1]}`, `flow_finance:US:${tm.finance.US_after.years[0]}-${tm.finance.US_after.years[1]}`]} lastYear={financeLastYears} explore={{ href: "/lab#ledger", label: "Open the ledger in the Lab" }} note={`${tm.note}; it is the darker base of each money column, in light and dark mode alike.`}>
@@ -119,7 +119,7 @@ export function Ch1Ledger({ region, lastYear, afterWindow = null, voices }: { re
             <p><strong>Who is louder?</strong> In the statements dataset ({tm.n_statements} in-scope records, on a country or region-wide), officials of the United States account for {tm.by_bloc.find((b) => b.bloc === "United States")?.n ?? 0} and officials of China for {tm.by_bloc.find((b) => b.bloc === "China")?.n ?? 0}. The region&apos;s own executives, {tm.by_bloc.find((b) => b.bloc === "LatAm executive")?.n ?? 0} records, speak well of Washington {pos.ex_on_us?.positive ?? 0} times and badly {pos.ex_on_us?.negative ?? 0}; of Beijing {pos.ex_on_cn?.positive ?? 0} and {pos.ex_on_cn?.negative ?? 0}.</p>
           </StepCard>
           <StepCard>
-            <p><strong>Who writes the cheques?</strong> Documented commitments from Chinese institutions to the twelve countries reached {fmtMusd(tm.finance.CN.musd)} in {tm.finance.CN.years[0]}–{tm.finance.CN.years[1]} ({fmtMusd(tm.finance.CN.mineral_tagged_musd)} of it tagged to a mineral); US DFC and EXIM commitments {fmtMusd(tm.finance.US.musd)} in the same years and {fmtMusd(tm.finance.US_after.musd)} in {tm.finance.US_after.years[0]}–{tm.finance.US_after.years[1]}. The windows differ because the Chinese record ends in {lastYear.finance_CN ?? "–"} and the DFC record in {dfcEnds}{outside}; the dashed line keeps them apart.</p>
+            <p><strong>Who writes the cheques?</strong> Documented commitments from Chinese institutions to the {COUNTRY_COUNT_WORD} countries reached {fmtMusd(tm.finance.CN.musd)} in {tm.finance.CN.years[0]}–{tm.finance.CN.years[1]} ({fmtMusd(tm.finance.CN.mineral_tagged_musd)} of it tagged to a mineral); US DFC and EXIM commitments {fmtMusd(tm.finance.US.musd)} in the same years and {fmtMusd(tm.finance.US_after.musd)} in {tm.finance.US_after.years[0]}–{tm.finance.US_after.years[1]}. The windows differ because the Chinese record ends in {lastYear.finance_CN ?? "–"} and the DFC record in {dfcEnds}{outside}; the dashed line keeps them apart.</p>
           </StepCard>
           <StepCard>
             <p><strong>Read it as counts and sums, nothing more.</strong> A statement is a record the dataset found; a commitment is a documented amount, not a disbursement. The darker part of each money column is the share the adapters could tie to a mineral; the rest went to rail, power, budgets and refinancing. Chapter 3 opens that part.</p>

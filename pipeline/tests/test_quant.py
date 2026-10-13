@@ -11,6 +11,7 @@ from scm.quant import concentration as conc_mod
 from scm.quant import inputs as inputs_mod
 from scm.quant import run as quant_run
 from scm.quant.index import FINANCE_SOURCES, MIN_COMPONENTS, NAMES, components, index, lagging_hold, normalise
+from scm.registry import COUNTRY_COUNT
 from tests.test_warehouse_export import _doc, _prov, _trade
 
 GDP_CHL = 300e9
@@ -480,7 +481,7 @@ def test_briefs_sentences_cite_indicators_and_missing_data_is_said(tmp_path):
     (human_dir / "BRA.md").write_text("---\nreviewed: false\n---\n", encoding="utf-8")  # empty body: ignored
     (human_dir / "regional.md").write_text("---\ntitle: Region, drafted\nauthor: AI-drafted; not yet reviewed\ndate: 2026-10-11\nreviewed: false\ndrafted_by: ai\n---\n\nA regional reading [ranking].\n", encoding="utf-8")
     res = quant_run.run(wh, draws=20, seed=3, release="t", n_boot=19, n_sims=200, n_backtest=50, human_dir=human_dir)
-    assert res["briefs"]["sections"] == 12 * 7 + 7 + 2 and res["briefs"]["human"] == 2 and res["briefs"]["changed"] == res["briefs"]["sections"]
+    assert res["briefs"]["sections"] == COUNTRY_COUNT * 7 + 7 + 2 and res["briefs"]["human"] == 2 and res["briefs"]["changed"] == res["briefs"]["sections"]
     text = warehouse.load_slot("analysis_text", "quant", wh)
     gen = text[text["model"] != "human"]
     assert set(gen["scope"]) == {"country", "regional"} and (gen["template_version"] == briefs.TEMPLATE_VERSION).all()

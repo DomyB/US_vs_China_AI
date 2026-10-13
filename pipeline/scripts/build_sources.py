@@ -60,6 +60,14 @@ COUNTRY_NAME = {
     "SUR": "Suriname",
     "URY": "Uruguay",
     "VEN": "Venezuela",
+    "MEX": "Mexico",
+    "GTM": "Guatemala",
+    "BLZ": "Belize",
+    "HND": "Honduras",
+    "SLV": "El Salvador",
+    "NIC": "Nicaragua",
+    "CRI": "Costa Rica",
+    "PAN": "Panama",
 }
 
 

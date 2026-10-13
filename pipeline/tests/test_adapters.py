@@ -138,7 +138,7 @@ def test_dfc_and_exim(snap_factory):
     snap = snap_factory("dfc_projects", {"dfc.xlsx": write})
     out = _check(DFC(), snap, ["finance_event"])
     assert out["finance_event"].iloc[0]["amount_usd"] == 5e7 and out["finance_event"].iloc[0]["actor_from_origin"] == "US"
-    csv = "Fiscal Year,Primary Export Market,Approved Amount,Primary Export Product,Primary Borrower,Primary Exporter,Program\n2015,Brazil,1200000,Mining equipment,Vale,Caterpillar,Loan Guarantee\n2015,Mexico,5,Other,x,y,z\n"
+    csv = "Fiscal Year,Primary Export Market,Approved Amount,Primary Export Product,Primary Borrower,Primary Exporter,Program\n2015,Brazil,1200000,Mining equipment,Vale,Caterpillar,Loan Guarantee\n2015,Canada,5,Other,x,y,z\n"
     snap = snap_factory("exim_authorizations", {"exim.csv": csv})
     out = _check(EXIM(), snap, ["finance_event"])
     assert len(out["finance_event"]) == 1 and out["finance_event"].iloc[0]["country"] == "BRA"

@@ -36,7 +36,7 @@ function moneyLine(f: InsightCountry["finance"]): string {
   return `Documented money ${from}–${to}: China ${onRecord("CN") ? fmtMusd(f.cn_2015_21) : "no record"}, United States ${onRecord("US") ? fmtMusd(f.us_2015_21) : "no record"}.`;
 }
 
-/** The twelve case files: one card per country with its latest receipts, every number from insights.json; the flag count is the case file's own (meta.json coverage), every rule type included. */
+/** The case files: one card per country with its latest receipts, every number from insights.json; the flag count is the case file's own (meta.json coverage), every rule type included. */
 export function CaseFilesIndex() {
   const [file, setFile] = useState<InsightsFile | null | undefined>(undefined);
   const [meta, setMeta] = useState<RealMeta | null>(null);

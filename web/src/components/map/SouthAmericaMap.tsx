@@ -35,7 +35,7 @@ export interface Padding {
   left: number;
 }
 
-export const CONTINENT_BOUNDS: [[number, number], [number, number]] = [[-84, -57], [-33, 14]];
+export const CONTINENT_BOUNDS: [[number, number], [number, number]] = [[-118, -57], [-33, 33]];
 const EMPTY_FC: FC = { type: "FeatureCollection", features: [] };
 const EMPTY_FLOWS: FlowFC = { type: "FeatureCollection", features: [] };
 /** Label anchors that differ from the data centroid, to avoid collisions in the Guianas. */
@@ -122,7 +122,7 @@ export function SouthAmericaMap({ fills, values, countries, selection, onSelect,
 
     map.on("load", async () => {
       const [topo, world] = await Promise.all([
-        fetch("/data/south-america.topo.json").then((r) => r.json() as Promise<Topology>),
+        fetch("/data/latin-america.topo.json").then((r) => r.json() as Promise<Topology>),
         worldUrl ? fetch(worldUrl).then((r) => r.json() as Promise<Topology>).catch(() => null) : Promise.resolve(null),
       ]);
       const pal = paletteRef.current;

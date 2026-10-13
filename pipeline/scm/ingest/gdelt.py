@@ -25,8 +25,8 @@ from .docs import DOCUMENT_COLUMNS, MEDIA_VOLUME_COLUMNS, make_document
 from .keywords import is_relevant, relevance
 
 API = "https://api.gdeltproject.org/api/v2/doc/doc"
-FIPS = {"ARG": "AR", "BOL": "BL", "BRA": "BR", "CHL": "CI", "COL": "CO", "ECU": "EC", "GUY": "GY", "PRY": "PA", "PER": "PE", "SUR": "NS", "URY": "UY", "VEN": "VE"}
-HALF_MONTH = {"BRA", "ARG", "CHL", "PER", "COL"}  # busier press: shorter windows stay under the 250-record cap
+FIPS = {"ARG": "AR", "BOL": "BL", "BRA": "BR", "CHL": "CI", "COL": "CO", "ECU": "EC", "GUY": "GY", "PRY": "PA", "PER": "PE", "SUR": "NS", "URY": "UY", "VEN": "VE", "MEX": "MX", "GTM": "GT", "BLZ": "BH", "HND": "HO", "SLV": "ES", "NIC": "NU", "CRI": "CS", "PAN": "PM"}
+HALF_MONTH = {"BRA", "ARG", "CHL", "PER", "COL", "MEX"}  # busier press: shorter windows stay under the 250-record cap
 HISTORY_FROM = date(2017, 1, 1)
 RECENT_DAYS = 35
 MAX_RECORDS = 250

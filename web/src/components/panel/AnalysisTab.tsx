@@ -9,7 +9,7 @@ import { SourceLink } from "@/components/ui/SourceLink";
 import { Interpretation } from "./Interpretation";
 import { WeightsPlayground } from "./WeightsPlayground";
 import { Callout, SectionHeader } from "@/components/ui/Section";
-import { ACTOR_COLOR, ACTOR_LABEL, prettyLabel, prettyMineral } from "@/lib/constants";
+import { ACTOR_COLOR, ACTOR_LABEL, COUNTRY_COUNT_WORD, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtPct, fmtShare, fmtSigned } from "@/lib/format";
 import { COMPONENT_LABEL, INDEX_FORMULA, INDEX_LABEL, INDEX_MIN_COMPONENTS, INDEX_N_COMPONENTS, INDEX_PHRASE, carriedBy, leadLookup, rowIndex, type IndexName } from "@/lib/indexView";
 import { provenanceFor } from "@/lib/provenance";
@@ -311,7 +311,7 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
         <section aria-labelledby="net-h">
           {header("net-h", "Finance network: lenders and recipients")}
           <p className="mb-2 text-xs text-ink-3">
-            Funding institutions and the receiving agencies named in the finance records, ranked by the amounts committed between them; centralities are computed on the twelve-country graph. {network.n_nodes_total} nodes and {network.n_edges_total} links involve this country; {network.unattributed_events} events name no recipient and are left out. Contracts carry no company names yet, so ownership links are not part of this graph.
+            Funding institutions and the receiving agencies named in the finance records, ranked by the amounts committed between them; centralities are computed on the {COUNTRY_COUNT_WORD}-country graph. {network.n_nodes_total} nodes and {network.n_edges_total} links involve this country; {network.unattributed_events} events name no recipient and are left out. Contracts carry no company names yet, so ownership links are not part of this graph.
           </p>
           {network.nodes.length === 0 ? (
             <p className="text-sm text-ink-3">No finance records with a named recipient.</p>

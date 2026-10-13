@@ -23,7 +23,7 @@ from .quant.briefs import HUMAN_DIR, Section, join, load_human, musd, pct, pts
 from .quant.forecast import HORIZON_YEAR, SCENARIOS
 from .quant.index import COMPONENTS, MIN_COMPONENTS, NAMES, WINSOR
 from .quant.inputs import SWAP_RE
-from .registry import COUNTRIES, IN_SCOPE
+from .registry import COUNTRIES, COUNTRY_COUNT, IN_SCOPE
 
 INSIGHTS_VERSION = "2026.10"
 ACTOR = {"US": "the United States", "CN": "China"}
@@ -371,7 +371,7 @@ def regression_block(reg_rows: list[dict], gov: list[dict]) -> dict:
                 lo, hi = min(vals), max(vals)
                 sds[name] = {"sd": _r(float(v.std()), 4), "mean": _r(float(v.mean()), 4), "n": len(vals), "years": [y0, y1],
                              "min": {"value": _r(lo[0], 3), "country": lo[1], "year": lo[2]}, "max": {"value": _r(hi[0], 3), "country": hi[1], "year": hi[2]},
-                             "note": f"standard deviation of the twelve countries' {y0}–{y1} values in the governance table, the years of the estimation sample"}
+                             "note": f"standard deviation of the {COUNTRY_COUNT} countries' {y0}–{y1} values in the governance table, the years of the estimation sample"}
     return {"rows": rows, "regressor_sd": sds, "note": "two-way fixed effects (country and year); regressors standardised, a coefficient is share points per one standard deviation; associations, not causal estimates"}
 
 
@@ -708,7 +708,7 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
               f"{us['stance']['cn']['negative']} of the {_n_positions(us['stance']['cn'])} US statements that take a position on China are negative, while "
               f"{cn['stance']['cn']['positive']} of the {_n_positions(cn['stance']['cn'])} Chinese statements with a position praise China's role.",
               ["statement:count:bloc=United States", "statement:count:bloc=China", "statement:stance_counts:blocs"])
-        s.add(f"The money runs the other way: documented commitments from Chinese institutions to the twelve countries reached {_m(fin['CN']['musd'])} in "
+        s.add(f"The money runs the other way: documented commitments from Chinese institutions to the {COUNTRY_COUNT} countries reached {_m(fin['CN']['musd'])} in "
               f"{CN_WINDOW[0]}–{CN_WINDOW[1]} ({_m(fin['CN']['mineral_tagged_musd'])} of it tagged to a mineral by the adapters), US {us_finance_short(tm)} commitments {_m(fin['US']['musd'])} "
               f"in the same years and {_m(fin['US_after']['musd'])} in {US_WINDOW[0]}–{US_WINDOW[1]}.",
               [f"flow_finance:CN:{CN_WINDOW[0]}-{CN_WINDOW[1]}", f"flow_finance:US:{CN_WINDOW[0]}-{CN_WINDOW[1]}", f"flow_finance:US:{US_WINDOW[0]}-{US_WINDOW[1]}"])
@@ -920,7 +920,7 @@ def build_findings(countries: list[dict], region: dict, today: str) -> list[dict
         else:
             money_part = "not recorded"
         s.add(f"US policy documents on minerals in the warehouse rose from {first['policy_docs']} in {first['year']} to {last_full['policy_docs']} in {last_full['year']}{so_far}, "
-              f"and US officials' statements on the region's minerals from {first['us_statements']} to {last_full['us_statements']}; {short} commitments to the twelve countries were {money_part}.",
+              f"and US officials' statements on the region's minerals from {first['us_statements']} to {last_full['us_statements']}; {short} commitments to the {COUNTRY_COUNT} countries were {money_part}.",
               [f"policy_document:count:{first['year']}", f"policy_document:count:{last_full['year']}", "statement:count:bloc=United States:by_year"]
               + ([f"flow_finance:US:{us_last['year']}", f"flow_finance:US:{us_peak['year']}"] if us_last and us_peak else []))
         ratio = last_full["policy_docs"] / first["policy_docs"]

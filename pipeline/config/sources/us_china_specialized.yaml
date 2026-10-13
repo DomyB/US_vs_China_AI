@@ -173,7 +173,7 @@ sources:
     api_url: https://www.state.gov/rss-feed/press-releases/feed/
     category: press
     scope: US
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: official
     orientation: "official"
     paywall: none
@@ -195,7 +195,7 @@ sources:
     api_url: https://home.treasury.gov/news/press-releases/rss
     category: press
     scope: US
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: official
     orientation: "official"
     paywall: none
@@ -217,7 +217,7 @@ sources:
     api_url: https://ustr.gov/about-us/policy-offices/press-office/press-releases/rss
     category: press
     scope: US
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: official
     orientation: "official"
     paywall: none
@@ -239,7 +239,7 @@ sources:
     api_url: https://www.dfc.gov/media/press-releases/rss
     category: press
     scope: US
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: official
     orientation: "official"
     paywall: none
@@ -334,7 +334,7 @@ sources:
     api_url: http://spanish.xinhuanet.com/rss/rss.html
     category: press
     scope: CN
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: state_media
     orientation: "state media (People's Republic of China)"
     paywall: none
@@ -355,7 +355,7 @@ sources:
     url: http://spanish.people.com.cn
     category: press
     scope: CN
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: state_media
     orientation: "state media (People's Republic of China)"
     paywall: none
@@ -376,7 +376,7 @@ sources:
     url: https://espanol.cgtn.com
     category: press
     scope: CN
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: state_media
     orientation: "state media (People's Republic of China)"
     paywall: none
@@ -489,7 +489,7 @@ sources:
     api_url: https://dialogue.earth/es/feed/
     category: press
     scope: international
-    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN]
+    countries: [ARG, BOL, BRA, CHL, COL, ECU, GUY, PRY, PER, SUR, URY, VEN, MEX, GTM, BLZ, HND, SLV, NIC, CRI, PAN]
     reliability: independent_academic
     orientation: "independent non-profit specialist outlet (environment, China and Latin America)"
     paywall: none

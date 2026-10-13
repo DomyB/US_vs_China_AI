@@ -9,7 +9,7 @@ import { StatementList } from "@/components/statements/StatementList";
 import { DataLayerTag, LayerLabel, ModelStatusTag, StanceBadge } from "@/components/ui/Badges";
 import { SectionHeader, StatTile } from "@/components/ui/Section";
 import { SourceLink } from "@/components/ui/SourceLink";
-import { ACTOR_COLOR, LANGUAGE_NAME, prettyLabel, prettyMineral } from "@/lib/constants";
+import { ACTOR_COLOR, COUNTRY_COUNT_WORD, LANGUAGE_NAME, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtSigned } from "@/lib/format";
 import { provenanceFor } from "@/lib/provenance";
 import { useRealMeta } from "@/lib/useRealMeta";
@@ -68,7 +68,7 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
 
   const layer = data.layers?.parliament;
   const meta = useRealMeta();
-  // how many of the twelve countries the statements dataset covers, read from the release (never typed)
+  // how many of the countries the statements dataset covers, read from the release (never typed)
   const covered = meta ? Object.values(meta.coverage).filter((c) => (c.statements ?? 0) > 0).length : null;
   const total = data.parliament.documents.length;
   const coded = data.parliament.documents.filter((d) => d.classification === "coded").length;
@@ -89,7 +89,7 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
           tags={stm ? <><DataLayerTag layer="real" /><LayerLabel layer="facts" /></> : <DataLayerTag layer="none" />}
           intro={stm
             ? `${stm.n} statements and acts about minerals${stmSpan ? ` (${stmSpan})` : ""}: ${stm.n_domestic} by ${data.name}'s presidents, ministers, governors, legislators, courts and state companies, the rest by US and Chinese officials and others about ${data.name}. Hand-supplied dataset, collected with web search under a fixed codebook; every record names its source.`
-            : <>The statements dataset has no record for {data.name}{covered !== null ? `: it covers ${covered} of the twelve countries` : ""}. Nothing is shown in its place; the dataset and its coverage are described on the <Link href="/methodology#statements" className="underline">methods page</Link>.</>}
+            : <>The statements dataset has no record for {data.name}{covered !== null ? `: it covers ${covered} of the ${COUNTRY_COUNT_WORD} countries` : ""}. Nothing is shown in its place; the dataset and its coverage are described on the <Link href="/methodology#statements" className="underline">methods page</Link>.</>}
         />
         {stm && (
           <>

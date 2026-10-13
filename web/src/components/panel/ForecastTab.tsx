@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Callout, SectionHeader } from "@/components/ui/Section";
-import { ACTOR_COLOR, ACTOR_LABEL, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { ACTOR_COLOR, ACTOR_LABEL, COUNTRY_COUNT_WORD, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { fmtPct } from "@/lib/format";
 import { provenanceFor } from "@/lib/provenance";
 import { useRealMeta } from "@/lib/useRealMeta";
@@ -126,7 +126,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
     <div className="space-y-5">
       {real && (
         <Callout tone="model" summary={<>Backtested models; naive persistence is published where no model beat it. Dashed: median path · bands: 50% and 90% of simulated paths · dotted: scenarios.</>}>
-          {data.forecast.label}. Five simple models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) are backtested on expanding windows across the twelve countries; the published model is the one with the lowest CRPS if it beats persistence, else persistence itself. Method and the backtest table are on the methodology page.
+          {data.forecast.label}. Five simple models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) are backtested on expanding windows across the {COUNTRY_COUNT_WORD} countries; the published model is the one with the lowest CRPS if it beats persistence, else persistence itself. Method and the backtest table are on the methodology page.
         </Callout>
       )}
       <section aria-labelledby="fc-h">

@@ -17,7 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 from ..paths import PIPELINE_DIR
-from ..registry import COUNTRIES, IN_SCOPE
+from ..registry import COUNTRIES, COUNTRY_COUNT, IN_SCOPE
 from .index import FINANCE_SOURCES
 
 TEMPLATE_VERSION = "2026.10"
@@ -172,7 +172,7 @@ def trade(iso: str, conc_x: pd.DataFrame, conc: pd.DataFrame, flags: pd.DataFram
     rca = conc[(conc["country"] == iso) & (conc["metric"] == "rca_pool") & (conc["year"] == y) & conc["value"].notna()].sort_values("value", ascending=False)
     rca = rca[rca["value"] > 1].head(TOP_MINERALS)
     if not rca.empty:
-        s.add("Relative to the twelve-country export basket, its exports are specialised in " + join([f"{m.replace('_', ' ')} (RCA {v:.1f})" for m, v in zip(rca["mineral"], rca["value"], strict=True)]) + ".",
+        s.add(f"Relative to the {COUNTRY_COUNT}-country export basket, its exports are specialised in " + join([f"{m.replace('_', ' ')} (RCA {v:.1f})" for m, v in zip(rca["mineral"], rca["value"], strict=True)]) + ".",
               [f"concentration:rca_pool:{m}:{y}" for m in rca["mineral"]])
     shifts = flags[(flags["country"] == iso) & (flags["type"] == "sudden_trade_shift")].sort_values("year", ascending=False)
     if not shifts.empty:
@@ -365,7 +365,7 @@ def regional_brief(frames: dict, inp_finance: pd.DataFrame, last_year: dict, tex
             r = piv[piv["year"] == y].assign(net=lambda d: d["CN"] - d["US"]).sort_values("net", ascending=False)
             top = [f"{COUNTRIES[c]} ({n:+.0f})" for c, n in zip(r["country"].head(3), r["net"].head(3), strict=True)]
             bottom = [f"{COUNTRIES[c]} ({n:+.0f})" for c, n in zip(r["country"].tail(2), r["net"].tail(2), strict=True)]
-            s.add(f"In {y}, the index leans most toward China in {join(top)} and least in {join(bottom)} (net lean, China minus the United States, in index points); {len(r)} of the twelve countries have an index that year.",
+            s.add(f"In {y}, the index leans most toward China in {join(top)} and least in {join(bottom)} (net lean, China minus the United States, in index points); {len(r)} of the {COUNTRY_COUNT} countries have an index that year.",
                   [f"index_value:influence:{a}:{y}:{c}" for c in r["country"] for a in ("CN", "US")])
             missing = [COUNTRIES[c] for c in IN_SCOPE if c not in set(r["country"])]
             if missing:
@@ -412,7 +412,7 @@ def regional_brief(frames: dict, inp_finance: pd.DataFrame, last_year: dict, tex
                 g = fin[fin["origin"] == actor]
                 parts.append(f"{musd(by[actor])} from {ADJ[actor]} institutions over {int(g['year'].min())}–{int(g['year'].max())} ({len(g)} events)")
                 ids.append(f"finance_event:{actor}")
-        f.add("Documented commitments to the twelve countries total " + join(parts) + "; swap-line drawdowns are excluded and the two sources end in different years (see the caveats).", ids)
+        f.add(f"Documented commitments to the {COUNTRY_COUNT} countries total " + join(parts) + "; swap-line drawdowns are excluded and the two sources end in different years (see the caveats).", ids)
     nodes = frames["network_metric"]
     if not nodes.empty:
         lenders = nodes[nodes["node_type"] == "lender"].sort_values("degree", ascending=False).head(4)

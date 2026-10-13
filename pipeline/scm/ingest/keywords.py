@@ -78,9 +78,9 @@ for _m, _ws in _NL_MINERALS.items():
         MINERAL_RE[_m] = _compile(_KEYWORDS[_m] + _ws)
 
 
-# The twelve countries in scope, by name and demonym in Spanish, Portuguese and English (accents are folded by
+# The countries in scope, by name and demonym in Spanish, Portuguese and English (accents are folded by
 # `_compile`, so "Perú", "Brasília" and "brasileño" match their unaccented forms). A regional outlet (Xinhua's
-# Spanish service, a US press room) covers all twelve: `countries_mentioned` says which ones a headline names.
+# Spanish service, a US press room) covers all of them: `countries_mentioned` says which ones a headline names.
 COUNTRY_TERMS: dict[str, list[str]] = {
     "ARG": [r"argentina", r"argentin[oa]s?", r"argentines?", r"argentinians?", r"argentineans?"],
     "BOL": [r"bolivia", r"bolivian[oa]s?", r"bolivians?"],
@@ -94,6 +94,14 @@ COUNTRY_TERMS: dict[str, list[str]] = {
     "SUR": [r"surinam", r"suriname", r"surinam[eé]s(?:a|as|es)?", r"surinam[eê]s(?:a|as|es)?", r"surinamese"],
     "URY": [r"uruguay", r"uruguai", r"uruguay[oa]s?", r"uruguai[oa]s?", r"uruguayans?"],
     "VEN": [r"venezuela", r"venezolan[oa]s?", r"venezuelan[oa]s?", r"venezuelans?"],
+    "MEX": [r"m[eé]xico", r"mexican[oa]s?", r"mexicans?"],
+    "GTM": [r"guatemala", r"guatemaltec[oa]s?", r"guatemalans?"],
+    "BLZ": [r"belice", r"belize", r"belice[ñn][oa]s?", r"belizeans?"],
+    "HND": [r"honduras", r"hondure[ñn][oa]s?", r"hondurans?"],
+    "SLV": [r"el salvador", r"salvadore[ñn][oa]s?", r"salvadorans?", r"salvadorians?"],
+    "NIC": [r"nicaragua", r"nicarag[üu]ense?s?", r"nicaraguans?"],
+    "CRI": [r"costa rica", r"costarricense?s?", r"costa ricans?"],
+    "PAN": [r"panam[aá]", r"paname[ñn][oa]s?", r"panamanians?"],
 }
 assert list(COUNTRY_TERMS) == IN_SCOPE
 COUNTRY_RE: dict[str, re.Pattern] = {iso: _compile(ws) for iso, ws in COUNTRY_TERMS.items()}

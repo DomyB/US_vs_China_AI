@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
-import { IN_SCOPE } from "@/lib/constants";
+import { COUNTRY_COUNT_WORD, IN_SCOPE } from "@/lib/constants";
 import { loadFlows, loadIndex, loadInsights, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
 import { fmtMusd, fmtPct } from "@/lib/format";
 import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
@@ -152,7 +152,7 @@ export function StoryPage() {
       { text: `Stance is the dataset's own coding, not validated against a human judgement; the legislative stance series is a zero-shot baseline. ${briefs ? `${briefs.reviewed} of ${briefs.total} written briefs are reviewed by the owner.` : ""}`, ids: ["meta:text_model", "meta:interpretation_briefs"] },
       events ? { text: `${events.draft} of the ${events.total} dated events are still draft (${events.rows} windows, ${events.with_window} with both sides, ${events.did_rows} difference-in-differences); read a direction, not an effect.`, ids: ["quant:events"] } : null,
       t && t.coverage_80 !== undefined ? { text: `The share-to-China forecast band ${t.coverage_80 < 0.8 ? "under-covers" : "covers as nominal"}: the ${t.model} model's 80% band held ${Math.round(t.coverage_80 * 100)}% of ${t.n_tests ?? "–"} backtests.`, ids: ["forecast:targets:export_share:CN"] } : null,
-      headlines !== null ? { text: `${headlines} press headlines in total across the twelve countries; too few to analyse, shown as a record only.`, ids: ["meta:coverage.media_articles"] } : null,
+      headlines !== null ? { text: `${headlines} press headlines in total across the ${COUNTRY_COUNT_WORD} countries; too few to analyse, shown as a record only.`, ids: ["meta:coverage.media_articles"] } : null,
       { text: "Four scales (coded stance −1..+1, zero-shot stance −2..+2, tone, index 0–100) are never added together; a comparison between them is a direction only.", ids: ["insights:region.scales"] },
     ].filter(Boolean) as { text: string; ids: string[] }[];
     // The chapter meters: editorial levels, but every year or count in a basis is the export's, dropped when its input is absent.

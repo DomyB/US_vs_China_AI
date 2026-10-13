@@ -11,7 +11,7 @@ from .base import Adapter, event_id
 from .util import tag_mineral
 
 API = "https://api.resourcecontracts.org/contracts"
-ISO2 = {"ARG": "ar", "BOL": "bo", "BRA": "br", "CHL": "cl", "COL": "co", "ECU": "ec", "GUY": "gy", "PRY": "py", "PER": "pe", "SUR": "sr", "URY": "uy", "VEN": "ve"}
+ISO2 = {"ARG": "ar", "BOL": "bo", "BRA": "br", "CHL": "cl", "COL": "co", "ECU": "ec", "GUY": "gy", "PRY": "py", "PER": "pe", "SUR": "sr", "URY": "uy", "VEN": "ve", "MEX": "mx", "GTM": "gt", "BLZ": "bz", "HND": "hn", "SLV": "sv", "NIC": "ni", "CRI": "cr", "PAN": "pa"}
 ISO2_TO_3 = {v: k for k, v in ISO2.items()}
 
 

@@ -6,6 +6,7 @@ import numpy as np
 from scm import insights
 from scm.quant.briefs import load_human
 from scm.quant.index import NAMES
+from scm.registry import COUNTRY_COUNT
 
 CORE = ["copper", "lithium", "gold", "iron_ore"]
 
@@ -243,7 +244,7 @@ def test_findings_fire_only_with_inputs_and_carry_ids_and_strength(tmp_path):
     out = insights.build_insights(flows=flows, idx_rows=[], comp_rows=[], fc_rows=[], effect_rows=[], reg_rows=[], sd_rows=[], flag_rows=[], stm=stm, stance_by_iso={}, volume_by_iso={}, gov=[],
                                   prices=[], policy=[{"jurisdiction": "US", "year": y, "source_id": "congress_gov"} for y in (2015, 2015, 2020, 2025, 2025, 2025)], fin=fin, core=CORE,
                                   quant_status={"last_year": {"trade": 2025}}, today="2026-10-09", human_dir=tmp_path)
-    assert len(out["countries"]) == 12 and out["meta"]["countries_with_statements"] == ["ARG"] and out["meta"]["n_statements"] == 17
+    assert len(out["countries"]) == COUNTRY_COUNT and out["meta"]["countries_with_statements"] == ["ARG"] and out["meta"]["n_statements"] == 17
     ids = [f["id"] for f in out["findings"]]
     assert ids[0] == "who_talks_who_pays" and "words_vs_trade_ARG" in ids and "parity" in ids and "attention" in ids and ids[-1] == "cannot_see"
     assert "fork_2030" not in ids and "panel" not in ids and "shocks" not in ids  # no forecasts, regressions or events in the inputs
@@ -334,7 +335,7 @@ def test_us_money_is_named_by_source_and_years_outside_a_record_are_null(tmp_pat
     assert "US DFC and EXIM commitments US$100 m in the same years" in by["who_talks_who_pays"]["sentences"][1]["text"]
     attention = by["attention"]
     text = attention["sentences"][0]["text"]
-    assert "DFC and EXIM commitments to the twelve countries were US$24 m so far in 2026 (EXIM only; the DFC record ends 2022); the largest year on record is 2022 with US$1.1 bn (DFC US$1.0 bn, EXIM US$100 m)." in text
+    assert f"DFC and EXIM commitments to the {COUNTRY_COUNT} countries were US$24 m so far in 2026 (EXIM only; the DFC record ends 2022); the largest year on record is 2022 with US$1.1 bn (DFC US$1.0 bn, EXIM US$100 m)." in text
     assert attention["headline"].endswith("US DFC and EXIM money peaked at US$1.1 bn in 2022") and attention["strength"]["basis"].endswith("documented DFC and EXIM commitments")
     assert "flow_finance:US:2026" in attention["sentences"][0]["ids"] and "flow_finance:US:2022" in attention["sentences"][0]["ids"]
     assert insights.us_finance_short(tm) == "DFC and EXIM" and insights.us_finance_short({"finance": {"US": {"sources": ["dfc_projects"]}}}) == "DFC"

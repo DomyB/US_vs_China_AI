@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { loadQuant } from "@/lib/data";
-import { prettyLabel } from "@/lib/constants";
+import { COUNTRY_COUNT_WORD, prettyLabel } from "@/lib/constants";
 import type { QuantFile } from "@/lib/types";
 
 const COMPONENT_LABEL: Record<string, string> = {
@@ -61,7 +61,7 @@ export function QuantMethods() {
         <strong>Sensitivity:</strong> {sens.draws} draws of weights from a Dirichlet (α = {sens.dirichlet_alpha}) around equal weights, with {Math.round(sens.rank_share * 100)}% of the draws using percentile-rank normalisation instead of min–max; the band on every value is the {sens.band}. Rank stability (mean Spearman correlation between the baseline ranking and the perturbed rankings, latest year with enough countries): <strong>{sens.rank_stability !== null ? sens.rank_stability.toFixed(2) : "n/a"}</strong>.
       </p>
       <p className="mt-2 text-xs text-ink-2">
-        <strong>Concentration:</strong> {q.concentration.rows.toLocaleString("en-GB")} country-mineral-year values (export and import shares, two-power share, revealed comparative advantage against the twelve-country pool); HHI {q.concentration.hhi}.{" "}
+        <strong>Concentration:</strong> {q.concentration.rows.toLocaleString("en-GB")} country-mineral-year values (export and import shares, two-power share, revealed comparative advantage against the {COUNTRY_COUNT_WORD}-country pool); HHI {q.concentration.hhi}.{" "}
         <strong>Say–do gap:</strong> {q.say_do.rows} country-year-actor values ({q.say_do.countries.join(", ") || "none"}); the rhetoric side is a text-model output ({qm.text_model_label}).{" "}
         <strong>Network:</strong> {q.network.nodes} nodes and {q.network.edges} links from the finance records{q.network.unattributed_events !== null ? `; ${q.network.unattributed_events} events name no recipient and are left out` : ""}. Most connected lenders: {q.network.top_lenders.slice(0, 5).map((l) => `${l.label} (${l.degree} links)`).join("; ")}.
       </p>

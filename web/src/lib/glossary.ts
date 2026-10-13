@@ -1,3 +1,4 @@
+import { COUNTRY_COUNT_WORD } from "./constants";
 /** The terms the ribbons, the drawer and the methods page link to; one or two plain sentences each, consistent with /methodology. */
 export interface GlossaryEntry {
   id: string;
@@ -29,7 +30,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   { id: "crps", term: "CRPS", definition: "The continuous ranked probability score: how far a forecast's whole distribution sits from what happened, averaged over the backtests. Lower is better; a model is published only if its CRPS beats naive persistence.", where: "the forecasts, chapter 7" },
   { id: "coverage_80", term: "80% band coverage", definition: "The share of backtests in which the realised value fell inside the forecast's 80% band. Below 0.80 the band is too narrow and is said so on the chart.", where: "the forecasts" },
   { id: "placebo_p", term: "Placebo p-value", definition: "For an event window, the share of other years in the same series where the post-minus-pre change is at least as large; the smaller, the less ordinary the change. An association, not a cause.", where: "event studies, chapter 4" },
-  { id: "wild_cluster_p", term: "Wild-cluster p-value", definition: "A bootstrap p-value for a panel coefficient that resamples whole countries, so twelve clusters do not pretend to be hundreds of independent observations.", where: "the panel regressions" },
+  { id: "wild_cluster_p", term: "Wild-cluster p-value", definition: `A bootstrap p-value for a panel coefficient that resamples whole countries, so ${COUNTRY_COUNT_WORD} clusters do not pretend to be hundreds of independent observations.`, where: "the panel regressions" },
   { id: "diff_in_diff", term: "Difference in differences", definition: "The change after an event in the countries it touched minus the change in the countries it did not, with a permutation placebo over country subsets.", where: "event studies" },
   { id: "zero_shot", term: "Zero-shot stance", definition: "A stance label assigned by a multilingual text model that was not trained on this project's records. Carried as a baseline, labelled not validated until the hand-coded sample is adjudicated.", where: "the legislative stance, the press tone" },
   { id: "hedging_balance", term: "Hedging balance", definition: "One when a country's executives speak equally warmly of both powers, zero when one-sided; computed from at least four positive positions.", where: "chapter 5, the Lab" },

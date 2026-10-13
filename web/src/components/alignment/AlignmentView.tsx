@@ -69,9 +69,9 @@ export function AlignmentView() {
 
   useEffect(() => {
     loadIndex().then(setIndex).catch(() => setIndex(null));
-    fetch("/data/south-america.topo.json")
+    fetch("/data/latin-america.topo.json")
       .then((r) => r.json() as Promise<Topology>)
-      .then((t) => setFeatures(topoFeature(t, t.objects.sa_raw) as unknown as Features))
+      .then((t) => setFeatures(topoFeature(t, t.objects.la_raw) as unknown as Features))
       .catch(() => setFeatures(null));
   }, []);
 

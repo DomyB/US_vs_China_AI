@@ -20,7 +20,7 @@ import { FocusChart, beyondRange, measureLabel, type MeasureRow, type RegionMeas
 import { Heatmap } from "./Heatmap";
 import { Freshness } from "@/components/ui/Freshness";
 import { NET_LEAN_MAX } from "@/components/map/scales";
-import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
+import { ACTOR_COLOR, COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR, YEAR_MAX, YEAR_MIN, prettyMineral } from "@/lib/constants";
 import { buildIndexLookup, indexKey, loadIndex, loadMeta, loadRegion, loadRegionInterpretation, loadRegionShares, loadRegionStatements } from "@/lib/data";
 import { fmtPct, fmtSigned } from "@/lib/format";
 import { INDEX_FORMULA, INDEX_LABEL, INDEX_PHRASE, defaultIndexYear, hasSubIndices, parseIndexName, rowsForIndex, type IndexName } from "@/lib/indexView";
@@ -80,7 +80,7 @@ export function RegionView() {
       setInterp(t);
       setRegionStm(st);
     });
-    fetch("/data/south-america.topo.json")
+    fetch("/data/latin-america.topo.json")
       .then((r) => r.json())
       .then((topo: Topology) => {
         const name = Object.keys(topo.objects)[0];
@@ -241,13 +241,13 @@ export function RegionView() {
           <p className="mb-2 text-xs text-ink-3">
             {INDEX_LABEL[indexName]}{subIndices ? " (switch it in the ranking)" : ""}.{" "}
             {chartMode === "lines"
-              ? `All twelve countries in grey; ${focus ? `${COUNTRY_NAMES[focus] ?? focus} highlighted` : "hover or pin a country in the ranking to highlight it"}. Move the pointer over the chart to read any point; the dotted line is ${year}.${measure === "net" ? ` Net lean is on the same ±${NET_LEAN_MAX} scale as the map, the ranking and the heatmap${beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? " lies" : "s lie"} beyond it and ${beyond === 1 ? "is" : "are"} drawn at the edge, with the full value in the tooltip and the table` : ""}.` : ""}`
+              ? `All ${COUNTRY_COUNT_WORD} countries in grey; ${focus ? `${COUNTRY_NAMES[focus] ?? focus} highlighted` : "hover or pin a country in the ranking to highlight it"}. Move the pointer over the chart to read any point; the dotted line is ${year}.${measure === "net" ? ` Net lean is on the same ±${NET_LEAN_MAX} scale as the map, the ranking and the heatmap${beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? " lies" : "s lie"} beyond it and ${beyond === 1 ? "is" : "are"} drawn at the edge, with the full value in the tooltip and the table` : ""}.` : ""}`
               : `One row per country, one cell per year, ordered by the value in ${year}; the outlined column is ${year}. Hover a cell for its value${measure === "net" && beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? "" : "s"} beyond ±${NET_LEAN_MAX} take the edge colour and keep the full value` : ""}.`}
           </p>
           {measureRows.length === 0 ? (
             <p className="text-sm text-ink-3">No index values yet.</p>
           ) : chartMode === "lines" ? (
-            <FocusChart rows={measureRows} focus={focus} year={year} measure={measure} indexName={indexName} ariaLabel={`${measureLabel(measure, indexName)} over time for the twelve countries${focus ? `, ${COUNTRY_NAMES[focus] ?? focus} highlighted` : ""}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
+            <FocusChart rows={measureRows} focus={focus} year={year} measure={measure} indexName={indexName} ariaLabel={`${measureLabel(measure, indexName)} over time for the ${COUNTRY_COUNT_WORD} countries${focus ? `, ${COUNTRY_NAMES[focus] ?? focus} highlighted` : ""}, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           ) : (
             <Heatmap rows={measureRows} year={year} measure={measure} indexName={indexName} theme={theme} order={heatOrder} ariaLabel={`${measureLabel(measure, indexName)} by country and year as a heatmap, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           )}
@@ -274,12 +274,12 @@ export function RegionView() {
         <section className="card region-card mt-4 p-3" aria-labelledby="stm-h">
           <div className="mb-1 flex flex-wrap items-center justify-between gap-2"><h2 id="stm-h" className="text-lg font-semibold">What leaders say about minerals</h2><span className="flex items-center gap-1"><DataLayerTag layer="real" /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">
-            {regionStm.n_in_scope} statements and acts about the twelve countries ({regionStm.records.length} of them region-wide) from the project owner&apos;s dataset of {regionStm.n_total} records{stmSpan ? ` (${stmSpan})` : ""}, collected with web search under a fixed codebook, every record with its source; {Object.entries(regionStm.excluded).map(([k, v]) => `${v} on ${k}`).join(" and ")} lie outside this site&apos;s scope and are not shown. The stance coding is the dataset&apos;s own (interpretive, not validated) and never enters the index.
+            {regionStm.n_in_scope} statements and acts about the {COUNTRY_COUNT_WORD} countries ({regionStm.records.length} of them region-wide) from the project owner&apos;s dataset of {regionStm.n_total} records{stmSpan ? ` (${stmSpan})` : ""}, collected with web search under a fixed codebook, every record with its source; {Object.entries(regionStm.excluded).map(([k, v]) => `${v} on ${k}`).join(" and ")} lie outside this site&apos;s scope and are not shown. The stance coding is the dataset&apos;s own (interpretive, not validated) and never enters the index.
           </p>
           <div className="grid gap-4 lg:grid-cols-2">
             <div className="min-w-0">
               <h3 className="mb-1">Statements per year, by who speaks</h3>
-              <StatementsByYear rows={regionStm.by_year_bloc} ariaLabel="Statements about minerals in the twelve countries per year by speaker bloc" />
+              <StatementsByYear rows={regionStm.by_year_bloc} ariaLabel={`Statements about minerals in the ${COUNTRY_COUNT_WORD} countries per year by speaker bloc`} />
             </div>
             <div className="min-w-0">
               <h3 className="mb-1">Who takes which position, by speaker bloc</h3>

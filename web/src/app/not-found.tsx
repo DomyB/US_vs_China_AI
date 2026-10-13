@@ -4,7 +4,7 @@ import { COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
 
 export const metadata = { title: "Not found · US–China Critical Minerals Tracker" };
 
-/** The 404 page: says what is missing and offers the twelve country pages and the two ways back. */
+/** The 404 page: says what is missing and offers the country pages and the two ways back. */
 export default function NotFound() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">

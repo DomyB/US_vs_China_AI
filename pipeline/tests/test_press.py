@@ -7,6 +7,7 @@ from scm import schema
 from scm.ingest.keywords import countries_mentioned
 from scm.ingest.national_guy import GGMC
 from scm.ingest.press import RSSPress, _looks_like_feed_url, make_rss_adapters
+from scm.registry import COUNTRY_COUNT
 
 FEED = ('<?xml version="1.0"?><rss><channel>'
         '<item><title>China amplia compras de nióbio brasileiro</title><link>https://www1.folha.uol.com.br/mercado/2026/10/x.shtml?utm_source=rss</link><pubDate>Thu, 01 Oct 2026 08:00:00 -0300</pubDate></item>'
@@ -71,7 +72,7 @@ def test_regional_feed_files_each_headline_under_the_countries_it_names(snap_fac
     # a mining headline naming no country is dropped; a presidential visit naming Bolivia is not relevant
     assert "China amplía cooperación minera con América Latina" not in set(docs["title_original"]) and "BOL" not in set(docs["country"])
     vol = out["media_volume"].set_index("country")
-    assert len(vol) == 12 and (vol["items_total"] == 4).all()  # one row per registered country, items_total = the feed's size
+    assert len(vol) == COUNTRY_COUNT and (vol["items_total"] == 4).all()  # one row per registered country, items_total = the feed's size
     assert vol.loc["ARG", "items_mining"] == 1 and vol.loc["CHL", "items_mining"] == 1 and vol.loc["PER", "items_mining"] == 1
     assert vol.loc["ARG", "items_cn"] == 1 and vol.loc["BOL", "items_cn"] == 1 and vol.loc["BOL", "items_mining"] == 0  # Bolivia: named, not mining
     assert vol.loc["URY", "items_mining"] == 0 and vol.loc["URY", "items_cn"] == 0 and vol.loc["URY", "items_us"] == 0

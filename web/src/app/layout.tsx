@@ -12,7 +12,7 @@ import { THEME_BOOTSTRAP } from "@/lib/theme";
 import { Suspense } from "react";
 import { PageFade } from "@/components/layout/PageFade";
 import { Tour } from "@/components/tour/Tour";
-import { YEAR_MIN, YEAR_MAX } from "@/lib/constants";
+import { YEAR_MIN, YEAR_MAX, COUNTRY_COUNT } from "@/lib/constants";
 import { SITE_URL } from "@/lib/site";
 
 const TITLE = `US–China Critical Minerals Tracker: South America ${YEAR_MIN}–${YEAR_MAX}`;
@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <LogoTile size={36} />
               <span className="leading-tight">
                 <span className="serif block text-[15px] font-bold tracking-tight text-ink sm:text-base">US–China Critical Minerals Tracker</span>
-                <span className="block text-[11px] text-ink-3">South America · 12 countries · {YEAR_MIN}–{YEAR_MAX}</span>
+                <span className="block text-[11px] text-ink-3">Latin America · {COUNTRY_COUNT} countries · {YEAR_MIN}–{YEAR_MAX}</span>
               </span>
             </Link>
             <div className="order-3 w-full sm:order-2 sm:ml-auto sm:w-auto">

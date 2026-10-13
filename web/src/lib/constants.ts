@@ -52,11 +52,25 @@ export const COUNTRY_NAMES: Record<string, string> = {
   SUR: "Suriname",
   URY: "Uruguay",
   VEN: "Venezuela",
+  MEX: "Mexico",
+  GTM: "Guatemala",
+  BLZ: "Belize",
+  HND: "Honduras",
+  SLV: "El Salvador",
+  NIC: "Nicaragua",
+  CRI: "Costa Rica",
+  PAN: "Panama",
   GUF: "French Guiana",
   FLK: "Falkland Islands / Islas Malvinas",
 };
 
-export const IN_SCOPE = ["ARG", "BOL", "BRA", "CHL", "COL", "ECU", "GUY", "PRY", "PER", "SUR", "URY", "VEN"];
+export const IN_SCOPE = ["ARG", "BOL", "BRA", "CHL", "COL", "ECU", "GUY", "PRY", "PER", "SUR", "URY", "VEN", "MEX", "GTM", "BLZ", "HND", "SLV", "NIC", "CRI", "PAN"];
+/** how many countries the record covers, for prose ("the twenty countries") */
+export const COUNTRY_COUNT = IN_SCOPE.length;
+const COUNT_WORDS: Record<number, string> = { 12: "twelve", 19: "nineteen", 20: "twenty", 21: "twenty-one" };
+export const COUNTRY_COUNT_WORD = COUNT_WORDS[COUNTRY_COUNT] ?? String(COUNTRY_COUNT);
+/** South America and Central America (Mexico counted with the isthmus), for regional groupings */
+export const SUBREGION: Record<string, "south_america" | "central_america"> = Object.fromEntries(IN_SCOPE.map((iso, i) => [iso, i < 12 ? "south_america" : "central_america"])) as Record<string, "south_america" | "central_america">;
 
 export const LANGUAGE_NAME: Record<string, string> = { es: "Spanish", pt: "Portuguese", en: "English", nl: "Dutch", zh: "Chinese", multi: "Multiple" };
 

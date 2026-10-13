@@ -15,13 +15,20 @@ COUNTRIES: dict[str, str] = {
     "ARG": "Argentina", "BOL": "Bolivia", "BRA": "Brazil", "CHL": "Chile", "COL": "Colombia",
     "ECU": "Ecuador", "GUY": "Guyana", "PRY": "Paraguay", "PER": "Peru", "SUR": "Suriname",
     "URY": "Uruguay", "VEN": "Venezuela",
+    # Central America and Mexico (added 2026-10-13, DECISIONS 86)
+    "MEX": "Mexico", "GTM": "Guatemala", "BLZ": "Belize", "HND": "Honduras", "SLV": "El Salvador",
+    "NIC": "Nicaragua", "CRI": "Costa Rica", "PAN": "Panama",
 }
 IN_SCOPE = list(COUNTRIES)
+COUNTRY_COUNT = len(IN_SCOPE)
+# South America and Central America (Mexico counted with Central America) for regional groupings
+SUBREGION: dict[str, str] = {**{k: "south_america" for k in list(COUNTRIES)[:12]}, **{k: "central_america" for k in list(COUNTRIES)[12:]}}
 
 # UN M49 numeric codes used by UN Comtrade (USA is 842 in Comtrade).
 M49: dict[str, int] = {
     "ARG": 32, "BOL": 68, "BRA": 76, "CHL": 152, "COL": 170, "ECU": 218, "GUY": 328, "PRY": 600,
-    "PER": 604, "SUR": 740, "URY": 858, "VEN": 862, "CHN": 156, "USA": 842, "WLD": 0,
+    "PER": 604, "SUR": 740, "URY": 858, "VEN": 862, "MEX": 484, "GTM": 320, "BLZ": 84, "HND": 340, "SLV": 222,
+    "NIC": 558, "CRI": 188, "PAN": 591, "CHN": 156, "USA": 842, "WLD": 0,
 }
 M49_TO_ISO3 = {v: k for k, v in M49.items()}
 
@@ -31,6 +38,7 @@ NAME_TO_ISO3: dict[str, str] = {
     "venezuela, rb": "VEN", "venezuela (bolivarian republic of)": "VEN", "bolivarian republic of venezuela": "VEN",
     "bolivia (plurinational state of)": "BOL", "plurinational state of bolivia": "BOL",
     "guyana (co-operative republic of)": "GUY", "uruguay (oriental republic of)": "URY",
+    "méxico": "MEX", "mexico, united mexican states": "MEX", "united mexican states": "MEX", "panamá": "PAN", "panama, republic of": "PAN",
     "united states": "USA", "united states of america": "USA", "usa": "USA", "us": "USA",
     "china": "CHN", "people's republic of china": "CHN", "prc": "CHN", "hong kong": "HKG", "hong kong sar": "HKG",
 }

@@ -1,8 +1,8 @@
-# US–China Competition for Critical Minerals in South America (2000–2026)
+# US–China Competition for Critical Minerals in Latin America (2000–2026)
 
 A public research platform that tracks, analyses and forecasts the competition between
-the United States and China for critical minerals in the twelve sovereign states of
-South America. For each country and year it combines three layers:
+the United States and China for critical minerals in twenty countries: the twelve sovereign
+states of South America, the seven of Central America, and Mexico (added 2026-10-13). For each country and year it combines three layers:
 
 1. **Actions**: what governments and companies actually do (trade, investment, loans,
    concessions, contracts, offtake agreements, infrastructure, diplomatic agreements).

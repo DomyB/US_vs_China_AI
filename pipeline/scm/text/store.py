@@ -10,7 +10,7 @@ from ..paths import WAREHOUSE_DIR
 from ..schema import KEY_COLUMNS
 from ..warehouse import load_slot, news_clusters, table_frames
 
-COUNTRY_LANG = {"BRA": "pt", "GUY": "en", "SUR": "nl"}
+COUNTRY_LANG = {"BRA": "pt", "GUY": "en", "SUR": "nl", "BLZ": "en"}
 
 
 def now_iso() -> str:

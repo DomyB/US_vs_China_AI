@@ -112,7 +112,7 @@ Total: 193 sources. Status: 178 live, 2 moved, 5 dead, 8 uncertain.
 | [Secretaría de Minería, SIACAM datasets (datos.gob.ar)](https://datos.gob.ar/dataset?tags=Miner%C3%ADa) ([data](https://datos.gob.ar/api/3)) | live | reachable | Official | 2010–2026 | api | monthly | CC BY 4.0 (datos.gob.ar default) | Mineral exports by mineral and destination, lithium exports, project portfolio, employment, royalties. Monthly export reports also as PDF/XLSX. |
 | [INDEC, Sistema de consulta de comercio exterior](https://comex.indec.gob.ar/#/database) | live | reachable | Official | 2002–2026 | html | monthly | INDEC terms (to confirm) | NCM8 x country x month. Full database download 2002-2020; later months via monthly report files. No REST API; Comtrade used for programmatic pulls. |
 
-## National: Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Guyana, Paraguay, Peru, Suriname, Uruguay, Venezuela
+## National: Argentina, Bolivia, Brazil, Chile, Colombia, Ecuador, Guyana, Paraguay, Peru, Suriname, Uruguay, Venezuela, Mexico, Guatemala, Belize, Honduras, El Salvador, Nicaragua, Costa Rica, Panama
 
 | Source | Status | Direct check | Reliability | Coverage | Access | Refresh | License | Notes |
 |---|---|---|---|---|---|---|---|---|

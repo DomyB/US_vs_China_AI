@@ -18,7 +18,7 @@ from .util import col, read_any, tag_mineral
 
 CONGRESS_API = "https://api.congress.gov/v3"
 CENSUS_API = "https://api.census.gov/data/timeseries/intltrade"
-CENSUS_CTY = {"ARG": "3570", "BOL": "3350", "BRA": "3510", "CHL": "3370", "COL": "3010", "ECU": "3310", "GUY": "3120", "PRY": "3530", "PER": "3330", "SUR": "3150", "URY": "3550", "VEN": "3070"}
+CENSUS_CTY = {"ARG": "3570", "BOL": "3350", "BRA": "3510", "CHL": "3370", "COL": "3010", "ECU": "3310", "GUY": "3120", "PRY": "3530", "PER": "3330", "SUR": "3150", "URY": "3550", "VEN": "3070", "MEX": "2010", "GTM": "2050", "BLZ": "2080", "HND": "2150", "SLV": "2110", "NIC": "2190", "CRI": "2230", "PAN": "2250"}
 
 
 # Western Hemisphere framing: a bill naming China only counts when it is also about this region (the 12 countries
