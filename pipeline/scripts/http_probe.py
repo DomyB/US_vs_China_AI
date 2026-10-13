@@ -14,12 +14,13 @@ UA = "scm-probe/0.1 (+https://github.com/DomyB/US_vs_China_AI; research project,
 def probe(url: str) -> None:
     try:
         r = requests.get(url, headers={"User-Agent": UA, "Accept": "application/json, application/xml, text/csv, */*"}, timeout=90, stream=True)
-        body = r.raw.read(4000, decode_content=True)
+        limit = int(os.environ.get("HTTP_PROBE_CHARS", "1500"))
+        body = r.raw.read(max(4000, limit * 3), decode_content=True)
         print(f"\n### {url}\nstatus {r.status_code} · type {r.headers.get('Content-Type')} · length {r.headers.get('Content-Length')} · final {r.url}")
         for k in ("Content-Disposition", "Last-Modified", "X-RateLimit-Remaining", "Retry-After", "Location"):
             if k in r.headers:
                 print(f"{k}: {r.headers[k]}")
-        print(body.decode("utf-8", "replace")[:1500])
+        print(body.decode("utf-8", "replace")[:limit])
     except Exception as e:  # noqa: BLE001 - a probe reports every failure the same way
         print(f"\n### {url}\nerror {type(e).__name__}: {e}")
 

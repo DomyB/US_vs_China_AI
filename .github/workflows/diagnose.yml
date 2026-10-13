@@ -11,6 +11,9 @@ on:
       urls:
         description: "with what=urls: URLs to GET, one per line (status, type, size and the first characters are printed)"
         default: ""
+      chars:
+        description: "with what=urls: how many characters of each answer to print"
+        default: "1500"
 
 permissions:
   contents: read
@@ -33,4 +36,5 @@ jobs:
       - if: ${{ inputs.what == 'urls' }}
         env:
           HTTP_PROBE_URLS: ${{ inputs.urls }}
+          HTTP_PROBE_CHARS: ${{ inputs.chars }}
         run: python -u scripts/http_probe.py
