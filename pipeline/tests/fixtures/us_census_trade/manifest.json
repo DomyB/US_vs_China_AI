@@ -1,0 +1,387 @@
+{
+ "source_id": "us_census_trade",
+ "files": {
+  "imports_250410.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=250410&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "250410",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 343077,
+   "sha256": "42f59770f14535e3a713ec1ec2260bdb784b3a77b7fb11c96f41bc30efa0d5a0",
+   "retrieved_at": "2026-10-13T10:50:23+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_250490.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=250490&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "250490",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 249278,
+   "sha256": "5a5b4997040c6b36b2ccb1e7bbe9a35715f6f6b273d73b3b37147e829a411167",
+   "retrieved_at": "2026-10-13T10:50:27+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_251010.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=251010&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "251010",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 168976,
+   "sha256": "e04232e686899929862ac8083f0e36dac0d5476a2a01318a5a9e1207f98448cf",
+   "retrieved_at": "2026-10-13T10:50:29+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_251020.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=251020&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "251020",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 184808,
+   "sha256": "b0385477b128f03fc9718ed74e403ac9d9b92f1477b971bc7b32b6ecd865a862",
+   "retrieved_at": "2026-10-13T10:50:30+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_253090.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=253090&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "253090",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 640195,
+   "sha256": "adcb1f0c071e01a994658f993281de0294ddf15cd94d7bd6c0a8f01dce2e7ad5",
+   "retrieved_at": "2026-10-13T10:50:36+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260111.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260111&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260111",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 238633,
+   "sha256": "a8e9e9297c2a1c5c3e3c2e6fde266846d7810c800b39e3e601358fc5e996454f",
+   "retrieved_at": "2026-10-13T10:50:38+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260112.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260112&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260112",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 165330,
+   "sha256": "db9dba93f04879683f446134c81d0ff14af3f04dd208587bc1445e01328760c7",
+   "retrieved_at": "2026-10-13T10:50:40+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260200.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260200&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260200",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 222385,
+   "sha256": "b09894c47fd65bb24c419443c8029aee3a5f1abd0b50ff77888573f40ac9b342",
+   "retrieved_at": "2026-10-13T10:50:42+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260300.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260300&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260300",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 144700,
+   "sha256": "f6f0ac77c34496f443393e3188313993cf34767c4b1b79fcd1074eef95d3beac",
+   "retrieved_at": "2026-10-13T10:50:43+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260400.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260400&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260400",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 120537,
+   "sha256": "7eb62eb74389bc805755b787917bec8a5a357d18b3d3e650468bfba8deafa108",
+   "retrieved_at": "2026-10-13T10:50:44+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260500.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260500&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260500",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 94990,
+   "sha256": "649bbeb06dd9c70bdfff8f021a252dab4e6168aceb4b887bc01d67c95569187e",
+   "retrieved_at": "2026-10-13T10:50:45+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260600.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260600&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260600",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 282839,
+   "sha256": "fbaddad30caa40679b2597ee5e4e10a0ccca6e0e91863842e88dedbfa9adc173",
+   "retrieved_at": "2026-10-13T10:50:47+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260800.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260800&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260800",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 103208,
+   "sha256": "3eb03394fe8f92d5363fa087736aa2e602ab65e70ed22beed7f2b17773427d58",
+   "retrieved_at": "2026-10-13T10:50:48+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_260900.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=260900&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "260900",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 12390,
+   "sha256": "a1d312b5e2cb17a7f2e414cfa869ebf1dd3fdb4640fc7eee806dc20f0fe9b542",
+   "retrieved_at": "2026-10-13T10:50:49+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261100.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261100&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261100",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 292394,
+   "sha256": "2ca33a3c3f85b71f5cc4d30e85b4e1aaece9c96e2bbf982bb40bc1191e1daab5",
+   "retrieved_at": "2026-10-13T10:50:51+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261210.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261210&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261210",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 107387,
+   "sha256": "cc6eb1174977652095454643fd7cf72f316197fc2d7c179e15ff00f17e173019",
+   "retrieved_at": "2026-10-13T10:50:52+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261310.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261310&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261310",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 141612,
+   "sha256": "a35e56e68f5f1888322dc43322342f66efcbc906672a49c4b9bf885f9d0c71e1",
+   "retrieved_at": "2026-10-13T10:50:54+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261390.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261390&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261390",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 181769,
+   "sha256": "aecb2f227ace3aa8b5e80c3b6ff5e5fa76ec732e4d4fdb570ec3c0701ef49df2",
+   "retrieved_at": "2026-10-13T10:50:56+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261400.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261400&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261400",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 273472,
+   "sha256": "f68c36867e99aedd054c0b65d9db1b4ddb300ea9a0aeadb37487454df6704d3e",
+   "retrieved_at": "2026-10-13T10:50:58+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261590.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261590&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261590",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 249938,
+   "sha256": "c14f2f595ffb340f3bb01a09121f86eb6cb9a0c893d8fb3501877559b2784085",
+   "retrieved_at": "2026-10-13T10:51:00+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261610.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261610&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261610",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 55222,
+   "sha256": "0d6594ec2e5b12456865bcbf5e0ab20fa24f58198ff9bb24e07169485094b17e",
+   "retrieved_at": "2026-10-13T10:51:01+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261690.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261690&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261690",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 112950,
+   "sha256": "24a194677a37dc7e1ddb6267ad8f13b031a2f6afd2abde51244f05b03b2e2ea0",
+   "retrieved_at": "2026-10-13T10:51:02+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_261710.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=261710&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "261710",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 149152,
+   "sha256": "fa43bc7055c40f322b15fbd3e286ec38ac3d61b7bb92e3926f207174a62d227f",
+   "retrieved_at": "2026-10-13T10:51:03+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "imports_280519.json": {
+   "url": "https://api.census.gov/data/timeseries/intltrade/imports/hs?get=CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1&I_COMMODITY=280519&time=from+2013-01",
+   "params": {
+    "get": "CTY_CODE,CTY_NAME,I_COMMODITY,GEN_VAL_MO,GEN_QY1_MO,UNIT_QY1",
+    "I_COMMODITY": "280519",
+    "time": "from 2013-01",
+    "key": "***"
+   },
+   "status": 200,
+   "bytes": 211775,
+   "sha256": "8422e2945c5579c97df94b5c5a4db8878f2509e5fe1d1861fee4842580d487f5",
+   "retrieved_at": "2026-10-13T10:51:06+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/us_census_trade/2026-10-13",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "omitted": [
+  "imports_280530.json",
+  "imports_281820.json",
+  "imports_282520.json",
+  "imports_283691.json",
+  "imports_284610.json",
+  "imports_284690.json",
+  "imports_710691.json",
+  "imports_710812.json",
+  "imports_720260.json",
+  "imports_720293.json",
+  "imports_740200.json",
+  "imports_740311.json",
+  "imports_740319.json",
+  "imports_750110.json",
+  "imports_750210.json",
+  "imports_800110.json",
+  "imports_811292.json",
+  "imports_850511.json"
+ ]
+}
