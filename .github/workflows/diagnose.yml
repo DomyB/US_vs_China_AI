@@ -1,4 +1,4 @@
-name: Diagnose (GDELT and Google News probes)
+name: Diagnose (GDELT, Google News and URL probes)
 
 # A read-only probe run by hand: how the GDELT DOC API answers Spanish and Portuguese queries, and whether
 # Google News RSS search is allowed by robots.txt and what its items look like. Writes nothing; the job log is the record.
@@ -6,8 +6,11 @@ on:
   workflow_dispatch:
     inputs:
       what:
-        description: "gdelt | gnews | all | translingual"
+        description: "gdelt | gnews | all | translingual | urls"
         default: "all"
+      urls:
+        description: "with what=urls: URLs to GET, one per line (status, type, size and the first characters are printed)"
+        default: ""
 
 permissions:
   contents: read
@@ -25,4 +28,9 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests
-      - run: python -u scripts/gdelt_probe.py "${{ inputs.what || 'all' }}"
+      - if: ${{ inputs.what != 'urls' }}
+        run: python -u scripts/gdelt_probe.py "${{ inputs.what || 'all' }}"
+      - if: ${{ inputs.what == 'urls' }}
+        env:
+          HTTP_PROBE_URLS: ${{ inputs.urls }}
+        run: python -u scripts/http_probe.py
