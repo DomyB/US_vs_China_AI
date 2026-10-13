@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
-import { COUNTRY_COUNT_WORD, IN_SCOPE } from "@/lib/constants";
+import { COUNTRY_COUNT_WORD, IN_SCOPE, YEAR_MAX } from "@/lib/constants";
 import { loadComponents, loadFlows, loadIndex, loadInsights, loadInvestment, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
 import type { ComponentsFile } from "@/lib/geometry";
 import { financeByYear, investmentByYear, leanByYear, tradeByYear, votesByYear } from "@/lib/overview";
+import { verdicts as measureVerdicts } from "@/lib/verdicts";
 import { Ch0Situation } from "./Ch0Situation";
+import { Ch10Winning } from "./Ch10Winning";
 import { Cover } from "./Cover";
 import { fmtMusd, fmtPct } from "@/lib/format";
 import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
@@ -195,6 +197,7 @@ export function StoryPage() {
     lean: leanByYear(d.index.rows, scope),
     investment: d.investment ? investmentByYear(d.investment, scope) : [],
   };
+  const verdictRows = measureVerdicts(overview, { trade: flows.meta.last_year.trade ?? null, finance_CN: flows.meta.last_year.finance_CN ?? null }, YEAR_MAX);
   const countriesWithFacts = d.meta ? Object.values(d.meta.coverage ?? {}).filter((cv) => (cv as { trade_years?: unknown[] }).trade_years?.length).length : null;
   const sourcesLine = d.meta?.sources_live ? `${d.meta.sources_live.live} of ${d.meta.sources_live.total} registered sources answered the last liveness check; ${d.meta.sources_ok?.length ?? 0} adapters ran in the last ingestion.` : null;
   // Two counts, never confused (DECISIONS 73): registry sources that answered the liveness check, and adapters that ran in the last ingestion.
@@ -203,7 +206,7 @@ export function StoryPage() {
     : "";
   const meter = (n: number) => c.chapters.find((ch) => ch.n === n);
   // Chapters 6, 8 and 9 render only with their inputs; the rail and chapter 9's list name the chapters on the page, never a dead anchor.
-  const present = [{ n: 0, label: "The whole picture", level: "strong" as const, basis: "reported trade, finance records, UN votes; the index is a model output" }, ...c.chapters].filter((ch) => (ch.n !== 6 || c.chl) && (ch.n !== 8 || c.arg) && (ch.n !== 9 || c.wall));
+  const present = [{ n: 0, label: "The whole picture", level: "strong" as const, basis: "reported trade, finance records, UN votes; the index is a model output" }, ...c.chapters, { n: 10, label: "Who is winning", level: "moderate" as const, basis: "the measures of chapter 0 side by side; the reading is interpretation" }].filter((ch) => (ch.n !== 6 || c.chl) && (ch.n !== 8 || c.arg) && (ch.n !== 9 || c.wall));
   const opening = pick(d.story, d.statements, [OPENING_ID])[0] ?? null;
   const storyMissing = d.story === null;
   const absence = storyMissing ? "The opening sentence is not in this release: the story export (story.json) has not been written. The receipts below are on record." : `The opening sentence (${OPENING_ID}) is not in this release's story export; the receipts below are on record.`;
@@ -248,6 +251,9 @@ export function StoryPage() {
           <Ch9Limits wall={c.wall} lastYearCN={flows.meta.last_year.finance_CN} chapters={present} limits={c.limits} changes={["A second coder and a validated text model (the 300-document sample is drawn and waits for the owner).", `DFC and EXIM commitments after ${insights.region.talk_vs_money.finance.US_after.years[1]} approaching the Chinese figures.`, ...(flows.meta.last_year.trade !== null ? [`A ${flows.meta.last_year.trade + 1} trade year in which Chile's US share rises more than two points.`] : []), `AidData's next release, covering Chinese finance after ${flows.meta.last_year.finance_CN ?? "its last year"}.`, "The AEI investment tracker and BU's CODF files, supplied by hand.", "The owner's review of the dated events and the thirteen written briefs."]} />
         </Chapter>
       )}
+      <Chapter n={10} eyebrow="The conclusion" question="So who is winning, by which measure, and what comes next?" meter={present[present.length - 1]}>
+        <Ch10Winning verdicts={verdictRows} />
+      </Chapter>
       <p className="sr-only">{IN_SCOPE.length} countries in scope.</p>
     </div>
   );
