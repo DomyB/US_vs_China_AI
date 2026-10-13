@@ -159,6 +159,25 @@ export interface ProductionRow {
   source: SourceRef;
 }
 
+/** An inward direct-investment position held by a counterpart economy (IMF DIP), US$ million; "reported" is the country's own survey, "derived" the counterpart's report */
+export interface InvestmentRow {
+  counterpart: string;
+  year: number;
+  direction: "inward" | "outward";
+  basis: "reported" | "derived";
+  musd: number;
+  source: SourceRef;
+}
+
+export interface InvestmentFile {
+  dataset: string;
+  generated_on: string;
+  layer: "facts";
+  positions: (InvestmentRow & { iso3: string })[];
+  region: { year: number; counterpart: string; basis: "reported" | "derived"; musd: number; n: number; countries: string[] }[];
+  note: string;
+}
+
 export interface GovernanceRow {
   year: number;
   indicator: string;
@@ -327,7 +346,7 @@ export interface RealCountryData {
   name: string;
   generated_on: string;
   freshness: { actions: Freshness; governance: Freshness; analysis?: Freshness; forecast?: Freshness };
-  actions: { events: ActionEvent[]; trade: TradeRow[]; contracts: ContractRow[]; production: ProductionRow[] };
+  actions: { events: ActionEvent[]; trade: TradeRow[]; contracts: ContractRow[]; production: ProductionRow[]; investment?: InvestmentRow[] };
   governance: GovernanceRow[];
   trade_discrepancies: TradeDiscrepancy[];
   /** present once `scm analyse` has run (Phase 4) */
@@ -734,7 +753,7 @@ export interface CountryData {
   /** status of the text classifier behind stance, tone and narratives (Phase 3); null while they are sample */
   text_model?: TextModelStatus | null;
   media_volume_basis?: "feed_totals" | "kept_headlines";
-  actions: { events: ActionEvent[]; trade: TradeRow[]; contracts?: ContractRow[]; production?: ProductionRow[] };
+  actions: { events: ActionEvent[]; trade: TradeRow[]; contracts?: ContractRow[]; production?: ProductionRow[]; investment?: InvestmentRow[] };
   governance?: GovernanceRow[];
   trade_discrepancies?: TradeDiscrepancy[];
   parliament: { documents: ParliamentDoc[]; stance_series: StanceRow[] };

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ComponentsFile } from "../geometry";
-import { financeByYear, latestYear, leanByYear, tradeByYear, votesByYear } from "../overview";
-import type { IndexRow } from "../types";
+import { financeByYear, investmentByYear, latestYear, leanByYear, tradeByYear, votesByYear } from "../overview";
+import type { IndexRow, InvestmentFile } from "../types";
 
 const scope = new Set(["CHL", "PER", "MEX"]);
 
@@ -49,5 +49,24 @@ describe("the whole picture", () => {
     expect(l).toEqual([{ year: 2020, net: 10, CN: 35, US: 25, n: 2, lean_cn: 1, lean_us: 1 }]);
     expect(latestYear([{ year: 2019, n: 5 }, { year: 2020, n: 2 }, { year: 2021, n: 1 }], 2021)).toEqual({ year: 2019, n: 5 });
     expect(latestYear([], 2021)).toBeNull();
+  });
+
+  it("reads the inward positions per counterpart and recomputes a narrower scope from the positions", () => {
+    const file = {
+      positions: [
+        { iso3: "CHL", counterpart: "CHN", year: 2023, direction: "inward", basis: "reported", musd: 900 },
+        { iso3: "PER", counterpart: "CHN", year: 2023, direction: "inward", basis: "reported", musd: 1000 },
+        { iso3: "ARG", counterpart: "CHN", year: 2023, direction: "inward", basis: "reported", musd: 5000 },
+        { iso3: "CHL", counterpart: "CHN", year: 2023, direction: "inward", basis: "derived", musd: 1600 },
+        { iso3: "CHL", counterpart: "USA", year: 2023, direction: "inward", basis: "reported", musd: 28000 },
+      ],
+      region: [
+        { year: 2023, counterpart: "CHN", basis: "reported", musd: 6900, n: 3, countries: ["ARG", "CHL", "PER"] },
+        { year: 2023, counterpart: "CHN", basis: "derived", musd: 1600, n: 1, countries: ["CHL"] },
+        { year: 2023, counterpart: "USA", basis: "reported", musd: 28000, n: 1, countries: ["CHL"] },
+      ],
+    } as unknown as InvestmentFile;
+    expect(investmentByYear(file, new Set(["ARG", "CHL", "PER"]))[0]).toMatchObject({ year: 2023, CN: 6900, CN_derived: 1600, US: 28000, n_cn: 3, n_us: 1, HK: null });
+    expect(investmentByYear(file, scope)[0]).toMatchObject({ CN: 1900, n_cn: 2 }); // ARG is outside the toy scope: recomputed from the positions
   });
 });

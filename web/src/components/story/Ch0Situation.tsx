@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { ACTOR_COLOR, COUNTRY_COUNT, COUNTRY_COUNT_WORD, OTHER_COLOR, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { fmtMusd, fmtPct, fmtSigned } from "@/lib/format";
-import { latestYear, type FinanceYear, type LeanYear, type TradeYear, type VotesYear } from "@/lib/overview";
+import { latestYear, type FinanceYear, type InvestmentYear, type LeanYear, type TradeYear, type VotesYear } from "@/lib/overview";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
 import { WideFigure } from "./Ch3Iceberg";
 
@@ -15,7 +15,7 @@ const f1 = (v: number | null) => (v == null ? "—" : v.toFixed(1));
  * The whole picture before any single country: four region-wide series read from the same files as the chapters, each
  * a sum or a mean over the countries that carry a value in that year, with the count printed beside it.
  */
-export function Ch0Situation({ trade, finance, votes, lean, lastYear, countriesWithFacts }: { trade: TradeYear[]; finance: FinanceYear[]; votes: VotesYear[]; lean: LeanYear[]; lastYear: { trade: number | null; finance_CN: number | null; finance_US: number | null }; countriesWithFacts: number | null }) {
+export function Ch0Situation({ trade, finance, votes, lean, investment, lastYear, countriesWithFacts }: { trade: TradeYear[]; finance: FinanceYear[]; votes: VotesYear[]; lean: LeanYear[]; investment: InvestmentYear[]; lastYear: { trade: number | null; finance_CN: number | null; finance_US: number | null }; countriesWithFacts: number | null }) {
   const t = latestYear(trade, lastYear.trade ?? YEAR_MAX);
   const t0 = trade.find((y) => y.n_cn > 0 && y.n_us > 0) ?? null;
   const l = latestYear(lean, YEAR_MAX);
@@ -73,6 +73,22 @@ export function Ch0Situation({ trade, finance, votes, lean, lastYear, countriesW
       ariaLabel="Mean UN General Assembly voting agreement of the region with China and with the United States by year"
     />
   );
+  const inv = investment.length ? investment[investment.length - 1] : null;
+  const investmentFigure = investment.length ? (
+    <PlotFigure
+      options={{
+        height: 260, marginLeft: 56,
+        x: { label: null, tickFormat: (d: number) => String(d) },
+        y: { label: "↑ inward direct-investment stock, US$ bn", grid: true, tickFormat: (d: number) => (d / 1000).toFixed(0) },
+        color: { legend: true, domain: ["held by China", "held by Hong Kong SAR", "held by the United States"], range: [ACTOR_COLOR.CN, "#e2682f", ACTOR_COLOR.US] },
+        marks: [
+          Plot.lineY(investment.flatMap((y) => [{ year: y.year, v: y.CN, s: "held by China", n: y.n_cn }, { year: y.year, v: y.HK, s: "held by Hong Kong SAR", n: y.n_cn }, { year: y.year, v: y.US, s: "held by the United States", n: y.n_us }]).filter((d) => d.v != null), { x: "year", y: "v", stroke: "s", strokeWidth: 2.5, curve: "monotone-x", marker: "circle", tip: true, title: (d: { year: number; v: number; s: string; n: number }) => `${d.year}, ${d.s}: ${fmtMusd(d.v)} summed over ${d.n} reporting countr${d.n === 1 ? "y" : "ies"} (the countries' own surveys)` }),
+          Plot.lineY(investment.flatMap((y) => [{ year: y.year, v: y.CN_derived, s: "held by China", k: "China's own report" }, { year: y.year, v: y.US_derived, s: "held by the United States", k: "the United States' own report" }]).filter((d) => d.v != null), { x: "year", y: "v", stroke: "s", strokeWidth: 1.5, strokeDasharray: "4,3", curve: "monotone-x", tip: true, title: (d: { year: number; v: number; k: string }) => `${d.year}, ${d.k}: ${fmtMusd(d.v)} (the counterpart's figure for the same stock)` }),
+        ],
+      } as PlotOptions}
+      ariaLabel="Inward direct-investment stock of the region held by China, Hong Kong SAR and the United States by year, with the counterparts' own figures dashed"
+    />
+  ) : null;
   const leanFigure = (
     <PlotFigure
       options={{
@@ -107,6 +123,9 @@ export function Ch0Situation({ trade, finance, votes, lean, lastYear, countriesW
       <Exhibit id="c0-finance" title="Who writes the cheques" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flows:finance"]} lastYear={{ finance_CN: lastYear.finance_CN, finance_US: lastYear.finance_US }} explore={{ href: "/explore?view=money", label: "Open the money arcs" }} note={`Documented commitments by origin and year from ${YEAR_MIN} (the US record starts earlier); swap-line drawdowns (${fmtMusd(swapCN)} in all, yearly rows of a renewed line summed as recorded, almost all Argentina's) and lower-confidence amounts are kept apart and never added. The Chinese record ends in ${lastYear.finance_CN ?? "–"}, so the empty years after it are an end of record, not an absence of money; the US figures are authorisations, not disbursements.`}>
         <WideFigure minWidth="40rem">{financeFigure}</WideFigure>
       </Exhibit>
+      <Exhibit id="c0-investment" title="Who owns the capital" layer="facts" sources={["imf_dip"]} ids={["investment_position:inward"]} note={investment.length ? `Inward direct-investment stock (IMF Direct Investment Positions, the former CDIS) held by each counterpart, summed over the countries whose own survey carries the cell that year; the dashed lines are the counterparts' own figures for the same stock, two measures of one thing that are never added. Capital routed through Hong Kong SAR is under Hong Kong, not China.${inv ? ` In ${inv.year}: ${inv.CN != null ? fmtMusd(inv.CN) : "—"} held by China${inv.HK != null ? ` and ${fmtMusd(inv.HK)} by Hong Kong SAR` : ""} against ${inv.US != null ? fmtMusd(inv.US) : "—"} by the United States (${inv.n_cn} and ${inv.n_us} reporting countries).` : ""}` : "The IMF positions have not been ingested in this release; the exhibit fills with the next run of the imf_dip adapter."} explore={{ href: "/country/CHL?tab=actions", label: "Open a case file's investment table" }}>
+        {investmentFigure ?? <p className="text-sm text-ink-3">No investment positions in this release yet.</p>}
+      </Exhibit>
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <Exhibit id="c0-votes" title="Who they vote with" layer="facts" sources={["unga_votes"]} ids={["index_component:diplomatic_alignment"]} note={`Mean share of UN General Assembly votes cast with each actor, over the countries with both values that year${v ? ` (${v.n} in ${v.year}: ${fmtPct(v.CN ?? 0, 0)} with China, ${fmtPct(v.US ?? 0, 0)} with the United States)` : ""}.`}>
           {votesFigure}
@@ -116,7 +135,7 @@ export function Ch0Situation({ trade, finance, votes, lean, lastYear, countriesW
         </Exhibit>
       </div>
       <StepCard className="mt-6">
-        <p><strong>Read together.</strong> The ore goes mostly to China and the votes mostly go with China; the documented cheques are mostly Chinese and end where the record ends; the index, which averages these, leans China in most of the {COUNTRY_COUNT_WORD} countries. What the chapters do is take that picture apart: who said what while it happened, which money moved which minerals, and where the two halves of the index disagree. The <Link href="/votes-and-ore" className="underline">Votes and ore</Link> page and the <Link href="/region" className="underline">regional overview</Link> hold the same measures country by country.</p>
+        <p><strong>Read together.</strong> The ore goes mostly to China and the votes mostly go with China; the documented cheques are mostly Chinese and end where the record ends; the stock of capital, where the surveys carry it, is still mostly American; the index, which averages these, leans China in most of the {COUNTRY_COUNT_WORD} countries. What the chapters do is take that picture apart: who said what while it happened, which money moved which minerals, and where the two halves of the index disagree. The <Link href="/votes-and-ore" className="underline">Votes and ore</Link> page and the <Link href="/region" className="underline">regional overview</Link> hold the same measures country by country.</p>
       </StepCard>
     </>
   );

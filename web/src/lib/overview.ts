@@ -1,5 +1,5 @@
 import type { ComponentsFile } from "./geometry";
-import type { IndexRow } from "./types";
+import type { IndexRow, InvestmentFile } from "./types";
 
 /**
  * The whole picture: region-wide series computed in the browser from the exported rows (flows.json, index.json,
@@ -150,4 +150,38 @@ export function leanByYear(rows: IndexRow[], scope: ReadonlySet<string>): LeanYe
 export function latestYear<T extends { year: number; n: number }>(rows: T[], max: number, min = 3): T | null {
   const ok = rows.filter((r) => r.year <= max && r.n >= min);
   return ok.length ? ok[ok.length - 1] : rows.length ? rows[rows.length - 1] : null;
+}
+
+export interface InvestmentYear {
+  year: number;
+  /** reported (the countries' own surveys) inward positions held by China, by Hong Kong SAR and by the United States, US$ million; null where no country reported */
+  CN: number | null;
+  HK: number | null;
+  US: number | null;
+  /** the counterparts' own reports of the same positions */
+  CN_derived: number | null;
+  US_derived: number | null;
+  /** countries behind the reported China and US figures */
+  n_cn: number;
+  n_us: number;
+}
+
+/** The region's inward direct-investment stock per counterpart and year, from investment.json's region rows restricted to `scope`. */
+export function investmentByYear(file: InvestmentFile, scope: ReadonlySet<string>): InvestmentYear[] {
+  const by = new Map<number, InvestmentYear>();
+  for (const r of file.region) {
+    const inScope = r.countries.filter((c) => scope.has(c));
+    if (!inScope.length) continue;
+    // the region rows sum every country of the export; restrict by recomputing from the positions when the scope is narrower
+    const t = by.get(r.year) ?? { year: r.year, CN: null, HK: null, US: null, CN_derived: null, US_derived: null, n_cn: 0, n_us: 0 };
+    const musd = inScope.length === r.countries.length ? r.musd : file.positions.filter((p) => p.year === r.year && p.counterpart === r.counterpart && p.basis === r.basis && p.direction === "inward" && scope.has(p.iso3)).reduce((a, p) => a + p.musd, 0);
+    if (r.basis === "reported") {
+      if (r.counterpart === "CHN") { t.CN = musd; t.n_cn = inScope.length; }
+      else if (r.counterpart === "HKG") t.HK = musd;
+      else if (r.counterpart === "USA") { t.US = musd; t.n_us = inScope.length; }
+    } else if (r.counterpart === "CHN") t.CN_derived = musd;
+    else if (r.counterpart === "USA") t.US_derived = musd;
+    by.set(r.year, t);
+  }
+  return Array.from(by.values()).sort((a, b) => a.year - b.year);
 }

@@ -112,7 +112,21 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
     }
     return Array.from(groups.entries()).map(([k, rows]) => ({ key: k, mineral: rows[0].mineral, measure: rows[0].measure, rows })).sort((a, b) => a.mineral.localeCompare(b.mineral) || a.measure.localeCompare(b.measure));
   }, [production]);
+  const investment = useMemo(() => (data.actions.investment ?? []).filter((r) => r.direction === "inward"), [data]);
+  const investmentYears = useMemo(() => Array.from(new Set(investment.map((r) => r.year))).sort((a, b) => a - b).slice(-6), [investment]);
+  const investmentSeries = useMemo(() => {
+    const by = new Map<string, { counterpart: string; basis: string; byYear: Record<number, number> }>();
+    for (const r of investment) {
+      const k = `${r.counterpart}|${r.basis}`;
+      const row = by.get(k) ?? { counterpart: r.counterpart, basis: r.basis, byYear: {} };
+      row.byYear[r.year] = r.musd;
+      by.set(k, row);
+    }
+    return Array.from(by.values()).sort((a, b) => a.counterpart.localeCompare(b.counterpart) || a.basis.localeCompare(b.basis));
+  }, [investment]);
+  const investmentLatest = useMemo(() => investmentSeries.filter((r) => r.basis === "reported").map((r) => { const ys = Object.keys(r.byYear).map(Number); const y = Math.max(...ys); return { counterpart: r.counterpart, year: y, musd: r.byYear[y] }; }), [investmentSeries]);
   const [contractsShown, setContractsShown] = useState(20);
+  const COUNTERPART_NAME: Record<string, string> = { CHN: "China", USA: "United States", HKG: "Hong Kong SAR" };
   const sideColor = { US: "var(--us)", CN: "var(--cn)", other: "var(--other)" } as const;
 
   return (
@@ -211,6 +225,24 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
         )}
       </section>
 
+      {investment.length > 0 && (
+        <section aria-labelledby="inv-h">
+          <SectionHeader id="inv-h" title="Direct investment positions held by each actor" tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("investment", { iso3: data.iso3, year, meta })} intro={`Inward direct-investment stock of ${data.name} held by China, Hong Kong SAR and the United States, US$ million, as the IMF publishes it: the country's own survey ("reported") and the counterpart's report of the same stock ("derived") are two figures of one position and are never added. ${investmentLatest.length ? `Latest reported: ${investmentLatest.map((r) => `${COUNTERPART_NAME[r.counterpart] ?? r.counterpart} ${fmtMusd(r.musd)} (${r.year})`).join("; ")}.` : ""}`} />
+          <table className="w-full text-xs">
+            <thead><tr><th>Counterpart</th><th>Basis</th>{investmentYears.map((y) => <th key={y} className="text-right">{y}</th>)}</tr></thead>
+            <tbody>
+              {investmentSeries.map((row) => (
+                <tr key={`${row.counterpart}-${row.basis}`}>
+                  <td className="font-medium">{COUNTERPART_NAME[row.counterpart] ?? row.counterpart}</td>
+                  <td>{row.basis}</td>
+                  {investmentYears.map((y) => <td key={y} className="text-right tabular-nums">{row.byYear[y] == null ? "—" : fmtMusd(row.byYear[y])}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="mt-1 text-[11px] text-ink-3">Source: <SourceLink source={investment[0].source} compact />. A dash is a year the survey does not carry, not a zero.</p>
+        </section>
+      )}
       {production.length > 0 && (
         <section aria-labelledby="prod-h">
           <SectionHeader id="prod-h" title={`Production and reserves in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("production", { iso3: data.iso3, year, meta })} intro={`${productionGroups.length} mineral series; where several sources or units report the same mineral, the first row is shown and the others open on request.`} />

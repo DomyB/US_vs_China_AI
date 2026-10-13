@@ -349,6 +349,15 @@ export async function loadMineral(id: string): Promise<import("./minerals").Mine
   }
 }
 
+export async function loadInvestment(): Promise<import("./types").InvestmentFile | null> {
+  try {
+    const file = await fetchOnce<import("./types").InvestmentFile>(`${REAL}/investment.json`);
+    return Array.isArray(file.positions) && file.positions.length > 0 ? file : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadInsights(): Promise<InsightsFile | null> {
   try {
     const file = await fetchOnce<InsightsFile>(`${REAL}/insights.json`);

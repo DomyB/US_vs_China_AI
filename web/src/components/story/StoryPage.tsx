@@ -3,14 +3,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT_WORD, IN_SCOPE } from "@/lib/constants";
-import { loadComponents, loadFlows, loadIndex, loadInsights, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
+import { loadComponents, loadFlows, loadIndex, loadInsights, loadInvestment, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
 import type { ComponentsFile } from "@/lib/geometry";
-import { financeByYear, leanByYear, tradeByYear, votesByYear } from "@/lib/overview";
+import { financeByYear, investmentByYear, leanByYear, tradeByYear, votesByYear } from "@/lib/overview";
 import { Ch0Situation } from "./Ch0Situation";
 import { Cover } from "./Cover";
 import { fmtMusd, fmtPct } from "@/lib/format";
 import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
-import type { FlowsFile, IndexFile, InsightsFile, QuantFile, RealMeta, RegionData, RegionStatements, StatementRecord, StoryFile } from "@/lib/types";
+import type { FlowsFile, IndexFile, InsightsFile, InvestmentFile, QuantFile, RealMeta, RegionData, RegionStatements, StatementRecord, StoryFile } from "@/lib/types";
 import { Ch1Ledger } from "./Ch1Ledger";
 import { Ch2Trade } from "./Ch2Trade";
 import { Ch3Iceberg } from "./Ch3Iceberg";
@@ -34,6 +34,7 @@ interface Loaded {
   story: StoryFile | null;
   statements: RegionStatements | null;
   components: ComponentsFile | null;
+  investment: InvestmentFile | null;
 }
 
 const OPENING_ID = "PS-0283";
@@ -61,9 +62,9 @@ export function StoryPage() {
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     let alive = true;
-    Promise.all([loadInsights(), loadFlows(), loadRegionShares(), loadQuant(), loadIndex(), loadRealMeta(), loadStory(), loadRegionStatements(), loadComponents()])
-      .then(([insights, flows, shares, quant, index, meta, story, statements, components]) => {
-        if (alive) setD({ insights, flows: flows.layer === "real" ? flows.data : null, shares: shares.layer === "real" ? shares.rows : [], quant, index, meta, story, statements, components });
+    Promise.all([loadInsights(), loadFlows(), loadRegionShares(), loadQuant(), loadIndex(), loadRealMeta(), loadStory(), loadRegionStatements(), loadComponents(), loadInvestment()])
+      .then(([insights, flows, shares, quant, index, meta, story, statements, components, investment]) => {
+        if (alive) setD({ insights, flows: flows.layer === "real" ? flows.data : null, shares: shares.layer === "real" ? shares.rows : [], quant, index, meta, story, statements, components, investment });
       })
       .catch(() => {
         if (alive) setFailed(true);
@@ -192,6 +193,7 @@ export function StoryPage() {
     finance: financeByYear(flows.finance, scope),
     votes: d.components ? votesByYear(d.components, scope) : [],
     lean: leanByYear(d.index.rows, scope),
+    investment: d.investment ? investmentByYear(d.investment, scope) : [],
   };
   const countriesWithFacts = d.meta ? Object.values(d.meta.coverage ?? {}).filter((cv) => (cv as { trade_years?: unknown[] }).trade_years?.length).length : null;
   const sourcesLine = d.meta?.sources_live ? `${d.meta.sources_live.live} of ${d.meta.sources_live.total} registered sources answered the last liveness check; ${d.meta.sources_ok?.length ?? 0} adapters ran in the last ingestion.` : null;
@@ -210,7 +212,7 @@ export function StoryPage() {
       <ProgressRail items={present} />
       <Cover release={release} sourcesLine={sourcesLine} />
       <Chapter n={0} eyebrow="The whole picture" question={`Across ${COUNTRY_COUNT_WORD} countries, who buys the ore, who writes the cheques, and who gets the votes?`} meter={present[0]}>
-        <Ch0Situation trade={overview.trade} finance={overview.finance} votes={overview.votes} lean={overview.lean} lastYear={{ trade: flows.meta.last_year.trade ?? null, finance_CN: flows.meta.last_year.finance_CN ?? null, finance_US: flows.meta.last_year.finance_US ?? null }} countriesWithFacts={countriesWithFacts} />
+        <Ch0Situation trade={overview.trade} finance={overview.finance} votes={overview.votes} lean={overview.lean} investment={overview.investment} lastYear={{ trade: flows.meta.last_year.trade ?? null, finance_CN: flows.meta.last_year.finance_CN ?? null, finance_US: flows.meta.last_year.finance_US ?? null }} countriesWithFacts={countriesWithFacts} />
       </Chapter>
       <ColdOpen quote={opening} absence={absence} receipts={c.receipts} release={release} pairingNote={c.pairingNote} />
       <Chapter n={1} eyebrow="The ledger" question="Who is louder, and who writes the cheques?" meter={meter(1)}>
