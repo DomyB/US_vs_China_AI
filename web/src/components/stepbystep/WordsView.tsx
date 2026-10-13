@@ -8,7 +8,7 @@ import { FRAME_GLYPH, PlotFigure, type PlotOptions } from "@/components/charts/P
 import { CAT_3, CAT_4, INK_3, RULE } from "@/components/insights/shared";
 import { Segmented } from "@/components/ui/Segmented";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
-import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR } from "@/lib/constants";
+import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, LANGUAGE_NAME, OTHER_COLOR } from "@/lib/constants";
 import { loadWords } from "@/lib/data";
 import { fmtDate, fmtPct } from "@/lib/format";
 import { STANCE_WORD, cosine, defaultExample, typeLabel, words, type WordDoc, type WordsFile } from "@/lib/geometry";
@@ -23,10 +23,10 @@ type ColourMode = "type" | "country" | "language" | "narrative" | "stance";
 
 const COUNTRY_COLORS = ["#1f5fa8", "#c8441c", "#6a4fb8", "#1d8f6e", "#b8860b", "#2a9d8f", "#e76f51", "#3d5a80", "#9b2226", "#588157", "#7b4b94", "#6c757d"];
 const TYPE_COLORS: Record<string, string> = { news: CAT_3, bill: CAT_4, hearing: "#b8860b" };
-const LANG_COLORS: Record<string, string> = { es: ACTOR_COLOR.US, pt: ACTOR_COLOR.CN, en: CAT_4, nl: CAT_3 };
+const LANG_COLORS: Record<string, string> = { es: ACTOR_COLOR.US, pt: ACTOR_COLOR.CN, en: CAT_4, nl: CAT_3, multi: "#b8860b" };
 const NARRATIVE_COLORS = ["#1f5fa8", "#c8441c", "#6a4fb8", "#1d8f6e", "#b8860b", "#2a9d8f", "#e76f51", "#3d5a80", "#9b2226", "#588157", "#7b4b94", "#6c757d"];
 const STANCE_COLORS: Record<string, string> = { "-2": "#1b1d20", "-1": "#5c6069", "0": OTHER_COLOR, "1": "#e2682f", "2": "#c8441c" };
-const LANG_NAME: Record<string, string> = { es: "Spanish", pt: "Portuguese", en: "English", nl: "Dutch" };
+
 
 const short = (s: string | null | undefined, n = 72) => (s ? (s.length > n ? `${s.slice(0, n - 1)}…` : s) : "(no title)");
 
@@ -105,7 +105,7 @@ export function WordsView() {
   const legend: { label: string; color: string }[] =
     colour === "type" ? types.map((t) => ({ label: typeLabel(t), color: TYPE_COLORS[t] ?? OTHER_COLOR }))
       : colour === "country" ? IN_SCOPE.map((iso, i) => ({ label: countryName(iso), color: COUNTRY_COLORS[i] }))
-        : colour === "language" ? Object.keys(file.by_language).map((l) => ({ label: LANG_NAME[l] ?? l, color: LANG_COLORS[l] ?? OTHER_COLOR }))
+        : colour === "language" ? Object.keys(file.by_language).map((l) => ({ label: LANGUAGE_NAME[l] ?? l, color: LANG_COLORS[l] ?? OTHER_COLOR }))
           : colour === "narrative" ? file.topics.map((t, i) => ({ label: t.label, color: NARRATIVE_COLORS[i % NARRATIVE_COLORS.length] }))
             : [{ label: "not coded", color: "#d9d7d0" }, ...[-2, -1, 0, 1, 2].map((s) => ({ label: `${STANCE_WORD[s]} (China)`, color: STANCE_COLORS[String(s)] }))];
 
@@ -183,7 +183,7 @@ export function WordsView() {
       <p className="eyebrow">{label}</p>
       <p className="serif mt-1 text-lg font-bold leading-snug">{d.h ?? "(no title stored)"}</p>
       {d.e && d.e !== d.h && <p className="mt-1 text-sm text-ink-2">{d.e} <span className="text-[11px] text-ink-3">· machine translation, model output</span></p>}
-      <p className="mt-1 text-xs text-ink-3">{countryName(d.c)} · {typeLabel(d.t)} · {fmtDate(d.d)} · {outletName(d)} · {LANG_NAME[d.l ?? ""] ?? d.l ?? "language unknown"}{d.k != null ? ` · narrative: ${file.topics[d.k]?.label}` : ""}</p>
+      <p className="mt-1 text-xs text-ink-3">{countryName(d.c)} · {typeLabel(d.t)} · {fmtDate(d.d)} · {outletName(d)} · {LANGUAGE_NAME[d.l ?? ""] ?? d.l ?? "language unknown"}{d.k != null ? ` · narrative: ${file.topics[d.k]?.label}` : ""}</p>
     </div>
   );
 
@@ -192,7 +192,7 @@ export function WordsView() {
       id: "record", title: "A record", kicker: "One real title from the corpus, with what the pipeline knows about it.",
       body: (
         <>
-          <p>The corpus holds <strong>{file.n_documents.toLocaleString("en-GB")}</strong> records: headlines the outlets and Media Cloud carried and bills the legislatures published, in {Object.keys(file.by_language).map((l) => LANG_NAME[l] ?? l).join(", ")}. {file.n.toLocaleString("en-GB")} of them have been turned into vectors by the text workflow, so they are the ones this page can place.</p>
+          <p>The corpus holds <strong>{file.n_documents.toLocaleString("en-GB")}</strong> records: headlines the outlets and Media Cloud carried and bills the legislatures published, in {Object.keys(file.by_language).map((l) => LANGUAGE_NAME[l] ?? l).join(", ")}. {file.n.toLocaleString("en-GB")} of them have been turned into vectors by the text workflow, so they are the ones this page can place.</p>
           <p>The walk follows one record. The title below is stored as the source published it; the English line under it is a machine translation and is labelled as such.</p>
         </>
       ),
@@ -253,7 +253,7 @@ export function WordsView() {
       id: "map", title: "The map", kicker: `Every embedded record, ${file.n.toLocaleString("en-GB")} points.`,
       body: (
         <>
-          <p>Colour the points by what the pipeline knows about each record. Bills and headlines occupy different regions because they are different kinds of text; the narratives are the twelve clusters the topic model cut; the stance colouring shows the zero-shot labels, which are a baseline and not yet validated. Click a point to make it the record of this walk.</p>
+          <p>Colour the points by what the pipeline knows about each record. Bills and headlines occupy different regions because they are different kinds of text; the narratives are the {file.topics.length} clusters the topic model cut; the stance colouring shows the zero-shot labels, which are a baseline and not yet validated. Click a point to make it the record of this walk.</p>
         </>
       ),
       figure: (

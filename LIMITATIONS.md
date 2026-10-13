@@ -85,6 +85,12 @@ owner's own text shown apart where it exists. All six phases are live.
   parser accepts the documented and the flat forms and lists anything else in the run manifest. GDELT
   dates are indexing dates (`date_precision = seen`), not publication dates; Media Cloud dates are
   the story's publication date.
+- **"Gold" catches sport (seen 2026-10-13).** The English query term `gold` matches Gold Cup football and
+  gold-medal headlines: on the first full embedding of the corpus one narrative of 1,261 headlines is
+  sport, and those rows count as mining coverage in `media_volume` and among the kept headlines. The
+  words map (`/step-by-step/words`, colour by narrative) shows the share; narrowing the term (gold mining,
+  gold mine, gold price, or excluding medal and cup) is a query-version decision for the owner, after
+  which the affected windows are re-fetched.
 - **GDELT from GitHub's runners (diagnosed 2026-10-09).** Two findings from probe runs on the Actions runner:
   the DOC API matches query terms against its English translation of every article, so the Spanish and
   Portuguese term sets used until now returned nothing while `lithium sourcelang:spanish` returned

@@ -16,7 +16,12 @@ function fetchOnce<T>(path: string): Promise<T> {
   const hit = inflight.get(path);
   if (hit) return hit as Promise<T>;
   const p = fetch(path).then(async (res) => {
-    if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+    if (!res.ok) {
+      // read the body out even when the status is an error: an unread body keeps the connection open, which a
+      // headless check sees as a request that never finishes
+      await res.text().catch(() => undefined);
+      throw new Error(`Failed to load ${path}: ${res.status}`);
+    }
     return (await res.json()) as T;
   });
   p.catch(() => inflight.delete(path));
