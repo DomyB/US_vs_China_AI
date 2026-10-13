@@ -130,7 +130,7 @@ try {
     check("lab: a #hash lands on its block", landed !== null && landed >= 0 && landed <= 120, `top ${landed}`);
     await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
     const story = await page.evaluate(() => ({ h1: document.querySelector("h1")?.textContent ?? "", chapters: document.querySelectorAll("section[id^='c']").length, receipts: document.querySelectorAll("ol[aria-label='Receipts'] li").length, skip: !!Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Skip intro")) }));
-    check("story: the home opens on Said & Paid with nine chapters", story.h1.includes("Said") && story.chapters >= 9, JSON.stringify(story));
+    check("story: the home opens on the Strata cover, the whole picture and the nine chapters", story.h1.includes("Strata") && story.chapters >= 10, JSON.stringify(story));
     check("story: the cold open prints receipts and a Skip control", story.receipts >= 3 && story.skip, JSON.stringify(story));
     // the trust layer: the evidence drawer opens from a story exhibit, keeps focus, closes on Escape and hands focus back
     {
