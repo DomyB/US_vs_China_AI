@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { LayerLabel } from "@/components/ui/Badges";
 
-const description = "Two walkthroughs over the tracker's own records: how a headline becomes a point in a space where distance is meaning, and how a country-year of the influence index becomes a point whose composite is a direction. Every stage is a live view of real data.";
+const description = "Three walkthroughs over the tracker's own records: how a headline becomes a point in a space where distance is meaning, how a country-year of the influence index becomes a point whose composite is a direction, and how the stance classifier learns from examples. Every stage is a live view of real data.";
 
 export const metadata = { title: "Step by step · US–China Critical Minerals Tracker", description, openGraph: { title: "Step by step · US–China Critical Minerals Tracker", description, images: ["/og.png"] } };
 
 const PAGES = [
   { href: "/step-by-step/words", n: 1, title: "From words to geometry", lead: "One real headline or bill followed from its title to its vector, its nearest records in four languages, the fold to two dimensions and the map of every embedded record.", ready: true },
   { href: "/step-by-step/index-geometry", n: 2, title: "Data as geometry", lead: "One country-year of the influence index followed from six raw measurements to a point, the composite as a direction, distances to other country-years, the two sub-indices as axes and the whole record folded to two.", ready: true },
-  { href: "", n: 3, title: "The money as a network", lead: "The finance and trade records as a graph of countries, lenders and projects: degree, paths and communities on the real ledger.", ready: false },
-  { href: "", n: 4, title: "Reading the same text twice", lead: "The hand-coded validation sample against the model's labels: agreement, where the two disagree and what that means for the stance figures.", ready: false },
+  { href: "/step-by-step/classifier", n: 3, title: "A classifier, step by step", lead: "The pipeline's stance head trained in your browser: one layer of weights, the forward pass on a real record, the loss, the gradient, four hundred steps of descent and the decision it reaches.", ready: true },
+  { href: "", n: 4, title: "The money as a network", lead: "The finance and trade records as a graph of countries, lenders and projects: degree, paths and communities on the real ledger.", ready: false },
+  { href: "", n: 5, title: "Reading the same text twice", lead: "The hand-coded validation sample against the model's labels: agreement, where the two disagree and what that means for the stance figures.", ready: false },
 ];
 
 export default function StepByStepIndex() {
@@ -29,7 +30,7 @@ export default function StepByStepIndex() {
           </li>
         ))}
       </ol>
-      <p className="mt-6 text-xs text-ink-3">Pages 3 and 4 wait on records that are not yet in the release: the network needs the finance graph export and the second reading needs the owner&apos;s coded validation sample.</p>
+      <p className="mt-6 text-xs text-ink-3">Pages 4 and 5 wait on records that are not yet in the release: the network needs the finance graph export and the second reading needs the owner&apos;s coded validation sample.</p>
     </div>
   );
 }

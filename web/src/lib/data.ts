@@ -317,6 +317,15 @@ export async function loadComponents(): Promise<import("./geometry").ComponentsF
   }
 }
 
+export async function loadClassifier(): Promise<import("./classifier").ClassifierFile | null> {
+  try {
+    const file = await fetchOnce<import("./classifier").ClassifierFile>(`${REAL}/classifier.json`);
+    return Array.isArray(file.examples) && file.examples.length > 0 ? file : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadInsights(): Promise<InsightsFile | null> {
   try {
     const file = await fetchOnce<InsightsFile>(`${REAL}/insights.json`);

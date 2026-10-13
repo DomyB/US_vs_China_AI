@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 
 from .insights import MUSD_DECIMALS, build_insights
-from .paths import REAL_SITE_DIR, WAREHOUSE_DIR
+from .paths import REAL_SITE_DIR, REPO_ROOT, WAREHOUSE_DIR
 from .period import data_from, period
 from .quant.briefs import FRONT_RE, HUMAN_DIR
 from .quant.concentration import NOTE_ABSENT
@@ -935,12 +935,15 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
                                                 "quant_model": quant_status, "rows": index_rows}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "quant.json").write_text(json.dumps(_quant_file(quant_status, idx_rows, comp_rows, sd_rows, flag_rows, conc_rows, node_rows, edge_rows, today, reg_rows, effect_rows, fc_rows, bt_rows), ensure_ascii=False, default=str, indent=1), encoding="utf-8")
     # the step-by-step pages: every embedded document as a point (words.json) and every all-minerals component row (components.json)
-    from .geometry import components_file, words_file
+    from .geometry import classifier_file, components_file, words_file
     from .insights import component_scales
     from .text.topics import human_labels
     emb_rows = _rows(con, "SELECT doc_id, model, dim, vector FROM doc_embedding")
     (out / "words.json").write_text(json.dumps(words_file(docs, emb_rows, translations, chosen, topic_rows, doc_topic_rows, today, human_labels()), ensure_ascii=False, default=str), encoding="utf-8")
     (out / "components.json").write_text(json.dumps(components_file(comp_rows, idx_rows, component_scales(comp_rows), today), ensure_ascii=False, default=str), encoding="utf-8")
+    head_path = REPO_ROOT / "data" / "models" / "stance_head_v1.json"
+    head = json.loads(head_path.read_text(encoding="utf-8")) if head_path.exists() else None
+    (out / "classifier.json").write_text(json.dumps(classifier_file(docs, emb_rows, translations, chosen, _rows(con, "SELECT * FROM validation_sample"), head, today), ensure_ascii=False, default=str), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
     briefs = [r for r in text_rows if r["model"] == "human"]

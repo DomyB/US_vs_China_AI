@@ -177,3 +177,80 @@ def components_file(comp_rows: list[dict], idx_rows: list[dict], scales: dict[st
                       "v": None if v is None or (isinstance(v, float) and math.isnan(v)) else round(float(v), 2), "n": _safe_int(r.get("n_components"))})
     return {"dataset": "REAL", "generated_on": today, "layer": "model", "scales": scales or {}, "components": comps, "index": index,
             "note": "All-minerals rows of index_component and index_value; raw values are the components' own units (shares, ratios to GDP, agreement rates, stance means), normalised values the 0–100 scale after winsorising at the bounds in `scales`."}
+
+
+# ---------- the classifier page ----------
+
+CLASSIFIER_PER_CELL = 50  # examples per (actor, class) cell when the labels are the zero-shot model's own
+CLASSIFIER_HELD_OUT = 0.25
+CLASSIFIER_SEED = 20261013
+STANCE_CLASSES = [-1, 0, 1]  # the page collapses the five-point stance to sign, as the pipeline does with few examples per class
+
+
+def feature_row(vector: list[float], actor: str, mentions_us: bool, mentions_cn: bool) -> list[float]:
+    """The head's input row: embedding ⊕ actor one-hot (US, CN) ⊕ mention flags (text.train.features)."""
+    return [round(float(v), 4) for v in vector] + [1.0 if actor == "US" else 0.0, 1.0 if actor == "CN" else 0.0, 1.0 if mentions_us else 0.0, 1.0 if mentions_cn else 0.0]
+
+
+def classifier_file(docs: list[dict], emb_rows: list[dict], translations: dict[tuple[str, str], dict], chosen: dict[str, dict],
+                    sample_rows: list[dict], head: dict | None, today: str) -> dict:
+    """The classifier walkthrough's export: labelled examples with the head's exact input features, so the browser can
+    repeat `text.train.fit_logreg` step by step. The labels are the adjudicated hand codes where the owner's sample
+    has been coded (one example per document and applicable actor, the pipeline's own training set, with its split);
+    until then a balanced sample of the zero-shot model's own labels, named as such. `head` is the saved trained head
+    (coef, intercept, classes) when one exists, else None."""
+    by_id = {d["doc_id"]: d for d in docs}
+    vec = {e["doc_id"]: e["vector"] for e in emb_rows if e["doc_id"] in by_id and e.get("vector") is not None}
+    adjudicated = [r for r in sample_rows if r.get("coder") == "adjudicated"]
+    rng = np.random.default_rng(CLASSIFIER_SEED)
+    examples: list[dict] = []
+    if adjudicated:
+        source = "adjudicated"
+        for r in adjudicated:
+            if r["doc_id"] not in vec:
+                continue
+            for actor, app, st in (("US", r.get("applicable_us"), r.get("stance_us")), ("CN", r.get("applicable_cn"), r.get("stance_cn"))):
+                s = _safe_int(st)
+                if not app or s is None:
+                    continue
+                examples.append({"id": r["doc_id"], "a": actor, "y": int(np.sign(s)), "y5": s, "conf": None, "split": r.get("split") or "train"})
+    else:
+        source = "zero_shot"
+        cells: dict[tuple[str, int], list[dict]] = {}
+        for doc_id, c in chosen.items():
+            if doc_id not in vec:
+                continue
+            for actor, st, conf in (("US", c.get("stance_us"), c.get("stance_us_conf")), ("CN", c.get("stance_cn"), c.get("stance_cn_conf"))):
+                s = _safe_int(st)
+                if s is None:
+                    continue
+                cells.setdefault((actor, int(np.sign(s))), []).append({"id": doc_id, "a": actor, "y": int(np.sign(s)), "y5": s, "conf": None if conf is None else round(float(conf), 3), "split": None})
+        for key in sorted(cells):
+            rows = sorted(cells[key], key=lambda r: r["id"])
+            pick = rng.choice(len(rows), size=min(CLASSIFIER_PER_CELL, len(rows)), replace=False)
+            examples.extend(rows[i] for i in sorted(pick))
+        order = rng.permutation(len(examples))
+        n_held = int(round(CLASSIFIER_HELD_OUT * len(examples)))
+        for j, i in enumerate(order):
+            examples[i]["split"] = "held_out" if j < n_held else "train"
+    out = []
+    for ex in examples:
+        d = by_id[ex["id"]]
+        tr = translations.get((ex["id"], "title"))
+        out.append({**ex, "c": d.get("country"), "t": d.get("doc_type"), "d": str(d.get("date") or "")[:10], "l": d.get("language"),
+                    "h": _title(d.get("title_original")), "e": _title(tr["text"]) if tr else None,
+                    "x": feature_row(vec[ex["id"]], ex["a"], bool(d.get("actor_us")), bool(d.get("actor_cn")))})
+    by_class = Counter((ex["a"], ex["y"]) for ex in out)
+    head_out = None
+    if head:
+        head_out = {"classes": head.get("classes"), "coef": head.get("coef"), "intercept": head.get("intercept"), "C": head.get("C"), "n_train": head.get("n_train"),
+                    "cv_macro_f1": head.get("cv_macro_f1"), "codebook_version": head.get("codebook_version"), "created_at": head.get("created_at")}
+    return {
+        "dataset": "REAL", "generated_on": today, "layer": "model",
+        "label_source": source, "classes": STANCE_CLASSES, "n": len(out), "n_train": sum(1 for e in out if e["split"] == "train"), "n_held_out": sum(1 for e in out if e["split"] == "held_out"),
+        "by_class": [{"actor": a, "y": y, "n": n} for (a, y), n in sorted(by_class.items())],
+        "features": {"dim": len(out[0]["x"]) if out else 0, "layout": "embedding ⊕ actor one-hot (US, CN) ⊕ mention flags (US, CN)", "embedding_model": emb_rows[0]["model"] if emb_rows else None},
+        "method": {"name": "multinomial logistic regression, balanced class weights, L2, full-batch gradient descent", "lr": 0.5, "iters": 400, "C": 1.0, "init": "weights ~ N(0, 0.01), bias 0", "lam": "1 / (C · n)"},
+        "head": head_out,
+        "examples": out,
+    }

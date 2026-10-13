@@ -72,3 +72,21 @@ def test_components_file_keeps_all_minerals_rows_only():
     assert out["components"][0] == {"c": "CHL", "y": 2024, "a": "CN", "k": "trade_export_share", "raw": 0.505, "norm": 71.6, "ok": True, "note": None}
     assert out["components"][1]["raw"] is None and out["components"][1]["ok"] is False and "no source" in out["components"][1]["note"]
     assert [(i["y"], i["v"]) for i in out["index"]] == [(2024, 48.84), (2025, None)] and out["scales"]["trade_export_share"]["hi"] == 0.705
+
+
+def test_classifier_file_samples_zero_shot_labels_until_the_sample_is_coded():
+    docs = [{**_doc(i, outlet="chl_latercera"), "actor_us": i % 2 == 0, "actor_cn": True} for i in range(8)]
+    emb = [{"doc_id": f"d{i}", "model": "m", "dim": 2, "vector": [1.0 * i, 0.5]} for i in range(8)]
+    chosen = {f"d{i}": {"stance_cn": [-2, -1, 0, 1, 2, 0, 1, -1][i], "stance_cn_conf": 0.7, "stance_us": None if i else 1, "stance_us_conf": 0.9 if i == 0 else None} for i in range(8)}
+    f = geometry.classifier_file(docs, emb, {("d0", "title"): {"text": "Copper output in Chile falls 0"}}, chosen, [{"doc_id": "d0", "coder": "a", "round": "v1"}], None, "2026-10-13")
+    assert f["label_source"] == "zero_shot" and f["n"] == 9 and f["n_train"] + f["n_held_out"] == 9 and f["head"] is None
+    ex = {(e["id"], e["a"]): e for e in f["examples"]}
+    assert ex[("d0", "CN")]["y"] == -1 and ex[("d0", "CN")]["y5"] == -2 and ex[("d0", "US")]["y"] == 1 and ex[("d0", "US")]["e"].startswith("Copper")
+    assert ex[("d0", "CN")]["x"] == [0.0, 0.5, 0.0, 1.0, 1.0, 1.0] and ex[("d0", "US")]["x"][2:] == [1.0, 0.0, 1.0, 1.0] and ex[("d1", "CN")]["x"][2:] == [0.0, 1.0, 0.0, 1.0]
+    assert f["features"]["dim"] == 6 and {(b["actor"], b["y"]) for b in f["by_class"]} == {("CN", -1), ("CN", 0), ("CN", 1), ("US", 1)}
+    # the adjudicated sample replaces the model's labels, keeps the pipeline's split, and the saved head travels
+    sample = [{"doc_id": "d1", "coder": "adjudicated", "round": "v1", "applicable_us": False, "stance_us": None, "applicable_cn": True, "stance_cn": 2, "split": "held_out"},
+              {"doc_id": "d2", "coder": "adjudicated", "round": "v1", "applicable_us": True, "stance_us": -1, "applicable_cn": True, "stance_cn": 0, "split": "train"}]
+    g = geometry.classifier_file(docs, emb, {}, chosen, sample, {"classes": [-1, 0, 1], "coef": [[0.0] * 3] * 6, "intercept": [0.0] * 3, "C": 1.0, "n_train": 2, "cv_macro_f1": {}}, "2026-10-13")
+    assert g["label_source"] == "adjudicated" and [(e["id"], e["a"], e["y"], e["split"]) for e in g["examples"]] == [("d1", "CN", 1, "held_out"), ("d2", "US", -1, "train"), ("d2", "CN", 0, "train")]
+    assert g["head"]["classes"] == [-1, 0, 1] and len(g["head"]["coef"]) == 6

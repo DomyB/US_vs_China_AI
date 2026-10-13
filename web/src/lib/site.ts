@@ -11,6 +11,7 @@ export const SITE_ROUTES: { path: string; priority: number }[] = [
   { path: "/step-by-step", priority: 0.7 },
   { path: "/step-by-step/words", priority: 0.7 },
   { path: "/step-by-step/index-geometry", priority: 0.7 },
+  { path: "/step-by-step/classifier", priority: 0.7 },
   { path: "/archive", priority: 0.6 },
   { path: "/region", priority: 0.6 },
   { path: "/methodology", priority: 0.5 },
