@@ -46,8 +46,11 @@ async function open(ctx, path) {
   const page = await ctx.newPage();
   const errors = [];
   page.on("console", (m) => {
-    // the 404 page's own document request is reported as a console error; nothing else is expected
-    if (m.type() === "error" && !(path === "/does-not-exist" && /404/.test(m.text()))) errors.push(m.text().slice(0, 160));
+    // the 404 page's own document request is reported as a console error; so is an optional data file a release has
+    // not written yet (investment.json, classifier.json, …), which the page states as an absence: neither is a defect
+    const text = m.text();
+    const optionalData = /404 \(Not Found\)/.test(text) && /\/data\/real\//.test(m.location()?.url ?? "");
+    if (m.type() === "error" && !(path === "/does-not-exist" && /404/.test(text)) && !optionalData) errors.push(`console ${text.slice(0, 160)}`);
   });
   page.on("pageerror", (e) => errors.push(`pageerror ${String(e).slice(0, 160)}`));
   const res = await page.goto(BASE + path, { waitUntil: "networkidle" });
