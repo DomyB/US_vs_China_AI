@@ -10,7 +10,7 @@
    "status": 200,
    "bytes": 314,
    "sha256": "43804643d584330df9ff663d33e801616cb54e07d9aacb12092239d6beff56dc",
-   "retrieved_at": "2026-10-13T17:20:57+00:00",
+   "retrieved_at": "2026-10-13T20:39:44+00:00",
    "note": null,
    "trimmed": true
   },
@@ -23,7 +23,7 @@
    "status": 200,
    "bytes": 356,
    "sha256": "4577cb1df60c2538f6fe9f824cf1b732f68f7c256e5e5d1e20f1391ebe3e0000",
-   "retrieved_at": "2026-10-13T17:20:58+00:00",
+   "retrieved_at": "2026-10-13T20:39:45+00:00",
    "note": null,
    "trimmed": true
   },
@@ -36,7 +36,7 @@
    "status": 200,
    "bytes": 403,
    "sha256": "0766323bfe67eff3f29049c1116681c50990589063df7f9a8c1bf299ddd71916",
-   "retrieved_at": "2026-10-13T17:20:59+00:00",
+   "retrieved_at": "2026-10-13T20:39:46+00:00",
    "note": null,
    "trimmed": true
   },
@@ -49,7 +49,7 @@
    "status": 200,
    "bytes": 305,
    "sha256": "c5266843dec15f0cd57dc44e40dee03bb88de725a23e691cab19403bd78ae2f8",
-   "retrieved_at": "2026-10-13T17:21:00+00:00",
+   "retrieved_at": "2026-10-13T20:39:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -65,7 +65,7 @@
    "status": 200,
    "bytes": 25813,
    "sha256": "fb8b3ca87f1156413791301df9b48b4acc00a85d82647455961f4fcedce4532b",
-   "retrieved_at": "2026-10-13T17:21:20+00:00",
+   "retrieved_at": "2026-10-13T20:40:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -81,7 +81,7 @@
    "status": 200,
    "bytes": 25880,
    "sha256": "3daf6b1fa12528cebe366563424cfc4e99fb81b4a79d073fb14f195619951cda",
-   "retrieved_at": "2026-10-13T17:21:22+00:00",
+   "retrieved_at": "2026-10-13T20:40:05+00:00",
    "note": null,
    "trimmed": true
   },
@@ -97,7 +97,7 @@
    "status": 200,
    "bytes": 25927,
    "sha256": "bc19ea5197d3a2b08b82f029da863fc768898326e8eff6905334a857bf2c2207",
-   "retrieved_at": "2026-10-13T17:22:20+00:00",
+   "retrieved_at": "2026-10-13T20:41:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -113,9 +113,9 @@
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 487554,
-   "sha256": "1badf5ea4ee7a7795201afdac4e09d8382e5cbc754803a1acabcd8ad4145e421",
-   "retrieved_at": "2026-10-13T17:22:22+00:00",
+   "bytes": 488433,
+   "sha256": "3f305c065e07ada2affe7cc429936dccd381499927a45ecf812508f02ab77997",
+   "retrieved_at": "2026-10-13T20:41:08+00:00",
    "note": null,
    "trimmed": true
   },
@@ -131,7 +131,7 @@
    "status": 200,
    "bytes": 24794,
    "sha256": "1fda1623db6119f2b656726f2a1a0c816249dc1716fa702e687bd7ec34ebe7bf",
-   "retrieved_at": "2026-10-13T17:22:24+00:00",
+   "retrieved_at": "2026-10-13T20:41:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -147,7 +147,7 @@
    "status": 200,
    "bytes": 22262,
    "sha256": "100262ad667998d723ca952c0d9fe93d8d39c7664d7eda3d0ad648631a05176a",
-   "retrieved_at": "2026-10-13T17:23:19+00:00",
+   "retrieved_at": "2026-10-13T20:42:05+00:00",
    "note": null,
    "trimmed": true
   },
@@ -163,7 +163,7 @@
    "status": 200,
    "bytes": 24168,
    "sha256": "826487654e80bde87708daadb67d82bb615363702d5605b466aa117e42e98b16",
-   "retrieved_at": "2026-10-13T17:23:25+00:00",
+   "retrieved_at": "2026-10-13T20:42:11+00:00",
    "note": null,
    "trimmed": true
   },
@@ -179,9 +179,9 @@
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 467145,
-   "sha256": "19aadd7a2134f90651197f2f4fe22fd505d55575b8d21d35f8f0fd309696b6ec",
-   "retrieved_at": "2026-10-13T17:23:26+00:00",
+   "bytes": 467082,
+   "sha256": "74643d20ad7058f2a2b3a024755fc4a12476f5de03a9f2324ef33b7af3027a90",
+   "retrieved_at": "2026-10-13T20:42:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -197,7 +197,7 @@
    "status": 200,
    "bytes": 25580,
    "sha256": "5b6b37a10b53fc8a87363e653101d60b5250cd07340c5bccb134403a218a8c8f",
-   "retrieved_at": "2026-10-13T17:24:20+00:00",
+   "retrieved_at": "2026-10-13T20:43:06+00:00",
    "note": null,
    "trimmed": true
   },
@@ -213,7 +213,7 @@
    "status": 200,
    "bytes": 25546,
    "sha256": "ff1b453f88092f6f8c08f570a6a205947789fde38fffac0a5d8b65f54781bd7e",
-   "retrieved_at": "2026-10-13T17:24:27+00:00",
+   "retrieved_at": "2026-10-13T20:43:12+00:00",
    "note": null,
    "trimmed": true
   },
@@ -229,7 +229,7 @@
    "status": 200,
    "bytes": 25506,
    "sha256": "6ea5f06ef2c84cdf5d65e7ce31129c0c1ed92763bf5809330f3203ab9bb75d1c",
-   "retrieved_at": "2026-10-13T17:25:21+00:00",
+   "retrieved_at": "2026-10-13T20:44:07+00:00",
    "note": null,
    "trimmed": true
   },
@@ -245,9 +245,9 @@
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 470498,
-   "sha256": "5061f627b6b276fd8497be15838203f94d0da0324d3ee0778c1d81fb0054cac0",
-   "retrieved_at": "2026-10-13T17:25:22+00:00",
+   "bytes": 470816,
+   "sha256": "39bd7d6b2cd643ce65344ccdb90eef9002ef395b48584cc4cd0c76c312bfb946",
+   "retrieved_at": "2026-10-13T20:44:11+00:00",
    "note": null,
    "trimmed": true
   },
@@ -263,7 +263,7 @@
    "status": 200,
    "bytes": 25197,
    "sha256": "eef245a389936e120c0147db61f8cf6a8a2b8a4b58a3b4c1dd47ffc7273b214d",
-   "retrieved_at": "2026-10-13T17:25:27+00:00",
+   "retrieved_at": "2026-10-13T20:44:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -279,7 +279,7 @@
    "status": 200,
    "bytes": 25164,
    "sha256": "6ce8ab00d211d23a054137ad754b6a1b40d95a804813556a277704f7163f6b4c",
-   "retrieved_at": "2026-10-13T17:26:24+00:00",
+   "retrieved_at": "2026-10-13T20:45:08+00:00",
    "note": null,
    "trimmed": true
   },
@@ -295,7 +295,7 @@
    "status": 200,
    "bytes": 25259,
    "sha256": "7457d51b12415976ea8262bc03cb4a1692e8fe5998e22c4d7f26f65df89888ad",
-   "retrieved_at": "2026-10-13T17:26:28+00:00",
+   "retrieved_at": "2026-10-13T20:45:15+00:00",
    "note": null,
    "trimmed": true
   },
@@ -311,9 +311,9 @@
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 486759,
-   "sha256": "b1c8a7099a0e4e6330e4fbb413d472184525d8b660c374dc807a011876f8f9c7",
-   "retrieved_at": "2026-10-13T17:26:29+00:00",
+   "bytes": 486933,
+   "sha256": "f03496b5d1b4f4516b752f5f611b78aaf531ec27f61f5d9430a002ca964d5921",
+   "retrieved_at": "2026-10-13T20:45:18+00:00",
    "note": null,
    "trimmed": true
   },
@@ -329,7 +329,7 @@
    "status": 200,
    "bytes": 25525,
    "sha256": "7cf5ebb2a7c6666fdc9913651c94bdb087fa6114bc4e8fa0a14f10fd799f33bf",
-   "retrieved_at": "2026-10-13T17:27:23+00:00",
+   "retrieved_at": "2026-10-13T20:46:09+00:00",
    "note": null,
    "trimmed": true
   },
@@ -345,7 +345,7 @@
    "status": 200,
    "bytes": 25517,
    "sha256": "fb28501aaf4d7f5a86d2b260005a38649bea691c64ae4d41a946f369feea67d9",
-   "retrieved_at": "2026-10-13T17:27:29+00:00",
+   "retrieved_at": "2026-10-13T20:46:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -361,7 +361,7 @@
    "status": 200,
    "bytes": 25464,
    "sha256": "482bd236da2b05c12b7eddb0978915c29327b83106b9fe5c91ea3ec882e5a432",
-   "retrieved_at": "2026-10-13T17:28:25+00:00",
+   "retrieved_at": "2026-10-13T20:47:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -377,9 +377,9 @@
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 494437,
-   "sha256": "762bafa9758dba01ffde4b412fdeae6aaf9bbe5cf3c5c7dab50afae8db4f0ad5",
-   "retrieved_at": "2026-10-13T17:28:27+00:00",
+   "bytes": 494826,
+   "sha256": "b857cc3ea89e7ead77495a52ba1344f56c8b321a77d9bbd8c6af0c40d18b5a35",
+   "retrieved_at": "2026-10-13T20:47:19+00:00",
    "note": null,
    "trimmed": true
   }
@@ -410,7 +410,7 @@
   "PAN": 34412265
  },
  "collections_missing": [],
- "years_planned": 148,
+ "years_planned": 69,
  "years_bounds": null,
  "stories_truncated": {
   "ARG/2026": {
@@ -480,7 +480,7 @@
   },
   "HND/2026": {
    "from": "2026-03-31",
-   "to": "2026-10-12",
+   "to": "2026-10-13",
    "kept": 2000
   },
   "CRI/2026": {
@@ -493,270 +493,49 @@
    "to": "2026-10-13",
    "kept": 2000
   },
-  "MEX/2025": {
-   "from": "2025-01-01",
-   "to": "2025-12-31",
+  "MEX/2015": {
+   "from": "2015-01-01",
+   "to": "2015-11-06",
    "kept": 2000
   },
-  "GTM/2025": {
-   "from": "2025-06-16",
-   "to": "2025-12-31",
+  "CRI/2015": {
+   "from": "2015-01-01",
+   "to": "2015-05-28",
    "kept": 2000
   },
-  "HND/2025": {
-   "from": "2025-05-29",
-   "to": "2025-12-31",
+  "MEX/2014": {
+   "from": "2014-01-01",
+   "to": "2014-10-24",
    "kept": 2000
   },
-  "CRI/2025": {
-   "from": "2025-08-15",
-   "to": "2025-12-31",
+  "GTM/2014": {
+   "from": "2014-01-01",
+   "to": "2014-12-20",
    "kept": 2000
   },
-  "PAN/2025": {
-   "from": "2025-01-04",
-   "to": "2025-12-31",
+  "CRI/2014": {
+   "from": "2014-01-01",
+   "to": "2014-10-24",
    "kept": 2000
   },
-  "MEX/2024": {
-   "from": "2024-01-01",
-   "to": "2024-12-31",
+  "MEX/2013": {
+   "from": "2013-01-01",
+   "to": "2013-10-14",
    "kept": 2000
   },
-  "GTM/2024": {
-   "from": "2024-07-18",
-   "to": "2024-12-31",
+  "GTM/2013": {
+   "from": "2013-03-01",
+   "to": "2013-09-01",
    "kept": 2000
   },
-  "HND/2024": {
-   "from": "2024-08-01",
-   "to": "2024-12-31",
-   "kept": 2000
-  },
-  "CRI/2024": {
-   "from": "2024-04-14",
-   "to": "2024-12-31",
-   "kept": 2000
-  },
-  "PAN/2024": {
-   "from": "2024-01-03",
-   "to": "2024-12-31",
-   "kept": 2000
-  },
-  "MEX/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-22",
-   "kept": 2000
-  },
-  "GTM/2023": {
-   "from": "2023-01-01",
-   "to": "2023-11-11",
-   "kept": 2000
-  },
-  "HND/2023": {
-   "from": "2023-01-01",
-   "to": "2023-09-11",
-   "kept": 2000
-  },
-  "SLV/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-31",
-   "kept": 2000
-  },
-  "CRI/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-09",
-   "kept": 2000
-  },
-  "PAN/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-21",
-   "kept": 2000
-  },
-  "MEX/2022": {
-   "from": "2022-01-05",
-   "to": "2022-11-02",
-   "kept": 2000
-  },
-  "GTM/2022": {
-   "from": "2022-01-01",
-   "to": "2022-10-10",
-   "kept": 2000
-  },
-  "HND/2022": {
-   "from": "2022-01-01",
-   "to": "2022-06-03",
-   "kept": 2000
-  },
-  "SLV/2022": {
-   "from": "2022-01-01",
-   "to": "2022-10-18",
-   "kept": 2000
-  },
-  "CRI/2022": {
-   "from": "2022-01-04",
-   "to": "2022-03-21",
-   "kept": 2000
-  },
-  "PAN/2022": {
-   "from": "2022-01-01",
-   "to": "2022-12-25",
-   "kept": 2000
-  },
-  "MEX/2021": {
-   "from": "2021-01-01",
-   "to": "2021-12-30",
-   "kept": 2000
-  },
-  "GTM/2021": {
-   "from": "2021-03-31",
-   "to": "2021-12-25",
-   "kept": 2000
-  },
-  "HND/2021": {
-   "from": "2021-01-02",
-   "to": "2021-12-25",
-   "kept": 2000
-  },
-  "SLV/2021": {
-   "from": "2021-01-02",
-   "to": "2021-12-23",
-   "kept": 2000
-  },
-  "CRI/2021": {
-   "from": "2021-01-22",
-   "to": "2021-12-25",
-   "kept": 2000
-  },
-  "PAN/2021": {
-   "from": "2021-01-01",
-   "to": "2021-12-24",
-   "kept": 2000
-  },
-  "MEX/2020": {
-   "from": "2020-01-01",
-   "to": "2020-12-31",
-   "kept": 2000
-  },
-  "GTM/2020": {
-   "from": "2020-01-01",
-   "to": "2020-08-17",
-   "kept": 2000
-  },
-  "HND/2020": {
-   "from": "2020-01-01",
-   "to": "2020-12-13",
-   "kept": 2000
-  },
-  "SLV/2020": {
-   "from": "2020-01-01",
-   "to": "2020-11-01",
-   "kept": 2000
-  },
-  "CRI/2020": {
-   "from": "2020-01-01",
-   "to": "2020-12-30",
-   "kept": 2000
-  },
-  "PAN/2020": {
-   "from": "2020-01-01",
-   "to": "2020-08-05",
-   "kept": 2000
-  },
-  "MEX/2019": {
-   "from": "2019-02-11",
-   "to": "2019-11-10",
-   "kept": 2000
-  },
-  "GTM/2019": {
-   "from": "2019-01-01",
-   "to": "2019-06-24",
-   "kept": 2000
-  },
-  "HND/2019": {
-   "from": "2019-01-01",
-   "to": "2019-12-17",
-   "kept": 2000
-  },
-  "SLV/2019": {
-   "from": "2019-01-01",
-   "to": "2019-06-12",
-   "kept": 2000
-  },
-  "CRI/2019": {
-   "from": "2019-01-02",
-   "to": "2019-10-09",
-   "kept": 2000
-  },
-  "PAN/2019": {
-   "from": "2019-01-01",
-   "to": "2019-09-20",
-   "kept": 2000
-  },
-  "MEX/2018": {
-   "from": "2018-01-01",
-   "to": "2018-07-12",
-   "kept": 2000
-  },
-  "GTM/2018": {
-   "from": "2018-01-01",
-   "to": "2018-09-03",
-   "kept": 2000
-  },
-  "HND/2018": {
-   "from": "2018-01-01",
-   "to": "2018-12-04",
-   "kept": 2000
-  },
-  "SLV/2018": {
-   "from": "2018-01-01",
-   "to": "2018-08-20",
-   "kept": 2000
-  },
-  "PAN/2018": {
-   "from": "2018-01-01",
-   "to": "2018-07-07",
-   "kept": 2000
-  },
-  "MEX/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-02",
-   "kept": 2000
-  },
-  "HND/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-12",
-   "kept": 2000
-  },
-  "NIC/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-31",
-   "kept": 2000
-  },
-  "CRI/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-02",
-   "kept": 2000
-  },
-  "PAN/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-02",
-   "kept": 2000
-  },
-  "MEX/2016": {
-   "from": "2016-01-01",
-   "to": "2016-11-24",
-   "kept": 2000
-  },
-  "CRI/2016": {
-   "from": "2016-01-01",
-   "to": "2016-11-04",
+  "CRI/2013": {
+   "from": "2013-02-12",
+   "to": "2013-09-02",
    "kept": 2000
   }
  },
- "years_fetched": 99,
- "stopped": "time budget of 150 min exhausted",
- "years_left": 49,
+ "years_fetched": 69,
+ "years_left": 0,
  "headlines_window": {
   "ARG/2026": {
    "from": "2026-09-18",
@@ -765,74 +544,46 @@
    "matched": 170627,
    "truncated": true
   },
-  "BLZ/2016": {
-   "from": "2016-05-19",
-   "to": "2016-12-29",
-   "kept": 44,
-   "matched": 44,
+  "BLZ/2010": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "BLZ/2017": {
-   "from": "2017-01-03",
-   "to": "2017-12-29",
-   "kept": 126,
-   "matched": 126,
+  "BLZ/2011": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "BLZ/2018": {
-   "from": "2018-01-02",
-   "to": "2018-12-22",
-   "kept": 153,
-   "matched": 153,
+  "BLZ/2012": {
+   "from": "2012-03-15",
+   "to": "2012-10-05",
+   "kept": 4,
+   "matched": 4,
    "truncated": false
   },
-  "BLZ/2019": {
-   "from": "2019-01-02",
-   "to": "2019-12-31",
-   "kept": 205,
-   "matched": 205,
+  "BLZ/2013": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "BLZ/2020": {
-   "from": "2020-01-02",
-   "to": "2020-12-31",
-   "kept": 217,
-   "matched": 217,
+  "BLZ/2014": {
+   "from": "2014-09-05",
+   "to": "2014-09-05",
+   "kept": 1,
+   "matched": 1,
    "truncated": false
   },
-  "BLZ/2021": {
-   "from": "2021-01-03",
-   "to": "2021-12-29",
-   "kept": 281,
-   "matched": 281,
-   "truncated": false
-  },
-  "BLZ/2022": {
-   "from": "2022-01-01",
-   "to": "2022-12-24",
-   "kept": 315,
-   "matched": 315,
-   "truncated": false
-  },
-  "BLZ/2023": {
-   "from": "2023-01-03",
-   "to": "2023-12-24",
-   "kept": 370,
-   "matched": 370,
-   "truncated": false
-  },
-  "BLZ/2024": {
-   "from": "2024-01-02",
-   "to": "2024-12-28",
-   "kept": 263,
-   "matched": 263,
-   "truncated": false
-  },
-  "BLZ/2025": {
-   "from": "2025-01-05",
-   "to": "2025-12-23",
-   "kept": 180,
-   "matched": 180,
+  "BLZ/2015": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
   "BLZ/2026": {
@@ -870,74 +621,46 @@
    "matched": 68360,
    "truncated": true
   },
-  "CRI/2016": {
-   "from": "2016-01-01",
-   "to": "2016-11-04",
-   "kept": 2000,
-   "matched": 2260,
-   "truncated": true
-  },
-  "CRI/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-02",
-   "kept": 2000,
-   "matched": 2233,
-   "truncated": true
-  },
-  "CRI/2018": {
-   "from": "2018-01-01",
-   "to": "2018-12-31",
-   "kept": 1345,
-   "matched": 1345,
+  "CRI/2010": {
+   "from": "2010-07-17",
+   "to": "2010-08-05",
+   "kept": 2,
+   "matched": 2,
    "truncated": false
   },
-  "CRI/2019": {
-   "from": "2019-01-02",
-   "to": "2019-10-09",
+  "CRI/2011": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
+   "truncated": false
+  },
+  "CRI/2012": {
+   "from": "2012-02-16",
+   "to": "2012-12-27",
+   "kept": 2,
+   "matched": 2,
+   "truncated": false
+  },
+  "CRI/2013": {
+   "from": "2013-02-12",
+   "to": "2013-09-02",
    "kept": 2000,
-   "matched": 2567,
+   "matched": 3485,
    "truncated": true
   },
-  "CRI/2020": {
-   "from": "2020-01-01",
-   "to": "2020-12-30",
+  "CRI/2014": {
+   "from": "2014-01-01",
+   "to": "2014-10-24",
    "kept": 2000,
-   "matched": 2061,
+   "matched": 3969,
    "truncated": true
   },
-  "CRI/2021": {
-   "from": "2021-01-22",
-   "to": "2021-12-25",
+  "CRI/2015": {
+   "from": "2015-01-01",
+   "to": "2015-05-28",
    "kept": 2000,
-   "matched": 4290,
-   "truncated": true
-  },
-  "CRI/2022": {
-   "from": "2022-01-04",
-   "to": "2022-03-21",
-   "kept": 2000,
-   "matched": 9315,
-   "truncated": true
-  },
-  "CRI/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-09",
-   "kept": 2000,
-   "matched": 5961,
-   "truncated": true
-  },
-  "CRI/2024": {
-   "from": "2024-04-14",
-   "to": "2024-12-31",
-   "kept": 2000,
-   "matched": 5689,
-   "truncated": true
-  },
-  "CRI/2025": {
-   "from": "2025-08-15",
-   "to": "2025-12-31",
-   "kept": 2000,
-   "matched": 6305,
+   "matched": 7188,
    "truncated": true
   },
   "CRI/2026": {
@@ -954,75 +677,47 @@
    "matched": 18182,
    "truncated": true
   },
-  "GTM/2016": {
-   "from": "2016-01-03",
-   "to": "2016-12-31",
-   "kept": 691,
-   "matched": 691,
+  "GTM/2010": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "GTM/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-31",
-   "kept": 1695,
-   "matched": 1695,
+  "GTM/2011": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "GTM/2018": {
-   "from": "2018-01-01",
-   "to": "2018-09-03",
+  "GTM/2012": {
+   "from": "2012-02-15",
+   "to": "2012-12-03",
+   "kept": 2,
+   "matched": 2,
+   "truncated": false
+  },
+  "GTM/2013": {
+   "from": "2013-03-01",
+   "to": "2013-09-01",
    "kept": 2000,
-   "matched": 3654,
+   "matched": 3286,
    "truncated": true
   },
-  "GTM/2019": {
-   "from": "2019-01-01",
-   "to": "2019-06-24",
+  "GTM/2014": {
+   "from": "2014-01-01",
+   "to": "2014-12-20",
    "kept": 2000,
-   "matched": 4649,
+   "matched": 2474,
    "truncated": true
   },
-  "GTM/2020": {
-   "from": "2020-01-01",
-   "to": "2020-08-17",
-   "kept": 2000,
-   "matched": 3352,
-   "truncated": true
-  },
-  "GTM/2021": {
-   "from": "2021-03-31",
-   "to": "2021-12-25",
-   "kept": 2000,
-   "matched": 5709,
-   "truncated": true
-  },
-  "GTM/2022": {
-   "from": "2022-01-01",
-   "to": "2022-10-10",
-   "kept": 2000,
-   "matched": 4286,
-   "truncated": true
-  },
-  "GTM/2023": {
-   "from": "2023-01-01",
-   "to": "2023-11-11",
-   "kept": 2000,
-   "matched": 4682,
-   "truncated": true
-  },
-  "GTM/2024": {
-   "from": "2024-07-18",
-   "to": "2024-12-31",
-   "kept": 2000,
-   "matched": 3947,
-   "truncated": true
-  },
-  "GTM/2025": {
-   "from": "2025-06-16",
-   "to": "2025-12-31",
-   "kept": 2000,
-   "matched": 3588,
-   "truncated": true
+  "GTM/2015": {
+   "from": "2015-01-01",
+   "to": "2015-12-13",
+   "kept": 307,
+   "matched": 307,
+   "truncated": false
   },
   "GTM/2026": {
    "from": "2026-07-02",
@@ -1038,151 +733,95 @@
    "matched": 3308,
    "truncated": true
   },
-  "HND/2016": {
-   "from": "2016-01-02",
-   "to": "2016-12-31",
-   "kept": 1028,
-   "matched": 1028,
+  "HND/2010": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "HND/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-12",
-   "kept": 2000,
-   "matched": 3035,
-   "truncated": true
+  "HND/2011": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
+   "truncated": false
   },
-  "HND/2018": {
-   "from": "2018-01-01",
-   "to": "2018-12-04",
-   "kept": 2000,
-   "matched": 3288,
-   "truncated": true
+  "HND/2012": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
+   "truncated": false
   },
-  "HND/2019": {
-   "from": "2019-01-01",
-   "to": "2019-12-17",
-   "kept": 2000,
-   "matched": 6935,
-   "truncated": true
+  "HND/2013": {
+   "from": "2013-05-06",
+   "to": "2013-12-31",
+   "kept": 23,
+   "matched": 23,
+   "truncated": false
   },
-  "HND/2020": {
-   "from": "2020-01-01",
-   "to": "2020-12-13",
-   "kept": 2000,
-   "matched": 3430,
-   "truncated": true
+  "HND/2014": {
+   "from": "2014-01-01",
+   "to": "2014-12-29",
+   "kept": 977,
+   "matched": 977,
+   "truncated": false
   },
-  "HND/2021": {
-   "from": "2021-01-02",
-   "to": "2021-12-25",
-   "kept": 2000,
-   "matched": 7668,
-   "truncated": true
-  },
-  "HND/2022": {
-   "from": "2022-01-01",
-   "to": "2022-06-03",
-   "kept": 2000,
-   "matched": 5782,
-   "truncated": true
-  },
-  "HND/2023": {
-   "from": "2023-01-01",
-   "to": "2023-09-11",
-   "kept": 2000,
-   "matched": 5708,
-   "truncated": true
-  },
-  "HND/2024": {
-   "from": "2024-08-01",
-   "to": "2024-12-31",
-   "kept": 2000,
-   "matched": 4543,
-   "truncated": true
-  },
-  "HND/2025": {
-   "from": "2025-05-29",
-   "to": "2025-12-31",
-   "kept": 2000,
-   "matched": 3792,
-   "truncated": true
+  "HND/2015": {
+   "from": "2015-01-02",
+   "to": "2015-12-31",
+   "kept": 1395,
+   "matched": 1395,
+   "truncated": false
   },
   "HND/2026": {
    "from": "2026-03-31",
-   "to": "2026-10-12",
+   "to": "2026-10-13",
    "kept": 2000,
    "matched": 3323,
    "truncated": true
   },
-  "MEX/2016": {
-   "from": "2016-01-01",
-   "to": "2016-11-24",
+  "MEX/2010": {
+   "from": "2010-01-25",
+   "to": "2010-12-12",
+   "kept": 50,
+   "matched": 50,
+   "truncated": false
+  },
+  "MEX/2011": {
+   "from": "2011-01-01",
+   "to": "2011-12-06",
+   "kept": 94,
+   "matched": 94,
+   "truncated": false
+  },
+  "MEX/2012": {
+   "from": "2012-01-05",
+   "to": "2012-12-26",
+   "kept": 85,
+   "matched": 85,
+   "truncated": false
+  },
+  "MEX/2013": {
+   "from": "2013-01-01",
+   "to": "2013-10-14",
    "kept": 2000,
-   "matched": 48174,
+   "matched": 4155,
    "truncated": true
   },
-  "MEX/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-02",
+  "MEX/2014": {
+   "from": "2014-01-01",
+   "to": "2014-10-24",
    "kept": 2000,
-   "matched": 99187,
+   "matched": 13570,
    "truncated": true
   },
-  "MEX/2018": {
-   "from": "2018-01-01",
-   "to": "2018-07-12",
+  "MEX/2015": {
+   "from": "2015-01-01",
+   "to": "2015-11-06",
    "kept": 2000,
-   "matched": 79093,
-   "truncated": true
-  },
-  "MEX/2019": {
-   "from": "2019-02-11",
-   "to": "2019-11-10",
-   "kept": 2000,
-   "matched": 92048,
-   "truncated": true
-  },
-  "MEX/2020": {
-   "from": "2020-01-01",
-   "to": "2020-12-31",
-   "kept": 2000,
-   "matched": 80046,
-   "truncated": true
-  },
-  "MEX/2021": {
-   "from": "2021-01-01",
-   "to": "2021-12-30",
-   "kept": 2000,
-   "matched": 103704,
-   "truncated": true
-  },
-  "MEX/2022": {
-   "from": "2022-01-05",
-   "to": "2022-11-02",
-   "kept": 2000,
-   "matched": 111364,
-   "truncated": true
-  },
-  "MEX/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-22",
-   "kept": 2000,
-   "matched": 106084,
-   "truncated": true
-  },
-  "MEX/2024": {
-   "from": "2024-01-01",
-   "to": "2024-12-31",
-   "kept": 2000,
-   "matched": 98129,
-   "truncated": true
-  },
-  "MEX/2025": {
-   "from": "2025-01-01",
-   "to": "2025-12-31",
-   "kept": 2000,
-   "matched": 66290,
+   "matched": 42625,
    "truncated": true
   },
   "MEX/2026": {
@@ -1192,145 +831,103 @@
    "matched": 66010,
    "truncated": true
   },
-  "NIC/2016": {
-   "from": "2016-01-02",
-   "to": "2016-12-31",
-   "kept": 1040,
-   "matched": 1040,
+  "NIC/2010": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "NIC/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-31",
-   "kept": 2000,
-   "matched": 2012,
-   "truncated": true
-  },
-  "NIC/2018": {
-   "from": "2018-01-01",
-   "to": "2018-12-31",
-   "kept": 1886,
-   "matched": 1886,
+  "NIC/2011": {
+   "from": "2011-02-03",
+   "to": "2011-02-03",
+   "kept": 1,
+   "matched": 1,
    "truncated": false
   },
-  "NIC/2019": {
-   "from": "2019-01-01",
-   "to": "2019-12-31",
-   "kept": 1913,
-   "matched": 1913,
+  "NIC/2012": {
+   "from": "2012-06-24",
+   "to": "2012-06-24",
+   "kept": 1,
+   "matched": 1,
    "truncated": false
   },
-  "NIC/2020": {
-   "from": "2020-01-01",
-   "to": "2020-12-31",
-   "kept": 1470,
-   "matched": 1470,
+  "NIC/2013": {
+   "from": "2013-03-21",
+   "to": "2013-09-24",
+   "kept": 635,
+   "matched": 635,
    "truncated": false
   },
-  "NIC/2021": {
-   "from": "2021-01-01",
-   "to": "2021-12-31",
-   "kept": 1823,
-   "matched": 1823,
+  "NIC/2014": {
+   "from": "2014-05-06",
+   "to": "2014-09-25",
+   "kept": 3,
+   "matched": 3,
    "truncated": false
   },
-  "NIC/2022": {
-   "from": "2022-01-01",
-   "to": "2022-12-31",
-   "kept": 1535,
-   "matched": 1535,
-   "truncated": false
-  },
-  "NIC/2023": {
-   "from": "2023-01-02",
-   "to": "2023-12-31",
-   "kept": 1283,
-   "matched": 1283,
-   "truncated": false
-  },
-  "NIC/2024": {
-   "from": "2024-01-01",
-   "to": "2024-12-31",
-   "kept": 1152,
-   "matched": 1152,
-   "truncated": false
-  },
-  "NIC/2025": {
-   "from": "2025-01-01",
-   "to": "2025-12-31",
-   "kept": 1152,
-   "matched": 1152,
+  "NIC/2015": {
+   "from": "2015-04-26",
+   "to": "2015-12-30",
+   "kept": 505,
+   "matched": 505,
    "truncated": false
   },
   "NIC/2026": {
    "from": "2026-01-01",
    "to": "2026-10-13",
-   "kept": 659,
+   "kept": 660,
    "matched": 659,
    "truncated": false
   },
-  "PAN/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-02",
-   "kept": 2000,
-   "matched": 3665,
-   "truncated": true
+  "PAN/2010": {
+   "from": "2010-01-01",
+   "to": "2010-11-12",
+   "kept": 7,
+   "matched": 7,
+   "truncated": false
   },
-  "PAN/2018": {
-   "from": "2018-01-01",
-   "to": "2018-07-07",
-   "kept": 2000,
-   "matched": 3761,
-   "truncated": true
+  "PAN/2011": {
+   "from": "2011-01-15",
+   "to": "2011-01-15",
+   "kept": 1,
+   "matched": 1,
+   "truncated": false
   },
-  "PAN/2019": {
-   "from": "2019-01-01",
-   "to": "2019-09-20",
-   "kept": 2000,
-   "matched": 7471,
-   "truncated": true
+  "PAN/2012": {
+   "from": "2012-08-01",
+   "to": "2012-08-01",
+   "kept": 1,
+   "matched": 1,
+   "truncated": false
   },
-  "PAN/2020": {
-   "from": "2020-01-01",
-   "to": "2020-08-05",
-   "kept": 2000,
-   "matched": 5369,
-   "truncated": true
+  "PAN/2013": {
+   "from": "2013-03-29",
+   "to": "2013-12-31",
+   "kept": 392,
+   "matched": 392,
+   "truncated": false
   },
-  "PAN/2021": {
-   "from": "2021-01-01",
-   "to": "2021-12-24",
-   "kept": 2000,
-   "matched": 8478,
-   "truncated": true
+  "PAN/2014": {
+   "from": "2014-01-01",
+   "to": "2014-12-10",
+   "kept": 437,
+   "matched": 437,
+   "truncated": false
   },
-  "PAN/2022": {
-   "from": "2022-01-01",
-   "to": "2022-12-25",
-   "kept": 2000,
-   "matched": 8035,
-   "truncated": true
+  "PAN/2015": {
+   "from": "2015-02-02",
+   "to": "2015-12-23",
+   "kept": 1525,
+   "matched": 1525,
+   "truncated": false
   },
-  "PAN/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-21",
-   "kept": 2000,
-   "matched": 14573,
-   "truncated": true
-  },
-  "PAN/2024": {
-   "from": "2024-01-03",
-   "to": "2024-12-31",
-   "kept": 2000,
-   "matched": 3307,
-   "truncated": true
-  },
-  "PAN/2025": {
-   "from": "2025-01-04",
-   "to": "2025-12-31",
-   "kept": 2000,
-   "matched": 5403,
-   "truncated": true
+  "PAN/2016": {
+   "from": "2016-01-02",
+   "to": "2016-12-31",
+   "kept": 587,
+   "matched": 587,
+   "truncated": false
   },
   "PAN/2026": {
    "from": "2026-07-28",
@@ -1353,74 +950,46 @@
    "matched": 9041,
    "truncated": true
   },
-  "SLV/2016": {
-   "from": "2016-01-01",
-   "to": "2016-12-31",
-   "kept": 922,
-   "matched": 922,
+  "SLV/2010": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "SLV/2017": {
-   "from": "2017-01-01",
-   "to": "2017-12-31",
-   "kept": 1219,
-   "matched": 1219,
+  "SLV/2011": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "SLV/2018": {
-   "from": "2018-01-01",
-   "to": "2018-08-20",
-   "kept": 2000,
-   "matched": 3096,
-   "truncated": true
-  },
-  "SLV/2019": {
-   "from": "2019-01-01",
-   "to": "2019-06-12",
-   "kept": 2000,
-   "matched": 5057,
-   "truncated": true
-  },
-  "SLV/2020": {
-   "from": "2020-01-01",
-   "to": "2020-11-01",
-   "kept": 2000,
-   "matched": 2440,
-   "truncated": true
-  },
-  "SLV/2021": {
-   "from": "2021-01-02",
-   "to": "2021-12-23",
-   "kept": 2000,
-   "matched": 3512,
-   "truncated": true
-  },
-  "SLV/2022": {
-   "from": "2022-01-01",
-   "to": "2022-10-18",
-   "kept": 2000,
-   "matched": 2636,
-   "truncated": true
-  },
-  "SLV/2023": {
-   "from": "2023-01-01",
-   "to": "2023-12-31",
-   "kept": 2000,
-   "matched": 2060,
-   "truncated": true
-  },
-  "SLV/2024": {
-   "from": "2024-01-01",
-   "to": "2024-12-31",
-   "kept": 1751,
-   "matched": 1751,
+  "SLV/2012": {
+   "from": null,
+   "to": null,
+   "kept": 0,
+   "matched": 0,
    "truncated": false
   },
-  "SLV/2025": {
-   "from": "2025-01-01",
-   "to": "2025-12-31",
-   "kept": 1381,
-   "matched": 1381,
+  "SLV/2013": {
+   "from": "2013-02-16",
+   "to": "2013-12-31",
+   "kept": 356,
+   "matched": 356,
+   "truncated": false
+  },
+  "SLV/2014": {
+   "from": "2014-01-02",
+   "to": "2014-12-31",
+   "kept": 1253,
+   "matched": 1253,
+   "truncated": false
+  },
+  "SLV/2015": {
+   "from": "2015-01-02",
+   "to": "2015-12-31",
+   "kept": 1162,
+   "matched": 1162,
    "truncated": false
   },
   "SLV/2026": {
@@ -1454,36 +1023,36 @@
  },
  "incomplete_years": [],
  "unmatched_domains": {
-  "breakingbelizenews.com": 155,
-  "elpais.cr": 84,
-  "telemetro.com": 68,
-  "nacion.com": 66,
-  "tvn-2.com": 63,
-  "laestrella.com.pa": 56,
-  "guyanatimesgy.com": 51,
+  "guyanatimesgy.com": 52,
   "guyanainquirer.com": 51,
-  "panamaamerica.com.pa": 49,
-  "edition.channel5belize.com": 45,
-  "critica.com.pa": 45,
-  "ticotimes.net": 42,
-  "lovefm.com": 35,
-  "lajornadanet.com": 35,
+  "prensa.com": 40,
   "dbsuriname.com": 34,
   "inewsguyana.com": 33,
-  "metrolibre.com": 33,
-  "proceso.hn": 30,
-  "eleconomista.com.mx": 30,
+  "telemetro.com": 33,
   "unitednews.sr": 30,
+  "newsroompanama.com": 29,
   "gfcnieuws.com": 29,
-  "elfinancierocr.com": 28,
-  "noticias24pty.com": 28,
-  "prensa.com": 28,
-  "lateja.cr": 27,
-  "latribuna.hn": 27,
-  "notibomba.com": 26,
-  "qcostarica.com": 24,
-  "newsroompanama.com": 24,
-  "diaadia.com.pa": 24
+  "noroeste.com.mx": 25,
+  "laestrella.com.pa": 25,
+  "tvn-2.com": 23,
+  "bbc.co.uk": 22,
+  "prensalibre.com": 22,
+  "panamaamerica.com.pa": 18,
+  "infobae.com": 17,
+  "vanguardia.com.mx": 17,
+  "metrolibre.com": 17,
+  "waterkant.net": 17,
+  "elcaso.elnacional.cat": 16,
+  "critica.com.pa": 16,
+  "srherald.com": 14,
+  "laprensagrafica.com": 13,
+  "cnnchile.com": 12,
+  "latribuna.hn": 12,
+  "nacion.com": 11,
+  "eldesconcierto.cl": 10,
+  "breakingbelizenews.com": 9,
+  "eju.tv": 8,
+  "df.cl": 8
  },
  "omitted": [
   "collections/COL.json",
@@ -1580,388 +1149,213 @@
   "PAN/2026_count_us.json",
   "PAN/2026_stories_1.json",
   "PAN/2026_stories_2.json",
-  "MEX/2025_count_mining.json",
-  "MEX/2025_count_cn.json",
-  "MEX/2025_count_us.json",
-  "MEX/2025_stories_1.json",
-  "MEX/2025_stories_2.json",
-  "GTM/2025_count_mining.json",
-  "GTM/2025_count_cn.json",
-  "GTM/2025_count_us.json",
-  "GTM/2025_stories_1.json",
-  "GTM/2025_stories_2.json",
-  "BLZ/2025_count_mining.json",
-  "BLZ/2025_count_cn.json",
-  "BLZ/2025_count_us.json",
-  "BLZ/2025_stories_1.json",
-  "HND/2025_count_mining.json",
-  "HND/2025_count_cn.json",
-  "HND/2025_count_us.json",
-  "HND/2025_stories_1.json",
-  "HND/2025_stories_2.json",
-  "SLV/2025_count_mining.json",
-  "SLV/2025_count_cn.json",
-  "SLV/2025_count_us.json",
-  "SLV/2025_stories_1.json",
-  "SLV/2025_stories_2.json",
-  "NIC/2025_count_mining.json",
-  "NIC/2025_count_cn.json",
-  "NIC/2025_count_us.json",
-  "NIC/2025_stories_1.json",
-  "NIC/2025_stories_2.json",
-  "CRI/2025_count_mining.json",
-  "CRI/2025_count_cn.json",
-  "CRI/2025_count_us.json",
-  "CRI/2025_stories_1.json",
-  "CRI/2025_stories_2.json",
-  "PAN/2025_count_mining.json",
-  "PAN/2025_count_cn.json",
-  "PAN/2025_count_us.json",
-  "PAN/2025_stories_1.json",
-  "PAN/2025_stories_2.json",
-  "MEX/2024_count_mining.json",
-  "MEX/2024_count_cn.json",
-  "MEX/2024_count_us.json",
-  "MEX/2024_stories_1.json",
-  "MEX/2024_stories_2.json",
-  "GTM/2024_count_mining.json",
-  "GTM/2024_count_cn.json",
-  "GTM/2024_count_us.json",
-  "GTM/2024_stories_1.json",
-  "GTM/2024_stories_2.json",
-  "BLZ/2024_count_mining.json",
-  "BLZ/2024_count_cn.json",
-  "BLZ/2024_count_us.json",
-  "BLZ/2024_stories_1.json",
-  "HND/2024_count_mining.json",
-  "HND/2024_count_cn.json",
-  "HND/2024_count_us.json",
-  "HND/2024_stories_1.json",
-  "HND/2024_stories_2.json",
-  "SLV/2024_count_mining.json",
-  "SLV/2024_count_cn.json",
-  "SLV/2024_count_us.json",
-  "SLV/2024_stories_1.json",
-  "SLV/2024_stories_2.json",
-  "NIC/2024_count_mining.json",
-  "NIC/2024_count_cn.json",
-  "NIC/2024_count_us.json",
-  "NIC/2024_stories_1.json",
-  "NIC/2024_stories_2.json",
-  "CRI/2024_count_mining.json",
-  "CRI/2024_count_cn.json",
-  "CRI/2024_count_us.json",
-  "CRI/2024_stories_1.json",
-  "CRI/2024_stories_2.json",
-  "PAN/2024_count_mining.json",
-  "PAN/2024_count_cn.json",
-  "PAN/2024_count_us.json",
-  "PAN/2024_stories_1.json",
-  "PAN/2024_stories_2.json",
-  "MEX/2023_count_mining.json",
-  "MEX/2023_count_cn.json",
-  "MEX/2023_count_us.json",
-  "MEX/2023_stories_1.json",
-  "MEX/2023_stories_2.json",
-  "GTM/2023_count_mining.json",
-  "GTM/2023_count_cn.json",
-  "GTM/2023_count_us.json",
-  "GTM/2023_stories_1.json",
-  "GTM/2023_stories_2.json",
-  "BLZ/2023_count_mining.json",
-  "BLZ/2023_count_cn.json",
-  "BLZ/2023_count_us.json",
-  "BLZ/2023_stories_1.json",
-  "HND/2023_count_mining.json",
-  "HND/2023_count_cn.json",
-  "HND/2023_count_us.json",
-  "HND/2023_stories_1.json",
-  "HND/2023_stories_2.json",
-  "SLV/2023_count_mining.json",
-  "SLV/2023_count_cn.json",
-  "SLV/2023_count_us.json",
-  "SLV/2023_stories_1.json",
-  "SLV/2023_stories_2.json",
-  "NIC/2023_count_mining.json",
-  "NIC/2023_count_cn.json",
-  "NIC/2023_count_us.json",
-  "NIC/2023_stories_1.json",
-  "NIC/2023_stories_2.json",
-  "CRI/2023_count_mining.json",
-  "CRI/2023_count_cn.json",
-  "CRI/2023_count_us.json",
-  "CRI/2023_stories_1.json",
-  "CRI/2023_stories_2.json",
-  "PAN/2023_count_mining.json",
-  "PAN/2023_count_cn.json",
-  "PAN/2023_count_us.json",
-  "PAN/2023_stories_1.json",
-  "PAN/2023_stories_2.json",
-  "MEX/2022_count_mining.json",
-  "MEX/2022_count_cn.json",
-  "MEX/2022_count_us.json",
-  "MEX/2022_stories_1.json",
-  "MEX/2022_stories_2.json",
-  "GTM/2022_count_mining.json",
-  "GTM/2022_count_cn.json",
-  "GTM/2022_count_us.json",
-  "GTM/2022_stories_1.json",
-  "GTM/2022_stories_2.json",
-  "BLZ/2022_count_mining.json",
-  "BLZ/2022_count_cn.json",
-  "BLZ/2022_count_us.json",
-  "BLZ/2022_stories_1.json",
-  "HND/2022_count_mining.json",
-  "HND/2022_count_cn.json",
-  "HND/2022_count_us.json",
-  "HND/2022_stories_1.json",
-  "HND/2022_stories_2.json",
-  "SLV/2022_count_mining.json",
-  "SLV/2022_count_cn.json",
-  "SLV/2022_count_us.json",
-  "SLV/2022_stories_1.json",
-  "SLV/2022_stories_2.json",
-  "NIC/2022_count_mining.json",
-  "NIC/2022_count_cn.json",
-  "NIC/2022_count_us.json",
-  "NIC/2022_stories_1.json",
-  "NIC/2022_stories_2.json",
-  "CRI/2022_count_mining.json",
-  "CRI/2022_count_cn.json",
-  "CRI/2022_count_us.json",
-  "CRI/2022_stories_1.json",
-  "CRI/2022_stories_2.json",
-  "PAN/2022_count_mining.json",
-  "PAN/2022_count_cn.json",
-  "PAN/2022_count_us.json",
-  "PAN/2022_stories_1.json",
-  "PAN/2022_stories_2.json",
-  "MEX/2021_count_mining.json",
-  "MEX/2021_count_cn.json",
-  "MEX/2021_count_us.json",
-  "MEX/2021_stories_1.json",
-  "MEX/2021_stories_2.json",
-  "GTM/2021_count_mining.json",
-  "GTM/2021_count_cn.json",
-  "GTM/2021_count_us.json",
-  "GTM/2021_stories_1.json",
-  "GTM/2021_stories_2.json",
-  "BLZ/2021_count_mining.json",
-  "BLZ/2021_count_cn.json",
-  "BLZ/2021_count_us.json",
-  "BLZ/2021_stories_1.json",
-  "HND/2021_count_mining.json",
-  "HND/2021_count_cn.json",
-  "HND/2021_count_us.json",
-  "HND/2021_stories_1.json",
-  "HND/2021_stories_2.json",
-  "SLV/2021_count_mining.json",
-  "SLV/2021_count_cn.json",
-  "SLV/2021_count_us.json",
-  "SLV/2021_stories_1.json",
-  "SLV/2021_stories_2.json",
-  "NIC/2021_count_mining.json",
-  "NIC/2021_count_cn.json",
-  "NIC/2021_count_us.json",
-  "NIC/2021_stories_1.json",
-  "NIC/2021_stories_2.json",
-  "CRI/2021_count_mining.json",
-  "CRI/2021_count_cn.json",
-  "CRI/2021_count_us.json",
-  "CRI/2021_stories_1.json",
-  "CRI/2021_stories_2.json",
-  "PAN/2021_count_mining.json",
-  "PAN/2021_count_cn.json",
-  "PAN/2021_count_us.json",
-  "PAN/2021_stories_1.json",
-  "PAN/2021_stories_2.json",
-  "MEX/2020_count_mining.json",
-  "MEX/2020_count_cn.json",
-  "MEX/2020_count_us.json",
-  "MEX/2020_stories_1.json",
-  "MEX/2020_stories_2.json",
-  "GTM/2020_count_mining.json",
-  "GTM/2020_count_cn.json",
-  "GTM/2020_count_us.json",
-  "GTM/2020_stories_1.json",
-  "GTM/2020_stories_2.json",
-  "BLZ/2020_count_mining.json",
-  "BLZ/2020_count_cn.json",
-  "BLZ/2020_count_us.json",
-  "BLZ/2020_stories_1.json",
-  "HND/2020_count_mining.json",
-  "HND/2020_count_cn.json",
-  "HND/2020_count_us.json",
-  "HND/2020_stories_1.json",
-  "HND/2020_stories_2.json",
-  "SLV/2020_count_mining.json",
-  "SLV/2020_count_cn.json",
-  "SLV/2020_count_us.json",
-  "SLV/2020_stories_1.json",
-  "SLV/2020_stories_2.json",
-  "NIC/2020_count_mining.json",
-  "NIC/2020_count_cn.json",
-  "NIC/2020_count_us.json",
-  "NIC/2020_stories_1.json",
-  "NIC/2020_stories_2.json",
-  "CRI/2020_count_mining.json",
-  "CRI/2020_count_cn.json",
-  "CRI/2020_count_us.json",
-  "CRI/2020_stories_1.json",
-  "CRI/2020_stories_2.json",
-  "PAN/2020_count_mining.json",
-  "PAN/2020_count_cn.json",
-  "PAN/2020_count_us.json",
-  "PAN/2020_stories_1.json",
-  "PAN/2020_stories_2.json",
-  "MEX/2019_count_mining.json",
-  "MEX/2019_count_cn.json",
-  "MEX/2019_count_us.json",
-  "MEX/2019_stories_1.json",
-  "MEX/2019_stories_2.json",
-  "GTM/2019_count_mining.json",
-  "GTM/2019_count_cn.json",
-  "GTM/2019_count_us.json",
-  "GTM/2019_stories_1.json",
-  "GTM/2019_stories_2.json",
-  "BLZ/2019_count_mining.json",
-  "BLZ/2019_count_cn.json",
-  "BLZ/2019_count_us.json",
-  "BLZ/2019_stories_1.json",
-  "HND/2019_count_mining.json",
-  "HND/2019_count_cn.json",
-  "HND/2019_count_us.json",
-  "HND/2019_stories_1.json",
-  "HND/2019_stories_2.json",
-  "SLV/2019_count_mining.json",
-  "SLV/2019_count_cn.json",
-  "SLV/2019_count_us.json",
-  "SLV/2019_stories_1.json",
-  "SLV/2019_stories_2.json",
-  "NIC/2019_count_mining.json",
-  "NIC/2019_count_cn.json",
-  "NIC/2019_count_us.json",
-  "NIC/2019_stories_1.json",
-  "NIC/2019_stories_2.json",
-  "CRI/2019_count_mining.json",
-  "CRI/2019_count_cn.json",
-  "CRI/2019_count_us.json",
-  "CRI/2019_stories_1.json",
-  "CRI/2019_stories_2.json",
-  "PAN/2019_count_mining.json",
-  "PAN/2019_count_cn.json",
-  "PAN/2019_count_us.json",
-  "PAN/2019_stories_1.json",
-  "PAN/2019_stories_2.json",
-  "MEX/2018_count_mining.json",
-  "MEX/2018_count_cn.json",
-  "MEX/2018_count_us.json",
-  "MEX/2018_stories_1.json",
-  "MEX/2018_stories_2.json",
-  "GTM/2018_count_mining.json",
-  "GTM/2018_count_cn.json",
-  "GTM/2018_count_us.json",
-  "GTM/2018_stories_1.json",
-  "GTM/2018_stories_2.json",
-  "BLZ/2018_count_mining.json",
-  "BLZ/2018_count_cn.json",
-  "BLZ/2018_count_us.json",
-  "BLZ/2018_stories_1.json",
-  "HND/2018_count_mining.json",
-  "HND/2018_count_cn.json",
-  "HND/2018_count_us.json",
-  "HND/2018_stories_1.json",
-  "HND/2018_stories_2.json",
-  "SLV/2018_count_mining.json",
-  "SLV/2018_count_cn.json",
-  "SLV/2018_count_us.json",
-  "SLV/2018_stories_1.json",
-  "SLV/2018_stories_2.json",
-  "NIC/2018_count_mining.json",
-  "NIC/2018_count_cn.json",
-  "NIC/2018_count_us.json",
-  "NIC/2018_stories_1.json",
-  "NIC/2018_stories_2.json",
-  "CRI/2018_count_mining.json",
-  "CRI/2018_count_cn.json",
-  "CRI/2018_count_us.json",
-  "CRI/2018_stories_1.json",
-  "CRI/2018_stories_2.json",
-  "PAN/2018_count_mining.json",
-  "PAN/2018_count_cn.json",
-  "PAN/2018_count_us.json",
-  "PAN/2018_stories_1.json",
-  "PAN/2018_stories_2.json",
-  "MEX/2017_count_mining.json",
-  "MEX/2017_count_cn.json",
-  "MEX/2017_count_us.json",
-  "MEX/2017_stories_1.json",
-  "MEX/2017_stories_2.json",
-  "GTM/2017_count_mining.json",
-  "GTM/2017_count_cn.json",
-  "GTM/2017_count_us.json",
-  "GTM/2017_stories_1.json",
-  "GTM/2017_stories_2.json",
-  "BLZ/2017_count_mining.json",
-  "BLZ/2017_count_cn.json",
-  "BLZ/2017_count_us.json",
-  "BLZ/2017_stories_1.json",
-  "HND/2017_count_mining.json",
-  "HND/2017_count_cn.json",
-  "HND/2017_count_us.json",
-  "HND/2017_stories_1.json",
-  "HND/2017_stories_2.json",
-  "SLV/2017_count_mining.json",
-  "SLV/2017_count_cn.json",
-  "SLV/2017_count_us.json",
-  "SLV/2017_stories_1.json",
-  "SLV/2017_stories_2.json",
-  "NIC/2017_count_mining.json",
-  "NIC/2017_count_cn.json",
-  "NIC/2017_count_us.json",
-  "NIC/2017_stories_1.json",
-  "NIC/2017_stories_2.json",
-  "CRI/2017_count_mining.json",
-  "CRI/2017_count_cn.json",
-  "CRI/2017_count_us.json",
-  "CRI/2017_stories_1.json",
-  "CRI/2017_stories_2.json",
-  "PAN/2017_count_mining.json",
-  "PAN/2017_count_cn.json",
-  "PAN/2017_count_us.json",
-  "PAN/2017_stories_1.json",
-  "PAN/2017_stories_2.json",
-  "MEX/2016_count_mining.json",
-  "MEX/2016_count_cn.json",
-  "MEX/2016_count_us.json",
-  "MEX/2016_stories_1.json",
-  "MEX/2016_stories_2.json",
-  "GTM/2016_count_mining.json",
-  "GTM/2016_count_cn.json",
-  "GTM/2016_count_us.json",
-  "GTM/2016_stories_1.json",
-  "BLZ/2016_count_mining.json",
-  "BLZ/2016_count_cn.json",
-  "BLZ/2016_count_us.json",
-  "BLZ/2016_stories_1.json",
-  "HND/2016_count_mining.json",
-  "HND/2016_count_cn.json",
-  "HND/2016_count_us.json",
-  "HND/2016_stories_1.json",
-  "HND/2016_stories_2.json",
-  "SLV/2016_count_mining.json",
-  "SLV/2016_count_cn.json",
-  "SLV/2016_count_us.json",
-  "SLV/2016_stories_1.json",
-  "NIC/2016_count_mining.json",
-  "NIC/2016_count_cn.json",
-  "NIC/2016_count_us.json",
-  "NIC/2016_stories_1.json",
-  "NIC/2016_stories_2.json",
-  "CRI/2016_count_mining.json",
-  "CRI/2016_count_cn.json",
-  "CRI/2016_count_us.json",
-  "CRI/2016_stories_1.json",
-  "CRI/2016_stories_2.json"
+  "PAN/2016_count_mining.json",
+  "PAN/2016_count_cn.json",
+  "PAN/2016_count_us.json",
+  "PAN/2016_stories_1.json",
+  "MEX/2015_count_mining.json",
+  "MEX/2015_count_cn.json",
+  "MEX/2015_count_us.json",
+  "MEX/2015_stories_1.json",
+  "MEX/2015_stories_2.json",
+  "GTM/2015_count_mining.json",
+  "GTM/2015_count_cn.json",
+  "GTM/2015_count_us.json",
+  "GTM/2015_stories_1.json",
+  "BLZ/2015_count_mining.json",
+  "BLZ/2015_count_cn.json",
+  "BLZ/2015_count_us.json",
+  "BLZ/2015_stories_1.json",
+  "HND/2015_count_mining.json",
+  "HND/2015_count_cn.json",
+  "HND/2015_count_us.json",
+  "HND/2015_stories_1.json",
+  "HND/2015_stories_2.json",
+  "SLV/2015_count_mining.json",
+  "SLV/2015_count_cn.json",
+  "SLV/2015_count_us.json",
+  "SLV/2015_stories_1.json",
+  "SLV/2015_stories_2.json",
+  "NIC/2015_count_mining.json",
+  "NIC/2015_count_cn.json",
+  "NIC/2015_count_us.json",
+  "NIC/2015_stories_1.json",
+  "CRI/2015_count_mining.json",
+  "CRI/2015_count_cn.json",
+  "CRI/2015_count_us.json",
+  "CRI/2015_stories_1.json",
+  "CRI/2015_stories_2.json",
+  "PAN/2015_count_mining.json",
+  "PAN/2015_count_cn.json",
+  "PAN/2015_count_us.json",
+  "PAN/2015_stories_1.json",
+  "PAN/2015_stories_2.json",
+  "MEX/2014_count_mining.json",
+  "MEX/2014_count_cn.json",
+  "MEX/2014_count_us.json",
+  "MEX/2014_stories_1.json",
+  "MEX/2014_stories_2.json",
+  "GTM/2014_count_mining.json",
+  "GTM/2014_count_cn.json",
+  "GTM/2014_count_us.json",
+  "GTM/2014_stories_1.json",
+  "GTM/2014_stories_2.json",
+  "BLZ/2014_count_mining.json",
+  "BLZ/2014_count_cn.json",
+  "BLZ/2014_count_us.json",
+  "BLZ/2014_stories_1.json",
+  "HND/2014_count_mining.json",
+  "HND/2014_count_cn.json",
+  "HND/2014_count_us.json",
+  "HND/2014_stories_1.json",
+  "SLV/2014_count_mining.json",
+  "SLV/2014_count_cn.json",
+  "SLV/2014_count_us.json",
+  "SLV/2014_stories_1.json",
+  "SLV/2014_stories_2.json",
+  "NIC/2014_count_mining.json",
+  "NIC/2014_count_cn.json",
+  "NIC/2014_count_us.json",
+  "NIC/2014_stories_1.json",
+  "CRI/2014_count_mining.json",
+  "CRI/2014_count_cn.json",
+  "CRI/2014_count_us.json",
+  "CRI/2014_stories_1.json",
+  "CRI/2014_stories_2.json",
+  "PAN/2014_count_mining.json",
+  "PAN/2014_count_cn.json",
+  "PAN/2014_count_us.json",
+  "PAN/2014_stories_1.json",
+  "MEX/2013_count_mining.json",
+  "MEX/2013_count_cn.json",
+  "MEX/2013_count_us.json",
+  "MEX/2013_stories_1.json",
+  "MEX/2013_stories_2.json",
+  "GTM/2013_count_mining.json",
+  "GTM/2013_count_cn.json",
+  "GTM/2013_count_us.json",
+  "GTM/2013_stories_1.json",
+  "GTM/2013_stories_2.json",
+  "BLZ/2013_count_mining.json",
+  "BLZ/2013_count_cn.json",
+  "BLZ/2013_count_us.json",
+  "BLZ/2013_stories_1.json",
+  "HND/2013_count_mining.json",
+  "HND/2013_count_cn.json",
+  "HND/2013_count_us.json",
+  "HND/2013_stories_1.json",
+  "SLV/2013_count_mining.json",
+  "SLV/2013_count_cn.json",
+  "SLV/2013_count_us.json",
+  "SLV/2013_stories_1.json",
+  "NIC/2013_count_mining.json",
+  "NIC/2013_count_cn.json",
+  "NIC/2013_count_us.json",
+  "NIC/2013_stories_1.json",
+  "CRI/2013_count_mining.json",
+  "CRI/2013_count_cn.json",
+  "CRI/2013_count_us.json",
+  "CRI/2013_stories_1.json",
+  "CRI/2013_stories_2.json",
+  "PAN/2013_count_mining.json",
+  "PAN/2013_count_cn.json",
+  "PAN/2013_count_us.json",
+  "PAN/2013_stories_1.json",
+  "MEX/2012_count_mining.json",
+  "MEX/2012_count_cn.json",
+  "MEX/2012_count_us.json",
+  "MEX/2012_stories_1.json",
+  "GTM/2012_count_mining.json",
+  "GTM/2012_count_cn.json",
+  "GTM/2012_count_us.json",
+  "GTM/2012_stories_1.json",
+  "BLZ/2012_count_mining.json",
+  "BLZ/2012_count_cn.json",
+  "BLZ/2012_count_us.json",
+  "BLZ/2012_stories_1.json",
+  "HND/2012_count_mining.json",
+  "HND/2012_count_cn.json",
+  "HND/2012_count_us.json",
+  "HND/2012_stories_1.json",
+  "SLV/2012_count_mining.json",
+  "SLV/2012_count_cn.json",
+  "SLV/2012_count_us.json",
+  "SLV/2012_stories_1.json",
+  "NIC/2012_count_mining.json",
+  "NIC/2012_count_cn.json",
+  "NIC/2012_count_us.json",
+  "NIC/2012_stories_1.json",
+  "CRI/2012_count_mining.json",
+  "CRI/2012_count_cn.json",
+  "CRI/2012_count_us.json",
+  "CRI/2012_stories_1.json",
+  "PAN/2012_count_mining.json",
+  "PAN/2012_count_cn.json",
+  "PAN/2012_count_us.json",
+  "PAN/2012_stories_1.json",
+  "MEX/2011_count_mining.json",
+  "MEX/2011_count_cn.json",
+  "MEX/2011_count_us.json",
+  "MEX/2011_stories_1.json",
+  "GTM/2011_count_mining.json",
+  "GTM/2011_count_cn.json",
+  "GTM/2011_count_us.json",
+  "GTM/2011_stories_1.json",
+  "BLZ/2011_count_mining.json",
+  "BLZ/2011_count_cn.json",
+  "BLZ/2011_count_us.json",
+  "BLZ/2011_stories_1.json",
+  "HND/2011_count_mining.json",
+  "HND/2011_count_cn.json",
+  "HND/2011_count_us.json",
+  "HND/2011_stories_1.json",
+  "SLV/2011_count_mining.json",
+  "SLV/2011_count_cn.json",
+  "SLV/2011_count_us.json",
+  "SLV/2011_stories_1.json",
+  "NIC/2011_count_mining.json",
+  "NIC/2011_count_cn.json",
+  "NIC/2011_count_us.json",
+  "NIC/2011_stories_1.json",
+  "CRI/2011_count_mining.json",
+  "CRI/2011_count_cn.json",
+  "CRI/2011_count_us.json",
+  "CRI/2011_stories_1.json",
+  "PAN/2011_count_mining.json",
+  "PAN/2011_count_cn.json",
+  "PAN/2011_count_us.json",
+  "PAN/2011_stories_1.json",
+  "MEX/2010_count_mining.json",
+  "MEX/2010_count_cn.json",
+  "MEX/2010_count_us.json",
+  "MEX/2010_stories_1.json",
+  "GTM/2010_count_mining.json",
+  "GTM/2010_count_cn.json",
+  "GTM/2010_count_us.json",
+  "GTM/2010_stories_1.json",
+  "BLZ/2010_count_mining.json",
+  "BLZ/2010_count_cn.json",
+  "BLZ/2010_count_us.json",
+  "BLZ/2010_stories_1.json",
+  "HND/2010_count_mining.json",
+  "HND/2010_count_cn.json",
+  "HND/2010_count_us.json",
+  "HND/2010_stories_1.json",
+  "SLV/2010_count_mining.json",
+  "SLV/2010_count_cn.json",
+  "SLV/2010_count_us.json",
+  "SLV/2010_stories_1.json",
+  "NIC/2010_count_mining.json",
+  "NIC/2010_count_cn.json",
+  "NIC/2010_count_us.json",
+  "NIC/2010_stories_1.json",
+  "CRI/2010_count_mining.json",
+  "CRI/2010_count_cn.json",
+  "CRI/2010_count_us.json",
+  "CRI/2010_stories_1.json",
+  "PAN/2010_count_mining.json",
+  "PAN/2010_count_cn.json",
+  "PAN/2010_count_us.json",
+  "PAN/2010_stories_1.json"
  ]
 }
