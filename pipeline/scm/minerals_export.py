@@ -13,7 +13,7 @@ from __future__ import annotations
 import math
 from collections import defaultdict
 
-from .registry import COUNTRIES, IN_SCOPE, hs_codes, minerals
+from .registry import COUNTRIES, IN_SCOPE, hs_codes, mineral_images, minerals
 
 ACTORS = ("CHN", "USA", "WLD")
 ACTOR_KEY = {"CHN": "CN", "USA": "US", "WLD": "WLD"}
@@ -104,6 +104,8 @@ def mineral_file(m: dict, trade_rows: list[dict], prod_rows: list[dict], price_r
         "id": mid, "name": m["name"], "core": bool(m.get("core")), "on_us_list": bool(m.get("on_us_list")), "on_cn_list": bool(m.get("on_cn_list")),
         "in_region": list(m.get("in_region") or []), "note": m.get("note"),
         "uses": m.get("uses"), "why_it_matters": m.get("why_it_matters"), "uses_source": m.get("uses_source"),
+        # the lead picture of the mineral's Wikipedia article, hot-linked from Wikimedia Commons with its author and licence
+        "image": mineral_images().get(mid),
         "hs_codes": codes,
         "producers": producers,
         "importance": importance,
@@ -123,7 +125,7 @@ def minerals_index(files: list[dict], today: str) -> dict:
         for p in f["production"]:
             by_country[p["iso3"]] += 1
         out.append({"id": f["id"], "name": f["name"], "core": f["core"], "on_us_list": f["on_us_list"], "on_cn_list": f["on_cn_list"], "in_region": f["in_region"], "note": f["note"],
-                    "uses": f["uses"], "why_it_matters": f["why_it_matters"], "uses_source": f["uses_source"],
+                    "uses": f["uses"], "why_it_matters": f["why_it_matters"], "uses_source": f["uses_source"], "image": f.get("image"),
                     "producers": f["producers"], "n_trade_rows": len(f["trade"]), "n_production_rows": len(f["production"]), "n_prices": len(f["prices"]), "n_concessions": len(f["concessions"]),
                     "n_index_rows": len(f["index"]), "countries_with_trade": sorted({c["iso3"] for c in f["trade"]}), "hs6": [h["hs6"] for h in f["hs_codes"]],
                     "top_exporters": sorted(f["importance"], key=lambda x: -(x["exports_musd"] or 0))[:5]})

@@ -358,6 +358,15 @@ export async function loadInvestment(): Promise<import("./types").InvestmentFile
   }
 }
 
+export async function loadRoutes(): Promise<import("./routes").RoutesFile | null> {
+  try {
+    const file = await fetchOnce<import("./routes").RoutesFile>(`${REAL}/routes.json`);
+    return Array.isArray(file.origins) && (file.origins.length > 0 || file.destinations.length > 0) ? file : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadInsights(): Promise<InsightsFile | null> {
   try {
     const file = await fetchOnce<InsightsFile>(`${REAL}/insights.json`);

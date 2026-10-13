@@ -17,7 +17,8 @@ PARTNER = {"US": "USA", "CN": "CHN"}
 UNGA = {"US": "unga_agreement_USA", "CN": "unga_agreement_CHN"}
 GDP = "NY.GDP.MKTP.CD"
 DEBT_CN = "DT.DOD.DPPG.CD:730"  # IDS: PPG external debt stock owed to China
-SWAP_RE = r"(?i)\bswap\b"
+# a swap line or its drawdown, never a debt-for-nature swap or a debt swap (DFC's Belize and El Salvador records)
+SWAP_RE = r"(?i)(?<!nature )(?<!nature-)(?<!debt )(?<!debt-)\bswap\b"
 # controls for the panel regressions (Phase 4b): indicator id -> short name
 CONTROLS = {"v2x_polyarchy": "electoral_democracy", "RL.EST": "rule_of_law", "NY.GDP.MINR.RT.ZS": "mineral_rents_gdp", "BX.KLT.DINV.CD.WD": "fdi_inflows_usd"}
 

@@ -107,7 +107,7 @@ export function argueHref(p: Pick<Provenance, "title" | "findingId">, pageUrl: s
   return `https://github.com/DomyB/US_vs_China_AI/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
 }
 
-export type ProvKind = "trade" | "finance" | "production" | "contracts" | "index" | "concentration" | "governance" | "interpretation" | "forecast_index" | "forecast_share" | "scenarios" | "stance" | "records" | "statements" | "press" | "investment";
+export type ProvKind = "trade" | "finance" | "production" | "contracts" | "index" | "concentration" | "governance" | "interpretation" | "forecast_index" | "forecast_share" | "scenarios" | "stance" | "records" | "statements" | "press" | "investment" | "routes";
 
 export interface ProvContext {
   iso3?: string;
@@ -123,6 +123,7 @@ export interface ProvContext {
 const KINDS: Record<ProvKind, Omit<Provenance, "title"> & { title: string; lastYearKeys?: string[] }> = {
   trade: { title: "Mineral exports by destination", layer: "facts", tables: ["trade_flow"], sources: ["un_comtrade"], lastYearKeys: ["trade"], glossary: ["export_share", "partners_absent", "reliability_rating"] },
   finance: { title: "Deals, loans, investments and agreements", layer: "facts", tables: ["finance_event"], sources: ["aiddata_gcdf", "dfc_projects", "exim_authorizations"], lastYearKeys: ["finance_CN", "finance_US"], glossary: ["documented", "lower_confidence", "swap_drawdown", "status"] },
+  routes: { title: "Where the ore goes, reconciled bilateral trade", layer: "facts", tables: ["trade_flow"], sources: ["cepii_baci"], lastYearKeys: [], glossary: [], caveat: "An intermediary's two legs (its imports from the region, its exports to a buyer) are in the same product codes but are not one shipment: the bound is the smaller leg and says what could have passed through at most, not what did; processing changes the code and leaves the chain." },
   investment: { title: "Direct investment positions by counterpart", layer: "facts", tables: ["investment_position"], sources: ["imf_dip"], lastYearKeys: [], glossary: [], caveat: "The country's own survey and the counterpart's report of the same position are two figures of one stock, kept apart; capital routed through Hong Kong SAR is under HKG, not China." },
   production: { title: "Production and reserves", layer: "facts", tables: ["production"], sources: ["usgs_mcs", "bgs_wms"], glossary: ["reliability_rating"] },
   contracts: { title: "Published contracts", layer: "facts", tables: ["contract"], sources: ["resourcecontracts"], glossary: ["reliability_rating"] },

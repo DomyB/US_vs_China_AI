@@ -118,6 +118,17 @@ def minerals() -> list[dict]:
     return yaml.safe_load((CONFIG_DIR / "minerals.yaml").read_text(encoding="utf-8"))["minerals"]
 
 
+@lru_cache(maxsize=1)
+def mineral_images() -> dict[str, dict]:
+    """mineral id -> the lead picture of its Wikipedia article with the Commons author and licence (DECISIONS 93), looked up by
+    `scripts/mineral_images.py` on the runner and committed as `config/mineral_images.yaml`; empty until the file exists."""
+    p = CONFIG_DIR / "mineral_images.yaml"
+    if not p.exists():
+        return {}
+    data = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+    return {k: v for k, v in data.items() if isinstance(v, dict) and v.get("image_url")}
+
+
 def core_minerals() -> list[str]:
     return [m["id"] for m in minerals() if m.get("core")]
 

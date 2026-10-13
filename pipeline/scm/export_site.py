@@ -979,6 +979,9 @@ def run(warehouse: Path = WAREHOUSE_DIR, out: Path = REAL_SITE_DIR) -> dict:
     head = json.loads(head_path.read_text(encoding="utf-8")) if head_path.exists() else None
     (out / "classifier.json").write_text(json.dumps(classifier_file(docs, emb_rows, translations, chosen, _rows(con, "SELECT * FROM validation_sample"), head, today), ensure_ascii=False, default=str), encoding="utf-8")
     (out / "investment.json").write_text(json.dumps(investment_file(inv_rows, today), ensure_ascii=False, default=str), encoding="utf-8")
+    # where the ore goes and where the buyers get it, from the reconciled rows (DECISIONS 92)
+    from .routes_export import routes_file
+    (out / "routes.json").write_text(json.dumps(routes_file(trade_all, today), ensure_ascii=False, default=str), encoding="utf-8")
     (out / "prices.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "series": prices}, ensure_ascii=False, default=str), encoding="utf-8")
     (out / "policy.json").write_text(json.dumps({"dataset": "REAL", "generated_on": today, "documents": [{**p, "source": _src(p["source_id"], p["source_record_url"])} for p in policy]}, ensure_ascii=False, default=str), encoding="utf-8")
     briefs = [r for r in text_rows if r["model"] == "human"]

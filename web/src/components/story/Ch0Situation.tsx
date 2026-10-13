@@ -7,6 +7,7 @@ import { ACTOR_COLOR, COUNTRY_COUNT, COUNTRY_COUNT_WORD, OTHER_COLOR, YEAR_MAX, 
 import { fmtMusd, fmtPct, fmtSigned } from "@/lib/format";
 import { latestYear, type FinanceYear, type InvestmentYear, type LeanYear, type TradeYear, type VotesYear } from "@/lib/overview";
 import { Exhibit, KeyNumber, StepCard } from "./Chapter";
+import { RoutesView } from "@/components/routes/RoutesView";
 import { WideFigure } from "./Ch3Iceberg";
 
 const f1 = (v: number | null) => (v == null ? "—" : v.toFixed(1));
@@ -119,6 +120,9 @@ export function Ch0Situation({ trade, finance, votes, lean, investment, lastYear
       </div>
       <Exhibit id="c0-trade" title="Who buys the ore" layer="facts" sources={["un_comtrade"]} ids={["flows:trade:all"]} lastYear={{ trade: lastYear.trade }} explore={{ href: "/explore?view=trade", label: "Open the trade arcs" }} note={`Reported exports of the tracked minerals (all minerals) to each actor, summed over the countries reporting that year; the small figures under the axis are the number of reporting countries. ${t0 && t0.share_cn != null && t && t.share_cn != null ? `China's share of the summed world totals went from ${fmtPct(t0.share_cn, 0)} in ${t0.year} to ${fmtPct(t.share_cn, 0)} in ${t.year}; the United States' from ${fmtPct(t0.share_us ?? 0, 0)} to ${fmtPct(t.share_us ?? 0, 0)}.` : ""}`}>
         <WideFigure minWidth="40rem">{tradeFigure}</WideFigure>
+      </Exhibit>
+      <Exhibit id="c0-routes" title="Where the United States gets it, and what passes through Canada" layer="facts" sources={["cepii_baci"]} ids={["trade_flow:USA:M:all"]} explore={{ href: "/routes", label: "Open the routes page" }} note={`The exhibit above is what the ${COUNTRY_COUNT_WORD} countries report selling to each buyer. This one turns it round, from the reconciled bilateral record (CEPII BACI): what the United States imports of the tracked minerals by origin, and the ceiling on what could have come from the region through an intermediary such as Canada, bounded by the smaller of the two legs. It is a ceiling, not a trace: processing changes the product code and no record follows a shipment.`}>
+        <RoutesView embedded />
       </Exhibit>
       <Exhibit id="c0-finance" title="Who writes the cheques" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flows:finance"]} lastYear={{ finance_CN: lastYear.finance_CN, finance_US: lastYear.finance_US }} explore={{ href: "/explore?view=money", label: "Open the money arcs" }} note={`Documented commitments by origin and year from ${YEAR_MIN} (the US record starts earlier); swap-line drawdowns (${fmtMusd(swapCN)} in all, yearly rows of a renewed line summed as recorded, almost all Argentina's) and lower-confidence amounts are kept apart and never added. The Chinese record ends in ${lastYear.finance_CN ?? "–"}, so the empty years after it are an end of record, not an absence of money; the US figures are authorisations, not disbursements.`}>
         <WideFigure minWidth="40rem">{financeFigure}</WideFigure>

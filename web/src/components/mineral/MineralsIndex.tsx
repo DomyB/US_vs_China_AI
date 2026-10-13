@@ -32,7 +32,12 @@ export function MineralsIndex() {
   const card = (m: MineralsFile["minerals"][number]) => {
     const top = m.top_exporters[0];
     return (
-      <li key={m.id} className="card px-4 py-3">
+      <li key={m.id} className="card flex gap-3 px-4 py-3">
+        {m.image && (
+          // eslint-disable-next-line @next/next/no-img-element -- a hot-linked Commons picture, credited on the case file
+          <img src={m.image.image_url} alt="" loading="lazy" className="h-20 w-20 shrink-0 rounded-md border border-outline object-cover" />
+        )}
+        <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="serif text-lg font-bold leading-tight"><Link href={`/mineral/${m.id}`} className="hover:underline">{m.name}</Link></h2>
           <span className="text-[11px] text-ink-3">{m.on_us_list ? "US list" : "not on US list"} · {m.on_cn_list ? "CN catalogue" : "not on CN catalogue"}</span>
@@ -43,6 +48,7 @@ export function MineralsIndex() {
           {top && top.exports_musd != null ? <>Largest exporter: {top.name}, {fmtMusd(top.exports_musd)} in {top.year}{top.share_cn != null ? ` (${fmtShare(top.share_cn)} to China, ${fmtShare(top.share_us)} to the United States)` : " (partner rows absent)"}.</> : "No reported export row."}
         </p>
         <p className="mt-1 text-[11px] text-ink-3">{m.n_production_rows.toLocaleString("en-GB")} production rows · {m.n_trade_rows.toLocaleString("en-GB")} trade cells · {m.n_concessions.toLocaleString("en-GB")} concessions · {m.n_prices.toLocaleString("en-GB")} price points</p>
+        </div>
       </li>
     );
   };
@@ -51,7 +57,7 @@ export function MineralsIndex() {
       <p className="eyebrow">Mineral case files</p>
       <h1 className="serif mt-1 text-2xl font-bold leading-tight sm:text-4xl">The minerals, one file each</h1>
       <p className="mt-3 max-w-3xl text-base leading-relaxed text-ink-2">Why each mineral matters, who has it, who buys it, where it is and what it costs, from the same records as the country case files. {file.minerals.length} minerals are tracked: the core set the trade and index figures use, and the context minerals kept as denominators or for the Chinese mining presence they mark.</p>
-      <div className="mt-3"><LayerLabel layer="facts" /></div>
+      <div className="mt-3 flex flex-wrap items-center gap-3"><LayerLabel layer="facts" /><Link href="/routes" className="text-sm underline">Where the ore goes: the buyers&apos; imports by origin and the indirect route →</Link></div>
       <h2 className="serif mt-6 text-lg font-bold">Core minerals</h2>
       <ul className="mt-2 grid gap-3 sm:grid-cols-2">{core.map(card)}</ul>
       <h2 className="serif mt-6 text-lg font-bold">Context minerals</h2>

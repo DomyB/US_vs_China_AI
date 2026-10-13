@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { Exhibit } from "@/components/story/Chapter";
+import { RoutesView } from "@/components/routes/RoutesView";
 import { LayerLabel } from "@/components/ui/Badges";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR } from "@/lib/constants";
@@ -153,6 +154,18 @@ export function MineralView({ id }: { id: string }) {
           <LayerLabel layer="facts" />
         </p>
       </header>
+      {file.image && (
+        <figure className="mt-5 max-w-3xl">
+          {/* eslint-disable-next-line @next/next/no-img-element -- a hot-linked Commons picture, not an asset of the site */}
+          <img src={file.image.image_url} alt={`${file.name}: ${file.image.file.replace(/\.[a-z]+$/i, "").replace(/_/g, " ")}`} loading="lazy" className="max-h-80 w-full rounded-md border-2 border-outline object-cover" />
+          <figcaption className="mt-1 text-[11px] text-ink-3">
+            {file.image.page_url ? <a href={file.image.page_url} className="underline" target="_blank" rel="noreferrer">{file.image.file.replace(/_/g, " ")}</a> : file.image.file}
+            {file.image.author ? <>, {file.image.author}</> : null}
+            {file.image.license ? <>, {file.image.license_url ? <a href={file.image.license_url} className="underline" target="_blank" rel="noreferrer">{file.image.license}</a> : file.image.license}</> : null}
+            , via Wikimedia Commons{file.image.article ? `, the lead picture of the Wikipedia article "${file.image.article}"` : ""}. A picture, not a record: nothing on this page is read from it.
+          </figcaption>
+        </figure>
+      )}
 
       <section className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
         <div className="card px-4 py-4 sm:px-5">
@@ -196,6 +209,10 @@ export function MineralView({ id }: { id: string }) {
       <Exhibit id="m-buyers" title="Who buys it: exports by destination" layer="facts" sources={tradeSources} ids={[`trade_flow:${file.id}:X`]} note={`Each country's latest year with a reported world total; the China and United States cells are the reporter's own partner rows, and the rest of the world is the difference only when both are present (an absent partner row is never read as zero, so a bar with no grey segment is a country whose partner rows are missing). ${file.importance.length ? `Shares of the world total: ${file.importance.filter((i) => i.share_cn != null).sort((a, b) => (b.exports_musd ?? 0) - (a.exports_musd ?? 0)).slice(0, 5).map((i) => `${i.name} ${fmtShare(i.share_cn)} to China, ${fmtShare(i.share_us)} to the United States (${i.year})`).join("; ")}.` : ""}`} explore={{ href: `/explore?view=trade&mineral=${file.id}`, label: "Open the trade arcs" }}>
         {buyersFigure ?? <p className="text-sm text-ink-3">No reported export row for this mineral.</p>}
         {byYearFigure && <div className="mt-4">{byYearFigure}</div>}
+      </Exhibit>
+
+      <Exhibit id="m-routes" title="Where the buyers get it, and the indirect route" layer="facts" sources={["cepii_baci"]} ids={[`trade_flow:M:${file.id}`]} explore={{ href: `/routes?mineral=${file.id}`, label: "Open the routes page" }} note={`The buyer's imports of ${file.name.toLowerCase()} by origin from the reconciled bilateral record (CEPII BACI), and the ceiling on what could have reached it from the region through an intermediary, the smaller of that economy's imports from the region and its exports to the buyer in the same codes. A ceiling, not a trace.`}>
+        <RoutesView mineral={file.id} embedded />
       </Exhibit>
 
       <div className="mt-6 grid gap-4 lg:grid-cols-2">

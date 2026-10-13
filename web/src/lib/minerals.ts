@@ -5,6 +5,18 @@ export interface MineralSource {
   url: string | null;
 }
 
+/** The lead picture of the mineral's Wikipedia article, hot-linked from Wikimedia Commons with its author and licence. */
+export interface MineralImage {
+  article: string | null;
+  file: string;
+  image_url: string;
+  page_url: string | null;
+  author: string | null;
+  license: string | null;
+  license_url: string | null;
+  credit: string | null;
+}
+
 export interface MineralIndexEntry {
   id: string;
   name: string;
@@ -16,6 +28,7 @@ export interface MineralIndexEntry {
   uses: string | null;
   why_it_matters: string | null;
   uses_source: string | null;
+  image?: MineralImage | null;
   producers: string[];
   n_trade_rows: number;
   n_production_rows: number;

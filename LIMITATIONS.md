@@ -201,6 +201,12 @@ not fetched (DECISIONS 29) and is marked accordingly.
 - **Ownership chains**: SEDAR+ and HKEX forbid scraping; chains for Canadian and
   Hong Kong listed intermediaries are built from SEC cross-listings and company
   reports, so smaller juniors may be missed.
+- **The indirect route**: the routes page bounds what could have reached a buyer
+  through an intermediary (Canada, Spain, Japan, …) by the smaller of that
+  economy's imports from the region and its exports to the buyer in the same
+  HS6 codes. It is a ceiling, not a trace: trade data links no shipment to
+  another, concentrate smelted or refined on the way changes code and leaves
+  the chain, and an intermediary's own mines can supply the second leg.
 - **Mirror data**: partner-reported trade includes freight and insurance (CIF vs
   FOB) and transshipment, so discrepancies are expected and are reported rather
   than reconciled.

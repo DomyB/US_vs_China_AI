@@ -13,6 +13,7 @@ export const metadata = { title: "Archive · Strata", description: "Statements, 
  */
 const DOWNLOADS: { file: string; key: string; description: string }[] = [
   { file: "policy.json", key: "documents", description: "US policy documents selected by title: Congress.gov bills and Federal Register notices and rules, each with title, agency, date, topics and the source URL. The documents the Attention block and chapter 1 count by year." },
+  { file: "routes.json", key: "origins", description: "Where the ore goes, from the reconciled bilateral trade (CEPII BACI): the two buyers' imports by origin, the region's exports by destination, each country's largest destinations and the intermediaries' two legs (imports from the region, exports to each buyer). The rows behind the routes page; the indirect bound is computed in the browser as the smaller leg." },
   { file: "prices.json", key: "series", description: "World price rows per mineral: the World Bank Pink Sheet monthly series and USGS Mineral Commodity Summaries annual averages, each with unit, date and the source URL. The series behind chapter 2's price strip and the Lab's price lever, there as annual averages." },
 ];
 
