@@ -36,7 +36,7 @@ export function SampleBanner() {
   const interpLabel = !interpReal ? "not in this release" : interp === "generated+human" ? (briefs ? `generated · briefs ${briefs.reviewed}/${briefs.total} reviewed` : "generated") : "generated";
   // `value` is the chip's short text, `long` the full form (the title and the strip's explanation carry it)
   const chips: { label: string; value: string; long?: string; tone: "facts" | "model" | "interp" | "sample" }[] = [
-    { label: "Facts", value: `real · ${withFacts}/12`, tone: "facts" },
+    { label: "Facts", value: `real · ${withFacts}/${COUNTRY_COUNT}`, tone: "facts" },
     // two counts of countries with records, named so the chip never reads as a fraction (legislatures 7 of 12, press 12 of 12)
     { label: "Text", value: `legislatures ${withParliament} · press ${withMedia} · ${textShort}`, long: `legislative records for ${withParliament} countries, press for ${withMedia} · stance ${textLabel}`, tone: classified > 0 ? "model" : "facts" },
     { label: "Indices", value: real.layers?.analysis === "real" ? "computed" : "sample", long: real.layers?.analysis === "real" ? `computed · method ${real.quant_model?.method_version ?? "–"}` : undefined, tone: real.layers?.analysis === "real" ? "model" : "sample" },

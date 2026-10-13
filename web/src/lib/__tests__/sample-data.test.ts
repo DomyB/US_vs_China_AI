@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { COUNTRY_COUNT } from "@/lib/constants";
 import type { CountryData, FlowsFile, IndexFile, Meta, SourcesFile } from "@/lib/types";
 
 const DATA = path.resolve(__dirname, "../../../public/data");
@@ -16,12 +17,12 @@ describe("sample dataset contract", () => {
     expect(meta.dataset).toBe("SAMPLE DATA");
     expect(index.dataset).toBe("SAMPLE DATA");
   });
-  it("covers 2008 to 2026 for 12 countries and both actors", () => {
+  it("covers 2008 to 2026 for every country in scope and both actors", () => {
     expect(meta.years[0]).toBe(2008);
     expect(meta.years[meta.years.length - 1]).toBe(2026);
-    expect(meta.countries.filter((c) => c.in_scope)).toHaveLength(12);
+    expect(meta.countries.filter((c) => c.in_scope)).toHaveLength(COUNTRY_COUNT);
     const isos = new Set(index.rows.map((r) => r.iso3));
-    expect(isos.size).toBe(12);
+    expect(isos.size).toBe(COUNTRY_COUNT);
     expect(new Set(index.rows.map((r) => r.actor))).toEqual(new Set(["US", "CN"]));
   });
   it("keeps index values and bands inside 0 to 100", () => {
@@ -34,7 +35,7 @@ describe("sample dataset contract", () => {
   });
   it("links every sourced row to a registry entry", () => {
     const files = readdirSync(path.join(DATA, "sample/country"));
-    expect(files).toHaveLength(12);
+    expect(files).toHaveLength(COUNTRY_COUNT);
     for (const f of files) {
       const c = read<CountryData>(`sample/country/${f}`);
       expect(c.dataset).toBe("SAMPLE DATA");

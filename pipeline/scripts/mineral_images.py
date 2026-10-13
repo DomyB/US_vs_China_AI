@@ -32,6 +32,11 @@ def get(url: str, params: dict | None = None) -> dict:
 
 
 def lead_file(article: str) -> str | None:
+    """The article's page image by file name (the pageimages API), else the file behind the summary's picture."""
+    q = get("https://en.wikipedia.org/w/api.php", {"action": "query", "titles": article, "prop": "pageimages", "piprop": "name", "format": "json", "redirects": 1})
+    for p in ((q.get("query") or {}).get("pages") or {}).values():
+        if p.get("pageimage"):
+            return p["pageimage"].replace(" ", "_")
     s = get(f"https://en.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(article.replace(' ', '_'))}")
     src = (s.get("originalimage") or {}).get("source") or (s.get("thumbnail") or {}).get("source")
     if not src:
@@ -52,7 +57,7 @@ def file_info(name: str) -> dict | None:
         def val(k: str, ext: dict = ext) -> str:
             return re.sub(r"<[^>]+>", "", (ext.get(k) or {}).get("value") or "").strip()
 
-        return {"file": name, "image_url": ii.get("thumburl") or ii.get("url"), "page_url": ii.get("descriptionurl"), "author": val("Artist") or None,
+        return {"file": name, "image_url": (ii.get("thumburl") or ii.get("url") or "").split("?")[0] or None, "page_url": ii.get("descriptionurl"), "author": val("Artist") or None,
                 "license": val("LicenseShortName") or None, "license_url": val("LicenseUrl") or None, "credit": val("Credit") or None}
     return None
 

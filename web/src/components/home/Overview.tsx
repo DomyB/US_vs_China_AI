@@ -9,7 +9,7 @@ import { fmtAmount, type FlowAgg, type FlowView } from "@/components/map/flows";
 import { NET_LEAN_MAX } from "@/components/map/scales";
 import { LayerLabel } from "@/components/ui/Badges";
 import { StatTile } from "@/components/ui/Section";
-import { ACTOR_LABEL } from "@/lib/constants";
+import { ACTOR_LABEL, COUNTRY_COUNT } from "@/lib/constants";
 import { INDEX_PHRASE, carriedBy, leadSentence, type IndexName, type Lead, type LeadSummary } from "@/lib/indexView";
 import type { ActorMode, Meta, RealMeta } from "@/lib/types";
 
@@ -82,8 +82,8 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, indexNam
         <div className="grid grid-cols-2 gap-2">
           <StatTile icon="calendar" label="Data as of" value={kpis.asOf ? new Date(kpis.asOf + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : "–"} note="press weekly · the rest monthly" />
           <StatTile icon="sources" label="Live sources" value={kpis.sources !== null ? <AnimatedNumber value={kpis.sources} /> : "–"} note={`of ${kpis.sourcesTotal ?? Object.keys(sourceNames).length} registered`} href="/sources" />
-          <StatTile icon="facts" label="Countries with facts" value={<><AnimatedNumber value={kpis.facts} /> / 12</>} note="trade, finance, governance" />
-          <StatTile icon="index" label="Countries indexed" value={<><AnimatedNumber value={kpis.indexed} /> / 12</>} note="≥ 3 of 6 components" href="/methodology#index" />
+          <StatTile icon="facts" label="Countries with facts" value={<><AnimatedNumber value={kpis.facts} /> / {COUNTRY_COUNT}</>} note="trade, finance, governance" />
+          <StatTile icon="index" label="Countries indexed" value={<><AnimatedNumber value={kpis.indexed} /> / {COUNTRY_COUNT}</>} note="≥ 3 of 6 components" href="/methodology#index" />
         </div>
       )}
       <section aria-labelledby="rk-h">

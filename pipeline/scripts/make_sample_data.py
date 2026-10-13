@@ -40,6 +40,14 @@ COUNTRIES = [
     ("SUR", "Suriname", 3.4, -56.0, True, "Gold (Zijin Rosebel, Newmont Merian); bauxite history."),
     ("URY", "Uruguay", -32.9, -55.9, False, "Minimal mining; China trade and Mercosur politics."),
     ("VEN", "Venezuela", 7.0, -66.0, False, "Arco Minero del Orinoco; official data scarce."),
+    ("MEX", "Mexico", 23.6, -102.5, True, "Largest silver producer; copper, zinc, gold; lithium nationalised in 2022."),
+    ("GTM", "Guatemala", 15.6, -90.3, True, "Nickel (Fenix), silver, gold; mining licences contested in court."),
+    ("BLZ", "Belize", 17.2, -88.7, False, "No metal mining of note; recognises Taiwan."),
+    ("HND", "Honduras", 14.8, -86.6, True, "Gold, silver, zinc, iron ore; recognised China in 2023."),
+    ("SLV", "El Salvador", 13.8, -88.9, False, "Metal mining banned in 2017 and allowed again in 2024; gold."),
+    ("NIC", "Nicaragua", 12.9, -85.2, False, "Gold (the largest export); recognised China in 2021."),
+    ("CRI", "Costa Rica", 9.9, -84.1, False, "Open-pit metal mining banned since 2010; no mineral exports of note."),
+    ("PAN", "Panama", 8.5, -80.1, False, "Cobre Panamá copper mine, closed by the Supreme Court in 2023; recognised China in 2017."),
 ]
 
 # Illustrative list of real, publicly known projects with approximate coordinates.
@@ -95,8 +103,16 @@ CHAMBERS = {
     "SUR": ["De Nationale Assemblée"],
     "URY": ["Cámara de Representantes", "Senado"],
     "VEN": ["Asamblea Nacional (contested legitimacy)"],
+    "MEX": ["Cámara de Diputados", "Senado de la República"],
+    "GTM": ["Congreso de la República"],
+    "BLZ": ["House of Representatives", "Senate"],
+    "HND": ["Congreso Nacional"],
+    "SLV": ["Asamblea Legislativa"],
+    "NIC": ["Asamblea Nacional"],
+    "CRI": ["Asamblea Legislativa"],
+    "PAN": ["Asamblea Nacional"],
 }
-LANG = {"BRA": "pt", "GUY": "en", "SUR": "nl"}
+LANG = {"BRA": "pt", "GUY": "en", "SUR": "nl", "BLZ": "en"}
 OUTLETS = {
     "ARG": ["La Nación", "Clarín", "Infobae", "Página/12", "El Cronista"],
     "BOL": ["El Deber", "Los Tiempos", "La Razón", "Opinión"],
@@ -110,6 +126,14 @@ OUTLETS = {
     "SUR": ["De Ware Tijd", "Starnieuws"],
     "URY": ["El País", "El Observador", "la diaria", "Búsqueda"],
     "VEN": ["Efecto Cocuyo", "El Pitazo", "Tal Cual", "Runrunes"],
+    "MEX": ["El Universal", "Reforma", "Milenio", "El Economista", "Animal Político"],
+    "GTM": ["Prensa Libre", "elPeriódico", "La Hora"],
+    "BLZ": ["Amandala", "Channel 5 Belize", "The Reporter"],
+    "HND": ["La Prensa", "El Heraldo", "Criterio.hn"],
+    "SLV": ["La Prensa Gráfica", "El Diario de Hoy", "El Faro"],
+    "NIC": ["La Prensa", "Confidencial", "100% Noticias"],
+    "CRI": ["La Nación", "CRHoy", "Semanario Universidad"],
+    "PAN": ["La Prensa", "La Estrella de Panamá", "TVN"],
 }
 SAMPLE_TITLES = {
     "es": [

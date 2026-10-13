@@ -1,0 +1,115 @@
+# Lead pictures of the minerals' English Wikipedia articles with their Commons author and licence (DECISIONS 93); looked up by
+# scripts/mineral_images.py on the Actions runner (diagnose.yml, what: mineral_images, run 38429039281 of 2026-10-13), read from
+# the job log and committed by hand. Hot-linked from Wikimedia; the site stores no media. Minerals without an entry show no picture.
+{
+ "lithium": {
+  "article": "Lithium",
+  "file": "Purified_lithium_in_an_ampoule_under_argon,_dark_background.png",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Purified_lithium_in_an_ampoule_under_argon%2C_dark_background.png/960px-Purified_lithium_in_an_ampoule_under_argon%2C_dark_background.png",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Purified_lithium_in_an_ampoule_under_argon,_dark_background.png",
+  "author": "AdvancedTinkering",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "credit": "Own work"
+ },
+ "niobium": {
+  "article": "Niobium",
+  "file": "Niobium_crystals_and_1cm3_cube.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Niobium_crystals_and_1cm3_cube.jpg/960px-Niobium_crystals_and_1cm3_cube.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Niobium_crystals_and_1cm3_cube.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "FAL",
+  "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "nickel": {
+  "article": "Nickel",
+  "file": "Nickel_electrolytic_and_1cm3_cube.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Nickel_electrolytic_and_1cm3_cube.jpg/960px-Nickel_electrolytic_and_1cm3_cube.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Nickel_electrolytic_and_1cm3_cube.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "FAL",
+  "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "silver": {
+  "article": "Silver",
+  "file": "Silver_crystal.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Silver_crystal.jpg/960px-Silver_crystal.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Silver_crystal.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "CC BY-SA 3.0 de",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+  "credit": "Own work (additional processed by Waugsberg)"
+ },
+ "molybdenum": {
+  "article": "Molybdenum",
+  "file": "Molybdenum_crystaline_fragment_and_1cm3_cube.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Molybdenum_crystaline_fragment_and_1cm3_cube.jpg/960px-Molybdenum_crystaline_fragment_and_1cm3_cube.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Molybdenum_crystaline_fragment_and_1cm3_cube.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "FAL",
+  "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "cobalt": {
+  "article": "Cobalt",
+  "file": "Kobalt_electrolytic_and_1cm3_cube.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Kobalt_electrolytic_and_1cm3_cube.jpg/960px-Kobalt_electrolytic_and_1cm3_cube.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Kobalt_electrolytic_and_1cm3_cube.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "FAL",
+  "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "manganese": {
+  "article": "Manganese",
+  "file": "Manganese_electrolytic_and_1cm3_cube.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Manganese_electrolytic_and_1cm3_cube.jpg/960px-Manganese_electrolytic_and_1cm3_cube.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Manganese_electrolytic_and_1cm3_cube.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "FAL",
+  "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "tungsten": {
+  "article": "Tungsten",
+  "file": "Wolfram_evaporated_crystals_and_1cm3_cube.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Wolfram_evaporated_crystals_and_1cm3_cube.jpg/960px-Wolfram_evaporated_crystals_and_1cm3_cube.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Wolfram_evaporated_crystals_and_1cm3_cube.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "FAL",
+  "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "zinc": {
+  "article": "Zinc",
+  "file": "Zinc_fragment_sublimed_and_1cm3_cube.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/Zinc_fragment_sublimed_and_1cm3_cube.jpg/960px-Zinc_fragment_sublimed_and_1cm3_cube.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Zinc_fragment_sublimed_and_1cm3_cube.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "FAL",
+  "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "gold": {
+  "article": "Gold",
+  "file": "Gold-crystals.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Gold-crystals.jpg/960px-Gold-crystals.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Gold-crystals.jpg",
+  "author": "Alchemist-hp (talk) www.pse-mendelejew.de",
+  "license": "CC BY-SA 3.0 de",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
+  "credit": "Own work"
+ },
+ "titanium": {
+  "article": "Titanium",
+  "file": "Titan-crystal_bar.JPG",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Titan-crystal_bar.JPG/960px-Titan-crystal_bar.JPG",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Titan-crystal_bar.JPG",
+  "author": "Alchemist-hp (pse-mendelejew.de)",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "credit": "Own work"
+ }
+}
