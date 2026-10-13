@@ -1,0 +1,256 @@
+{
+ "source_id": "cepii_baci",
+ "files": {
+  "country_codes.json": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 3301,
+   "sha256": "bb580ee0a261c334761ff8ae721046b4256e7c01c87d0257dc6802d70e6e22a3",
+   "retrieved_at": "2026-10-13T15:56:18+00:00",
+   "note": "country_codes_V202501.csv",
+   "trimmed": true
+  },
+  "baci_2000.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 686461,
+   "sha256": "6b3f675a60381f81a38064f11e23e5433cfb7713775f899ea65bac7d32777ace",
+   "retrieved_at": "2026-10-13T15:56:33+00:00",
+   "note": "BACI_HS92_Y2000_V202501.csv: 20969 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2001.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 706347,
+   "sha256": "7de36c1afd0b8164552eae947ef52599b0bee7d3c40579a81659cfef1db1241b",
+   "retrieved_at": "2026-10-13T15:56:48+00:00",
+   "note": "BACI_HS92_Y2001_V202501.csv: 21563 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2002.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 718719,
+   "sha256": "87e0ee90fedf138fb621ead078e1559c77c4b148a1cb8c9e405a475a4f7ec9e5",
+   "retrieved_at": "2026-10-13T15:57:03+00:00",
+   "note": "BACI_HS92_Y2002_V202501.csv: 21964 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2003.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 728048,
+   "sha256": "ee5f063f48a324ef8cefe34b138d8003c544240fbaaf7217671dc15b7365e37b",
+   "retrieved_at": "2026-10-13T15:57:19+00:00",
+   "note": "BACI_HS92_Y2003_V202501.csv: 22242 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2004.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 777525,
+   "sha256": "573e7bbbf04822aa71ac04a763db96a1456d422abc32168f7c8c256268538078",
+   "retrieved_at": "2026-10-13T15:57:35+00:00",
+   "note": "BACI_HS92_Y2004_V202501.csv: 23678 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2005.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 796749,
+   "sha256": "75deaa6e488641860b85dfe80ac59a0956b29c9940a9d546886f3aefd849244b",
+   "retrieved_at": "2026-10-13T15:57:52+00:00",
+   "note": "BACI_HS92_Y2005_V202501.csv: 24235 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2006.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 821161,
+   "sha256": "edaa17107956e1661887f5c8650630dda928c0b1de1b018b49ba8c2e230206e9",
+   "retrieved_at": "2026-10-13T15:58:10+00:00",
+   "note": "BACI_HS92_Y2006_V202501.csv: 24921 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2007.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 873374,
+   "sha256": "6d7ec4e0e4d76723c49a2db19b57df78669417244d452625ef17c25ccca43829",
+   "retrieved_at": "2026-10-13T15:58:29+00:00",
+   "note": "BACI_HS92_Y2007_V202501.csv: 26499 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2008.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 902582,
+   "sha256": "558163fe81ee27f77a929658fe69fc4f69f713fcd166d5c254d4582bddc8892a",
+   "retrieved_at": "2026-10-13T15:58:47+00:00",
+   "note": "BACI_HS92_Y2008_V202501.csv: 27294 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2009.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 880041,
+   "sha256": "eaef340f482308268b8e317c2dabd34dc44cdcfe0d86ce3eb23824b8a177f978",
+   "retrieved_at": "2026-10-13T15:59:05+00:00",
+   "note": "BACI_HS92_Y2009_V202501.csv: 26713 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2010.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 925150,
+   "sha256": "21d81f7b0943706604fb09ceb108aae516c7f8ce4169ec6f0afa7abaffdf5f69",
+   "retrieved_at": "2026-10-13T15:59:24+00:00",
+   "note": "BACI_HS92_Y2010_V202501.csv: 28034 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2011.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 971737,
+   "sha256": "e69d1ce2fc1768e8fde3e93cf3cb795be30ec06879116c274114337acd05c6ac",
+   "retrieved_at": "2026-10-13T15:59:44+00:00",
+   "note": "BACI_HS92_Y2011_V202501.csv: 29406 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2012.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1001521,
+   "sha256": "6632c1e4aad9906649226d93a69a7dd2d083be196f20adda4eec8120792ff632",
+   "retrieved_at": "2026-10-13T16:00:03+00:00",
+   "note": "BACI_HS92_Y2012_V202501.csv: 30335 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2013.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1003254,
+   "sha256": "83a066bf9e888e7ae08ff47401ab1b0c5ac17007cf66756ffb5b22714d40f7d7",
+   "retrieved_at": "2026-10-13T16:00:24+00:00",
+   "note": "BACI_HS92_Y2013_V202501.csv: 30371 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2014.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 998389,
+   "sha256": "aad78b35a14d9ce582ffdfdcd71b0e3545ad58ce58484484dd7186efde6bb47d",
+   "retrieved_at": "2026-10-13T16:00:45+00:00",
+   "note": "BACI_HS92_Y2014_V202501.csv: 30191 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2015.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1081146,
+   "sha256": "2015f0d20bbc5e3f2eb8e20e92aa8bc189754b9c9b0fbf4aa4c1422a721d05f2",
+   "retrieved_at": "2026-10-13T16:01:05+00:00",
+   "note": "BACI_HS92_Y2015_V202501.csv: 32887 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2016.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1016943,
+   "sha256": "0e54da346415245643ccdd2dfa895de5a49a7e5dba5e098730fdcf2ea2ba1693",
+   "retrieved_at": "2026-10-13T16:01:27+00:00",
+   "note": "BACI_HS92_Y2016_V202501.csv: 30874 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2017.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1048557,
+   "sha256": "2fd96bae13d80ad98f0bb57ab802ab07e65efe406d799944bb30ec713061eaba",
+   "retrieved_at": "2026-10-13T16:01:48+00:00",
+   "note": "BACI_HS92_Y2017_V202501.csv: 31825 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2018.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1057749,
+   "sha256": "1524259f8684bc159cbe42117ad342798c03a5197b49f053b381ef209d428661",
+   "retrieved_at": "2026-10-13T16:02:09+00:00",
+   "note": "BACI_HS92_Y2018_V202501.csv: 32049 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2019.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1076116,
+   "sha256": "4ffeb501cfe0f3ff8cf8236c79466cd2abd5b73079140db2b00ff3104e415410",
+   "retrieved_at": "2026-10-13T16:02:31+00:00",
+   "note": "BACI_HS92_Y2019_V202501.csv: 32680 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2020.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1025287,
+   "sha256": "7af61c3eb90c9e4f57b70933cab93e0b101e26b46962990208891520a0ab9950",
+   "retrieved_at": "2026-10-13T16:02:52+00:00",
+   "note": "BACI_HS92_Y2020_V202501.csv: 31139 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2021.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1101568,
+   "sha256": "adaf596e027cc3f65f7a63e63cf87a212a425e14efb1d41b4280c1835b74f04a",
+   "retrieved_at": "2026-10-13T16:03:15+00:00",
+   "note": "BACI_HS92_Y2021_V202501.csv: 33447 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  },
+  "baci_2022.csv": {
+   "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
+   "params": {},
+   "status": 200,
+   "bytes": 1130702,
+   "sha256": "0743e9ca39fb1c7116d487741a89a4085ba775a29c6ee35d02b67f87bf4a1b41",
+   "retrieved_at": "2026-10-13T16:03:37+00:00",
+   "note": "BACI_HS92_Y2022_V202501.csv: 34352 rows of the tracked products, every exporter and importer",
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/cepii_baci/2026-10-13",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "baci.zip",
+   "error": "the 2.3 GB release zip is read once and deleted; the kept slices are the snapshot"
+  }
+ ],
+ "omitted": [
+  "baci_2023.csv"
+ ]
+}
