@@ -1,6 +1,7 @@
 # Lead pictures of the minerals' English Wikipedia articles with their Commons author and licence (DECISIONS 93); looked up by
-# scripts/mineral_images.py on the Actions runner (diagnose.yml, what: mineral_images, run 38429039281 of 2026-10-13), read from
-# the job log and committed by hand. Hot-linked from Wikimedia; the site stores no media. Minerals without an entry show no picture.
+# scripts/mineral_images.py on the Actions runner (diagnose.yml, what: mineral_images, runs 38429039281 and 38430006635 of
+# 2026-10-13), read from the job log and committed by hand. Hot-linked from Wikimedia; the site stores no media. A null author is
+# a public-domain file whose Commons page names no person (a US government photograph).
 {
  "lithium": {
   "article": "Lithium",
@@ -12,6 +13,26 @@
   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
   "credit": "Own work"
  },
+ "copper": {
+  "article": "Copper",
+  "file": "NatCopper.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/NatCopper.jpg/960px-NatCopper.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:NatCopper.jpg",
+  "author": "Jonathan Zander (Digon3); derivative work: Materialscientist",
+  "license": "CC BY-SA 3.0",
+  "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "credit": "Native_Copper_Macro_Digon3.jpg"
+ },
+ "rare_earths": {
+  "article": "Rare-earth element",
+  "file": "RareEarthOreUSGOV.jpg",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/10/RareEarthOreUSGOV.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:RareEarthOreUSGOV.jpg",
+  "author": null,
+  "license": "Public domain",
+  "license_url": null,
+  "credit": null
+ },
  "niobium": {
   "article": "Niobium",
   "file": "Niobium_crystals_and_1cm3_cube.jpg",
@@ -22,6 +43,16 @@
   "license_url": "http://artlibre.org/licence/lal/en",
   "credit": "Own work"
  },
+ "graphite": {
+  "article": "Graphite",
+  "file": "Graphite-233436.jpg",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Graphite-233436.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Graphite-233436.jpg",
+  "author": "Robert M. Lavinsky",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "credit": "http://www.mindat.org/photo-233436.html"
+ },
  "nickel": {
   "article": "Nickel",
   "file": "Nickel_electrolytic_and_1cm3_cube.jpg",
@@ -30,6 +61,16 @@
   "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
   "license": "FAL",
   "license_url": "http://artlibre.org/licence/lal/en",
+  "credit": "Own work"
+ },
+ "tin": {
+  "article": "Tin",
+  "file": "Sn-Alpha-Beta.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Sn-Alpha-Beta.jpg/960px-Sn-Alpha-Beta.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Sn-Alpha-Beta.jpg",
+  "author": "Alchemist-hp (talk) (www.pse-mendelejew.de)",
+  "license": "CC BY-SA 3.0 de",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
   "credit": "Own work"
  },
  "silver": {
@@ -72,6 +113,26 @@
   "license_url": "http://artlibre.org/licence/lal/en",
   "credit": "Own work"
  },
+ "bauxite_aluminum": {
+  "article": "Bauxite",
+  "file": "Bauxite_hérault.JPG",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Bauxite_h%C3%A9rault.JPG/960px-Bauxite_h%C3%A9rault.JPG",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Bauxite_h%C3%A9rault.JPG",
+  "author": "saphon",
+  "license": "CC BY-SA 1.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/1.0",
+  "credit": "Own work"
+ },
+ "uranium": {
+  "article": "Uranium",
+  "file": "HEUraniumC.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/HEUraniumC.jpg/960px-HEUraniumC.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:HEUraniumC.jpg",
+  "author": null,
+  "license": "Public domain",
+  "license_url": null,
+  "credit": "US Department of Energy (web.em.doe.gov/takstock, archived)"
+ },
  "tungsten": {
   "article": "Tungsten",
   "file": "Wolfram_evaporated_crystals_and_1cm3_cube.jpg",
@@ -102,6 +163,26 @@
   "license_url": "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en",
   "credit": "Own work"
  },
+ "phosphate_potash": {
+  "article": "Phosphorite",
+  "file": "Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg/960px-Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg",
+  "author": "James St. John",
+  "license": "CC BY 2.0",
+  "license_url": "https://creativecommons.org/licenses/by/2.0",
+  "credit": "Peloidal phosphorite (4.6 cm across) from the Phosphoria Formation at the Simplot Mine, Idaho, USA"
+ },
+ "iron_ore": {
+  "article": "Iron ore",
+  "file": "HematitaEZ.jpg",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/HematitaEZ.jpg",
+  "page_url": "https://commons.wikimedia.org/wiki/File:HematitaEZ.jpg",
+  "author": "Eurico Zimbres",
+  "license": "CC BY-SA 2.0 br",
+  "license_url": "https://creativecommons.org/licenses/by-sa/2.0/br/deed.en",
+  "credit": "Own work"
+ },
  "titanium": {
   "article": "Titanium",
   "file": "Titan-crystal_bar.JPG",
@@ -110,6 +191,16 @@
   "author": "Alchemist-hp (pse-mendelejew.de)",
   "license": "CC BY-SA 3.0",
   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "credit": "Own work"
+ },
+ "gallium_germanium_antimony": {
+  "article": "Gallium",
+  "file": "Gallium_bar_cracked_open_to_show_crystal_structure_with_scale_1.png",
+  "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Gallium_bar_cracked_open_to_show_crystal_structure_with_scale_1.png/960px-Gallium_bar_cracked_open_to_show_crystal_structure_with_scale_1.png",
+  "page_url": "https://commons.wikimedia.org/wiki/File:Gallium_bar_cracked_open_to_show_crystal_structure_with_scale_1.png",
+  "author": "Arònel123",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0",
   "credit": "Own work"
  }
 }
