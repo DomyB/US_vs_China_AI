@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { DataTable } from "@/components/charts/PlotFigure";
-import { COUNTRY_NAMES, YEAR_MIN } from "@/lib/constants";
+import { COUNTRY_COUNT_WORD, COUNTRY_NAMES, YEAR_MIN } from "@/lib/constants";
 import type { coverageWall } from "@/lib/story";
 import type { EvidenceLevel } from "@/lib/types";
 import { Door, Exhibit, Meter, StepCard, restartStory } from "./Chapter";
@@ -80,7 +80,7 @@ export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }
         <p className="serif mt-2 text-2xl sm:text-3xl">The case is laid out. Now walk the evidence.</p>
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
           <Door href="/explore" title="The map" text={`Index lean, money arcs and trade arcs, every year since ${YEAR_MIN}.`} primary />
-          <Door href="/country" title="The case files" text="Twelve countries, five tabs each, every receipt attached." />
+          <Door href="/country" title="The case files" text={`${COUNTRY_COUNT_WORD[0].toUpperCase()}${COUNTRY_COUNT_WORD.slice(1)} countries, five tabs each, every receipt attached.`} />
           <Door href="/lab" title="The Lab" text="Your own scenario to 2030, labelled as yours." />
         </div>
         <p className="mt-5 text-xs opacity-80">
