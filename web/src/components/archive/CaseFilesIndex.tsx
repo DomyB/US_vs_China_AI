@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
-import { COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
+import { COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
 import { loadInsights, loadRealMeta } from "@/lib/data";
 import { fmtDate, fmtMusd, fmtShare } from "@/lib/format";
 import { sourceEntry } from "@/lib/sources";
@@ -53,7 +53,7 @@ export function CaseFilesIndex() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
       <p className="eyebrow">Case files</p>
-      <h1 className="mt-1 text-2xl sm:text-[1.75rem]">Twelve countries, every receipt attached</h1>
+      <h1 className="mt-1 text-2xl sm:text-[1.75rem]">{COUNTRY_COUNT_WORD[0].toUpperCase()}{COUNTRY_COUNT_WORD.slice(1)} countries, every receipt attached</h1>
       <p className="mt-2 max-w-2xl text-sm text-ink-2">Each file opens on the country&apos;s five tabs: what was done (deals, trade, contracts), what was said (coded statements and the legislature&apos;s records), the press, the index taken apart, and the forecast to 2030. Numbers below are the latest reported year; missing ones are shown as missing.</p>
       <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {IN_SCOPE.map((iso3) => {

@@ -42,5 +42,5 @@ export function Trajectories({ trajectories, yearMin, yearMax, theme, cols }: { 
       ],
     } as PlotOptions;
   }, [trajectories, yearMin, yearMax, theme, cols]);
-  return <PlotFigure options={options} ariaLabel="Twelve small charts, one per country: the political lean and the economic lean year by year on the same scale" glyph="model" />;
+  return <PlotFigure options={options} ariaLabel="Small charts, one per country: the political lean and the economic lean year by year on the same scale" glyph="model" />;
 }
