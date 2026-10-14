@@ -6,15 +6,14 @@ import { NavLinks } from "@/components/ui/NavLinks";
 import { ChromeMeasure } from "@/components/ui/ChromeMeasure";
 import { SampleBanner } from "@/components/ui/SampleBanner";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { LogoTile } from "@/components/ui/LogoTile";
 import { ReleaseLine } from "@/components/ui/ReleaseLine";
 import { THEME_BOOTSTRAP } from "@/lib/theme";
 import { Suspense } from "react";
 import { PageFade } from "@/components/layout/PageFade";
 import { Tour } from "@/components/tour/Tour";
-import { YEAR_MIN, YEAR_MAX, COUNTRY_COUNT } from "@/lib/constants";
+import { COUNTRY_COUNT } from "@/lib/constants";
 import { SITE_URL } from "@/lib/site";
-import { SITE_NAME, SITE_TAGLINE } from "@/lib/team";
+import { COURSE, COVER_VERSION, SITE_NAME, SITE_TAGLINE, TEAM } from "@/lib/team";
 
 const TITLE = `${SITE_NAME}: ${SITE_TAGLINE}`;
 const DESCRIPTION = `Tracks, analyses and forecasts the competition between the United States and China for the critical minerals of ${COUNTRY_COUNT} Latin American countries: actions, parliaments and media, by country, mineral and year.`;
@@ -35,8 +34,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf9f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#141516" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f3ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#121417" },
   ],
 };
 
@@ -46,25 +45,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
+        {/* the prototype's faces: Newsreader for display, IBM Plex Sans and Mono for text and numbers; the system faces stand in until they load */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font -- the app router has no _document; this layout wraps every page */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" />
       </head>
       <body className="flex min-h-screen flex-col">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-surface focus:px-3 focus:py-2">
           Skip to content
         </a>
         <ChromeMeasure>
-        <header className="border-b-2 border-outline bg-card">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2 sm:gap-x-6">
-            <Link href="/" className="flex min-w-0 flex-1 items-center gap-3 no-underline sm:flex-none">
-              <LogoTile size={36} />
-              <span className="leading-tight">
-                <span className="serif block text-[15px] font-bold tracking-tight text-ink sm:text-base">{SITE_NAME}</span>
-                <span className="block text-[11px] text-ink-3">Latin America · {COUNTRY_COUNT} countries · {YEAR_MIN}–{YEAR_MAX}</span>
-              </span>
+        <header className="border-b border-rule bg-card">
+          <div className="mx-auto flex max-w-[1240px] flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 sm:px-5 lg:flex-nowrap">
+            <Link href="/" className="flex min-w-0 flex-1 shrink-0 items-baseline gap-3 no-underline lg:flex-none">
+              <span className="serif text-[1.35rem] font-medium leading-none tracking-tight text-ink">{SITE_NAME}</span>
+              <span className="hidden max-w-[16rem] text-[11px] leading-tight text-ink-3 md:block">{SITE_TAGLINE}</span>
             </Link>
-            <div className="order-3 w-full sm:order-2 sm:ml-auto sm:w-auto">
+            <div className="order-3 w-full min-w-0 sm:order-2 sm:ml-auto sm:w-auto lg:flex-1 lg:overflow-x-auto">
               <NavLinks />
             </div>
-            <div className="order-2 shrink-0 sm:order-3">
+            <div className="order-2 shrink-0 sm:order-3 lg:ml-2">
               <ThemeToggle />
             </div>
           </div>
@@ -77,22 +78,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <Tour />
         </Suspense>
-        <footer className="mt-8 border-t-2 border-outline bg-surface-2 text-xs text-ink-3">
-          <div className="mx-auto grid max-w-7xl gap-5 px-4 py-5 sm:grid-cols-[auto_1fr_auto]">
-            <LogoTile size={36} className="hidden sm:grid" />
-            <div className="max-w-2xl space-y-1.5 leading-relaxed">
-              <p className="serif text-sm font-bold text-ink">{SITE_NAME} · {SITE_TAGLINE}</p>
-              <p>
-              Open research project. Every number links to its source and every source carries a reliability rating. Facts, model outputs and interpretation are shown as three separate layers, labelled on every block. Nothing is estimated silently: missing data is shown as missing.
-              </p>
-              <p><ReleaseLine /></p>
+        <footer className="mt-10 border-t border-rule bg-card text-[0.82rem] text-ink-2">
+          <div className="mx-auto grid max-w-[1240px] gap-5 px-4 py-6 sm:grid-cols-2 sm:px-5 lg:grid-cols-4">
+            <div>
+              <b className="mb-1 block font-semibold text-ink">{SITE_NAME}</b>
+              <p>{SITE_TAGLINE}. A research platform on China–US competition for Latin America&apos;s critical minerals: every number links to its source, every block says whether it is a fact, a model output or an interpretation, and missing data is shown as missing.</p>
+              <p className="mt-2"><ReleaseLine /></p>
             </div>
-            <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-1 sm:flex-col sm:text-right">
-              <Link href="/methodology" className="underline">Methodology</Link>
-              <Link href="/sources" className="underline">Sources</Link>
-              <a href="https://github.com/DomyB/US_vs_China_AI" className="underline">Code and data on GitHub</a>
-              <a href="https://github.com/DomyB/US_vs_China_AI/blob/main/LIMITATIONS.md" className="underline">Limitations</a>
+            <div>
+              <b className="mb-1 block font-semibold text-ink">Course</b>
+              <p>{COURSE.name}, {COURSE.school}, {COURSE.year}.</p>
+              <b className="mb-1 mt-3 block font-semibold text-ink">Team</b>
+              <p>{TEAM.filter((r) => r.name).map((r) => r.name).join(", ")}{TEAM.some((r) => !r.name) ? "; one name to be added" : ""}.</p>
+            </div>
+            <nav aria-label="Footer" className="grid grid-cols-2 gap-x-4 gap-y-1 sm:col-span-2 lg:col-span-1">
+              <b className="col-span-2 mb-1 block font-semibold text-ink">More</b>
+              <Link href="/story" className="hover:underline">Story: Said &amp; Paid</Link>
+              <Link href="/stage" className="hover:underline">Two powers, one stage</Link>
+              <Link href="/denial" className="hover:underline">Denial without Substitution</Link>
+              <Link href="/lab" className="hover:underline">Lab: forecasts and levers</Link>
+              <Link href="/region" className="hover:underline">Regional overview</Link>
+              <Link href="/step-by-step" className="hover:underline">Step by step</Link>
+              <Link href="/what-we-know" className="hover:underline">What do we know</Link>
+              <Link href="/archive" className="hover:underline">Archive and downloads</Link>
+              <Link href="/sources" className="hover:underline">Sources</Link>
+              <Link href="/methodology" className="hover:underline">Methodology</Link>
+              <a href="https://github.com/DomyB/US_vs_China_AI" className="hover:underline">Code and data on GitHub</a>
+              <a href="https://github.com/DomyB/US_vs_China_AI/blob/main/LIMITATIONS.md" className="hover:underline">Limitations</a>
             </nav>
+            <div>
+              <b className="mb-1 block font-semibold text-ink">Version</b>
+              <p>{COVER_VERSION.label}, {COVER_VERSION.date}. Real data from the pipeline; the companion projects credited where used; the design follows the team&apos;s prototype.</p>
+            </div>
           </div>
         </footer>
       </body>

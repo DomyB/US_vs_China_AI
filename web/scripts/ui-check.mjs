@@ -19,7 +19,7 @@ const BASE = process.env.BASE ?? "http://localhost:3000";
 const OUT = process.env.OUT ?? resolve(tmpdir(), "ui-check");
 mkdirSync(OUT, { recursive: true });
 
-const PAGES = ["/", "/explore", "/country", "/mineral", "/mineral/copper", "/routes", "/denial", "/stage", "/lab", "/votes-and-ore", "/step-by-step", "/step-by-step/words", "/step-by-step/index-geometry", "/step-by-step/classifier", "/what-we-know", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
+const PAGES = ["/", "/story", "/explore", "/country", "/mineral", "/mineral/copper", "/routes", "/denial", "/stage", "/lab", "/votes-and-ore", "/step-by-step", "/step-by-step/words", "/step-by-step/index-geometry", "/step-by-step/classifier", "/what-we-know", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
 const VIEWS = [
   { name: "desktop", viewport: { width: 1366, height: 900 } },
   { name: "laptop", viewport: { width: 1024, height: 768 } },
@@ -27,8 +27,9 @@ const VIEWS = [
 ];
 // the token values the contrast work settled on (globals.css); a drift here is a regression, not a restyle
 const TOKENS = {
-  light: { "--ink-3": "#666b74", "--danger": "#b42318", "--outline": "#26292e" },
-  dark: { "--outline": "#626873", "--shadow-hard": "#343940", "--danger": "#f2857a" },
+  // the prototype's tokens (DECISIONS 96): the muted ink darkened to 4.6:1 on the ground, the outline is the strong rule, the hard shadow is gone
+  light: { "--ink-3": "#6f7378", "--danger": "#b42318", "--outline": "#b9b7ad", "--surface": "#f4f3ee" },
+  dark: { "--outline": "#484c52", "--shadow-hard": "transparent", "--danger": "#f2857a", "--surface": "#121417" },
 };
 const themeKey = /const KEY = "([^"]+)"/.exec(readFileSync(resolve(web, "src/lib/theme.ts"), "utf8"))?.[1];
 const tourHrefs = [...readFileSync(resolve(web, "src/components/tour/steps.ts"), "utf8").matchAll(/href: "([^"]+)"/g)].map((m) => m[1]);
@@ -50,7 +51,9 @@ async function open(ctx, path) {
     // not written yet (investment.json, classifier.json, …), which the page states as an absence: neither is a defect
     const text = m.text();
     const optionalData = /404 \(Not Found\)/.test(text) && /\/data\/real\//.test(m.location()?.url ?? "");
-    if (m.type() === "error" && !(path === "/does-not-exist" && /404/.test(text)) && !optionalData) errors.push(`console ${text.slice(0, 160)}`);
+    // the fonts come from Google; the sandbox that runs this check cannot reach it (a certificate error on the stylesheet), so that one resource failure is not a defect
+    const fontLoad = /ERR_CERT_AUTHORITY_INVALID|fonts\.googleapis|fonts\.gstatic/.test(text) || (m.location()?.url ?? "").includes("fonts.g");
+    if (m.type() === "error" && !(path === "/does-not-exist" && /404/.test(text)) && !optionalData && !fontLoad) errors.push(`console ${text.slice(0, 160)}`);
   });
   page.on("pageerror", (e) => errors.push(`pageerror ${String(e).slice(0, 160)}`));
   const res = await page.goto(BASE + path, { waitUntil: "networkidle" });
@@ -132,8 +135,11 @@ try {
     const landed = await page.evaluate((id) => document.getElementById(id)?.getBoundingClientRect().top ?? null, labAnchors[0] ?? "ledger");
     check("lab: a #hash lands on its block", landed !== null && landed >= 0 && landed <= 120, `top ${landed}`);
     await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+    const home = await page.evaluate(() => ({ h1: document.querySelector("h1")?.textContent ?? "", stats: document.querySelectorAll(".stat").length, doors: document.querySelectorAll("a.card").length }));
+    check("home: the overview opens on the research question, four numbers and the ways in", home.h1.includes("How China and the United States compete") && home.stats === 4 && home.doors >= 5, JSON.stringify(home));
+    await page.goto(`${BASE}/story`, { waitUntil: "networkidle" });
     const story = await page.evaluate(() => ({ h1: document.querySelector("h1")?.textContent ?? "", chapters: document.querySelectorAll("section[id^='c']").length, receipts: document.querySelectorAll("ol[aria-label='Receipts'] li").length, skip: !!Array.from(document.querySelectorAll("button")).find((b) => b.textContent?.includes("Skip intro")) }));
-    check("story: the home opens on the Strata cover, the whole picture and the nine chapters", story.h1.includes("Strata") && story.chapters >= 10, JSON.stringify(story));
+    check("story: /story opens on the Strata cover, the whole picture and the nine chapters", story.h1.includes("Strata") && story.chapters >= 10, JSON.stringify(story));
     check("story: the cold open prints receipts and a Skip control", story.receipts >= 3 && story.skip, JSON.stringify(story));
     // the trust layer: the evidence drawer opens from a story exhibit, keeps focus, closes on Escape and hands focus back
     {

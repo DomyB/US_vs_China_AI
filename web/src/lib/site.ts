@@ -4,7 +4,11 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_
 /** The routes a crawler may index, with their change rhythm (the data moves monthly). */
 export const SITE_ROUTES: { path: string; priority: number }[] = [
   { path: "/", priority: 1 },
+  { path: "/story", priority: 0.9 },
   { path: "/explore", priority: 0.9 },
+  { path: "/routes", priority: 0.8 },
+  { path: "/stage", priority: 0.8 },
+  { path: "/denial", priority: 0.8 },
   { path: "/country", priority: 0.8 },
   { path: "/mineral", priority: 0.8 },
   { path: "/mineral/lithium", priority: 0.7 },

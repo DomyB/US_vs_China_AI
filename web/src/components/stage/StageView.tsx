@@ -11,7 +11,7 @@ import { SectionNav } from "@/components/ui/SectionNav";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, IN_SCOPE, OTHER_COLOR } from "@/lib/constants";
 import { fmtPct } from "@/lib/format";
-import { HYPOTHESES, PARTNERS, SOURCE_BREAK, Y0, YEARS, fourNumbers, loadStage, share, termSegments, tradeSeries, type Partner, type StageRecords, type TradePanel } from "@/lib/stage";
+import { HYPOTHESES, PARTNERS, SOURCE_BREAK, Y0, fourNumbers, loadStage, share, termSegments, tradeSeries, type Partner, type StageRecords, type TradePanel } from "@/lib/stage";
 import { RESEARCH_QUESTION, TEAM_CITATION } from "@/lib/team";
 
 const SECTIONS = [

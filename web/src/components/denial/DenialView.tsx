@@ -139,7 +139,7 @@ export function DenialView() {
         </ol>
         <div className="mt-4 card px-4 py-3 text-sm">
           <p className="eyebrow">Read against Strata&apos;s record</p>
-          <p className="mt-1">Strata&apos;s own measures say the same thing in numbers and with the stock kept apart from the flows: the ore and the votes go to China (<Link href="/#c0" className="underline">the whole picture</Link>), the documented cheques were Chinese and ended with their source, the stock of capital where the surveys reach is still mostly American, and the <Link href="/routes" className="underline">routes page</Link> shows what the United States could at most be getting through third countries. The <Link href="/what-we-know" className="underline">What do we know</Link> page sets eight published works against the record; this page is the companion project&apos;s fuller corpus.</p>
+          <p className="mt-1">Strata&apos;s own measures say the same thing in numbers and with the stock kept apart from the flows: the ore and the votes go to China (<Link href="/story#c0" className="underline">the whole picture</Link>), the documented cheques were Chinese and ended with their source, the stock of capital where the surveys reach is still mostly American, and the <Link href="/routes" className="underline">routes page</Link> shows what the United States could at most be getting through third countries. The <Link href="/what-we-know" className="underline">What do we know</Link> page sets eight published works against the record; this page is the companion project&apos;s fuller corpus.</p>
         </div>
       </section>
 

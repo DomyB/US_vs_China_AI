@@ -18,14 +18,15 @@ export function ReliabilityBadge({ value }: { value: Reliability }) {
 
 export type Layer = "facts" | "model" | "interpretation";
 
+/** The kind of knowledge a block rests on, as the prototype labels it: a fact from the data, a model output, or an interpretation. */
 export function LayerLabel({ layer }: { layer: Layer }) {
   const spec = {
-    facts: { text: "Facts", cls: "border-facts/60 bg-facts/5 text-facts", mark: "■" },
-    model: { text: "Model output", cls: "border-model/60 bg-model/5 text-model border-dashed", mark: "◆" },
-    interpretation: { text: "Interpretation", cls: "border-interp/60 bg-interp/5 text-interp border-dotted", mark: "✎" },
+    facts: { text: "Fact", cls: "kind-facts", mark: "■" },
+    model: { text: "Model output", cls: "kind-model", mark: "◆" },
+    interpretation: { text: "Interpretation", cls: "kind-interp", mark: "✎" },
   }[layer];
   return (
-    <span className={`chip border ${spec.cls}`}>
+    <span className={`kind ${spec.cls}`}>
       <span aria-hidden="true">{spec.mark}</span>
       {spec.text}
     </span>
@@ -60,14 +61,14 @@ export function StanceBadge({ value, toward, coded = false }: { value: number | 
 }
 
 export function SampleTag() {
-  return <span className="chip bg-sample/10 text-sample">Sample</span>;
+  return <span className="kind kind-sample">Sample</span>;
 }
 
 export function DataLayerTag({ layer }: { layer: LayerSource | undefined }) {
-  if (layer === "real") return <span className="chip bg-facts/10 text-facts">Real data</span>;
-  if (layer === "generated" || layer === "generated+human") return <span className="chip bg-interp/10 text-interp">{layer === "generated+human" ? "Generated + owner's text" : "Generated from indicators"}</span>;
-  if (layer === "facts_only") return <span className="chip bg-facts/10 text-facts">Real records · unclassified</span>;
-  if (layer === "none") return <span className="chip bg-surface-2 text-ink-3">No data yet</span>;
+  if (layer === "real") return <span className="kind kind-facts">Real data</span>;
+  if (layer === "generated" || layer === "generated+human") return <span className="kind kind-interp">{layer === "generated+human" ? "Generated + owner's text" : "Generated from indicators"}</span>;
+  if (layer === "facts_only") return <span className="kind kind-facts">Real records · unclassified</span>;
+  if (layer === "none") return <span className="chip">No data yet</span>;
   return <SampleTag />;
 }
 

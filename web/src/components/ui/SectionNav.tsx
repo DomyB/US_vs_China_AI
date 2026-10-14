@@ -23,7 +23,7 @@ export function SectionNav({ items, label = "Sections" }: { items: { id: string;
     };
   }, [items]);
   return (
-    <nav aria-label={label} className="section-nav -mx-4 mb-2 border-b border-rule bg-surface/95 px-4 py-1.5 backdrop-blur sm:mx-0 sm:rounded-full sm:border-2 sm:border-outline sm:bg-card sm:px-2 sm:shadow-[3px_3px_0_var(--shadow-hard)]">
+    <nav aria-label={label} className="section-nav -mx-4 mb-2 border-b border-rule bg-surface/95 px-4 py-1.5 backdrop-blur sm:mx-0 sm:rounded-lg sm:border sm:border-rule sm:bg-card sm:px-2">
       <ul className="scroll-x flex max-w-full gap-1 text-[11px]">
         {items.map((it) => (
           <li key={it.id} className="shrink-0">
