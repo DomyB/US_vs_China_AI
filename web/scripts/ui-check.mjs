@@ -52,7 +52,9 @@ async function open(ctx, path) {
     const text = m.text();
     const optionalData = /404 \(Not Found\)/.test(text) && /\/data\/real\//.test(m.location()?.url ?? "");
     // the fonts come from Google; the sandbox that runs this check cannot reach it (a certificate error on the stylesheet), so that one resource failure is not a defect
-    const fontLoad = /ERR_CERT_AUTHORITY_INVALID|fonts\.googleapis|fonts\.gstatic/.test(text) || (m.location()?.url ?? "").includes("fonts.g");
+    // the fonts come from Google and the mineral pictures from Wikimedia; the sandbox that runs this check reaches neither (a certificate or tunnel error on the resource), so those resource failures are not defects
+    const loc = m.location()?.url ?? "";
+    const fontLoad = /ERR_CERT_AUTHORITY_INVALID|ERR_TUNNEL_CONNECTION_FAILED|fonts\.googleapis|fonts\.gstatic/.test(text) || loc.includes("fonts.g") || loc.includes("wikimedia.org");
     if (m.type() === "error" && !(path === "/does-not-exist" && /404/.test(text)) && !optionalData && !fontLoad) errors.push(`console ${text.slice(0, 160)}`);
   });
   page.on("pageerror", (e) => errors.push(`pageerror ${String(e).slice(0, 160)}`));
