@@ -1,0 +1,57 @@
+{
+ "source_id": "ustr_press",
+ "files": {
+  "home.html": {
+   "url": "https://ustr.gov/",
+   "params": {},
+   "status": 200,
+   "bytes": 53556,
+   "sha256": "8af28e3e66bfe7150aa05f733fa47ec9c09d2f99da97672e62b57c663795b241",
+   "retrieved_at": "2026-10-14T10:15:20+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "feed_0.xml": {
+   "url": "https://ustr.gov/rss.xml",
+   "params": {},
+   "status": 200,
+   "bytes": 46959,
+   "sha256": "878e8865bed1406c921de61113eda1f508bf322409cab85d880f700141a5f745",
+   "retrieved_at": "2026-10-14T10:15:28+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ustr_press/2026-10-14",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://ustr.gov/about-us/policy-offices/press-office/press-releases/rss",
+   "error": "ustr_press: HTTP 404 on GET https://ustr.gov/about-us/policy-offices/press-office/press-releases/rss <!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/"
+  },
+  {
+   "name": "https://ustr.gov/rss",
+   "error": "ustr_press: HTTP 404 on GET https://ustr.gov/rss <!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns."
+  },
+  {
+   "name": "https://ustr.gov/feed/",
+   "error": "ustr_press: HTTP 404 on GET https://ustr.gov/feed/ <!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmln"
+  },
+  {
+   "name": "https://ustr.gov/feed",
+   "error": "ustr_press: HTTP 404 on GET https://ustr.gov/feed <!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns"
+  }
+ ],
+ "feed_urls": [
+  "https://ustr.gov/rss.xml"
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://ustr.gov/about-us/policy-offices/press-office/press-releases/rss",
+  "https://ustr.gov/rss",
+  "https://ustr.gov/feed/",
+  "https://ustr.gov/feed",
+  "https://ustr.gov/rss.xml"
+ ],
+ "feeds_found": 1
+}

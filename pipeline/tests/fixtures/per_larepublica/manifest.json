@@ -1,52 +1,24 @@
 {
  "source_id": "per_larepublica",
  "files": {
-  "home.html": {
-   "url": "https://larepublica.pe/",
-   "params": {},
-   "status": 200,
-   "bytes": 1646847,
-   "sha256": "79ebabae1d18e596daf15b86ed8eb0b12acabcc1fea79c7527d04cd8515ae705",
-   "retrieved_at": "2026-10-07T11:21:45+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
    "url": "https://larepublica.pe/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 1267679,
+   "bytes": 1355283,
    "final_url": "https://larepublica.pe/rss/home.xml",
-   "sha256": "91dc77bca6cc92798704939aca2fefd17af9fec737465edbcf307a679b13e834",
-   "retrieved_at": "2026-10-07T11:21:54+00:00",
+   "sha256": "a53a7757b9128a417767e3272493711b7b88c8c2bf59fab0b47274702da3e40e",
+   "retrieved_at": "2026-10-14T10:11:36+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_larepublica/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_larepublica/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "errors": [
-  {
-   "name": "https://larepublica.pe/rss",
-   "error": "per_larepublica: HTTP 404 on GET https://larepublica.pe/rss <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-h"
-  },
-  {
-   "name": "https://larepublica.pe/feed/",
-   "error": "per_larepublica: HTTP 404 on GET https://larepublica.pe/feed <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-"
-  },
-  {
-   "name": "https://larepublica.pe/feed",
-   "error": "per_larepublica: HTTP 404 on GET https://larepublica.pe/feed <!DOCTYPE html><html lang=\"es\"><head><meta charSet=\"utf-8\" data-next-head=\"\"/><meta name=\"viewport\" content=\"width=device-width\" data-next-"
-  }
- ],
  "feed_urls": [
   "https://larepublica.pe/rss.xml"
  ],
- "discovered_feeds": [],
  "feeds_tried": [
-  "https://larepublica.pe/rss",
-  "https://larepublica.pe/feed/",
-  "https://larepublica.pe/feed",
   "https://larepublica.pe/rss.xml"
  ],
  "feeds_found": 1

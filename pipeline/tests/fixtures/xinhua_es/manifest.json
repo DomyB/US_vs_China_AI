@@ -1,0 +1,109 @@
+{
+ "source_id": "xinhua_es",
+ "files": {
+  "home.html": {
+   "url": "http://spanish.xinhuanet.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 25012,
+   "sha256": "5a689eb5f6d879a8a96f6b8316ce21f8cfdd365c70ede638b144d37e0fd7fc96",
+   "retrieved_at": "2026-10-14T10:15:32+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/xinhua_es/2026-10-14",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "index_pages": [
+  {
+   "url": "http://spanish.xinhuanet.com/rss/rss.html",
+   "links": []
+  }
+ ],
+ "errors": [
+  {
+   "name": "feed_0.xml",
+   "error": "http://spanish.xinhuanet.com/rss/rss.html: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/rss",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/rss/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/feed/",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/feed/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n<"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/feed",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/feed <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/rss.xml",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/rss.xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/feed.xml",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/feed.xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body>"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/feeds/rss",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/feeds/rss <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</body"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/rss/portada",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/rss/portada <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</bo"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/rss/ultimas-noticias",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/rss/ultimas-noticias <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</cent"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/arc/outboundfeeds/rss/",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/arc/outboundfeeds/rss/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</ce"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/arc/outboundfeeds/rss/?outputType=xml",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/arc/outboundfeeds/rss/?outputType=xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><c"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/arcio/rss/",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/arcio/rss/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</bod"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/rss/lo-ultimo/",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/rss/lo-ultimo/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n<"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/feeds/articulos",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/feeds/articulos <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/rss/listado/",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/rss/listado/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center>\r\n</b"
+  },
+  {
+   "name": "http://spanish.xinhuanet.com/rss/pages/home.xml",
+   "error": "xinhua_es: HTTP 404 on GET http://spanish.xinhuanet.com/rss/pages/home.xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>nginx</center"
+  }
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "http://spanish.xinhuanet.com/rss/rss.html",
+  "http://spanish.xinhuanet.com/rss",
+  "http://spanish.xinhuanet.com/feed/",
+  "http://spanish.xinhuanet.com/feed",
+  "http://spanish.xinhuanet.com/rss.xml",
+  "http://spanish.xinhuanet.com/feed.xml",
+  "http://spanish.xinhuanet.com/feeds/rss",
+  "http://spanish.xinhuanet.com/rss/portada",
+  "http://spanish.xinhuanet.com/rss/ultimas-noticias",
+  "http://spanish.xinhuanet.com/arc/outboundfeeds/rss/",
+  "http://spanish.xinhuanet.com/arc/outboundfeeds/rss/?outputType=xml",
+  "http://spanish.xinhuanet.com/arcio/rss/",
+  "http://spanish.xinhuanet.com/rss/lo-ultimo/",
+  "http://spanish.xinhuanet.com/feeds/articulos",
+  "http://spanish.xinhuanet.com/rss/listado/",
+  "http://spanish.xinhuanet.com/rss/pages/home.xml"
+ ],
+ "feeds_found": 0
+}

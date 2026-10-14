@@ -5,66 +5,20 @@
    "url": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
    "params": {},
    "status": 200,
-   "bytes": 127275,
-   "sha256": "4ad3792229b8d975cc6125d3acf839fe94575b52c7748480ad4fe23df09ba093",
-   "retrieved_at": "2026-10-07T11:19:58+00:00",
+   "bytes": 125918,
+   "sha256": "f7b614da9839a366776dac63901ec73ed5a31e6b88500ab4a42c874a6feb045d",
+   "retrieved_at": "2026-10-14T09:42:54+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_folha/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_folha/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "index_pages": [
-  {
-   "url": "https://www1.folha.uol.com.br/feed/",
-   "links": [
-    "https://www1.folha.uol.com.br/feed",
-    "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
-    "https://feeds.folha.uol.com.br/opiniao/rss091.xml",
-    "https://feeds.folha.uol.com.br/poder/rss091.xml",
-    "https://feeds.folha.uol.com.br/mundo/rss091.xml",
-    "https://feeds.folha.uol.com.br/mercado/rss091.xml",
-    "https://feeds.folha.uol.com.br/cotidiano/rss091.xml",
-    "https://feeds.folha.uol.com.br/educacao/rss091.xml",
-    "https://feeds.folha.uol.com.br/equilibrio/rss091.xml",
-    "https://feeds.folha.uol.com.br/esporte/rss091.xml",
-    "https://feeds.folha.uol.com.br/ilustrada/rss091.xml",
-    "https://feeds.folha.uol.com.br/ilustrissima/rss091.xml"
-   ]
-  },
-  {
-   "url": "https://www1.folha.uol.com.br/feed",
-   "links": [
-    "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
-    "https://feeds.folha.uol.com.br/opiniao/rss091.xml",
-    "https://feeds.folha.uol.com.br/poder/rss091.xml",
-    "https://feeds.folha.uol.com.br/mundo/rss091.xml",
-    "https://feeds.folha.uol.com.br/mercado/rss091.xml",
-    "https://feeds.folha.uol.com.br/cotidiano/rss091.xml",
-    "https://feeds.folha.uol.com.br/educacao/rss091.xml",
-    "https://feeds.folha.uol.com.br/equilibrio/rss091.xml",
-    "https://feeds.folha.uol.com.br/esporte/rss091.xml",
-    "https://feeds.folha.uol.com.br/ilustrada/rss091.xml",
-    "https://feeds.folha.uol.com.br/ilustrissima/rss091.xml",
-    "https://feeds.folha.uol.com.br/ciencia/rss091.xml"
-   ]
-  }
- ],
- "errors": [
-  {
-   "name": "feed_0.xml",
-   "error": "https://www1.folha.uol.com.br/feed/: HTML index, 12 feed-like links"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www1.folha.uol.com.br/feed: HTML index, 12 feed-like links"
-  }
- ],
  "feed_urls": [
   "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml"
  ],
  "feeds_tried": [
-  "https://www1.folha.uol.com.br/feed/"
+  "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml"
  ],
  "feeds_found": 1
 }

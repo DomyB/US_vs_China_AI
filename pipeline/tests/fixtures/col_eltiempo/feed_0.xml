@@ -1,122 +1,128 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:ns0="http://www.w3.org/2005/Atom" xmlns:ns1="http://purl.org/rss/1.0/modules/slash/" version="2.0">
     <channel>
-        <title>EL TIEMPO.COM -Opinión</title>
-        <description>Noticias de Noticias de Opinión sobre la actualidad colombiana y mundial. Encuentre en El Tiempo las columnas, blogs, editoriales y opiniones sobre las noticias de Colombia.</description>
+        <title>EL TIEMPO.COM -Colombia</title>
+        <description>Noticias de Encuentre las noticias mas recientes de Colombia. Cubrimientos en vivo, noticias locales, movilidad, seguridad y clima en El Tiempo.</description>
         <image>
             <url>https://www.eltiempo.com/bundles/eltiempocms/images/et-rss.png</url>
-            <title>EL TIEMPO.COM -Opinión</title>
+            <title>EL TIEMPO.COM -Colombia</title>
             <link>https://www.eltiempo.com</link>
         </image>
-        <pubDate>Wed, 07 Oct 2026 06:00:45 -0500</pubDate>
-        <lastBuildDate>Wed, 07 Oct 2026 06:00:45 -0500</lastBuildDate>
+        <pubDate>Wed, 14 Oct 2026 04:55:06 -0500</pubDate>
+        <lastBuildDate>Wed, 14 Oct 2026 04:55:06 -0500</lastBuildDate>
         <generator>Wf Feed Generator (https://www.eltiempo.com)</generator>
         <link>https://www.eltiempo.com</link>
-                    <category>Opinión</category>
-                <ns0:link rel="self" type="application/rss+xml" href="https://www.eltiempo.com/rss/opinion.xml" />
+                    <category>Colombia</category>
+                <ns0:link rel="self" type="application/rss+xml" href="https://www.eltiempo.com/rss/colombia.xml" />
         
                                                 
             <item>
-                <title>Fuertes contrastes</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/caricaturas/fuertes-contrastes-3591758</link>
-                <guid>https://www.eltiempo.com/opinion/caricaturas/fuertes-contrastes-3591758</guid>
-                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2026/10/06/6ac5883da734f.r_d.1098-713-0.jpeg" />
-                                <category>Caricaturas</category>
-                <description />
+                <title>Pico y placa en Pereira para el miércoles 14 de octubre de 2026: estos son los vehículos con restricción</title>
+                <pubDate>2026-10-14T02:30:00-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/otras-ciudades/pico-y-placa-en-pereira-para-el-miercoles-14-de-octubre-de-2026-estos-son-los-vehiculos-con-restriccion-3593236</link>
+                <guid>https://www.eltiempo.com/colombia/otras-ciudades/pico-y-placa-en-pereira-para-el-miercoles-14-de-octubre-de-2026-estos-son-los-vehiculos-con-restriccion-3593236</guid>
+                                    <enclosure type="image/png" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/uploads/2025/02/13/67ae9f4e6cbec.png" />
+                                <category>Otras Ciudades</category>
+                <description>La medida estará vigente entre las 6:00 a. m. y las 8:00 p. m. para carros particulares, motocicletas y vehículos similares.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>Ola creciente</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/caricaturas/ola-creciente-3591757</link>
-                <guid>https://www.eltiempo.com/opinion/caricaturas/ola-creciente-3591757</guid>
-                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2026/10/06/6ac5882659c67.r_d.1094-683-0.jpeg" />
-                                <category>Caricaturas</category>
-                <description />
+                <title>Así opera el pico y placa en Bucaramanga para el miércoles 14 de octubre de 2026: estas placas no podrán circular</title>
+                <pubDate>2026-10-14T02:30:00-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/santander/asi-opera-el-pico-y-placa-en-bucaramanga-para-el-miercoles-14-de-octubre-de-2026-estas-placas-no-podran-circular-3593222</link>
+                <guid>https://www.eltiempo.com/colombia/santander/asi-opera-el-pico-y-placa-en-bucaramanga-para-el-miercoles-14-de-octubre-de-2026-estas-placas-no-podran-circular-3593222</guid>
+                                    <enclosure type="image/png" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2024/03/15/65f4a86d8afd5.r_d.602-225-0.png" />
+                                <category>Santander</category>
+                <description>La restricción estará vigente durante 14 horas para los vehículos incluidos en la nueva rotación. Consulte los números y horarios.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>Tardío dilema</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/caricaturas/tardio-dilema-3591756</link>
-                <guid>https://www.eltiempo.com/opinion/caricaturas/tardio-dilema-3591756</guid>
-                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/uploads/2026/10/06/6ac5881a2efb6.jpeg" />
-                                <category>Caricaturas</category>
-                <description />
+                <title>¡Evite multas! Pico y placa en Cali para el miércoles 14 de octubre de 2026: estas placas tendrán restricción</title>
+                <pubDate>2026-10-14T02:30:00-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/cali/evite-multas-pico-y-placa-en-cali-para-el-miercoles-14-de-octubre-de-2026-estas-placas-tendran-restriccion-3593212</link>
+                <guid>https://www.eltiempo.com/colombia/cali/evite-multas-pico-y-placa-en-cali-para-el-miercoles-14-de-octubre-de-2026-estas-placas-tendran-restriccion-3593212</guid>
+                                    <enclosure type="image/png" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2024/10/16/670fca0ecd253.r_d.475-237-0.png" />
+                                <category>Cali</category>
+                <description>La medida estará vigente entre las 6:00 a. m. y las 7:00 p. m. para vehículos particulares. Conozca los números restringidos.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>Un buen primer paso</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/editorial/un-buen-primer-paso-3591751</link>
-                <guid>https://www.eltiempo.com/opinion/editorial/un-buen-primer-paso-3591751</guid>
-                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2025/03/21/67dd9fc2cb46d.r_d.1891-1003-0.jpeg" />
-                                <category>Editorial</category>
-                <description>El plan del Gobierno para darle primeros auxilios al sistema de salud es lo que corresponde, pero es solo el principio de un tratamiento de fondo.</description>
+                <title>¡Ojo, conductor! Pico y placa en Medellín para el miércoles 14 de octubre de 2026: estas placas tendrán restricción</title>
+                <pubDate>2026-10-14T02:30:00-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/medellin/ojo-conductor-pico-y-placa-en-medellin-para-el-miercoles-14-de-octubre-de-2026-estas-placas-tendran-restriccion-3593197</link>
+                <guid>https://www.eltiempo.com/colombia/medellin/ojo-conductor-pico-y-placa-en-medellin-para-el-miercoles-14-de-octubre-de-2026-estas-placas-tendran-restriccion-3593197</guid>
+                                    <enclosure type="image/png" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/uploads/2023/09/18/650898a9a935b.png" />
+                                <category>Medellín</category>
+                <description>La medida aplicará para carros particulares y motos entre las 5:00 a. m. y las 8:00 p. m. Los taxis tendrán un horario diferente.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>Gracias, Nairo</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/cartas/gracias-nairo-3591750</link>
-                <guid>https://www.eltiempo.com/opinion/cartas/gracias-nairo-3591750</guid>
-                                <category>Cartas</category>
-                <description>Nairo es leyenda del ciclismo universal. Él escribió páginas inolvidables de lucha, coraje, con sudor y sangre.</description>
+                <title>Palmira cierra con éxito la 32 edición del Festival Ricardo Nieto y estrena el Complejo Go Park como nuevo epicentro cultural</title>
+                <pubDate>2026-10-14T01:37:37-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/cali/palmira-cierra-con-exito-la-32-edicion-del-festival-ricardo-nieto-y-estrena-el-complejo-go-park-como-nuevo-epicentro-cultural-3593378</link>
+                <guid>https://www.eltiempo.com/colombia/cali/palmira-cierra-con-exito-la-32-edicion-del-festival-ricardo-nieto-y-estrena-el-complejo-go-park-como-nuevo-epicentro-cultural-3593378</guid>
+                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/uploads/2026/10/14/6acf1ff356a30.jpeg" />
+                                <category>Cali</category>
+                <description>Durante tres días, la Villa de las Palmas se consolidó como escenario de artes vivas, cultura y deporte.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>La insuficiente contabilidad de los daños</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/columnistas/la-insuficiente-contabilidad-de-los-danos-3591748</link>
-                <guid>https://www.eltiempo.com/opinion/columnistas/la-insuficiente-contabilidad-de-los-danos-3591748</guid>
-                                <category>Columnistas</category>
-                <description>Tras el terremoto habrá que reconstruir la infraestructura, pero también los nichos afectivos que sostienen la estabilidad emocional de las víctimas.</description>
+                <title>Reportan cierre en la vía Sibaté-Fusagasugá por deslizamiento tras fuertes lluvias este martes 13 de octubre: no hay vehículos atrapados ni heridos</title>
+                <pubDate>2026-10-13T23:29:26-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/otras-ciudades/reportan-cierre-en-la-via-sibate-fusagasuga-por-deslizamiento-tras-fuertes-lluvias-este-martes-13-de-octubre-no-se-reportan-vehiculos-atrapados-3593367</link>
+                <guid>https://www.eltiempo.com/colombia/otras-ciudades/reportan-cierre-en-la-via-sibate-fusagasuga-por-deslizamiento-tras-fuertes-lluvias-este-martes-13-de-octubre-no-se-reportan-vehiculos-atrapados-3593367</guid>
+                                    <enclosure type="image/png" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2026/10/13/6aceef314b875.r_d.1138-664-0.png" />
+                                <category>Otras Ciudades</category>
+                <description>El Cuerpo de Bomberos adelanta labores a 400 metros del peaje San Miguel, en Sibaté, Cundinamarca. Maquinaria llegaría a primera hora del miércoles.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>Y lo regañó el Presidente...</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/columnistas/y-lo-regano-el-presidente-3591747</link>
-                <guid>https://www.eltiempo.com/opinion/columnistas/y-lo-regano-el-presidente-3591747</guid>
-                                <category>Columnistas</category>
-                <description>Hay satisfacción nacional porque la exmagistrada Cristina Lombana manejará la campaña contra la corrupción desde el Palacio presidencial.</description>
+                <title>El procurador Gregorio Eljach se pronunció sobre las marchas del miércoles 14 de octubre en Colombia: 'La protesta tiene límites'</title>
+                <pubDate>2026-10-14T03:31:23-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/otras-ciudades/procurador-gregorio-eljach-advierte-que-la-protesta-social-tiene-limites-y-pide-tranquilidad-para-las-marchas-de-este-miercoles-14-de-octubre-3593359</link>
+                <guid>https://www.eltiempo.com/colombia/otras-ciudades/procurador-gregorio-eljach-advierte-que-la-protesta-social-tiene-limites-y-pide-tranquilidad-para-las-marchas-de-este-miercoles-14-de-octubre-3593359</guid>
+                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2026/09/24/6ab573ed4a286.r_d.898-510-0.jpeg" />
+                                <category>Otras Ciudades</category>
+                <description>El mensaje institucional busca evitar altercados en las calles y asegurar el respeto a los derechos de todos los ciudadanos durante la jornada.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>La reunificación de un libro</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/columnistas/la-reunificacion-de-un-libro-3591741</link>
-                <guid>https://www.eltiempo.com/opinion/columnistas/la-reunificacion-de-un-libro-3591741</guid>
-                                <category>Columnistas</category>
-                <description>Hay libros que uno busca cuando necesita un poco de complicidad o algo de inspiración.</description>
+                <title>Vendedor ambulante que necesita operación urgente asegura que no puede acceder a la EPS porque figura como fallecido en registros: esta es la razón</title>
+                <pubDate>2026-10-13T21:43:55-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/otras-ciudades/vendedor-ambulante-que-necesita-operacion-urgente-asegura-que-no-puede-acceder-a-la-eps-porque-figura-como-fallecido-en-registros-esta-es-la-razon-3593270</link>
+                <guid>https://www.eltiempo.com/colombia/otras-ciudades/vendedor-ambulante-que-necesita-operacion-urgente-asegura-que-no-puede-acceder-a-la-eps-porque-figura-como-fallecido-en-registros-esta-es-la-razon-3593270</guid>
+                                    <enclosure type="image/png" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2026/10/13/6acebd63dbf9b.r_d.380-305-0.png" />
+                                <category>Otras Ciudades</category>
+                <description>Jorge Eliécer Redondo perdió la visión de un ojo mientras espera desde hace más de 30 años una solución ante el error administrativo.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>Plebiscito y paz</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/columnistas/plebiscito-y-paz-3591737</link>
-                <guid>https://www.eltiempo.com/opinion/columnistas/plebiscito-y-paz-3591737</guid>
-                                <category>Columnistas</category>
-                <description>Nuestro ordenamiento constitucional siempre ha contemplado dos mecanismos para conseguir la paz: la confrontación armada o las negociaciones.</description>
+                <title>El drama invisible de los habitantes de calle en Cali: desplazamiento y rechazo tras los operativos en el centro</title>
+                <pubDate>2026-10-13T18:47:29-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/cali/el-drama-invisible-de-los-habitantes-de-calle-en-cali-desplazamiento-y-rechazo-tras-los-operativos-en-el-centro-3593332</link>
+                <guid>https://www.eltiempo.com/colombia/cali/el-drama-invisible-de-los-habitantes-de-calle-en-cali-desplazamiento-y-rechazo-tras-los-operativos-en-el-centro-3593332</guid>
+                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/uploads/2024/10/02/66fdcdc6330a4.jpeg" />
+                                <category>Cali</category>
+                <description>Comunidades piden una mayor atención integral a esta población que se ha movilizado a otras zonas de la ciudad.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
                                                 
             <item>
-                <title>Mandos medios</title>
-                <pubDate>2026-10-06T22:01:00-05:00</pubDate>
-                <link>https://www.eltiempo.com/opinion/columnistas/mandos-medios-3591732</link>
-                <guid>https://www.eltiempo.com/opinion/columnistas/mandos-medios-3591732</guid>
-                                <category>Columnistas</category>
-                <description>El gobierno debería considerar en el proyecto de sometimiento un capítulo especial para los mandos medios.</description>
+                <title>Ataque con drones de las disidencias deja cinco civiles heridos en El Queremal, Valle: se suma al atentado con explosivos en zona rural de Jamundí</title>
+                <pubDate>2026-10-13T19:34:56-05:00</pubDate>
+                <link>https://www.eltiempo.com/colombia/cali/ataque-con-drones-de-las-disidencias-de-las-farc-deja-cinco-civiles-heridos-en-el-queremal-valle-se-suma-al-ataque-con-explosivos-en-zona-de-jamundi-3593329</link>
+                <guid>https://www.eltiempo.com/colombia/cali/ataque-con-drones-de-las-disidencias-de-las-farc-deja-cinco-civiles-heridos-en-el-queremal-valle-se-suma-al-ataque-con-explosivos-en-zona-de-jamundi-3593329</guid>
+                                    <enclosure type="image/jpeg" length="" url="https://imagenes2.eltiempo.com/files/og_thumbnail/files/fp/uploads/2026/07/16/6a58bf9d1e4df.r_d.378-230-0.jpeg" />
+                                <category>Cali</category>
+                <description>El ataque afectó la subestación del corregimiento de El Queremal. La Policía atribuyó el atentado a los disidentes del frente 'Jaime Martínez'.</description>
                                 <ns1:comments>0</ns1:comments>
             </item>
             </channel>

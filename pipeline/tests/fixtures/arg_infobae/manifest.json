@@ -1,45 +1,24 @@
 {
  "source_id": "arg_infobae",
  "files": {
-  "home.html": {
-   "url": "https://www.infobae.com/",
-   "params": {},
-   "status": 200,
-   "bytes": 498932,
-   "final_url": "https://www.infobae.com/estados-unidos/",
-   "sha256": "fe97c35d027378a6add2e47dae4176ade5a53fc2c03cb354ece5dc25ea63ab69",
-   "retrieved_at": "2026-10-07T11:19:39+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
-   "url": "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/",
+   "url": "https://www.infobae.com/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 972510,
-   "sha256": "8570f136519706817763b8974f4c018426b46c026ec02cdbbd57d8887d7094b0",
-   "retrieved_at": "2026-10-07T11:19:42+00:00",
+   "bytes": 531851,
+   "sha256": "9fb6c07a9839ac790047e99a86de7d911cc5b9fc214c0bbc41400ee25133132f",
+   "retrieved_at": "2026-10-14T09:42:48+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_infobae/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_infobae/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "errors": [
-  {
-   "name": "https://www.infobae.com/feeds/rss",
-   "error": "arg_infobae: HTTP 404 on GET https://www.infobae.com/feeds/rss/ "
-  }
- ],
  "feed_urls": [
-  "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/"
- ],
- "discovered_feeds": [
-  "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/"
+  "https://www.infobae.com/arc/outboundfeeds/rss/"
  ],
  "feeds_tried": [
-  "https://www.infobae.com/feeds/rss",
-  "https://www.infobae.com/arc/outboundfeeds/rss/category/estados-unidos/"
+  "https://www.infobae.com/arc/outboundfeeds/rss/"
  ],
  "feeds_found": 1
 }

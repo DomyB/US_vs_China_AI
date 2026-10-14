@@ -5,13 +5,94 @@
    "url": "https://www.emol.com/",
    "params": {},
    "status": 200,
-   "bytes": 165307,
-   "sha256": "27b99417ea579f575c9c619d6dfa1ebf846abcef3cc9701c81dc7e5ca6d89fa0",
-   "retrieved_at": "2026-10-07T11:20:12+00:00",
+   "bytes": 172650,
+   "sha256": "25d3182cdda3efbf24861af251c3a56a32144909356c56c9e2259d7a9ae7070c",
+   "retrieved_at": "2026-10-14T09:43:39+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmercurio/2026-10-07",
- "note": "trimmed copy of a real response; see scm/fixtures.py"
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmercurio/2026-10-14",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "errors": [
+  {
+   "name": "https://www.emol.com/rss",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/feed/",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/feed",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/rss.xml",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/feed.xml",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/feeds/rss",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/rss/portada",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/rss/ultimas-noticias",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/arc/outboundfeeds/rss/",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/arc/outboundfeeds/rss/?outputType=xml",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/arcio/rss/",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/rss/lo-ultimo/",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/feeds/articulos",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/rss/listado/",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  },
+  {
+   "name": "https://www.emol.com/rss/pages/home.xml",
+   "error": "HTTPConnectionPool(host='www.emol.com', port=80): Max retries exceeded with url: /todas/ (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+  }
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://www.emol.com/rss",
+  "https://www.emol.com/feed/",
+  "https://www.emol.com/feed",
+  "https://www.emol.com/rss.xml",
+  "https://www.emol.com/feed.xml",
+  "https://www.emol.com/feeds/rss",
+  "https://www.emol.com/rss/portada",
+  "https://www.emol.com/rss/ultimas-noticias",
+  "https://www.emol.com/arc/outboundfeeds/rss/",
+  "https://www.emol.com/arc/outboundfeeds/rss/?outputType=xml",
+  "https://www.emol.com/arcio/rss/",
+  "https://www.emol.com/rss/lo-ultimo/",
+  "https://www.emol.com/feeds/articulos",
+  "https://www.emol.com/rss/listado/",
+  "https://www.emol.com/rss/pages/home.xml"
+ ],
+ "feeds_found": 0
 }

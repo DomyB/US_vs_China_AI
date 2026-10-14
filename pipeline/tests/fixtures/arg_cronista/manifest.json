@@ -1,108 +1,23 @@
 {
  "source_id": "arg_cronista",
  "files": {
-  "home.html": {
-   "url": "https://www.cronista.com/",
-   "params": {},
-   "status": 200,
-   "bytes": 456069,
-   "final_url": "https://www.cronista.com/usa/",
-   "sha256": "ac6aed6d7ded228825802cb2551e79333bf81ca52d7849fb3d7a9787e0e56e15",
-   "retrieved_at": "2026-10-07T11:19:19+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
    "url": "https://www.cronista.com/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 641503,
-   "sha256": "5cca6a4f6fa70a4fd18d7c61171d8e2788c162c98ca79abfd6bf39a60ca03cd4",
-   "retrieved_at": "2026-10-07T11:19:37+00:00",
+   "bytes": 646433,
+   "sha256": "65984c40c61198902fa6b7c46cca795fa453cf5987da081512872bafb1f51796",
+   "retrieved_at": "2026-10-14T09:42:47+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_cronista/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_cronista/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "errors": [
-  {
-   "name": "https://www.cronista.com/rss/feed.xml",
-   "error": "arg_cronista: HTTP 404 on GET https://www.cronista.com/rss/feed.xml Not Found"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.cronista.com/rss: HTML index, 0 feed-like links"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.cronista.com/feed/: HTML index, 0 feed-like links"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.cronista.com/feed: HTML index, 0 feed-like links"
-  },
-  {
-   "name": "https://www.cronista.com/rss.xml",
-   "error": "arg_cronista: HTTP 404 on GET https://www.cronista.com/rss.xml Not Found"
-  },
-  {
-   "name": "https://www.cronista.com/feed.xml",
-   "error": "arg_cronista: HTTP 404 on GET https://www.cronista.com/feed.xml Not Found"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.cronista.com/feeds/rss: HTML index, 0 feed-like links"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.cronista.com/rss/portada: HTML index, 0 feed-like links"
-  },
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.cronista.com/rss/ultimas-noticias: HTML index, 0 feed-like links"
-  }
- ],
- "index_pages": [
-  {
-   "url": "https://www.cronista.com/rss",
-   "links": []
-  },
-  {
-   "url": "https://www.cronista.com/feed/",
-   "links": []
-  },
-  {
-   "url": "https://www.cronista.com/feed",
-   "links": []
-  },
-  {
-   "url": "https://www.cronista.com/feeds/rss",
-   "links": []
-  },
-  {
-   "url": "https://www.cronista.com/rss/portada",
-   "links": []
-  },
-  {
-   "url": "https://www.cronista.com/rss/ultimas-noticias",
-   "links": []
-  }
- ],
  "feed_urls": [
   "https://www.cronista.com/arc/outboundfeeds/rss/"
  ],
- "discovered_feeds": [],
  "feeds_tried": [
-  "https://www.cronista.com/rss/feed.xml",
-  "https://www.cronista.com/rss",
-  "https://www.cronista.com/feed/",
-  "https://www.cronista.com/feed",
-  "https://www.cronista.com/rss.xml",
-  "https://www.cronista.com/feed.xml",
-  "https://www.cronista.com/feeds/rss",
-  "https://www.cronista.com/rss/portada",
-  "https://www.cronista.com/rss/ultimas-noticias",
   "https://www.cronista.com/arc/outboundfeeds/rss/"
  ],
  "feeds_found": 1

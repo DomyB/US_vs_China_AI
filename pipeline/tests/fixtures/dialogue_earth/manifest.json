@@ -1,0 +1,24 @@
+{
+ "source_id": "dialogue_earth",
+ "files": {
+  "feed_0.xml": {
+   "url": "https://dialogue.earth/es/feed/",
+   "params": {},
+   "status": 200,
+   "bytes": 216626,
+   "sha256": "2518b9259e9acd4ad1686fdd9791a9bc6a13e697bfa24216ac040ec9ae1c0b7d",
+   "retrieved_at": "2026-10-14T10:10:58+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dialogue_earth/2026-10-14",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "feed_urls": [
+  "https://dialogue.earth/es/feed/"
+ ],
+ "feeds_tried": [
+  "https://dialogue.earth/es/feed/"
+ ],
+ "feeds_found": 1
+}

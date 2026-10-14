@@ -5,34 +5,20 @@
    "url": "https://www.opinion.com.bo/rss/",
    "params": {},
    "status": 200,
-   "bytes": 37767,
-   "sha256": "20af77db7d0a2cb13b33e16f6ffc987ec927b453724dc310ca0106ad354423e8",
-   "retrieved_at": "2026-10-07T11:19:50+00:00",
+   "bytes": 43637,
+   "sha256": "3d66a078ac59f934a6432389609d8d1b92362c3c456c4da1a6582f8fbfdc9d39",
+   "retrieved_at": "2026-10-14T09:42:51+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bol_opinion/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bol_opinion/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "index_pages": [
-  {
-   "url": "https://www.opinion.com.bo/rss/listado/",
-   "links": [
-    "https://www.opinion.com.bo/rss/"
-   ]
-  }
- ],
- "errors": [
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.opinion.com.bo/rss/listado/: HTML index, 1 feed-like links"
-  }
- ],
  "feed_urls": [
   "https://www.opinion.com.bo/rss/"
  ],
  "feeds_tried": [
-  "https://www.opinion.com.bo/rss/listado/"
+  "https://www.opinion.com.bo/rss/"
  ],
  "feeds_found": 1
 }

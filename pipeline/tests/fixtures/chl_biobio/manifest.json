@@ -1,33 +1,20 @@
 {
  "source_id": "chl_biobio",
  "files": {
-  "home.html": {
-   "url": "https://www.biobiochile.cl/",
-   "params": {},
-   "status": 200,
-   "bytes": 1255993,
-   "sha256": "6486f742f0f96e2aa40ee82da158bbdbb9d1004297e8c018907e2de8b66ea509",
-   "retrieved_at": "2026-10-07T11:20:09+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
    "url": "https://feeds.feedburner.com/radiobiobio/NNeJ",
    "params": {},
    "status": 200,
-   "bytes": 183987,
-   "sha256": "33db6751f6fcc2aa681fc301a9a3576053b344dff3eec2f3c3a317913598cca6",
-   "retrieved_at": "2026-10-07T11:20:09+00:00",
+   "bytes": 196097,
+   "sha256": "42d40e7c779717c3ee9367533d4a253b691d20e97193a64cff032e319c18ae0e",
+   "retrieved_at": "2026-10-14T09:43:35+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
-  "https://feeds.feedburner.com/radiobiobio/NNeJ"
- ],
- "discovered_feeds": [
   "https://feeds.feedburner.com/radiobiobio/NNeJ"
  ],
  "feeds_tried": [

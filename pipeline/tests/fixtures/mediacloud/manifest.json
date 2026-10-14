@@ -10,7 +10,7 @@
    "status": 200,
    "bytes": 314,
    "sha256": "43804643d584330df9ff663d33e801616cb54e07d9aacb12092239d6beff56dc",
-   "retrieved_at": "2026-10-13T22:36:16+00:00",
+   "retrieved_at": "2026-10-14T11:01:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -23,7 +23,7 @@
    "status": 200,
    "bytes": 356,
    "sha256": "4577cb1df60c2538f6fe9f824cf1b732f68f7c256e5e5d1e20f1391ebe3e0000",
-   "retrieved_at": "2026-10-13T22:36:17+00:00",
+   "retrieved_at": "2026-10-14T11:01:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -36,7 +36,7 @@
    "status": 200,
    "bytes": 403,
    "sha256": "0766323bfe67eff3f29049c1116681c50990589063df7f9a8c1bf299ddd71916",
-   "retrieved_at": "2026-10-13T22:36:18+00:00",
+   "retrieved_at": "2026-10-14T11:01:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -49,342 +49,342 @@
    "status": 200,
    "bytes": 305,
    "sha256": "c5266843dec15f0cd57dc44e40dee03bb88de725a23e691cab19403bd78ae2f8",
-   "retrieved_at": "2026-10-13T22:36:19+00:00",
+   "retrieved_at": "2026-10-14T11:01:18+00:00",
    "note": null,
    "trimmed": true
   },
   "ARG/2026_count_mining.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412043&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412043&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412043,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25813,
-   "sha256": "fb8b3ca87f1156413791301df9b48b4acc00a85d82647455961f4fcedce4532b",
-   "retrieved_at": "2026-10-13T22:36:36+00:00",
+   "bytes": 25907,
+   "sha256": "cb5ed309ee35310e031790ff31232e1fe27602f3f70570959f445f37b6e6a808",
+   "retrieved_at": "2026-10-14T11:01:38+00:00",
    "note": null,
    "trimmed": true
   },
   "ARG/2026_count_cn.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-13&cs=34412043&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-14&cs=34412043&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (China OR chino OR china OR Chinese OR Beijing OR Pek\u00edn OR Pequim)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412043,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25880,
-   "sha256": "3daf6b1fa12528cebe366563424cfc4e99fb81b4a79d073fb14f195619951cda",
-   "retrieved_at": "2026-10-13T22:36:37+00:00",
+   "bytes": 25967,
+   "sha256": "23356db45f57230b195f60ea94cdbe56247dd3a6538772d2148ec6167bd68784",
+   "retrieved_at": "2026-10-14T11:01:39+00:00",
    "note": null,
    "trimmed": true
   },
   "ARG/2026_count_us.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-13&cs=34412043&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-14&cs=34412043&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (\"Estados Unidos\" OR EEUU OR \"EE.UU.\" OR \"United States\" OR Washington OR estadounidense OR americano)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412043,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25927,
-   "sha256": "bc19ea5197d3a2b08b82f029da863fc768898326e8eff6905334a857bf2c2207",
-   "retrieved_at": "2026-10-13T22:37:36+00:00",
+   "bytes": 26019,
+   "sha256": "80b4e99a8329eeaa3be69c43bb5fa99f0036cef4d43727e64102b869f58ae67e",
+   "retrieved_at": "2026-10-14T11:02:37+00:00",
    "note": null,
    "trimmed": true
   },
   "ARG/2026_stories_1.json": {
-   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412043&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
+   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412043&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412043,
     "platform": "onlinenews-mediacloud",
     "page_size": 1000,
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 489889,
-   "sha256": "05e53b55c36ae5dca7a9a3c9662c577f5271081eb00dcfc67d3c936cd5860462",
-   "retrieved_at": "2026-10-13T22:37:39+00:00",
+   "bytes": 486436,
+   "sha256": "fbbf63dfaffa649a93fa5ced4047e4e73d531a8ed85037e6915f4b4ba1447b01",
+   "retrieved_at": "2026-10-14T11:02:38+00:00",
    "note": null,
    "trimmed": true
   },
   "BOL/2026_count_mining.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412045&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412045&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412045,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 24794,
-   "sha256": "1fda1623db6119f2b656726f2a1a0c816249dc1716fa702e687bd7ec34ebe7bf",
-   "retrieved_at": "2026-10-13T22:37:40+00:00",
+   "bytes": 24859,
+   "sha256": "25d5e15a786377f0e880fb7561a23dfcfc6e3c130174c9428a2aecb51ea3221a",
+   "retrieved_at": "2026-10-14T11:02:40+00:00",
    "note": null,
    "trimmed": true
   },
   "BOL/2026_count_cn.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-13&cs=34412045&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-14&cs=34412045&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (China OR chino OR china OR Chinese OR Beijing OR Pek\u00edn OR Pequim)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412045,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 22262,
-   "sha256": "100262ad667998d723ca952c0d9fe93d8d39c7664d7eda3d0ad648631a05176a",
-   "retrieved_at": "2026-10-13T22:38:37+00:00",
+   "bytes": 22331,
+   "sha256": "b9733cdad45a75f4ba6c44e70b493461ea3fbe8141946c9b264db5a8c3f78652",
+   "retrieved_at": "2026-10-14T11:03:37+00:00",
    "note": null,
    "trimmed": true
   },
   "BOL/2026_count_us.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-13&cs=34412045&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-14&cs=34412045&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (\"Estados Unidos\" OR EEUU OR \"EE.UU.\" OR \"United States\" OR Washington OR estadounidense OR americano)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412045,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 24168,
-   "sha256": "826487654e80bde87708daadb67d82bb615363702d5605b466aa117e42e98b16",
-   "retrieved_at": "2026-10-13T22:38:41+00:00",
+   "bytes": 24237,
+   "sha256": "da7511e29c3c0b7e5a7c430eddd2394488c7749f890cc1686251cf50191408d3",
+   "retrieved_at": "2026-10-14T11:03:41+00:00",
    "note": null,
    "trimmed": true
   },
   "BOL/2026_stories_1.json": {
-   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412045&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
+   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412045&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412045,
     "platform": "onlinenews-mediacloud",
     "page_size": 1000,
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 466980,
-   "sha256": "cb7f69bd5f2728ae780629ef0286d339ec2f0b44d5cdb3994c8c7b7fa666e3c1",
-   "retrieved_at": "2026-10-13T22:38:44+00:00",
+   "bytes": 466904,
+   "sha256": "2c60275384f3bec176120f501aaa405f797b5e81497acf96eab7e9c966e5438f",
+   "retrieved_at": "2026-10-14T11:03:42+00:00",
    "note": null,
    "trimmed": true
   },
   "BRA/2026_count_mining.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412257&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412257&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412257,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25580,
-   "sha256": "5b6b37a10b53fc8a87363e653101d60b5250cd07340c5bccb134403a218a8c8f",
-   "retrieved_at": "2026-10-13T22:39:38+00:00",
+   "bytes": 25664,
+   "sha256": "b62be65d7ffa239c55bafc2622707dc5cc78661ac47a0b101cd98910c5b10347",
+   "retrieved_at": "2026-10-14T11:04:38+00:00",
    "note": null,
    "trimmed": true
   },
   "BRA/2026_count_cn.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-13&cs=34412257&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-14&cs=34412257&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (China OR chino OR china OR Chinese OR Beijing OR Pek\u00edn OR Pequim)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412257,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25546,
-   "sha256": "ff1b453f88092f6f8c08f570a6a205947789fde38fffac0a5d8b65f54781bd7e",
-   "retrieved_at": "2026-10-13T22:39:42+00:00",
+   "bytes": 25628,
+   "sha256": "a0d09012b9dbccc809768d46a44613789d3d589520d23e1a3bbf97ca817f4260",
+   "retrieved_at": "2026-10-14T11:04:42+00:00",
    "note": null,
    "trimmed": true
   },
   "BRA/2026_count_us.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-13&cs=34412257&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-14&cs=34412257&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (\"Estados Unidos\" OR EEUU OR \"EE.UU.\" OR \"United States\" OR Washington OR estadounidense OR americano)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412257,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25506,
-   "sha256": "6ea5f06ef2c84cdf5d65e7ce31129c0c1ed92763bf5809330f3203ab9bb75d1c",
-   "retrieved_at": "2026-10-13T22:40:39+00:00",
+   "bytes": 25596,
+   "sha256": "3e022580f316ad7863ad93972c20717be88d81e842000412f202221b43687f44",
+   "retrieved_at": "2026-10-14T11:05:41+00:00",
    "note": null,
    "trimmed": true
   },
   "BRA/2026_stories_1.json": {
-   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412257&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
+   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412257&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412257,
     "platform": "onlinenews-mediacloud",
     "page_size": 1000,
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 470415,
-   "sha256": "643eb7d1c4d4d98f100f9a8999f5b8487f8e10116e4d1c695d4cb183aa0b05df",
-   "retrieved_at": "2026-10-13T22:40:41+00:00",
+   "bytes": 470737,
+   "sha256": "99ee100e72e1d74a929a540667f4f912b03a8a85de3bfcf176cdcb1cd6f6860e",
+   "retrieved_at": "2026-10-14T11:05:42+00:00",
    "note": null,
    "trimmed": true
   },
   "CHL/2026_count_mining.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412295&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412295&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412295,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25197,
-   "sha256": "eef245a389936e120c0147db61f8cf6a8a2b8a4b58a3b4c1dd47ffc7273b214d",
-   "retrieved_at": "2026-10-13T22:40:43+00:00",
+   "bytes": 25274,
+   "sha256": "387250d5aec187b562321d2bf1c544b00ae92d3111775a2ea1151930f1432d36",
+   "retrieved_at": "2026-10-14T11:05:44+00:00",
    "note": null,
    "trimmed": true
   },
   "CHL/2026_count_cn.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-13&cs=34412295&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-14&cs=34412295&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (China OR chino OR china OR Chinese OR Beijing OR Pek\u00edn OR Pequim)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412295,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25164,
-   "sha256": "6ce8ab00d211d23a054137ad754b6a1b40d95a804813556a277704f7163f6b4c",
-   "retrieved_at": "2026-10-13T22:41:40+00:00",
+   "bytes": 25240,
+   "sha256": "be5cfab01f33a43aef3cf2d7a4f642a435e0cdcc41fde8758f8740d9359d0054",
+   "retrieved_at": "2026-10-14T11:06:41+00:00",
    "note": null,
    "trimmed": true
   },
   "CHL/2026_count_us.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-13&cs=34412295&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-14&cs=34412295&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (\"Estados Unidos\" OR EEUU OR \"EE.UU.\" OR \"United States\" OR Washington OR estadounidense OR americano)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412295,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25259,
-   "sha256": "7457d51b12415976ea8262bc03cb4a1692e8fe5998e22c4d7f26f65df89888ad",
-   "retrieved_at": "2026-10-13T22:41:43+00:00",
+   "bytes": 25339,
+   "sha256": "508403c1c08d5a67e1a551391412f6e80ba4f090c8f73d6479df090c3cdd03b0",
+   "retrieved_at": "2026-10-14T11:06:44+00:00",
    "note": null,
    "trimmed": true
   },
   "CHL/2026_stories_1.json": {
-   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412295&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
+   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412295&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412295,
     "platform": "onlinenews-mediacloud",
     "page_size": 1000,
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 486954,
-   "sha256": "63ac2adb91027a31293b98a3ebee025f7ee533e652175b3b5bb37b43ebdcbd58",
-   "retrieved_at": "2026-10-13T22:41:48+00:00",
+   "bytes": 484989,
+   "sha256": "5888da3eea5c8bc977e4f4b5042807d76f3df5a7799d48fdab9830477e8ac44f",
+   "retrieved_at": "2026-10-14T11:06:46+00:00",
    "note": null,
    "trimmed": true
   },
   "COL/2026_count_mining.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412358&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412358&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412358,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25525,
-   "sha256": "7cf5ebb2a7c6666fdc9913651c94bdb087fa6114bc4e8fa0a14f10fd799f33bf",
-   "retrieved_at": "2026-10-13T22:42:41+00:00",
+   "bytes": 25613,
+   "sha256": "be1f7cab797bdd9f71721fd6de0a4195e8aebfdd7f02ed48c88d67bc59f14584",
+   "retrieved_at": "2026-10-14T11:07:43+00:00",
    "note": null,
    "trimmed": true
   },
   "COL/2026_count_cn.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-13&cs=34412358&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28China+OR+chino+OR+china+OR+Chinese+OR+Beijing+OR+Pek%C3%ADn+OR+Pequim%29&start=2026-01-01&end=2026-10-14&cs=34412358&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (China OR chino OR china OR Chinese OR Beijing OR Pek\u00edn OR Pequim)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412358,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25517,
-   "sha256": "fb28501aaf4d7f5a86d2b260005a38649bea691c64ae4d41a946f369feea67d9",
-   "retrieved_at": "2026-10-13T22:42:44+00:00",
+   "bytes": 25610,
+   "sha256": "2ef8bf8d9515b27194a6f1613dfd38e46a9c0ccd3cea2498c36964d78c529b8d",
+   "retrieved_at": "2026-10-14T11:07:46+00:00",
    "note": null,
    "trimmed": true
   },
   "COL/2026_count_us.json": {
-   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-13&cs=34412358&platform=onlinenews-mediacloud",
+   "url": "https://search.mediacloud.org/api/search/count-over-time?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29+AND+%28%22Estados+Unidos%22+OR+EEUU+OR+%22EE.UU.%22+OR+%22United+States%22+OR+Washington+OR+estadounidense+OR+americano%29&start=2026-01-01&end=2026-10-14&cs=34412358&platform=onlinenews-mediacloud",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud) AND (\"Estados Unidos\" OR EEUU OR \"EE.UU.\" OR \"United States\" OR Washington OR estadounidense OR americano)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412358,
     "platform": "onlinenews-mediacloud"
    },
    "status": 200,
-   "bytes": 25464,
-   "sha256": "482bd236da2b05c12b7eddb0978915c29327b83106b9fe5c91ea3ec882e5a432",
-   "retrieved_at": "2026-10-13T22:43:42+00:00",
+   "bytes": 25553,
+   "sha256": "22c55712fb07008f674256e2328375349a9527d3e7572ce0dd5cbf87e487b081",
+   "retrieved_at": "2026-10-14T11:08:46+00:00",
    "note": null,
    "trimmed": true
   },
   "COL/2026_stories_1.json": {
-   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-13&cs=34412358&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
+   "url": "https://search.mediacloud.org/api/search/story-list?q=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22+OR+bauxite+OR+minerals+OR+gold+OR+litio+OR+cobre+OR+miner%C3%ADa+OR+minera+OR+minero+OR+niobio+OR+%22tierras+raras%22+OR+bauxita+OR+minerales+OR+oro+OR+l%C3%ADtio+OR+minera%C3%A7%C3%A3o+OR+mineradora+OR+ni%C3%B3bio+OR+%22terras+raras%22+OR+min%C3%A9rio+OR+minerais+OR+ouro+OR+mijnbouw+OR+bauxiet+OR+goud%29&start=2026-01-01&end=2026-10-14&cs=34412358&platform=onlinenews-mediacloud&page_size=1000&sort_order=desc",
    "params": {
     "q": "(lithium OR copper OR mining OR niobium OR \"rare earths\" OR bauxite OR minerals OR gold OR litio OR cobre OR miner\u00eda OR minera OR minero OR niobio OR \"tierras raras\" OR bauxita OR minerales OR oro OR l\u00edtio OR minera\u00e7\u00e3o OR mineradora OR ni\u00f3bio OR \"terras raras\" OR min\u00e9rio OR minerais OR ouro OR mijnbouw OR bauxiet OR goud)",
     "start": "2026-01-01",
-    "end": "2026-10-13",
+    "end": "2026-10-14",
     "cs": 34412358,
     "platform": "onlinenews-mediacloud",
     "page_size": 1000,
     "sort_order": "desc"
    },
    "status": 200,
-   "bytes": 494651,
-   "sha256": "68e03963a6ce761190483f071382c665ccfc49cd6481bb99ed3a9c008be3cbf9",
-   "retrieved_at": "2026-10-13T22:43:46+00:00",
+   "bytes": 493777,
+   "sha256": "b089092e88e78a71c4b995c504cfd35c3aa8323966fa402dd12fc9ade4c5f17a",
+   "retrieved_at": "2026-10-14T11:08:47+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/mediacloud/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/mediacloud/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [],
  "collections": {
@@ -415,7 +415,7 @@
  "stories_truncated": {
   "ARG/2026": {
    "from": "2026-09-18",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "BOL/2026": {
@@ -425,57 +425,57 @@
   },
   "BRA/2026": {
    "from": "2026-02-01",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "CHL/2026": {
    "from": "2026-05-11",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "COL/2026": {
    "from": "2026-05-10",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "ECU/2026": {
-   "from": "2026-09-16",
-   "to": "2026-10-13",
+   "from": "2026-09-17",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "GUY/2026": {
    "from": "2026-03-29",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "PRY/2026": {
    "from": "2026-08-14",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "PER/2026": {
    "from": "2026-03-19",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "URY/2026": {
-   "from": "2026-07-06",
-   "to": "2026-10-13",
+   "from": "2026-07-07",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "VEN/2026": {
    "from": "2026-04-21",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "MEX/2026": {
    "from": "2026-02-16",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "GTM/2026": {
    "from": "2026-07-02",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "HND/2026": {
@@ -485,12 +485,12 @@
   },
   "CRI/2026": {
    "from": "2026-07-01",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000
   },
   "PAN/2026": {
-   "from": "2026-07-28",
-   "to": "2026-10-13",
+   "from": "2026-07-29",
+   "to": "2026-10-14",
    "kept": 2000
   }
  },
@@ -499,9 +499,9 @@
  "headlines_window": {
   "ARG/2026": {
    "from": "2026-09-18",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 170627,
+   "matched": 171186,
    "truncated": true
   },
   "BLZ/2026": {
@@ -515,153 +515,153 @@
    "from": "2026-03-22",
    "to": "2026-10-13",
    "kept": 2000,
-   "matched": 2796,
+   "matched": 2803,
    "truncated": true
   },
   "BRA/2026": {
    "from": "2026-02-01",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 66722,
+   "matched": 66888,
    "truncated": true
   },
   "CHL/2026": {
    "from": "2026-05-11",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 22526,
+   "matched": 22627,
    "truncated": true
   },
   "COL/2026": {
    "from": "2026-05-10",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 68360,
+   "matched": 68553,
    "truncated": true
   },
   "CRI/2026": {
    "from": "2026-07-01",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 4948,
+   "matched": 4960,
    "truncated": true
   },
   "ECU/2026": {
-   "from": "2026-09-16",
-   "to": "2026-10-13",
+   "from": "2026-09-17",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 18182,
+   "matched": 18228,
    "truncated": true
   },
   "GTM/2026": {
    "from": "2026-07-02",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 6030,
+   "matched": 6042,
    "truncated": true
   },
   "GUY/2026": {
    "from": "2026-03-29",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 3308,
+   "matched": 3313,
    "truncated": true
   },
   "HND/2026": {
    "from": "2026-03-31",
    "to": "2026-10-13",
    "kept": 2000,
-   "matched": 3323,
+   "matched": 3332,
    "truncated": true
   },
   "MEX/2026": {
    "from": "2026-02-16",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 66010,
+   "matched": 66187,
    "truncated": true
   },
   "NIC/2026": {
    "from": "2026-01-01",
    "to": "2026-10-13",
-   "kept": 661,
-   "matched": 659,
+   "kept": 663,
+   "matched": 663,
    "truncated": false
   },
   "PAN/2026": {
-   "from": "2026-07-28",
-   "to": "2026-10-13",
+   "from": "2026-07-29",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 5710,
+   "matched": 5724,
    "truncated": true
   },
   "PER/2026": {
    "from": "2026-03-19",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 21889,
+   "matched": 21949,
    "truncated": true
   },
   "PRY/2026": {
    "from": "2026-08-14",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 9041,
+   "matched": 9070,
    "truncated": true
   },
   "SLV/2026": {
    "from": "2026-01-01",
    "to": "2026-10-13",
-   "kept": 1576,
-   "matched": 1575,
+   "kept": 1579,
+   "matched": 1579,
    "truncated": false
   },
   "SUR/2026": {
    "from": "2026-01-01",
-   "to": "2026-10-13",
-   "kept": 1731,
-   "matched": 1731,
+   "to": "2026-10-14",
+   "kept": 1743,
+   "matched": 1743,
    "truncated": false
   },
   "URY/2026": {
-   "from": "2026-07-06",
-   "to": "2026-10-13",
+   "from": "2026-07-07",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 5232,
+   "matched": 5242,
    "truncated": true
   },
   "VEN/2026": {
    "from": "2026-04-21",
-   "to": "2026-10-13",
+   "to": "2026-10-14",
    "kept": 2000,
-   "matched": 16736,
+   "matched": 16768,
    "truncated": true
   }
  },
  "incomplete_years": [],
  "unmatched_domains": {
+  "guyanainquirer.com": 52,
   "guyanatimesgy.com": 52,
-  "guyanainquirer.com": 51,
   "dbsuriname.com": 34,
   "inewsguyana.com": 33,
   "telemetro.com": 33,
   "unitednews.sr": 30,
   "gfcnieuws.com": 29,
   "laestrella.com.pa": 25,
+  "infobae.com": 23,
   "tvn-2.com": 23,
   "bbc.co.uk": 21,
   "panamaamerica.com.pa": 18,
-  "infobae.com": 17,
+  "waterkant.net": 18,
   "metrolibre.com": 17,
-  "waterkant.net": 17,
   "elcaso.elnacional.cat": 16,
   "critica.com.pa": 16,
   "newsroompanama.com": 15,
   "srherald.com": 14,
   "prensa.com": 13,
   "cnnchile.com": 12,
-  "eldesconcierto.cl": 10,
   "breakingbelizenews.com": 9,
+  "eldesconcierto.cl": 9,
   "eju.tv": 8,
   "df.cl": 8,
   "hgptv.com": 8,

@@ -1,50 +1,24 @@
 {
  "source_id": "per_idl_reporteros",
  "files": {
-  "home.html": {
-   "url": "https://www.idl-reporteros.pe/",
-   "params": {},
-   "status": 200,
-   "bytes": 272467,
-   "sha256": "bad9a9903bcd5a1d08f3cf36cc83905ddabd07782b955f18c03df26f55495d18",
-   "retrieved_at": "2026-10-07T11:21:42+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
    "url": "https://www.idl-reporteros.pe/feed/",
    "params": {},
    "status": 200,
-   "bytes": 135642,
-   "sha256": "f97dc2d532d42e0c331de62208051e4592a4d54f22d2ece47a92fb413723275b",
-   "retrieved_at": "2026-10-07T11:21:43+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "feed_1.xml": {
-   "url": "https://www.idl-reporteros.pe/comments/feed/",
-   "params": {},
-   "status": 200,
-   "bytes": 9293,
-   "sha256": "6b471943b4c488446a7b9f122e6d1e6fce4575c34151df4cde2d45d8a9f2e488",
-   "retrieved_at": "2026-10-07T11:21:45+00:00",
+   "bytes": 135585,
+   "sha256": "02956ec9abccfd2a6a2ebe3f69afcf6e2501618dd6df6dd4d2ffe78e295a1262",
+   "retrieved_at": "2026-10-14T10:11:35+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_idl_reporteros/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_idl_reporteros/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
-  "https://www.idl-reporteros.pe/feed/",
-  "https://www.idl-reporteros.pe/comments/feed/"
- ],
- "discovered_feeds": [
-  "https://www.idl-reporteros.pe/feed/",
-  "https://www.idl-reporteros.pe/comments/feed/"
+  "https://www.idl-reporteros.pe/feed/"
  ],
  "feeds_tried": [
-  "https://www.idl-reporteros.pe/feed/",
-  "https://www.idl-reporteros.pe/comments/feed/"
+  "https://www.idl-reporteros.pe/feed/"
  ],
- "feeds_found": 2
+ "feeds_found": 1
 }

@@ -1,0 +1,160 @@
+{
+ "source_id": "cgtn_es",
+ "files": {
+  "home.html": {
+   "url": "https://espanol.cgtn.com/",
+   "params": {},
+   "status": 200,
+   "bytes": 335247,
+   "sha256": "9bbbc9569d336a48a13f866d4b537b62ff15419a2500b154bfc749941a60ef97",
+   "retrieved_at": "2026-10-14T09:43:04+00:00",
+   "note": null,
+   "trimmed": true
+  }
+ },
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/cgtn_es/2026-10-14",
+ "note": "trimmed copy of a real response; see scm/fixtures.py",
+ "index_pages": [
+  {
+   "url": "https://espanol.cgtn.com/rss",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/feed/",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/feed",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/rss.xml",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/feed.xml",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/feeds/rss",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/rss/portada",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/rss/ultimas-noticias",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/arc/outboundfeeds/rss/",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/arc/outboundfeeds/rss/?outputType=xml",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/arcio/rss/",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/rss/lo-ultimo/",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/feeds/articulos",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/rss/listado/",
+   "links": []
+  },
+  {
+   "url": "https://espanol.cgtn.com/rss/pages/home.xml",
+   "links": []
+  }
+ ],
+ "errors": [
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/rss: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/feed/: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/feed: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/rss.xml: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/feed.xml: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/feeds/rss: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/rss/portada: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/rss/ultimas-noticias: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/arc/outboundfeeds/rss/: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/arc/outboundfeeds/rss/?outputType=xml: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/arcio/rss/: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/rss/lo-ultimo/: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/feeds/articulos: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/rss/listado/: HTML index, 0 feed-like links"
+  },
+  {
+   "name": "feed_0.xml",
+   "error": "https://espanol.cgtn.com/rss/pages/home.xml: HTML index, 0 feed-like links"
+  }
+ ],
+ "discovered_feeds": [],
+ "feeds_tried": [
+  "https://espanol.cgtn.com/rss",
+  "https://espanol.cgtn.com/feed/",
+  "https://espanol.cgtn.com/feed",
+  "https://espanol.cgtn.com/rss.xml",
+  "https://espanol.cgtn.com/feed.xml",
+  "https://espanol.cgtn.com/feeds/rss",
+  "https://espanol.cgtn.com/rss/portada",
+  "https://espanol.cgtn.com/rss/ultimas-noticias",
+  "https://espanol.cgtn.com/arc/outboundfeeds/rss/",
+  "https://espanol.cgtn.com/arc/outboundfeeds/rss/?outputType=xml",
+  "https://espanol.cgtn.com/arcio/rss/",
+  "https://espanol.cgtn.com/rss/lo-ultimo/",
+  "https://espanol.cgtn.com/feeds/articulos",
+  "https://espanol.cgtn.com/rss/listado/",
+  "https://espanol.cgtn.com/rss/pages/home.xml"
+ ],
+ "feeds_found": 0
+}

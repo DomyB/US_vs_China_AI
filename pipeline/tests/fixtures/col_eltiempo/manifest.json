@@ -1,62 +1,24 @@
 {
  "source_id": "col_eltiempo",
  "files": {
-  "home.html": {
-   "url": "https://www.eltiempo.com/",
-   "params": {},
-   "status": 200,
-   "bytes": 884552,
-   "sha256": "2baeacf3a88097923b62c4268270ea6a58f16f71af65c01c9d44be941ecfb1c3",
-   "retrieved_at": "2026-10-07T11:21:17+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
-   "url": "https://www.eltiempo.com/rss/opinion.xml",
+   "url": "https://www.eltiempo.com/rss/colombia.xml",
    "params": {},
    "status": 200,
-   "bytes": 8621,
-   "sha256": "058ca1306bf8c0d444faa46cbbec0554d0a3d2e25470b2fbeec562ef833dabed",
-   "retrieved_at": "2026-10-07T11:21:21+00:00",
+   "bytes": 13261,
+   "sha256": "9e54e891ededa911da7d3ff9b6d5ad6e4c1b583bf547573712c19a4589eff928",
+   "retrieved_at": "2026-10-14T10:10:47+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_eltiempo/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_eltiempo/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
- "index_pages": [
-  {
-   "url": "https://www.eltiempo.com/rss",
-   "links": [
-    "https://www.eltiempo.com/rss/opinion.xml",
-    "https://www.eltiempo.com/rss/opinion_editorial.xml",
-    "https://www.eltiempo.com/rss/opinion_mas-opinion.xml",
-    "https://www.eltiempo.com/rss/colombia.xml",
-    "https://www.eltiempo.com/rss/colombia_barranquilla.xml",
-    "https://www.eltiempo.com/rss/colombia_medellin.xml",
-    "https://www.eltiempo.com/rss/colombia_cali.xml",
-    "https://www.eltiempo.com/rss/colombia_otras-ciudades.xml",
-    "https://www.eltiempo.com/rss/bogota.xml",
-    "https://www.eltiempo.com/rss/mundo.xml",
-    "https://www.eltiempo.com/rss/mundo_latinoamerica.xml",
-    "https://www.eltiempo.com/rss/mundo_eeuu-y-canada.xml"
-   ]
-  }
- ],
- "errors": [
-  {
-   "name": "feed_0.xml",
-   "error": "https://www.eltiempo.com/rss: HTML index, 12 feed-like links"
-  }
- ],
  "feed_urls": [
-  "https://www.eltiempo.com/rss/opinion.xml"
- ],
- "discovered_feeds": [
-  "https://www.eltiempo.com/rss"
+  "https://www.eltiempo.com/rss/colombia.xml"
  ],
  "feeds_tried": [
-  "https://www.eltiempo.com/rss"
+  "https://www.eltiempo.com/rss/colombia.xml"
  ],
  "feeds_found": 1
 }

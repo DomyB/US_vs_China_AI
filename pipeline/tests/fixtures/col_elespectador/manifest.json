@@ -1,63 +1,24 @@
 {
  "source_id": "col_elespectador",
  "files": {
-  "home.html": {
-   "url": "https://www.elespectador.com/",
-   "params": {},
-   "status": 200,
-   "bytes": 550669,
-   "sha256": "0dba3502f64e50fdcc339ca682755b4f53436445afb40f81c571a56a7c930fdc",
-   "retrieved_at": "2026-10-07T11:21:12+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
-   "url": "https://www.elespectador.com/feed/",
-   "params": {},
-   "status": 200,
-   "bytes": 934,
-   "sha256": "7b48f0a65c2f0762e2582b8e126cbf5be5c3e4870a86ed273dc4c9a05b8b89be",
-   "retrieved_at": "2026-10-07T11:21:12+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "feed_1.xml": {
-   "url": "https://www.elespectador.com/comments/feed/",
-   "params": {},
-   "status": 200,
-   "bytes": 9890,
-   "sha256": "b87496f16512370d509f842ed9b76cdd781a363f9c1009b01db62f78d32be59f",
-   "retrieved_at": "2026-10-07T11:21:15+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "feed_2.xml": {
    "url": "https://www.elespectador.com/arc/outboundfeeds/discover/",
    "params": {},
    "status": 200,
-   "bytes": 174932,
-   "sha256": "4aa1d4d25c43a5fc2757eaee4bec1e614b4105258716f0e24c2bf6b8f3264d50",
-   "retrieved_at": "2026-10-07T11:21:16+00:00",
+   "bytes": 138928,
+   "sha256": "aaf6f4e3d89996b34e291e68c74358a711c43a3d1a31bae6e572437e3769f2d9",
+   "retrieved_at": "2026-10-14T10:10:47+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_elespectador/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_elespectador/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
-  "https://www.elespectador.com/feed/",
-  "https://www.elespectador.com/comments/feed/",
-  "https://www.elespectador.com/arc/outboundfeeds/discover/"
- ],
- "discovered_feeds": [
-  "https://www.elespectador.com/feed/",
-  "https://www.elespectador.com/comments/feed/",
   "https://www.elespectador.com/arc/outboundfeeds/discover/"
  ],
  "feeds_tried": [
-  "https://www.elespectador.com/feed/",
-  "https://www.elespectador.com/comments/feed/",
   "https://www.elespectador.com/arc/outboundfeeds/discover/"
  ],
- "feeds_found": 3
+ "feeds_found": 1
 }

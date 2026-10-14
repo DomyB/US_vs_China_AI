@@ -1,33 +1,20 @@
 {
  "source_id": "bra_estadao",
  "files": {
-  "home.html": {
-   "url": "https://www.estadao.com.br/",
-   "params": {},
-   "status": 200,
-   "bytes": 1393392,
-   "sha256": "5010e919dfaf9675fc83c0c1c15b6b27b016b0f541445375dae57231fbdf7ecc",
-   "retrieved_at": "2026-10-07T11:19:51+00:00",
-   "note": null,
-   "trimmed": true
-  },
   "feed_0.xml": {
    "url": "https://www.estadao.com.br/arc/outboundfeeds/feeds/rss/sections/geral/?body=%7B%22layout%22:%22google-news%22%7D",
    "params": {},
    "status": 200,
    "bytes": 109538,
-   "sha256": "36c87851cb6633af9d9a67ffcbbe66e1d0a403673ff8e79c7c44b4c3cb12a422",
-   "retrieved_at": "2026-10-07T11:19:52+00:00",
+   "sha256": "f59652897bd77aa1ddcefb71f2ad3623a954c606cf6e6b18328d0ed40d6d95a0",
+   "retrieved_at": "2026-10-14T09:42:52+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_estadao/2026-10-07",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_estadao/2026-10-14",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
-  "https://www.estadao.com.br/arc/outboundfeeds/feeds/rss/sections/geral/?body=%7B%22layout%22:%22google-news%22%7D"
- ],
- "discovered_feeds": [
   "https://www.estadao.com.br/arc/outboundfeeds/feeds/rss/sections/geral/?body=%7B%22layout%22:%22google-news%22%7D"
  ],
  "feeds_tried": [
