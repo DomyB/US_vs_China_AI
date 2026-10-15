@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { FitTarget } from "@/components/map/SouthAmericaMap";
 import { LayerLabel } from "@/components/ui/Badges";
+import { Reading } from "@/components/ui/Reading";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT, IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { BIV, BIV_NAMES, buyerCells, bivFill } from "@/lib/buyers";
@@ -92,6 +93,10 @@ export function OverviewPage() {
   if (!d) return <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-5 text-sm text-ink-2">The data files could not be loaded.</div>;
   const cnColor = "var(--cn)", usColor = "var(--us)";
   const withFacts = d.real ? Object.values(d.real.coverage).filter((c) => c.actions).length : null;
+  // the tiles' reading compares the two ends of the share tiles it prints; without both ends it only says where to look
+  const bothShares = t0 && t && t0.share_cn != null && t.share_cn != null && t0.share_us != null && t.share_us != null;
+  const cnUp = bothShares && (t.share_cn as number) > (t0.share_cn as number);
+  const usDown = bothShares && (t.share_us as number) < (t0.share_us as number);
 
   return (
     <div className="mx-auto max-w-[1240px] px-4 pb-10 sm:px-5">
@@ -113,6 +118,7 @@ export function OverviewPage() {
         </div>
         <div className="panel">
           <div className="panel-head"><h3 className="text-base">Who bought each country&apos;s critical minerals{hero.year ? `, ${hero.year}` : ""}</h3><Kind k="facts" /></div>
+          <Reading compact asks="Who buys each country's minerals? The home opens with the buyers because everything the site asks follows from that trade, and a map shows the split for every country at once." how="Each country is coloured on a three-by-three grid: China's share runs across, the US share runs up, so both high and both low keep their own colour; hover a country for its two shares. Grey is no reported export cells for the two buyers, which is missing data and not an absence of trade." />
           <div className="relative h-[24rem] overflow-hidden rounded-md border border-rule">
             <SouthAmericaMap fills={hero.fills} values={hero.values} countries={d.meta.countries} selection={[]} onSelect={() => undefined} onHover={() => undefined} describeValue={(iso) => { const c = hero.cells.get(iso); return c ? `${fmtPct(c.cn, 0)} to China, ${fmtPct(c.us, 0)} to the United States` : "no reported export cells"; }} theme={theme} worldUrl="/data/world.topo.json" fitTo={fit} animateFlows={false} />
             <div className="absolute bottom-2 right-2 rounded-md border border-rule bg-card/95 p-2 text-[10px] text-ink-3">
@@ -122,13 +128,15 @@ export function OverviewPage() {
               <div className="mt-1">China →, US ↑</div>
             </div>
           </div>
-          <p className="mt-2 text-[11px] text-ink-3">Colour shows China&apos;s and the US&apos;s share of each country&apos;s reported exports of the tracked minerals at once, so &ldquo;both high&rdquo; and &ldquo;both low&rdquo; stay distinct; low is under 15%, high over 40%. Grey: no export cells for both buyers. Source: UN Comtrade, own calculations.</p>
+          <p className="mt-2 text-[11px] text-ink-3">Shares of each country&apos;s reported exports of the tracked minerals; low is under 15%, high over 40%. Source: UN Comtrade, own calculations.</p>
+          <Reading compact says={`${t && t.share_cn != null && t.share_us != null ? `Over the region ${fmtPct(t.share_cn, 0)} of the tracked exports went to China and ${fmtPct(t.share_us, 0)} to the United States in ${t.year}; ` : ""}look for the countries whose colour sits in a corner of the legend, where the ore goes mostly to one buyer or to neither.`} saysKind="facts" />
         </div>
       </section>
 
       {/* four numbers */}
       <section className="mt-2">
         <h2 className="text-[1.45rem]">The region in four numbers</h2>
+        <Reading compact asks="How big is the shift the site is about? Four numbers, each with a sparkline, give the region's totals over the whole record before any single country is opened." how="Each tile shows the first year with both buyers reported and the latest, the sparkline every year between; the first three sum reported exports over the reporting countries, the fourth averages a model output. A break in a sparkline is a missing year, not a zero." />
         <div className="mt-3 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
           <div className="stat">
             <div className="k">China&apos;s share of the region&apos;s mineral exports</div>
@@ -155,6 +163,7 @@ export function OverviewPage() {
             <div className="s">mean of China minus US over {l?.n ?? "—"} countries · model output</div>
           </div>
         </div>
+        <Reading compact says={`${cnUp && usDown ? "Between the two years on the tiles China's share rose and the US share fell" : "Compare the two ends of each share tile"}; the value tile is in current dollars, so much of its movement is prices, and the lean tile is a model output, not a trade figure.`} />
       </section>
 
       {/* five ideas */}
@@ -182,6 +191,9 @@ export function OverviewPage() {
       <section className="mt-9">
         <h2 className="text-[1.45rem]">Three actors, not two</h2>
         <p className="mt-1 max-w-[70ch] text-sm text-ink-2">Latin American governments set the rules, choose partners and bargain over terms. The site treats them as actors in every section, not as the stage on which two powers compete.</p>
+        <div className="max-w-2xl">
+          <Reading compact asks="Why three actors and not two? A diagram of the links makes the point that the region's governments sit on every tie the site measures, rather than between the two powers." how="China and the United States above, the governments below; each coloured line is the ties one power holds with the region, the dashed line between the powers their rivalry; the words in the middle name what every link carries." />
+        </div>
         <div className="panel mt-3 max-w-2xl">
           <svg viewBox="0 0 520 230" className="h-auto w-full" role="img" aria-label="China and the United States above, Latin American governments below, each link carrying trade, investment and finance, diplomacy and narratives">
             <defs><marker id="arrow-ov" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--ink-3)" /></marker></defs>
@@ -203,6 +215,9 @@ export function OverviewPage() {
             <text x="260" y="197" textAnchor="middle" fontSize="13" fill="var(--ink)">Latin American governments</text>
             <text x="260" y="213" textAnchor="middle" fontSize="8.5" fill="var(--sand-ink)">{COUNTRY_COUNT} states setting rules, choosing partners, hedging</text>
           </svg>
+        </div>
+        <div className="max-w-2xl">
+          <Reading compact says="The site's framing, not a finding: every chart that follows reads trade, money and words as choices the region's governments make too, which is why the case files and the statements get as much room as the flows." />
         </div>
       </section>
 

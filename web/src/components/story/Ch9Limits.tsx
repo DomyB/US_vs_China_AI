@@ -17,7 +17,7 @@ export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }
   const tableCols: { key: string; label: string }[] = [{ key: "country", label: "Country" }, ...wall.cols.map((c) => ({ key: c, label: c }))];
   return (
     <div className="space-y-6">
-      <Exhibit id="c9-wall" title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} note={`A filled cell is a record the site holds; a hatched cell is a record it does not, with the reason on hover, read out by a screen reader, and listed in the table beneath. The largest hole on every money chart is Chinese finance after ${lastYearCN ?? "the source's last year"}: the source ends there, so those years are blank, not zero.`}>
+      <Exhibit id="c9-wall" title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} asks="What can this record see, and what can it not? A grid of country by record shows the holes before the charts built on them are read; it is a chart of the data, not of the region." how="One row per country, one column per record; a filled cell is a record the site holds and a hatched cell one it does not, the reason on hover, read out by a screen reader, and listed in the text table beneath. A hatched cell is missing, never a zero." says="The holes gather in the columns for words and legislatures rather than in trade, and every money column ends at its source's last year. A chapter that rests on a hatched cell is a weaker chapter, which the meters beneath say." note={`The largest hole on every money chart is Chinese finance after ${lastYearCN ?? "the source's last year"}: the source ends there, so those years are blank, not zero.`}>
         <p className="mb-1 text-[11px] text-ink-3 sm:hidden">The wall is wider than the screen: scroll it sideways for the other columns.</p>
         <div className="scroll-x">
           <table className="w-full border-collapse text-xs">
@@ -48,7 +48,7 @@ export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }
         </div>
         <DataTable rows={tableRows} columns={tableCols} caption="The coverage wall as text: for each country and record, whether the site holds it and the reason when it does not" />
       </Exhibit>
-      <Exhibit id="c9-meters" title="How strong is each chapter" layer="interp" sources={[]} ids={chapters.map((c) => `chapter:${c.n}`)}>
+      <Exhibit id="c9-meters" title="How strong is each chapter" layer="interp" sources={[]} ids={chapters.map((c) => `chapter:${c.n}`)} asks="How much should each chapter's answer be trusted? One meter per chapter, with its basis spelled out, puts the strength of the record beside the claim it supports; it rates the evidence, not the region." how="One card per chapter, in order: three bars read thin, moderate or strong, the word beside them, the basis the level rests on beneath; each card links back to its chapter." says="The chapters on reported trade and documented money rate strong and those on coded words thin: the record is firmest at the border and weakest where it has to read intent.">
         <ol className="grid gap-2 sm:grid-cols-3">
           {chapters.map((c) => (
             <li key={c.n}>

@@ -7,6 +7,7 @@ import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { CodedStanceByYear, StatementsByYear } from "@/components/statements/StatementCharts";
 import { StatementList } from "@/components/statements/StatementList";
 import { DataLayerTag, LayerLabel, ModelStatusTag, StanceBadge } from "@/components/ui/Badges";
+import { Reading } from "@/components/ui/Reading";
 import { SectionHeader, StatTile } from "@/components/ui/Section";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { ACTOR_COLOR, COUNTRY_COUNT_WORD, LANGUAGE_NAME, prettyLabel, prettyMineral } from "@/lib/constants";
@@ -103,11 +104,23 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
             <div className="grid gap-3 md:grid-cols-2">
               <div>
                 <h4 className="text-xs font-semibold text-ink-2">Statements per year, by who speaks</h4>
+                <Reading
+                  compact
+                  asks={`Who speaks about ${data.name}'s minerals and when: its own leaders, Washington, Beijing or others? Stacked bars per year show volume and voice together.`}
+                  how="One bar per year, split by speaker bloc; a year with no bar has no statement in the dataset, which is a collection, not a census."
+                />
                 <StatementsByYear rows={byYearBloc} ariaLabel={`Statements about minerals in ${data.name} per year by speaker bloc`} />
+                <Reading compact says="A year in which the outside blocs outnumber the domestic one is a year the country was talked about more than it talked." />
               </div>
               <div>
                 <h4 className="text-xs font-semibold text-ink-2">Coded stance of {data.name}&apos;s own actors</h4>
+                <Reading
+                  compact
+                  asks={`When ${data.name}'s own actors speak, do they lean toward China or the United States, and does that shift? A yearly mean of +1, 0 and −1 codes shows direction and strength together.`}
+                  how="One dot per year and actor, its height the mean coded stance toward that actor and its size the statements that took a position; the dashed rule is the selected year; a year with no dot has no statement that took a position, not a neutral one."
+                />
                 <CodedStanceByYear rows={stm.stance_by_year} year={year} ariaLabel={`Coded stance of ${data.name}'s own actors toward the United States and China by year, dataset coding`} />
+                <Reading compact says="A large dot near zero is a mixed year, not an indifferent one; a small dot at the top or bottom is a handful of statements. The coding is the dataset's own and is not validated." />
               </div>
             </div>
             <div className="mt-3">
@@ -118,9 +131,18 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
       </section>
 
       <section aria-labelledby="stance-h">
-        <SectionHeader id="stance-h" title="Legislative stance over time" tags={<><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</>} provenance={provenanceFor("stance", { iso3: data.iso3, meta, model: data.text_model ? { name: data.text_model.model ?? data.text_model.method ?? "text model", version: data.text_model.codebook_version ?? undefined, validation: data.text_model.label ?? undefined } : undefined })} />
+        <SectionHeader
+          id="stance-h"
+          title="Legislative stance over time"
+          tags={<><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</>}
+          provenance={provenanceFor("stance", { iso3: data.iso3, meta, model: data.text_model ? { name: data.text_model.model ?? data.text_model.method ?? "text model", version: data.text_model.codebook_version ?? undefined, validation: data.text_model.label ?? undefined } : undefined })}
+          asks="Does the language of the legislature toward each power warm or cool over the years? A yearly mean sized by the record count shows the direction and how much rests on it."
+          how="One line per actor on the −2 to +2 scale around the zero rule; dot size is the number of records scored that year; the dashed rule is the selected year; a year with no dot has no record naming the actor, not a neutral one."
+          says="A line near zero is a legislature that names the actor without taking a side; a large dot far from zero is a year of many records pointing one way."
+          saysKind="model"
+        />
         <p className="mb-2 text-xs text-ink-3">
-          Mean stance of bills, hearings and votes that name each actor (records that name neither are not scored); dot size is the number of records. Coding method and validation scores are on the methodology page.
+          Mean stance of bills, hearings and votes that name each actor (records that name neither are not scored). Coding method and validation scores are on the methodology page.
           {layer === "facts_only" && " This series is SAMPLE until the text workflow classifies the real records listed below."}
           {layer === "real" && !data.text_model?.validated && " Values come from a zero-shot baseline that has not yet been checked against hand-coded records: read them as indicative."}
         </p>

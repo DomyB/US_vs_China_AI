@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { BLOC_SHORT } from "@/components/statements/blocs";
+import { Reading } from "@/components/ui/Reading";
 import { Segmented } from "@/components/ui/Segmented";
 import { ACTOR_LABEL } from "@/lib/constants";
 import { fmtMusd, fmtPct } from "@/lib/format";
@@ -134,8 +135,10 @@ export function WordsVsMoney({ countries, byBloc }: { countries: InsightCountry[
       </div>
       <div>
         <p className="mb-1 text-xs text-ink-2">Who says what, region-wide: coded positions by speaker bloc toward each power.</p>
+        <Reading compact asks="Which speakers take positions, and in which direction? Diverging bars by bloc show the negative and the positive positions on either side of zero, so a bloc that only criticises and one that only praises read differently at a glance." how="One row per speaker bloc, one panel per power spoken about; negative positions run left of zero, neutral or mixed and positive run right; the length is the number of coded statements. Statements that do not mention the power are left out." />
         <PlotFigure options={blocOptions} ariaLabel="Coded positions of each speaker bloc toward the United States and toward China, negative to the left and positive to the right" />
-        <p className="mt-1 text-[11px] leading-snug text-ink-3">Positive bars take the China hue for both powers only to stand apart from the greys; the hue carries no meaning here. Statements that do not mention the power are left out.</p>
+        <Reading compact says="A bloc whose bars lean one way on one panel and the other way on the other is talking about the two powers in opposite terms; a short row is a bloc with few coded statements, not a quiet one. The positions are the dataset's own coding." />
+        <p className="mt-1 text-[11px] leading-snug text-ink-3">Positive bars take the China hue for both powers only to stand apart from the greys; the hue carries no meaning here.</p>
       </div>
     </div>
   );

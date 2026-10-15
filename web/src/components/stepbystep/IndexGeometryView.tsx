@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { CAT_4, INK_3, RULE } from "@/components/insights/shared";
+import { PageGuide, Reading } from "@/components/ui/Reading";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, ACTOR_LABEL, COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
 import { loadComponents } from "@/lib/data";
@@ -161,6 +162,7 @@ export function IndexGeometryView() {
   });
   const normaliseFigure = (
     <div className="space-y-3">
+      <Reading compact asks="Where does each raw value land once it is put on 0 to 100? One dot per component on a single shared scale shows the row after normalisation, with the table under it for checking the arithmetic." how="One row per available component, the dot its normalised value, with rules at 0, 50 and 100; hover for the raw value, the bounds and the number of rows they come from. An absent component has no row." />
       <PlotFigure
         options={{
           height: 40 + 30 * scaleRows.length, marginLeft: 180,
@@ -177,6 +179,7 @@ export function IndexGeometryView() {
         expandable={false}
         glyph="model"
       />
+      <Reading compact says="A dot at 0 or at 100 is a value beyond the record's 2.5th or 97.5th percentile, clipped there; the recomputed column should match the published one to a decimal, and where it does not the export's rounding is the usual reason." saysKind="model" />
       <div className="overflow-x-auto">
         <table className="w-full text-xs">
           <thead><tr className="text-left text-ink-3"><th className="py-1 pr-3 font-semibold">Component</th><th className="py-1 pr-3 font-semibold">Raw</th><th className="py-1 pr-3 font-semibold">Lower bound (2.5th pct)</th><th className="py-1 pr-3 font-semibold">Upper bound (97.5th)</th><th className="py-1 pr-3 font-semibold">Rows</th><th className="py-1 pr-3 font-semibold">Recomputed</th><th className="py-1 font-semibold">Published</th></tr></thead>
@@ -200,7 +203,9 @@ export function IndexGeometryView() {
 
   const vectorRows = COMPONENT_ORDER.map((k) => ({ k, label: SHORT_LABEL[k] ?? componentLabel(k), full: componentLabel(k), v: p.v[k] ?? null }));
   const pointFigure = (
-    <PlotFigure
+    <div>
+      <Reading compact asks="What is the composite, seen as geometry? Bars of the normalised components with the mean drawn as a line show both the point and the single number the index reduces it to." how="One bar per component in the index's order, its height the normalised value; the dashed line is the equal-weight mean of the bars present; an absent component is marked as such, never drawn as a zero bar." />
+      <PlotFigure
       options={{
         height: 220, marginBottom: 40, marginLeft: 40,
         x: { label: null, domain: vectorRows.map((r) => r.label) },
@@ -214,11 +219,15 @@ export function IndexGeometryView() {
       ariaLabel="The six normalised components as bars with the equal-weight mean as a line"
       expandable={false}
       glyph="model"
-    />
+      />
+      <Reading compact says="Two rows with the same mean can have very different bars: the composite is the point's projection onto the diagonal and keeps nothing of its shape, which is what the distances of the next stage recover." saysKind="model" />
+    </div>
   );
 
   const distanceFigure = neighbours.length > 0 ? (
-    <PlotFigure
+    <div>
+      <Reading compact asks="Which country-years resemble this row on every component at once? A ranked bar chart of distances answers what the composite alone cannot, since equal means can hide different rows." how="One bar per neighbour, the nearest at the top, its length the root-mean-square distance over the components both rows share; green bars are the same country's other years, coloured bars other countries; hover for the shared count and the composite." />
+      <PlotFigure
       options={{
         height: 40 + 26 * neighbours.length, marginLeft: 200,
         x: { label: "distance (root mean square over shared components) →", domain: [0, Math.max(10, ...neighbours.map((n) => n.d))] },
@@ -231,11 +240,15 @@ export function IndexGeometryView() {
       ariaLabel="The eight nearest country-years by distance over shared components"
       expandable={false}
       glyph="model"
-    />
+      />
+      <Reading compact says="A near neighbour from another country is a row that looks like this one on the measured components, a resemblance and not a political likeness; a distance over fewer shared components is less comparable than one over more." saysKind="model" />
+    </div>
   ) : undefined;
 
   const axesFigure = (
-    <PlotFigure
+    <div>
+      <Reading compact asks={`Where do the countries sit on the two published sub-indices in ${year}? A scatter with economic ties across and political alignment up shows every country beside the row of this walk.`} how="Economic ties across, political alignment up, both from 0 to 100 with rules at 50; the filled dot is the row of this walk, the hollow dots the other countries toward the same actor in the same year; a country without both sub-indices is not drawn." />
+      <PlotFigure
       options={{
         height: 360, marginLeft: 44,
         x: { label: "economic ties →", domain: [0, 100] },
@@ -248,7 +261,9 @@ export function IndexGeometryView() {
       } as PlotOptions}
       ariaLabel={`Every country in ${year} on the two sub-indices toward ${actorName(actor)}`}
       glyph="model"
-    />
+      />
+      <Reading compact says="A dot far from the diagonal is a country whose economic and political relations with the actor disagree; the sub-indices are relative scores on this record's range, so 50 is the record's middle and not neutrality." saysKind="model" />
+    </div>
   );
 
   const pca = cloud.pca;
@@ -262,7 +277,9 @@ export function IndexGeometryView() {
     const span = Math.max(...dots.map((d) => Math.hypot(d.x, d.y)), 1) * 0.6;
     const tip = (d: { q: CountryYearPoint }) => `${label(d.q)}\ncomposite ${f1(d.q.composite)}`;
     return (
-      <PlotFigure
+      <div>
+        <Reading compact asks="What does the whole record look like from its two widest directions? A two-dimensional fold of the four shared components is a way to look at the cloud, not a measurement of anything in it." how="One dot per country-year-actor, coloured by actor as the legend above shows; the axes are the two principal components, each labelled with the variance it keeps; the arrow is the composite's equal-weight direction; the green path is this country's own years, labelled at the oldest end; the large dot is the row of this walk." />
+        <PlotFigure
         options={{
           height: 460, marginLeft: 44,
           x: { label: `first axis (${fmtPct(pca.explained[0], 0)} of variance) →` },
@@ -278,7 +295,9 @@ export function IndexGeometryView() {
         } as PlotOptions}
         ariaLabel="Every country-year with the four shared components on the two principal axes, with the example and its country's path"
         glyph="model"
-      />
+        />
+        <Reading compact says={`The fold is a projection for looking, not a measurement: it keeps ${fmtPct(pca.explained[0] + pca.explained[1], 0)} of the variance, so two dots close here can differ on what was flattened away, and the distances on this picture are not the distances of the previous stage.`} saysKind="model" />
+      </div>
     );
   })() : undefined;
 
@@ -413,6 +432,13 @@ export function IndexGeometryView() {
       layer="model"
       provenance={provenance}
       stages={stages}
+      aside={
+        <PageGuide
+          purpose="Follows one country-year of the influence index from its six raw components to a point, the composite as a direction, the distances to other rows, the two sub-indices as axes and a fold of the whole record, every number recomputed in the browser beside the published one."
+          read="Pick the country, year and actor in the first stage and move through the stages with the rail or the arrow keys; each stage is a live view of the same row. The fold at the end is a projection for looking, not a measurement."
+          next={[{ href: "/votes-and-ore", label: "Votes and ore" }, { href: "/lab", label: "The Lab" }]}
+        />
+      }
     />
   );
 }

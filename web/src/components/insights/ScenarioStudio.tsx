@@ -4,7 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { Segmented } from "@/components/ui/Segmented";
-import { ACTOR_LABEL, COUNTRY_NAMES, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { ACTOR_LABEL, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { fmtMusd, fmtPct } from "@/lib/format";
 import { atYear, blendPath, echoPath, financeRaw, recomputeIndex, tradeWhatIf, yearlyAverage, type Levers } from "@/lib/scenario";
 import type { Actor, EventEcho, IndexRow, InsightCountry, InsightRegion } from "@/lib/types";
@@ -160,16 +160,16 @@ export function ScenarioStudio({ country, region, indexRows, levers, onChange, h
         </div>
         <div>
           <p className="mb-1 text-xs text-ink-3">Share of {country.name}&apos;s mineral exports: reported (solid), your blend of the published scenarios (dashed, with 50% and 90% bands), your shock (dotted, with the middle half of past echoes).</p>
-          <PlotFigure glyph="model" options={shareOptions} ariaLabel={`Share of ${country.name}'s mineral exports going to the United States and China, reported to ${lastShare} and under the reader's scenario to ${horizon}`} />
+          <PlotFigure glyph="model" options={shareOptions} ariaLabel={`Share of ${country.name}'s mineral exports going to the United States and China, reported to ${lastShare.US} (United States) and ${lastShare.CN} (China) and under the reader's scenario to ${horizon}`} />
           <DataTable rows={(["US", "CN"] as Actor[]).flatMap((a) => sharePaths[a].map((p) => ({ actor: a, ...p })))} caption="Your blended share paths by year and actor" columns={[{ key: "actor", label: "Actor" }, { key: "year", label: "Year" }, { key: "point", label: "Median", format: (v) => fmtPct(Number(v), 1) }, { key: "p05", label: "5%", format: (v) => fmtPct(Number(v), 1) }, { key: "p25", label: "25%", format: (v) => fmtPct(Number(v), 1) }, { key: "p75", label: "75%", format: (v) => fmtPct(Number(v), 1) }, { key: "p95", label: "95%", format: (v) => fmtPct(Number(v), 1) }]} />
         </div>
         {indexPaths.CN.length > 0 && (
           <div>
             <p className="mb-1 text-xs text-ink-3">Influence index: computed (solid) and your blend of the published scenarios (dashed, bands). Shocks are estimated on shares only, so none is drawn here.</p>
-            <PlotFigure glyph="model" options={indexOptions} ariaLabel={`Influence index of the United States and China in ${country.name}, computed to ${lastIndex} and under the reader's scenario to ${horizon}`} />
+            <PlotFigure glyph="model" options={indexOptions} ariaLabel={`Influence index of the United States and China in ${country.name}, computed to ${lastIndex.US} (United States) and ${lastIndex.CN} (China) and under the reader's scenario to ${horizon}`} />
           </div>
         )}
-        <p className="text-[11px] leading-snug text-ink-3">Your scenario, not a forecast: the bands are the published model&apos;s, the shock is an average of what followed past events, the redirect and price levers are arithmetic at constant totals and volumes, and the index what-if applies the published formula to your numbers (it may use components the published year lacks; the count is shown). Nothing here is stored. {COUNTRY_NAMES[country.iso3] ? "" : ""}</p>
+        <p className="text-[11px] leading-snug text-ink-3">Your scenario, not a forecast: the bands are the published model&apos;s, the shock is an average of what followed past events, the redirect and price levers are arithmetic at constant totals and volumes, and the index what-if applies the published formula to your numbers (it may use components the published year lacks; the count is shown). Nothing here is stored. </p>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { Exhibit, KeyNumber, StepCard } from "@/components/story/Chapter";
 import { WideFigure } from "@/components/story/Ch3Iceberg";
 import { LayerLabel } from "@/components/ui/Badges";
+import { PageGuide, Reading } from "@/components/ui/Reading";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, IN_SCOPE, OTHER_COLOR } from "@/lib/constants";
@@ -121,17 +122,32 @@ export function StageView() {
         <p className="mt-3 text-base leading-relaxed text-ink-2"><strong>Research question.</strong> {RESEARCH_QUESTION}</p>
         <p className="mt-2 text-sm text-ink-2">{all33.length} ECLAC states · {rec.FOCUS.length} focus countries ({rec.FOCUS.map(name).join(", ")}) · 2001 to 2026 · {rec.MINERALS.length} resources in two baskets · trade, finance, projects, events, statements. The trade figures are the team&apos;s own calculations (CEPII BACI HS96 for 2001–2024, UN Comtrade monthly data for 2025–2026, scripts 01–04); the records come from the two companion projects and keep their sources. Every block is labelled by the kind of knowledge it rests on: <Kind k="fact" /> <Kind k="ana" /> <Kind k="interp" />.</p>
         <div className="mt-3 flex flex-wrap items-center gap-2"><LayerLabel layer="facts" /><Link href="/prototype/index.html" className="text-xs underline">Open the prototype as supplied</Link></div>
+        <div className="mt-4">
+          <PageGuide
+            purpose="The team's prototype reading, on its own panel: its trade panel, record lists and words as supplied, kept apart from this site's data."
+            read="Every block carries the kind of knowledge it rests on. The trade figures are the prototype's numbers, recomputed from the team's own BACI and Comtrade panel by its own rule, not this site's reconciled series; where the two differ, the case files cite this site's."
+            next={[{ href: "/story", label: "The story" }, { href: "/denial", label: "The companion study" }]}
+          />
+        </div>
       </header>
       <div className="mt-5"><SectionNav items={SECTIONS} /></div>
 
       <section id="s-numbers" className="mt-6 scroll-mt-14">
         <h2 className="serif text-xl font-bold">The region in four numbers</h2>
+        <Reading
+          asks="What do the prototype's four headline numbers say, and from where? Four tiles from the team's own BACI and Comtrade panel, recomputed here by the same rule, not from this site's flows.json."
+          how="Each tile is a share or a value in the team's panel, 2001 against 2024, over all the ECLAC states and the tracked resources, exporter-side values; the last tile narrows to the technology-core basket. A share is of the region's exports to every destination, not of the two powers' purchases."
+        />
         <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <KeyNumber value={<>{fmtPct(four.cn2001 ?? 0, 1)} → {fmtPct(four.cn2024 ?? 0, 1)}</>} label="China's share of the region's critical-mineral exports, 2001 → 2024 (BACI HS96, team scripts)" tone="cn" size="text-2xl sm:text-3xl" />
           <KeyNumber value={<>{fmtPct(four.us2001 ?? 0, 1)} → {fmtPct(four.us2024 ?? 0, 1)}</>} label="US share of the same exports, 2001 → 2024" tone="us" size="text-2xl sm:text-3xl" />
           <KeyNumber value={<>{fmtBn(four.value2001)} → {fmtBn(four.value2024)}</>} label="Value of those exports, current US$, mostly price-driven" size="text-2xl sm:text-3xl" />
           <KeyNumber value={<>{fmtPct(four.coreCn2024 ?? 0, 1)} vs {fmtPct(four.coreUs2024 ?? 0, 1)}</>} label="Technology core in 2024, China vs the United States: leaned US until about 2020, flipped in 2021–22 with lithium" size="text-2xl sm:text-3xl" />
         </div>
+        <Reading
+          says={`In the team's panel China's share of the region's exports went from ${fmtPct(four.cn2001 ?? 0, 1)} to ${fmtPct(four.cn2024 ?? 0, 1)} and the US share from ${fmtPct(four.us2001 ?? 0, 1)} to ${fmtPct(four.us2024 ?? 0, 1)} between 2001 and 2024; these are the prototype's numbers on its 33-state scope and its own HS list, so they differ from this site's reconciled series over twenty countries.`}
+          saysKind="facts"
+        />
         <div className="mt-4 card px-4 py-3 text-sm">
           <p className="eyebrow">Three actors, not two</p>
           <p className="mt-1">Latin American governments set the rules, choose partners and bargain over terms. The prototype treats them as actors in every section, not as the stage on which two powers compete: China buys, lends, then owns; the United States brings its market, the dollar, security and pressure; each link carries trade, investment and finance, diplomacy and narratives.</p>
@@ -171,7 +187,10 @@ export function StageView() {
           <label className="flex items-center gap-1">Resource <select className="input max-w-[12rem] text-xs" value={resource} onChange={(e) => setResource(e.target.value)}><option value="all">All critical minerals</option><option value="core">Technology core</option><option value="industrial">General industrial</option>{rec.MINERALS.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}</select></label>
           <label className="flex items-center gap-1">Stage <select className="input max-w-[12rem] text-xs" value={stage} onChange={(e) => setStage(e.target.value as "all" | "raw" | "processed")}><option value="all">Both stages</option><option value="raw">{rec.STAGES.raw}</option><option value="processed">{rec.STAGES.processed}</option></select></label>
         </div>
-        <Exhibit id="s-shares" title="Who bought the selection's exports, by year" layer="facts" note={`Exporter-side values (FOB), current US$, summed over the selection and split by partner group; the dashed line is the source break (BACI to Comtrade).${r2024 && r2024.total > 0 ? ` In 2024: China ${fmtPct(share(r2024, "CHN") ?? 0, 1)}, the United States ${fmtPct(share(r2024, "USA") ?? 0, 1)}, Canada, the EU, Japan and Korea ${fmtPct(share(r2024, "BEN") ?? 0, 1)}, within the region ${fmtPct(share(r2024, "LAC") ?? 0, 1)}, over ${r2024.n} reporting countries and US$${(r2024.total / 1000).toFixed(1)} bn.` : ""} Team calculations on CEPII BACI HS96 v202601 and UN Comtrade.`}>
+        <Exhibit id="s-shares" title="Who bought the selection's exports, by year" layer="facts" note={`Exporter-side values (FOB), current US$, summed over the selection and split by partner group; the dashed line is the source break (BACI to Comtrade).${r2024 && r2024.total > 0 ? ` In 2024: China ${fmtPct(share(r2024, "CHN") ?? 0, 1)}, the United States ${fmtPct(share(r2024, "USA") ?? 0, 1)}, Canada, the EU, Japan and Korea ${fmtPct(share(r2024, "BEN") ?? 0, 1)}, within the region ${fmtPct(share(r2024, "LAC") ?? 0, 1)}, over ${r2024.n} reporting countries and US$${(r2024.total / 1000).toFixed(1)} bn.` : ""} Team calculations on CEPII BACI HS96 v202601 and UN Comtrade.`}
+          asks="Who bought the selection's exports each year, and did a lower US share mean a gain for China or for someone else? Stacked shares keep every partner group visible on one scale."
+          how="One band per partner group, stacked to the whole, the five acts shaded in turn; after the dashed break the years come from Comtrade with only China, the United States and everyone else, so the benchmark and intra-regional bands end there rather than fall to zero. The table under the chart carries the same shares with the total and the count of reporters."
+          says="Set the China band against the benchmark and intra-regional bands as much as against the US one: a US band that narrows while the benchmark band holds is not a Chinese gain. The shares are the prototype's numbers from the team's own panel, reproduced by its rule, not this site's reconciled series.">
           <WideFigure minWidth="36rem">{shareFigure}</WideFigure>
         </Exhibit>
         <div className="scroll-x mt-3">
@@ -190,10 +209,16 @@ export function StageView() {
           <label className="flex items-center gap-1">Lane <select className="input max-w-[10rem] text-xs" value={lane} onChange={(e) => setLane(e.target.value)}><option value="">All</option>{Object.entries(rec.LANES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></label>
           <label className="flex items-center gap-1">Type <select className="input max-w-[12rem] text-xs" value={etype} onChange={(e) => setEtype(e.target.value)}><option value="">All</option>{Object.entries(rec.ETYPES).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></label>
         </div>
-        <Exhibit id="s-events" title="Events track" layer="facts" note="Hover a dot for the event and its source reference; the shaded bands are the five acts.">
+        <Exhibit id="s-events" title="Events track" layer="facts" note="Hover a dot for the event and its source reference; the shaded bands are the five acts."
+          asks="What happened in Beijing, Washington and the region at the same time, and do the breaks between the acts line up with dated events? Dots on three lanes put the three sets of actors on one time axis."
+          how="One dot per event on its lane, larger for tier 1, coloured by type; an event from the team narrative is marked unverified in the tooltip. The filters above narrow the lanes and types, so an empty lane is a filtered one, not a quiet one."
+          says="Look for years where the dots thicken on two lanes at once: those are the turns the acts are drawn around, and by the team's own account each break still needs a documented event to justify it. A dot is a dated record, not a measure of weight.">
           <WideFigure minWidth="40rem">{timelineFigure}</WideFigure>
         </Exhibit>
-        <Exhibit id="s-politics" title="Politics track: who governed the six focus countries" layer="interp" note="Head-of-state orientation by term (team coding, to verify); diamonds mark Belt and Road memoranda, squares free-trade agreements with China (orange) and the United States (blue).">
+        <Exhibit id="s-politics" title="Politics track: who governed the six focus countries" layer="interp" note="Head-of-state orientation by term (team coding, to verify); diamonds mark Belt and Road memoranda, squares free-trade agreements with China (orange) and the United States (blue)."
+          asks="Who governed the six focus countries when, and did the memoranda and trade agreements fall under governments of one orientation? One strip per country puts terms and markers on the same axis as the events above."
+          how="One bar per head-of-state term, coloured left, centre or right as the team coded it, the name written where the term is long enough; a marker sits in the year it was signed. A term is the team's coding, not yet checked by a second coder."
+          says="Read each marker against the colour under it: where memoranda sit under terms of every orientation, orientation alone does not sort the partners, which is what the H2 card below counts rather than tests as an effect.">
           <WideFigure minWidth="40rem">{politicsFigure}</WideFigure>
         </Exhibit>
         <ol className="mt-3 max-h-80 space-y-1 overflow-y-auto rounded-md border border-rule-2 px-3 py-2 text-xs [overflow-wrap:anywhere]">
@@ -204,6 +229,10 @@ export function StageView() {
       <section id="s-ladder" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">The commitment ladder and the sixteen pressure cases</h2>
         <p className="mt-1 text-sm text-ink-2">Each mark is one commitment of the companion study&apos;s ladder: announced, then signed, approved or financed, under construction, operating or completed; stalled and cancelled apart. The study chose commitments that mattered to the China–US contest, so Chinese records far outnumber US ones ({rec.PROJECTS.filter((p) => p.power === "CHN").length} to {rec.PROJECTS.filter((p) => p.power === "USA").length}); conversion rates by power need a symmetric list. Hong Kong private capital is kept apart from Chinese state capital.</p>
+        <Reading
+          asks="How far did each commitment on the companion study's ladder get, and for which power? Six columns, one per status, put the announced beside the operating."
+          how="One tile per commitment in its status column, its left edge in the power's colour, the count under each heading the number of tiles; click a tile for its record. The list was chosen for the contest, not sampled."
+        />
         <div className="scroll-x mt-3">
           <div className="grid min-w-[56rem] grid-cols-6 gap-2">
             {ladder.map((s) => (
@@ -215,12 +244,18 @@ export function StageView() {
           </div>
         </div>
         {picked && <div className="mt-3 card px-4 py-3 text-sm"><p className="serif text-base font-bold">{picked.name}</p><p className="text-xs text-ink-3">{picked.isos.map(name).join(", ") || "Region"} · {rec.POWERS[picked.power]} · {picked.sector} · {picked.years} · {rec.STATUS_LABEL[picked.status]}{picked.amount ? ` · ${picked.amount}` : ""}{picked.minerals.length ? ` · ${picked.minerals.join(", ")}` : ""}</p><p className="mt-1 text-xs text-ink-3">Record {picked.id} of the prototype; the dated source sits in the companion study&apos;s ladder (<Link href="/denial#d-projects" className="underline">its projects</Link>).</p></div>}
+        <Reading says="The columns say where the listed commitments ended, not how likely any commitment is to be built: the list over-represents Chinese records by the study's own account, and a conversion rate by power needs a symmetric list." />
+        <Reading
+          asks={`In the ${rec.CASES.length} documented pressure cases, what became of the Chinese-linked option, and did a US or allied alternative follow? A table, one row per case, keeps the two questions apart.`}
+          how="One row per case with the companion study's three codings: the outcome for the Chinese-linked option, whether US pressure was the cause, and whether an alternative was built; the wording in each cell is the study's."
+        />
         <div className="scroll-x mt-4">
           <table className="w-full text-sm">
             <thead><tr className="text-left text-xs text-ink-3"><th className="py-1 pr-3">Case</th><th className="py-1 pr-3">Country</th><th className="py-1 pr-3">Years</th><th className="py-1 pr-3">Outcome for the Chinese-linked option</th><th className="py-1 pr-3">US pressure the cause?</th><th className="py-1">Alternative built?</th></tr></thead>
             <tbody>{rec.CASES.map((c) => <tr key={c.name} className="border-t border-rule-2 align-top text-xs"><td className="py-1 pr-3">{c.name}</td><td className="py-1 pr-3">{name(c.iso)}</td><td className="py-1 pr-3 font-mono">{c.years}</td><td className="py-1 pr-3">{c.outcome}</td><td className="py-1 pr-3">{c.cause}</td><td className="py-1">{c.alt}</td></tr>)}</tbody>
           </table>
         </div>
+        <Reading says="Read the last two columns together: a case coded with US pressure as the cause and no alternative built is the study's denial without substitution. The codings are the companion study's, not this site's." />
       </section>
 
       <section id="s-hyp" className="mt-10 scroll-mt-14">
@@ -257,6 +292,10 @@ export function StageView() {
       <section id="s-states" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">All {all33.length} ECLAC states</h2>
         <p className="mt-1 text-sm text-ink-2">Exports of the tracked resources in 2024 with the two shares, the alignment markers (team lists, to verify) and the companion study&apos;s verdict where it coded the country. States in Strata&apos;s twenty link to their case files.</p>
+        <Reading
+          asks="How do all the ECLAC states, not only the twenty this site tracks, split their tracked exports between the two powers, and which carry the alignment markers? A table, one row per state, puts trade and markers side by side."
+          how="One row per state with its 2024 exports from the team's panel and the two shares, then the year of each marker as the team lists it and the companion study's verdict where it coded the country; a dash is a state with no row or no marker, not a zero."
+        />
         <div className="scroll-x mt-3">
           <table className="w-full text-sm">
             <thead><tr className="text-left text-xs text-ink-3"><th className="py-1 pr-3">Country</th><th className="py-1 pr-3">Exports 2024</th><th className="py-1 pr-3">China</th><th className="py-1 pr-3">US</th><th className="py-1 pr-3">Belt and Road</th><th className="py-1 pr-3">FTA China</th><th className="py-1 pr-3">FTA US</th><th className="py-1 pr-3">Recognises</th><th className="py-1">Companion verdict</th></tr></thead>
@@ -272,7 +311,7 @@ export function StageView() {
                     <td className="py-1 pr-3 font-mono tabular-nums">{rec.BRI[iso] ? `${rec.BRI[iso]}${rec.BRI_EXIT[iso] ? `–${rec.BRI_EXIT[iso]}` : ""}` : "—"}</td>
                     <td className="py-1 pr-3 font-mono tabular-nums">{rec.FTA_CN[iso] ?? "—"}</td>
                     <td className="py-1 pr-3 font-mono tabular-nums">{rec.FTA_US[iso] ?? "—"}</td>
-                    <td className="py-1 pr-3">{rec.RECOG[iso] ? `Beijing since ${rec.RECOG[iso]}` : rec.TAIWAN_ALLIES.includes(iso) ? "Taipei" : "Beijing"}</td>
+                    <td className="py-1 pr-3">{rec.RECOG[iso] ? `Beijing since ${rec.RECOG[iso]}` : rec.TAIWAN_ALLIES.includes(iso) ? "Taipei" : "Beijing, before 2001"}</td>
                     <td className="py-1">{rec.VERDICT[iso] ? rec.VERDICT_LABEL[rec.VERDICT[iso]] : "—"}</td>
                   </tr>
                 );
@@ -280,6 +319,7 @@ export function StageView() {
             </tbody>
           </table>
         </div>
+        <Reading says="Look for states where a free-trade agreement with the United States sits beside a large China share: the markers and the shares are listed side by side so the reader can see whether they sort together. The shares are the prototype's numbers; the markers are team lists still to verify and the verdicts are the companion study's." />
       </section>
 
       <section id="s-methods" className="mt-10 scroll-mt-14">
@@ -289,7 +329,12 @@ export function StageView() {
         <h3 className="mt-4 text-sm font-semibold">The team&apos;s data pipeline</h3>
         <p className="mt-1 text-xs text-ink-2">R scripts 00 (runs the Comtrade download and the maps), 01 (builds the BACI panel: exporter × year × mineral × stage × basket × partner group), 02 (maps the China–US lean), 03 (monthly Comtrade exports for 2025–2026 with reporter coverage) and 04 (joins BACI and Comtrade years). Outputs used: panel_lac_exports_by_mineral_partner.csv and ct_exports_lac_monthly.csv. Check: this page reproduces the team findings exactly (China {fmtPct(four.cn2001 ?? 0, 1)} → {fmtPct(four.cn2024 ?? 0, 1)}, US {fmtPct(four.us2001 ?? 0, 1)} → {fmtPct(four.us2024 ?? 0, 1)}, technology core {fmtPct(four.coreCn2024 ?? 0, 1)} vs {fmtPct(four.coreUs2024 ?? 0, 1)} in 2024), and a unit test holds them.</p>
         <h3 className="mt-4 text-sm font-semibold">Sources</h3>
+        <Reading
+          asks="Which sources does the prototype rest on, and how far does each one reach? One row per source with its area, its coverage and the team's word on its status."
+          how="One row per source as the team lists it, linked to the publisher; the coverage column says the years or records the team used and the status column is the team's own note on how far it is loaded."
+        />
         <div className="scroll-x mt-1"><table className="w-full text-xs"><thead><tr className="text-left text-ink-3"><th className="py-1 pr-3">Source</th><th className="py-1 pr-3">Area</th><th className="py-1 pr-3">Coverage</th><th className="py-1">Status</th></tr></thead><tbody>{rec.src.map(([s, area, cov, url, status]) => <tr key={s} className="border-t border-rule-2"><td className="py-1 pr-3"><a href={url} className="underline" target="_blank" rel="noreferrer">{s}</a></td><td className="py-1 pr-3">{area}</td><td className="py-1 pr-3">{cov}</td><td className="py-1">{status}</td></tr>)}</tbody></table></div>
+        <Reading says="The coverage column is where the limits in the paragraph below come from: two official-finance records that end in different years make any comparison after the earlier end one-sided, by the team's own account." />
         <h3 className="mt-4 text-sm font-semibold">Codebooks</h3>
         <p className="mt-1 text-xs text-ink-2"><strong>Event types.</strong> {Object.values(rec.ETYPES).join("; ")}. Tier 1 changes the regional picture; tier 2 a bilateral relation; tier 3 is notable but local. <strong>Narrative themes (method v1.0).</strong> {rec.THEMES.join("; ")}. <strong>Commitment status.</strong> {Object.values(rec.STATUS_LABEL).join("; ")}.</p>
         <h3 className="mt-4 text-sm font-semibold">AI use, limits and credits</h3>

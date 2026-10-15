@@ -16,7 +16,7 @@ export function ParityChart({ countries }: { countries: InsightCountry[] }) {
     for (const c of countries) {
       const g = c.contrasts.find((x) => x.id === "parity_gap");
       if (!g || Number(g.musd) < 10) continue; // below US$10 m the gap is noise (Uruguay's 2011 trade is a few hundred thousand dollars)
-      out.push({ name: c.name, iso3: c.iso3, gap: Number(g.musd), multiple: g.multiple_of_us === null ? null : Number(g.multiple_of_us), year: Number(g.year), top: (g.top_mineral as string | null) ?? null, reachable: g.reachable_with_top_mineral as boolean | null, cn: Number(g.cn_musd), us: Number(g.us_musd) });
+      out.push({ name: c.name, iso3: c.iso3, gap: Number(g.musd), multiple: g.multiple_of_us === null || Number(g.us_musd) < 1 ? null : Number(g.multiple_of_us), year: Number(g.year), top: (g.top_mineral as string | null) ?? null, reachable: g.reachable_with_top_mineral as boolean | null, cn: Number(g.cn_musd), us: Number(g.us_musd) });
     }
     return out.sort((a, b) => b.gap - a.gap);
   }, [countries]);
@@ -32,7 +32,7 @@ export function ParityChart({ countries }: { countries: InsightCountry[] }) {
       y: { label: null, domain: rows.map((r) => r.name) },
       marks: [
         Plot.barX(rows, { x: "gap", y: "name", fill: COLORS.OTHER, rx: 2, tip: true, title: (d: Row) => `${d.name} ${d.year}: China bought ${fmtMusd(d.cn)}, the United States ${fmtMusd(d.us)}; ${fmtMusd(d.gap)} would have to switch for equal shares${d.multiple !== null ? ` (${d.multiple.toFixed(1)}× what the United States bought)` : ""}${d.top ? ` (${pretty(d.top)} alone ${d.reachable ? "could" : "could not"} cover it)` : ""}` }),
-        Plot.text(rows, { x: "gap", y: "name", text: (d: Row) => `${fmtMusd(d.gap)}${d.multiple !== null && !narrow ? ` · ${d.multiple.toFixed(1)}× US purchases` : ""}`, dx: 6, textAnchor: "start", fill: INK, fontSize: 11 }),
+        Plot.text(rows, { x: "gap", y: "name", text: (d: Row) => `${fmtMusd(d.gap)}${!narrow ? (d.multiple !== null && d.us >= 1 ? ` · ${d.multiple.toFixed(1)}× US purchases` : d.us < 1 ? " · the US bought under US$1 m" : "") : ""}`, dx: 6, textAnchor: "start", fill: INK, fontSize: 11 }),
         Plot.ruleX([0]),
       ],
     }),

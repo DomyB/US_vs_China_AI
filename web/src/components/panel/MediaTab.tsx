@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel, ModelStatusTag, StanceBadge } from "@/components/ui/Badges";
+import { Reading } from "@/components/ui/Reading";
 import { SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, LANGUAGE_NAME, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtPct } from "@/lib/format";
@@ -52,7 +53,8 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
   const volume = useMemo(() => {
     const long: { year: number; actor: string; share: number; count: number; tone: number | null }[] = [];
     for (const r of data.media.volume) {
-      const total = r.total_articles || 1;
+      if (!r.total_articles) continue; // a year with no items has no share: missing, never 0%
+      const total = r.total_articles;
       long.push({ year: r.year, actor: "US", share: r.articles_us / total, count: r.articles_us, tone: r.tone_us ?? null });
       long.push({ year: r.year, actor: "CN", share: r.articles_cn / total, count: r.articles_cn, tone: r.tone_cn ?? null });
     }
@@ -247,13 +249,25 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
             Tone is a multilingual sentiment model&apos;s positive-minus-negative score{!data.text_model?.validated ? ", not yet validated against hand-coded headlines" : ""}.
           </p>
         )}
+        <Reading
+          asks="How much of the press the registry follows names each power, and has one come to dominate the talk? Shares rather than counts, because the feeds grow and shrink with every fetch."
+          how={`One point per year and actor: the kept headlines naming it as a share of ${data.media_volume_basis === "feed_totals" ? "all items the feeds and the GDELT windows carried that year" : "the kept headlines of that year"}; the dashed rule is the selected year; a year with no point has no counted items, which is missing, not none.`}
+        />
         <PlotFigure options={volumeOptions} ariaLabel={`Share of the ${data.name} feed and GDELT items naming the United States and China, ${countsReal ? "real records" : "sample data"}`} />
+        <Reading says="A headline naming both powers counts in both lines, so the two shares need not sum to one; a rise in one line with no fall in the other is more talk, not a swap." saysKind="facts" />
         <div className="mb-1 mt-3 flex flex-wrap items-center justify-between gap-1">
           <h3 className="text-sm font-semibold">Tone of that coverage</h3>
           <span className="flex flex-wrap items-center gap-1.5"><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</span>
         </div>
         {toneCoded ? (
-          <PlotFigure options={toneOptions} ariaLabel={`Mean tone of coverage about the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
+          <>
+            <Reading
+              asks="When the press names a power, is the tone warm or cold, and does it move with the attention above? A mean per year on one scale keeps the two actors comparable."
+              how="One line per actor, the mean positive-minus-negative score of the headlines naming it, between −1 and +1 around the zero rule; the dashed rule is the selected year; a year with no line has no coded headlines, which is missing, not neutral."
+            />
+            <PlotFigure options={toneOptions} ariaLabel={`Mean tone of coverage about the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
+            <Reading says={`Read the tone with the attention above: a cold year with few headlines rests on a handful of items. The score is a sentiment model's${layer === "real" && !data.text_model?.validated ? ", not validated here" : ""}, so a difference of a few hundredths is noise.`} />
+          </>
         ) : (
           <p className="mb-1 text-sm text-ink-3">No tone yet: the text workflow has not coded the real headlines of {data.name}.</p>
         )}
@@ -274,7 +288,16 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
         ) : (
           <p className="mb-1 text-xs text-ink-3">Placeholder labels; topic-model clusters with their keywords replace them once the text workflow has run.</p>
         )}
-        {(layer !== "real" || narratives.length > 0) && <PlotFigure options={narrativeOptions} ariaLabel={`Dominant narratives in ${data.name} coverage in ${year}, ${layer === "real" ? "model output" : "sample data"}`} />}
+        {(layer !== "real" || narratives.length > 0) && (
+          <>
+            <Reading
+              asks={`What is the press talking about when minerals come up in ${year}? Clusters of headlines ranked by share show the themes rather than the actors.`}
+              how="One bar per cluster, largest first, as a share of that year's kept headlines; the label is the cluster's most distinctive words; a year with no bars has too few headlines to cluster, not no themes."
+            />
+            <PlotFigure options={narrativeOptions} ariaLabel={`Dominant narratives in ${data.name} coverage in ${year}, ${layer === "real" ? "model output" : "sample data"}`} />
+            <Reading says="The labels are the clusters' own distinctive words, not editorial themes, and a cluster is only as coherent as those words read together; the headlines beneath are the way to check one." saysKind="model" />
+          </>
+        )}
       </section>
 
       <section aria-labelledby="hist-h">
@@ -285,9 +308,12 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
           provenance={pressProvenance}
           intro={
             historyRows.length > 0
-              ? `Mineral-related stories each source counted per month${data.media.history_from ? `, from ${fmtMonth(data.media.history_from)}` : ""}; hover for the share of the source's own items. Media Cloud counts are of its indexed per-country collection, not of all press; the windows differ by source (${windowClause}), so the series sit side by side and are not added together.${historyFromYear !== null && year < historyFromYear ? ` The selected year ${year} is before the first monthly count, so the chart marks no year.` : ""}`
+              ? `Mineral-related stories each source counted per month${data.media.history_from ? `, from ${fmtMonth(data.media.history_from)}` : ""}. Media Cloud counts are of its indexed per-country collection, not of all press; the windows differ by source (${windowClause}), so the series sit side by side and are not added together.${historyFromYear !== null && year < historyFromYear ? ` The selected year ${year} is before the first monthly count, so the chart marks no year.` : ""}`
               : undefined
           }
+          asks={historyRows.length > 0 ? "How much mineral news does each source carry month by month, and when does it spike? One line per source, since their windows differ and cannot be summed." : undefined}
+          how={historyRows.length > 0 ? "One line with a faint area per source, mineral-related stories per month; hover for the month's count and its share of the source's own items; the dashed rule is the selected year; a month with no point is a month the source was not counted, missing, not zero." : undefined}
+          says={historyRows.length > 0 ? "A spike shared by several sources is a news event; a spike in one source alone may be that source's own fetch or collection changing. Each series starts when its source was first read, and its first month may be partial." : undefined}
         />
         {historyRows.length > 0 ? (
           <>

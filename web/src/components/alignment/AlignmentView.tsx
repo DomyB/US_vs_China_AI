@@ -8,9 +8,11 @@ import { feature as topoFeature } from "topojson-client";
 import type { Topology } from "topojson-specification";
 import { YearControl } from "@/components/controls/YearControl";
 import { Block } from "@/components/insights/shared";
+import { PageGuide } from "@/components/ui/Reading";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
-import { QUADRANTS, QUADRANT_LABEL, correlation, correlationByYear, firstYear, latestFullYear, leanPoints, meanLeans, movers, quadrant, sideWord, trajectories, withBoth, yearSplit, type BothLean, type Mover } from "@/lib/alignment";
+import { DEAD_BAND, QUADRANTS, QUADRANT_LABEL, correlation, correlationByYear, firstYear, latestFullYear, leanPoints, meanLeans, movers, quadrant, sideWord, trajectories, withBoth, yearSplit, type BothLean, type Mover } from "@/lib/alignment";
+import { NET_LEAN_MAX } from "@/components/map/scales";
 import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { loadIndex } from "@/lib/data";
 import { fmtSigned } from "@/lib/format";
@@ -170,9 +172,18 @@ export function AlignmentView() {
         </section>
       ) : (
         <>
+          <PageGuide
+            purpose="Sets the political half of the influence index against the economic half, one year at a time and over the whole record, to test whether the ore a country sells carries its votes with it."
+            read="Pick a year in the first block: the two maps, the quadrant and the movers follow it, and the play button runs the years. The small charts in the fourth block show every year at once; the last block says what the page can and cannot claim."
+            next={[{ href: "/explore?index=political_alignment", label: "Political alignment on the map" }, { href: "/story", label: "The story" }]}
+          />
           <SectionNav items={SECTIONS} />
 
-          <Block id="maps" n={1} title={<>Two maps, one year</>} lead={<>The same countries, the same year, the same colour scale: the political lean on the left, the economic lean on the right.</>} layer="model" provenance={prov("Two maps, one year")}>
+          <Block id="maps" n={1} title={<>Two maps, one year</>} lead={<>The same countries, the same year, the same colour scale: the political lean on the left, the economic lean on the right.</>} layer="model" provenance={prov("Two maps, one year")}
+            asks="Does a country that sells to China also vote with it? Two maps of the same year on one colour scale let the political lean and the economic lean be compared country by country, where a scatter would lose the geography."
+            how={`Left map: political alignment; right map: economic ties. Each country is coloured and labelled by its net lean, China minus United States, on the ±${NET_LEAN_MAX} scale under the maps, the left end toward the United States and the right end toward China; the two greys in the legend are no index that year and outside the analysis, neither of them a zero.`}
+            says="A country coloured differently on the two maps is one where the ore and the votes point to different capitals; whether one map follows the other over time is not visible in a single year, so play the years."
+            saysKind="model">
             <div className="mb-4 rounded-md border-2 border-outline bg-card px-3 py-2 shadow-[2px_2px_0_var(--shadow-hard)]">
               <YearControl year={year} onChange={changeYear} playing={playing} onTogglePlay={togglePlay} />
             </div>
@@ -188,7 +199,10 @@ export function AlignmentView() {
             )}
           </Block>
 
-          <Block id="quadrant" n={2} title={<>Where each country sits</>} lead={<>Economic lean across, political lean up. The corners are the four stories a country can tell; the faint line behind each dot is its path over the previous five years.</>} layer="model" provenance={prov("Where each country sits", { explore: { href: `/explore?view=index&index=political_alignment&year=${year}`, label: "Open the map on political alignment" } })} table={split ? <YearTable rows={split.byQuadrant} /> : undefined}>
+          <Block id="quadrant" n={2} title={<>Where each country sits</>} lead={<>Economic lean across, political lean up. The corners are the four stories a country can tell; the faint line behind each dot is its path over the previous five years.</>} layer="model" provenance={prov("Where each country sits", { explore: { href: `/explore?view=index&index=political_alignment&year=${year}`, label: "Open the map on political alignment" } })} table={split ? <YearTable rows={split.byQuadrant} /> : undefined}
+            asks="Which of the four stories does each country tell in this year? A scatter with the economic lean across and the political lean up puts every country in one of four corners at once, which two maps cannot do."
+            how={`Economic lean across, toward China on the right; political lean up, toward China at the top. The corners: both toward China top right, both toward the United States bottom left, sells to China and votes with the United States bottom right, votes with China and sells to the United States top left; a dot within ±${DEAD_BAND} of zero on an axis counts as balanced and is grey; a value beyond ±${NET_LEAN_MAX} is drawn at the edge, with the exact figure in the tip.`}
+            says={`${split && split.n > 0 ? `In ${year} the two off-diagonal corners hold ${split.byQuadrant.sell_china_vote_us.length + split.byQuadrant.vote_china_sell_us.length} of ${split.n} countries` : "Count the dots in the two off-diagonal corners"}: each is a country whose trade and votes point to different capitals, which the story that ore buys votes cannot account for.`}>
             <QuadrantChart points={both} year={year} theme={theme} />
             {split && split.n > 0 && (
               <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
@@ -202,11 +216,18 @@ export function AlignmentView() {
             )}
           </Block>
 
-          <Block id="movers" n={3} title={<>Who moved against their own trade</>} lead={<>Each country&apos;s two leans in {first} and in {year}, and how far apart they moved. A large number on the right means one measure moved and the other did not, or they went opposite ways.</>} layer="model" provenance={prov("Who moved against their own trade", { caveat: "The political lean is UN voting agreement for every country and year, legislative stance only where five or more scored records exist in a year; a swing in the political lean after an election is mostly a swing in the General Assembly record." })}>
+          <Block id="movers" n={3} title={<>Who moved against their own trade</>} lead={<>Each country&apos;s two leans in {first} and in {year}, and how far apart they moved. A large number on the right means one measure moved and the other did not, or they went opposite ways.</>} layer="model" provenance={prov("Who moved against their own trade", { caveat: "The political lean is UN voting agreement for every country and year, legislative stance only where five or more scored records exist in a year; a swing in the political lean after an election is mostly a swing in the General Assembly record." })}
+            asks={`Who moved on one measure but not on the other between ${first} and ${year}? A table of both leans at both ends turns each country's divergence into a single number that can be sorted.`}
+            how="One row per country with both leans in both years, the largest divergence first; each lean reads from the first year to the chosen year with the change in brackets; the last column names the corner the country sits in now and, where it changed, the corner it left. A country missing a lean in either year has no row."
+            says="A large figure beside a rising economic lean and a flat political lean is the pattern the page argues from: the trade moved and the votes did not. Where both leans moved, read the signs before reading a direction.">
             {moved.length ? <MoversTable rows={moved} /> : <p className="text-sm text-ink-3">No country has both leans in both {first} and {year}.</p>}
           </Block>
 
-          <Block id="lines" n={4} title={<>Every country, both lines</>} lead={<>The political lean and the economic lean year by year, one small chart per country, on the same scale.</>} layer="model" provenance={prov("Every country, both lines")}>
+          <Block id="lines" n={4} title={<>Every country, both lines</>} lead={<>The political lean and the economic lean year by year, one small chart per country, on the same scale.</>} layer="model" provenance={prov("Every country, both lines")}
+            asks="Does the economic line ever pull the political line after it? One small chart per country on one scale lets the two lines be compared over the whole record at a glance, which the year-by-year views cannot."
+            how={`Each panel is one country, years across, net lean up on the ±${NET_LEAN_MAX} scale with zero as the dotted rule; the purple line is political alignment, the green line economic ties; a break in a line is a year without a value, not a zero.`}
+            says="Look for a panel where one line crosses zero while the other stays put: that is the divergence the maps show one year at a time. Lines that move together in a few countries do not make the pattern general."
+            saysKind="model">
             <p className="mb-2 flex flex-wrap items-center gap-3 text-[11px] text-ink-3">
               <span className="inline-flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: AXIS_COLOR.political }} /> political alignment · net lean</span>
               <span className="inline-flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: AXIS_COLOR.economic }} /> economic ties · net lean</span>
@@ -215,7 +236,10 @@ export function AlignmentView() {
             <Trajectories trajectories={paths} yearMin={corr.from ?? YEAR_MIN} yearMax={corr.to ?? YEAR_MAX} theme={theme} cols={cols} />
           </Block>
 
-          <Block id="reading" n={5} title={<>What this does and does not show</>} layer="interpretation" provenance={{ title: "What this does and does not show", layer: "interpretation", tables: ["index", "index_component"], glossary: ["economic_ties", "political_alignment", "net_lean"], findingId: "votes_and_ore", caveat: "A reading of two model outputs. It can be wrong where the measures are thin: political alignment rests on UN voting almost everywhere, and economic ties on trade shares where finance and debt are absent." }}>
+          <Block id="reading" n={5} title={<>What this does and does not show</>} layer="interpretation" provenance={{ title: "What this does and does not show", layer: "interpretation", tables: ["index", "index_component"], glossary: ["economic_ties", "political_alignment", "net_lean"], findingId: "votes_and_ore", caveat: "A reading of two model outputs. It can be wrong where the measures are thin: political alignment rests on UN voting almost everywhere, and economic ties on trade shares where finance and debt are absent." }}
+            asks="What does a weak correlation between the two leans allow one to say? A short text sets out the two measures, the reason the political map barely changes, and the limits, so the figures above are not over-read."
+            how="Four paragraphs: what the halves are, why the political map is stable, what the correlation does and does not say, and where to argue; each claim points to a block above."
+            says="This is the page's judgement, not a result: the measures are thin where legislative records are scarce and where the US finance record starts late, and the narrower claims are tested by the panel in the Lab.">
             <div className="prose-doc max-w-3xl text-sm leading-relaxed">
               <p><strong>What the two halves are.</strong> Political alignment: {INDEX_FORMULA.political_alignment}. Economic ties: {INDEX_FORMULA.economic_ties}. Both are normalised over the whole panel (every country, year and actor on one scale), so a lean of +30 means China&apos;s score is thirty points above the United States&apos; on that scale, not that a country votes with China thirty percent more often.</p>
               <p><strong>Why the political map looks the same every year.</strong> The General Assembly record has agreed with China about four times in five and with the United States about one time in three for every South American country since 2000. That pattern predates the mineral trade and has barely moved while the trade grew tenfold. It is the reason the composite index leaned China in 2000 on the evidence room&apos;s map.</p>

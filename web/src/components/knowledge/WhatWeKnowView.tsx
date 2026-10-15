@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { VerdictTable } from "@/components/story/Verdicts";
 import { LayerLabel } from "@/components/ui/Badges";
+import { Reading } from "@/components/ui/Reading";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT, IN_SCOPE, YEAR_MAX } from "@/lib/constants";
 import { loadComponents, loadFlows, loadIndex, loadInvestment } from "@/lib/data";
@@ -44,7 +45,9 @@ export function WhatWeKnowView() {
       <section className="mt-8" aria-labelledby="wwk-record">
         <h2 id="wwk-record" className="serif text-xl font-bold">1 · What the record says</h2>
         <p className="mt-1 text-sm text-ink-2">Each measure in its latest year, summed or averaged over the countries that carry a value; the index is a model output. The story&apos;s <Link href="/story#c10" className="underline">closing chapter</Link> reads these together.</p>
+        <Reading compact asks="What does the record say, measure by measure, before any reading is laid over it? One table row per measure keeps the latest figure, its year and its verdict together, so the literature below can be checked against them." how="One row per measure, with its layer and year under the name: whom it favours in its latest year, the figures behind that, and what keeps it from settling the question; the tally above counts the rows. A measure whose source ends early carries that year, and a row marked no figure has no value, not a zero." />
         <div className="card mt-3 px-4 py-4">{state.ok && state.verdicts.length ? <VerdictTable verdicts={state.verdicts} /> : <p className="text-sm text-ink-3">The exports could not be loaded; the verdicts need the real data release.</p>}</div>
+        <Reading compact says="Each verdict is the exports' arithmetic over the countries that carry a value, and the index row is a model output; none of them says why a measure moved, which is what the sections below argue about." />
       </section>
 
       <section className="mt-8" aria-labelledby="wwk-lit">

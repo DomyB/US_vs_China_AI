@@ -7,6 +7,7 @@ import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { Exhibit, StepCard } from "@/components/story/Chapter";
 import { WideFigure } from "@/components/story/Ch3Iceberg";
 import { LayerLabel } from "@/components/ui/Badges";
+import { PageGuide, Reading } from "@/components/ui/Reading";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, COUNTRY_NAMES, OTHER_COLOR } from "@/lib/constants";
@@ -85,7 +86,7 @@ export function DenialView() {
         height: 40 + 18 * isoOrder.length, marginLeft: 92,
         x: { label: null, tickFormat: (v: number) => String(v), domain: years },
         y: { label: null, domain: isoOrder, tickFormat: (iso: string) => name(iso) },
-        color: { type: "diverging", domain: [-4, 4], range: [ACTOR_COLOR.CN, ACTOR_COLOR.US], legend: true, label: "stance, US minus China" },
+        color: { type: "diverging", domain: [-4, 4], pivot: 0, range: [ACTOR_COLOR.CN, "#ecebe6", ACTOR_COLOR.US], legend: true, label: "stance, US minus China" },
         marks: [Plot.cell(cells, { x: "year", y: "iso", fill: "net", inset: 0.5, rx: 2, tip: true, title: (c: { iso: string; year: number; name: string; net: number; ideo: string; us: string; cn: string }) => `${name(c.iso)}, ${c.year}: ${c.name}\n${c.ideo}; toward the United States ${c.us}, toward China ${c.cn} (net ${c.net > 0 ? "+" : ""}${c.net})` })],
       } as PlotOptions}
       ariaLabel="Each government's coded stance toward the United States minus its stance toward China, by country and year"
@@ -107,7 +108,7 @@ export function DenialView() {
     <PlotFigure
       options={{
         height: 40 + 18 * isoOrder.length, marginLeft: 92,
-        x: { label: null, tickFormat: (v: number) => String(v), domain: years },
+        x: { label: null, tickFormat: (v: number) => String(v), domain: years.filter((y) => y <= Math.max(...lean.map((l) => l.year))) },
         y: { label: null, domain: isoOrder, tickFormat: (iso: string) => name(iso) },
         color: { type: "linear", domain: [0, 1], range: [ACTOR_COLOR.US, ACTOR_COLOR.CN], legend: true, label: "China's share of the two powers' purchases", tickFormat: (v: number) => `${Math.round(v * 100)}%` },
         marks: [Plot.cell(lean.filter((l) => isoOrder.includes(l.iso)), { x: "year", y: "iso", fill: "lean", inset: 0.5, rx: 2, tip: true, title: (c: { iso: string; year: number; lean: number }) => `${name(c.iso)}, ${c.year}: China took ${Math.round(c.lean * 100)}% of what the two powers bought from it` })],
@@ -124,6 +125,13 @@ export function DenialView() {
         <p className="mt-2 serif text-lg leading-snug text-ink-2">Why does China keep its economic ground in Latin America while Washington talks louder?</p>
         <p className="mt-3 text-base leading-relaxed text-ink-2">The companion explainer answers from {data.docs.length} academic studies and reports, {data.timeline.length.toLocaleString("en-GB")} dated events, {data.claims.length} claims with page citations, the governments of {Object.keys(r4.govs).length} countries since 2001, UN voting data and a 2026 opinion survey. Strata measures the <em>how much</em>; this page carries that project&apos;s <em>why</em>, from its own files, labelled as its reading throughout. Nothing here is rescored.</p>
         <div className="mt-3 flex flex-wrap items-center gap-2"><LayerLabel layer="interpretation" /><span className="text-xs text-ink-3">facts and claims cite their sources; verdicts, propositions and assessments are the companion project&apos;s</span></div>
+        <div className="mt-4">
+          <PageGuide
+            purpose="The companion study, Denial without Substitution, and its sixteen pressure cases, served from its own files and labelled as its reading throughout."
+            read="Start with the short answer and the country verdicts, then the findings and the ladder they rest on; the strips and the correlations are the study's own tests. Facts and claims cite their sources; verdicts, findings and assessments are the study's, and nothing is rescored here."
+            next={[{ href: "/stage#s-ladder", label: "The ladder and cases on the stage page" }, { href: "/story", label: "The story" }]}
+          />
+        </div>
       </header>
       <div className="mt-5"><SectionNav items={SECTIONS} /></div>
 
@@ -146,6 +154,10 @@ export function DenialView() {
       <section id="d-verdicts" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">Where the pattern holds, and where it fails</h2>
         <p className="mt-1 text-sm text-ink-2">The pattern has two parts, both of which must be true: Washington talks louder and pushes harder, and economic ties with China still grow or hold. The verdict is the companion project&apos;s reading of the studies and records for each country, not a measured score. Countries in Strata&apos;s scope link to their case files.</p>
+        <Reading
+          asks="For which countries does the companion study's pattern hold, where does it hold only partly and where does it fail? One card per country carries its verdict and, on request, the evidence behind it."
+          how="One card per country with the study's verdict sorted into three kinds, holds, holds only partly and fails, read from the first word of its verdict text; open the evidence for its politics, China and United States paragraphs, its assessment and the claims it cites."
+        />
         <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {countries.map((c) => {
             const k = verdictKind(c.verdict);
@@ -171,11 +183,16 @@ export function DenialView() {
             );
           })}
         </div>
+        <Reading says="The verdicts are the study's reading of its corpus, not a score, and this site adds none; a country in Strata's scope links to its case file, where the measured side of the same question sits." />
       </section>
 
       <section id="d-props" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">{data.props.length} cross-study findings and {data.mechs.length} explanations</h2>
         <p className="mt-1 text-sm text-ink-2">Each finding lists the claims that support, qualify or contradict it; the confidence is the companion project&apos;s. The explanations are the mechanisms it tested against the corpus, with its assessment.</p>
+        <Reading
+          asks="Which cross-study findings does the companion study hold with the most confidence, and on how many claims does each rest? A table sorted by confidence, with the claim counts for and against, keeps the weight of evidence beside the finding."
+          how="One row per finding, highest confidence first; the three counts are the claims the study lists as supporting, qualifying and contradicting it, and the last column names the mechanisms it ties the finding to. The cards under the table are those mechanisms with the study's assessment."
+        />
         <div className="scroll-x mt-3">
           <table className="w-full text-sm">
             <thead><tr className="text-left text-xs text-ink-3"><th className="py-1 pr-3">Finding</th><th className="py-1 pr-3">Confidence</th><th className="py-1 pr-3">For / qualifying / against</th><th className="py-1">Mechanisms</th></tr></thead>
@@ -196,11 +213,16 @@ export function DenialView() {
             <li key={m.mid} className="card px-3 py-2 text-sm"><p><span className="font-mono text-[11px] text-ink-3">{m.mid}</span> <strong>{m.explanation}</strong></p><p className="mt-1 text-xs text-ink-2">{m.assessment}</p><p className="mt-1 text-[11px] text-ink-3">For {m.evidence_for.length} claims, against {m.evidence_against.length}{m.cases ? ` · cases: ${m.cases}` : ""}</p></li>
           ))}
         </ul>
+        <Reading says="A high-confidence finding with few contradicting claims is where the corpus agrees; a finding with many qualifying claims is where it holds with conditions. The confidence levels and the counts are the study's, not a tally this site made." />
       </section>
 
       <section id="d-projects" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">Projects: from announcement to operation</h2>
         <p className="mt-1 text-sm text-ink-2">{data.projects.length} projects of both powers on the same ladder, as the companion project records them. Many big announcements were never built; the Chinese projects that were built are durable assets: grids, ports, mines. Click a project for its amounts and status.</p>
+        <Reading
+          asks="How far did the projects of both powers get, from announcement to operation? Six columns by stage put the announced beside the built on one ladder."
+          how="One tile per project in its stage column, the stage read from the first word of the study's status text, its left edge in the power's colour and the count under each heading the number of tiles; click a tile for its amounts, status and records."
+        />
         <div className="scroll-x mt-3">
           <div className="grid min-w-[56rem] grid-cols-6 gap-2">
             {projectsByStage.map((s) => (
@@ -219,6 +241,7 @@ export function DenialView() {
             ))}
           </div>
         </div>
+        <Reading says="The width of the announced column against the operating one is the study's point that many announcements were never built; which ones were is read tile by tile, and the stages are the study's coding, not a status this site checked." />
         {picked && (
           <div className="mt-3 card px-4 py-3 text-sm">
             <p className="serif text-base font-bold">{picked.name}</p>
@@ -244,7 +267,12 @@ export function DenialView() {
           <label className="flex items-center gap-1">Type <select className="input max-w-[10rem] text-xs" value={tlType} onChange={(e) => setTlType(e.target.value)}><option value="">All</option>{types.map((t) => <option key={t} value={t}>{t.replace(/_/g, " ")}</option>)}</select></label>
           <span className="text-ink-3">{events.length} events</span>
         </div>
+        <Reading
+          asks="When did the companion study's dated events cluster, and of what type? Bars by year, stacked by type, show the pace of events rather than any one of them."
+          how="One bar per year, split by event type, after the country, power and type filters above; a year with no bar has no event in the filtered set, and the list under the chart carries the events newest first, with the source link and the single-source mark."
+        />
         <div className="mt-2"><WideFigure minWidth="36rem">{timelineFigure ?? <p className="text-sm text-ink-3">No event matches.</p>}</WideFigure></div>
+        <Reading says="Read the height for pace, not for weight: a busy year is one with many dated records, which can be a year the study researched more closely rather than a turn. The types are the study's coding." />
         <ol className="mt-3 max-h-[28rem] space-y-1 overflow-y-auto rounded-md border border-rule-2 px-3 py-2 text-xs [overflow-wrap:anywhere]">
           {events.slice(0, 120).map((e) => (
             <li key={e.id} className="border-b border-rule-2 py-1 last:border-0">
@@ -261,13 +289,22 @@ export function DenialView() {
       <section id="d-governments" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">Governments since 2001: ideology swung, trade kept growing</h2>
         <p className="mt-1 text-sm text-ink-2">Three strips over the same countries and years. The first is the ideology of the government in office on 1 July, the second its coded stance toward the United States minus its stance toward China (−4 to +4), both the companion project&apos;s coding from sourced facts with a confidence level. The third is China&apos;s share of what the two powers bought from the country, from the project&apos;s WITS mirror data (UN Comtrade), 2001–2023. {r4.meta.coding}</p>
-        <Exhibit id="d-gov-ideo" title="Who governed" layer="interp" note="The companion project's coding; interim and short governments are low-confidence by its own account. China is not coded: a one-party state without electoral alternation.">
+        <Exhibit id="d-gov-ideo" title="Who governed" layer="interp" note="The companion project's coding; interim and short governments are low-confidence by its own account. China is not coded: a one-party state without electoral alternation."
+          asks="Which way did each government lean politically, year by year, and how often did it swing? One cell per country-year puts every government on the same time axis as the trade strip below."
+          how="One cell per country and year, the government in office on 1 July, coloured from left to right in five steps; hover for its name. A country without a row is one the study did not code."
+          says="Swings between colours are what to look for in this strip, set against the slow drift of the trade strip below; that contrast is the study's point, ideology swung and trade kept growing. The coding is the study's, with its own confidence levels.">
           {ideoFigure}
         </Exhibit>
-        <Exhibit id="d-gov-stance" title="Which way each government leaned" layer="interp" note="Stance scale: aligned +2, cooperative +1, pragmatic 0, distant −1, hostile −2 toward each power; the cell is the US score minus the China score.">
+        <Exhibit id="d-gov-stance" title="Which way each government leaned" layer="interp" note="Stance scale: aligned +2, cooperative +1, pragmatic 0, distant −1, hostile −2 toward each power; the cell is the US score minus the China score."
+          asks="Did each government lean toward Washington or toward Beijing, and did a swing in ideology bring a swing in stance? One cell per country-year on a diverging scale sets the two leanings against each other."
+          how="One cell per country and year, the colour running from China's at −4 to the United States' at +4, a cell between the two a government coded close to even; hover for the two scores and the government's name. A missing cell is a year the study did not code."
+          says="Set this strip against the one above: where the colours move together, stance followed ideology; where this strip stays even through a swing above, the government hedged. The scores are the study's coding, not a measure.">
           {stanceFigure}
         </Exhibit>
-        <Exhibit id="d-gov-lean" title="Where the goods went" layer="facts" note={`${r4.tr.source}. The cell is China's purchases over the two powers' purchases from the country, unit-free; a year without both values is absent.`}>
+        <Exhibit id="d-gov-lean" title="Where the goods went" layer="facts" note={`${r4.tr.source}. The cell is China's purchases over the two powers' purchases from the country, unit-free; a year without both values is absent.`}
+          asks="Did the goods follow the governments? China's share of what the two powers bought from each country, one cell per year, sits under the two coded strips on the same axis."
+          how="One cell per country and year, the colour running from the United States' at 0% to China's at 100%; hover for the share. A missing cell is a year without both values in the mirror data, not a year without trade."
+          says="This is the one strip of the three built from trade data rather than coding; the study's reading is that it drifts while the strips above swing, and the correlations below are its test of that. The data end in 2023, so the last years are blank, not flat.">
           {leanFigure}
         </Exhibit>
       </section>
@@ -275,23 +312,33 @@ export function DenialView() {
       <section id="d-perception" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">How people see it: Latinobarómetro 2026</h2>
         <p className="mt-1 text-sm text-ink-2">In 2026, {region.china["2025_26"]?.pos}% of Latin Americans called China&apos;s influence positive against {region.us["2025_26"]?.pos}% for the United States ({region.china["2020"]?.pos}% and {region.us["2020"]?.pos}% in 2020). One survey question at two points in time; the report publishes China&apos;s figure for only some countries, and Nicaragua was not surveyed. Fieldwork {String(r4.lb.fieldwork.dates ?? "")}, {String(r4.lb.fieldwork.interviews ?? "")} interviews.</p>
+        <Reading
+          asks="Do people in each country see China's influence or the United States' more positively? A table, one row per country, puts the two figures side by side."
+          how="One row per surveyed country, the share calling each power's influence positive, sorted by the gap in China's favour; a dash is a figure the report did not publish for that country, not a zero, and the note column carries the source and any caveat."
+        />
         <div className="scroll-x mt-3">
           <table className="w-full text-sm">
             <thead><tr className="text-left text-xs text-ink-3"><th className="py-1 pr-4">Country</th><th className="py-1 pr-4">China positive</th><th className="py-1 pr-4">US positive</th><th className="py-1">Note</th></tr></thead>
             <tbody>{survey.map(([iso, v]) => <tr key={iso} className="border-t border-rule-2"><td className="py-1 pr-4 font-semibold">{name(iso)}</td><td className="py-1 pr-4 font-mono tabular-nums">{v.china_pos ?? "—"}%</td><td className="py-1 pr-4 font-mono tabular-nums">{v.us_pos ?? "—"}%</td><td className="py-1 text-xs text-ink-3">{v.source}{v.note ? `; ${v.note}` : ""}</td></tr>)}</tbody>
           </table>
         </div>
+        <Reading says="The regional figures in the paragraph above are the frame; a country far from them is where to look. One question at two points in time, so the table is a snapshot, not a trend." />
       </section>
 
       <section id="d-synth" className="mt-10 scroll-mt-14">
         <h2 className="serif text-xl font-bold">Crossing the variables: what moves together</h2>
         <p className="mt-1 text-sm text-ink-2">The companion project&apos;s own correlations over {Object.keys(r4.govs).length} countries, 2001–2023 ({synth.R.descr.n_obs} country-years): <em>between</em> asks whether countries that are more X are also more Y (each country&apos;s average); <em>within</em> asks whether a change of X inside a country goes with a change of Y, after removing each country&apos;s level and each year&apos;s regional trend. Correlation is not causation. Its reading: within each country, changes of government move votes and rhetoric, not trade.</p>
+        <Reading
+          asks="Which of the study's variables move together across countries, and which move together inside a country over time? One table with both correlations keeps the two questions apart."
+          how="One row per pair of variables, X against Y; each cell is the correlation coefficient with its p-value and the number of observations, between countries on the left and within countries on the right, and a dash is a pair the study did not compute."
+        />
         <div className="scroll-x mt-3">
           <table className="w-full text-sm">
             <thead><tr className="text-left text-xs text-ink-3"><th className="py-1 pr-3">X</th><th className="py-1 pr-3">Y</th><th className="py-1 pr-3">Between countries r (p, n)</th><th className="py-1">Within countries r (p, n)</th></tr></thead>
             <tbody>{corr.map((r) => <tr key={r.pair} className="border-t border-rule-2"><td className="py-1 pr-3 text-xs">{r.x}</td><td className="py-1 pr-3 text-xs">{r.y}</td><td className="py-1 pr-3 font-mono tabular-nums text-xs">{r.between ? `${r.between[0].toFixed(2)} (${r.between[1].toFixed(3)}, ${r.between[2]})` : "—"}</td><td className="py-1 font-mono tabular-nums text-xs">{r.within ? `${r.within[0].toFixed(2)} (${r.within[1].toFixed(3)}, ${r.within[2]})` : "—"}</td></tr>)}</tbody>
           </table>
         </div>
+        <Reading says="A pair strong between countries but weak within them is a difference between countries, not something a change of government moves; the study's reading is that trade is such a pair. Correlation is not causation, as the study says itself." />
       </section>
 
       <section id="d-open" className="mt-10 scroll-mt-14">

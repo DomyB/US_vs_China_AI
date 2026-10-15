@@ -7,6 +7,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { CAT_3, CAT_4, INK_3, RULE } from "@/components/insights/shared";
 import { MAP_PALETTE } from "@/components/map/scales";
+import { PageGuide, Reading } from "@/components/ui/Reading";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, OTHER_COLOR } from "@/lib/constants";
 import { CLASS_WORD, classWeights, confusion, contributions, countryName, crossEntropy, featureName, initHead, logits, macroF1, meanLoss, predict, softmax, step, train, type ClassifierExample, type ClassifierFile, type Head } from "@/lib/classifier";
@@ -191,7 +192,9 @@ export function ClassifierView() {
     />
   );
   const vectorFigure = (
-    <PlotFigure
+    <div>
+      <Reading compact asks={`What does the head actually read? One bar per input shows the ${file.features.dim} numbers as they enter the layer, with the four appended flags at the right end.`} how="One bar per input dimension in storage order; the embedding dimensions are purple above zero and green below, the four flags at the right end take a third colour; hover for the value and the name of a flag." />
+      <PlotFigure
       options={{
         height: 150, marginLeft: 40,
         x: { label: `input dimension (1–${file.features.dim})`, ticks: 6 }, y: { label: "value", ticks: 4 },
@@ -200,7 +203,9 @@ export function ClassifierView() {
       ariaLabel={`The ${file.features.dim} numbers of the example's input row as bars`}
       expandable={false}
       glyph="model"
-    />
+      />
+      <Reading compact says="The bars carry no readable meaning one by one; what the head learns is a weight for each of them, which is why the decision in the last stage can be traced back to these bars." saysKind="model" />
+    </div>
   );
 
   const pick = (key: string, stage: number, label: string) => <button type="button" className="underline decoration-dotted" onClick={() => setExample(key, stage)}>{label}</button>;
@@ -250,7 +255,13 @@ export function ClassifierView() {
           <p>The pipeline&apos;s objective is the mean loss over the {setup.xs.length} training examples, each weighted by the rarity of its class, plus an L2 penalty that keeps the weights small (λ = 1 / (C · n) with C = {file.method.C}). At the start it is <strong>{f3(setup.loss0)}</strong>.</p>
         </>
       ),
-      figure: probFigure([{ name: "at the start", p: p0 }]),
+      figure: (
+        <div>
+          <Reading compact asks="What does the untrained head believe about this record? Bars of the class probabilities show how close to even guessing the start is, which the loss figure in the text measures." how="One bar per class, its height the probability after the softmax, the labelled class in green; at the start the three should be nearly equal." />
+          {probFigure([{ name: "at the start", p: p0 }])}
+          <Reading compact says="The green bar is what the loss punishes: the lower it is, the larger the loss, whatever the other two bars do." saysKind="model" />
+        </div>
+      ),
     },
     {
       id: "gradient", title: "The gradient and a step", kicker: "Which way, and how far, to move every weight so the loss falls.",
@@ -260,7 +271,13 @@ export function ClassifierView() {
           <p>One step moves every weight against its gradient by the learning rate ({file.method.lr}). On the full training set the mean absolute gradient at the start is {setup.gradNorm.toExponential(2)}; after one step the objective goes from <strong>{f3(setup.loss0)}</strong> to <strong>{f3(setup.loss1)}</strong>, and this record&apos;s probability for its label moves from {fmtPct(p0[yIdx], 1)} to {fmtPct(p1[yIdx], 1)}.</p>
         </>
       ),
-      figure: probFigure([{ name: "at the start", p: p0 }, { name: "after one step", p: p1 }]),
+      figure: (
+        <div>
+          <Reading compact asks="What does one step change? The same bars before and after it show how far the probabilities move in a single update of every weight." how="Left the start, right after one step on the full training set; one bar per class, the labelled class in green." />
+          {probFigure([{ name: "at the start", p: p0 }, { name: "after one step", p: p1 }])}
+          <Reading compact says="A small move is the expected one: the step is the learning rate times a gradient averaged over every training example, and this record is only one of them." saysKind="model" />
+        </div>
+      ),
     },
     {
       id: "descent", title: "Gradient descent", kicker: `${iters} steps, the loss falling and the accuracy rising, computed as you watch.`,
@@ -281,8 +298,10 @@ export function ClassifierView() {
               <select className="input text-xs" value={cReg} onChange={(e) => setCReg(Number(e.target.value))}>{C_OPTIONS.map((v) => <option key={v} value={v}>{v}{v === file.method.C ? " (default)" : ""}</option>)}</select>
             </label>
           </div>
+          <Reading compact asks="Does the loss keep falling, and does what the head learns carry over to records it has not seen? A loss curve and an accuracy curve answer the two questions separately, because a falling loss alone does not." how="Top chart: the objective after every tenth step. Bottom chart: accuracy on the training set and on the held-out records, with the dashed rule at even guessing; the levers above recompute both. The confusion table under them counts the held-out records by label and by prediction." />
           {curveFigure}
           {accFigure}
+          <Reading compact says="Watch the gap between the two accuracy lines rather than the loss alone: a training line at the top with a held-out line far below is memorising; and the held-out figure rests on a few dozen records, so it moves in steps." saysKind="model" />
           <div>
             <p className="eyebrow">Held-out confusion after {iters} steps · rows the label, columns the prediction</p>
             <table className="mt-1 text-xs">
@@ -311,8 +330,10 @@ export function ClassifierView() {
               </select>
             </label>
           </div>
+          <Reading compact asks="What does the trained head say about this record, and which inputs decided it? Probabilities for the chosen record and one bar per contributing input make the decision traceable, which is the reason a one-layer head was chosen." how="Top: one bar per class for the page's head and, when the release carries one, the pipeline's head beside it, the labelled class in green. Bottom: the eight inputs with the largest share of the chosen class's logit, green pushing toward it and grey against; flags are named, embedding dimensions numbered." />
           {probFigure(pPipe ? [{ name: `this page, ${iters} steps`, p: pT }, { name: "the pipeline's head", p: pPipe }] : [{ name: `after ${iters} steps`, p: pT }])}
           {contribFigure}
+          <Reading compact says="When the largest bars are flags, the decision rests on which actor is asked about and whether it is mentioned, rather than on the text; when they are embedding dimensions, it rests on the text in a way no single bar explains." saysKind="model" />
         </div>
       ),
     },
@@ -347,6 +368,13 @@ export function ClassifierView() {
       layer="model"
       provenance={provenance}
       stages={stages}
+      aside={
+        <PageGuide
+          purpose="Repeats the pipeline's stance head in the browser on the release's own examples: one layer of weights, the forward pass on a real record, the loss, the gradient, the descent and the decision, so the stance labels on the site can be seen being learned."
+          read="Move through the seven stages with the rail or the arrow keys; the levers in stage 5 retrain the head as you watch, and the example can be changed in stages 1 and 6. Read the labels' source in the first stage before trusting any accuracy."
+          next={[{ href: "/step-by-step/words", label: "From words to geometry" }, { href: "/methodology", label: "Methods and data" }]}
+        />
+      }
     />
   );
 }

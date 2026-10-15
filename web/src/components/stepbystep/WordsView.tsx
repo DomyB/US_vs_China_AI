@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, type MouseEvent } from "react";
 import { FRAME_GLYPH, PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { CAT_3, CAT_4, INK_3, RULE } from "@/components/insights/shared";
+import { PageGuide, Reading } from "@/components/ui/Reading";
 import { Segmented } from "@/components/ui/Segmented";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, COUNTRY_NAMES, IN_SCOPE, LANGUAGE_NAME, OTHER_COLOR } from "@/lib/constants";
@@ -141,16 +142,20 @@ export function WordsView() {
   };
 
   const vectorFigure = feat ? (
-    <PlotFigure
-      options={{
-        height: 150, marginLeft: 40,
-        x: { label: "dimension (1–" + feat.vector.length + ")", ticks: 6 }, y: { label: "value", ticks: 4 },
-        marks: [Plot.ruleY([0], { stroke: INK_3 }), Plot.rectY(feat.vector.map((v, i) => ({ i, v })), { x1: "i", x2: (d: { i: number }) => d.i + 1, y: "v", fill: (d: { v: number }) => (d.v >= 0 ? CAT_3 : CAT_4), tip: true, title: (d: { i: number; v: number }) => `dimension ${d.i + 1}: ${d.v.toFixed(4)}` })],
-      } as PlotOptions}
-      ariaLabel={`The ${feat.vector.length} numbers of the record's vector as bars`}
-      expandable={false}
-      glyph="model"
-    />
+    <div>
+      <Reading compact asks="What does the model actually produce from the title? One bar per dimension shows the vector as it is stored: numbers with no names, which is the point." how="One bar per dimension in storage order, purple above zero and green below; hover for the value. The bars have no unit and no order that means anything." />
+      <PlotFigure
+        options={{
+          height: 150, marginLeft: 40,
+          x: { label: "dimension (1–" + feat.vector.length + ")", ticks: 6 }, y: { label: "value", ticks: 4 },
+          marks: [Plot.ruleY([0], { stroke: INK_3 }), Plot.rectY(feat.vector.map((v, i) => ({ i, v })), { x1: "i", x2: (d: { i: number }) => d.i + 1, y: "v", fill: (d: { v: number }) => (d.v >= 0 ? CAT_3 : CAT_4), tip: true, title: (d: { i: number; v: number }) => `dimension ${d.i + 1}: ${d.v.toFixed(4)}` })],
+        } as PlotOptions}
+        ariaLabel={`The ${feat.vector.length} numbers of the record's vector as bars`}
+        expandable={false}
+        glyph="model"
+      />
+      <Reading compact says="No single bar carries meaning; only the whole pattern, set against other records' patterns, carries the meaning the next stage measures as distance." saysKind="model" />
+    </div>
   ) : null;
 
   // an HTML list rather than a chart: the titles are the point, and they must read at every width
@@ -158,6 +163,7 @@ export function WordsView() {
   const simMin = Math.min(0, ...far.map((f) => f.sim));
   const neighbourFigure = (
     <figure className="plot-figure">
+      <Reading compact asks="Which records does the model hold closest to this one, and how close? A ranked list with a bar per record keeps the titles readable, which a chart of points would lose." how="One row per record, the nearest first and then the farthest for scale; the number is the cosine similarity, the bar its length from the lowest shipped value to 1; green rows are nearest, grey farthest. A dash is a record whose similarity was not shipped, not a zero." />
       <ol className="space-y-2">
         {neighbourRows.map((r) => (
           <li key={`${r.kind}-${r.doc.id}`} className="text-xs">
@@ -174,7 +180,8 @@ export function WordsView() {
           </li>
         ))}
       </ol>
-      <figcaption className="mt-1 text-[11px] text-ink-3">{FRAME_GLYPH.model} · green bars are the nearest records, grey the farthest; the bar runs from {simMin.toFixed(2)} to 1. Click a title to make it the record.</figcaption>
+      <figcaption className="mt-1 text-[11px] text-ink-3">{FRAME_GLYPH.model} · the bar runs from {simMin.toFixed(2)} to 1. Click a title to make it the record.</figcaption>
+      <Reading compact says="These records are near in the full space, not on the folded map of the next stages; whether they say the same thing is for the reader to judge from the titles, which is why they are listed rather than plotted." />
     </figure>
   );
 
@@ -247,7 +254,13 @@ export function WordsView() {
           <p>The record and its nearest neighbours are drawn on the folded space below; the rest of the corpus is faint.</p>
         </>
       ),
-      figure: <PlotFigure options={mapOptions(file.docs, true)} ariaLabel="The record and its nearest neighbours on the two-dimensional fold of the corpus" glyph="model" />,
+      figure: (
+        <div>
+          <Reading compact asks="Where does the record sit among its neighbours once the space is flattened? A scatter on the two principal components is the only way to look at the corpus, so it is drawn with the record and its neighbours marked." how="Every embedded record is a faint dot; the ringed dots are the nearest neighbours found in the full space, joined to the record by a line; the axes are the two principal components, which have no unit." />
+          <PlotFigure options={mapOptions(file.docs, true)} ariaLabel="The record and its nearest neighbours on the two-dimensional fold of the corpus" glyph="model" />
+          <Reading compact says={`The fold is a projection for looking, not a measurement: it keeps ${fmtPct(explained[0] + explained[1], 1)} of the variance, so a neighbour drawn far from the record is still near it in the full space, and two dots that touch here may be far apart there.`} saysKind="model" />
+        </div>
+      ),
     },
     {
       id: "map", title: "The map", kicker: `Every embedded record, ${file.n.toLocaleString("en-GB")} points.`,
@@ -273,9 +286,11 @@ export function WordsView() {
           <ul className="mb-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-ink-2">
             {legend.map((l) => <li key={l.label} className="inline-flex items-center gap-1"><span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: l.color }} />{l.label}</li>)}
           </ul>
+          <Reading compact asks="What does the whole corpus look like, and what does colour reveal? One dot per embedded record on the same fold, recoloured by what the pipeline knows about it, shows which labels follow the geometry and which cut across it." how="Same axes as the fold; colour by type, country, language, narrative or stance with the control above and narrow the points with the two lists; the legend names the colours; click a dot to make it the record. A record without a label is drawn in the neutral colour, not left out." />
           <div onClick={onMapClick} className="records-map cursor-crosshair">
             <PlotFigure options={mapOptions(filtered, false)} ariaLabel={`Every embedded record as a point on the two-dimensional fold, coloured by ${colour}`} glyph="model" />
           </div>
+          <Reading compact says="A colour that gathers in its own region is a property the geometry separates by itself; a colour scattered everywhere is one it does not see. The positions are a projection for looking, so a cluster here is a hint to check in the full space, not a finding." />
         </div>
       ),
     },
@@ -310,6 +325,13 @@ export function WordsView() {
       layer="model"
       provenance={provenance}
       stages={stages}
+      aside={
+        <PageGuide
+          purpose="Follows one real record of the corpus from its title to its vector, its neighbours and the folded map of every embedded record, so the text model's outputs on the site can be seen being made."
+          read="Move through the seven stages with the rail or the arrow keys; every stage is a live view of the same record, and a click on the map or on a neighbour changes it. The fold and the map are projections for looking, not measurements."
+          next={[{ href: "/step-by-step/index-geometry", label: "Data as geometry" }, { href: "/step-by-step/classifier", label: "A classifier, step by step" }]}
+        />
+      }
     />
   );
 }

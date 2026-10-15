@@ -132,11 +132,19 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
   return (
     <div className="space-y-5">
       <section aria-labelledby="trade-h">
-        <SectionHeader id="trade-h" title="Mineral exports by destination" tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} provenance={provenanceFor("trade", { iso3: data.iso3, year, meta, title: `Mineral exports by destination, ${data.name}` })} />
+        <SectionHeader
+          id="trade-h"
+          title="Mineral exports by destination"
+          tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>}
+          provenance={provenanceFor("trade", { iso3: data.iso3, year, meta, title: `Mineral exports by destination, ${data.name}` })}
+          asks={`Does ${data.name}'s ore go to China, to the United States or elsewhere, and has that changed year by year? Bars in US dollars keep the three destinations on one scale.`}
+          how={`One bar per year and buyer, the rest of the world in grey${hasMirror ? "; a lighter narrow bar beside it is the partner's own report of the same flow" : ""}; the dashed rule is the selected year; a missing bar is a year Comtrade returned no partner row for, never zero, and a gap on the axis is a year with no trade row at all.`}
+          says="Read the later years against the earlier ones: the colour that has grown is the buyer that has gained. Where a mirror bar is drawn, its distance from the reported bar is how far the two customs records disagree."
+        />
         <p className="mb-2 text-xs text-ink-3">
           {mineral === "all" ? "All core minerals" : prettyMineral(mineral)}, annual, reported by {data.name}.
-          {hasMirror ? " Lighter narrow bars: the same flow as reported by the partner (mirror data, includes freight and insurance)." : " Mirror data appears here once the partner-reported series is ingested."}
-          {trade.length > 0 && ` A dash, and no bar, means Comtrade returned no partner row for that year (read as no reported flow, never as zero)${absentYears > 0 ? `: ${absentYears} such partner-year${absentYears === 1 ? "" : "s"} here` : ""}; a gap on the axis is a year with no trade row at all.`}
+          {hasMirror ? " Mirror data (partner-reported) includes freight and insurance." : " Mirror data appears here once the partner-reported series is ingested."}
+          {trade.length > 0 && absentYears > 0 && ` ${absentYears} partner-year${absentYears === 1 ? "" : "s"} here ${absentYears === 1 ? "has" : "have"} no Comtrade partner row.`}
         </p>
         {trade.length === 0 ? (
           <p className="text-sm text-ink-3">No trade rows for this selection. Missing means not reported, not zero.</p>
@@ -181,10 +189,18 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
       )}
 
       <section aria-labelledby="events-h">
-        <SectionHeader id="events-h" title={allYears ? "Deals, loans, investments and agreements, all years" : `Deals, loans, investments and agreements in ${year}`} tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>} provenance={provenanceFor("finance", { iso3: data.iso3, year: allYears ? undefined : year, meta, title: `Finance events, ${data.name}` })} />
+        <SectionHeader
+          id="events-h"
+          title={allYears ? "Deals, loans, investments and agreements, all years" : `Deals, loans, investments and agreements in ${year}`}
+          tags={<><DataLayerTag layer={data.layers?.actions} /><LayerLabel layer="facts" /></>}
+          provenance={provenanceFor("finance", { iso3: data.iso3, year: allYears ? undefined : year, meta, title: `Finance events, ${data.name}` })}
+          asks="When did money and agreements arrive, from which side, and how large were they? A timeline by actor side shows the clustering in time that a list sorted by date hides."
+          how={`One circle per recorded event, placed by date on the row of its side and sized by the published amount, hollow when no amount was published; the shaded band is ${year}; the list beneath is the same records in full.`}
+          says="An empty row is a side with no record in the dataset, not a side that did nothing: the records come from published sources, and a quiet stretch may be an unreported one."
+        />
         {allEvents.length > 0 && (
           <>
-            <p className="mb-1 text-xs text-ink-3">Every recorded event, by date and side; the circle area follows the published amount (hollow: no amount published); the shaded band is {year}. Hover for the record.</p>
+            <p className="mb-1 text-xs text-ink-3">Every recorded event. Hover a circle for the record.</p>
             <PlotFigure options={timelineOptions} ariaLabel={`Timeline of ${allEvents.length} recorded deals, loans, investments and agreements in ${data.name} by actor side, circle size by amount`} />
           </>
         )}
@@ -227,7 +243,17 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
 
       {investment.length > 0 && (
         <section aria-labelledby="inv-h">
-          <SectionHeader id="inv-h" title="Direct investment positions held by each actor" tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("investment", { iso3: data.iso3, year, meta })} intro={`Inward direct-investment stock of ${data.name} held by China, Hong Kong SAR and the United States, US$ million, as the IMF publishes it: the country's own survey ("reported") and the counterpart's report of the same stock ("derived") are two figures of one position and are never added. ${investmentLatest.length ? `Latest reported: ${investmentLatest.map((r) => `${COUNTERPART_NAME[r.counterpart] ?? r.counterpart} ${fmtMusd(r.musd)} (${r.year})`).join("; ")}.` : ""}`} />
+          <SectionHeader
+            id="inv-h"
+            title="Direct investment positions held by each actor"
+            tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>}
+            provenance={provenanceFor("investment", { iso3: data.iso3, year, meta })}
+            intro={`Inward direct-investment stock of ${data.name} held by China, Hong Kong SAR and the United States, US$ million, as the IMF publishes it: the country's own survey ("reported") and the counterpart's report of the same stock ("derived") are two figures of one position and are never added. ${investmentLatest.length ? `Latest reported: ${investmentLatest.map((r) => `${COUNTERPART_NAME[r.counterpart] ?? r.counterpart} ${fmtMusd(r.musd)} (${r.year})`).join("; ")}.` : ""}`}
+            asks={`How much of ${data.name}'s inward investment stock is held from China, Hong Kong and the United States, and whose record says so? A table of positions by year keeps the two reporters apart.`}
+            how="One row per counterpart and basis, one column per year of the last six on record; a dash is a year the survey does not carry, not zero."
+            says="Where the reported and derived rows of one counterpart differ, the two statistical offices see the same position differently; the table shows both and does not choose between them."
+            saysKind="facts"
+          />
           <table className="w-full text-xs">
             <thead><tr><th>Counterpart</th><th>Basis</th>{investmentYears.map((y) => <th key={y} className="text-right">{y}</th>)}</tr></thead>
             <tbody>
@@ -240,12 +266,21 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
               ))}
             </tbody>
           </table>
-          <p className="mt-1 text-[11px] text-ink-3">Source: <SourceLink source={investment[0].source} compact />. A dash is a year the survey does not carry, not a zero.</p>
+          <p className="mt-1 text-[11px] text-ink-3">Source: <SourceLink source={investment[0].source} compact />.</p>
         </section>
       )}
       {production.length > 0 && (
         <section aria-labelledby="prod-h">
-          <SectionHeader id="prod-h" title={`Production and reserves in ${year}`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("production", { iso3: data.iso3, year, meta })} intro={`${productionGroups.length} mineral series; where several sources or units report the same mineral, the first row is shown and the others open on request.`} />
+          <SectionHeader
+            id="prod-h"
+            title={`Production and reserves in ${year}`}
+            tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>}
+            provenance={provenanceFor("production", { iso3: data.iso3, year, meta })}
+            intro={`${productionGroups.length} mineral series; where several sources or units report the same mineral, the first row is shown and the others open on request.`}
+            asks={`What does ${data.name} dig up, and what does it still hold in the ground, in ${year}? A table, because quantities in different units cannot share one axis.`}
+            how="One row per mineral and measure (production or reserves) with its unit and source; a dash is a quantity the source does not give, not zero; other series for the same mineral open under the source."
+            says="Read the production row of a mineral against its reserves row for how long the known deposits would last at the current rate; the units differ by row, so check the unit column before comparing."
+          />
           <table className="w-full text-xs">
             <thead><tr><th>Mineral</th><th>Measure</th><th className="text-right">Quantity</th><th>Unit</th><th className="hidden sm:table-cell">Source</th></tr></thead>
             <tbody>

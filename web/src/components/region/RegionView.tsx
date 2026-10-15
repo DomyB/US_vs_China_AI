@@ -11,6 +11,7 @@ import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { RankingRace } from "@/components/charts/RankingRace";
 import { YearControl } from "@/components/controls/YearControl";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
+import { PageGuide, Reading } from "@/components/ui/Reading";
 import { Segmented } from "@/components/ui/Segmented";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -197,6 +198,11 @@ export function RegionView() {
     <div ref={revealRoot} className="mx-auto max-w-7xl px-4 py-3">
       <h1 className="text-2xl font-semibold leading-tight sm:text-[1.75rem]">Regional overview</h1>
       <p className="mb-3 max-w-3xl text-sm text-ink-2">Rankings, comparisons over time, mineral-by-mineral shares and the map of major projects. <LayerLabel layer="model" />{index?.layer === "real" ? <DataLayerTag layer="real" /> : <DataLayerTag layer="sample" />}</p>
+      <PageGuide
+        purpose={`The ${COUNTRY_COUNT_WORD} countries side by side in one year: who leans where, how that has moved, where each mineral goes, where the projects are and who speaks about them.`}
+        read="Move the year or press play and every chart follows; hover or pin a country in the ranking to follow it in the chart beside it; each chart has its table beneath."
+        next={[{ href: "/explore", label: "The map, one country at a time" }, { href: "/votes-and-ore", label: "Votes and ore" }]}
+      />
 
       <SectionNav items={REGION_SECTIONS} />
       <div className="card mb-4 p-3">
@@ -209,9 +215,15 @@ export function RegionView() {
             <h2 id="rk-h" className="text-lg font-semibold">Ranking in {year}</h2>
             {subIndices && <Segmented label="Index" value={indexName} options={INDEX_OPTIONS} onChange={(n) => setParam("index", n === "composite" ? null : n)} />}
           </div>
-          <p className="mb-2 text-xs text-ink-3">Net lean = China index − US index, in points of the 0–100 scale, for the {INDEX_PHRASE[indexName]} ({INDEX_FORMULA[indexName]}){index?.layer === "real" ? `; computed, and a dash means the ${INDEX_PHRASE[indexName]} has no value for one of the actors that year (too few components, or a source that has not reached the year)` : " (sample)"}. Click a row to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
+          <p className="mb-2 text-xs text-ink-3">Net lean = China index − US index, in points of the 0–100 scale, for the {INDEX_PHRASE[indexName]} ({INDEX_FORMULA[indexName]}){index?.layer === "real" ? "; computed" : " (sample)"}. Click a row to open the country on the map; hover a row to follow the country in the chart on the right, click the row to pin it.</p>
+          <Reading
+            compact
+            asks={`Which countries lean furthest toward China and which toward the United States in ${year}? One ranked bar per country puts all of them on one line.`}
+            how={`One row per country, its bar running from the centre line, left toward the United States and right toward China, on the same ±${NET_LEAN_MAX} scale as the map and the heatmap; the table beneath gives both indices; a dash is a country whose ${INDEX_PHRASE[indexName]} has no value for one actor that year (too few components, or a source that has not reached the year), not a neutral lean.`}
+          />
           <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={NET_LEAN_MAX} href={(iso) => `/explore?country=${iso}&year=${year}${indexName === "composite" ? "" : `&index=${indexName}`}`} onHover={setHoverIso} hover={focus} />
-          <p className="mt-1 text-[11px] text-ink-3">Bars run from the centre: left toward the United States, right toward China, on the ±{NET_LEAN_MAX} scale the map and the heatmap use. Rows slide when the year changes.{unranked > 0 && index?.layer === "real" ? ` ${unranked} of ${IN_SCOPE.length} countries have no net lean in ${year} (a dash in the table).` : ""}</p>
+          <p className="mt-1 text-[11px] text-ink-3">Rows slide when the year changes.{unranked > 0 && index?.layer === "real" ? ` ${unranked} of ${IN_SCOPE.length} countries have no net lean in ${year} (a dash in the table).` : ""}</p>
+          <Reading compact says="The order is the net of two indices, so a country high in the list may have strong ties to both powers; the US and China columns in the table say which." saysKind="model" />
           <table className="mt-4 w-full text-xs">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US</th><th className="py-1 text-right">China</th><th className="py-1 text-right">Net</th></tr>
@@ -239,11 +251,17 @@ export function RegionView() {
             <Segmented label="Chart" value={chartMode} options={[{ value: "lines", label: "Lines" }, { value: "heatmap", label: "Heatmap" }]} onChange={setChartMode} />
           </div>
           <p className="mb-2 text-xs text-ink-3">
-            {INDEX_LABEL[indexName]}{subIndices ? " (switch it in the ranking)" : ""}.{" "}
-            {chartMode === "lines"
-              ? `All ${COUNTRY_COUNT_WORD} countries in grey; ${focus ? `${COUNTRY_NAMES[focus] ?? focus} highlighted` : "hover or pin a country in the ranking to highlight it"}. Move the pointer over the chart to read any point; the dotted line is ${year}.${measure === "net" ? ` Net lean is on the same ±${NET_LEAN_MAX} scale as the map, the ranking and the heatmap${beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? " lies" : "s lie"} beyond it and ${beyond === 1 ? "is" : "are"} drawn at the edge, with the full value in the tooltip and the table` : ""}.` : ""}`
-              : `One row per country, one cell per year, ordered by the value in ${year}; the outlined column is ${year}. Hover a cell for its value${measure === "net" && beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? "" : "s"} beyond ±${NET_LEAN_MAX} take the edge colour and keep the full value` : ""}.`}
+            {INDEX_LABEL[indexName]}{subIndices ? " (switch it in the ranking)" : ""}.{chartMode === "lines" ? ` ${focus ? `${COUNTRY_NAMES[focus] ?? focus} highlighted` : "Hover or pin a country in the ranking to highlight it"}.` : ""}
           </p>
+          <Reading
+            compact
+            asks={`How has the ${measureLabel(measure, indexName)} moved for each country across the years, and does any one break from the pack? ${chartMode === "lines" ? "Every country as a line at once shows the movement and the pack together" : "A heatmap keeps every country-year readable where the lines would tangle"}.`}
+            how={
+              chartMode === "lines"
+                ? `All ${COUNTRY_COUNT_WORD} countries in grey, the highlighted one in colour with its latest value named; move the pointer over the chart to read any point; the dotted line is ${year}; a line that stops or starts late is a country with no index in those years, not a zero.${measure === "net" ? ` Net lean is on the same ±${NET_LEAN_MAX} scale as the map, the ranking and the heatmap${beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? " lies" : "s lie"} beyond it and ${beyond === 1 ? "is" : "are"} drawn at the edge, with the full value in the tooltip and the table` : ""}.` : ""}`
+                : `One row per country, one cell per year, ordered by the value in ${year}; the outlined column is ${year}; hover a cell for its value; a blank cell is a year with no index, not a neutral one${measure === "net" && beyond > 0 ? `; ${beyond} country-year${beyond === 1 ? "" : "s"} beyond ±${NET_LEAN_MAX} take the edge colour and keep the full value` : ""}.`
+            }
+          />
           {measureRows.length === 0 ? (
             <p className="text-sm text-ink-3">No index values yet.</p>
           ) : chartMode === "lines" ? (
@@ -251,20 +269,45 @@ export function RegionView() {
           ) : (
             <Heatmap rows={measureRows} year={year} measure={measure} indexName={indexName} theme={theme} order={heatOrder} ariaLabel={`${measureLabel(measure, indexName)} by country and year as a heatmap, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           )}
+          {measureRows.length > 0 && <Reading compact says="Lines that move together are a regional tide; a line that crosses the pack is the country to open. A shift in one year across many countries can be a source arriving or lapsing as much as a change in ties." />}
           <DataTable rows={measureRows} caption={`${measureLabel(measure, indexName)} by country and year`} columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "value", label: measureLabel(measure, indexName), format: (v) => (measure === "net" ? fmtSigned(Number(v), 0) : Number(v).toFixed(0)) }]} />
         </section>
 
         <section className="card region-card p-3" aria-labelledby="min-h">
           <div className="mb-1 flex items-center justify-between gap-2"><h2 id="min-h" className="text-lg font-semibold">Mineral by mineral in {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer={shareRows?.layer} /><LayerLabel layer="facts" /></span></div>
-          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each of the nine core minerals going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the countries that reported that year; the all-minerals totals on the map and in the story also count iron ore, gold, bauxite and the other minerals the countries report)." : "."} Click a bar to open that mineral&apos;s trade flows on the map.</p>
-          {shares.length === 0 ? <p className="text-sm text-ink-3">No reported trade for {year} yet.</p> : <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />}
+          <p className="mb-2 text-xs text-ink-3">Share of the region&apos;s reported exports of each of the nine core minerals going to the US, China and the rest of the world{shareRows?.layer === "real" ? " (UN Comtrade, summed over the countries that reported that year; the all-minerals totals on the map and in the story also count iron ore, gold, bauxite and the other minerals the countries report)." : "."}</p>
+          {shares.length === 0 ? (
+            <p className="text-sm text-ink-3">No reported trade for {year} yet.</p>
+          ) : (
+            <>
+              <Reading
+                compact
+                asks="Which minerals does the region sell mainly to China, which to the United States, and where does neither dominate? One stacked bar per mineral puts the nine on one scale."
+                how={`One bar per mineral, split into the shares to the United States, China and the rest of the world, summed over the countries that reported in ${year}; click a bar to open that mineral's flows on the map; a mineral with no bar has no reported trade that year, not none.`}
+              />
+              <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />
+              <Reading compact says="A bar that is mostly one colour is a mineral with one dominant buyer for the region as a whole; a single country can still sell it elsewhere, which its own case file shows. The reporting countries change from year to year, so a share can move when a report arrives or lapses." />
+            </>
+          )}
           <DataTable rows={shares} caption="Export shares by mineral and destination" columns={[{ key: "mineral", label: "Mineral" }, { key: "partner", label: "Destination" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }]} />
         </section>
 
         <section className="card region-card p-3" aria-labelledby="pr-h">
           <div className="mb-1 flex items-center justify-between"><h2 id="pr-h" className="text-lg font-semibold">Major projects active by {year}</h2><span className="flex items-center gap-1"><DataLayerTag layer="sample" /><LayerLabel layer="facts" /></span></div>
           <p className="mb-2 text-xs text-ink-3">Mines, processing plants and ports. Real project names and approximate locations; operator origin, stage and start year are sample values until Phase 2.</p>
-          {projectsOptions ? <PlotFigure options={projectsOptions} ariaLabel={`Map of major mining projects, plants and ports in South America active by ${year}, sample attributes`} /> : <p className="text-sm text-ink-3">Loading map…</p>}
+          {projectsOptions ? (
+            <>
+              <Reading
+                compact
+                asks="Where are the big mines, plants and ports, and who operates them? A map, since location is the point."
+                how={`One symbol per project active by ${year}: the shape is its type (mine, plant or port), the colour the operator's origin; hover for the project; countries outside the scope are grey with a dashed border.`}
+              />
+              <PlotFigure options={projectsOptions} ariaLabel={`Map of major mining projects, plants and ports in South America active by ${year}, sample attributes`} />
+              <Reading compact says="Until the attributes are real, read the map for where the projects are, not for whose they are; a project absent here is one not in the list, not one that does not exist." />
+            </>
+          ) : (
+            <p className="text-sm text-ink-3">Loading map…</p>
+          )}
           {region && (
             <DataTable rows={region.projects.filter((p) => p.start_year <= year)} caption="Projects" columns={[{ key: "name", label: "Project" }, { key: "iso3", label: "Country" }, { key: "mineral", label: "Mineral", format: (v) => prettyMineral(String(v)) }, { key: "type", label: "Type" }, { key: "operator_origin", label: "Operator origin" }, { key: "stage", label: "Stage" }, { key: "start_year", label: "Since" }]} />
           )}
@@ -279,10 +322,21 @@ export function RegionView() {
           <div className="grid gap-4 lg:grid-cols-2">
             <div className="min-w-0">
               <h3 className="mb-1">Statements per year, by who speaks</h3>
+              <Reading
+                compact
+                asks="Who speaks about the region's minerals year by year: the countries' own leaders, Washington, Beijing or others? Stacked bars show the volume and the voices at once."
+                how="One bar per year, split by speaker bloc; a year with no bar has no statement in the dataset, which was collected by search and is not a census."
+              />
               <StatementsByYear rows={regionStm.by_year_bloc} ariaLabel={`Statements about minerals in the ${COUNTRY_COUNT_WORD} countries per year by speaker bloc`} />
+              <Reading compact says="A tall bar of outside voices is a year the region was talked about more than it talked; the table beside counts the positions those statements took." />
             </div>
             <div className="min-w-0">
               <h3 className="mb-1">Who takes which position, by speaker bloc</h3>
+              <Reading
+                compact
+                asks="Do the blocs differ in which power they praise or criticise? A count table by bloc is more honest than a mean over a handful of coded statements."
+                how="One row per speaker bloc: its statements, then how many were coded positive or negative toward China and toward the United States; neutral, mixed and not-mentioned codes are not in the columns."
+              />
               <div className="scroll-x">
                 <table className="w-full min-w-[30rem] text-xs">
                   <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Speakers</th><th className="py-1 text-right">Statements</th><th className="py-1 text-right">+ China</th><th className="py-1 text-right">− China</th><th className="py-1 text-right">+ US</th><th className="py-1 text-right">− US</th></tr></thead>
@@ -300,7 +354,8 @@ export function RegionView() {
                   </tbody>
                 </table>
               </div>
-              <p className="mt-1 text-[11px] text-ink-3">Counts of statements coded positive or negative toward each actor; neutral, mixed and &ldquo;not mentioned&rdquo; are left out of these columns. Coded under the dataset&apos;s codebook, not validated.</p>
+              <p className="mt-1 text-[11px] text-ink-3">Coded under the dataset&apos;s codebook, not validated.</p>
+              <Reading compact says="Read the positive and negative columns against the statement count: a bloc with many statements and few codes mostly speaks without taking a side." saysKind="facts" />
             </div>
           </div>
           <h3 className="mt-4 mb-1">Region-wide statements ({regionStm.records.length})</h3>
