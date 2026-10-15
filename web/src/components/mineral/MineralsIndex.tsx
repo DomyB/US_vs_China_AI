@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LayerLabel } from "@/components/ui/Badges";
+import { PageGuide } from "@/components/ui/Reading";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_NAMES } from "@/lib/constants";
 import { loadMinerals } from "@/lib/data";
@@ -58,6 +59,13 @@ export function MineralsIndex() {
       <h1 className="serif mt-1 text-2xl font-bold leading-tight sm:text-4xl">The minerals, one file each</h1>
       <p className="mt-3 max-w-3xl text-base leading-relaxed text-ink-2">Why each mineral matters, who has it, who buys it, where it is and what it costs, from the same records as the country case files. {file.minerals.length} minerals are tracked: the core set the trade and index figures use, and the context minerals kept as denominators or for the Chinese mining presence they mark.</p>
       <div className="mt-3 flex flex-wrap items-center gap-3"><LayerLabel layer="facts" /><Link href="/routes" className="text-sm underline">Where the ore goes: the buyers&apos; imports by origin and the indirect route →</Link></div>
+      <div className="mt-4 max-w-3xl">
+        <PageGuide
+          purpose="One case file per tracked mineral, from the same records as the country case files: who has it, who buys it, where it is and what it costs."
+          read="Pick a mineral. Each card carries its two list memberships, its producers in the record and its largest exporter; the counts under them say how much of the record the file rests on, and a mineral with few rows has a thin file, not a small market."
+          next={[{ href: "/routes", label: "Where the ore goes" }, { href: "/explore?view=buyers", label: "The buyers on the map" }]}
+        />
+      </div>
       <h2 className="serif mt-6 text-lg font-bold">Core minerals</h2>
       <ul className="mt-2 grid gap-3 sm:grid-cols-2">{core.map(card)}</ul>
       <h2 className="serif mt-6 text-lg font-bold">Context minerals</h2>
