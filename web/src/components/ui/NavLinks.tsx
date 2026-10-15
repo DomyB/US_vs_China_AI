@@ -18,7 +18,7 @@ const NAV = [
 export function NavLinks() {
   const path = usePathname() ?? "/";
   return (
-    <nav aria-label="Primary" className="scroll-x -mx-1 flex gap-0.5 text-sm lg:justify-end">
+    <nav aria-label="Primary" className="scroll-x -mx-1 flex gap-0.5 text-sm lg:ml-auto">
       {NAV.map((n) => {
         const active = n.match(path);
         return (

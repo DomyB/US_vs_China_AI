@@ -7,6 +7,7 @@ import type { FitTarget } from "@/components/map/SouthAmericaMap";
 import { LayerLabel } from "@/components/ui/Badges";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT, IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { BIV, BIV_NAMES, buyerCells, bivFill } from "@/lib/buyers";
 import { loadFlows, loadIndex, loadMeta, loadRealMeta } from "@/lib/data";
 import { fmtMusd, fmtPct, fmtSigned } from "@/lib/format";
 import { latestYear, leanByYear, tradeByYear, type LeanYear, type TradeYear } from "@/lib/overview";
@@ -15,15 +16,6 @@ import { useTheme } from "@/lib/theme";
 import type { FlowsFile, IndexFile, Meta, RealMeta } from "@/lib/types";
 
 const SouthAmericaMap = dynamic(() => import("@/components/map/SouthAmericaMap").then((m) => m.SouthAmericaMap), { ssr: false, loading: () => <Skeleton className="h-[26rem] w-full" /> });
-
-/** The bivariate grid of the prototype's hero map: China's share across, the US share down; light where both are low, dark where both are high. */
-const BIV: string[][] = [
-  ["#ecebe6", "#e9b89f", "#c4572b"],
-  ["#b9c6dc", "#b79a9a", "#9e4f3b"],
-  ["#3b69a8", "#5b5a8a", "#4a2f3a"],
-];
-const BIV_NAMES = [["Low China, low US", "Medium China, low US", "High China, low US"], ["Low China, medium US", "Medium both", "High China, medium US"], ["Low China, high US", "Medium China, high US", "High both"]];
-const bin = (v: number) => (v < 0.15 ? 0 : v < 0.4 ? 1 : 2);
 
 const Kind = ({ k }: { k: "facts" | "model" | "interpretation" }) => <LayerLabel layer={k} />;
 
@@ -84,22 +76,16 @@ export function OverviewPage() {
   const hero = useMemo(() => {
     if (!d?.flows || !t) return { fills: {} as Record<string, string | undefined>, values: {} as Record<string, number | null>, cells: new Map<string, { cn: number; us: number }>(), year: null as number | null };
     const year = t.year;
-    const cells = new Map<string, { cn: number; us: number }>();
-    for (const r of d.flows.trade) {
-      if (r.year !== year || r.mineral !== "all" || !scope.has(r.iso3)) continue;
-      const e = r.exports_musd;
-      if (e.WLD == null || e.WLD < 1 || e.CN == null || e.US == null) continue;
-      cells.set(r.iso3, { cn: e.CN / e.WLD, us: e.US / e.WLD });
-    }
+    const cells = buyerCells(d.flows.trade, year, "all", IN_SCOPE);
     const fills: Record<string, string | undefined> = {};
     const values: Record<string, number | null> = {};
     for (const iso of IN_SCOPE) {
       const c = cells.get(iso);
-      fills[iso] = c ? BIV[bin(c.us)][bin(c.cn)] : undefined;
+      fills[iso] = c ? bivFill(c.cn, c.us) : undefined;
       values[iso] = c ? c.cn - c.us : null;
     }
     return { fills, values, cells, year };
-  }, [d, t, scope]);
+  }, [d, t]);
   const fit = useMemo<FitTarget>(() => ({ kind: "home" }), []);
 
   if (d === undefined) return <div className="mx-auto max-w-[1240px] px-4 py-8 sm:px-5"><Skeleton className="h-64 w-full" /></div>;

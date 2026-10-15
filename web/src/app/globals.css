@@ -377,6 +377,25 @@
   .seg button { background: var(--card); border: 0; padding: 5px 10px; cursor: pointer; font-size: 0.82rem; color: var(--ink-2); border-left: 1px solid var(--rule); }
   .seg button:first-child { border-left: 0; }
   .seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+
+  /* the prototype's context bar on the explore page: one band of plain menus above the map, the sentence under them */
+  .ctx-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.9rem;
+    padding: 0.45rem 1rem;
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    border-bottom: 1px solid var(--rule);
+  }
+  .ctx-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .ctx-field { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; min-width: 0; }
+  .ctx-field > span:first-child { color: var(--ink-3); }
+  .ctx-select { max-width: 10.5rem; padding-block: 0.2rem; }
+  .ctx-sentence { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; font-size: 0.8rem; color: var(--ink-2); }
+  .ctx-sentence b { font-weight: 600; color: var(--ink); }
+  .linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ink-2); text-decoration: underline; text-decoration-style: dotted; cursor: pointer; }
+  .linkish:hover { color: var(--ink); }
 }
 
 /* ---- component classes: in the components layer, below utilities, above the base defaults ---- */
@@ -634,6 +653,14 @@
 /* narrow phones: a long chip wraps instead of widening its panel */
 @media (max-width: 479px) {
   .chip { white-space: normal; }
+}
+/* phones: the context bar is one row that scrolls sideways, so the map keeps its height; the menus say what the sentence says */
+@media (max-width: 639px) {
+  .ctx-bar { flex-wrap: nowrap; overflow-x: auto; gap: 0.5rem; padding: 0.4rem 0.75rem; scrollbar-width: thin; }
+  .ctx-label { display: none; }
+  .ctx-field { flex: 0 0 auto; }
+  .ctx-select { max-width: 8.5rem; }
+  .ctx-sentence { display: none; }
 }
 /* touch screens: the controls people tap most get 40px targets; pointer sizes on desktop are unchanged */
 @media (pointer: coarse) {

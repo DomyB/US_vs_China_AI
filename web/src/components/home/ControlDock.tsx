@@ -1,123 +1,47 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ActorToggle } from "@/components/controls/ActorToggle";
-import { MineralFilter } from "@/components/controls/MineralFilter";
-import { YearControl } from "@/components/controls/YearControl";
-import type { FlowSpan, FlowView } from "@/components/map/flows";
-import { Segmented } from "@/components/ui/Segmented";
-import { YEAR_MIN } from "@/lib/constants";
-import { INDEX_FORMULA, type IndexName } from "@/lib/indexView";
-import type { ActorMode, FlowsFile, MineralMeta } from "@/lib/types";
+import type { MapView } from "./ContextBar";
+import type { FlowsFile } from "@/lib/types";
 
 interface Props {
-  year: number;
-  onYear: (y: number) => void;
-  playing: boolean;
-  onTogglePlay: () => void;
-  mode: ActorMode;
-  onMode: (m: ActorMode) => void;
-  mineral: string;
-  minerals: MineralMeta[];
-  onMineral: (m: string) => void;
-  view: FlowView;
-  onView: (v: FlowView) => void;
-  span: FlowSpan;
-  onSpan: (s: FlowSpan) => void;
-  /** which index colours the map: the composite or one of its two sub-indices */
-  indexName: IndexName;
-  onIndex: (n: IndexName) => void;
-  /** whether the loaded file carries sub-index rows (the switch is hidden otherwise) */
-  indexSwitch: boolean;
-  compareMode: boolean;
-  onCompareMode: (on: boolean) => void;
-  selectionCount: number;
+  view: MapView;
   flowsMeta?: FlowsFile["meta"] | null;
   flowsLayer?: "real" | "sample" | null;
   legend: ReactNode;
+  /** on a phone the legend folds behind a summary */
   compact?: boolean;
 }
 
-const VIEW_OPTIONS: { value: FlowView; label: string; title: string }[] = [
-  { value: "index", label: "Index", title: "Colour each country by the composite influence index or one of its sub-indices" },
-  { value: "money", label: "Money flows", title: "Arcs: documented finance commitments from each actor" },
-  { value: "trade", label: "Trade flows", title: "Arcs: reported mineral exports to each actor" },
-];
-const SPAN_OPTIONS: { value: FlowSpan; label: string }[] = [
-  { value: "1", label: "This year" },
-  { value: "3", label: "3 years" },
-  { value: "all", label: `Since ${YEAR_MIN}` },
-];
-const INDEX_OPTIONS: { value: IndexName; label: string; title: string }[] = [
-  { value: "composite", label: "Composite", title: `Composite influence index: ${INDEX_FORMULA.composite}` },
-  { value: "economic_ties", label: "Economic ties", title: `Economic ties sub-index: ${INDEX_FORMULA.economic_ties}` },
-  { value: "political_alignment", label: "Political alignment", title: `Political alignment sub-index: ${INDEX_FORMULA.political_alignment}` },
-];
-
-function flowNote(view: FlowView, m: FlowsFile["meta"] | null | undefined, layer: "real" | "sample" | null | undefined): string | null {
+function flowNote(view: MapView, m: FlowsFile["meta"] | null | undefined, layer: "real" | "sample" | null | undefined): string | null {
   if (view === "index" || !m) return null;
   const ly = m.last_year;
   const base = view === "money"
     ? `Money: documented commitments from AidData (China, to ${ly.finance_CN ?? "–"}) and the DFC and EXIM (United States, to ${ly.finance_US ?? "–"}); events without a published amount are counted but add no width; swap lines and lower-confidence records are listed apart.`
-    : `Trade: reported exports to each actor (UN Comtrade, to ${ly.trade ?? "–"}); mirror data is not used.`;
+    : view === "trade"
+      ? `Trade: reported exports to each actor (UN Comtrade, to ${ly.trade ?? "–"}); mirror data is not used.`
+      : `Who buys: each country's own reported exports (UN Comtrade, to ${ly.trade ?? "–"}); a country without a China cell, a US cell and a world total in the year stays grey.`;
   return layer === "sample" ? `${base} SAMPLE flows until the first data run.` : base;
 }
 
+/** The legend card on the map; the controls live in the context bar above the map. */
 export function ControlDock(p: Props) {
   const note = flowNote(p.view, p.flowsMeta, p.flowsLayer);
-  const compareButton = (
-    <button type="button" className="btn btn-sm shrink-0" aria-pressed={p.compareMode} onClick={() => p.onCompareMode(!p.compareMode)} title="Pick up to four countries on the map or in the list to compare them">
-      Compare{p.selectionCount > 1 ? ` · ${p.selectionCount}` : ""}
-    </button>
-  );
-  const viewSwitch = <Segmented label="Map view" value={p.view} options={VIEW_OPTIONS} onChange={p.onView} />;
-  const spanSwitch = p.view !== "index" ? <Segmented label="Window" value={p.span} options={SPAN_OPTIONS} onChange={p.onSpan} /> : null;
-  // the index switch belongs to the index view; the legend names the index in every view
-  const indexSwitch = p.view === "index" && p.indexSwitch ? <Segmented label="Map index" value={p.indexName} options={INDEX_OPTIONS} onChange={p.onIndex} /> : null;
-  const actor = <div className="min-w-[13rem] flex-1"><ActorToggle value={p.mode} onChange={p.onMode} /></div>;
-  const mineral = <div className="min-w-[12rem] flex-1"><MineralFilter value={p.mineral} minerals={p.minerals} onChange={p.onMineral} /></div>;
-
   if (p.compact) {
     return (
-      <div className="card p-2">
-        <YearControl year={p.year} onChange={p.onYear} playing={p.playing} onTogglePlay={p.onTogglePlay} />
-        <div className="mt-2 flex items-center gap-2">
-          {viewSwitch}
-          {compareButton}
+      <details className="card px-2 py-1 text-xs">
+        <summary className="cursor-pointer text-xs font-medium text-ink-2">Legend</summary>
+        <div className="mt-2 max-w-[18rem] space-y-2">
+          {p.legend}
+          {note && <p className="text-[11px] leading-snug text-ink-3">{note}</p>}
         </div>
-        {indexSwitch && <div className="mt-2">{indexSwitch}</div>}
-        <details className="mt-1 text-xs">
-          <summary className="text-xs font-medium text-ink-2">More: actor, mineral{p.view !== "index" ? ", window" : ""}, legend</summary>
-          <div className="mt-2 space-y-2">
-            {spanSwitch}
-            {actor}
-            {mineral}
-            {note && <p className="text-[11px] leading-snug text-ink-3">{note}</p>}
-            <div className="border-t border-rule pt-2">{p.legend}</div>
-          </div>
-        </details>
-      </div>
+      </details>
     );
   }
   return (
-    <div className="card @container p-3">
-      <div className="grid gap-3 @min-[30rem]:grid-cols-[minmax(0,1fr)_15rem]">
-        <div className="space-y-2.5">
-          <YearControl year={p.year} onChange={p.onYear} playing={p.playing} onTogglePlay={p.onTogglePlay} />
-          <div className="flex flex-wrap items-center gap-2">
-            {viewSwitch}
-            {spanSwitch}
-            {indexSwitch}
-            {compareButton}
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {actor}
-            {mineral}
-          </div>
-          {note && <p className="text-[11px] leading-snug text-ink-3">{note}</p>}
-        </div>
-        <div className="border-t border-rule pt-2 @min-[30rem]:border-t-0 @min-[30rem]:border-l @min-[30rem]:pl-3 @min-[30rem]:pt-0">{p.legend}</div>
-      </div>
+    <div className="card w-[17rem] p-3">
+      {p.legend}
+      {note && <p className="mt-2 border-t border-rule pt-2 text-[11px] leading-snug text-ink-3">{note}</p>}
     </div>
   );
 }

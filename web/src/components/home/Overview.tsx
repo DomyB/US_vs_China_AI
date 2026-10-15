@@ -5,7 +5,8 @@ import { useMemo } from "react";
 import { DataTable } from "@/components/charts/PlotFigure";
 import { RankingRace } from "@/components/charts/RankingRace";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
-import { fmtAmount, type FlowAgg, type FlowView } from "@/components/map/flows";
+import { fmtAmount, type FlowAgg } from "@/components/map/flows";
+import type { MapView } from "@/components/home/ContextBar";
 import { NET_LEAN_MAX } from "@/components/map/scales";
 import { LayerLabel } from "@/components/ui/Badges";
 import { StatTile } from "@/components/ui/Section";
@@ -17,6 +18,8 @@ interface Props {
   meta: Meta;
   real: RealMeta | null;
   indexLayer: "real" | "sample" | "none";
+  /** the flows file's layer, for the "Who buys" ranking */
+  flowsLayer?: "real" | "sample" | null;
   year: number;
   mode: ActorMode;
   mineral: string;
@@ -32,7 +35,7 @@ interface Props {
   onSelect: (iso: string, additive?: boolean) => void;
   onHover: (iso: string | null) => void;
   hover: string | null;
-  view: FlowView;
+  view: MapView;
   aggs: FlowAgg[];
   /** how far each flow source reaches, to say when a window lies beyond it */
   flowsLastYear?: { finance_CN: number | null; finance_US: number | null; trade: number | null } | null;
@@ -43,7 +46,7 @@ interface Props {
 }
 
 /** Drawer content when no country is open: the headline numbers, the ranking (hover links to the map) and the flows as a table. */
-export function Overview({ meta, real, indexLayer, year, mode, mineral, indexName, ranked, leads, leadLine, indexNote, onSelect, onHover, hover, view, aggs, flowsLastYear, window, sourceNames, compareMode, selection }: Props) {
+export function Overview({ meta, real, indexLayer, flowsLayer = null, year, mode, mineral, indexName, ranked, leads, leadLine, indexNote, onSelect, onHover, hover, view, aggs, flowsLastYear, window, sourceNames, compareMode, selection }: Props) {
   const kpis = useMemo(() => {
     const cov = real ? Object.values(real.coverage) : [];
     return { sources: real?.sources_live?.live ?? real?.sources_ok.length ?? null, sourcesTotal: real?.sources_live?.total ?? null, facts: cov.filter((c) => c.actions).length, indexed: cov.filter((c) => c.analysis_available).length, asOf: real?.generated_on ?? null };
@@ -58,7 +61,11 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, indexNam
     () => (mode === "both" && mineral === "all" && indexName === "composite" ? ranked.map((r) => ({ iso: r.iso, name: r.name, text: carriedBy(leads.get(`${r.iso}|${year}`)) })).filter((r): r is { iso: string; name: string; text: string } => r.text !== null) : []),
     [mode, mineral, indexName, ranked, leads, year],
   );
-  const scaleLabel = mode === "both" ? `net lean, China index minus US index, in points of the 0–100 scale · ${INDEX_PHRASE[indexName]}` : `${mode === "US" ? "United States" : "China"} ${INDEX_PHRASE[indexName]}, 0–100`;
+  const buyers = view === "buyers";
+  const scaleLabel = buyers
+    ? mode === "both" ? "China's share minus the US share of each country's reported exports, percentage points" : `${mode === "US" ? "the US" : "China"}'s share of each country's reported exports, %`
+    : mode === "both" ? `net lean, China index minus US index, in points of the 0–100 scale · ${INDEX_PHRASE[indexName]}` : `${mode === "US" ? "United States" : "China"} ${INDEX_PHRASE[indexName]}, 0–100`;
+  const layerLabel = buyers ? (flowsLayer === "sample" ? " · sample" : " · reported, UN Comtrade") : indexLayer === "real" ? " · computed" : " · sample";
 
   return (
     <div className="flex h-full flex-col gap-4 overflow-y-auto p-4">
@@ -88,14 +95,15 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, indexNam
       )}
       <section aria-labelledby="rk-h">
         <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
-          <h3 id="rk-h" className="text-base font-semibold">Ranking in {year}{mineral !== "all" ? ` · ${mineral.replace(/_/g, " ")}` : ""}</h3>
-          <span className="text-[11px] text-ink-3">{scaleLabel}{indexLayer === "real" ? " · computed" : " · sample"}</span>
+          <h3 id="rk-h" className="text-base font-semibold">{buyers ? "Who buys" : "Ranking"} in {year}{mineral !== "all" ? ` · ${mineral.replace(/_/g, " ")}` : ""}</h3>
+          <span className="text-[11px] text-ink-3">{scaleLabel}{layerLabel}</span>
         </div>
         {ranked.length === 0 ? (
-          <p className="text-sm text-ink-3">{indexNote ?? "No index for this selection."}</p>
+          <p className="text-sm text-ink-3">{indexNote ?? (buyers ? "No country reports both buyers for this selection." : "No index for this selection.")}</p>
         ) : (
-          <RankingRace rows={ranked} mode={mode} max={mode === "both" ? NET_LEAN_MAX : 100} onSelect={onSelect} onHover={onHover} hover={hover} selection={selection} />
+          <RankingRace rows={ranked} mode={mode} max={buyers ? 100 : mode === "both" ? NET_LEAN_MAX : 100} onSelect={onSelect} onHover={onHover} hover={hover} selection={selection} />
         )}
+        {buyers && <p className="mt-1.5 text-[11px] leading-snug text-ink-2">Each country&apos;s own reported exports of the tracked minerals; the China and US cells are the reporter&apos;s partner rows, never mirrored. The map colours both shares at once (low under 15%, high over 40%). <Link href="/routes" className="underline">The buyers&apos; imports by origin and the indirect route</Link>.</p>}
         {leadLine && <p className="mt-1.5 text-[11px] leading-snug text-ink-2">{leadSentence(leadLine)}</p>}
         {carried.length > 0 && (
           <details className="mt-1 text-[11px] text-ink-3">
@@ -110,7 +118,7 @@ export function Overview({ meta, real, indexLayer, year, mode, mineral, indexNam
         )}
         {ranked.length > 0 && indexNote && <p className="mt-1 text-[11px] text-ink-3">{indexNote}</p>}
       </section>
-      {view !== "index" && (
+      {(view === "money" || view === "trade") && (
         <section aria-labelledby="fl-h">
           <h3 id="fl-h" className="text-base font-semibold">{view === "money" ? "Money flows" : "Trade flows"} on the map</h3>
           <p className="mt-0.5 text-[11px] text-ink-3">{aggs.length} arcs drawn. Every arc&apos;s numbers and sources are in the table; hover an arc for the same.</p>

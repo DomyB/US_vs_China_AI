@@ -3,19 +3,21 @@
 import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { aggregateFlows, flowsToGeoJSON, spanYears, type FlowSpan, type FlowView } from "@/components/map/flows";
+import { aggregateFlows, flowsToGeoJSON, spanYears, type FlowSpan } from "@/components/map/flows";
 import { Legend } from "@/components/map/Legend";
 import { divergingScale, sequentialScale } from "@/components/map/scales";
 import type { FitTarget, Padding } from "@/components/map/SouthAmericaMap";
 import { CountryPanel, type TabId } from "@/components/panel/CountryPanel";
 import { ACTOR_ANCHOR, IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { bivFill, buyerCells } from "@/lib/buyers";
 import { buildIndexLookup, indexKey, loadFlows, loadIndex, loadMeta, loadRealMeta, mapValue } from "@/lib/data";
-import { fmtSigned } from "@/lib/format";
+import { fmtPct, fmtSigned } from "@/lib/format";
 import { INDEX_PHRASE, carriedBy, defaultIndexYear, hasSubIndices, leadLookup, leadSummary, missingIndexNote, noIndexReason, parseIndexName, rowsForIndex, type IndexName } from "@/lib/indexView";
 import { useTheme } from "@/lib/theme";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import type { Actor, ActorMode, FlowsFile, IndexFile, Meta, RealMeta } from "@/lib/types";
 import { Compare } from "./Compare";
+import { ContextBar, MAP_VIEWS, type MapView } from "./ContextBar";
 import { ControlDock } from "./ControlDock";
 import { Drawer } from "./Drawer";
 import { IntroCard } from "./IntroCard";
@@ -33,7 +35,6 @@ const SouthAmericaMap = dynamic(() => import("@/components/map/SouthAmericaMap")
 });
 
 const TABS: TabId[] = ["actions", "parliament", "media", "analysis", "forecast"];
-const VIEWS: FlowView[] = ["index", "money", "trade"];
 const SPANS: FlowSpan[] = ["1", "3", "all"];
 const DRAWER_WIDTH = 600;
 const SHEET_COLLAPSED = 300;
@@ -54,7 +55,9 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   const rawTab = params.get("tab");
   const tabParam = rawTab === "politics" ? "parliament" : rawTab ?? "actions";
   const tab = (TABS.includes(tabParam as TabId) ? tabParam : "actions") as TabId;
-  const view = (VIEWS.includes(params.get("view") as FlowView) ? params.get("view") : "index") as FlowView;
+  const view = (MAP_VIEWS.includes(params.get("view") as MapView) ? params.get("view") : "index") as MapView;
+  /** the arc layer the view draws, if any */
+  const flowView = view === "money" || view === "trade" ? view : "index";
   const span = (SPANS.includes(params.get("span") as FlowSpan) ? params.get("span") : "1") as FlowSpan;
   const indexParam = parseIndexName(params.get("index"));
   const compare = useMemo(() => (params.get("compare") ?? "").split(",").filter((c, i, arr) => IN_SCOPE.includes(c) && arr.indexOf(c) === i).slice(0, 4), [params]);
@@ -72,6 +75,8 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   const [introOpen, setIntroOpen] = useState(true);
   const theme = useTheme();
   const lg = useMediaQuery("(min-width: 1024px)", true);
+  // the legend card opens on wide screens; beside the open panel at 1024px it would cover the map, so it folds behind a summary
+  const xl = useMediaQuery("(min-width: 1280px)", true);
 
   useEffect(() => {
     Promise.all([loadMeta(), loadIndex(), loadRealMeta(), loadFlows()]).then(([m, i, r, f]) => {
@@ -145,24 +150,40 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
 
   const lookup = useMemo(() => (index ? buildIndexLookup(indexRows) : null), [index, indexRows]);
   const leads = useMemo(() => leadLookup(compositeRows), [compositeRows]);
+  // "Who buys": each country's China and US shares of its own reported exports in the year (facts, from the flows file)
+  const buyers = useMemo(() => (view === "buyers" && flows ? buyerCells(flows.data.trade, year, mineral, IN_SCOPE) : null), [view, flows, year, mineral]);
   const values = useMemo(() => {
     const v: Record<string, number | null> = {};
-    for (const iso of IN_SCOPE) v[iso] = lookup ? mapValue(lookup, iso, year, mode, mineral) : null;
+    for (const iso of IN_SCOPE) {
+      if (view === "buyers") {
+        const c = buyers?.get(iso);
+        // percentage points: China's share minus the US share, or one partner's share
+        v[iso] = c ? Math.round(100 * (mode === "both" ? c.cn - c.us : mode === "CN" ? c.cn : c.us)) : null;
+      } else v[iso] = lookup ? mapValue(lookup, iso, year, mode, mineral) : null;
+    }
     return v;
-  }, [lookup, year, mode, mineral]);
+  }, [view, buyers, lookup, year, mode, mineral]);
   const fills = useMemo(() => {
     const scale = mode === "both" ? divergingScale(theme) : sequentialScale(mode, theme);
     const f: Record<string, string | undefined> = {};
     for (const iso of IN_SCOPE) {
       const v = values[iso];
-      f[iso] = v === null ? undefined : scale(v);
+      if (view === "buyers" && mode === "both") {
+        const c = buyers?.get(iso);
+        f[iso] = c ? bivFill(c.cn, c.us) : undefined;
+      } else f[iso] = v === null ? undefined : scale(v);
     }
     return f;
-  }, [values, mode, theme]);
+  }, [values, mode, theme, view, buyers]);
 
   const indexLayer = index?.layer ?? "sample";
   const describeValue = useCallback(
     (iso3: string, v: number | null) => {
+      if (view === "buyers") {
+        const c = buyers?.get(iso3);
+        if (!c) return `no reported export cells for both buyers in ${year}${mineral !== "all" ? ` (${mineral.replace(/_/g, " ")})` : ""}`;
+        return `${fmtPct(c.cn, 0)} to China, ${fmtPct(c.us, 0)} to the United States of its reported ${mineral === "all" ? "mineral" : mineral.replace(/_/g, " ")} exports in ${year} · UN Comtrade${flows?.layer === "sample" ? " · sample" : ""}`;
+      }
       if (indexLayer !== "real") {
         if (v === null) return "no data";
         return mode === "both" ? `net lean ${fmtSigned(v, 0)} (${v > 0 ? "China-leaning" : v < 0 ? "US-leaning" : "balanced"}) · sample` : `${mode === "US" ? "US" : "China"} influence index ${v.toFixed(0)} / 100 · sample`;
@@ -177,7 +198,7 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
       }
       return `${mode === "US" ? "US" : "China"} ${INDEX_PHRASE[indexName]} ${v.toFixed(0)} / 100 · computed`;
     },
-    [mode, indexLayer, lookup, year, mineral, indexName, lastYear, defaultYear, leads],
+    [view, buyers, flows?.layer, mode, indexLayer, lookup, year, mineral, indexName, lastYear, defaultYear, leads],
   );
 
   const names = useMemo(() => Object.fromEntries((meta?.countries ?? []).map((c) => [c.iso3, c.name])), [meta]);
@@ -191,18 +212,33 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   );
   // the ranking's note on the countries without an index in the year, with the reason the data gives
   const indexNote = useMemo(() => {
+    if (view === "buyers") {
+      const missing = IN_SCOPE.filter((iso) => values[iso] === null).length;
+      return missing ? `${missing} of ${IN_SCOPE.length} countries have no China cell, no US cell or no world total for ${year}${mineral !== "all" ? ` and ${mineral.replace(/_/g, " ")}` : ""} in the reported trade; they stay grey and out of the ranking.` : null;
+    }
     if (indexLayer !== "real" || !lookup) return null;
     const missingAny = IN_SCOPE.filter((iso) => values[iso] === null).length;
     const missingFor = (a: Actor) => (mode === "both" || mode === a ? IN_SCOPE.filter((iso) => !lookup.has(indexKey(iso, year, a, mineral))).length : 0);
     return missingIndexNote({ year, mineral, indexName, missingAny, missingCN: missingFor("CN"), missingUS: missingFor("US"), lastYear, defaultYear });
-  }, [indexLayer, lookup, values, mode, year, mineral, indexName, lastYear, defaultYear]);
-  const leadLine = useMemo(() => (index && indexLayer === "real" && mode === "both" && mineral === "all" ? leadSummary(index.rows, year) : null), [index, indexLayer, mode, mineral, year]);
-  const aggs = useMemo(() => (flows ? aggregateFlows(flows.data, view, year, span, mineral) : []), [flows, view, year, span, mineral]);
+  }, [view, indexLayer, lookup, values, mode, year, mineral, indexName, lastYear, defaultYear]);
+  const leadLine = useMemo(() => (index && view === "index" && indexLayer === "real" && mode === "both" && mineral === "all" ? leadSummary(index.rows, year) : null), [index, view, indexLayer, mode, mineral, year]);
+  const aggs = useMemo(() => (flows ? aggregateFlows(flows.data, flowView, year, span, mineral) : []), [flows, flowView, year, span, mineral]);
   const selectionSet = useMemo(() => new Set(selection), [selection]);
-  const flowsGeo = useMemo(() => (view === "index" || !meta ? null : flowsToGeoJSON(aggs, view, centroids, ACTOR_ANCHOR, selectionSet, names, sourceNames)), [view, meta, aggs, centroids, selectionSet, names, sourceNames]);
+  const flowsGeo = useMemo(() => (flowView === "index" || !meta ? null : flowsToGeoJSON(aggs, flowView, centroids, ACTOR_ANCHOR, selectionSet, names, sourceNames)), [flowView, meta, aggs, centroids, selectionSet, names, sourceNames]);
 
-  const fitTo = useMemo<FitTarget>(() => (view !== "index" ? { kind: "bounds", bounds: FLOW_BOUNDS } : selection.length ? { kind: "countries", isos: selection } : { kind: "home" }), [view, selection]);
-  const fitPadding = useMemo<Padding>(() => (lg ? { top: 24, right: drawerOpen ? DRAWER_WIDTH + 36 : 48, bottom: 170, left: introOpen ? 420 : 64 } : { top: 220, right: 12, bottom: SHEET_COLLAPSED + 12, left: 12 }), [lg, drawerOpen, introOpen]);
+  const fitTo = useMemo<FitTarget>(() => (flowView !== "index" ? { kind: "bounds", bounds: FLOW_BOUNDS } : selection.length ? { kind: "countries", isos: selection } : { kind: "home" }), [flowView, selection]);
+  const fitPadding = useMemo<Padding>(() => (lg ? { top: 24, right: drawerOpen ? DRAWER_WIDTH + 36 : 48, bottom: 170, left: introOpen ? 420 : 64 } : { top: 56, right: 12, bottom: SHEET_COLLAPSED + 12, left: 12 }), [lg, drawerOpen, introOpen]);
+  // the sentence in the context bar: what colours the map, and which layer it is
+  const showing = view === "buyers"
+    ? `${mode === "both" ? "China's and the US's shares" : `${mode === "US" ? "the US" : "China"}'s share`} of each country's reported exports · facts${flows?.layer === "sample" ? " (sample)" : ""}`
+    : view === "index"
+      ? `${mode === "both" ? "net lean of" : `${mode === "US" ? "US" : "China"} side of`} the ${INDEX_PHRASE[indexName]} · model output${indexLayer === "real" ? "" : " (sample)"}`
+      : `${view === "money" ? "documented finance commitments" : "reported exports"} as arcs · facts${flows?.layer === "sample" ? " (sample)" : ""}`;
+  const resetAll = useCallback(() => {
+    setCompareMode(false);
+    setPlaying(false);
+    router.replace(pathname, { scroll: false });
+  }, [pathname, router]);
 
   const drawerLabel = selection.length >= 2 ? `Compare ${selection.length} countries` : compareMode ? "Compare" : country ? names[country] ?? country : "Overview";
   const content = !meta ? null : selection.length >= 2 ? (
@@ -210,71 +246,72 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   ) : country && index && !compareMode ? (
     <CountryPanel iso3={country} year={year} mineral={mineral} meta={meta} indexRows={compositeRows} indexLayer={index.layer} tab={tab} onTab={(t) => setParams({ tab: t })} onClose={() => selectCountry(null)} sourceNames={sourceNames} />
   ) : (
-    <Overview meta={meta} real={real} indexLayer={indexLayer} year={year} mode={mode} mineral={mineral} indexName={indexName} ranked={ranked} leads={leads} leadLine={leadLine} indexNote={indexNote} onSelect={selectCountry} onHover={setHover} hover={hover} view={view} aggs={aggs} flowsLastYear={flows?.data.meta.last_year ?? null} window={spanYears(year, span)} sourceNames={sourceNames} compareMode={compareMode} selection={selection} />
+    <Overview meta={meta} real={real} indexLayer={indexLayer} flowsLayer={flows?.layer ?? null} year={year} mode={mode} mineral={mineral} indexName={indexName} ranked={ranked} leads={leads} leadLine={leadLine} indexNote={indexNote} onSelect={selectCountry} onHover={setHover} hover={hover} view={view} aggs={aggs} flowsLastYear={flows?.data.meta.last_year ?? null} window={spanYears(year, span)} sourceNames={sourceNames} compareMode={compareMode} selection={selection} />
   );
 
   return (
-    <div className="map-page relative w-full overflow-hidden bg-surface" style={{ height: "calc(100svh - var(--chrome-h, 96px))", minHeight: 560 }}>
-      <div className="absolute inset-0" data-tour="map">
-        {meta && (
-          <SouthAmericaMap
-            fills={fills}
-            values={values}
-            countries={meta.countries}
-            selection={selection}
-            onSelect={selectCountry}
-            onHover={setHover}
-            highlight={hover}
-            describeValue={describeValue}
-            theme={theme}
-            flows={flowsGeo}
-            worldUrl="/data/world.topo.json"
-            fitTo={fitTo}
-            fitPadding={fitPadding}
-          />
-        )}
-      </div>
-      <div className="pointer-events-none absolute inset-0 z-10">
-        <div className="pointer-events-auto absolute left-14 right-3 top-3 lg:right-auto lg:w-[22rem] xl:w-[24rem]">
-          <IntroCard indexLayer={indexLayer} open={introOpen} onToggle={setIntroOpen} />
-        </div>
-        {/* on a phone the open dock may not fit between the top bar and the collapsed sheet, so it scrolls (6rem = top-24) */}
-        <div
-          className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : "right-3 top-24"}`}
-          style={lg ? { right: drawerOpen ? DRAWER_WIDTH + 36 : 72 } : { maxHeight: `calc(100svh - var(--chrome-h, 96px) - 6rem - ${SHEET_COLLAPSED + 12}px)`, overflowY: "auto" }}
-          data-tour="dock"
-        >
+    <div className="map-page relative flex w-full flex-col overflow-hidden bg-surface" style={{ height: "calc(100svh - var(--chrome-h, 96px))", minHeight: 620 }}>
+      {meta && (
+        <ContextBar
+          year={year}
+          defaultYear={defaultYear}
+          onYear={setYear}
+          playing={playing}
+          onTogglePlay={togglePlay}
+          country={country}
+          countries={meta.countries}
+          onCountry={(iso) => (iso ? setParams({ country: iso, compare: null }) : selectCountry(null))}
+          selectionCount={selection.length}
+          mineral={mineral}
+          minerals={meta.minerals}
+          onMineral={(m) => setParams({ mineral: m === "all" ? null : m })}
+          mode={mode}
+          onMode={(m) => setParams({ actor: m === "both" ? null : m })}
+          view={view}
+          onView={(v) => setParams({ view: v === "index" ? null : v })}
+          span={span}
+          onSpan={(s) => setParams({ span: s === "1" ? null : s })}
+          indexName={indexName}
+          onIndex={(n) => setParams({ index: n === "composite" ? null : n })}
+          indexSwitch={subIndices}
+          compareMode={compareMode}
+          onCompareMode={toggleCompareMode}
+          onReset={resetAll}
+          showing={showing}
+        />
+      )}
+      <div className="relative min-h-0 flex-1">
+        <div className="absolute inset-0" data-tour="map">
           {meta && (
-            <ControlDock
-              year={year}
-              onYear={setYear}
-              playing={playing}
-              onTogglePlay={togglePlay}
-              mode={mode}
-              onMode={(m) => setParams({ actor: m })}
-              mineral={mineral}
-              minerals={meta.minerals}
-              onMineral={(m) => setParams({ mineral: m === "all" ? null : m })}
-              view={view}
-              onView={(v) => setParams({ view: v === "index" ? null : v })}
-              span={span}
-              onSpan={(s) => setParams({ span: s === "1" ? null : s })}
-              indexName={indexName}
-              onIndex={(n) => setParams({ index: n === "composite" ? null : n })}
-              indexSwitch={subIndices}
-              compareMode={compareMode}
-              onCompareMode={toggleCompareMode}
-              selectionCount={selection.length}
-              flowsMeta={flows?.data.meta ?? null}
-              flowsLayer={flows?.layer ?? null}
-              legend={<Legend mode={mode} theme={theme} view={view} indexName={indexName} flowMax={Math.max(0, ...aggs.map((a) => a.amount))} />}
-              compact={!lg}
+            <SouthAmericaMap
+              fills={fills}
+              values={values}
+              countries={meta.countries}
+              selection={selection}
+              onSelect={selectCountry}
+              onHover={setHover}
+              highlight={hover}
+              describeValue={describeValue}
+              theme={theme}
+              flows={flowsGeo}
+              worldUrl="/data/world.topo.json"
+              fitTo={fitTo}
+              fitPadding={fitPadding}
             />
           )}
         </div>
-        <Drawer lg={lg} open={lg ? drawerOpen : sheetOpen} onToggle={() => (lg ? setDrawerOpen((o) => !o) : setSheetOpen((o) => !o))} width={DRAWER_WIDTH} collapsedHeight={SHEET_COLLAPSED} label={drawerLabel}>
-          {content}
-        </Drawer>
+        <div className="pointer-events-none absolute inset-0 z-10">
+          <div className="pointer-events-auto absolute left-14 right-3 top-3 lg:right-auto lg:w-[22rem] xl:w-[24rem]">
+            <IntroCard indexLayer={indexLayer} open={introOpen} onToggle={setIntroOpen} />
+          </div>
+          {/* the legend: bottom-left beside the panel on a desktop, a folded card above the sheet on a phone */}
+          <div className={`pointer-events-auto absolute left-3 ${lg ? "bottom-3" : ""}`} style={lg ? undefined : { bottom: SHEET_COLLAPSED + 12, maxWidth: "calc(100vw - 1.5rem)" }} data-tour="legend">
+            {meta && <ControlDock view={view} flowsMeta={flows?.data.meta ?? null} flowsLayer={flows?.layer ?? null} legend={<Legend mode={mode} theme={theme} view={view} indexName={indexName} flowMax={Math.max(0, ...aggs.map((a) => a.amount))} />} compact={!xl} />}
+          </div>
+          <Drawer lg={lg} open={lg ? drawerOpen : sheetOpen} onToggle={() => (lg ? setDrawerOpen((o) => !o) : setSheetOpen((o) => !o))} width={DRAWER_WIDTH} collapsedHeight={SHEET_COLLAPSED} label={drawerLabel}>
+            {content}
+          </Drawer>
+        </div>
       </div>
     </div>
   );

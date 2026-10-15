@@ -3,8 +3,8 @@
  * then `node scripts/ui-check.mjs`. Playwright's Chromium (CHROMIUM_PATH names another Chrome binary) opens every
  * page at three viewports in both colour schemes, once more with the stored dark choice, and asserts what the
  * design relies on: no console or page errors, no horizontal overflow, the token colours, 16px inputs on touch
- * screens, the dock in one column beside the open panel at 1024px, the favicon and social metadata, every tour
- * step and its Finish, the Lab anchors the story links to, a 404 for an unknown case file, a still hero drawing under
+ * screens, the explore page's context bar (its menus, overflow, sentence and height at every width) and its "Who buys"
+ * view, the favicon and social metadata, every tour step and its Finish, the Lab anchors the story links to, a 404 for an unknown case file, a still hero drawing under
  * reduced motion, and the social image's size. Screenshots go to OUT (default: a ui-check folder in the system temp
  * directory). Exit code 1 when a check fails.
  */
@@ -91,20 +91,50 @@ try {
           });
           check(`${label}: .input text is 16px on a touch screen`, size === "16px", String(size));
         }
-        if (v.name === "laptop" && path === "/explore") {
-          const dock = await page.evaluate(() => {
-            const root = document.querySelector('[data-tour="dock"]');
-            const grid = root?.querySelector(".grid");
-            return root && grid ? { columns: getComputedStyle(grid).gridTemplateColumns.split(" ").length, overflow: root.scrollWidth - root.clientWidth } : null;
+        if (path === "/") {
+          // an overflowing flex row justified to the end clips its start; the first link must be reachable
+          const nav = await page.evaluate(() => {
+            const n = document.querySelector('nav[aria-label="Primary"]');
+            const a = n?.querySelector("a");
+            return n && a ? { first: Math.round(a.getBoundingClientRect().left - n.getBoundingClientRect().left), scroll: n.scrollLeft } : null;
           });
-          check(`${label}: the dock is one column beside the open panel`, dock?.columns === 1, JSON.stringify(dock));
-          check(`${label}: the dock has no inner overflow`, (dock?.overflow ?? 1) <= 0, JSON.stringify(dock));
+          check(`${label}: the first primary link is visible`, (nav?.first ?? -1) >= -1 && nav?.scroll === 0, JSON.stringify(nav));
+        }
+        if (path === "/explore") {
+          const bar = await page.evaluate(() => {
+            const root = document.querySelector('[data-tour="dock"]');
+            if (!root) return null;
+            const r = root.getBoundingClientRect();
+            const selects = root.querySelectorAll("select").length;
+            const sentence = root.querySelector(".ctx-sentence");
+            return { rows: Math.round(r.height), overflow: root.scrollWidth - root.clientWidth, scrolls: getComputedStyle(root).overflowX === "auto", selects, sentence: sentence ? getComputedStyle(sentence).display !== "none" : false };
+          });
+          check(`${label}: the context bar carries the five menus`, (bar?.selects ?? 0) >= 5, JSON.stringify(bar));
+          // on a phone the bar is one row that scrolls sideways; on wider screens it wraps and nothing overflows
+          check(`${label}: the context bar ${v.name === "phone" ? "scrolls sideways" : "has no inner overflow"}`, v.name === "phone" ? bar?.scrolls === true : (bar?.overflow ?? 1) <= 0, JSON.stringify(bar));
+          check(`${label}: the context bar ${v.name === "phone" ? "hides" : "shows"} the sentence`, bar?.sentence === (v.name !== "phone"), JSON.stringify(bar));
+          check(`${label}: the context bar stays short`, (bar?.rows ?? 999) <= (v.name === "phone" ? 64 : 120), JSON.stringify(bar));
+          const legend = await page.evaluate(() => !!document.querySelector('[data-tour="legend"] .card'));
+          check(`${label}: the legend card is on the map`, legend);
         }
         if (path === "/lab" && v.name === "desktop" && !run.stored && run.scheme === "light") {
           const missing = await page.evaluate((ids) => ids.filter((id) => !document.getElementById(id)), labAnchors);
           check("lab: the story's /lab anchors exist", labAnchors.length >= 3 && missing.length === 0, `anchors ${labAnchors.join(",")}; missing ${missing.join(",") || "none"}`);
         }
         if (path === "/explore" && v.name === "desktop" && !run.stored && run.scheme === "light") {
+          await page.goto(`${BASE}/explore?view=buyers&year=2023`, { waitUntil: "networkidle" });
+          await page.waitForTimeout(1500);
+          const buyers = await page.evaluate(() => ({
+            sentence: document.querySelector('[data-tour="dock"] .ctx-sentence')?.textContent ?? "",
+            heading: document.querySelector("#rk-h")?.textContent ?? "",
+            grid: document.querySelectorAll('[data-tour="legend"] .grid-cols-3 span').length,
+            rows: document.querySelectorAll(".rank-list li").length,
+          }));
+          check("explore: the buyers view says what it shows", buyers.sentence.includes("China's and the US's shares"), buyers.sentence);
+          check("explore: the buyers ranking is headed Who buys", buyers.heading.startsWith("Who buys"), buyers.heading);
+          check("explore: the bivariate legend has nine cells", buyers.grid === 9, String(buyers.grid));
+          check("explore: the buyers ranking has rows", buyers.rows >= 5, String(buyers.rows));
+          await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
           const head = await page.evaluate(() => ({
             icon: document.querySelector('link[rel="icon"]')?.getAttribute("href") ?? "",
             apple: !!document.querySelector('link[rel="apple-touch-icon"]'),
