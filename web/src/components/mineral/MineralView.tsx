@@ -50,8 +50,11 @@ export function MineralView({ id }: { id: string }) {
   const units = unitsByCountries(series);
   const unit = measureUnit && units.includes(measureUnit) ? measureUnit : units[0] ?? null;
   const drawn = series.filter((s) => s.unit === unit);
-  const latestProd = series.map((s) => ({ iso3: s.iso3, unit: s.unit, row: s.rows[s.rows.length - 1] })).filter((x) => x.row).sort((a, b) => (b.row.qty ?? 0) - (a.row.qty ?? 0));
-  const latestRes = reserves.map((s) => ({ iso3: s.iso3, unit: s.unit, row: s.rows[s.rows.length - 1] })).filter((x) => x.row).sort((a, b) => (b.row.qty ?? 0) - (a.row.qty ?? 0));
+  // quantities compare only within one unit: the drawn unit's rows come first, then the other units, each largest first
+  const byUnitThenQty = (first: string | null) => (a: { unit: string; row: { qty: number | null } }, b: { unit: string; row: { qty: number | null } }) => (a.unit === first ? 0 : 1) - (b.unit === first ? 0 : 1) || a.unit.localeCompare(b.unit) || (b.row.qty ?? 0) - (a.row.qty ?? 0);
+  const latestProd = series.map((s) => ({ iso3: s.iso3, unit: s.unit, row: s.rows[s.rows.length - 1] })).filter((x) => x.row).sort(byUnitThenQty(unit));
+  const resUnits = unitsByCountries(reserves);
+  const latestRes = reserves.map((s) => ({ iso3: s.iso3, unit: s.unit, row: s.rows[s.rows.length - 1] })).filter((x) => x.row).sort(byUnitThenQty(resUnits[0] ?? null));
   const withCoords = file.concessions.filter((c) => c.lat != null && c.lon != null);
   const concByCountry = new Map<string, number>();
   for (const c of file.concessions) concByCountry.set(c.iso3, (concByCountry.get(c.iso3) ?? 0) + 1);

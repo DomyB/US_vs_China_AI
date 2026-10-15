@@ -61,6 +61,24 @@ export function StageView() {
   const ladder = ["announced", "committed", "construction", "operating", "stalled", "cancelled"].map((s) => ({ id: s, label: rec.STATUS_LABEL[s], items: rec.PROJECTS.filter((p) => p.status === s) }));
   const r2024 = series[2024 - Y0];
   const rawR = raw25[2025 - Y0], proR = pro25[2025 - Y0];
+  // the finding cards read the prototype's own statement counts, finance totals and pressure cases instead of carrying typed figures
+  const st = rec.STATS as Record<string, number>;
+  const talkRatio = st.usOfficials && st.cnOfficials ? st.usOfficials / st.cnOfficials : null;
+  const moneyRatio = st.cnMoney && st.usMoney ? st.cnMoney / st.usMoney : null;
+  const removed = rec.CASES.filter((c) => ["Cancelled", "Delayed or frozen", "Transferred", "Modified", "Restricted"].includes(c.outcome)).length;
+  const altPartial = rec.CASES.filter((c) => c.alt === "partial").length;
+  const caseFrom = Math.min(...rec.CASES.map((c) => parseInt(c.years, 10)).filter((y) => Number.isFinite(y)));
+  // the technology core: the first year after which China's share stays above the US share to the last BACI year
+  const coreAll = tradeSeries(tr, { isos: all33, resource: "core" });
+  const coreFlip = (() => {
+    let flip: number | null = null;
+    for (let y = 2024; y >= Y0; y--) {
+      const r = coreAll[y - Y0];
+      if ((share(r, "CHN") ?? 0) > (share(r, "USA") ?? 0)) flip = y;
+      else break;
+    }
+    return flip;
+  })();
 
   const shareFigure = (
     <PlotFigure
@@ -142,7 +160,7 @@ export function StageView() {
           <KeyNumber value={<>{fmtPct(four.cn2001 ?? 0, 1)} → {fmtPct(four.cn2024 ?? 0, 1)}</>} label="China's share of the region's critical-mineral exports, 2001 → 2024 (BACI HS96, team scripts)" tone="cn" size="text-2xl sm:text-3xl" />
           <KeyNumber value={<>{fmtPct(four.us2001 ?? 0, 1)} → {fmtPct(four.us2024 ?? 0, 1)}</>} label="US share of the same exports, 2001 → 2024" tone="us" size="text-2xl sm:text-3xl" />
           <KeyNumber value={<>{fmtBn(four.value2001)} → {fmtBn(four.value2024)}</>} label="Value of those exports, current US$, mostly price-driven" size="text-2xl sm:text-3xl" />
-          <KeyNumber value={<>{fmtPct(four.coreCn2024 ?? 0, 1)} vs {fmtPct(four.coreUs2024 ?? 0, 1)}</>} label="Technology core in 2024, China vs the United States: leaned US until about 2020, flipped in 2021–22 with lithium" size="text-2xl sm:text-3xl" />
+          <KeyNumber value={<>{fmtPct(four.coreCn2024 ?? 0, 1)} vs {fmtPct(four.coreUs2024 ?? 0, 1)}</>} label={`Technology core in 2024, China vs the United States${coreFlip && coreFlip > Y0 ? `: leaned US until ${coreFlip - 1}, China since ${coreFlip}` : ""}`} size="text-2xl sm:text-3xl" />
         </div>
         <Reading
           says={`In the team's panel China's share of the region's exports went from ${fmtPct(four.cn2001 ?? 0, 1)} to ${fmtPct(four.cn2024 ?? 0, 1)} and the US share from ${fmtPct(four.us2001 ?? 0, 1)} to ${fmtPct(four.us2024 ?? 0, 1)} between 2001 and 2024; these are the prototype's numbers on its 33-state scope and its own HS list, so they differ from this site's reconciled series over twenty countries.`}
@@ -156,9 +174,9 @@ export function StageView() {
           {[
             ["fact", "The market came first", `China's share of the region's critical-mineral exports rose from ${fmtPct(four.cn2001 ?? 0, 1)} in 2001 to ${fmtPct(four.cn2024 ?? 0, 1)} in 2024; the US share fell from ${fmtPct(four.us2001 ?? 0, 1)} to ${fmtPct(four.us2024 ?? 0, 1)}.`],
             ["fact", "Ore to China, metal to the US", `In 2025 (the countries reporting to Comtrade), China bought ${fmtPct(share(rawR, "CHN") ?? 0, 0)} of the region's ores and concentrates but ${fmtPct(share(proR, "CHN") ?? 0, 0)} of processed products; the United States bought ${fmtPct(share(rawR, "USA") ?? 0, 1)} of ores and ${fmtPct(share(proR, "USA") ?? 0, 0)} of processed products.`],
-            ["ana", "Said and paid", "US officials made 1.8 statements for every Chinese one; Chinese institutions committed about US$20 for every US$1 of documented US finance in 2015–2021."],
-            ["ana", "Denial without substitution", "In 16 documented cases since 2018, US pressure coincided with 7 Chinese-linked options being dropped or frozen, but a US or allied alternative was built in only 3–4."],
-            ["fact", "Governments hedge", "63% of 287 statements by Latin American actors on critical minerals mention neither China nor the US; only 8 mention both."],
+            ["ana", "Said and paid", `${talkRatio ? `US officials made ${talkRatio.toFixed(1)} statements for every Chinese one (${st.usOfficials} to ${st.cnOfficials} in the prototype's set)` : "The prototype counts more US than Chinese official statements"}; ${moneyRatio ? `Chinese institutions committed about US$${Math.round(moneyRatio)} for every US$1 of documented US finance (US$${st.cnMoney} bn to US$${st.usMoney} bn in its 2015–2021 window)` : "its finance totals are not in the records"}.`],
+            ["ana", "Denial without substitution", `In ${rec.CASES.length} documented cases since ${caseFrom}, US pressure coincided with ${removed} Chinese-linked options being cancelled, frozen, transferred, modified or restricted; a US or allied alternative was built, in part, in ${altPartial}, and in none in full.`],
+            ["fact", "Governments hedge", `${Math.round((st.latamNeither ?? 0) * 100)}% of ${st.latamN} statements by Latin American actors on critical minerals mention neither China nor the US; only ${st.latamBoth} mention both.`],
           ].map(([k, t, body], i) => (
             <li key={t} className="card px-4 py-3"><div className="flex items-center justify-between"><span className="font-mono text-[11px] text-ink-3">{i + 1}</span><Kind k={k} /></div><p className="serif mt-1 text-base font-bold leading-tight">{t}</p><p className="mt-1 text-sm text-ink-2">{body}</p></li>
           ))}
