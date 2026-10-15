@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { DataLayerTag, LayerLabel, QuantStatusTag, type Layer } from "@/components/ui/Badges";
 import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
+import { Reading, type ReadingKind } from "@/components/ui/Reading";
 import type { Provenance } from "@/lib/provenance";
 import { ACTOR_COLOR, OTHER_COLOR } from "@/lib/constants";
 import type { EvidenceLevel } from "@/lib/types";
@@ -22,7 +23,7 @@ export const fmtPts = (v: number, digits = 1) => `${v > 0 ? "+" : ""}${(v * 100)
  * the case files do: "Real data" marks facts, a model block carries the quant method's computed tag, an interpretation
  * block only its layer label (the Interpretation and Findings components say "generated" or "AI-drafted" themselves).
  */
-export function Block({ id, n, title, lead, layer, tags, provenance, table, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; provenance?: Provenance; table?: ReactNode; children: ReactNode }) {
+export function Block({ id, n, title, lead, layer, tags, provenance, table, asks, how, says, saysKind, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; provenance?: Provenance; table?: ReactNode; asks?: ReactNode; how?: ReactNode; says?: ReactNode; saysKind?: ReadingKind; children: ReactNode }) {
   const real = useRealMeta();
   return (
     <section id={id} aria-labelledby={`${id}-h`} data-tour={id} className="insights-block card mt-6 scroll-mt-12 px-4 py-4 sm:px-6 sm:py-5">
@@ -34,7 +35,9 @@ export function Block({ id, n, title, lead, layer, tags, provenance, table, chil
         </div>
         <span className="flex max-w-full flex-wrap items-center gap-1">{layer === "facts" ? <DataLayerTag layer="real" /> : layer === "model" ? <QuantStatusTag status={real?.quant_model} /> : null}<LayerLabel layer={layer} />{tags}{provenance && <EvidenceButton provenance={{ anchor: id, ...provenance }} table={table} />}</span>
       </div>
+      {(asks || how) && <Reading asks={asks} how={how} />}
       <div className="mt-4">{children}</div>
+      {says && <Reading says={says} saysKind={saysKind} />}
     </section>
   );
 }

@@ -1,3 +1,4 @@
+import { PageGuide } from "@/components/ui/Reading";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { ForecastMetrics } from "@/components/methodology/ForecastMetrics";
@@ -35,6 +36,7 @@ export default function MethodologyPage() {
         This page documents every index, model, data source and known limitation, with validation scores as they become available. It is regenerated with each data release. Each modelled section prints a status line from the data release (computed, measured, or not yet measured / not yet computed); everything else is live and labelled per block on the site.
       </p>
 
+      <PageGuide purpose="The methods behind every number on the site: how each index, model and source is built, validated and limited." read="Read the section that matches the kind label on the block you came from; the contents list below jumps to it." next={[{ href: "/sources", label: "Sources and their liveness" }, { href: "/what-we-know", label: "What we know, against the literature" }, { href: "/archive", label: "Every data file" }]} />
       <nav aria-label="Contents" className="toc card mt-4 p-3">
         <p className="eyebrow mb-1">Contents</p>
         <ol className="grid gap-x-6 gap-y-0.5 sm:grid-cols-2">
@@ -45,6 +47,8 @@ export default function MethodologyPage() {
         </ol>
       </nav>
 
+      <h2 id="reading">How to read a chart on this site</h2>
+      <p>Every chart, map and figure carries three short lines beside it: <strong>why this chart</strong> (the question it answers and why that form was chosen), <strong>how to read it</strong> (what each mark, colour and band is, and what an empty or grey mark means), and <strong>what it tells us</strong>. The last line carries its own kind label, because a description of what is drawn is a fact or a model output, while a judgement about it is an interpretation; a number appears in that line only when the chart itself computed it. Pages open with a short guide saying what the page is for, how to use it and where to go next. The lines are written by the team and, where the text says so, AI-drafted; they never replace the source link and the reliability rating under each exhibit.</p>
       <h2 id="layers">Three layers, kept apart</h2>
       <p>Everything on the site belongs to one of three layers and is labelled as such:</p>
       <ul>

@@ -1,3 +1,4 @@
+import { PageGuide } from "@/components/ui/Reading";
 import { SourcesTable } from "@/components/sources/SourcesTable";
 import { StatTile } from "@/components/ui/Section";
 import { sourcesOnServer } from "@/lib/sources.server";
@@ -16,6 +17,7 @@ export default function SourcesPage() {
             Generated from the source registry (<code className="rounded bg-surface-2 px-1 font-mono text-xs">pipeline/config/sources/*.yaml</code>); every URL is tested each week from a GitHub Actions runner, last on {sourcesOnServer().generated_on}. Statuses with method &ldquo;search&rdquo; were established from search-engine results and package-index mirrors. &ldquo;Blocks automated clients&rdquo; means the site answered 403 to a generic client (bot protection), not that it is down.
           </p>
         </div>
+        <div className="lg:col-span-2 lg:order-last"><PageGuide purpose="The registry of every source the pipeline reads, with its reliability rating and whether it answered on the last weekly check." read="Filter by scope or status; a source that blocks automated clients is kept and read by hand, never scraped around." next={[{ href: "/methodology#reliability", label: "How reliability is rated" }, { href: "/archive", label: "The data files built from them" }]} /></div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:w-[30rem]">
           <StatTile label="Registered" value={sourcesOnServer().sources.length} note="all scopes and categories" />
           <StatTile label="Live" value={counts.live} note="registry status" />

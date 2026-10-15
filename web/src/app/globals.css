@@ -396,6 +396,18 @@
   .ctx-sentence b { font-weight: 600; color: var(--ink); }
   .linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--ink-2); text-decoration: underline; text-decoration-style: dotted; cursor: pointer; }
   .linkish:hover { color: var(--ink); }
+
+  /* the context of a chart: three labelled lines (why this chart, how to read it, what it tells us) */
+  .reading { display: grid; gap: 0.3rem; margin: 0.5rem 0 0.75rem; font-size: 0.8rem; line-height: 1.45; color: var(--ink-2); }
+  .reading-row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.6rem; align-items: baseline; }
+  .reading-row dt { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); padding-top: 0.15rem; }
+  .reading-row dd { margin: 0; min-width: 0; }
+  .reading-says dd { color: var(--ink); }
+  .reading-says .kind { margin-left: 0.25rem; vertical-align: 1px; }
+  .reading-compact { font-size: 0.76rem; margin: 0.35rem 0 0.5rem; }
+  .page-guide { background: var(--surface-2); border: 1px solid var(--rule); border-radius: 10px; padding: 0.6rem 0.9rem; margin: 0.75rem 0 1rem; }
+  .page-guide .reading { margin: 0; }
+  @media (max-width: 479px) { .reading-row { grid-template-columns: 1fr; gap: 0.1rem; } }
 }
 
 /* ---- component classes: in the components layer, below utilities, above the base defaults ---- */

@@ -91,6 +91,15 @@ try {
           });
           check(`${label}: .input text is 16px on a touch screen`, size === "16px", String(size));
         }
+        if (v.name === "desktop" && !run.stored && run.scheme === "light") {
+          // every exhibit carries its context lines, and the pages that open without a cover carry a page guide
+          const ctx = await page.evaluate(() => {
+            const ex = [...document.querySelectorAll(".exhibit")];
+            return { exhibits: ex.length, without: ex.filter((e) => !e.querySelector(".reading")).map((e) => e.id || e.querySelector("figcaption")?.textContent?.slice(0, 40)), guide: !!document.querySelector(".page-guide") };
+          });
+          if (ctx.exhibits > 0) check(`${label}: every exhibit has its reading lines`, ctx.without.length === 0, `${ctx.without.length} of ${ctx.exhibits} without: ${ctx.without.join(", ")}`);
+          if (["/routes", "/mineral", "/region", "/lab", "/votes-and-ore", "/methodology", "/sources", "/archive", "/stage", "/denial"].includes(path)) check(`${label}: the page opens with a guide`, ctx.guide);
+        }
         if (path === "/") {
           // an overflowing flex row justified to the end clips its start; the first link must be reachable
           const nav = await page.evaluate(() => {

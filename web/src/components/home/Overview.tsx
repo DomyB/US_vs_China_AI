@@ -9,6 +9,7 @@ import { fmtAmount, type FlowAgg } from "@/components/map/flows";
 import type { MapView } from "@/components/home/ContextBar";
 import { NET_LEAN_MAX } from "@/components/map/scales";
 import { LayerLabel } from "@/components/ui/Badges";
+import { Reading } from "@/components/ui/Reading";
 import { StatTile } from "@/components/ui/Section";
 import { ACTOR_LABEL, COUNTRY_COUNT } from "@/lib/constants";
 import { INDEX_PHRASE, carriedBy, leadSentence, type IndexName, type Lead, type LeadSummary } from "@/lib/indexView";
@@ -98,10 +99,26 @@ export function Overview({ meta, real, indexLayer, flowsLayer = null, year, mode
           <h3 id="rk-h" className="text-base font-semibold">{buyers ? "Who buys" : "Ranking"} in {year}{mineral !== "all" ? ` · ${mineral.replace(/_/g, " ")}` : ""}</h3>
           <span className="text-[11px] text-ink-3">{scaleLabel}{layerLabel}</span>
         </div>
+        <Reading
+          compact
+          asks={buyers ? "Which countries sell mostly to China, mostly to the United States, or to both? Shares of each country's own exports put small and large exporters on one scale." : view === "index" ? `Where does each country lean once trade, finance, debt, votes and legislative records are read together? The ${INDEX_PHRASE[indexName]} is that summary, one number per country and year.` : `Which countries carry the largest ${view === "money" ? "documented commitments" : "reported exports"} in this window, and from or to which actor? The arcs on the map draw them; the ranking here orders the countries by the index in the same year.`}
+          how={buyers ? (mode === "both" ? "One row per country with both partner cells; the bar runs right (vermilion) when China's share exceeds the US share and left (blue) when the United States leads; grey countries on the map have no cell for both buyers." : `One row per country; the bar is ${mode === "US" ? "the US" : "China"}'s share of that country's reported exports, 0 to 100%.`) : mode === "both" ? `One row per country; the bar runs right (vermilion) for a China lean and left (blue) for a US lean, in points of the 0–100 index, clamped at ±${NET_LEAN_MAX}; countries without an index for the year are listed in the note under the ranking.` : `One row per country; the bar is ${mode === "US" ? "the US" : "China"}'s ${INDEX_PHRASE[indexName]}, 0 to 100.`}
+        />
         {ranked.length === 0 ? (
           <p className="text-sm text-ink-3">{indexNote ?? (buyers ? "No country reports both buyers for this selection." : "No index for this selection.")}</p>
         ) : (
           <RankingRace rows={ranked} mode={mode} max={buyers ? 100 : mode === "both" ? NET_LEAN_MAX : 100} onSelect={onSelect} onHover={onHover} hover={hover} selection={selection} />
+        )}
+        {ranked.length > 0 && (
+          <Reading
+            compact
+            says={buyers
+              ? `${ranked.filter((r) => r.v > 0).length} of the ${ranked.length} countries with both cells sold a larger share to China than to the United States in ${year}; ${ranked[0].name} leads the China side${ranked[ranked.length - 1].v < 0 ? ` and ${ranked[ranked.length - 1].name} the US side` : ""}. A share says who buys, not why.`
+              : mode === "both"
+                ? `${ranked.filter((r) => r.v > 0).length} of the ${ranked.length} indexed countries lean toward China in ${year}; ${ranked[0].name} leans furthest${ranked[ranked.length - 1].v < 0 ? ` and ${ranked[ranked.length - 1].name} furthest the other way` : ""}. The index is a summary, so open a country's Analysis tab to see which component carries it.`
+                : `${ranked[0].name} has the highest ${mode === "US" ? "US" : "China"} ${INDEX_PHRASE[indexName]} in ${year} and ${ranked[ranked.length - 1].name} the lowest; a high value means more of the recorded ties run to that actor, not that the other is absent.`}
+            saysKind={buyers ? "facts" : "model"}
+          />
         )}
         {buyers && <p className="mt-1.5 text-[11px] leading-snug text-ink-2">Each country&apos;s own reported exports of the tracked minerals; the China and US cells are the reporter&apos;s partner rows, never mirrored. The map colours both shares at once (low under 15%, high over 40%). <Link href="/routes" className="underline">The buyers&apos; imports by origin and the indirect route</Link>.</p>}
         {leadLine && <p className="mt-1.5 text-[11px] leading-snug text-ink-2">{leadSentence(leadLine)}</p>}
