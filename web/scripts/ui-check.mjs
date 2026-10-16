@@ -19,7 +19,7 @@ const BASE = process.env.BASE ?? "http://localhost:3000";
 const OUT = process.env.OUT ?? resolve(tmpdir(), "ui-check");
 mkdirSync(OUT, { recursive: true });
 
-const PAGES = ["/", "/story", "/explore", "/country", "/mineral", "/mineral/copper", "/routes", "/denial", "/stage", "/lab", "/votes-and-ore", "/step-by-step", "/step-by-step/words", "/step-by-step/index-geometry", "/step-by-step/classifier", "/what-we-know", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
+const PAGES = ["/", "/story", "/explore", "/country", "/mineral", "/mineral/copper", "/routes", "/denial", "/stage", "/lab", "/votes-and-ore", "/contested", "/step-by-step", "/step-by-step/words", "/step-by-step/index-geometry", "/step-by-step/classifier", "/what-we-know", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
 const VIEWS = [
   { name: "desktop", viewport: { width: 1366, height: 900 } },
   { name: "laptop", viewport: { width: 1024, height: 768 } },
@@ -98,7 +98,7 @@ try {
             return { exhibits: ex.length, without: ex.filter((e) => !e.querySelector(".reading")).map((e) => e.id || e.querySelector("figcaption")?.textContent?.slice(0, 40)), guide: !!document.querySelector(".page-guide") };
           });
           if (ctx.exhibits > 0) check(`${label}: every exhibit has its reading lines`, ctx.without.length === 0, `${ctx.without.length} of ${ctx.exhibits} without: ${ctx.without.join(", ")}`);
-          if (["/routes", "/mineral", "/region", "/lab", "/votes-and-ore", "/methodology", "/sources", "/archive", "/stage", "/denial"].includes(path)) check(`${label}: the page opens with a guide`, ctx.guide);
+          if (["/routes", "/mineral", "/region", "/lab", "/votes-and-ore", "/contested", "/methodology", "/sources", "/archive", "/stage", "/denial"].includes(path)) check(`${label}: the page opens with a guide`, ctx.guide);
         }
         if (v.name === "desktop" && !run.stored && run.scheme === "light" && ["/region", "/country/CHL", "/votes-and-ore"].includes(path)) {
           // a year change updates the query string in place: the page must neither scroll back to the top nor show its loading state
@@ -117,6 +117,12 @@ try {
           check(`${label}: a year change keeps the scroll position`, before > 0 && after.y === before, `${before} -> ${after.y}`);
           check(`${label}: a year change lands in the URL without a loading state`, after.url.includes("year=2019") && after.busy === 0, JSON.stringify(after));
           await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
+        }
+        if (path === "/contested" && v.name === "desktop" && !run.stored && run.scheme === "light") {
+          const c = await page.evaluate(() => ({ verdicts: [...document.querySelectorAll(".verdict")].map((e) => e.textContent), open: document.querySelectorAll(".verdict-open").length, tables: document.querySelectorAll(".claim-grid table").length }));
+          check("contested: eleven claims carry a verdict", c.verdicts.length === 11, JSON.stringify(c.verdicts));
+          check("contested: most verdicts are settled on the record", c.open <= 3, `${c.open} open`);
+          check("contested: the turns and minerals tables render", c.tables >= 2, String(c.tables));
         }
         if (path === "/") {
           // an overflowing flex row justified to the end clips its start; the first link must be reachable

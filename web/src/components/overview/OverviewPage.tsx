@@ -42,6 +42,7 @@ const DOORS = [
   { href: "/routes", title: "Trade & Investment", text: "Where the region's minerals go, where the buyers get them, and the ceiling on the indirect route." },
   { href: "/mineral", title: "Minerals", text: "What each mineral is for, who has it, who buys it, where it is and what it costs." },
   { href: "/country", title: "Countries", text: "Twenty case files: actions, politics, media, analysis and forecast." },
+  { href: "/contested", title: "Against the grain", text: "Eleven claims the usual story gets wrong, each tested on the record with a verdict and what would overturn it." },
   { href: "/votes-and-ore", title: "Balance of presence", text: "Votes against ore: where each power is present, in what form, and what the hypotheses say." },
 ];
 const QUESTIONS = [

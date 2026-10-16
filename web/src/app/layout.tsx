@@ -96,6 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/story" className="hover:underline">Story: Said &amp; Paid</Link>
               <Link href="/stage" className="hover:underline">Two powers, one stage</Link>
               <Link href="/denial" className="hover:underline">Denial without Substitution</Link>
+              <Link href="/contested" className="hover:underline">Against the grain</Link>
               <Link href="/lab" className="hover:underline">Lab: forecasts and levers</Link>
               <Link href="/region" className="hover:underline">Regional overview</Link>
               <Link href="/step-by-step" className="hover:underline">Step by step</Link>
