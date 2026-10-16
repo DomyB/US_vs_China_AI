@@ -23,7 +23,7 @@ const pp = (v: number) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(1)} pts`;
 const ORI: Record<string, string> = { L: "left", C: "centre", R: "right" };
 
 /** One claim against the grain: the usual story, the test, the record, the verdict, what would overturn it. */
-function Claim({ n, id, headline, verdict, usual, test, record, soWhat, overturn, links, children }: { n: number; id: string; headline: ReactNode; verdict: Verdict; usual: ReactNode; test: ReactNode; record: { text: ReactNode; kind: "facts" | "model" }[]; soWhat: ReactNode; overturn: ReactNode; links: { href: string; label: string }[]; children?: ReactNode }) {
+function Claim({ n, id, headline, verdict, matters, usual, test, record, soWhat, overturn, links, children }: { n: number; id: string; headline: ReactNode; verdict: Verdict; matters: ReactNode; usual: ReactNode; test: ReactNode; record: { text: ReactNode; kind: "facts" | "model" }[]; soWhat: ReactNode; overturn: ReactNode; links: { href: string; label: string }[]; children?: ReactNode }) {
   return (
     <section id={id} className="card mt-5 scroll-mt-14 px-4 py-4 sm:px-6 sm:py-5" aria-labelledby={`${id}-h`}>
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
@@ -33,6 +33,7 @@ function Claim({ n, id, headline, verdict, usual, test, record, soWhat, overturn
         </div>
         <span className={`verdict verdict-${verdict}`}>{VERDICT_LABEL[verdict]}</span>
       </div>
+      <p className="claim-matters mt-2 max-w-3xl text-sm leading-relaxed text-ink-2"><span className="reading-label">Why it matters</span> {matters}</p>
       <dl className="claim-grid mt-3">
         <dt>The usual story</dt>
         <dd>{usual}</dd>
@@ -135,6 +136,7 @@ export function ContestedView() {
         id="turns"
         headline="Elections did not change the buyer: China's share rose after right turns as much as after left turns"
         verdict={vTurns}
+        matters="If elections do not move the ore, then the policy bet that a friendlier government in Buenos Aires or Brasília will bring minerals to the United States is a bet on something the record has never shown. For the region it means the buyer is a structural fact, not a political choice to be rewarded or punished."
         usual="A government that turns right sends its minerals toward the United States; one that turns left sends them toward China."
         test={`Every change of government that changed the coded orientation in the six focus countries (the prototype's terms): China's share of the country's reported exports in the three years after the inauguration minus the three before, and the same change net of the region's own move. ${ts.tested} turns can be measured, ${ts.untested} cannot (not enough reported years on one side).`}
         record={[
@@ -169,6 +171,7 @@ export function ContestedView() {
         id="lending"
         headline="The money left; the ore kept coming"
         verdict={vLend}
+        matters="The debt-trap story is the main argument for treating Chinese finance as the lever of Chinese influence. If the trade grew while the lending collapsed, the lever and the influence are different things, and cutting off the loans would not cut off the ore."
         usual="China buys influence and resources with loans: the lending and the trade move together."
         test="Documented Chinese commitments to the twenty countries by year (AidData), against China's share of the region's reported mineral exports in the same years."
         record={[
@@ -188,6 +191,7 @@ export function ContestedView() {
         id="capital"
         headline="China buys the ore; the capital in the ground is American"
         verdict={vCap}
+        matters="Who owns the mines decides who sets the terms, pays the taxes and takes the profits. If the ownership is American while the customer is Chinese, each power is strong where the other is absent, and a policy aimed at only one of the two measures misreads the balance."
         usual="China has bought up Latin America's mining sector."
         test="Reported inward direct-investment positions held by each counterpart (IMF DIP), summed over the countries that report them, in the latest year both counterparts are reported."
         record={[
@@ -204,6 +208,7 @@ export function ContestedView() {
         id="minerals"
         headline={minerals && lithium ? `The battery metal is China's; the United States buys ${minerals.usLed[0] ? minerals.usLed[0].mineral.replace(/_/g, " ") : "something else"}` : "Who buys which mineral"}
         verdict={vMin}
+        matters="A rivalry over the same minerals would mean a bidding war that the host countries could play on. Two different shopping lists mean the opposite: each power can be squeezed only on the minerals it actually buys, and the region's leverage is mineral by mineral, not bloc by bloc."
         usual="The two powers compete for the same critical minerals."
         test={`China's and the US's shares of the region's reported exports, mineral by mineral, in ${minerals?.year ?? "the latest year"} (UN Comtrade, the countries reporting that year).`}
         record={minerals ? [
@@ -229,6 +234,7 @@ export function ContestedView() {
         id="panel"
         headline="Nothing either power does shows up in the ore"
         verdict={vPanel}
+        matters="Both capitals justify their finance, diplomacy and governance programmes partly as ways to shape where the region's minerals go. If none of these levers is detectable in the ore, the programmes need another justification, or a longer horizon than the record covers."
         usual="Finance, diplomacy and governance shape where a country's minerals go."
         test={`A panel regression of China's share of each country's exports on last year's Chinese finance, UN-vote alignment, electoral democracy, rule of law and mineral rents, with country and year fixed effects${panel?.n_obs ? ` (${panel.n_obs} country-years, ${panel.n_countries} countries, ${panel.years})` : ""}; wild-cluster p-values.`}
         record={panel && panel.rows.length ? panel.rows.map((r) => ({ text: `${r.term.replace(/_/g, " ")}: ${fmtSigned((r.coef ?? 0) * 100, 1)} share points per standard deviation, p = ${r.p_wild?.toFixed(2) ?? "—"}.`, kind: "model" as const })) : [{ text: "No panel in this release.", kind: "model" as const }]}
@@ -242,6 +248,7 @@ export function ContestedView() {
         id="votes"
         headline="Votes do not follow the ore: most countries that sell China little vote with it anyway"
         verdict={vVotes}
+        matters="UN votes are the most quoted evidence that the region is drifting toward China. If the votes are a habit shared by countries that sell China nothing, they cannot be read as a mineral dividend, and a country cannot be won back at the General Assembly by buying its ore."
         usual="Countries that depend on China for their exports vote with it; the others vote with the United States."
         test="Each country's latest year with both China components of the index: the export share to China and UN General Assembly voting alignment with China, both on the index's 0–100 component scale."
         record={votes && votes.rows.length ? [
@@ -258,6 +265,7 @@ export function ContestedView() {
         id="talk"
         headline="Washington talks about China; Beijing paid"
         verdict={vTalk}
+        matters="Statements are cheap and commitments are not. A rivalry fought with words on one side and money on the other is not a symmetric contest, and the region's governments can see which side has so far paid for its presence."
         usual="The United States is re-engaging the region with money to counter China."
         test="Statements by US and Chinese officials in the dataset, coded for the position they take on China, against documented commitments from each side's institutions in the same window."
         record={talk ? [
@@ -276,6 +284,7 @@ export function ContestedView() {
         id="hedge"
         headline="Most of the region's leaders mention neither power"
         verdict={vHedge}
+        matters="The two powers describe a region choosing sides. If its own leaders rarely mention either, the choice they are said to face is largely a framing imposed from outside, and the policy space for not choosing is wider than the rivalry's language admits."
         usual="Latin American governments are choosing sides."
         test="Statements by Latin American executives on critical minerals in the dataset: how many take any position on China, on the United States, on both, or on neither."
         record={talk?.latam ? [
@@ -292,6 +301,7 @@ export function ContestedView() {
         id="attention"
         headline="Washington's attention arrived after Beijing's money had left"
         verdict={vAtt}
+        matters="Policy that reacts to a narrative rather than to a balance sheet arrives late and aims at a past position. If Washington's attention peaked when Beijing's money had already fallen, the measures it produced were calibrated to a presence that no longer existed in that form."
         usual="US policy responded to Chinese lending as it grew."
         test={`US policy documents on the region's minerals per year (Congress.gov and the Federal Register) against Chinese commitments in the same year${att?.span ? `, ${att.span[0]}–${att.span[1]}` : ""}.`}
         record={att ? [
@@ -309,6 +319,7 @@ export function ContestedView() {
         id="pressure"
         headline="Pressure removes options and builds nothing"
         verdict={vCases}
+        matters="Denial is the main US instrument in the mineral rivalry. If it removes a Chinese option without putting another in its place, the cost falls on the host country, which loses a project and gains nothing, and the policy's own aim of supply is not served."
         usual="US pressure on Chinese projects clears the way for US and allied alternatives."
         test="The companion study's documented cases of US pressure on a Chinese-linked mineral option since 2017, each coded for the outcome, whether US pressure is the documented cause, and whether an alternative was built."
         record={cases ? [
@@ -325,6 +336,7 @@ export function ContestedView() {
         id="route"
         headline="The United States gets more of the region's ore than its customs show, but not as much more as it fears"
         verdict="open"
+        matters="Hidden dependence is the argument for treating the whole hemisphere as a US supply chain. The record puts a ceiling on it: the dependence can be at most so large, which is enough to matter and too small for the strongest claims."
         usual="American supply chains run on Latin American minerals routed through allies, so the dependence is hidden."
         test={`The United States' reconciled imports of the tracked minerals by origin (CEPII BACI), and for each intermediary the smaller of its two legs (what it bought from the region, what it sold to the United States) as a ceiling on the indirect route${route ? `, ${route.year}` : ""}.`}
         record={route ? [
