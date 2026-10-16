@@ -1,6 +1,6 @@
 {
  "generated_on": "2026-10-16",
- "note": "Illustrations for the site's pages: lead pictures of the English Wikipedia articles named in pipeline/scripts/mineral_images.py PLACES (looked up on the Actions runner, diagnose runs 38929650530 and 38930025162; Panama has none, its article has no lead picture) and the companion project's credited pictures. Author and licence from Wikimedia Commons; the image URL is Commons' FilePath redirect at 960px. Pictures, not records: nothing on the site is read from them.",
+ "note": "Illustrations for the site's pages: lead pictures of the English Wikipedia articles named in pipeline/scripts/mineral_images.py PLACES (looked up on the Actions runner, diagnose runs 38929650530, 38930025162 and 38936342885) and the companion project's credited pictures. Author and licence from Wikimedia Commons; the image URL is Commons' FilePath redirect at 960px. Pictures, not records: nothing on the site is read from them.",
  "pictures": {
   "BOL": {
    "article": "Salar de Uyuni",
@@ -494,6 +494,307 @@
    "license_url": "",
    "credit": "Denial without Substitution (companion project)",
    "caption": "Trucks entering the US from Mexico at the World Trade Crossing International Bridge, Laredo, Texas, 12 April 2017: the busiest truck crossing on the US–Mexico border."
+  },
+  "PAN": {
+   "article": "Panama City",
+   "file": "Panama_Papers_(148830809).jpeg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Panama_Papers_%28148830809%29.jpeg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Panama_Papers_%28148830809%29.jpeg",
+   "author": "Dronepicr",
+   "license": "CC BY 3.0",
+   "license_url": "https://creativecommons.org/licenses/by/3.0",
+   "credit": "Wikimedia Commons",
+   "caption": "Panama City from the air"
+  },
+  "leg_ARG": {
+   "article": "Palace of the Argentine National Congress",
+   "file": "Congreso_Nacional_Buenos_Aires.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Congreso_Nacional_Buenos_Aires.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Congreso_Nacional_Buenos_Aires.jpg",
+   "author": "Jacobo Tarrío",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "leg_COL": {
+   "article": "Capitolio Nacional",
+   "file": "Congreso_Colombia.png",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Congreso_Colombia.png?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Congreso_Colombia.png",
+   "author": "Jilgam569",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "leg_PRY": {
+   "article": "Congress of Paraguay",
+   "file": "Palacio_Legislativo_Paraguay.png",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Palacio_Legislativo_Paraguay.png?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Palacio_Legislativo_Paraguay.png",
+   "author": "Cryaven",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "leg_PER": {
+   "article": "Legislative Palace (Peru)",
+   "file": "Palacio_Legislativo_of_Peru.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Palacio_Legislativo_of_Peru.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Palacio_Legislativo_of_Peru.jpg",
+   "author": "Congreso de la República del Perú",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "leg_URY": {
+   "article": "Legislative Palace (Uruguay)",
+   "file": "2016_Fachada_del_Palacio_Legislativo_de_Montevideo.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2016_Fachada_del_Palacio_Legislativo_de_Montevideo.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:2016_Fachada_del_Palacio_Legislativo_de_Montevideo.jpg",
+   "author": "Felipe Restrepo Acosta",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "leg_MEX": {
+   "article": "Legislative Palace of San Lázaro",
+   "file": "Palacio_Legislativo_de_San_Lázaro_obtenido_con_dron_02.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Palacio_Legislativo_de_San_L%C3%A1zaro_obtenido_con_dron_02.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Palacio_Legislativo_de_San_L%C3%A1zaro_obtenido_con_dron_02.jpg",
+   "author": "ProtoplasmaKid",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "leg_BLZ": {
+   "article": "Belmopan",
+   "file": "National_Assembly_Building,_Belize.png",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/National_Assembly_Building%2C_Belize.png?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:National_Assembly_Building%2C_Belize.png",
+   "author": "CadabraPuppet",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "casa_rosada": {
+   "article": "Casa Rosada",
+   "file": "Casa_Rosada_exterior_from_Plaza_de_Mayo.JPG",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Rosada_exterior_from_Plaza_de_Mayo.JPG?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Casa_Rosada_exterior_from_Plaza_de_Mayo.JPG",
+   "author": "Lars Curfs (Grashoofd)",
+   "license": "CC BY-SA 3.0 nl",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en",
+   "credit": "Wikimedia Commons"
+  },
+  "moneda": {
+   "article": "Palacio de La Moneda",
+   "file": "Palacio_de_La_Moneda_-_miguelreflex.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Palacio_de_La_Moneda_-_miguelreflex.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Palacio_de_La_Moneda_-_miguelreflex.jpg",
+   "author": "Miguel hernandez",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "planalto": {
+   "article": "Palácio do Planalto",
+   "file": "Fachada_do_Palácio_do_Planalto_-_49727772326.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fachada_do_Pal%C3%A1cio_do_Planalto_-_49727772326.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Fachada_do_Pal%C3%A1cio_do_Planalto_-_49727772326.jpg",
+   "author": "Senado Federal",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "zhongnanhai": {
+   "article": "Zhongnanhai",
+   "file": "中南海_傍晚_东南侧.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/%E4%B8%AD%E5%8D%97%E6%B5%B7_%E5%82%8D%E6%99%9A_%E4%B8%9C%E5%8D%97%E4%BE%A7.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:%E4%B8%AD%E5%8D%97%E6%B5%B7_%E5%82%8D%E6%99%9A_%E4%B8%9C%E5%8D%97%E4%BE%A7.jpg",
+   "author": "維基小霸王 (Wiki Little Overlord)",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "white_house": {
+   "article": "White House",
+   "file": "White_House_north_and_south_sides.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/White_House_north_and_south_sides.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:White_House_north_and_south_sides.jpg",
+   "author": "(top)Cezary p(bottom)MattWade",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "wall_street": {
+   "article": "Wall Street",
+   "file": "Wall_Street_(55314253740).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wall_Street_%2855314253740%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Wall_Street_%2855314253740%29.jpg",
+   "author": "Ajay Suresh",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "haul_truck": {
+   "article": "Haul truck",
+   "file": "Liebherr_t282_1.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Liebherr_t282_1.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Liebherr_t282_1.jpg",
+   "author": "René Engel",
+   "license": "CC BY-SA 3.0",
+   "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "credit": "Wikimedia Commons"
+  },
+  "open_pit": {
+   "article": "Open-pit mining",
+   "file": "Twincreeksblast.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Twincreeksblast.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Twincreeksblast.jpg",
+   "author": "Geomartin",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "ev": {
+   "article": "Electric vehicle",
+   "file": "Model_S_charging_at_a_Tesla_station_cropped.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Model_S_charging_at_a_Tesla_station_cropped.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Model_S_charging_at_a_Tesla_station_cropped.jpg",
+   "author": "Model S charging at a Tesla station.jpg: Jakob Härter\nderivative work: Mariordo (Mario Roberto Durán Ortiz)",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "solar": {
+   "article": "Solar panel",
+   "file": "Dji_fly_20230602_13826_PM_27_1719032149374_photo_optimized.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Dji_fly_20230602_13826_PM_27_1719032149374_photo_optimized.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Dji_fly_20230602_13826_PM_27_1719032149374_photo_optimized.jpg",
+   "author": "Wikipedeon",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "phone": {
+   "article": "Smartphone",
+   "file": "Wikipedia_homepage_on_a_large_Android_phone,_2015-04-16.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wikipedia_homepage_on_a_large_Android_phone%2C_2015-04-16.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Wikipedia_homepage_on_a_large_Android_phone%2C_2015-04-16.jpg",
+   "author": "Sage Ross",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "container_ship": {
+   "article": "Container ship",
+   "file": "MAERSK_MC_KINNEY_MÖLLER_&_MARSEILLE_MAERSK_(48694054418).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/MAERSK_MC_KINNEY_M%C3%96LLER_%26_MARSEILLE_MAERSK_%2848694054418%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:MAERSK_MC_KINNEY_M%C3%96LLER_%26_MARSEILLE_MAERSK_%2848694054418%29.jpg",
+   "author": "kees torn",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "shanghai_port": {
+   "article": "Port of Shanghai",
+   "file": "Shanghai-Yangshan-Port-Containers2013-01.JPG",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Shanghai-Yangshan-Port-Containers2013-01.JPG?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Shanghai-Yangshan-Port-Containers2013-01.JPG",
+   "author": "Bruno Corpet (Quoique)",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "long_beach": {
+   "article": "Port of Long Beach",
+   "file": "Port_of_Long_Beach_by_Don_Ramey_Logan.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Port_of_Long_Beach_by_Don_Ramey_Logan.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Port_of_Long_Beach_by_Don_Ramey_Logan.jpg",
+   "author": "Don Ramey Logan",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "cdb": {
+   "article": "China Development Bank",
+   "file": "China_Development_Bank.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/China_Development_Bank.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:China_Development_Bank.jpg",
+   "author": "維基小霸王",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "santiago": {
+   "article": "Santiago",
+   "file": "Palacio_de_La_Moneda_-_miguelreflex.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Palacio_de_La_Moneda_-_miguelreflex.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Palacio_de_La_Moneda_-_miguelreflex.jpg",
+   "author": "Miguel hernandez",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "lima": {
+   "article": "Lima",
+   "file": "Basílica_Catedral_Metropolitana_de_Lima_(cropped).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bas%C3%ADlica_Catedral_Metropolitana_de_Lima_%28cropped%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Bas%C3%ADlica_Catedral_Metropolitana_de_Lima_%28cropped%29.jpg",
+   "author": "David Felipe Ruiz Hoyos",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "bogota": {
+   "article": "Bogotá",
+   "file": "Bogota,_Colombia_(36668708290).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bogota%2C_Colombia_%2836668708290%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Bogota%2C_Colombia_%2836668708290%29.jpg",
+   "author": "Pedro Szekely from Los Angeles, USA",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "mexico_city": {
+   "article": "Mexico City",
+   "file": "Sobrevuelos_CDMX_HJ2A4913_(25514321687)_(cropped).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Sobrevuelos_CDMX_HJ2A4913_%2825514321687%29_%28cropped%29.jpg",
+   "author": "Gobierno CDMX",
+   "license": "CC0",
+   "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "credit": "Wikimedia Commons"
+  },
+  "brasilia": {
+   "article": "Brasília",
+   "file": "Planalto_Central_(cropped).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Planalto_Central_%28cropped%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Planalto_Central_%28cropped%29.jpg",
+   "author": "Arturdiasr",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "buenos_aires": {
+   "article": "Buenos Aires",
+   "file": "Puerto_Madero,_Buenos_Aires_(40689219792)_(cropped).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Puerto_Madero%2C_Buenos_Aires_%2840689219792%29_%28cropped%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Puerto_Madero%2C_Buenos_Aires_%2840689219792%29_%28cropped%29.jpg",
+   "author": "Deensel",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "la_paz": {
+   "article": "La Paz",
+   "file": "Vista_del_centro_de_La_Paz.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Vista_del_centro_de_La_Paz.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Vista_del_centro_de_La_Paz.jpg",
+   "author": "Parallelepiped09",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
   }
  }
 }

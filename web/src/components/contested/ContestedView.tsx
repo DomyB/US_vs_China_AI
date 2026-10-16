@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { LayerLabel } from "@/components/ui/Badges";
 import { PageGuide } from "@/components/ui/Reading";
-import { HeaderPicture } from "@/components/ui/Picture";
+import { HeaderPicture, Picture, usePictures } from "@/components/ui/Picture";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE, countWord } from "@/lib/constants";
 import { attentionVsMoney, capitalVsOre, chinaConcentration, CLAIMS, echoFamilies, fanWidth, hongKongChannel, leanFlips, lendingVsOre, mineralSplit, panelNull, pressureCases, pricesVsValue, talkPattern, turnSummary, turnsVsOre, votesVsOre, warmWordsNoTrade, VERDICT_LABEL, type Turn, type Verdict } from "@/lib/contested";
@@ -24,15 +24,21 @@ const pp = (v: number) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(1)} pts`;
 const ORI: Record<string, string> = { L: "left", C: "centre", R: "right" };
 
 /** One claim against the grain: the usual story, the test, the record, the verdict, what would overturn it. */
-function Claim({ n, id, headline, verdict, matters, usual, test, record, soWhat, overturn, links, children }: { n: number; id: string; headline: ReactNode; verdict: Verdict; matters: ReactNode; usual: ReactNode; test: ReactNode; record: { text: ReactNode; kind: "facts" | "model" }[]; soWhat: ReactNode; overturn: ReactNode; links: { href: string; label: string }[]; children?: ReactNode }) {
+/** The picture beside each claim (an id in /data/pictures.json); an illustration of the subject, never evidence for the claim. */
+const CLAIM_PICTURES: Record<string, string> = { turns: "casa_rosada", lending: "cdb", capital: "wall_street", minerals: "battery", panel: "planalto", votes: "votes", talk: "white_house", hedge: "moneda", attention: "congress", pressure: "denial_lasbambas", route: "container_ship", three: "copper_mine", prices: "haul_truck", echoes: "long_beach", flips: "la_paz", warm: "buenos_aires", hongkong: "shanghai_port", fans: "ev" };
+
+function Claim({ n, id, headline, verdict, matters, usual, test, record, soWhat, overturn, links, pictures, children }: { n: number; id: string; headline: ReactNode; verdict: Verdict; matters: ReactNode; usual: ReactNode; test: ReactNode; pictures: Map<string, import("@/lib/pictures").Picture> | null; record: { text: ReactNode; kind: "facts" | "model" }[]; soWhat: ReactNode; overturn: ReactNode; links: { href: string; label: string }[]; children?: ReactNode }) {
   return (
     <section id={id} className="card mt-5 scroll-mt-14 px-4 py-4 sm:px-6 sm:py-5" aria-labelledby={`${id}-h`}>
-      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
-        <div className="min-w-0">
-          <p className="eyebrow">{String(n).padStart(2, "0")}</p>
-          <h2 id={`${id}-h`} className="serif mt-0.5 text-xl font-bold leading-tight sm:text-2xl">{headline}</h2>
+      <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_14rem] sm:items-start">
+        <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+          <div className="min-w-0">
+            <p className="eyebrow">{String(n).padStart(2, "0")}</p>
+            <h2 id={`${id}-h`} className="serif mt-0.5 text-xl font-bold leading-tight sm:text-2xl">{headline}</h2>
+          </div>
+          <span className={`verdict verdict-${verdict}`}>{VERDICT_LABEL[verdict]}</span>
         </div>
-        <span className={`verdict verdict-${verdict}`}>{VERDICT_LABEL[verdict]}</span>
+        {CLAIM_PICTURES[id] && <Picture id={CLAIM_PICTURES[id]} pictures={pictures} ratio="card" />}
       </div>
       <p className="claim-matters mt-2 max-w-3xl text-sm leading-relaxed text-ink-2"><span className="reading-label">Why it matters</span> {matters}</p>
       <dl className="claim-grid mt-3">
@@ -87,6 +93,7 @@ export function ContestedView() {
       .catch(() => setD(null));
   }, []);
 
+  const pictures = usePictures();
   const turns = useMemo(() => (d?.rec ? turnsVsOre(d.rec.TERMS, d.flows.trade, IN_SCOPE) : []), [d]);
   const ts = useMemo(() => turnSummary(turns), [turns]);
   const lend = useMemo(() => (d ? lendingVsOre(d.flows.finance, d.flows.trade, IN_SCOPE) : null), [d]);
@@ -154,6 +161,7 @@ export function ContestedView() {
       {sample && <p className="mt-2 rounded-md border border-sample/40 bg-sample/10 px-3 py-2 text-sm text-sample">Sample data: the verdicts below are computed on the sample set and mean nothing until the first data run.</p>}
 
       <Claim
+        pictures={pictures}
         n={1}
         id="turns"
         headline="Elections did not change the buyer: China's share rose after right turns as much as after left turns"
@@ -189,6 +197,7 @@ export function ContestedView() {
       </Claim>
 
       <Claim
+        pictures={pictures}
         n={2}
         id="lending"
         headline="The money left; the ore kept coming"
@@ -209,6 +218,7 @@ export function ContestedView() {
       </Claim>
 
       <Claim
+        pictures={pictures}
         n={3}
         id="capital"
         headline="China buys the ore; the capital in the ground is American"
@@ -226,6 +236,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={4}
         id="minerals"
         headline={minerals && lithium ? `The battery metal is China's; the United States buys ${minerals.usLed[0] ? minerals.usLed[0].mineral.replace(/_/g, " ") : "something else"}` : "Who buys which mineral"}
@@ -252,6 +263,7 @@ export function ContestedView() {
       </Claim>
 
       <Claim
+        pictures={pictures}
         n={5}
         id="panel"
         headline="Nothing either power does shows up in the ore"
@@ -266,6 +278,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={6}
         id="votes"
         headline="Votes do not follow the ore: most countries that sell China little vote with it anyway"
@@ -283,6 +296,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={7}
         id="talk"
         headline="Washington talks about China; Beijing paid"
@@ -302,6 +316,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={8}
         id="hedge"
         headline="Most of the region's leaders mention neither power"
@@ -319,6 +334,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={9}
         id="attention"
         headline="Washington's attention arrived after Beijing's money had left"
@@ -337,6 +353,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={10}
         id="pressure"
         headline="Pressure removes options and builds nothing"
@@ -354,6 +371,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={11}
         id="route"
         headline="The United States gets more of the region's ore than its customs show, but not as much more as it fears"
@@ -372,6 +390,7 @@ export function ContestedView() {
 
 
       <Claim
+        pictures={pictures}
         n={12}
         id="three"
         headline="Three countries are China's share"
@@ -389,6 +408,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={13}
         id="prices"
         headline="Prices did most of the lifting"
@@ -406,6 +426,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={14}
         id="echoes"
         headline="US measures coincide with the US losing share, not China"
@@ -420,6 +441,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={15}
         id="flips"
         headline="The index is stable where it matters and noisy where it does not"
@@ -437,6 +459,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={16}
         id="warm"
         headline="Warm words for Washington, no trade with it"
@@ -454,6 +477,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={17}
         id="hongkong"
         headline="Hong Kong hides the Chinese stake"
@@ -471,6 +495,7 @@ export function ContestedView() {
       />
 
       <Claim
+        pictures={pictures}
         n={18}
         id="fans"
         headline="The forecast tells us where this goes"

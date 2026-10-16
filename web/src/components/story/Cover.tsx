@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LayerLabel } from "@/components/ui/Badges";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { COUNTRY_COUNT, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { COMPANION_PROJECTS, COURSE, COVER_VERSION, RESEARCH_QUESTION, SITE_NAME, SITE_TAGLINE, TEAM } from "@/lib/team";
 
@@ -18,6 +19,7 @@ export function Cover({ release, sourcesLine }: { release: string; sourcesLine: 
         <p className="serif mt-4 max-w-3xl text-2xl leading-snug sm:text-3xl">{SITE_TAGLINE}.</p>
         <p className="mt-4 max-w-3xl text-base opacity-85 sm:text-lg">A research platform on the competition between China and the United States for the critical minerals of {COUNTRY_COUNT} Latin American countries, {YEAR_MIN}–{YEAR_MAX}: what the record shows, by country, mineral and year, with every number linked to its source.</p>
         <p className="mt-3 max-w-3xl text-sm opacity-85"><strong>Research question.</strong> {RESEARCH_QUESTION} Three actors, not two: the region&apos;s governments set the rules, choose partners and bargain over terms. The team&apos;s own framing of the question, its five acts and its hypothesis cards are on the <Link href="/stage" className="underline">Two powers, one stage</Link> page.</p>
+        <HeaderPicture id="lithium_field" ratio="header" className="chapter-picture mt-6 max-w-3xl" caption="The Salar de Atacama, where the record begins: brine, lithium and two buyers" />
         <div className="mt-8 grid gap-6 sm:grid-cols-[1fr_1fr]">
           <div>
             <p className="eyebrow">Team</p>

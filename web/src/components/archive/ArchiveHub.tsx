@@ -1,6 +1,7 @@
 "use client";
 
 import { PageGuide } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 
 import { COUNTRY_COUNT_WORD } from "@/lib/constants";
 import Link from "next/link";
@@ -59,6 +60,7 @@ export function ArchiveHub({ downloads = [] }: { downloads?: ArchiveDownload[] }
       <h1 className="mt-1 text-2xl sm:text-[1.75rem]">Every record, method and source</h1>
       <p className="mt-2 max-w-2xl text-sm text-ink-2">The story and the evidence room read the same files; this is where they are kept whole. Data as of {meta?.generated_on ?? "–"}{meta?.quant_model?.inputs_release ? ` · ${meta.quant_model.inputs_release}` : ""}.</p>
       <PageGuide purpose="The hub for the whole record: the regional comparison, the methods, the sources and every data file the site is built from, each downloadable." read="Open a room below, or take a file: each row says what the file holds and which page reads it." next={[{ href: "/region", label: "The region side by side" }, { href: "/methodology", label: "Methods" }, { href: "/sources", label: "Sources" }]} />
+      <HeaderPicture id="container" className="mt-3" />
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {rooms.map((r) => (
           <li key={r.href}>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LayerLabel } from "@/components/ui/Badges";
 import { PageGuide } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_NAMES } from "@/lib/constants";
 import { loadMinerals } from "@/lib/data";
@@ -65,6 +66,11 @@ export function MineralsIndex() {
           read="Pick a mineral. Each card carries its two list memberships, its producers in the record and its largest exporter; the counts under them say how much of the record the file rests on, and a mineral with few rows has a thin file, not a small market."
           next={[{ href: "/routes", label: "Where the ore goes" }, { href: "/explore?view=buyers", label: "The buyers on the map" }]}
         />
+      <div className="mt-3 grid gap-3 sm:grid-cols-3">
+        <HeaderPicture id="battery" ratio="card" caption="What the lithium, nickel, cobalt and graphite become" />
+        <HeaderPicture id="phone" ratio="card" caption="Where the tin, gallium and rare earths end up" />
+        <HeaderPicture id="solar" ratio="card" caption="Where the silver and the copper go" />
+      </div>
       </div>
       <h2 className="serif mt-6 text-lg font-bold">Core minerals</h2>
       <ul className="mt-2 grid gap-3 sm:grid-cols-2">{core.map(card)}</ul>

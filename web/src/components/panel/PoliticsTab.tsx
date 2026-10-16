@@ -9,6 +9,7 @@ import { StatementList } from "@/components/statements/StatementList";
 import { DataLayerTag, LayerLabel, ModelStatusTag, StanceBadge } from "@/components/ui/Badges";
 import { Reading } from "@/components/ui/Reading";
 import { SectionHeader, StatTile } from "@/components/ui/Section";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { SourceLink } from "@/components/ui/SourceLink";
 import { ACTOR_COLOR, COUNTRY_COUNT_WORD, LANGUAGE_NAME, prettyLabel, prettyMineral } from "@/lib/constants";
 import { fmtDate, fmtSigned } from "@/lib/format";
@@ -83,6 +84,7 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
         <StatTile label="Coded stance · US" value={latestCoded.us ? fmtSigned(latestCoded.us.stance_us_mean ?? 0, 2) : "—"} note={latestCoded.us ? `${latestCoded.us.year} · ${latestCoded.us.n_us} statement${latestCoded.us.n_us === 1 ? "" : "s"}, dataset coding` : "no position taken"} />
       </div>
 
+      <HeaderPicture id={`leg_${data.iso3}`} ratio="header" caption={`${data.name}'s legislature, where the records in this tab are made`} />
       <section aria-labelledby="say-h">
         <SectionHeader
           id="say-h"
