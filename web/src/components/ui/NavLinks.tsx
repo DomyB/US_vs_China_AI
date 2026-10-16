@@ -11,7 +11,7 @@ const NAV = [
   { href: "/routes", label: "Trade & Investment", short: "Trade", match: (p: string) => p.startsWith("/routes") },
   { href: "/mineral", label: "Minerals", short: "Minerals", match: (p: string) => p.startsWith("/mineral") },
   { href: "/country", label: "Countries", short: "Countries", match: (p: string) => p.startsWith("/country") || p.startsWith("/region") },
-  { href: "/contested", label: "Arguments", short: "Argue", match: (p: string) => p.startsWith("/contested") || p.startsWith("/votes-and-ore") || p.startsWith("/lab") },
+  { href: "/contested", label: "Arguments", short: "Claims", match: (p: string) => p.startsWith("/contested") || p.startsWith("/votes-and-ore") || p.startsWith("/lab") },
   { href: "/methodology", label: "Methods & Data", short: "Methods", match: (p: string) => p.startsWith("/methodology") || p.startsWith("/sources") || p.startsWith("/archive") || p.startsWith("/step-by-step") || p.startsWith("/what-we-know") || p.startsWith("/denial") || p.startsWith("/stage") },
 ];
 

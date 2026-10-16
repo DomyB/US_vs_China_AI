@@ -11,6 +11,7 @@ The public interface of the tracker: a Next.js 15 app (React 19, Tailwind v4, Ob
 | `npm run lint`, `npm run typecheck`, `npm test` | ESLint, `tsc --noEmit`, Vitest (tests under `src/**/__tests__/`) |
 | `npm run og` | Renders `public/og.png` (1200×630) and `src/app/apple-icon.png` with Playwright's Chromium from the hero drawing and the light tokens; `CHROMIUM_PATH=…` names a Chrome binary when Playwright's own is not installed |
 | `node scripts/ui-check.mjs` | Browser checks against a running build (`BASE`, default http://localhost:3000): console and page errors, horizontal overflow, the token colours, 16px inputs on touch screens, the context bar on the explore page at three widths and its "Who buys" view, every exhibit's reading lines and the page guides, favicon and social metadata, every tour step, reduced motion, the social image's size; screenshots to `OUT` |
+| `node scripts/link-check.mjs` | Crawls every internal link and anchor the running build renders (from the sitemap routes outward) and reports a target that is not 200 or an anchor with no element |
 
 Before a push: `npm run lint && npm run typecheck && npm test && npm run build`, then the ui-check on `npm run start`.
 

@@ -34,7 +34,7 @@ const YEARS = Array.from({ length: YEAR_MAX - YEAR_MIN + 1 }, (_, i) => YEAR_MIN
 interface Props {
   isos: string[];
   names: Record<string, string>;
-  /** the rows of the index chosen in the dock (composite or a sub-index), already filtered to it */
+  /** the rows of the index chosen in the context bar (composite or a sub-index), already filtered to it */
   indexRows: IndexRow[];
   indexLayer: "real" | "sample" | "none" | null;
   indexName: IndexName;
