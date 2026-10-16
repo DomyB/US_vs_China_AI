@@ -25,10 +25,10 @@ OVERRIDES: dict[str, str] = {}
 # place and theme pictures for the site's pages (country case files, chapter openers, page headers): the lead picture of the
 # article named; a country without a mine article gets a landscape. Looked up with `--places`, written to web/public/data/pictures.json.
 PLACES: dict[str, str] = {
-    "ARG": "Salinas Grandes (Jujuy and Salta)", "BOL": "Salar de Uyuni", "BRA": "Carajás Mine", "CHL": "Escondida", "COL": "Cerrejón",
-    "ECU": "Mirador mine", "GUY": "Kaieteur Falls", "PRY": "Itaipu Dam", "PER": "Antamina mine", "SUR": "Rosebel gold mine",
-    "URY": "Port of Montevideo", "VEN": "Cerro Bolívar", "MEX": "Cananea", "GTM": "Lake Izabal", "BLZ": "Belize Barrier Reef",
-    "HND": "Lake Yojoa", "SLV": "San Salvador", "NIC": "Momotombo", "CRI": "Arenal Volcano", "PAN": "Panama Canal",
+    "ARG": "Salar de Arizaro", "BOL": "Salar de Uyuni", "BRA": "Carajás Mine", "CHL": "Chuquicamata", "COL": "Cerrejón",
+    "ECU": "Cotopaxi", "GUY": "Kaieteur Falls", "PRY": "Itaipu Dam", "PER": "Antamina mine", "SUR": "Rosebel gold mine",
+    "URY": "Port of Montevideo", "VEN": "Angel Falls", "MEX": "Cananea", "GTM": "Lake Izabal", "BLZ": "Belize Barrier Reef",
+    "HND": "Lake Yojoa", "SLV": "San Salvador", "NIC": "Momotombo", "CRI": "Arenal Volcano", "PAN": "Cobre Panamá",
     "port": "Port of Callao", "votes": "United Nations General Assembly", "smelter": "Smelting", "copper_mine": "Chuquicamata",
     "lithium_field": "Salar de Atacama", "iron": "Carajás Mine", "ship": "Bulk carrier", "container": "Port of Santos",
     "bri": "Belt and Road Initiative", "congress": "United States Capitol", "beijing": "Great Hall of the People", "washington": "Washington, D.C.",
