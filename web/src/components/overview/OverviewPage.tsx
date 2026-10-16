@@ -121,11 +121,11 @@ export function OverviewPage() {
           <Reading compact asks="Who buys each country's minerals? The home opens with the buyers because everything the site asks follows from that trade, and a map shows the split for every country at once." how="Each country is coloured on a three-by-three grid: China's share runs across, the US share runs up, so both high and both low keep their own colour; hover a country for its two shares. Grey is no reported export cells for the two buyers, which is missing data and not an absence of trade." />
           <div className="relative h-[24rem] overflow-hidden rounded-md border border-rule">
             <SouthAmericaMap fills={hero.fills} values={hero.values} countries={d.meta.countries} selection={[]} onSelect={() => undefined} onHover={() => undefined} describeValue={(iso) => { const c = hero.cells.get(iso); return c ? `${fmtPct(c.cn, 0)} to China, ${fmtPct(c.us, 0)} to the United States` : "no reported export cells"; }} theme={theme} worldUrl="/data/world.topo.json" fitTo={fit} animateFlows={false} />
-            <div className="absolute bottom-2 right-2 rounded-md border border-rule bg-card/95 p-2 text-[10px] text-ink-3">
+            <div className="absolute right-2 top-2 rounded-md border border-rule bg-card/95 p-2 text-[10px] text-ink-3">
               <div className="grid grid-cols-3 gap-px" aria-label="Legend: China's share across, the US share down">
                 {[2, 1, 0].map((u) => [0, 1, 2].map((c) => <span key={`${u}${c}`} title={BIV_NAMES[u][c]} className="block h-3.5 w-3.5" style={{ background: BIV[u][c] }} />))}
               </div>
-              <div className="mt-1">China →, US ↑</div>
+              <div className="mt-1 leading-tight">China&apos;s share →<br />US share ↑</div>
             </div>
           </div>
           <p className="mt-2 text-[11px] text-ink-3">Shares of each country&apos;s reported exports of the tracked minerals; low is under 15%, high over 40%. Source: UN Comtrade, own calculations.</p>

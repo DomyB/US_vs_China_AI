@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FeatureCollection, Geometry } from "geojson";
 import { feature as topoFeature } from "topojson-client";
@@ -25,6 +25,7 @@ import { useRealMeta } from "@/lib/useRealMeta";
 import { LeanMaps, type CountryFeature } from "./LeanMaps";
 import { QUADRANT_COLOR, QuadrantChart } from "./Quadrant";
 import { AXIS_COLOR, Trajectories } from "./Trajectories";
+import { replaceSearch } from "@/lib/url";
 
 type Features = FeatureCollection<Geometry, CountryFeature["properties"]>;
 
@@ -60,8 +61,6 @@ const r2 = (v: number | null) => (v == null ? "—" : v.toFixed(2));
 export function AlignmentView() {
   const meta = useRealMeta();
   const theme = useTheme();
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
   const cols = useCols();
   const [index, setIndex] = useState<IndexFile | null | undefined>(undefined);
@@ -97,9 +96,9 @@ export function AlignmentView() {
       setYear(y);
       const next = new URLSearchParams(params.toString());
       next.set("year", String(y));
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, pathname, router],
+    [params],
   );
   const togglePlay = useCallback(() => setPlaying((v) => !v), []);
 

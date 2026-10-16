@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useMemo, useState } from "react";
 import { DataTable, PlotFigure } from "@/components/charts/PlotFigure";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
+import { Reading } from "@/components/ui/Reading";
 import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, COUNTRY_COUNT_WORD, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { fmtPct } from "@/lib/format";
@@ -137,8 +138,6 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
           provenance={provenanceFor("forecast_index", { iso3: data.iso3, meta })}
           asks="If the ties the index measures keep behaving as they have, where does the lean sit by 2030, and how wide is the range? A fan from the last observed value shows the spread, not one number."
           how="Solid line: the computed index to date; dashed: the median path of the published model; the darker band holds 50% and the lighter 90% of the simulated paths; dotted lines are the scenarios listed below; each actor's rule marks the year its record ends, and nothing is drawn where the step produced no series."
-          says="Naive persistence is published wherever no backtested model beat it, so a flat dashed line is the honest default, not a forecast of no change; the bands widen with the horizon as the simulated paths spread."
-          saysKind="model"
         />
         <p className="mb-2 text-xs text-ink-3">
           {real
@@ -147,6 +146,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
         </p>
         <PlotFigure glyph="model" options={indexOptions} ariaLabel={`Forecast of the influence index for the United States and China in ${data.name} to 2030 with 50 and 90 percent intervals, ${real ? "computed" : "sample data"}`} />
         <DataTable rows={baseline.filter((r) => r.target === "influence_index")} caption="Index forecast by year and actor (baseline)" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Median" }, { key: "p05", label: "5%" }, { key: "p25", label: "25%" }, { key: "p75", label: "75%" }, { key: "p95", label: "95%" }, { key: "model", label: "Model" }]} />
+        <Reading says="Naive persistence is published wherever no backtested model beat it, so a flat dashed line is the honest default, not a forecast of no change; the bands widen with the horizon as the simulated paths spread." saysKind="model" compact />
         {!real && <p className="mt-1 text-[11px] text-ink-3">Model: {all[0]?.model}</p>}
       </section>
 
@@ -166,14 +166,13 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
             provenance={provenanceFor("forecast_share", { iso3: data.iso3, meta })}
             asks={`Will more of ${data.name}'s ore go to China or to the United States by 2030 if the trend holds? The same fan on the reported shares answers it in the unit the trade data use.`}
             how="Solid line: the reported share of mineral exports to each actor (UN Comtrade); dashed: the published model's median; the darker band holds 50% and the lighter 90% of the simulated paths; dotted lines are the scenarios; each actor's rule marks the year its record ends."
-            says="Shares are bounded between 0 and 100%, so a band pressed against an edge is the model running out of room, not a confident forecast; persistence is published where no model beat it."
-            saysKind="model"
           />
           <p className="mb-2 text-xs text-ink-3">
             {["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`export_share:${a}`])}`).join(". ")}.
           </p>
           <PlotFigure glyph="model" options={shareOptions} ariaLabel={`Forecast of ${data.name}'s share of mineral exports going to the United States and China to 2030, computed`} />
           <DataTable rows={baseline.filter((r) => r.target === "export_share")} caption="Export-share forecast by year and actor (baseline)" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Median", format: (v) => fmtPct(Number(v), 1) }, { key: "p05", label: "5%", format: (v) => fmtPct(Number(v), 1) }, { key: "p95", label: "95%", format: (v) => fmtPct(Number(v), 1) }, { key: "model", label: "Model" }]} />
+          <Reading says="Shares are bounded between 0 and 100%, so a band pressed against an edge is the model running out of room, not a confident forecast; persistence is published where no model beat it." saysKind="model" compact />
         </section>
       )}
 
@@ -185,8 +184,6 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
           provenance={provenanceFor("scenarios", { iso3: data.iso3, meta })}
           asks="What would a deliberate shift, year on year, do to the paths above? A list of named what-ifs with their assumptions, each drawn as a dotted line."
           how="One entry per scenario with its assumptions; tick it on or off to draw or hide its dotted median above; the baseline is the dashed line itself."
-          says="A scenario is the published model plus the stated yearly shift, so its distance from the dashed line is that shift compounded, not evidence that the shift will happen."
-          saysKind="model"
         />
         <p className="mb-2 text-xs text-ink-3">
           {real
@@ -209,6 +206,7 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
             </li>
           ))}
         </ul>
+        <Reading says="A scenario is the published model plus the stated yearly shift, so its distance from the dashed line is that shift compounded, not evidence that the shift will happen." saysKind="model" compact />
       </section>
     </div>
   );

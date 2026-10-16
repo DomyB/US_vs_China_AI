@@ -2,7 +2,7 @@
 
 import * as Plot from "@observablehq/plot";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { Exhibit, KeyNumber, StepCard } from "@/components/story/Chapter";
@@ -14,6 +14,7 @@ import { ACTOR_COLOR, COUNTRY_COUNT, COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE
 import { loadRoutes } from "@/lib/data";
 import { fmtMusd, fmtPct } from "@/lib/format";
 import { BUYER_LABEL, destinationsFor, economyName, indirectByYear, indirectFor, latestRouteYear, originsFor, type Buyer, type RoutesFile } from "@/lib/routes";
+import { replaceSearch } from "@/lib/url";
 
 const REGION_COLOR = "#1d8f6e";
 const VIA_COLOR = "#b8860b";
@@ -29,7 +30,6 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export function RoutesView({ mineral: mineralProp, embedded = false }: { mineral?: string; embedded?: boolean }) {
   const [file, setFile] = useState<RoutesFile | null | undefined>(undefined);
   const params = useSearchParams();
-  const router = useRouter();
   const [local, setLocal] = useState<{ buyer?: Buyer; year?: number }>({});
   useEffect(() => {
     loadRoutes().then(setFile).catch(() => setFile(null));
@@ -46,7 +46,7 @@ export function RoutesView({ mineral: mineralProp, embedded = false }: { mineral
     }
     const next = new URLSearchParams(params.toString());
     next.set(k, v);
-    router.replace(`?${next.toString()}`, { scroll: false });
+    replaceSearch(next);
   };
   return <RoutesPanel file={file} buyer={buyer} mineral={mineral} mineralFixed={mineralProp != null} year={year} set={set} embedded={embedded} />;
 }

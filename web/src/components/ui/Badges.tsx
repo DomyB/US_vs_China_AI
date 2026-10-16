@@ -64,8 +64,10 @@ export function SampleTag() {
   return <span className="kind kind-sample">Sample</span>;
 }
 
+/** Says where a block's data stands when that is not the normal case: real data is the default and carries no tag of its own
+ *  (the kind label and the source links say it); sample, generated and empty states are named. */
 export function DataLayerTag({ layer }: { layer: LayerSource | undefined }) {
-  if (layer === "real") return <span className="kind kind-facts">Real data</span>;
+  if (layer === "real") return null;
   if (layer === "generated" || layer === "generated+human") return <span className="kind kind-interp">{layer === "generated+human" ? "Generated + owner's text" : "Generated from indicators"}</span>;
   if (layer === "facts_only") return <span className="kind kind-facts">Real records · unclassified</span>;
   if (layer === "none") return <span className="chip">No data yet</span>;

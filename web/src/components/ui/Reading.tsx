@@ -5,36 +5,32 @@ import { LayerLabel } from "@/components/ui/Badges";
 export type ReadingKind = "facts" | "model" | "interpretation";
 
 /**
- * The context of a chart, in three short lines: the question it answers (why this chart and not another), how to read
- * its marks, and what it tells us. The last line carries its own kind label, because a description of what is drawn is
- * a fact or a model output while a judgement about it is an interpretation; the writer chooses, and the default is the
- * careful one. Any of the three may be left out.
+ * The context of a chart, read as question, chart, answer. `asks` is the question the chart answers, set as a lead
+ * line above it; `how` explains the marks and folds behind "How to read it" so the chart stays in view; `says` is what
+ * it tells us, set below the chart with its own kind label, because a description of what is drawn is a fact or a
+ * model output while a judgement about it is an interpretation. Any of the three may be left out, and a caller may
+ * render the lead and the answer in two places (`<Reading asks how />` above the chart, `<Reading says />` below).
  */
 export function Reading({ asks, how, says, saysKind = "interpretation", compact = false }: { asks?: ReactNode; how?: ReactNode; says?: ReactNode; saysKind?: ReadingKind; compact?: boolean }) {
   if (!asks && !how && !says) return null;
   return (
-    <dl className={`reading ${compact ? "reading-compact" : ""}`}>
-      {asks && (
-        <div className="reading-row">
-          <dt>Why this chart</dt>
-          <dd>{asks}</dd>
-        </div>
-      )}
+    <div className={`reading ${compact ? "reading-compact" : ""}`}>
+      {asks && <p className="reading-asks">{asks}</p>}
       {how && (
-        <div className="reading-row">
-          <dt>How to read it</dt>
-          <dd>{how}</dd>
-        </div>
+        <details className="reading-how">
+          <summary>How to read it</summary>
+          <p>{how}</p>
+        </details>
       )}
       {says && (
-        <div className="reading-row reading-says">
-          <dt>What it tells us</dt>
-          <dd>
+        <p className="reading-says">
+          <span className="reading-label">What it tells us</span>
+          <span className="reading-text">
             {says} <LayerLabel layer={saysKind} />
-          </dd>
-        </div>
+          </span>
+        </p>
       )}
-    </dl>
+    </div>
   );
 }
 
@@ -45,31 +41,19 @@ export function Reading({ asks, how, says, saysKind = "interpretation", compact 
 export function PageGuide({ purpose, read, next, children }: { purpose: ReactNode; read?: ReactNode; next?: { href: string; label: string }[]; children?: ReactNode }) {
   return (
     <aside className="page-guide" aria-label="How to use this page">
-      <dl className="reading reading-compact">
-      <div className="reading-row">
-        <dt>This page</dt>
-        <dd>{purpose}</dd>
-      </div>
-      {read && (
-        <div className="reading-row">
-          <dt>How to use it</dt>
-          <dd>{read}</dd>
-        </div>
-      )}
+      <p className="page-guide-purpose">{purpose}</p>
+      {read && <p className="page-guide-read">{read}</p>}
       {next && next.length > 0 && (
-        <div className="reading-row">
-          <dt>Go on to</dt>
-          <dd>
-            {next.map((n, i) => (
-              <span key={n.href}>
-                {i > 0 && " · "}
-                <Link href={n.href} className="underline decoration-dotted">{n.label}</Link>
-              </span>
-            ))}
-          </dd>
-        </div>
+        <p className="page-guide-next">
+          <span className="reading-label">Go on to</span>
+          {next.map((n, i) => (
+            <span key={n.href}>
+              {i > 0 && " · "}
+              <Link href={n.href} className="underline decoration-dotted">{n.label}</Link>
+            </span>
+          ))}
+        </p>
       )}
-      </dl>
       {children}
     </aside>
   );

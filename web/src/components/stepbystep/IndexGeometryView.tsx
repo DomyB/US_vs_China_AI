@@ -2,7 +2,7 @@
 
 import * as Plot from "@observablehq/plot";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { CAT_4, INK_3, RULE } from "@/components/insights/shared";
@@ -17,6 +17,7 @@ import { MAP_PALETTE } from "@/components/map/scales";
 import { useTheme } from "@/lib/theme";
 import { useRealMeta } from "@/lib/useRealMeta";
 import { Walkthrough, type Stage } from "./Walkthrough";
+import { replaceSearch } from "@/lib/url";
 
 type Actor = "US" | "CN";
 
@@ -49,8 +50,6 @@ const label = (p: CountryYearPoint) => `${p.name} ${p.y} · ${p.a === "CN" ? "Ch
  * every number on the page can be checked against the published one next to it.
  */
 export function IndexGeometryView() {
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
   const theme = useTheme();
   const pal = MAP_PALETTE[theme];
@@ -81,9 +80,9 @@ export function IndexGeometryView() {
       if (patch.actor) next.set("actor", patch.actor);
       if (patch.year != null) next.set("year", String(patch.year));
       if (stage) next.set("stage", String(stage));
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, pathname, router],
+    [params],
   );
 
   // the fold: every country-year-actor with all four shared components, both actors in one space

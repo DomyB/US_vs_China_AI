@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { aggregateFlows, flowsToGeoJSON, spanYears, type FlowSpan } from "@/components/map/flows";
 import { Legend } from "@/components/map/Legend";
@@ -23,6 +23,7 @@ import { Drawer } from "./Drawer";
 import { IntroCard } from "./IntroCard";
 import { Overview } from "./Overview";
 import { Skeleton } from "@/components/ui/Skeleton";
+import { replaceSearch } from "@/lib/url";
 
 const SouthAmericaMap = dynamic(() => import("@/components/map/SouthAmericaMap").then((m) => m.SouthAmericaMap), {
   ssr: false,
@@ -44,8 +45,6 @@ const FALLBACK_YEAR = 2024;
 const FLOW_BOUNDS: [[number, number], [number, number]] = [[-262, -58], [-30, 60]];
 
 export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: string; url: string }> }) {
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
 
   const mode = (["US", "CN", "both"].includes(params.get("actor") ?? "") ? params.get("actor") : "both") as ActorMode;
@@ -114,9 +113,9 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
         if (v === null || v === "") next.delete(k);
         else next.set(k, v);
       }
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, pathname, router],
+    [params],
   );
   const setYear = useCallback((y: number) => setParams({ year: String(y) }), [setParams]);
   const togglePlay = useCallback(() => setPlaying((p) => !p), []);
@@ -237,8 +236,8 @@ export function MapPage({ sourceNames }: { sourceNames: Record<string, { name: s
   const resetAll = useCallback(() => {
     setCompareMode(false);
     setPlaying(false);
-    router.replace(pathname, { scroll: false });
-  }, [pathname, router]);
+    replaceSearch(new URLSearchParams());
+  }, []);
 
   const drawerLabel = selection.length >= 2 ? `Compare ${selection.length} countries` : compareMode ? "Compare" : country ? names[country] ?? country : "Overview";
   const content = !meta ? null : selection.length >= 2 ? (

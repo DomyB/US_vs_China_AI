@@ -2,7 +2,7 @@
 
 import * as Plot from "@observablehq/plot";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { feature as topoFeature } from "topojson-client";
 import type { Topology, GeometryCollection } from "topojson-specification";
@@ -30,6 +30,7 @@ import { StatementsByYear } from "@/components/statements/StatementCharts";
 import { StatementList } from "@/components/statements/StatementList";
 import { blocShort } from "@/components/statements/blocs";
 import { Interpretation } from "@/components/panel/Interpretation";
+import { replaceSearch } from "@/lib/url";
 
 type FC = FeatureCollection<Geometry, { iso3: string; name: string; in_scope: boolean }>;
 
@@ -50,8 +51,6 @@ const INDEX_OPTIONS: { value: IndexName; label: string; title: string }[] = [
 ];
 
 export function RegionView() {
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
   const [playing, setPlaying] = useState(false);
   const [meta, setMeta] = useState<Meta | null>(null);
@@ -94,9 +93,9 @@ export function RegionView() {
       const next = new URLSearchParams(params.toString());
       if (value === null) next.delete(key);
       else next.set(key, value);
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, pathname, router],
+    [params],
   );
   const setYear = useCallback((y: number) => setParam("year", String(y)), [setParam]);
   const togglePlay = useCallback(() => setPlaying((p) => !p), []);

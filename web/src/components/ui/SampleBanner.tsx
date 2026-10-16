@@ -56,7 +56,8 @@ export function SampleBanner() {
             {chips.map((c) => (
               <span key={c.label} className={`chip ${toneCls[c.tone]}`} title={`${c.label}: ${c.long ?? c.value}`}>
                 <span className="font-semibold">{c.label}</span>
-                <span className="font-normal text-ink-2">{c.value}</span>
+                {/* the values fit only on a wide screen; the title and the open strip carry them everywhere */}
+                <span className="hidden font-normal text-ink-2 2xl:inline">{c.value}</span>
               </span>
             ))}
           </span>

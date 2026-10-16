@@ -2,7 +2,7 @@
 
 import * as Plot from "@observablehq/plot";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { CAT_3, CAT_4, INK_3, RULE } from "@/components/insights/shared";
@@ -17,6 +17,7 @@ import { typeLabel } from "@/lib/geometry";
 import type { Provenance } from "@/lib/provenance";
 import { useTheme } from "@/lib/theme";
 import { Walkthrough, type Stage } from "./Walkthrough";
+import { replaceSearch } from "@/lib/url";
 
 const CLASS_COLOR: Record<number, string> = { [-1]: "#5c6069", 0: OTHER_COLOR, 1: CAT_4 };
 const LR_OPTIONS = [0.05, 0.2, 0.5, 1.0];
@@ -35,8 +36,6 @@ function cloneHead(h: Head): Head {
  * record followed through the forward pass, the loss, the gradient, the descent and the decision.
  */
 export function ClassifierView() {
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
   const theme = useTheme();
   const pal = MAP_PALETTE[theme];
@@ -60,9 +59,9 @@ export function ClassifierView() {
       const next = new URLSearchParams(params.toString());
       next.set("ex", key);
       if (stage) next.set("stage", String(stage));
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, pathname, router],
+    [params],
   );
 
   // the training set, the balanced weights and the random start (iteration 0) are shared by the early stages

@@ -313,7 +313,6 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
           }
           asks={historyRows.length > 0 ? "How much mineral news does each source carry month by month, and when does it spike? One line per source, since their windows differ and cannot be summed." : undefined}
           how={historyRows.length > 0 ? "One line with a faint area per source, mineral-related stories per month; hover for the month's count and its share of the source's own items; the dashed rule is the selected year; a month with no point is a month the source was not counted, missing, not zero." : undefined}
-          says={historyRows.length > 0 ? "A spike shared by several sources is a news event; a spike in one source alone may be that source's own fetch or collection changing. Each series starts when its source was first read, and its first month may be partial." : undefined}
         />
         {historyRows.length > 0 ? (
           <>
@@ -331,6 +330,7 @@ export function MediaTab({ data, year, mineral }: { data: CountryData; year: num
                 { key: "items_us", label: "Name the US" },
               ]}
             />
+            <Reading says="A spike shared by several sources is a news event; a spike in one source alone may be that source's own fetch or collection changing. Each series starts when its source was first read, and its first month may be partial." compact />
           </>
         ) : (
           <p className="text-sm text-ink-3">

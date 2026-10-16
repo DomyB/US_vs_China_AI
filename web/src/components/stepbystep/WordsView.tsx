@@ -2,7 +2,7 @@
 
 import * as Plot from "@observablehq/plot";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState, type MouseEvent } from "react";
 import { FRAME_GLYPH, PlotFigure, type PlotOptions } from "@/components/charts/PlotFigure";
 import { CAT_3, CAT_4, INK_3, RULE } from "@/components/insights/shared";
@@ -19,6 +19,7 @@ import { useTheme } from "@/lib/theme";
 import { sourceNameMap } from "@/lib/sources";
 import { useSources } from "@/lib/useSources";
 import { Walkthrough, type Stage } from "./Walkthrough";
+import { replaceSearch } from "@/lib/url";
 
 type ColourMode = "type" | "country" | "language" | "narrative" | "stance";
 
@@ -37,8 +38,6 @@ const short = (s: string | null | undefined, n = 72) => (s ? (s.length > n ? `${
  * example changes with a click on the map or on a narrative's central record.
  */
 export function WordsView() {
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
   const theme = useTheme();
   const pal = MAP_PALETTE[theme];
@@ -65,9 +64,9 @@ export function WordsView() {
       const next = new URLSearchParams(params.toString());
       next.set("doc", id);
       if (stage) next.set("stage", String(stage));
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, pathname, router],
+    [params],
   );
 
   if (file === undefined) return <InsightsSkeleton />;

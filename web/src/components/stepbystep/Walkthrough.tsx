@@ -1,11 +1,12 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, type ReactNode } from "react";
 import { LayerLabel, type Layer } from "@/components/ui/Badges";
 import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
 import { Icon } from "@/components/ui/Icons";
 import type { Provenance } from "@/lib/provenance";
+import { replaceSearch } from "@/lib/url";
 
 export interface Stage {
   id: string;
@@ -22,8 +23,6 @@ export interface Stage {
  * the rail move between stages. The rail sits beside the stage on a wide screen and above it on a phone.
  */
 export function Walkthrough({ eyebrow, title, lead, layer, provenance, stages, aside, paramKey = "stage" }: { eyebrow: string; title: ReactNode; lead: ReactNode; layer: Layer; provenance?: Provenance; stages: Stage[]; aside?: ReactNode; paramKey?: string }) {
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
   const n = stages.length;
   const current = useMemo(() => {
@@ -34,9 +33,9 @@ export function Walkthrough({ eyebrow, title, lead, layer, provenance, stages, a
     (i: number) => {
       const next = new URLSearchParams(params.toString());
       next.set(paramKey, String(Math.min(Math.max(i, 0), n - 1) + 1));
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, paramKey, n, pathname, router],
+    [params, paramKey, n],
   );
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

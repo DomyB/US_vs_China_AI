@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
 import { Icon, type IconName } from "@/components/ui/Icons";
-import { Reading, type ReadingKind } from "@/components/ui/Reading";
+import { Reading } from "@/components/ui/Reading";
 import type { Provenance } from "@/lib/provenance";
 
 /** Title row of a panel block: title on the left, layer tags on the right, an optional one-line intro. */
-export function SectionHeader({ id, title, tags, intro, provenance, table, asks, how, says, saysKind }: { id: string; title: ReactNode; tags?: ReactNode; intro?: ReactNode; provenance?: Provenance; table?: ReactNode; asks?: ReactNode; how?: ReactNode; says?: ReactNode; saysKind?: ReadingKind }) {
+export function SectionHeader({ id, title, tags, intro, provenance, table, asks, how }: { id: string; title: ReactNode; tags?: ReactNode; intro?: ReactNode; provenance?: Provenance; table?: ReactNode; asks?: ReactNode; how?: ReactNode }) {
   return (
     <div className="mb-1">
       <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
@@ -18,7 +18,8 @@ export function SectionHeader({ id, title, tags, intro, provenance, table, asks,
         )}
       </div>
       {intro && <p className="mt-0.5 text-xs leading-relaxed text-ink-3">{intro}</p>}
-      <Reading asks={asks} how={how} says={says} saysKind={saysKind} compact />
+      {/* the finding (`says`) is rendered by the caller after the figure, so the section reads question, chart, answer */}
+      <Reading asks={asks} how={how} compact />
     </div>
   );
 }

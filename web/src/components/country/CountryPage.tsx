@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { MineralFilter } from "@/components/controls/MineralFilter";
 import { YearControl } from "@/components/controls/YearControl";
@@ -12,13 +12,12 @@ import { YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { loadIndex, loadMeta } from "@/lib/data";
 import { defaultIndexYear, rowsForIndex } from "@/lib/indexView";
 import type { IndexFile, Meta } from "@/lib/types";
+import { replaceSearch } from "@/lib/url";
 
 /** The year shown before the index file has said which year most countries are last indexed in (`defaultIndexYear`, as the map). */
 const FALLBACK_YEAR = 2024;
 
 export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: Record<string, { name: string; url: string }> }) {
-  const router = useRouter();
-  const pathname = usePathname();
   const params = useSearchParams();
   const mineral = params.get("mineral") ?? "all";
   const tab = parseTab(params.get("tab"));
@@ -43,15 +42,15 @@ export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: 
         if (v === null || v === "") next.delete(k);
         else next.set(k, v);
       }
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      replaceSearch(next);
     },
-    [params, pathname, router],
+    [params],
   );
   const setYear = useCallback((y: number) => setParam({ year: String(y) }), [setParam]);
   const togglePlay = useCallback(() => setPlaying((p) => !p), []);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-3">
+    <div className="mx-auto max-w-5xl px-4 py-3">
       <p className="mb-2 text-xs text-ink-3">
         <Link href={`/explore?country=${iso3}&year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">← Back to the map</Link>
       </p>

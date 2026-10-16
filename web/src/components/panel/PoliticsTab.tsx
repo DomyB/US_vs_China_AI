@@ -138,8 +138,6 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
           provenance={provenanceFor("stance", { iso3: data.iso3, meta, model: data.text_model ? { name: data.text_model.model ?? data.text_model.method ?? "text model", version: data.text_model.codebook_version ?? undefined, validation: data.text_model.label ?? undefined } : undefined })}
           asks="Does the language of the legislature toward each power warm or cool over the years? A yearly mean sized by the record count shows the direction and how much rests on it."
           how="One line per actor on the −2 to +2 scale around the zero rule; dot size is the number of records scored that year; the dashed rule is the selected year; a year with no dot has no record naming the actor, not a neutral one."
-          says="A line near zero is a legislature that names the actor without taking a side; a large dot far from zero is a year of many records pointing one way."
-          saysKind="model"
         />
         <p className="mb-2 text-xs text-ink-3">
           Mean stance of bills, hearings and votes that name each actor (records that name neither are not scored). Coding method and validation scores are on the methodology page.
@@ -148,6 +146,7 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
         </p>
         <PlotFigure options={options} ariaLabel={`Mean parliamentary stance toward the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
         <DataTable rows={series} caption="Mean stance by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Toward" }, { key: "stance", label: "Mean stance" }, { key: "n", label: "Documents" }]} />
+        <Reading says="A line near zero is a legislature that names the actor without taking a side; a large dot far from zero is a year of many records pointing one way." saysKind="model" compact />
       </section>
 
       <LegislativeRecords data={data} year={year} mineral={mineral} />

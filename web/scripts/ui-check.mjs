@@ -100,6 +100,24 @@ try {
           if (ctx.exhibits > 0) check(`${label}: every exhibit has its reading lines`, ctx.without.length === 0, `${ctx.without.length} of ${ctx.exhibits} without: ${ctx.without.join(", ")}`);
           if (["/routes", "/mineral", "/region", "/lab", "/votes-and-ore", "/methodology", "/sources", "/archive", "/stage", "/denial"].includes(path)) check(`${label}: the page opens with a guide`, ctx.guide);
         }
+        if (v.name === "desktop" && !run.stored && run.scheme === "light" && ["/region", "/country/CHL", "/votes-and-ore"].includes(path)) {
+          // a year change updates the query string in place: the page must neither scroll back to the top nor show its loading state
+          await page.evaluate(() => window.scrollTo(0, 900));
+          await page.waitForTimeout(300);
+          const before = await page.evaluate(() => window.scrollY);
+          await page.evaluate(() => {
+            const el = document.querySelector('input[type="range"]');
+            if (!el) return;
+            Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set.call(el, "2019");
+            el.dispatchEvent(new Event("input", { bubbles: true }));
+            el.dispatchEvent(new Event("change", { bubbles: true }));
+          });
+          await page.waitForTimeout(1200);
+          const after = await page.evaluate(() => ({ y: window.scrollY, busy: document.querySelectorAll('[aria-busy="true"]').length, url: location.search }));
+          check(`${label}: a year change keeps the scroll position`, before > 0 && after.y === before, `${before} -> ${after.y}`);
+          check(`${label}: a year change lands in the URL without a loading state`, after.url.includes("year=2019") && after.busy === 0, JSON.stringify(after));
+          await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
+        }
         if (path === "/") {
           // an overflowing flex row justified to the end clips its start; the first link must be reachable
           const nav = await page.evaluate(() => {

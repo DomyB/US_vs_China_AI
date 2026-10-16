@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { SectionNav } from "@/components/ui/SectionNav";
@@ -28,6 +28,7 @@ import { ScenarioStudio } from "./ScenarioStudio";
 import { Shocks } from "./Shocks";
 import { WordsVsMoney } from "./WordsVsMoney";
 import { Block } from "./shared";
+import { replaceSearch } from "@/lib/url";
 
 type LevelFilter = "all" | EvidenceLevel;
 
@@ -47,7 +48,6 @@ const INSIGHT_SECTIONS = [
 
 export function InsightsView() {
   const realMeta = useRealMeta();
-  const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const [file, setFile] = useState<InsightsFile | null | undefined>(undefined);
@@ -96,9 +96,9 @@ export function InsightsView() {
       const next = { ...(levers ?? { country: defaultCountry, ...DEFAULT_LEVERS }), ...patch };
       setLevers(next);
       const p = leversToParams(next, new URLSearchParams(window.location.search));
-      router.replace(`${pathname}?${p.toString()}`, { scroll: false });
+      replaceSearch(p);
     },
-    [levers, defaultCountry, pathname, router],
+    [levers, defaultCountry],
   );
   const selectCountry = useCallback((iso3: string) => update({ country: iso3, divertMineral: null, divertPct: 0, pricePct: 0 }), [update]);
   const copyLink = useCallback(() => {
