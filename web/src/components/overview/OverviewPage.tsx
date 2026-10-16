@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT, IN_SCOPE, YEAR_MAX, YEAR_MIN, countWord } from "@/lib/constants";
 import { BIV, BIV_NAMES, buyerCells, bivFill } from "@/lib/buyers";
 import { CLAIMS } from "@/lib/contested";
+import { Picture, usePictures } from "@/components/ui/Picture";
 import { loadFlows, loadIndex, loadMeta, loadRealMeta } from "@/lib/data";
 import { fmtMusd, fmtPct, fmtSigned } from "@/lib/format";
 import { latestYear, leanByYear, tradeByYear, type LeanYear, type TradeYear } from "@/lib/overview";
@@ -38,13 +39,13 @@ function Spark({ values, color }: { values: (number | null)[]; color: string }) 
 }
 
 const DOORS = [
-  { href: "/story", title: "Story", text: "What leaders said, what the money did: ten chapters of evidence, 2000–2026." },
-  { href: "/explore", title: "Explore the map", text: "Every country coloured by the index, money and trade arcs to Washington and Beijing, five tabs per country." },
-  { href: "/routes", title: "Trade & Investment", text: "Where the region's minerals go, where the buyers get them, and the ceiling on the indirect route." },
-  { href: "/mineral", title: "Minerals", text: "What each mineral is for, who has it, who buys it, where it is and what it costs." },
-  { href: "/country", title: "Countries", text: "Twenty case files: actions, politics, media, analysis and forecast." },
-  { href: "/contested", title: "Against the grain", text: "Claims the usual story gets wrong, and two it gets right, each tested on the record with a verdict and what would overturn it." },
-  { href: "/votes-and-ore", title: "Balance of presence", text: "Votes against ore: where each power is present, in what form, and what the hypotheses say." },
+  { href: "/story", picture: "lithium_field", title: "Story", text: "What leaders said, what the money did: ten chapters of evidence, 2000–2026." },
+  { href: "/explore", picture: "andes", title: "Explore the map", text: "Every country coloured by the index, money and trade arcs to Washington and Beijing, five tabs per country." },
+  { href: "/routes", picture: "port", title: "Trade & Investment", text: "Where the region's minerals go, where the buyers get them, and the ceiling on the indirect route." },
+  { href: "/mineral", picture: "copper_mine", title: "Minerals", text: "What each mineral is for, who has it, who buys it, where it is and what it costs." },
+  { href: "/country", picture: "amazon", title: "Countries", text: "Twenty case files: actions, politics, media, analysis and forecast." },
+  { href: "/contested", picture: "congress", title: "Against the grain", text: "Claims the usual story gets wrong, and two it gets right, each tested on the record with a verdict and what would overturn it." },
+  { href: "/votes-and-ore", picture: "votes", title: "Balance of presence", text: "Votes against ore: where each power is present, in what form, and what the hypotheses say." },
 ];
 const QUESTIONS = [
   { k: "H1", q: "Which announced projects were actually built?", href: "/stage#s-ladder" },
@@ -68,6 +69,7 @@ export function OverviewPage() {
       .catch(() => alive && setD(null));
     return () => { alive = false; };
   }, []);
+  const pictures = usePictures();
   const scope = useMemo(() => new Set(IN_SCOPE), []);
   const trade: TradeYear[] = useMemo(() => (d?.flows ? tradeByYear(d.flows.trade, scope) : []), [d, scope]);
   const lean: LeanYear[] = useMemo(() => (d ? leanByYear(d.index.rows, scope) : []), [d, scope]);
@@ -232,9 +234,12 @@ export function OverviewPage() {
         <h2 className="text-[1.45rem]">Ways in</h2>
         <div className="mt-3 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
           {DOORS.map((x) => (
-            <Link key={x.href} href={x.href} className="card grid content-start gap-2 p-4 no-underline">
+            <Link key={x.href} href={x.href} className="card door-picture grid content-start gap-2 overflow-hidden p-0 no-underline">
+              <Picture id={x.picture} pictures={pictures} ratio="card" bare />
+              <div className="grid gap-2 px-4 pb-4 pt-2">
               <h3 className="text-[1.05rem]">{x.title}</h3>
               <p className="serif text-[0.9rem] italic text-ink-2">{x.text}</p>
+              </div>
             </Link>
           ))}
         </div>

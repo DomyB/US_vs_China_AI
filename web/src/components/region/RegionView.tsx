@@ -12,6 +12,7 @@ import { RankingRace } from "@/components/charts/RankingRace";
 import { YearControl } from "@/components/controls/YearControl";
 import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { PageGuide, Reading } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { Segmented } from "@/components/ui/Segmented";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -202,6 +203,7 @@ export function RegionView() {
         read="Move the year or press play and every chart follows; hover or pin a country in the ranking to follow it in the chart beside it; each chart has its table beneath."
         next={[{ href: "/explore", label: "The map, one country at a time" }, { href: "/votes-and-ore", label: "Votes and ore" }]}
       />
+      <HeaderPicture id="andes" className="mt-3" />
 
       <SectionNav items={REGION_SECTIONS} />
       <div className="card mb-4 p-3">

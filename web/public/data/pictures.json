@@ -1,0 +1,499 @@
+{
+ "generated_on": "2026-10-16",
+ "note": "Illustrations for the site's pages: lead pictures of the English Wikipedia articles named in pipeline/scripts/mineral_images.py PLACES (looked up on the Actions runner, diagnose runs 38929650530 and 38930025162; Panama has none, its article has no lead picture) and the companion project's credited pictures. Author and licence from Wikimedia Commons; the image URL is Commons' FilePath redirect at 960px. Pictures, not records: nothing on the site is read from them.",
+ "pictures": {
+  "BOL": {
+   "article": "Salar de Uyuni",
+   "file": "Salar_Uyuni_au01.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Salar_Uyuni_au01.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Salar_Uyuni_au01.jpg",
+   "author": "Anouchka Unel",
+   "license": "FAL",
+   "license_url": "http://artlibre.org/licence/lal/en",
+   "credit": "Wikimedia Commons"
+  },
+  "BRA": {
+   "article": "Carajás Mine",
+   "file": "Carajas_Mine.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Carajas_Mine.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Carajas_Mine.jpg",
+   "author": "NASA Earth Observatory",
+   "license": "Public domain",
+   "license_url": null,
+   "credit": "Wikimedia Commons"
+  },
+  "COL": {
+   "article": "Cerrejón",
+   "file": "Cerrejón_3.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cerrej%C3%B3n_3.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Cerrej%C3%B3n_3.jpg",
+   "author": "Tanenhaus",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "GUY": {
+   "article": "Kaieteur Falls",
+   "file": "GuyanaKaieteurFalls2004.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/GuyanaKaieteurFalls2004.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:GuyanaKaieteurFalls2004.jpg",
+   "author": "Sorenriise at English Wikipedia",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "PRY": {
+   "article": "Itaipu Dam",
+   "file": "Itaipu_geral.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Itaipu_geral.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Itaipu_geral.jpg",
+   "author": "Jonas de Carvalho",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "PER": {
+   "article": "Antamina mine",
+   "file": "Antamina_Mine_Tailings_Pond.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Antamina_Mine_Tailings_Pond.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Antamina_Mine_Tailings_Pond.jpg",
+   "author": "Xtremizta",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "SUR": {
+   "article": "Rosebel gold mine",
+   "file": "Rosebel_mining_4_big.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rosebel_mining_4_big.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Rosebel_mining_4_big.jpg",
+   "author": "Iamgold",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "URY": {
+   "article": "Port of Montevideo",
+   "file": "(Puerto_de_Montevideo)_Cuidad_Vieja_y_Puerto_de_Montevideo_131003-0879-jikatu_(10099992434)_(cropped).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/%28Puerto_de_Montevideo%29_Cuidad_Vieja_y_Puerto_de_Montevideo_131003-0879-jikatu_%2810099992434%29_%28cropped%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:%28Puerto_de_Montevideo%29_Cuidad_Vieja_y_Puerto_de_Montevideo_131003-0879-jikatu_%2810099992434%29_%28cropped%29.jpg",
+   "author": "Jimmy Baikovicius",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "MEX": {
+   "article": "Cananea",
+   "file": "Cananea_Sonora.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cananea_Sonora.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Cananea_Sonora.jpg",
+   "author": "Sergio Orozco",
+   "license": "CC0",
+   "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "credit": "Wikimedia Commons"
+  },
+  "GTM": {
+   "article": "Lake Izabal",
+   "file": "Lake_Izabal_NASA.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Izabal_NASA.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Lake_Izabal_NASA.jpg",
+   "author": "NASA",
+   "license": "Public domain",
+   "license_url": null,
+   "credit": "Wikimedia Commons"
+  },
+  "BLZ": {
+   "article": "Belize Barrier Reef",
+   "file": "Satellite_image_of_Belize_in_March_31,_2002.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Satellite_image_of_Belize_in_March_31%2C_2002.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Satellite_image_of_Belize_in_March_31%2C_2002.jpg",
+   "author": "MODIS Land Rapid Response Team, NASA/GSFC",
+   "license": "Public domain",
+   "license_url": null,
+   "credit": "Wikimedia Commons"
+  },
+  "HND": {
+   "article": "Lake Yojoa",
+   "file": "Yojoa_Lake.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yojoa_Lake.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Yojoa_Lake.jpg",
+   "author": "Frank Domínguez 15",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "SLV": {
+   "article": "San Salvador",
+   "file": "Monumento_al_Salvador_del_Mundo_1.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Monumento_al_Salvador_del_Mundo_1.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Monumento_al_Salvador_del_Mundo_1.jpg",
+   "author": "Frankjh",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "NIC": {
+   "article": "Momotombo",
+   "file": "Momotombo.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Momotombo.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Momotombo.jpg",
+   "author": "Wikimedia Commons contributor",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "CRI": {
+   "article": "Arenal Volcano",
+   "file": "Arenal_volcano_(70785p)_(cropped).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Arenal_volcano_%2870785p%29_%28cropped%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Arenal_volcano_%2870785p%29_%28cropped%29.jpg",
+   "author": "Rhododendrites",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "port": {
+   "article": "Port of Callao",
+   "file": "Puerto-del-callao.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Puerto-del-callao.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Puerto-del-callao.jpg",
+   "author": "Alex E. Proimos",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "votes": {
+   "article": "United Nations General Assembly",
+   "file": "UN_General_Assembly_hall.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/UN_General_Assembly_hall.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:UN_General_Assembly_hall.jpg",
+   "author": "Patrick Gruban, cropped and downsampled by Pine",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "smelter": {
+   "article": "Smelting",
+   "file": "TVA_phosphate_smelting_furnace.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/TVA_phosphate_smelting_furnace.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:TVA_phosphate_smelting_furnace.jpg",
+   "author": "Alfred T. Palmer",
+   "license": "Public domain",
+   "license_url": null,
+   "credit": "Wikimedia Commons"
+  },
+  "copper_mine": {
+   "article": "Chuquicamata",
+   "file": "Mina_de_Chuquicamata,_Calama,_Chile,_2016-02-01,_DD_110-112_PAN.JPG",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mina_de_Chuquicamata%2C_Calama%2C_Chile%2C_2016-02-01%2C_DD_110-112_PAN.JPG?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Mina_de_Chuquicamata%2C_Calama%2C_Chile%2C_2016-02-01%2C_DD_110-112_PAN.JPG",
+   "author": "Diego Delso",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "lithium_field": {
+   "article": "Salar de Atacama",
+   "file": "Salar_de_Atacama.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Salar_de_Atacama.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Salar_de_Atacama.jpg",
+   "author": "Francesco Mocellin",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "iron": {
+   "article": "Carajás Mine",
+   "file": "Carajas_Mine.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Carajas_Mine.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Carajas_Mine.jpg",
+   "author": "NASA Earth Observatory",
+   "license": "Public domain",
+   "license_url": null,
+   "credit": "Wikimedia Commons"
+  },
+  "ship": {
+   "article": "Bulk carrier",
+   "file": "Sabrina_I_cropped.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sabrina_I_cropped.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Sabrina_I_cropped.jpg",
+   "author": "Nsandel at English Wikipedia",
+   "license": "Public domain",
+   "license_url": null,
+   "credit": "Wikimedia Commons"
+  },
+  "container": {
+   "article": "Port of Santos",
+   "file": "Santos_Aérea_(cropped).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Santos_A%C3%A9rea_%28cropped%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Santos_A%C3%A9rea_%28cropped%29.jpg",
+   "author": "Agência CNT",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "bri": {
+   "article": "Belt and Road Initiative",
+   "file": "\"Belt_and_Road\"_economic_corridor_and_its_path_city_topographic_map.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/%22Belt_and_Road%22_economic_corridor_and_its_path_city_topographic_map.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:%22Belt_and_Road%22_economic_corridor_and_its_path_city_topographic_map.jpg",
+   "author": "未来智者",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "congress": {
+   "article": "United States Capitol",
+   "file": "US_Capitol_east_side.JPG",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/US_Capitol_east_side.JPG?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:US_Capitol_east_side.JPG",
+   "author": "Martin Falbisoner",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "beijing": {
+   "article": "Great Hall of the People",
+   "file": "China_Senate_House.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/China_Senate_House.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:China_Senate_House.jpg",
+   "author": "Zheng Zhou",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "washington": {
+   "article": "Washington, D.C.",
+   "file": "12-07-13-washington-by-RalfR-08.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/12-07-13-washington-by-RalfR-08.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:12-07-13-washington-by-RalfR-08.jpg",
+   "author": "Ralf Roletschek",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "andes": {
+   "article": "Andes",
+   "file": "Panoramic_view_Andes-Chile.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Panoramic_view_Andes-Chile.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Panoramic_view_Andes-Chile.jpg",
+   "author": "Diego Delso",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "amazon": {
+   "article": "Amazon rainforest",
+   "file": "Amazon17_(5641020319).jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Amazon17_%285641020319%29.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Amazon17_%285641020319%29.jpg",
+   "author": "CIAT",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "refinery": {
+   "article": "Copper extraction",
+   "file": "Chino_copper_mine.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Chino_copper_mine.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Chino_copper_mine.jpg",
+   "author": "Eric Guinther (Marshman)",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "battery": {
+   "article": "Lithium-ion battery",
+   "file": "Li_ion_laptop_battery.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Li_ion_laptop_battery.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Li_ion_laptop_battery.jpg",
+   "author": "Kristoferb",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "ARG": {
+   "article": "Salar de Arizaro",
+   "file": "Cono_de_Arita_en_el_Salar_de_Arizaro.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cono_de_Arita_en_el_Salar_de_Arizaro.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Cono_de_Arita_en_el_Salar_de_Arizaro.jpg",
+   "author": "Ben Stubbs",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "CHL": {
+   "article": "Chuquicamata",
+   "file": "Mina_de_Chuquicamata,_Calama,_Chile,_2016-02-01,_DD_110-112_PAN.JPG",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mina_de_Chuquicamata%2C_Calama%2C_Chile%2C_2016-02-01%2C_DD_110-112_PAN.JPG?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Mina_de_Chuquicamata%2C_Calama%2C_Chile%2C_2016-02-01%2C_DD_110-112_PAN.JPG",
+   "author": "Diego Delso",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Wikimedia Commons"
+  },
+  "ECU": {
+   "article": "Cotopaxi",
+   "file": "Cotopaxi_volcano_2008-06-27T1322.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cotopaxi_volcano_2008-06-27T1322.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Cotopaxi_volcano_2008-06-27T1322.jpg",
+   "author": "Gerard Prins",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "credit": "Wikimedia Commons"
+  },
+  "VEN": {
+   "article": "Angel Falls",
+   "file": "SaltoAngel1.jpg",
+   "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/SaltoAngel1.jpg?width=960",
+   "page_url": "https://commons.wikimedia.org/wiki/File:SaltoAngel1.jpg",
+   "author": "Rich Childs",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Wikimedia Commons"
+  },
+  "denial_apple_iphone": {
+   "article": null,
+   "file": "apple_iphone.jpg",
+   "image_url": "/data/companion/denial/img/apple_iphone.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:IPhone_5s_(model_A1457)-3321.jpg",
+   "author": "Raimond Spekking",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Back of an iPhone 5s (model A1457): 'Designed by Apple in California. Assembled in China.' The label names where the product was designed and where it was finally assembled, not where its components or its value come from."
+  },
+  "denial_apple_macpro_usa": {
+   "article": null,
+   "file": "apple_macpro_usa.jpg",
+   "image_url": "/data/companion/denial/img/apple_macpro_usa.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:President_Trump_Tours_the_Apple_Manufacturing_Plant_(49100490526).jpg",
+   "author": "The White House from Washington, DC",
+   "license": "Public domain",
+   "license_url": "",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "The same label can name a different country. Mac Pro base plate reading 'Designed by Apple in California. Assembled in USA', shown during a presidential tour of the Flextronics plant in Austin, Texas, 20 November 2019."
+  },
+  "denial_atacama": {
+   "article": null,
+   "file": "atacama.jpg",
+   "image_url": "/data/companion/denial/img/atacama.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Lithium_Ponds_of_Chile%27s_Salar_de_Atacama_(SVS15006).jpg",
+   "author": "NASA's Scientific Visualization Studio - SSAI/Ross K. Walter",
+   "license": "Public domain",
+   "license_url": "",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Lithium evaporation ponds in Chile's Salar de Atacama, NASA satellite image, 21 February 2026. Extraction happens here; most of the world's lithium chemicals are refined elsewhere, mainly in China."
+  },
+  "denial_cerroverde": {
+   "article": null,
+   "file": "cerroverde.jpg",
+   "image_url": "/data/companion/denial/img/cerroverde.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Cerro_Verde_mine_Peru.jpg",
+   "author": "NASA Operational Land Imager (OLI) on Landsat 8",
+   "license": "Public domain",
+   "license_url": "",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Cerro Verde copper mine, Arequipa, Peru (NASA Landsat 8, 19 November 2016). Majority-owned by the US firm Freeport-McMoRan: US companies also extract in the region."
+  },
+  "denial_lasbambas": {
+   "article": null,
+   "file": "lasbambas.jpg",
+   "image_url": "/data/companion/denial/img/lasbambas.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Mina_Las_Bambas.jpg",
+   "author": "Ondando",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Las Bambas copper mine, Apurímac, Peru (2015), operated by MMG, a subsidiary of China's state-owned China Minmetals.."
+  },
+  "denial_chuqui": {
+   "article": null,
+   "file": "chuqui.jpg",
+   "image_url": "/data/companion/denial/img/chuqui.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Mina_de_Chuquicamata,_Calama,_Chile,_2016-02-01,_DD_120.JPG",
+   "author": "Diego Delso",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Haul trucks and drills at Chuquicamata, the open-pit copper mine of Chile's state firm Codelco, Calama, 1 February 2016."
+  },
+  "denial_cocacodo": {
+   "article": null,
+   "file": "cocacodo.jpg",
+   "image_url": "/data/companion/denial/img/cocacodo.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:COCACODO_SINCLAIR_006.jpg",
+   "author": "amalavida.tv",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Coca Codo Sinclair hydropower plant under construction (c. 2016). Built by China's Sinohydro with China Exim financing; Ecuador's largest power plant."
+  },
+  "denial_byd": {
+   "article": null,
+   "file": "byd.jpg",
+   "image_url": "/data/companion/denial/img/byd.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:09.10.2025_%E2%80%93_Visita_%C3%A0_linha_de_montagem_de_ve%C3%ADculos_da_BYD_(54843497343).jpg",
+   "author": "Lula Oficial",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "President Lula and BYD executives at the inauguration of BYD's vehicle assembly line in Camaçari, Bahia, 9 October 2025."
+  },
+  "denial_lula_xi": {
+   "article": null,
+   "file": "lula_xi.jpg",
+   "image_url": "/data/companion/denial/img/lula_xi.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:14.04.2023_-_Cerim%C3%B4nia_Oficial_de_Recep%C3%A7%C3%A3o_(52817938851).jpg",
+   "author": "Palácio do Planalto from Brasilia, Brasil",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Lula and Xi Jinping with their spouses at the official welcome ceremony, Great Hall of the People, Beijing, 14 April 2023."
+  },
+  "denial_celac2025": {
+   "article": null,
+   "file": "celac2025.jpg",
+   "image_url": "/data/companion/denial/img/celac2025.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:13.05.2025_-_Sess%C3%A3o_de_abertura_do_IV_F%C3%B3rum_CELAC-China_(54515179087).jpg",
+   "author": "Lula Oficial",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Opening session of the Fourth China–CELAC Forum ministerial meeting, Beijing, 13 May 2025, where Xi announced a RMB 66bn credit line."
+  },
+  "denial_rubio_mulino": {
+   "article": null,
+   "file": "rubio_mulino.jpg",
+   "image_url": "/data/companion/denial/img/rubio_mulino.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:Secretary_Rubio_Meets_with_Panama_President_(54302745599).jpg",
+   "author": "U.S. Department of State",
+   "license": "Public domain",
+   "license_url": "",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "US Secretary of State Marco Rubio meets President José Raúl Mulino and his cabinet, Panama City, 2 February 2025, his first trip as Secretary of State."
+  },
+  "denial_trump_milei": {
+   "article": null,
+   "file": "trump_milei.jpg",
+   "image_url": "/data/companion/denial/img/trump_milei.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:President_Donald_J._Trump_and_President_of_Argentina_Javier_Milei_on_October_14,_2025_(2).jpg",
+   "author": "White House",
+   "license": "Public domain",
+   "license_url": "",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Trump hosts Milei at the White House, 14 October 2025, twelve days before Argentina's midterm elections and days after the US$20bn Treasury swap was agreed."
+  },
+  "denial_laredo": {
+   "article": null,
+   "file": "laredo.jpg",
+   "image_url": "/data/companion/denial/img/laredo.jpg",
+   "page_url": "https://commons.wikimedia.org/wiki/File:World_Trade_Crossing_International_Bridge_in_Laredo,_Texas_(35598341390).jpg",
+   "author": "U.S. Customs and Border Protection",
+   "license": "Public domain",
+   "license_url": "",
+   "credit": "Denial without Substitution (companion project)",
+   "caption": "Trucks entering the US from Mexico at the World Trade Crossing International Bridge, Laredo, Texas, 12 April 2017: the busiest truck crossing on the US–Mexico border."
+  }
+ }
+}

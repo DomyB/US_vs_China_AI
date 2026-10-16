@@ -1,5 +1,7 @@
 "use client";
 
+import { HeaderPicture } from "@/components/ui/Picture";
+
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { VerdictTable } from "@/components/story/Verdicts";
@@ -38,6 +40,7 @@ export function WhatWeKnowView() {
       <header className="max-w-3xl">
         <p className="eyebrow">After the analysis</p>
         <h1 className="serif mt-1 text-2xl font-bold leading-tight sm:text-4xl">What do we know?</h1>
+        <HeaderPicture id="ship" className="mt-3" />
         <p className="mt-3 text-base leading-relaxed text-ink-2">Three things, kept apart: what this record says measure by measure, what the published literature on China, the United States and Latin America&apos;s minerals has argued, and where the two agree. The first is the exports&apos; arithmetic over {COUNTRY_COUNT} countries; the second is a reading list checked against the publishers&apos; pages; the third is interpretation, drafted by an AI session and labelled so.</p>
         <div className="mt-3 flex flex-wrap gap-1.5"><LayerLabel layer="facts" /><LayerLabel layer="model" /><LayerLabel layer="interpretation" /></div>
       </header>

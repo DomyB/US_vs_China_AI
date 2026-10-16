@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { LayerLabel } from "@/components/ui/Badges";
 import { PageGuide } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE, countWord } from "@/lib/constants";
 import { attentionVsMoney, capitalVsOre, chinaConcentration, CLAIMS, echoFamilies, fanWidth, hongKongChannel, leanFlips, lendingVsOre, mineralSplit, panelNull, pressureCases, pricesVsValue, talkPattern, turnSummary, turnsVsOre, votesVsOre, warmWordsNoTrade, VERDICT_LABEL, type Turn, type Verdict } from "@/lib/contested";
@@ -149,6 +150,7 @@ export function ContestedView() {
       <h1 className="serif mt-1 text-3xl font-bold leading-tight sm:text-4xl">{countWord(CLAIMS.length, true)} claims against the usual story, each tested on the record</h1>
       <p className="mt-3 max-w-3xl text-base leading-relaxed text-ink-2">The rest of the site describes and forecasts. This page argues. Each claim below cuts against a common account of the rivalry, or states one that the record contradicts, and each is tested on this site&apos;s own record: the test is stated, the numbers are computed from the data files when the page loads, and the verdict follows a rule written next to it, so a new data release can change it. The wording of the claims is the team&apos;s, AI-drafted and labelled interpretation; the numbers are facts or model outputs and carry their labels.</p>
       <PageGuide purpose="The arguments: what the record says against the usual story of the rivalry, with the test and the verdict for each claim." read="Read the headline, then the record; the verdict is a rule applied to the numbers, and the last line says what evidence would overturn it. Every claim links to the exhibit that holds the detail." next={[{ href: "/story", label: "The story, chapter by chapter" }, { href: "/lab", label: "Test your own scenario" }, { href: "/what-we-know", label: "What the literature says" }]} />
+      <HeaderPicture id="beijing" className="mt-3" />
       {sample && <p className="mt-2 rounded-md border border-sample/40 bg-sample/10 px-3 py-2 text-sm text-sample">Sample data: the verdicts below are computed on the sample set and mean nothing until the first data run.</p>}
 
       <Claim

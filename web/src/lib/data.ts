@@ -12,7 +12,7 @@ const REAL = "/data/real";
  */
 const inflight = new Map<string, Promise<unknown>>();
 
-function fetchOnce<T>(path: string): Promise<T> {
+export function fetchOnce<T>(path: string): Promise<T> {
   const hit = inflight.get(path);
   if (hit) return hit as Promise<T>;
   const p = fetch(path).then(async (res) => {

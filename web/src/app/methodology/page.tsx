@@ -1,4 +1,5 @@
 import { PageGuide } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { ForecastMetrics } from "@/components/methodology/ForecastMetrics";
@@ -37,6 +38,7 @@ export default function MethodologyPage() {
       </p>
 
       <PageGuide purpose="The methods behind every number on the site: how each index, model and source is built, validated and limited." read="Read the section that matches the kind label on the block you came from; the contents list below jumps to it." next={[{ href: "/sources", label: "Sources and their liveness" }, { href: "/what-we-know", label: "What we know, against the literature" }, { href: "/archive", label: "Every data file" }]} />
+      <HeaderPicture id="smelter" className="mt-3" />
       <nav aria-label="Contents" className="toc card mt-4 p-3">
         <p className="eyebrow mb-1">Contents</p>
         <ol className="grid gap-x-6 gap-y-0.5 sm:grid-cols-2">

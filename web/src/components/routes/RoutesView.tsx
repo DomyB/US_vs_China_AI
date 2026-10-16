@@ -9,6 +9,7 @@ import { Exhibit, KeyNumber, StepCard } from "@/components/story/Chapter";
 import { WideFigure } from "@/components/story/Ch3Iceberg";
 import { LayerLabel } from "@/components/ui/Badges";
 import { PageGuide } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, COUNTRY_COUNT, COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE, OTHER_COLOR } from "@/lib/constants";
 import { loadRoutes } from "@/lib/data";
@@ -208,6 +209,7 @@ function RoutesPanel({ file, buyer, mineral, mineralFixed, year, set, embedded }
             read="Pick the buyer, the mineral and the year; the three numbers and the exhibits follow, and the URL keeps the choice so a view can be linked. The ceiling is the smaller of an intermediary's two legs, what could at most have passed through, never what did."
             next={[{ href: "/mineral", label: "The mineral case files" }, { href: "/explore?view=trade", label: "The trade arcs on the map" }]}
           />
+          <HeaderPicture id="container" className="mt-3" />
         </div>
       </header>
       <div className="mt-5">{controls}</div>

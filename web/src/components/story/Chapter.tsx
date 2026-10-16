@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { Reading, type ReadingKind } from "@/components/ui/Reading";
+import { Picture, usePictures } from "@/components/ui/Picture";
 import { EvidenceButton } from "@/components/ui/EvidenceDrawer";
 import { RELIABILITY_LABEL } from "@/lib/constants";
 import type { Provenance } from "@/lib/provenance";
@@ -26,11 +27,17 @@ export type Layer = "facts" | "model" | "interp";
 const LAYER_LABEL: Record<Layer, string> = { facts: "Facts", model: "Model output", interp: "Interpretation" };
 
 /** One chapter: a dark title card asking the question, then the paper where the exhibit and the step cards sit. */
+/** The picture that opens each chapter (an id in /data/pictures.json); a chapter without one opens on its question alone. */
+const CHAPTER_PICTURES: Record<number, string | undefined> = { 0: "andes", 1: "congress", 2: "port", 3: "beijing", 4: "denial_cocacodo", 5: "denial_lula_xi", 6: "copper_mine", 7: "PER", 8: "ARG", 10: "denial_celac2025" };
+
 export function Chapter({ n, eyebrow, question, meter, children }: { n: number; eyebrow: string; question: string; meter?: { level: EvidenceLevel; basis: string }; children: ReactNode }) {
+  const pictures = usePictures();
+  const pic = CHAPTER_PICTURES[n];
   return (
     <section id={`c${n}`} className="story-chapter scroll-mt-2" aria-labelledby={`c${n}-title`}>
       <div className="ink-stage chapter-card">
-        <div className="mx-auto max-w-5xl">
+        <div className={`mx-auto max-w-5xl ${pic && pictures?.has(pic) ? "grid gap-5 sm:grid-cols-[minmax(0,1fr)_16rem] sm:items-start" : ""}`}>
+          <div>
           <p className="eyebrow !text-[0.7rem] opacity-80">Chapter {n} · {eyebrow}</p>
           <h2 id={`c${n}-title`} className="mt-2">{question}</h2>
           {meter && (
@@ -40,6 +47,8 @@ export function Chapter({ n, eyebrow, question, meter, children }: { n: number; 
               <span className="opacity-80 sm:before:content-['·_']">{meter.basis}</span>
             </p>
           )}
+          </div>
+          {pic && <Picture id={pic} pictures={pictures} ratio="card" className="chapter-picture" />}
         </div>
       </div>
       <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">{children}</div>

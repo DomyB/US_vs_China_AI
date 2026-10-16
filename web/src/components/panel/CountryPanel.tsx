@@ -6,6 +6,7 @@ import { loadCountry } from "@/lib/data";
 import type { CountryData, IndexRow, Meta } from "@/lib/types";
 import { Freshness } from "@/components/ui/Freshness";
 import { Icon } from "@/components/ui/Icons";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { PanelSkeleton } from "@/components/ui/Skeleton";
 import { ActionsTab } from "./ActionsTab";
 import { AnalysisTab } from "./AnalysisTab";
@@ -86,6 +87,7 @@ export function CountryPanel({ iso3, year, mineral, meta, indexRows, indexLayer 
             {!standalone && <Link href={`/country/${iso3}?year=${year}&mineral=${mineral}&tab=${tab}`} className="underline">Open the full page</Link>}
           </p>
         </div>
+        {standalone && <HeaderPicture id={iso3} ratio="card" className="hidden w-56 shrink-0 sm:block" />}
         {onClose && (
           <button type="button" onClick={onClose} aria-label="Close country panel" className="btn btn-sm btn-icon">
             <Icon name="close" />

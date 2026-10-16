@@ -424,6 +424,14 @@
   .claim-grid dd { margin: 0; min-width: 0; }
   .claim-grid dd .kind { margin-left: 0.25rem; vertical-align: 1px; }
   @media (max-width: 639px) { .claim-grid { grid-template-columns: 1fr; gap: 0.15rem 0; } .claim-grid dd { margin-bottom: 0.5rem; } }
+  /* credited illustrations */
+  .picture { margin: 0; min-width: 0; }
+  .picture-img { display: block; width: 100%; object-fit: cover; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface-2); }
+  .picture-caption { margin-top: 0.3rem; font-size: 0.68rem; line-height: 1.4; color: var(--ink-3); }
+  .picture-caption a { color: inherit; }
+  .door-picture .picture-img { border-radius: 10px 10px 0 0; border-bottom: 0; }
+  .chapter-picture .picture-img { border-color: color-mix(in srgb, var(--surface) 25%, transparent); }
+  .chapter-picture .picture-caption { color: inherit; opacity: 0.75; }
   /* the page guide: what the page is for, how to use it, where next */
   .page-guide { display: grid; gap: 0.3rem; background: var(--surface-2); border: 1px solid var(--rule); border-radius: 10px; padding: 0.7rem 0.95rem; margin: 0.75rem 0 1rem; font-size: 0.84rem; line-height: 1.45; color: var(--ink-2); max-width: 78ch; }
   .page-guide p { margin: 0; }

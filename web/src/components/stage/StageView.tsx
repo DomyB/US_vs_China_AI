@@ -8,6 +8,7 @@ import { Exhibit, KeyNumber, StepCard } from "@/components/story/Chapter";
 import { WideFigure } from "@/components/story/Ch3Iceberg";
 import { LayerLabel } from "@/components/ui/Badges";
 import { PageGuide, Reading } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { ACTOR_COLOR, IN_SCOPE, OTHER_COLOR } from "@/lib/constants";
@@ -146,6 +147,7 @@ export function StageView() {
             read="Every block carries the kind of knowledge it rests on. The trade figures are the prototype's numbers, recomputed from the team's own BACI and Comtrade panel by its own rule, not this site's reconciled series; where the two differ, the case files cite this site's."
             next={[{ href: "/story", label: "The story" }, { href: "/denial", label: "The companion study" }]}
           />
+        <HeaderPicture id="bri" className="mt-3" />
         </div>
       </header>
       <div className="mt-5"><SectionNav items={SECTIONS} /></div>

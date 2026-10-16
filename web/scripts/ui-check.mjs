@@ -124,6 +124,10 @@ try {
           check("contested: most verdicts are settled on the record", c.open <= 3, `${c.open} open`);
           check("contested: the turns and minerals tables render", c.tables >= 2, String(c.tables));
         }
+        if (v.name === "desktop" && !run.stored && run.scheme === "light" && ["/", "/story", "/country/CHL", "/contested", "/region", "/routes", "/lab", "/votes-and-ore", "/methodology"].includes(path)) {
+          const pics = await page.evaluate(() => ({ n: document.querySelectorAll("figure.picture img").length, credited: document.querySelectorAll("figure.picture .picture-credit").length }));
+          check(`${label}: the page carries at least one credited picture`, pics.n >= 1 && (path === "/" || pics.credited >= 1), JSON.stringify(pics));
+        }
         if (path === "/") {
           // an overflowing flex row justified to the end clips its start; the first link must be reachable
           const nav = await page.evaluate(() => {

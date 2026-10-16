@@ -8,6 +8,7 @@ import { SectionNav } from "@/components/ui/SectionNav";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { Toast } from "@/components/ui/Toast";
 import { PageGuide } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { useRevealChildren } from "@/lib/motion";
 import { Interpretation } from "@/components/panel/Interpretation";
 import { Segmented } from "@/components/ui/Segmented";
@@ -167,6 +168,7 @@ export function InsightsView() {
         read="The levers are yours: each one is arithmetic on published numbers, and the board, the studio and the shock block follow them. The link button keeps a scenario in the address; nothing you set is stored, and nothing you set is a forecast."
         next={[{ href: "/story#c7", label: "Chapter 7 of the story, what it would take" }, { href: "/region", label: "The regional overview" }]}
       />
+      <HeaderPicture id="battery" className="mt-3" />
       <div className="mt-4">
         <SectionNav items={INSIGHT_SECTIONS} />
       </div>

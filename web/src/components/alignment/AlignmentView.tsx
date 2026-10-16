@@ -9,6 +9,7 @@ import type { Topology } from "topojson-specification";
 import { YearControl } from "@/components/controls/YearControl";
 import { Block } from "@/components/insights/shared";
 import { PageGuide } from "@/components/ui/Reading";
+import { HeaderPicture } from "@/components/ui/Picture";
 import { SectionNav } from "@/components/ui/SectionNav";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { DEAD_BAND, QUADRANTS, QUADRANT_LABEL, correlation, correlationByYear, firstYear, latestFullYear, leanPoints, meanLeans, movers, quadrant, sideWord, trajectories, withBoth, yearSplit, type BothLean, type Mover } from "@/lib/alignment";
@@ -176,6 +177,7 @@ export function AlignmentView() {
             read="Pick a year in the first block: the two maps, the quadrant and the movers follow it, and the play button runs the years. The small charts in the fourth block show every year at once; the last block says what the page can and cannot claim."
             next={[{ href: "/explore?index=political_alignment", label: "Political alignment on the map" }, { href: "/story", label: "The story" }]}
           />
+          <HeaderPicture id="votes" className="mt-3" />
           <SectionNav items={SECTIONS} />
 
           <Block id="maps" n={1} title={<>Two maps, one year</>} lead={<>The same countries, the same year, the same colour scale: the political lean on the left, the economic lean on the right.</>} layer="model" provenance={prov("Two maps, one year")}
