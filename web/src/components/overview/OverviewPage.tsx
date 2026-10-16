@@ -9,6 +9,7 @@ import { Reading } from "@/components/ui/Reading";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT, IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
 import { BIV, BIV_NAMES, buyerCells, bivFill } from "@/lib/buyers";
+import { CLAIMS } from "@/lib/contested";
 import { loadFlows, loadIndex, loadMeta, loadRealMeta } from "@/lib/data";
 import { fmtMusd, fmtPct, fmtSigned } from "@/lib/format";
 import { latestYear, leanByYear, tradeByYear, type LeanYear, type TradeYear } from "@/lib/overview";
@@ -167,25 +168,29 @@ export function OverviewPage() {
         <Reading compact says={`${cnUp && usDown ? "Between the two years on the tiles China's share rose and the US share fell" : "Compare the two ends of each share tile"}; the value tile is in current dollars, so much of its movement is prices, and the lean tile is a model output, not a trade figure.`} />
       </section>
 
-      {/* five ideas */}
+      {/* the arguments */}
       <section className="mt-9">
-        <h2 className="text-[1.45rem]">Five ideas to read the evidence</h2>
-        <p className="mt-1 max-w-[70ch] text-sm text-ink-2">Each idea is labelled by the kind of knowledge it rests on: a fact from the data, a model output, or an interpretation.</p>
-        <ol className="mt-3 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-5">
-          {[
-            ["facts", "The market came first", `China's share of the region's reported mineral exports went from ${t0 && t0.share_cn != null ? fmtPct(t0.share_cn, 0) : "—"} in ${t0?.year ?? "—"} to ${t && t.share_cn != null ? fmtPct(t.share_cn, 0) : "—"} in ${t?.year ?? "—"}; the US share from ${t0 && t0.share_us != null ? fmtPct(t0.share_us, 0) : "—"} to ${t && t.share_us != null ? fmtPct(t.share_us, 0) : "—"}.`],
-            ["facts", "Ore to China, metal to the US", "In the team's 2025 trade data, China bought about 60% of the region's ores and concentrates but about a fifth of processed products; the United States bought under 1% of ores and about 40% of processed products."],
-            ["interpretation", "Said and paid", "Chinese institutions committed about US$20 for every US$1 of documented US finance in 2015–2021; the Chinese record ends in 2021, the US record runs on."],
-            ["interpretation", "Denial without substitution", "In 16 documented cases since 2018, US pressure coincided with 7 Chinese-linked options being dropped or frozen, but a US or allied alternative was built in only 3 or 4."],
-            ["facts", "Governments hedge", "63% of 287 statements by Latin American actors on critical minerals mention neither China nor the US; only 8 mention both."],
-          ].map(([k, title, body], i) => (
-            <li key={title} className="card grid content-start gap-2 p-4">
-              <div className="flex items-center justify-between"><span className="font-mono text-[11px] text-ink-3">{i + 1}</span><Kind k={k as "facts" | "model" | "interpretation"} /></div>
-              <h3 className="text-[1.05rem]">{title}</h3>
-              <p className="text-[0.8125rem] text-ink-2">{body}</p>
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 className="text-[1.45rem]">Eleven claims against the grain</h2>
+            <p className="mt-1 max-w-[70ch] text-sm text-ink-2">The data describes; these claims argue. Each cuts against the usual story of the rivalry and is tested on the record when the arguments page loads: the test, the numbers, a verdict by a stated rule, and what would overturn it.</p>
+          </div>
+          <Link href="/contested" className="btn btn-md btn-primary no-underline">Read the tests and verdicts</Link>
+        </div>
+        <ol className="mt-3 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          {CLAIMS.map((c, i) => (
+            <li key={c.id}>
+              <Link href={`/contested#${c.id}`} className="card flex h-full items-start gap-3 p-3 no-underline hover:bg-surface-2">
+                <span className="font-mono text-[11px] text-ink-3">{String(i + 1).padStart(2, "0")}</span>
+                <span className="min-w-0">
+                  <span className="block text-[0.95rem] font-semibold leading-snug text-ink">{c.headline}</span>
+                  <span className="mt-0.5 block text-[0.78rem] text-ink-2">{c.stake}</span>
+                </span>
+              </Link>
             </li>
           ))}
         </ol>
+        <p className="mt-2 text-[11px] text-ink-3"><LayerLabel layer="interpretation" /> The claims are the team&apos;s reading, AI-drafted; the numbers behind each verdict are computed from the data files and labelled on the page.</p>
       </section>
 
       {/* three actors */}

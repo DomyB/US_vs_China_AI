@@ -8,6 +8,21 @@ import type { ComponentRow } from "@/lib/geometry";
 import type { AttentionYear, FlowFinanceRow, FlowTradeRow, InsightRegion, InsightRegression, InvestmentFile, MineralShareRow } from "@/lib/types";
 
 export type Verdict = "holds" | "part" | "fails" | "open";
+
+/** The eleven claims, as the home and the story list them; the arguments page computes each one's verdict from the record. */
+export const CLAIMS: { id: string; headline: string; stake: string }[] = [
+  { id: "turns", headline: "Elections did not change the buyer", stake: "A friendlier government is not a lever on the ore." },
+  { id: "lending", headline: "The money left; the ore kept coming", stake: "Cutting the loans would not cut the trade." },
+  { id: "capital", headline: "China buys the ore; the capital in the ground is American", stake: "Each power is strong where the other is absent." },
+  { id: "minerals", headline: "They are not buying the same minerals", stake: "The region's leverage is mineral by mineral." },
+  { id: "panel", headline: "Nothing either power does shows up in the ore", stake: "The programmes need another justification." },
+  { id: "votes", headline: "Votes do not follow the ore", stake: "A UN vote is weak evidence of a mineral tie." },
+  { id: "talk", headline: "Washington talks about China; Beijing paid", stake: "Words on one side, money on the other." },
+  { id: "hedge", headline: "Most of the region's leaders mention neither power", stake: "The choice of sides is a framing from outside." },
+  { id: "attention", headline: "Washington's attention arrived after Beijing's money had left", stake: "Policy aimed at a past position." },
+  { id: "pressure", headline: "Pressure removes options and builds nothing", stake: "The cost falls on the host country." },
+  { id: "route", headline: "The hidden route is a ceiling, not a channel", stake: "The dependence is bounded." },
+];
 export const VERDICT_LABEL: Record<Verdict, string> = { holds: "Holds on the record", part: "Holds in part", fails: "Fails on the record", open: "Cannot be settled here" };
 
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);

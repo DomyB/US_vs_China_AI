@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { LayerLabel } from "@/components/ui/Badges";
 import { COUNTRY_COUNT_WORD } from "@/lib/constants";
+import { CLAIMS } from "@/lib/contested";
 import { tally, type MeasureVerdict } from "@/lib/verdicts";
 import { Exhibit, StepCard } from "./Chapter";
 import { Door } from "./Chapter";
@@ -33,6 +34,16 @@ export function Ch10Winning({ verdicts }: { verdicts: MeasureVerdict[] }) {
           <p><strong>On the cheques, China on paper and nobody lately.</strong> The documented Chinese commitments dwarf the US authorisations over the record, but the large years are a decade old and the Chinese series ends where its source ends; the US money is small and recent. The chapter on the iceberg shows why the headline sum is not the whole of Beijing&apos;s money, and the swap drawdowns to Argentina sit apart from all of it.</p>
           <p><strong>So: {t.CN > t.US ? "China on more measures, the United States on the deepest one" : t.US > t.CN ? "the United States on more measures, China on the flows" : "a draw on the measures, split by kind"}.</strong> The flows (ore, votes, recent cheques) favour China; the stock (capital) favours the United States; the composite index, which averages flows and a stock of debt, leans China in most of the {COUNTRY_COUNT_WORD} countries. Whoever asks &ldquo;who is winning&rdquo; has to say which of these they mean, and this site keeps them apart so the question stays answerable. What the record cannot see, the last chapter lists; what the literature says about the same questions, and where the record agrees, is on the <Link href="/what-we-know" className="underline">What do we know</Link> page.</p>
         </div>
+      </div>
+      <div className="mt-6 card px-4 py-4 sm:px-6">
+        <div className="flex flex-wrap items-center gap-2"><p className="eyebrow">The arguments</p><LayerLabel layer="interpretation" /></div>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-2">The verdict above counts measures. The arguments page goes further and takes the usual story of the rivalry apart claim by claim, each tested on the same record with a rule-based verdict and what would overturn it.</p>
+        <ol className="mt-3 grid gap-x-6 gap-y-1.5 text-sm sm:grid-cols-2">
+          {CLAIMS.map((c, i) => (
+            <li key={c.id} className="flex gap-2"><span className="font-mono text-[11px] text-ink-3">{String(i + 1).padStart(2, "0")}</span><Link href={`/contested#${c.id}`} className="underline decoration-dotted">{c.headline}</Link></li>
+          ))}
+        </ol>
+        <div className="mt-3"><Link href="/contested" className="btn btn-md btn-primary no-underline">Read the tests and verdicts</Link></div>
       </div>
       <div className="mt-6 card px-4 py-4 sm:px-6">
         <div className="flex flex-wrap items-center gap-2"><p className="eyebrow">The next topic</p><LayerLabel layer="interpretation" /></div>
