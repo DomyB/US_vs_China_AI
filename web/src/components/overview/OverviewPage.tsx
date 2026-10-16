@@ -7,7 +7,7 @@ import type { FitTarget } from "@/components/map/SouthAmericaMap";
 import { LayerLabel } from "@/components/ui/Badges";
 import { Reading } from "@/components/ui/Reading";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { COUNTRY_COUNT, IN_SCOPE, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
+import { COUNTRY_COUNT, IN_SCOPE, YEAR_MAX, YEAR_MIN, countWord } from "@/lib/constants";
 import { BIV, BIV_NAMES, buyerCells, bivFill } from "@/lib/buyers";
 import { CLAIMS } from "@/lib/contested";
 import { loadFlows, loadIndex, loadMeta, loadRealMeta } from "@/lib/data";
@@ -43,7 +43,7 @@ const DOORS = [
   { href: "/routes", title: "Trade & Investment", text: "Where the region's minerals go, where the buyers get them, and the ceiling on the indirect route." },
   { href: "/mineral", title: "Minerals", text: "What each mineral is for, who has it, who buys it, where it is and what it costs." },
   { href: "/country", title: "Countries", text: "Twenty case files: actions, politics, media, analysis and forecast." },
-  { href: "/contested", title: "Against the grain", text: "Eleven claims the usual story gets wrong, each tested on the record with a verdict and what would overturn it." },
+  { href: "/contested", title: "Against the grain", text: "Claims the usual story gets wrong, and two it gets right, each tested on the record with a verdict and what would overturn it." },
   { href: "/votes-and-ore", title: "Balance of presence", text: "Votes against ore: where each power is present, in what form, and what the hypotheses say." },
 ];
 const QUESTIONS = [
@@ -172,7 +172,7 @@ export function OverviewPage() {
       <section className="mt-9">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h2 className="text-[1.45rem]">Eleven claims against the grain</h2>
+            <h2 className="text-[1.45rem]">{countWord(CLAIMS.length, true)} claims against the grain</h2>
             <p className="mt-1 max-w-[70ch] text-sm text-ink-2">The data describes; these claims argue. Each cuts against the usual story of the rivalry and is tested on the record when the arguments page loads: the test, the numbers, a verdict by a stated rule, and what would overturn it.</p>
           </div>
           <Link href="/contested" className="btn btn-md btn-primary no-underline">Read the tests and verdicts</Link>

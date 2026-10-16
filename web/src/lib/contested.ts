@@ -5,7 +5,7 @@
  */
 import type { StageRecords } from "@/lib/stage";
 import type { ComponentRow } from "@/lib/geometry";
-import type { AttentionYear, FlowFinanceRow, FlowTradeRow, InsightRegion, InsightRegression, InvestmentFile, MineralShareRow } from "@/lib/types";
+import type { AttentionYear, EventEcho, FlowFinanceRow, FlowTradeRow, IndexRow, InsightCountry, InsightRegion, InsightRegression, InvestmentFile, MineralShareRow, PriceSeries } from "@/lib/types";
 
 export type Verdict = "holds" | "part" | "fails" | "open";
 
@@ -22,6 +22,13 @@ export const CLAIMS: { id: string; headline: string; stake: string }[] = [
   { id: "attention", headline: "Washington's attention arrived after Beijing's money had left", stake: "Policy aimed at a past position." },
   { id: "pressure", headline: "Pressure removes options and builds nothing", stake: "The cost falls on the host country." },
   { id: "route", headline: "The hidden route is a ceiling, not a channel", stake: "The dependence is bounded." },
+  { id: "three", headline: "Three countries are China's share", stake: "The region that leans to China is three exporters." },
+  { id: "prices", headline: "Prices did most of the lifting", stake: "The value story is a price story; the shares are the political one." },
+  { id: "echoes", headline: "US measures coincide with the US losing share, not China", stake: "The instruments move the wrong line." },
+  { id: "flips", headline: "The index is stable where it matters and noisy where it does not", stake: "A turn toward China is only meaningful for the big exporters, which never turned." },
+  { id: "warm", headline: "Warm words for Washington, no trade with it", stake: "Praise and purchases run opposite." },
+  { id: "hongkong", headline: "Hong Kong does not hide the Chinese stake", stake: "Tested because it is the usual objection to the capital claim." },
+  { id: "fans", headline: "The forecast does not tell us where this goes", stake: "How wide the 2030 fans are against the history." },
 ];
 export const VERDICT_LABEL: Record<Verdict, string> = { holds: "Holds on the record", part: "Holds in part", fails: "Fails on the record", open: "Cannot be settled here" };
 
@@ -215,4 +222,123 @@ export function pressureCases(cases: StageRecords["CASES"]) {
   const altPartial = cases.filter((c) => c.alt === "partial");
   const altFull = cases.filter((c) => c.alt === "yes" || c.alt === "full");
   return { n: cases.length, removed: removed.length, unchanged: unchanged.length, documented: documented.length, altPartial: altPartial.length, altFull: altFull.length };
+}
+
+/* ---- the second set of claims ---- */
+
+/** Who carries the region's exports to China: each country's share of the summed China cells in the latest year with at least `min` cells. */
+export function chinaConcentration(trade: readonly FlowTradeRow[], scope: readonly string[], min = 10) {
+  const set = new Set(scope);
+  const byYear = new Map<number, Map<string, number>>();
+  for (const r of trade) {
+    if (r.mineral !== "all" || !set.has(r.iso3) || r.exports_musd.CN == null) continue;
+    const m = byYear.get(r.year) ?? new Map<string, number>();
+    m.set(r.iso3, r.exports_musd.CN);
+    byYear.set(r.year, m);
+  }
+  const years = Array.from(byYear.entries()).filter(([, m]) => m.size >= min).map(([y]) => y);
+  if (!years.length) return null;
+  const year = Math.max(...years);
+  const m = byYear.get(year)!;
+  const total = Array.from(m.values()).reduce((a, b) => a + b, 0);
+  const rows = Array.from(m.entries()).map(([iso3, musd]) => ({ iso3, musd, share: total > 0 ? musd / total : 0 })).sort((a, b) => b.musd - a.musd);
+  const top3 = rows.slice(0, 3);
+  return { year, total, n: rows.length, rows, top3, top3Share: top3.reduce((a, r) => a + r.share, 0) };
+}
+
+/** The region's export value by year (summed world totals) against a price series, with the years that mark the shape. */
+export function pricesVsValue(prices: Record<string, PriceSeries>, trade: readonly FlowTradeRow[], scope: readonly string[], key = "copper") {
+  const set = new Set(scope);
+  const value = new Map<number, number>();
+  for (const r of trade) {
+    if (r.mineral !== "all" || !set.has(r.iso3) || r.exports_musd.WLD == null) continue;
+    value.set(r.year, (value.get(r.year) ?? 0) + r.exports_musd.WLD);
+  }
+  const p = prices[key];
+  if (!p) return null;
+  const price = new Map(p.annual.map((a) => [a.year, a.avg]));
+  const years = Array.from(value.keys()).filter((y) => price.has(y)).sort((a, b) => a - b);
+  if (years.length < 5) return null;
+  const rows = years.map((y) => ({ year: y, value: value.get(y)!, price: price.get(y)! }));
+  const corr = pearson(rows.map((r) => r.value), rows.map((r) => r.price));
+  const peak = rows.reduce((a, r) => (r.value > a.value ? r : a), rows[0]);
+  const trough = rows.filter((r) => r.year > peak.year).reduce<typeof rows[number] | null>((a, r) => (!a || r.value < a.value ? r : a), null);
+  return { key, unit: p.unit, series: p.series, rows, corr, first: rows[0], peak, trough, last: rows[rows.length - 1] };
+}
+
+/** Event echoes grouped by family (two or more windows): the mean change of each actor's export share after the family's events. */
+export function echoFamilies(echoes: readonly EventEcho[]) {
+  const fam = new Map<string, { label: string; event_actor: string; n: number; CN: number | null; US: number | null }>();
+  for (const e of echoes) {
+    if (e.n < 2) continue;
+    const f = fam.get(e.family) ?? { label: e.label, event_actor: e.event_actor, n: e.n, CN: null, US: null };
+    f[e.actor] = e.mean;
+    fam.set(e.family, f);
+  }
+  const rows = Array.from(fam.values()).sort((a, b) => b.n - a.n);
+  const usMeasures = rows.filter((r) => r.event_actor === "US");
+  const usLose = usMeasures.filter((r) => r.US != null && r.US < 0).length;
+  return { rows, usMeasures, usLose };
+}
+
+/** Net lean (China minus US, composite, all minerals) by country and year: how often its sign changed, and where it stands. */
+export function leanFlips(rows: readonly IndexRow[]) {
+  const by = new Map<string, Map<number, Partial<Record<"CN" | "US", number>>>>();
+  for (const r of rows) {
+    if ((r.index ?? "composite") !== "composite" || r.mineral !== "all" || r.value == null) continue;
+    const m = by.get(r.iso3) ?? new Map();
+    const cell = m.get(r.year) ?? {};
+    cell[r.actor] = r.value;
+    m.set(r.year, cell);
+    by.set(r.iso3, m);
+  }
+  const out: { iso3: string; years: number; flips: number; last: number; lastYear: number; nearZero: number }[] = [];
+  for (const [iso3, m] of by) {
+    const series = Array.from(m.entries()).filter(([, c]) => c.CN != null && c.US != null).map(([y, c]) => ({ y, lean: c.CN! - c.US! })).sort((a, b) => a.y - b.y);
+    if (series.length < 2) continue;
+    let flips = 0;
+    for (let i = 1; i < series.length; i++) if (series[i].lean > 0 !== series[i - 1].lean > 0) flips++;
+    const last = series[series.length - 1];
+    out.push({ iso3, years: series.length, flips, last: last.lean, lastYear: last.y, nearZero: series.filter((s) => Math.abs(s.lean) < 10).length / series.length });
+  }
+  return out.sort((a, b) => b.flips - a.flips);
+}
+
+/** Executives coded warm toward an actor whose exports barely go there: the words-against-trade contrasts for that actor. */
+export function warmWordsNoTrade(countries: readonly InsightCountry[], actor: "US" | "CN" = "US") {
+  const rows = countries
+    .flatMap((c) => c.contrasts.filter((x) => x.kind === "words_vs_trade" && x.actor === actor && x.stance != null && x.share != null).map((x) => ({ iso3: c.iso3, stance: x.stance as number, n: x.n as number, share: x.share as number, year: x.trade_year as number })))
+    .sort((a, b) => b.stance - a.stance);
+  return { rows, warmNoTrade: rows.filter((r) => r.stance >= 0.5 && r.share < 0.1), coolTrade: rows.filter((r) => r.stance < 0.5 && r.share >= 0.25) };
+}
+
+/** Each country's latest reported inward positions from mainland China and Hong Kong SAR: where the Hong Kong channel is larger. */
+export function hongKongChannel(inv: InvestmentFile) {
+  const latest = new Map<string, { CHN?: { year: number; musd: number }; HKG?: { year: number; musd: number } }>();
+  for (const r of inv.positions) {
+    if (r.direction !== "inward" || r.basis !== "reported" || (r.counterpart !== "CHN" && r.counterpart !== "HKG")) continue;
+    const e = latest.get(r.iso3) ?? {};
+    const cur = e[r.counterpart];
+    if (!cur || r.year > cur.year) e[r.counterpart] = { year: r.year, musd: r.musd };
+    latest.set(r.iso3, e);
+  }
+  const rows = Array.from(latest.entries()).map(([iso3, e]) => ({ iso3, ...e })).filter((r) => r.CHN || r.HKG).sort((a, b) => (b.HKG?.musd ?? 0) - (a.HKG?.musd ?? 0));
+  const hkLarger = rows.filter((r) => (r.HKG?.musd ?? 0) > (r.CHN?.musd ?? 0) && (r.HKG?.musd ?? 0) >= 1000);
+  const hkTotal = rows.reduce((a, r) => a + Math.max(0, r.HKG?.musd ?? 0), 0);
+  const cnTotal = rows.reduce((a, r) => a + Math.max(0, r.CHN?.musd ?? 0), 0);
+  return { rows, hkLarger, hkTotal, cnTotal };
+}
+
+/** The published fan for each country's share to China at the horizon against the whole range the share has covered in the record. */
+export function fanWidth(countries: readonly InsightCountry[], horizon = 2030) {
+  const rows: { iso3: string; width: number; range: number; p05: number; p95: number; min: number; max: number }[] = [];
+  for (const c of countries) {
+    const path = c.forecast?.paths.export_share?.CN?.baseline;
+    const at = path?.find((p) => p.year === horizon);
+    const hist = c.trade_series.map((t) => t.share_cn).filter((v): v is number => v != null);
+    if (!at || hist.length < 5) continue;
+    const min = Math.min(...hist), max = Math.max(...hist);
+    rows.push({ iso3: c.iso3, width: at.p95 - at.p05, range: max - min, p05: at.p05, p95: at.p95, min, max });
+  }
+  return { rows: rows.sort((a, b) => b.width - a.width), wider: rows.filter((r) => r.width >= r.range), medianWidth: rows.length ? rows.map((r) => r.width).sort((a, b) => a - b)[Math.floor(rows.length / 2)] : null };
 }

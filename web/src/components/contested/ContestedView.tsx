@@ -5,18 +5,18 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { LayerLabel } from "@/components/ui/Badges";
 import { PageGuide } from "@/components/ui/Reading";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
-import { COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE } from "@/lib/constants";
-import { attentionVsMoney, capitalVsOre, lendingVsOre, mineralSplit, panelNull, pressureCases, talkPattern, turnSummary, turnsVsOre, votesVsOre, VERDICT_LABEL, type Turn, type Verdict } from "@/lib/contested";
-import { loadComponents, loadFlows, loadInsights, loadInvestment, loadRegionShares, loadRoutes } from "@/lib/data";
+import { COUNTRY_COUNT_WORD, COUNTRY_NAMES, IN_SCOPE, countWord } from "@/lib/constants";
+import { attentionVsMoney, capitalVsOre, chinaConcentration, CLAIMS, echoFamilies, fanWidth, hongKongChannel, leanFlips, lendingVsOre, mineralSplit, panelNull, pressureCases, pricesVsValue, talkPattern, turnSummary, turnsVsOre, votesVsOre, warmWordsNoTrade, VERDICT_LABEL, type Turn, type Verdict } from "@/lib/contested";
+import { loadComponents, loadFlows, loadIndex, loadInsights, loadInvestment, loadRegionShares, loadRoutes } from "@/lib/data";
 import { fmtMusd, fmtPct, fmtShare, fmtSigned } from "@/lib/format";
 import { economyName, indirectFor, latestRouteYear } from "@/lib/routes";
 import { loadStage } from "@/lib/stage";
 import type { ComponentsFile } from "@/lib/geometry";
 import type { RoutesFile } from "@/lib/routes";
 import type { StageRecords } from "@/lib/stage";
-import type { FlowsFile, InsightsFile, InvestmentFile, MineralShareRow } from "@/lib/types";
+import type { FlowsFile, IndexFile, InsightsFile, InvestmentFile, MineralShareRow } from "@/lib/types";
 
-interface Data { flows: FlowsFile; flowsLayer: "real" | "sample"; insights: InsightsFile | null; investment: InvestmentFile | null; shares: MineralShareRow[]; components: ComponentsFile | null; rec: StageRecords | null; routes: RoutesFile | null }
+interface Data { flows: FlowsFile; flowsLayer: "real" | "sample"; index: IndexFile | null; insights: InsightsFile | null; investment: InvestmentFile | null; shares: MineralShareRow[]; components: ComponentsFile | null; rec: StageRecords | null; routes: RoutesFile | null }
 
 const name = (iso: string) => COUNTRY_NAMES[iso] ?? iso;
 const pp = (v: number) => `${v > 0 ? "+" : ""}${(v * 100).toFixed(1)} pts`;
@@ -81,8 +81,8 @@ function Bars({ rows, max, color }: { rows: { year: number; v: number }[]; max: 
 export function ContestedView() {
   const [d, setD] = useState<Data | null | undefined>(undefined);
   useEffect(() => {
-    Promise.all([loadFlows(), loadInsights(), loadInvestment(), loadRegionShares(), loadComponents(), loadStage(), loadRoutes()])
-      .then(([f, ins, inv, sh, comp, stage, routes]) => setD({ flows: f.data, flowsLayer: f.layer, insights: ins, investment: inv, shares: sh.rows, components: comp, rec: stage?.rec ?? null, routes }))
+    Promise.all([loadFlows(), loadInsights(), loadInvestment(), loadRegionShares(), loadComponents(), loadStage(), loadRoutes(), loadIndex().catch(() => null)])
+      .then(([f, ins, inv, sh, comp, stage, routes, index]) => setD({ flows: f.data, flowsLayer: f.layer, index, insights: ins, investment: inv, shares: sh.rows, components: comp, rec: stage?.rec ?? null, routes }))
       .catch(() => setD(null));
   }, []);
 
@@ -96,6 +96,13 @@ export function ContestedView() {
   const talk = useMemo(() => (d?.insights ? talkPattern(d.insights.region) : null), [d]);
   const att = useMemo(() => (d?.insights ? attentionVsMoney(d.insights.region.attention) : null), [d]);
   const cases = useMemo(() => (d?.rec ? pressureCases(d.rec.CASES) : null), [d]);
+  const conc = useMemo(() => (d ? chinaConcentration(d.flows.trade, IN_SCOPE) : null), [d]);
+  const prices = useMemo(() => (d?.insights ? pricesVsValue(d.insights.region.prices, d.flows.trade, IN_SCOPE, "copper") : null), [d]);
+  const echoes = useMemo(() => (d?.insights ? echoFamilies(d.insights.region.event_echoes) : null), [d]);
+  const flips = useMemo(() => (d?.index ? leanFlips(d.index.rows) : null), [d]);
+  const warm = useMemo(() => (d?.insights ? warmWordsNoTrade(d.insights.countries, "US") : null), [d]);
+  const hk = useMemo(() => (d?.investment ? hongKongChannel(d.investment) : null), [d]);
+  const fans = useMemo(() => (d?.insights ? fanWidth(d.insights.countries) : null), [d]);
   const route = useMemo(() => {
     if (!d?.routes) return null;
     const year = latestRouteYear(d.routes, "USA", "all");
@@ -121,13 +128,26 @@ export function ContestedView() {
   const vHedge: Verdict = neither != null ? (neither > 0.5 ? "holds" : neither > 0.3 ? "part" : "fails") : "open";
   const vAtt: Verdict = att?.peakDocs && att.peakMoney ? (att.peakDocs.year > att.peakMoney.year + 2 && (att.corr ?? 1) < 0.2 ? "holds" : att.peakDocs.year > att.peakMoney.year ? "part" : "fails") : "open";
   const vCases: Verdict = cases ? (cases.removed > 0 && cases.altFull === 0 ? (cases.documented <= 1 ? "part" : "holds") : "fails") : "open";
+  const vConc: Verdict = conc ? (conc.top3Share >= 0.75 ? "holds" : conc.top3Share >= 0.5 ? "part" : "fails") : "open";
+  const vPrices: Verdict = prices ? ((prices.corr ?? 0) >= 0.7 ? "holds" : (prices.corr ?? 0) >= 0.4 ? "part" : "fails") : "open";
+  const vEchoes: Verdict = echoes && echoes.usMeasures.length ? (echoes.usLose === echoes.usMeasures.length ? "holds" : echoes.usLose * 2 >= echoes.usMeasures.length ? "part" : "fails") : "open";
+  // the three largest exporters to China in the latest year, and whether their lean ever changed sign
+  const bigThree = conc?.top3.map((r) => r.iso3) ?? [];
+  const bigFlips = flips?.filter((f) => bigThree.includes(f.iso3)) ?? [];
+  const noisy = flips?.filter((f) => f.flips >= 5) ?? [];
+  const vFlips: Verdict = flips && flips.length && bigFlips.length === 3 ? (bigFlips.every((f) => f.flips === 0) && noisy.length >= 3 ? "holds" : bigFlips.every((f) => f.flips <= 1) ? "part" : "fails") : "open";
+  const vWarm: Verdict = warm && warm.rows.length ? (warm.warmNoTrade.length >= 2 ? "holds" : warm.warmNoTrade.length === 1 ? "part" : "fails") : "open";
+  // the claim is that Hong Kong hides the stake: it holds only if the Hong Kong channel is larger in most reporting countries and in total
+  const vHK: Verdict = hk && hk.rows.length ? (hk.hkLarger.length * 2 > hk.rows.length && hk.hkTotal > hk.cnTotal ? "holds" : hk.hkLarger.length > 0 ? "fails" : "fails") : "open";
+  // the claim is that the forecast says where this goes: it holds only if most fans are narrower than the history
+  const vFans: Verdict = fans && fans.rows.length ? (fans.wider.length * 2 > fans.rows.length ? "fails" : fans.wider.length * 4 > fans.rows.length ? "part" : "holds") : "open";
   const sample = d.flowsLayer === "sample";
 
   return (
     <div className="mx-auto max-w-4xl px-4 pb-10 pt-6 sm:px-6">
       <p className="eyebrow">Against the grain</p>
-      <h1 className="serif mt-1 text-3xl font-bold leading-tight sm:text-4xl">Ten claims the usual story gets wrong, or not quite right</h1>
-      <p className="mt-3 max-w-3xl text-base leading-relaxed text-ink-2">The rest of the site describes and forecasts. This page argues. Each claim below cuts against a common account of the rivalry, and each is tested on this site&apos;s own record: the test is stated, the numbers are computed from the data files when the page loads, and the verdict follows a rule written next to it, so a new data release can change it. The wording of the claims is the team&apos;s, AI-drafted and labelled interpretation; the numbers are facts or model outputs and carry their labels.</p>
+      <h1 className="serif mt-1 text-3xl font-bold leading-tight sm:text-4xl">{countWord(CLAIMS.length, true)} claims against the usual story, each tested on the record</h1>
+      <p className="mt-3 max-w-3xl text-base leading-relaxed text-ink-2">The rest of the site describes and forecasts. This page argues. Each claim below cuts against a common account of the rivalry, or states one that the record contradicts, and each is tested on this site&apos;s own record: the test is stated, the numbers are computed from the data files when the page loads, and the verdict follows a rule written next to it, so a new data release can change it. The wording of the claims is the team&apos;s, AI-drafted and labelled interpretation; the numbers are facts or model outputs and carry their labels.</p>
       <PageGuide purpose="The arguments: what the record says against the usual story of the rivalry, with the test and the verdict for each claim." read="Read the headline, then the record; the verdict is a rule applied to the numbers, and the last line says what evidence would overturn it. Every claim links to the exhibit that holds the detail." next={[{ href: "/story", label: "The story, chapter by chapter" }, { href: "/lab", label: "Test your own scenario" }, { href: "/what-we-know", label: "What the literature says" }]} />
       {sample && <p className="mt-2 rounded-md border border-sample/40 bg-sample/10 px-3 py-2 text-sm text-sample">Sample data: the verdicts below are computed on the sample set and mean nothing until the first data run.</p>}
 
@@ -346,6 +366,123 @@ export function ContestedView() {
         soWhat="The hidden dependence is real but bounded: even if every tonne an intermediary bought from the region went on to the United States, the region's share of US imports would rise by the ceiling and no further. Claims of a hidden dependence larger than that are not supported by the trade record."
         overturn="Shipment-level or firm-level data tracing the intermediaries' re-exports, which would turn the ceiling into a figure."
         links={[{ href: "/routes", label: "Where the United States gets it" }, { href: "/story#c0-routes", label: "The indirect route, in the story" }]}
+      />
+
+
+      <Claim
+        n={12}
+        id="three"
+        headline="Three countries are China's share"
+        verdict={vConc}
+        matters="The region that leans to China in the headlines is a handful of copper and iron exporters. Policy aimed at twenty countries as one bloc misses that the other seventeen barely sell China anything, and that a change in one of the three moves the whole regional number."
+        usual="Latin America as a region has turned to China as its mineral customer."
+        test={`Each country's reported exports to China in the latest year with China cells for at least ten countries${conc ? ` (${conc.year})` : ""}, as a share of the summed cells.`}
+        record={conc ? [
+          { text: `${conc.year}: ${fmtMusd(conc.total)} of exports to China across ${conc.n} reporting countries; the three largest, ${conc.top3.map((r) => `${name(r.iso3)} ${fmtPct(r.share, 0)}`).join(", ")}, carry ${fmtPct(conc.top3Share, 0)} of it.`, kind: "facts" as const },
+          { text: `The other ${conc.n - 3} countries together: ${fmtPct(1 - conc.top3Share, 0)}.`, kind: "facts" as const },
+        ] : [{ text: "No China cells in the file.", kind: "facts" as const }]}
+        soWhat="The regional number is three national numbers. Chile's copper, Brazil's iron and niobium and Peru's copper decide it; Central America and the Caribbean coast are in the same statistics and almost absent from the trade."
+        overturn="A spread of exports to China across more reporters, with the top three below three quarters of the total."
+        links={[{ href: "/explore?view=buyers", label: "Who buys, country by country" }, { href: "/routes", label: "Where the region's exports go" }]}
+      />
+
+      <Claim
+        n={13}
+        id="prices"
+        headline="Prices did most of the lifting"
+        verdict={vPrices}
+        matters="The headline growth of the region's mineral exports is quoted as evidence of a geopolitical shift. If value followed the metal price up and down, the shift is in the shares, not in the value, and the policy conversation should be about who buys, not how much it is worth."
+        usual="The region's mineral exports have grown because China's demand pulled them."
+        test={`The region's reported export value by year (summed world totals) against the ${prices?.series ?? "copper price"} in the same years; the correlation across the years both are known, and the years that mark the shape.`}
+        record={prices ? [
+          { text: `${prices.first.year}: ${fmtMusd(prices.first.value)} at ${prices.first.price.toLocaleString("en-GB", { maximumFractionDigits: 0 })} ${prices.unit}; peak ${prices.peak.year}: ${fmtMusd(prices.peak.value)} at ${prices.peak.price.toLocaleString("en-GB", { maximumFractionDigits: 0 })}${prices.trough && prices.trough.year !== prices.last.year ? `; ${prices.trough.year}: ${fmtMusd(prices.trough.value)} at ${prices.trough.price.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : ""}; ${prices.last.year}: ${fmtMusd(prices.last.value)} at ${prices.last.price.toLocaleString("en-GB", { maximumFractionDigits: 0 })}.`, kind: "facts" as const },
+          { text: `Correlation of value with the price across ${prices.rows.length} years: ${prices.corr != null ? prices.corr.toFixed(2) : "—"}.`, kind: "facts" as const },
+        ] : [{ text: "No price series in this release.", kind: "facts" as const }]}
+        soWhat="The value rose and fell with the metal, as a commodity exporter's value does. What changed hands politically is the share: China's part of a total that prices set. A chart of export value is a chart of the copper price with a Latin American label."
+        overturn="Volumes rising independently of price, or value growth in years the price fell. An implied-volume decomposition would say how much; it is a model and is not drawn here."
+        links={[{ href: "/story#c2-prices", label: "Price or politics?" }, { href: "/story#c2-destinations", label: "Where the region's minerals went" }]}
+      />
+
+      <Claim
+        n={14}
+        id="echoes"
+        headline="US measures coincide with the US losing share, not China"
+        verdict={vEchoes}
+        matters="Tariffs, strategies and laws are the instruments the United States reaches for in the mineral rivalry. If the years after them show the US share falling and China's rising, the instruments are at best not working through trade, and at worst are being read as success while the line they are meant to move goes the other way."
+        usual="US measures on critical minerals pull the region's trade toward the United States and away from China."
+        test="The event echoes: for each family of events with two or more windows, the mean change of each actor's export share in the years after the events, minus the years before. Coincidence counts, not effects; every event is still in draft."
+        record={echoes && echoes.rows.length ? echoes.rows.map((r) => ({ text: `${r.label} (${r.n} windows): US share ${r.US != null ? pp(r.US) : "—"}, China's share ${r.CN != null ? pp(r.CN) : "—"}.`, kind: "model" as const })) : [{ text: "No event echoes in this release.", kind: "model" as const }]}
+        soWhat={echoes && echoes.usLose === echoes.usMeasures.length && echoes.usMeasures.length > 0 ? "After every family of US measures the US share fell on average. The measures came in the years China's purchases were already climbing, so they mark the trend they were meant to reverse rather than reversing it. Chinese export controls, by contrast, moved almost nothing." : "The families split: the rows say after which measures the US share rose and after which it fell."}
+        overturn="Windows after US measures in which the US share rose net of the trend, once the events are verified and the windows control for prices."
+        links={[{ href: "/lab#shocks", label: "After the shock" }, { href: "/methodology#events", label: "Event studies" }]}
+      />
+
+      <Claim
+        n={15}
+        id="flips"
+        headline="The index is stable where it matters and noisy where it does not"
+        verdict={vFlips}
+        matters="Headlines about a country turning toward China or back are built on indices like this one. If the big exporters never changed sign while the small economies flip every few years around zero, a reported turn is only meaningful where it never happens, and the noise is where the turns are reported."
+        usual="Countries swing between the two powers as governments and deals change."
+        test={`Net lean (China minus US, composite index, all minerals) by country and year: the number of times its sign changed over the record, and where it stands${conc ? `; the three largest exporters to China in ${conc.year} are the test of "where it matters"` : ""}.`}
+        record={flips && flips.length ? [
+          { text: bigFlips.length ? `${bigFlips.map((f) => `${name(f.iso3)} ${f.flips} ${f.flips === 1 ? "flip" : "flips"} in ${f.years} years, lean ${fmtSigned(f.last, 0)} in ${f.lastYear}`).join("; ")}.` : "The three largest exporters have no index rows.", kind: "model" as const },
+          { text: `${noisy.length} countries flipped five times or more: ${noisy.map((f) => `${name(f.iso3)} ${f.flips}`).join(", ") || "none"}; in those the lean sat within ten points of zero in ${noisy.length ? fmtPct(noisy.reduce((a, f) => a + f.nearZero, 0) / noisy.length, 0) : "—"} of their years.`, kind: "model" as const },
+        ] : [{ text: "The index file is not in this release.", kind: "model" as const }]}
+        soWhat="The index says something firm about the countries that carry the trade and almost nothing about the countries that do not: there the sign is a coin toss around zero with few components. Read a flip in a small economy as noise unless a component moved."
+        overturn="A big exporter changing sign and staying there for several years, or the small economies' flips lining up with recorded events rather than with missing components."
+        links={[{ href: "/region", label: "The ranking, year by year" }, { href: "/explore", label: "The index on the map" }]}
+      />
+
+      <Claim
+        n={16}
+        id="warm"
+        headline="Warm words for Washington, no trade with it"
+        verdict={vWarm}
+        matters="The friendliest rhetoric toward the United States comes from governments that sell it almost none of their minerals, and the biggest seller to the United States is coded lukewarm. If warmth and trade run opposite, courting the warm capitals buys goodwill, not supply, and supply sits where the words are cool."
+        usual="Governments that speak well of the United States are its partners in minerals."
+        test={`Each country's executive statements coded for their stance toward the United States (0 to 1, pooled over the latest statement years) against the US share of its reported mineral exports in the latest trade year; "warm" is a stance of 0.5 or more, "no trade" a share under 10%.`}
+        record={warm && warm.rows.length ? [
+          { text: `Warm and no trade: ${warm.warmNoTrade.map((r) => `${name(r.iso3)} (stance ${r.stance.toFixed(2)} over ${r.n} statements, ${fmtShare(r.share)} of exports to the United States in ${r.year})`).join("; ") || "none"}.`, kind: "facts" as const },
+          { text: `Cool and trading: ${warm.coolTrade.map((r) => `${name(r.iso3)} (stance ${r.stance.toFixed(2)}, ${fmtShare(r.share)})`).join("; ") || "none"}.`, kind: "facts" as const },
+        ] : [{ text: "No coded statements in this release.", kind: "facts" as const }]}
+        soWhat="The words follow politics and the trade follows geography. Mexico sells to its neighbour whatever its presidents say; Argentina and Peru praise a buyer that barely buys. The dataset's coding is the team's own and unvalidated, so the pattern is a prompt to look, not a measurement."
+        overturn="A validated coding showing the warm capitals' statements concern other sectors, or US purchases rising where the words are warm."
+        links={[{ href: "/story#c5-words-trade", label: "Words against trade, country by country" }, { href: "/lab#words", label: "Words and money" }]}
+      />
+
+      <Claim
+        n={17}
+        id="hongkong"
+        headline="Hong Kong hides the Chinese stake"
+        verdict={vHK}
+        matters="The commonest objection to the capital claim above is that Chinese ownership runs through Hong Kong and the Caribbean, so the reported mainland positions understate it. If the Hong Kong positions are small too, the gap between American and Chinese capital stands; if they are large, the capital claim needs a footnote. This is a claim the record is expected to fail."
+        usual="The reported Chinese positions are small only because the money comes in through Hong Kong."
+        test="Each country's latest reported inward position from mainland China and from Hong Kong SAR (IMF DIP), country by country; the claim holds only if the Hong Kong position is the larger of the two, and at least US$1 bn, in most reporting countries and in total."
+        record={hk && hk.rows.length ? [
+          { text: `Hong Kong larger and at least US$1 bn in ${hk.hkLarger.length} of ${hk.rows.length} reporting countries: ${hk.hkLarger.map((r) => `${name(r.iso3)} (Hong Kong ${fmtMusd(r.HKG!.musd)} vs ${r.CHN ? (r.CHN.musd < 0 ? "a negative mainland position" : `mainland ${fmtMusd(r.CHN.musd)}`) : "no mainland row"}, ${r.HKG!.year})`).join("; ") || "none"}.`, kind: "facts" as const },
+          { text: `Totals over the reporting countries, negative positions counted as nothing: Hong Kong ${fmtMusd(hk.hkTotal)}, mainland China ${fmtMusd(hk.cnTotal)}.`, kind: "facts" as const },
+        ] : [{ text: "The investment file is not in this release.", kind: "facts" as const }]}
+        soWhat={vHK === "fails" ? "The Hong Kong channel exists where Brazil's negative mainland position meets a positive Hong Kong one, and barely anywhere else. Even added together, the two Chinese positions are a rounding error beside the American ones, so the hidden channel does not rescue the picture of a China that owns the region's assets." : "The Hong Kong positions are large enough to carry the Chinese stake; the capital claim above needs them added."}
+        overturn="Positions routed through the Caribbean centres or the Netherlands, attributed to ultimate owners, showing a Chinese stock comparable to the American one."
+        links={[{ href: "/contested#capital", label: "The capital claim" }, { href: "/story#c0-investment", label: "Who owns the capital" }]}
+      />
+
+      <Claim
+        n={18}
+        id="fans"
+        headline="The forecast tells us where this goes"
+        verdict={vFans}
+        matters="Forecasts to 2030 are the part of the site most likely to be quoted as a prediction. If the published fan for a country's share to China is wider than the whole range that share has covered since 2000, the forecast says that anything the past has shown can happen again, which is honest and not a prediction. Quoting the median as the future would be the error."
+        usual="The models say where each country's exports will go by 2030."
+        test="For each country with a published forecast, the 90% band of the share to China at 2030 (p95 minus p05) against the range the share has covered in the record (maximum minus minimum since 2000); the claim holds only if most fans are narrower than the history."
+        record={fans && fans.rows.length ? [
+          { text: `${fans.wider.length} of ${fans.rows.length} fans are at least as wide as the country's whole history; median band width ${fans.medianWidth != null ? fmtPct(fans.medianWidth, 0) : "—"} of exports.`, kind: "model" as const },
+          { text: `Widest: ${fans.rows.slice(0, 3).map((r) => `${name(r.iso3)} ${fmtPct(r.p05, 0)} to ${fmtPct(r.p95, 0)} against a history of ${fmtPct(r.min, 0)} to ${fmtPct(r.max, 0)}`).join("; ")}.`, kind: "model" as const },
+        ] : [{ text: "No published forecasts in this release.", kind: "model" as const }]}
+        soWhat={vFans === "fails" ? "The models are doing their job, which is to say how little is known: a band as wide as the history is a statement of uncertainty, not a forecast of direction. The honest reading of the Lab is the band, never the dashed line through it." : "Most fans are narrower than the history, so the models are saying something about direction; the Lab's backtests say how much to trust it."}
+        overturn="Models with covariates (prices, mine pipelines) whose backtested bands are both calibrated and narrower than the history."
+        links={[{ href: "/lab#board", label: "Where will the minerals go in 2030" }, { href: "/story#c7-fan", label: "The 2030 fan" }]}
       />
 
       <p className="mt-8 text-xs text-ink-3">Verdict rules: &ldquo;holds&rdquo; when the computed numbers meet the rule stated in the test and its code (web/src/components/contested/ContestedView.tsx), &ldquo;in part&rdquo; when they meet it in one direction only, &ldquo;fails&rdquo; when they contradict it, &ldquo;cannot be settled&rdquo; when the record lacks the rows or the claim is a bound. The claims and the &ldquo;so what&rdquo; lines are interpretation, AI-drafted for the team and unreviewed until the owner signs them.</p>

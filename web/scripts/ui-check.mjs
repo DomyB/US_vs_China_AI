@@ -120,7 +120,7 @@ try {
         }
         if (path === "/contested" && v.name === "desktop" && !run.stored && run.scheme === "light") {
           const c = await page.evaluate(() => ({ verdicts: [...document.querySelectorAll(".verdict")].map((e) => e.textContent), open: document.querySelectorAll(".verdict-open").length, tables: document.querySelectorAll(".claim-grid table").length }));
-          check("contested: eleven claims carry a verdict", c.verdicts.length === 11, JSON.stringify(c.verdicts));
+          check("contested: eighteen claims carry a verdict", c.verdicts.length === 18, JSON.stringify(c.verdicts));
           check("contested: most verdicts are settled on the record", c.open <= 3, `${c.open} open`);
           check("contested: the turns and minerals tables render", c.tables >= 2, String(c.tables));
         }

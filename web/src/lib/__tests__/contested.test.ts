@@ -78,3 +78,60 @@ describe("against the grain: tests on the record", () => {
     expect(cases).toMatchObject({ n: 2, removed: 1, unchanged: 1, documented: 1, altPartial: 1, altFull: 0 });
   });
 });
+
+import { chinaConcentration, echoFamilies, fanWidth, hongKongChannel, leanFlips, pricesVsValue, warmWordsNoTrade } from "../contested";
+import type { EventEcho, IndexRow, InsightCountry, PriceSeries } from "../types";
+
+describe("against the grain: the second set", () => {
+  const t2 = (iso3: string, year: number, CN: number | null, WLD: number | null): FlowTradeRow => ({ iso3, year, mineral: "all", exports_musd: { CN, US: 0, ROW: null, WLD }, source_id: "un_comtrade" });
+  it("finds who carries the exports to China in the latest year with enough cells", () => {
+    const rows = [t2("CHL", 2024, 30, 60), t2("BRA", 2024, 20, 40), t2("PER", 2024, 10, 20), t2("MEX", 2024, 5, 50), t2("ARG", 2024, null, 10), t2("CHL", 2025, 90, 100)];
+    const c = chinaConcentration(rows, ["CHL", "BRA", "PER", "MEX", "ARG"], 4)!;
+    expect(c.year).toBe(2024); // 2025 has one cell only
+    expect(c.top3.map((r) => r.iso3)).toEqual(["CHL", "BRA", "PER"]);
+    expect(c.top3Share).toBeCloseTo(60 / 65, 6);
+    expect(chinaConcentration(rows, ["CHL"], 4)).toBeNull();
+  });
+  it("sets the export value against a price series and finds the peak and the trough after it", () => {
+    const trade = [2003, 2008, 2011, 2016, 2024].map((y) => t2("CHL", y, 1, { 2003: 20, 2008: 80, 2011: 150, 2016: 90, 2024: 170 }[y]!));
+    const prices: Record<string, PriceSeries> = { copper: { source_id: "wb", series: "Copper", unit: "$/mt", span: [2000, 2026], latest: { year: 2024, avg: 9000, n_obs: 12 }, min_10y: { year: 2016, avg: 4000, n_obs: 12 }, max_10y: { year: 2024, avg: 9000, n_obs: 12 }, annual: [2003, 2008, 2011, 2016, 2024].map((y) => ({ year: y, avg: { 2003: 1800, 2008: 7000, 2011: 8800, 2016: 4900, 2024: 9100 }[y]!, n_obs: 12 })) } as PriceSeries };
+    const r = pricesVsValue(prices, trade, ["CHL"])!;
+    expect(r.peak.year).toBe(2024);
+    expect(r.corr!).toBeGreaterThan(0.9);
+    expect(r.first.year).toBe(2003);
+  });
+  it("groups the echoes by family and counts US measures after which the US share fell", () => {
+    const e = (family: string, actor: "US" | "CN", mean: number, event_actor = "US"): EventEcho => ({ family, event_actor, event_type: "x", label: family, actor, n: 3, mean, median: mean, p25: mean, p75: mean, events: [], countries: [], all_draft: true, windows: [] } as unknown as EventEcho);
+    const f = echoFamilies([e("US:tariff", "US", -0.05), e("US:tariff", "CN", 0.04), e("US:law", "US", 0.01), e("CN:export", "US", -0.01, "CN"), { ...e("US:one", "US", -0.3), n: 1 }]);
+    expect(f.rows).toHaveLength(3);
+    expect(f.usMeasures).toHaveLength(2);
+    expect(f.usLose).toBe(1);
+  });
+  it("counts sign changes of the net lean per country", () => {
+    const r = (iso3: string, year: number, actor: "CN" | "US", value: number): IndexRow => ({ iso3, year, actor, mineral: "all", value, lower: value, upper: value, n_components: 4, index: "composite", components_available: [] } as unknown as IndexRow);
+    const rows = [r("CHL", 2020, "CN", 40), r("CHL", 2020, "US", 20), r("CHL", 2021, "CN", 45), r("CHL", 2021, "US", 20), r("PAN", 2020, "CN", 20), r("PAN", 2020, "US", 25), r("PAN", 2021, "CN", 30), r("PAN", 2021, "US", 25), r("PAN", 2022, "CN", 20), r("PAN", 2022, "US", 25)];
+    const f = leanFlips(rows);
+    expect(f[0]).toMatchObject({ iso3: "PAN", flips: 2, last: -5, lastYear: 2022 });
+    expect(f[1]).toMatchObject({ iso3: "CHL", flips: 0, last: 25 });
+  });
+  it("reads warm words against small trade, the Hong Kong channel and the fan widths", () => {
+    const c = (iso3: string, stance: number, share: number, extra: Partial<InsightCountry> = {}): InsightCountry => ({ iso3, name: iso3, trade: null, trade_series: [], finance: {}, gdp_latest: null, components_latest: {}, forecast: null, words: {}, say_do: [], flags: { n: 0, items: [] }, contrasts: [{ id: "words_vs_trade_us", kind: "words_vs_trade", actor: "US", stance, n: 5, share, trade_year: 2025, years: [2024, 2025], label: "", inputs: [], caveat: "" }], ...extra } as unknown as InsightCountry);
+    const w = warmWordsNoTrade([c("ARG", 1, 0.002), c("MEX", 0.33, 0.54), c("CHL", 0.2, 0.14)]);
+    expect(w.warmNoTrade.map((r) => r.iso3)).toEqual(["ARG"]);
+    expect(w.coolTrade.map((r) => r.iso3)).toEqual(["MEX"]);
+    const inv = { positions: [
+      { iso3: "BRA", counterpart: "CHN", year: 2024, direction: "inward", basis: "reported", musd: -2000 },
+      { iso3: "BRA", counterpart: "HKG", year: 2024, direction: "inward", basis: "reported", musd: 3974 },
+      { iso3: "CHL", counterpart: "CHN", year: 2024, direction: "inward", basis: "reported", musd: 958 },
+      { iso3: "CHL", counterpart: "HKG", year: 2023, direction: "inward", basis: "derived", musd: 5000 },
+    ], region: [] } as unknown as InvestmentFile;
+    const hk = hongKongChannel(inv);
+    expect(hk.hkLarger.map((r) => r.iso3)).toEqual(["BRA"]);
+    expect(hk.cnTotal).toBe(958); // a negative position adds nothing
+    const fc = c("CHL", 0, 0, { trade_series: [0.1, 0.2, 0.3, 0.4, 0.5].map((s, i) => ({ year: 2020 + i, share_cn: s, share_us: 0.1, total_musd: 1 })), forecast: { paths: { export_share: { CN: { baseline: [{ year: 2030, point: 0.5, p05: 0.1, p25: 0.3, p75: 0.6, p95: 0.9 }] } } }, status: {} } } as unknown as Partial<InsightCountry>);
+    const f = fanWidth([fc]);
+    expect(f.rows[0]).toMatchObject({ iso3: "CHL", range: 0.4 });
+    expect(f.rows[0].width).toBeCloseTo(0.8, 6);
+    expect(f.wider).toHaveLength(1);
+  });
+});
