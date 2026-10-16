@@ -28,11 +28,24 @@ PLACES: dict[str, str] = {
     "ARG": "Salar de Arizaro", "BOL": "Salar de Uyuni", "BRA": "Carajás Mine", "CHL": "Chuquicamata", "COL": "Cerrejón",
     "ECU": "Cotopaxi", "GUY": "Kaieteur Falls", "PRY": "Itaipu Dam", "PER": "Antamina mine", "SUR": "Rosebel gold mine",
     "URY": "Port of Montevideo", "VEN": "Angel Falls", "MEX": "Cananea", "GTM": "Lake Izabal", "BLZ": "Belize Barrier Reef",
-    "HND": "Lake Yojoa", "SLV": "San Salvador", "NIC": "Momotombo", "CRI": "Arenal Volcano", "PAN": "Cobre Panamá",
+    "HND": "Lake Yojoa", "SLV": "San Salvador", "NIC": "Momotombo", "CRI": "Arenal Volcano",
     "port": "Port of Callao", "votes": "United Nations General Assembly", "smelter": "Smelting", "copper_mine": "Chuquicamata",
     "lithium_field": "Salar de Atacama", "iron": "Carajás Mine", "ship": "Bulk carrier", "container": "Port of Santos",
     "bri": "Belt and Road Initiative", "congress": "United States Capitol", "beijing": "Great Hall of the People", "washington": "Washington, D.C.",
     "andes": "Andes", "amazon": "Amazon rainforest", "refinery": "Copper extraction", "battery": "Lithium-ion battery",
+    # second batch: Panama, the legislatures (the Politics tab), the palaces and the uses of the minerals (the arguments and the minerals index)
+    "PAN": "Panama City", "PAN_locks": "Miraflores (Panama)",
+    "leg_ARG": "Palace of the Argentine National Congress", "leg_BOL": "Plurinational Legislative Assembly", "leg_BRA": "National Congress of Brazil",
+    "leg_CHL": "National Congress of Chile", "leg_COL": "Capitolio Nacional", "leg_ECU": "National Assembly (Ecuador)", "leg_GUY": "Parliament Building (Guyana)",
+    "leg_PRY": "Congress of Paraguay", "leg_PER": "Legislative Palace (Peru)", "leg_SUR": "National Assembly (Suriname)", "leg_URY": "Legislative Palace (Uruguay)",
+    "leg_VEN": "Federal Legislative Palace", "leg_MEX": "Legislative Palace of San Lázaro", "leg_GTM": "Congress of Guatemala", "leg_BLZ": "Belmopan",
+    "leg_HND": "National Congress of Honduras", "leg_SLV": "Legislative Assembly of El Salvador", "leg_NIC": "National Assembly (Nicaragua)",
+    "leg_CRI": "Legislative Assembly of Costa Rica", "leg_PAN": "National Assembly (Panama)",
+    "casa_rosada": "Casa Rosada", "moneda": "Palacio de La Moneda", "planalto": "Palácio do Planalto", "zhongnanhai": "Zhongnanhai", "white_house": "White House",
+    "wall_street": "Wall Street", "haul_truck": "Haul truck", "open_pit": "Open-pit mining", "ev": "Electric vehicle", "solar": "Solar panel", "phone": "Smartphone",
+    "chip": "Semiconductor", "container_ship": "Container ship", "oas": "Organization of American States", "shanghai_port": "Port of Shanghai",
+    "long_beach": "Port of Long Beach", "exim": "Export–Import Bank of the United States", "cdb": "China Development Bank", "lithium_triangle": "Lithium Triangle",
+    "santiago": "Santiago", "lima": "Lima", "bogota": "Bogotá", "mexico_city": "Mexico City", "brasilia": "Brasília", "buenos_aires": "Buenos Aires", "la_paz": "La Paz",
 }
 WIDTH = 900
 
