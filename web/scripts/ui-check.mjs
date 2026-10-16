@@ -116,6 +116,9 @@ try {
           const after = await page.evaluate(() => ({ y: window.scrollY, busy: document.querySelectorAll('[aria-busy="true"]').length, url: location.search }));
           check(`${label}: a year change keeps the scroll position`, before > 0 && after.y === before, `${before} -> ${after.y}`);
           check(`${label}: a year change lands in the URL without a loading state`, after.url.includes("year=2019") && after.busy === 0, JSON.stringify(after));
+          // the content must follow the URL: a heading on each of these pages names the year
+          const shown = await page.evaluate(() => document.body.innerText.match(/(?:Ranking in|agreements in|in) 2019/)?.[0] ?? null);
+          check(`${label}: the page content follows the year change`, shown !== null, String(shown));
           await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
         }
         if (path === "/contested" && v.name === "desktop" && !run.stored && run.scheme === "light") {
