@@ -22,6 +22,18 @@ ARTICLES: dict[str, str] = {
     "zinc": "Zinc", "gold": "Gold", "phosphate_potash": "Phosphorite", "iron_ore": "Iron ore", "titanium": "Titanium", "gallium_germanium_antimony": "Gallium",
 }
 OVERRIDES: dict[str, str] = {}
+# place and theme pictures for the site's pages (country case files, chapter openers, page headers): the lead picture of the
+# article named; a country without a mine article gets a landscape. Looked up with `--places`, written to web/public/data/pictures.json.
+PLACES: dict[str, str] = {
+    "ARG": "Salinas Grandes (Jujuy and Salta)", "BOL": "Salar de Uyuni", "BRA": "Carajás Mine", "CHL": "Escondida", "COL": "Cerrejón",
+    "ECU": "Mirador mine", "GUY": "Kaieteur Falls", "PRY": "Itaipu Dam", "PER": "Antamina mine", "SUR": "Rosebel gold mine",
+    "URY": "Port of Montevideo", "VEN": "Cerro Bolívar", "MEX": "Cananea", "GTM": "Lake Izabal", "BLZ": "Belize Barrier Reef",
+    "HND": "Lake Yojoa", "SLV": "San Salvador", "NIC": "Momotombo", "CRI": "Arenal Volcano", "PAN": "Panama Canal",
+    "port": "Port of Callao", "votes": "United Nations General Assembly", "smelter": "Smelting", "copper_mine": "Chuquicamata",
+    "lithium_field": "Salar de Atacama", "iron": "Carajás Mine", "ship": "Bulk carrier", "container": "Port of Santos",
+    "bri": "Belt and Road Initiative", "congress": "United States Capitol", "beijing": "Great Hall of the People", "washington": "Washington, D.C.",
+    "andes": "Andes", "amazon": "Amazon rainforest", "refinery": "Copper extraction", "battery": "Lithium-ion battery",
+}
 WIDTH = 900
 
 
@@ -63,10 +75,13 @@ def file_info(name: str) -> dict | None:
 
 
 if __name__ == "__main__":
-    ids = sys.argv[1:] or list(ARTICLES)
+    places = "--places" in sys.argv
+    args = [a for a in sys.argv[1:] if a != "--places"]
+    table = PLACES if places else ARTICLES
+    ids = args or list(table)
     out: dict[str, dict] = {}
     for mid in ids:
-        article = ARTICLES.get(mid)
+        article = table.get(mid)
         try:
             name = OVERRIDES.get(mid) or (lead_file(article) if article else None)
             info = file_info(name) if name else None
@@ -78,5 +93,10 @@ if __name__ == "__main__":
         except Exception as e:  # noqa: BLE001 - a lookup reports every failure the same way
             print(f"{mid}: error {type(e).__name__}: {e}", file=sys.stderr)
         time.sleep(1)
-    print("# Lead pictures of the minerals' English Wikipedia articles with their Commons author and licence; looked up by scripts/mineral_images.py (read-only), committed by hand.")
-    print(json.dumps(out, ensure_ascii=False, indent=1))
+    if places:
+        print("# PICTURES_JSON_BEGIN")
+        print(json.dumps({"generated_on": time.strftime("%Y-%m-%d"), "note": "Lead pictures of the English Wikipedia articles named in scripts/mineral_images.py PLACES, with the Commons author and licence; illustrations, not records: nothing on the site is read from them.", "pictures": out}, ensure_ascii=False, indent=1))
+        print("# PICTURES_JSON_END")
+    else:
+        print("# Lead pictures of the minerals' English Wikipedia articles with their Commons author and licence; looked up by scripts/mineral_images.py (read-only), committed by hand.")
+        print(json.dumps(out, ensure_ascii=False, indent=1))

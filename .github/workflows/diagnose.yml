@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       what:
-        description: "gdelt | gnews | all | translingual | urls | mineral_images"
+        description: "gdelt | gnews | all | translingual | urls | mineral_images | place_images"
         default: "all"
       urls:
         description: "with what=urls: URLs to GET, one per line (status, type, size and the first characters are printed)"
@@ -32,7 +32,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install requests
-      - if: ${{ inputs.what != 'urls' && inputs.what != 'mineral_images' }}
+      - if: ${{ inputs.what != 'urls' && inputs.what != 'mineral_images' && inputs.what != 'place_images' }}
         run: python -u scripts/gdelt_probe.py "${{ inputs.what || 'all' }}"
       - if: ${{ inputs.what == 'urls' }}
         env:
@@ -41,3 +41,5 @@ jobs:
         run: python -u scripts/http_probe.py
       - if: ${{ inputs.what == 'mineral_images' }}
         run: python -u scripts/mineral_images.py
+      - if: ${{ inputs.what == 'place_images' }}
+        run: python -u scripts/mineral_images.py --places
