@@ -102,13 +102,16 @@ export function StageView() {
   const timelineFigure = (
     <PlotFigure
       options={{
-        height: 190, marginLeft: 92,
+        height: 200, marginLeft: 112,
         x: { label: null, domain: [2001, 2027], tickFormat: (v: number) => String(v) },
         y: { label: null, domain: Object.values(laneY) },
+        // the radius is given in pixels per tier, not scaled; the act bands span the whole height (a rect with no y on a band scale draws nothing)
+        r: { type: "identity" },
         color: { legend: true, domain: Object.values(rec.ETYPES), scheme: "tableau10" },
         marks: [
-          ...rec.PERIODS.map((p, i) => Plot.rectX([p], { x1: p.from, x2: p.to + 1, y1: 0, y2: 3, fill: "#000", fillOpacity: i % 2 ? 0.04 : 0 })),
-          Plot.dot(events.map((e) => ({ ...e, t: e.year + (e.month - 0.5) / 12, laneLabel: laneY[e.lane], typeLabel: rec.ETYPES[e.type] })), { x: "t", y: "laneLabel", fill: "typeLabel", r: (e: { tier: number }) => (e.tier === 1 ? 6 : e.tier === 2 ? 4.5 : 3), stroke: "#fff", tip: true, title: (e: { date: string; title: string; src: string; ref: string; isos: string[] }) => `${e.date}: ${e.title}${e.isos.length ? ` (${e.isos.map(name).join(", ")})` : ""}\n${e.ref}${e.src === "T" ? " · team narrative, unverified" : ""}` }),
+          ...rec.PERIODS.map((p, i) => Plot.rectX([p], { x1: p.from, x2: p.to + 1, fill: "#000", fillOpacity: i % 2 ? 0.05 : 0 })),
+          ...rec.PERIODS.map((p) => Plot.text([p], { x: (p.from + p.to + 1) / 2, frameAnchor: "top", dy: 4, text: () => p.act, fontSize: 9, fill: "var(--ink-3)" })),
+          Plot.dot(events.map((e) => ({ ...e, t: e.year + (e.month - 0.5) / 12, laneLabel: laneY[e.lane], typeLabel: rec.ETYPES[e.type] })), { x: "t", y: "laneLabel", fill: "typeLabel", r: (e: { tier: number }) => (e.tier === 1 ? 7 : e.tier === 2 ? 5 : 3.5), stroke: "#fff", tip: true, title: (e: { date: string; title: string; src: string; ref: string; isos: string[] }) => `${e.date}: ${e.title}${e.isos.length ? ` (${e.isos.map(name).join(", ")})` : ""}\n${e.ref}${e.src === "T" ? " · team narrative, unverified" : ""}` }),
         ],
       } as PlotOptions}
       ariaLabel="Dated events on three lanes, China, the United States and Latin America, 2001–2026, the five acts shaded"
@@ -117,7 +120,7 @@ export function StageView() {
   const politicsFigure = (
     <PlotFigure
       options={{
-        height: 40 + 22 * rec.FOCUS.length, marginLeft: 92,
+        height: 40 + 22 * rec.FOCUS.length, marginLeft: 112,
         x: { label: null, domain: [2001, 2027], tickFormat: (v: number) => String(v) },
         y: { label: null, domain: rec.FOCUS.map(name) },
         color: { legend: true, domain: ["Left", "Centre", "Right"], range: [ORI_COLOR.L, ORI_COLOR.C, ORI_COLOR.R] },
