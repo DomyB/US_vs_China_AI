@@ -1,55 +1,73 @@
 {
  "source_id": "gdelt",
  "files": {
-  "ARG/2026-10-01_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20261001000000&enddatetime=20261014235959",
+  "ARG/2026-09-16_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260916000000&enddatetime=20260930235959",
    "params": {
     "query": "(lithium OR copper OR mining OR niobium OR \"rare earths\") (China OR Chinese OR \"United States\" OR American) sourcelang:spanish sourcecountry:AR",
     "mode": "artlist",
     "format": "json",
     "maxrecords": 250,
     "sort": "datedesc",
-    "startdatetime": "20261001000000",
-    "enddatetime": "20261014235959"
+    "startdatetime": "20260916000000",
+    "enddatetime": "20260930235959"
    },
    "status": 200,
-   "bytes": 13448,
-   "sha256": "a5b3df7fba733943b38b301a8d9fd3a34b8a71d14bd6fa0a4f5830dc8bb41944",
-   "retrieved_at": "2026-10-14T10:45:52+00:00",
+   "bytes": 106180,
+   "sha256": "01a586bec5b3360292f7f546f2a119c3b2211f1fa90c70f2c18c9e648febeabe",
+   "retrieved_at": "2026-10-21T12:11:56+00:00",
    "note": null,
    "trimmed": true
   },
-  "BOL/2026-09-01_es.json": {
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sourcelang:spanish+sourcecountry:BL&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260901000000&enddatetime=20260930235959",
+  "ARG/2026-10-16_es.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sourcelang:spanish+sourcecountry:AR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20261016000000&enddatetime=20261021235959",
    "params": {
-    "query": "(lithium OR copper OR mining OR niobium OR \"rare earths\") (China OR Chinese OR \"United States\" OR American) sourcelang:spanish sourcecountry:BL",
+    "query": "(lithium OR copper OR mining OR niobium OR \"rare earths\") (China OR Chinese OR \"United States\" OR American) sourcelang:spanish sourcecountry:AR",
     "mode": "artlist",
     "format": "json",
     "maxrecords": 250,
     "sort": "datedesc",
-    "startdatetime": "20260901000000",
+    "startdatetime": "20261016000000",
+    "enddatetime": "20261021235959"
+   },
+   "status": 200,
+   "bytes": 27514,
+   "sha256": "cd64ba8e8664ef165248845b4d98658d4405f2c543bc837dac0a5f205a3d2c95",
+   "retrieved_at": "2026-10-21T12:24:06+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "BRA/2026-09-16_pt.json": {
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sourcelang:portuguese+sourcecountry:BR&mode=artlist&format=json&maxrecords=250&sort=datedesc&startdatetime=20260916000000&enddatetime=20260930235959",
+   "params": {
+    "query": "(lithium OR copper OR mining OR niobium OR \"rare earths\") (China OR Chinese OR \"United States\" OR American) sourcelang:portuguese sourcecountry:BR",
+    "mode": "artlist",
+    "format": "json",
+    "maxrecords": 250,
+    "sort": "datedesc",
+    "startdatetime": "20260916000000",
     "enddatetime": "20260930235959"
    },
    "status": 200,
-   "bytes": 12115,
-   "sha256": "9bb75229eb607b0f98878bbcd7d83dd5336a417478034cfd92391b222afcfc29",
-   "retrieved_at": "2026-10-14T10:48:46+00:00",
+   "bytes": 29325,
+   "sha256": "a844af7efa1ca0f7a4c8b6c56be0cef27c19750d56d26c5056e47890b00fc0ea",
+   "retrieved_at": "2026-10-21T12:52:52+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/gdelt/2026-10-14",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/gdelt/2026-10-21",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "windows_planned": 106,
- "windows_backlog": 2949,
+ "windows_backlog": 2955,
  "backlog_first": false,
  "errors": [
   {
-   "name": "ARG/2026-09-01_es.json",
+   "name": "ARG/2026-10-01_es.json",
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sou"
   },
   {
-   "name": "ARG/2026-09-16_es.json",
+   "name": "BOL/2026-09-01_es.json",
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sou"
   },
   {
@@ -57,47 +75,72 @@
    "error": "gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=%28lithium+OR+copper+OR+mining+OR+niobium+OR+%22rare+earths%22%29+%28China+OR+Chinese+OR+%22United+States%22+OR+American%29+sou"
   },
   {
-   "name": "BRA/2026-09-01_pt.json",
+   "name": "BRA/2026-10-01_pt.json",
    "error": "throttled; the time budget leaves no room for the pause"
   },
   {
-   "name": "BRA/2026-09-16_pt.json",
+   "name": "BRA/2026-10-16_pt.json",
+   "error": "throttled; the time budget leaves no room for the pause"
+  },
+  {
+   "name": "CHL/2026-09-16_es.json",
+   "error": "throttled; the time budget leaves no room for the pause"
+  },
+  {
+   "name": "CHL/2026-10-01_es.json",
+   "error": "throttled; the time budget leaves no room for the pause"
+  },
+  {
+   "name": "CHL/2026-10-16_es.json",
    "error": "throttled; the time budget leaves no room for the pause"
   }
  ],
- "throttled": 15,
+ "throttled": 18,
  "diagnostics": {
-  "es_english_term": "5 articles (2147 bytes)",
+  "es_english_term": "error: gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=lithium+sourcelang%3Aspanish&mode=artlist&forma",
   "pt_english_term": "error: gdelt: HTTP 429 on GET https://api.gdeltproject.org/api/v2/doc/doc?query=lithium+sourcelang%3Aportuguese&mode=artlist&fo"
  },
- "throttled_run": 6,
+ "throttled_run": 5,
  "query_variant_hits": {
-  "primary": 2,
+  "primary": 3,
   "fallback": 0,
   "empty": 0
  },
  "primary_works": {
-  "es": true
+  "es": true,
+  "pt": true
  },
  "stopped": "time budget of 45 min exhausted",
  "unmatched_domains": {
-  "eju.tv": 7,
-  "ambito.com": 6,
-  "eldia.com.bo": 5,
-  "mdzol.com": 2,
-  "erbol.com.bo": 2,
-  "elintransigente.com": 1,
-  "laarena.com.ar": 1,
-  "rionegro.com.ar": 1,
-  "lapoliticaonline.com": 1,
-  "tiempodesanjuan.com": 1,
-  "sinmordaza.com": 1,
-  "puntobiz.com.ar": 1,
-  "diariolaopinion.com.ar": 1,
-  "analisisdigital.com.ar": 1,
-  "elancasti.com.ar": 1,
-  "eldestapeweb.com": 1,
-  "perfil.com": 1,
-  "hoybolivia.com": 1
+  "ambito.com": 20,
+  "iprofesional.com": 14,
+  "mdzol.com": 12,
+  "perfil.com": 11,
+  "cadena3.com": 7,
+  "tn.com.ar": 6,
+  "puntobiz.com.ar": 5,
+  "elancasti.com.ar": 5,
+  "diariosanrafael.com.ar": 5,
+  "diariopanorama.com": 5,
+  "rionegro.com.ar": 5,
+  "infomoney.com.br": 5,
+  "tiempodesanjuan.com": 4,
+  "rosario3.com": 4,
+  "eldiarionuevodia.com.ar": 4,
+  "eleconomista.com.ar": 4,
+  "neuquenalinstante.com.ar": 4,
+  "correiobraziliense.com.br": 4,
+  "jornaldebrasilia.com.br": 4,
+  "analisisdigital.com.ar": 3,
+  "eldestapeweb.com": 3,
+  "laprensa.com.ar": 3,
+  "urgente24.com": 3,
+  "otempo.com.br": 3,
+  "diariolaopinion.com.ar": 2,
+  "elsol.com.ar": 2,
+  "lanueva.com": 2,
+  "tiemposur.com.ar": 2,
+  "elliberal.com.ar": 2,
+  "on24.com.ar": 2
  }
 }

@@ -5,15 +5,15 @@
    "url": "https://valor.com.br/rss",
    "params": {},
    "status": 200,
-   "bytes": 237269,
+   "bytes": 212892,
    "final_url": "http://pox.globo.com/rss/valor",
-   "sha256": "a7d37bafe8157b980d488309cb5947580d0a1c2c75ef92d877404c99fc8f95e5",
-   "retrieved_at": "2026-10-14T09:43:03+00:00",
+   "sha256": "3e40e10db00d70f5b31a6151808dc47b17cde8b66cecf678064a239f3e4d7034",
+   "retrieved_at": "2026-10-21T09:36:08+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_valor/2026-10-14",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_valor/2026-10-21",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://valor.com.br/rss"

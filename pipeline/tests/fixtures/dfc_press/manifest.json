@@ -5,9 +5,9 @@
    "url": "https://www.dfc.gov/",
    "params": {},
    "status": 200,
-   "bytes": 50942,
-   "sha256": "f3ee5696c9ae48bdbfe6ba4246ae0bc4aac8e697504c555c1b454904e6be98ff",
-   "retrieved_at": "2026-10-14T10:10:49+00:00",
+   "bytes": 50655,
+   "sha256": "d113b9bc775375f80347e453b13962a79d843bd8777664533e4f2f7d7a06be97",
+   "retrieved_at": "2026-10-21T10:03:47+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,14 +15,14 @@
    "url": "https://www.dfc.gov/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 69725,
-   "sha256": "16b256a8397f689bfb19a6b7965398c5faca2d8ddc9e41ddb4d73dd2c15bea37",
-   "retrieved_at": "2026-10-14T10:10:57+00:00",
+   "bytes": 67784,
+   "sha256": "62fbe00cd54cd805110d50921b5ac794173e2460dcfb457844942e29730d8155",
+   "retrieved_at": "2026-10-21T10:03:55+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dfc_press/2026-10-14",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dfc_press/2026-10-21",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
