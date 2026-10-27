@@ -67,7 +67,7 @@ export const COUNTRY_NAMES: Record<string, string> = {
 export const IN_SCOPE = ["ARG", "BOL", "BRA", "CHL", "COL", "ECU", "GUY", "PRY", "PER", "SUR", "URY", "VEN", "MEX", "GTM", "BLZ", "HND", "SLV", "NIC", "CRI", "PAN"];
 /** how many countries the record covers, for prose ("the twenty countries") */
 export const COUNTRY_COUNT = IN_SCOPE.length;
-export const COUNT_WORDS: Record<number, string> = { 11: "eleven", 12: "twelve", 18: "eighteen", 19: "nineteen", 20: "twenty", 21: "twenty-one" };
+export const COUNT_WORDS: Record<number, string> = { 5: "five", 6: "six", 7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve", 13: "thirteen", 18: "eighteen", 19: "nineteen", 20: "twenty", 21: "twenty-one" };
 /** A count as a word where one is listed, capitalised for the start of a sentence. */
 export const countWord = (n: number, capital = false) => { const w = COUNT_WORDS[n] ?? String(n); return capital ? w.charAt(0).toUpperCase() + w.slice(1) : w; };
 export const COUNTRY_COUNT_WORD = COUNT_WORDS[COUNTRY_COUNT] ?? String(COUNTRY_COUNT);

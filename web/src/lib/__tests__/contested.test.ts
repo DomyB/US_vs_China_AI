@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { attentionVsMoney, capitalVsOre, lendingVsOre, mineralSplit, panelNull, pearson, pressureCases, turnSummary, turnsVsOre, votesVsOre } from "../contested";
+import { attentionVsMoney, capitalVsOre, CLAIMS, claimHref, claimNumber, lendingVsOre, MAIN_CLAIMS, mineralSplit, MORE_CLAIMS, panelNull, pearson, pressureCases, turnSummary, turnsVsOre, votesVsOre } from "../contested";
 import type { ComponentRow } from "../geometry";
 import type { FlowFinanceRow, FlowTradeRow, InvestmentFile, MineralShareRow } from "../types";
 
@@ -10,6 +10,24 @@ for (let y = 2007; y <= 2016; y++) {
   trade.push(t("PER", y, 30, 100)); // flat: the region's own move is what Chile adds
 }
 trade.push(t("ARG", 2012, null, 100)); // an absent China cell is not a zero
+
+describe("against the grain: the two pages of claims", () => {
+  it("splits the claims into seven main and eleven further, with unique ids", () => {
+    expect(MAIN_CLAIMS).toHaveLength(7);
+    expect(MORE_CLAIMS).toHaveLength(11);
+    expect(MAIN_CLAIMS.length + MORE_CLAIMS.length).toBe(CLAIMS.length);
+    expect(new Set(CLAIMS.map((c) => c.id)).size).toBe(CLAIMS.length);
+    expect(CLAIMS.every((c) => c.headline && c.stake)).toBe(true);
+  });
+  it("sends each claim to its own page and numbers it the same everywhere", () => {
+    expect(claimHref("turns")).toBe("/contested#turns");
+    expect(claimHref("hongkong")).toBe("/contested/more#hongkong");
+    expect(claimNumber("turns")).toBe(1);
+    expect(claimNumber("panel")).toBe(8);
+    expect(MAIN_CLAIMS.map((c) => claimNumber(c.id))).toEqual([1, 2, 3, 4, 5, 6, 7]);
+    expect(MORE_CLAIMS.every((c) => claimNumber(c.id) > MAIN_CLAIMS.length)).toBe(true);
+  });
+});
 
 describe("against the grain: tests on the record", () => {
   it("measures each change of orientation three years each side, net of the region", () => {

@@ -12,6 +12,7 @@ import { LayerLabel } from "@/components/ui/Badges";
 import { Reading } from "@/components/ui/Reading";
 import { StatTile } from "@/components/ui/Section";
 import { ACTOR_LABEL, COUNTRY_COUNT } from "@/lib/constants";
+import { fmtSigned } from "@/lib/format";
 import { INDEX_PHRASE, carriedBy, leadSentence, type IndexName, type Lead, type LeadSummary } from "@/lib/indexView";
 import type { ActorMode, Meta, RealMeta } from "@/lib/types";
 
@@ -112,6 +113,28 @@ export function Overview({ meta, real, indexLayer, flowsLayer = null, year, mode
         {ranked.length > 0 && (
           <Reading
             compact
+            findings={buyers
+              ? [
+                  ranked.length > 1
+                    ? mode === "both"
+                      ? `${ranked[0].name} tops the list at ${fmtSigned(ranked[0].v, 0)} percentage points and ${ranked[ranked.length - 1].name} sits at the foot at ${fmtSigned(ranked[ranked.length - 1].v, 0)}.`
+                      : `${ranked[0].name} sends ${ranked[0].v.toFixed(0)}% of its exports to ${mode === "US" ? "the United States" : "China"} and ${ranked[ranked.length - 1].name} ${ranked[ranked.length - 1].v.toFixed(0)}%, the highest and lowest in ${year}.`
+                    : `${ranked[0].name} is the only country ranked for ${year}, at ${mode === "both" ? `${fmtSigned(ranked[0].v, 0)} percentage points` : `${ranked[0].v.toFixed(0)}%`}.`,
+                  mode === "both" ? `${ranked.filter((r) => r.v > 0).length} of the ${ranked.length} bars run right toward China and ${ranked.filter((r) => r.v < 0).length} left toward the United States.` : null,
+                  `${ranked.length} of the ${COUNTRY_COUNT} countries carry both partner cells for ${mineral === "all" ? "" : `${mineral.replace(/_/g, " ")} in `}${year} and enter the ranking.`,
+                ]
+              : [
+                  ranked.length > 1
+                    ? mode === "both"
+                      ? `${ranked[0].name} has the highest net lean at ${fmtSigned(ranked[0].v, 0)} points and ${ranked[ranked.length - 1].name} the lowest at ${fmtSigned(ranked[ranked.length - 1].v, 0)}.`
+                      : `${ranked[0].name} scores ${ranked[0].v.toFixed(0)} on the ${mode === "US" ? "US" : "China"} ${INDEX_PHRASE[indexName]} in ${year} and ${ranked[ranked.length - 1].name} the lowest, ${ranked[ranked.length - 1].v.toFixed(0)}.`
+                    : `${ranked[0].name} is the only country indexed for ${year}, at ${mode === "both" ? `${fmtSigned(ranked[0].v, 0)} points` : ranked[0].v.toFixed(0)}.`,
+                  mode === "both" ? `${ranked.filter((r) => r.v > 0).length} of the ${ranked.length} bars run right toward China and ${ranked.filter((r) => r.v < 0).length} left toward the United States.` : null,
+                  mode === "both"
+                    ? `${ranked.length} of the ${COUNTRY_COUNT} countries have both actors' ${INDEX_PHRASE[indexName]} for ${mineral === "all" ? "" : `${mineral.replace(/_/g, " ")} in `}${year} and enter the ranking.`
+                    : `${ranked.length} of the ${COUNTRY_COUNT} countries have a ${mode === "US" ? "US" : "China"} ${INDEX_PHRASE[indexName]} for ${mineral === "all" ? "" : `${mineral.replace(/_/g, " ")} in `}${year} and enter the ranking.`,
+                ]}
+            findingsKind={buyers ? "facts" : "model"}
             says={buyers
               ? `${ranked.filter((r) => r.v > 0).length} of the ${ranked.length} countries with both cells sold a larger share to China than to the United States in ${year}; ${ranked[0].name} leads the China side${ranked[ranked.length - 1].v < 0 ? ` and ${ranked[ranked.length - 1].name} the US side` : ""}. A share says who buys, not why.`
               : mode === "both"

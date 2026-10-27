@@ -11,7 +11,8 @@ import { THEME_BOOTSTRAP } from "@/lib/theme";
 import { Suspense } from "react";
 import { PageFade } from "@/components/layout/PageFade";
 import { Tour } from "@/components/tour/Tour";
-import { COUNTRY_COUNT } from "@/lib/constants";
+import { COUNTRY_COUNT, countWord } from "@/lib/constants";
+import { MORE_CLAIMS } from "@/lib/contested";
 import { SITE_URL } from "@/lib/site";
 import { COURSE, COVER_VERSION, SITE_NAME, SITE_TAGLINE, TEAM } from "@/lib/team";
 
@@ -91,16 +92,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <b className="mb-1 mt-3 block font-semibold text-ink">Team</b>
               <p>{TEAM.filter((r) => r.name).map((r) => r.name).join(", ")}{TEAM.some((r) => !r.name) ? "; one name to be added" : ""}.</p>
             </div>
+            {/* two labelled lists: the main pages (the primary navigation's rooms) and the supplementary ones (appendices, companion material, the record and the methods) */}
             <nav aria-label="Footer" className="grid grid-cols-2 gap-x-4 gap-y-1 sm:col-span-2 lg:col-span-1">
-              <b className="col-span-2 mb-1 block font-semibold text-ink">More</b>
-              <Link href="/story" className="hover:underline">Story: Said &amp; Paid</Link>
-              <Link href="/stage" className="hover:underline">Two powers, one stage</Link>
-              <Link href="/denial" className="hover:underline">Denial without Substitution</Link>
-              <Link href="/contested" className="hover:underline">Against the grain</Link>
-              <Link href="/votes-and-ore" className="hover:underline">Votes and ore</Link>
+              <b className="col-span-2 mb-1 block font-semibold text-ink">Main</b>
+              <Link href="/story" className="hover:underline">Story</Link>
+              <Link href="/explore" className="hover:underline">Explore</Link>
+              <Link href="/routes" className="hover:underline">Trade &amp; Investment</Link>
+              <Link href="/mineral" className="hover:underline">Minerals</Link>
+              <Link href="/country" className="hover:underline">Countries</Link>
+              <Link href="/contested" className="hover:underline">Arguments</Link>
+              <b className="col-span-2 mb-1 mt-3 block font-semibold text-ink">Supplementary</b>
+              <Link href="/contested/more" className="hover:underline">{countWord(MORE_CLAIMS.length, true)} further claims</Link>
+              <Link href="/story/appendix" className="hover:underline">Story appendix</Link>
               <Link href="/lab" className="hover:underline">Lab: forecasts and levers</Link>
+              <Link href="/votes-and-ore" className="hover:underline">Votes and ore</Link>
               <Link href="/region" className="hover:underline">Regional overview</Link>
               <Link href="/step-by-step" className="hover:underline">Step by step</Link>
+              <Link href="/stage" className="hover:underline">Two powers, one stage</Link>
+              <Link href="/denial" className="hover:underline">Denial without Substitution</Link>
               <Link href="/what-we-know" className="hover:underline">What do we know</Link>
               <Link href="/archive" className="hover:underline">Archive and downloads</Link>
               <Link href="/sources" className="hover:underline">Sources</Link>

@@ -1,65 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { DataTable } from "@/components/charts/PlotFigure";
-import { COUNTRY_COUNT_WORD, COUNTRY_NAMES, YEAR_MIN } from "@/lib/constants";
-import type { coverageWall } from "@/lib/story";
-import type { EvidenceLevel } from "@/lib/types";
-import { Door, Exhibit, Meter, StepCard, restartStory } from "./Chapter";
-
-type Wall = ReturnType<typeof coverageWall>;
+import { COUNTRY_COUNT_WORD, YEAR_MIN } from "@/lib/constants";
+import { Door, StepCard, restartStory } from "./Chapter";
 
 export interface Limit { text: string; ids: string[] }
 
-export function Ch9Limits({ wall, chapters, limits, changes, lastYearCN = null }: { /** flows.meta.last_year.finance_CN: where the Chinese finance source ends */ lastYearCN?: number | null; wall: Wall; chapters: { n: number; label: string; level: EvidenceLevel; basis: string }[]; limits: Limit[]; changes: string[] }) {
-  // The same cells as rows of text, so the reason behind every hatched cell is readable without a mouse.
-  const tableRows: Record<string, string>[] = wall.rows.map((r) => ({ country: COUNTRY_NAMES[r.iso3] ?? r.iso3, ...Object.fromEntries(wall.cols.map((c) => [c, `${r.cells[c].ok ? "held" : "missing"}: ${r.cells[c].note}`])) }));
-  const tableCols: { key: string; label: string }[] = [{ key: "country", label: "Country" }, ...wall.cols.map((c) => ({ key: c, label: c }))];
+/** The limits as numbered facts, what would change the reading, and the doors into the evidence room; the coverage wall and the chapter meters are in the appendix. */
+export function Ch9Limits({ limits, changes }: { limits: Limit[]; changes: string[] }) {
   return (
     <div className="space-y-6">
-      <Exhibit id="c9-wall" title="The coverage wall: what each country's record holds" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "manual_statements"]} ids={["meta:coverage"]} asks="What can this record see, and what can it not? A grid of country by record shows the holes before the charts built on them are read; it is a chart of the data, not of the region." how="One row per country, one column per record; a filled cell is a record the site holds and a hatched cell one it does not, the reason on hover, read out by a screen reader, and listed in the text table beneath. A hatched cell is missing, never a zero." says="The holes gather in the columns for words and legislatures rather than in trade, and every money column ends at its source's last year. A chapter that rests on a hatched cell is a weaker chapter, which the meters beneath say." note={`The largest hole on every money chart is Chinese finance after ${lastYearCN ?? "the source's last year"}: the source ends there, so those years are blank, not zero.`}>
-        <p className="mb-1 text-[11px] text-ink-3 sm:hidden">The wall is wider than the screen: scroll it sideways for the other columns.</p>
-        <div className="scroll-x">
-          <table className="w-full border-collapse text-xs">
-            <thead>
-              <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3">
-                <th className="py-1 pr-2">Country</th>
-                {wall.cols.map((c) => <th key={c} className="px-1 py-1 text-center">{c}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-              {wall.rows.map((r) => (
-                <tr key={r.iso3} className="border-t border-rule">
-                  <th scope="row" className="py-1 pr-2 text-left font-semibold">{COUNTRY_NAMES[r.iso3] ?? r.iso3}</th>
-                  {wall.cols.map((c) => {
-                    const cell = r.cells[c];
-                    return (
-                      <td key={c} className="px-1 py-1 text-center">
-                        <span className={`inline-block h-4 w-8 rounded-sm border ${cell.ok ? "border-facts bg-facts/70" : "border-ink-3 bg-[repeating-linear-gradient(45deg,transparent_0_3px,var(--ink-3)_3px_4px)] opacity-60"}`} title={cell.note}>
-                          <span className="sr-only">{c}: {cell.ok ? "held" : "missing"}, {cell.note}</span>
-                        </span>
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <DataTable rows={tableRows} columns={tableCols} caption="The coverage wall as text: for each country and record, whether the site holds it and the reason when it does not" />
-      </Exhibit>
-      <Exhibit id="c9-meters" title="How strong is each chapter" layer="interp" sources={[]} ids={chapters.map((c) => `chapter:${c.n}`)} asks="How much should each chapter's answer be trusted? One meter per chapter, with its basis spelled out, puts the strength of the record beside the claim it supports; it rates the evidence, not the region." how="One card per chapter, in order: three bars read thin, moderate or strong, the word beside them, the basis the level rests on beneath; each card links back to its chapter." says="The chapters on reported trade and documented money rate strong and those on coded words thin: the record is firmest at the border and weakest where it has to read intent.">
-        <ol className="grid gap-2 sm:grid-cols-3">
-          {chapters.map((c) => (
-            <li key={c.n}>
-              <a href={`#c${c.n}`} className="flex items-start gap-2 rounded-md border border-rule p-2 text-xs no-underline hover:bg-surface-2">
-                <span className="mt-0.5"><Meter level={c.level} /></span>
-                <span><strong>{c.n}. {c.label}</strong> · {c.level}<br /><span className="text-ink-3">{c.basis}</span></span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </Exhibit>
+      <p className="text-sm text-ink-2">The coverage wall (which record each country holds) and the chapter meters (how strong each chapter is, with its basis) are in the <Link href="/story/appendix#c9-wall" className="underline decoration-dotted">appendix</Link>.</p>
       <div className="grid gap-6 lg:grid-cols-2">
         <StepCard>
           <p className="font-semibold text-ink">The limits, as numbered facts</p>

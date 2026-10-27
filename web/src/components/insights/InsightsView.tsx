@@ -14,12 +14,13 @@ import { Interpretation } from "@/components/panel/Interpretation";
 import { Segmented } from "@/components/ui/Segmented";
 import { COUNTRY_NAMES } from "@/lib/constants";
 import { loadIndex, loadInsights } from "@/lib/data";
+import { fmtMusd, fmtPct, fmtSigned } from "@/lib/format";
 import { DEFAULT_LEVERS, leversFromParams, leversToParams, type Levers } from "@/lib/scenario";
 import type { EvidenceLevel, IndexFile, InsightsFile } from "@/lib/types";
 import { labProvenance } from "@/lib/provenance";
 import { useRealMeta } from "@/lib/useRealMeta";
 import { Attention } from "./Attention";
-import { Board, boardRows } from "./Board";
+import { Board, boardRows, type BoardRow } from "./Board";
 import { FindingCard } from "./FindingCard";
 import { Ledger } from "./Ledger";
 import { MineralsTalk } from "./MineralsTalk";
@@ -144,6 +145,36 @@ export function InsightsView() {
   const usTalksMore = (tm.ratios.statements_us_over_cn ?? 0) > 1;
   const cnPaysMore = (tm.ratios.money_cn_over_us_2015_21 ?? 0) > 1;
   const studioName = country?.name ?? "the chosen country";
+  // The findings beneath the board, the words chart, the ledger, the parity bars and the attention panels: each list reads
+  // the rows its chart draws, so the bullets cannot say more than the marks do.
+  const boardTop = rows.length ? rows[0] : null;
+  const boardThen = rows.filter((r): r is BoardRow & { then: NonNullable<BoardRow["then"]> } => r.then !== null);
+  // the words chart opens on the stance toward China: it draws the countries with a pooled executive stance and a China partner row, and lists the others beneath
+  const wordsDrawn: { name: string; stance: number; share: number; year: number }[] = [];
+  let wordsAbsent = 0;
+  for (const c of file.countries) {
+    const p = c.words.executive_pooled.CN;
+    const t = c.trade;
+    if (!p || !t) continue;
+    if (t.share_cn === null || t.exports_musd.CN === null || (t.partners_absent?.includes("CN") ?? false)) wordsAbsent += 1;
+    else wordsDrawn.push({ name: c.name, stance: p.mean, share: t.share_cn, year: t.year });
+  }
+  const wordsHigh = wordsDrawn.length ? wordsDrawn.reduce((a, b) => (b.share > a.share ? b : a)) : null;
+  const ledgerUs = tm.by_bloc.find((b) => b.bloc === "United States") ?? null;
+  const ledgerCn = tm.by_bloc.find((b) => b.bloc === "China") ?? null;
+  // the parity contrasts as the chart reads them, the largest gap first; a country where the United States buys more carries a gap of zero
+  const parityRows = file.countries
+    .flatMap((c) => {
+      const g = c.contrasts.find((x) => x.id === "parity_gap");
+      return g ? [{ name: c.name, gap: Number(g.musd), cn: Number(g.cn_musd), us: Number(g.us_musd), year: Number(g.year) }] : [];
+    })
+    .sort((a, b) => b.gap - a.gap);
+  const parityTop = parityRows.length && parityRows[0].gap > 0 ? parityRows[0] : null;
+  const attention = file.region.attention;
+  const docPeak = attention.length ? attention.reduce((a, b) => (b.policy_docs > a.policy_docs ? b : a)) : null;
+  const usStmPeak = attention.length ? attention.reduce((a, b) => (b.us_statements > a.us_statements ? b : a)) : null;
+  const dfcPeak = attention.length ? attention.reduce((a, b) => ((b.dfc_musd ?? 0) > (a.dfc_musd ?? 0) ? b : a)) : null;
+  const cnPeak = attention.length ? attention.reduce((a, b) => ((b.cn_musd ?? 0) > (a.cn_musd ?? 0) ? b : a)) : null;
 
   return (
     <div ref={revealRoot} className="mx-auto max-w-7xl px-4 pb-10 pt-6">
@@ -176,6 +207,17 @@ export function InsightsView() {
       <Block id="board" provenance={labProvenance("board", realMeta)} n={1} title={`Where will the minerals go in ${horizon}?`} lead="The split of each country's mineral exports today and under your scenario. Pick a country to open the studio." layer="model"
         asks={`Where does each country's ore go today, and where would it go in ${horizon} under the levers you set? One row per country puts the two years side by side on the same bar.`}
         how={`Top bar: the latest reported split, United States on the left, rest of the world in grey, China on the right; the faded bar under it is ${horizon} under your scenario; the dumbbell on the right is the ${horizon} index lean. A row with no lower bar has no share forecast, and hovering says why.`}
+        findings={
+          boardTop
+            ? [
+                `${rows.length} countries have a reported split and a forecast, and ${boardThen.length} of them carry a ${horizon} bar`,
+                boardTop.then
+                  ? `${boardTop.name} heads the board, ${fmtPct(boardTop.then.cn)} of its exports to China in ${horizon} under your scenario, from ${fmtPct(boardTop.now.cn)} in ${boardTop.nowYear}`
+                  : `${boardTop.name} heads the board with ${fmtPct(boardTop.now.cn)} of its exports to China in ${boardTop.nowYear} and no share forecast`,
+                boardThen.length ? `${boardThen.filter((r) => r.then.cn > r.now.cn).length} of the ${boardThen.length} lower bars put a larger share with China than the latest reported year` : null,
+              ]
+            : []
+        }
         says={`Rows are ordered by China's ${horizon} share under your scenario, so the countries whose ore the paths send most to China sit at the top. The lower bar moves with the levers and is your arithmetic on the published medians, not a forecast.`}
         saysKind="model">
         <Board rows={rows} selected={levers?.country ?? defaultCountry} onSelect={selectCountry} horizon={horizon} />
@@ -197,6 +239,16 @@ export function InsightsView() {
       <Block id="words" provenance={labProvenance("words", realMeta)} n={3} title="Words and money" lead="Executives' coded stance toward each power against the share of their mineral exports that actually goes there; and who says what, by bloc." layer="facts" tags={<span className="chip border border-dashed border-interp/60 text-interp">dataset coding · not validated</span>}
         asks="Do governments that speak warmly of a power also sell it their ore? A bubble chart sets each country's coded stance against the share of its mineral exports that goes to that power, so words and money meet in one point."
         how="One bubble per country: stance across, from −1 cool to +1 warm; export share up; bubble area the country's mineral exports; the four tinted corners name the combinations. A country listed under the chart has no partner row for that power and is not drawn at 0%. The bars on the right count coded positions by speaker bloc."
+        findingsKind="model"
+        findings={
+          wordsDrawn.length && wordsHigh
+            ? [
+                `${wordsDrawn.filter((p) => p.stance > 0).length} of the ${wordsDrawn.length} countries drawn on the China view sit right of zero, warm words, and ${wordsDrawn.filter((p) => p.stance < 0).length} left of it`,
+                `${wordsHigh.name} is the highest bubble, ${fmtPct(wordsHigh.share)} of its mineral exports to China in ${wordsHigh.year}, at a coded stance of ${fmtSigned(wordsHigh.stance, 2)}`,
+                wordsAbsent > 0 ? `${wordsAbsent} ${wordsAbsent === 1 ? "country" : "countries"} with coded words but no China partner row ${wordsAbsent === 1 ? "is" : "are"} listed beneath the chart, not drawn` : null,
+              ]
+            : []
+        }
         says="Look for the bubbles off the diagonal: warm words with small trade, or large trade with cool words. The height of a bubble is a fact from reported trade; its position across is the dataset's own coding, which no one has validated.">
         <WordsVsMoney countries={file.countries} byBloc={file.region.talk_vs_money.by_bloc} />
       </Block>
@@ -204,6 +256,11 @@ export function InsightsView() {
       <Block id="ledger" provenance={labProvenance("ledger", realMeta)} n={4} title="Who talks, who pays" lead="Statement counts by speaker bloc beside documented commitments by origin." layer="facts"
         asks="Who does the talking and who does the paying? Two bar lists, each on its own visual scale, put statement counts beside documented commitments so the two can be compared by eye."
         how="Left: one bar per speaker bloc, its length the number of statements. Right: one bar per origin and window, the darker part tagged to a mineral; the later US window is listed apart because the Chinese record ends earlier, so the two are never added. The three cards above give the ratios."
+        findings={[
+          ledgerUs && ledgerCn ? `US officials account for ${ledgerUs.n} of the ${tm.n_statements} statements and Chinese officials for ${ledgerCn.n}` : `The left list counts ${tm.n_statements} statements by speaker bloc`,
+          `Chinese commitments total ${fmtMusd(tm.finance.CN.musd)} over ${tm.finance.CN.years[0]}–${tm.finance.CN.years[1]}, the DFC and EXIM ${fmtMusd(tm.finance.US.musd)} over ${tm.finance.US.years[0]}–${tm.finance.US.years[1]}`,
+          `The darker parts, tagged to a mineral, are ${fmtMusd(tm.finance.CN.mineral_tagged_musd)} of the Chinese bar and ${fmtMusd(tm.finance.US.mineral_tagged_musd)} of the US bar`,
+        ]}
         says={`${usTalksMore && cnPaysMore ? "In the shared window the United States speaks more and China commits more: the talking and the paying come from different capitals." : "Compare the longest bar on each side: the bloc that speaks most and the origin that commits most need not be the same."} After ${tm.finance.CN.years[1]} the Chinese record ends, so later US commitments stand without a counterpart.`}>
         <Ledger tm={file.region.talk_vs_money} />
       </Block>
@@ -218,6 +275,15 @@ export function InsightsView() {
       <Block id="parity" provenance={labProvenance("parity", realMeta)} n={6} title="What it would take" lead="The yearly export value that would have to switch from China to the United States for the two to buy the same." layer="facts" tags={<span className="chip border border-rule text-ink-3">arithmetic at constant totals</span>}
         asks="How much trade would have to change hands for the United States to buy as much as China? One bar per country turns the gap between the two buyers into a yearly dollar figure."
         how="Bars run from the largest gap to the smallest, one per country where China buys more; the label gives the amount and, on a wide screen, how many times the current US purchases it is. Countries with a gap under US$10 m, or where the United States already buys more, are left out."
+        findings={
+          parityTop
+            ? [
+                `${parityTop.name}'s bar is the longest: ${fmtMusd(parityTop.gap)} a year would have to switch for equal shares in ${parityTop.year}`,
+                `China bought ${fmtMusd(parityTop.cn)} of ${parityTop.name}'s minerals in ${parityTop.year} and the United States ${fmtMusd(parityTop.us)}`,
+                `China bought more than the United States from ${parityRows.filter((r) => r.gap > 0).length} of the ${parityRows.length} countries the gap is computed for`,
+              ]
+            : []
+        }
         says="The amounts are the size of today's gap at constant totals, not what any policy could move; the table says whether the country's largest mineral to China could cover the gap on its own.">
         <ParityChart countries={file.countries} />
       </Block>
@@ -241,6 +307,15 @@ export function InsightsView() {
       <Block id="attention" provenance={labProvenance("attention", realMeta)} n={9} title="Attention and money" lead="Washington's paper trail and its cheque book, year by year, with Beijing's commitments beside them." layer="facts"
         asks="Does Washington's attention track its money? Four small bar charts on the same years put policy documents and statements beside US and Chinese commitments, so the peaks can be compared."
         how="One bar per year on each panel; the vertical scales differ, so compare shapes across panels and heights within one. A shaded span on a money panel is the years after the source ends: no record, not zero."
+        findings={
+          docPeak && usStmPeak
+            ? [
+                docPeak.policy_docs > 0 ? `US policy documents peak in ${docPeak.year} at ${docPeak.policy_docs}${usStmPeak.us_statements > 0 ? `, statements by US officials in ${usStmPeak.year} at ${usStmPeak.us_statements}` : ""}` : "No year carries a US policy document",
+                dfcPeak && cnPeak && (dfcPeak.dfc_musd ?? 0) > 0 && (cnPeak.cn_musd ?? 0) > 0 ? `The tallest US money bar is ${dfcPeak.year} at ${fmtMusd(dfcPeak.dfc_musd)} and the tallest Chinese bar ${cnPeak.year} at ${fmtMusd(cnPeak.cn_musd)}` : null,
+                `${attention.filter((r) => r.cn_musd !== null && r.cn_musd > 0).length} of the ${attention.length} years carry a Chinese bar and ${attention.filter((r) => r.dfc_musd !== null && r.dfc_musd > 0).length} a US bar`,
+              ]
+            : []
+        }
         says="Compare the years when the documents peak with the years when the commitments do; the two need not move together, and the Chinese bars stop where their source ends rather than where the money did.">
         <Attention rows={file.region.attention} lastYear={{ finance_US: file.meta.last_year.finance_US ?? null, finance_CN: file.meta.last_year.finance_CN ?? null }} />
       </Block>

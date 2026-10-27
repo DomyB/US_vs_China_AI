@@ -6,7 +6,7 @@
 import { chromium } from "playwright";
 
 const BASE = process.env.BASE ?? "http://localhost:3000";
-const START = ["/", "/story", "/explore", "/routes", "/mineral", "/country", "/votes-and-ore", "/contested", "/lab", "/region", "/methodology", "/sources", "/archive", "/stage", "/denial", "/what-we-know", "/step-by-step", "/country/CHL", "/mineral/copper"];
+const START = ["/", "/story", "/story/appendix", "/explore", "/routes", "/mineral", "/country", "/votes-and-ore", "/contested", "/contested/more", "/lab", "/region", "/methodology", "/sources", "/archive", "/stage", "/denial", "/what-we-know", "/step-by-step", "/country/CHL", "/mineral/copper"];
 const SKIP = /^(mailto:|https?:|#$)/;
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
 const page = await browser.newPage({ viewport: { width: 1366, height: 900 } });

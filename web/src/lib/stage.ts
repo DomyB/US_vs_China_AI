@@ -8,6 +8,8 @@
  * reproduce exactly.
  */
 
+import { fetchOnce } from "@/lib/data";
+
 export const STAGE_BASE = "/data/companion/prototype";
 export const Y0 = 2001;
 export const Y1 = 2026;
@@ -124,15 +126,21 @@ export function fourNumbers(tr: TradePanel, isos: readonly string[]) {
   return { cn2001: share(a, "CHN"), cn2024: share(b, "CHN"), us2001: share(a, "USA"), us2024: share(b, "USA"), value2001: a.total / 1000, value2024: b.total / 1000, coreCn2024: share(c, "CHN"), coreUs2024: share(c, "USA") };
 }
 
+/** Both prototype files, each fetched once per page load (`fetchOnce`, shared with every other reader of the records). */
 export async function loadStage(): Promise<{ tr: TradePanel; rec: StageRecords } | null> {
   try {
-    const get = async <T,>(name: string) => {
-      const res = await fetch(`${STAGE_BASE}/${name}`);
-      if (!res.ok) { await res.text().catch(() => undefined); throw new Error(`${name}: ${res.status}`); }
-      return (await res.json()) as T;
-    };
-    const [tr, rec] = await Promise.all([get<TradePanel>("trade.json"), get<StageRecords>("records.json")]);
+    const [tr, rec] = await Promise.all([fetchOnce<TradePanel>(`${STAGE_BASE}/trade.json`), fetchOnce<StageRecords>(`${STAGE_BASE}/records.json`)]);
     return Array.isArray(tr.rows) && tr.rows.length ? { tr, rec } : null;
+  } catch {
+    return null;
+  }
+}
+
+/** The record lists alone (the coded terms, the cases, the quotes), for pages that need no trade panel; null when the file is absent. */
+export async function loadStageRecords(): Promise<StageRecords | null> {
+  try {
+    const rec = await fetchOnce<StageRecords>(`${STAGE_BASE}/records.json`);
+    return rec && typeof rec === "object" && rec.TERMS ? rec : null;
   } catch {
     return null;
   }

@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { COUNTRY_COUNT_WORD, COUNTRY_NAMES } from "@/lib/constants";
 import { fmtMusd } from "@/lib/format";
 import { LAST_YEAR_LABEL } from "@/lib/provenance";
 import { STORY_SINCE, type LedgerSide } from "@/lib/story";
 import type { QuantFile } from "@/lib/types";
-import { Exhibit, KeyNumber, StepCard } from "./Chapter";
+import { Exhibit, StepCard } from "./Chapter";
 
 /** Money fills: documented = solid; lower-confidence = dots; swap drawdowns = diagonal hatch; counts = outline only. `id` prefixes the pattern ids so two figures on one page never share them. */
 export function MoneyDefs({ id }: { id: string }) {
@@ -35,11 +36,6 @@ export function WideFigure({ minWidth, children }: { minWidth: string; children:
 }
 
 const bn = (musd: number) => `US$${(musd / 1000).toFixed(musd >= 10000 ? 0 : 1)} bn`;
-
-/** The swap-line lender: its network weight is the central-bank drawdowns the iceberg shows apart (the export carries no per-lender swap flag). */
-const isSwapLender = (l: { label: string }) => /People.s Bank of China/.test(l.label);
-/** A lender row without a name ("Unspecified Chinese Government Institution"): a lender, not a named one. */
-const isUnspecified = (l: { label: string }) => /^unspecified/i.test(l.label);
 
 /**
  * The Iceberg: above the waterline the documented commitments by origin; below it, on a dollar axis, the lower-confidence
@@ -105,22 +101,25 @@ function Iceberg({ cn, us, unattributed }: { cn: LedgerSide; us: LedgerSide; una
   );
 }
 
-/** `argPeak`: Argentina's own largest swap year (the cold open's receipt), printed beside the region-wide peak so the two figures meet on the page with their scopes named. */
+/**
+ * `argPeak`: Argentina's own largest swap year (the cold open's receipt), printed beside the region-wide peak so the two figures meet on the page with their scopes named.
+ * `network` gives the iceberg its count of events naming no recipient; the ranking of the largest lenders is in the appendix (/story/appendix#c3-lenders).
+ */
 export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastYearCN, argPeak = null }: { cn: LedgerSide; us: LedgerSide; allYearsCN: LedgerSide; undocumentedTop: { iso3: string; musd: number }[]; network: QuantFile["network"] | null; lastYearCN: number | null; argPeak?: { year: number; musd: number } | null }) {
   const pre2008 = allYearsCN.undocumented_musd - cn.undocumented_musd;
   // the swap rows are one AidData row per year of the same renewed line, summed as recorded; the largest year across the countries is printed beside the sum
   const swapPeak = cn.by_year.reduce<LedgerSide["by_year"][number] | null>((a, b) => (b.swap_musd > (a?.swap_musd ?? 0) ? b : a), null);
   const financeLastYears = { [LAST_YEAR_LABEL.finance_CN]: lastYearCN ?? cn.last_year, [LAST_YEAR_LABEL.finance_US]: us.last_year };
-  const lenders = network?.top_lenders ?? [];
-  const named = lenders.filter((l) => !isUnspecified(l));
-  const unnamed = lenders.length - named.length;
-  const namedCN = named.filter((l) => l.origin === "CN").length, namedUS = named.filter((l) => l.origin === "US").length;
-  const swapLender = lenders.find(isSwapLender);
+  const lenders = network?.top_lenders?.length ?? 0;
   return (
     <div className="space-y-6">
       <div className="story-grid">
         <div className="story-sticky">
-          <Exhibit id="c3-iceberg" title="The Iceberg: two ledgers, never summed" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flow_finance:origin:year:amount_musd", "flow_finance:undocumented_musd", "flow_finance:swap_musd", "flow_finance:n_events", "network:unattributed_events"]} lastYear={financeLastYears} explore={{ href: "/explore?view=money&span=all", label: "Open the money arcs" }} asks={`How much Chinese money is there beyond the documented sum everyone quotes? Two ledgers, never summed: the one below the waterline mixes lower-confidence amounts, emergency swap drawdowns and events with no amount at all, records of different kinds that no single total can hold.`} how={`Above the waterline, one solid column per origin in dollars. Below it, on the left a dollar axis with the dotted block for lower-confidence amounts and the hatched block for central-bank swap drawdowns; on the right a count axis with outlined blocks for events with no documented amount and, dashed, events naming no recipient. The waterline is what the index counts.`} says={`Below the ${fmtMusd(cn.documented_musd)} the index counts sit ${fmtMusd(cn.undocumented_musd)} at lower confidence, ${fmtMusd(cn.swap_musd)} of swap drawdowns and ${(cn.no_amount_n + cn.undocumented_n + cn.swap_n).toLocaleString("en-US")} events with no documented amount. Opacity on that scale is itself a finding.`} note="Each block is a real record the index refuses to count; none is added to another.">
+          <Exhibit id="c3-iceberg" title="The Iceberg: two ledgers, never summed" layer="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["flow_finance:origin:year:amount_musd", "flow_finance:undocumented_musd", "flow_finance:swap_musd", "flow_finance:n_events", "network:unattributed_events"]} lastYear={financeLastYears} explore={{ href: "/explore?view=money&span=all", label: "Open the money arcs" }} asks={`How much Chinese money is there beyond the documented sum everyone quotes? Two ledgers, never summed: the one below the waterline mixes lower-confidence amounts, emergency swap drawdowns and events with no amount at all, records of different kinds that no single total can hold.`} how={`Above the waterline, one solid column per origin in dollars. Below it, on the left a dollar axis with the dotted block for lower-confidence amounts and the hatched block for central-bank swap drawdowns; on the right a count axis with outlined blocks for events with no documented amount and, dashed, events naming no recipient. The waterline is what the index counts.`} findings={[
+            `Above the waterline, China's column reads ${fmtMusd(cn.documented_musd)} over ${cn.events.toLocaleString("en-US")} events and the US column ${fmtMusd(us.documented_musd)} over ${us.events.toLocaleString("en-US")}`,
+            `${cn.with_amount.toLocaleString("en-US")} of China's ${cn.events.toLocaleString("en-US")} events carry a documented amount; ${cn.no_amount_n.toLocaleString("en-US")} carry none at all`,
+            network?.unattributed_events != null ? `${network.unattributed_events.toLocaleString("en-US")} events name no recipient, the dashed block on the count axis` : "No count of events naming no recipient is in this release",
+          ]} says={`Below the ${fmtMusd(cn.documented_musd)} the index counts sit ${fmtMusd(cn.undocumented_musd)} at lower confidence, ${fmtMusd(cn.swap_musd)} of swap drawdowns and ${(cn.no_amount_n + cn.undocumented_n + cn.swap_n).toLocaleString("en-US")} events with no documented amount. Opacity on that scale is itself a finding.`} note="Each block is a real record the index refuses to count; none is added to another.">
             <Iceberg cn={cn} us={us} unattributed={network?.unattributed_events ?? null} />
           </Exhibit>
         </div>
@@ -137,33 +136,11 @@ export function Ch3Iceberg({ cn, us, allYearsCN, undocumentedTop, network, lastY
           <StepCard>
             <p><strong>And the money nobody can place.</strong> {(cn.no_amount_n + cn.undocumented_n + cn.swap_n).toLocaleString("en-US")} events carry no documented amount ({cn.no_amount_n.toLocaleString("en-US")} none at all){network?.unattributed_events ? `, and ${network.unattributed_events.toLocaleString("en-US")} name no recipient` : ""}. Opacity is itself the finding.</p>
           </StepCard>
+          {lenders > 0 && (
+            <p className="text-sm text-ink-2">Which institutions carry the lending, the {lenders} largest ranked by the money on their links, is in the <Link href="/story/appendix#c3-lenders" className="underline decoration-dotted">appendix</Link>.</p>
+          )}
         </div>
       </div>
-      {lenders.length > 0 && (
-        <Exhibit id="c3-lenders" title={`Who lends: the ${lenders.length} largest lenders`} layer="facts" asks={`Behind the two origins, which institutions do the lending, and how concentrated is it? A ranked list of the largest lenders by the money on their links shows whether a handful of banks carry the record.`} how={`One row per lender, largest first: the bar is its weighted degree as a share of the largest, in China's or the United States' colour and hatched for the swap-line lender; the figures at the right are the sum and the number of lender–recipient links.`} says={`${namedCN} named Chinese institution${namedCN === 1 ? "" : "s"} and ${namedUS} named US one${namedUS === 1 ? "" : "s"} among the ${lenders.length}${unnamed > 0 ? `, with ${unnamed} row${unnamed === 1 ? "" : "s"} unnamed` : ""}; the weight includes the swap drawdowns and lower-confidence amounts the iceberg keeps apart, so a rank here is not a rank on the documented ledger.`} saysKind="facts" sources={["aiddata_gcdf", "dfc_projects", "exim_authorizations"]} ids={["network:top_lenders"]} lastYear={financeLastYears} note={`Weighted degree is the sum of every recorded amount on the lender's links across the ${COUNTRY_COUNT_WORD} countries, all years, swap drawdowns and lower-confidence amounts included, so it is not the documented ledger above the waterline${swapLender ? `: the ${swapLender.label} row is the central-bank swap drawdowns the iceberg shows apart, almost all Argentina's, drawn hatched here` : ""}. Degree is the number of lender–recipient links.${unnamed > 0 ? ` ${unnamed === 1 ? "One row is" : `${unnamed} rows are`} an unspecified Chinese government institution: a lender, not a named one.` : ""}`}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <ul className="space-y-1.5 text-sm">
-              {lenders.map((l) => {
-                const max = Math.max(...lenders.map((x) => x.weighted_degree_musd));
-                const color = l.origin === "US" ? "var(--us)" : "var(--cn)";
-                return (
-                  <li key={l.label} className="grid grid-cols-1 gap-x-2 gap-y-0.5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-                    <span className="min-w-0">
-                      <span className="block break-words">{l.label}</span>
-                      <span className="block h-1.5 rounded-sm" style={{ width: `${Math.max(2, (l.weighted_degree_musd / max) * 100)}%`, background: isSwapLender(l) ? `repeating-linear-gradient(-45deg, ${color} 0 2px, transparent 2px 5px)` : color }} />
-                    </span>
-                    <span className="tabular-nums text-xs text-ink-2">{fmtMusd(l.weighted_degree_musd)} · {l.degree} links</span>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="grid grid-cols-2 gap-4 self-start">
-              <KeyNumber value={namedCN} label={`named Chinese institution${namedCN === 1 ? "" : "s"} among them`} tone="cn" size="text-3xl" />
-              <KeyNumber value={namedUS} label={`named US institution${namedUS === 1 ? "" : "s"} among them`} tone="us" size="text-3xl" />
-            </div>
-          </div>
-        </Exhibit>
-      )}
     </div>
   );
 }

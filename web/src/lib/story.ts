@@ -1,5 +1,5 @@
 import { PERIOD_FROM } from "./constants";
-import type { EvidenceLevel, FlowsFile, FlowFinanceRow, FlowTradeRow, InsightCountry, InsightsFile, RealMeta, RegionData, StorySeriesRow } from "./types";
+import type { EvidenceLevel, FlowsFile, FlowFinanceRow, FlowTradeRow, IndexFile, IndexRow, InsightCountry, InsightsFile, QuantFile, RealMeta, RegionData, StorySeriesRow } from "./types";
 
 /**
  * The numbers the story page prints, computed from the exported files so the home page, the evidence room and the
@@ -264,9 +264,47 @@ export interface EvidenceInputs {
 }
 
 /**
- * The nine chapters with their evidence meters. The level is an editorial judgement (labelled Interpretation in
- * chapter 9); every number or year in a basis comes from the export, and a clause whose input is absent is dropped
- * rather than typed, so the meter cannot contradict the page it sits on.
+ * The meters' inputs, read from the files the story and its appendix load: the record's last years from flows.json, the
+ * fewest coded executive statements any country rests on from insights.json, and the forecast backtest and the dated
+ * events from quant.json (null where that file is absent, so the clause is dropped rather than typed).
+ */
+export function evidenceInputs(flows: FlowsFile, insights: InsightsFile, quant: QuantFile | null): EvidenceInputs {
+  const t = quant?.forecast?.targets?.["export_share:CN"];
+  const events = quant?.events;
+  const executiveCounts = insights.countries.map((c) => c.words?.n_executive ?? 0).filter((n) => n > 0);
+  return {
+    lastYear: flows.meta.last_year,
+    fewestStatements: executiveCounts.length ? Math.min(...executiveCounts) : null,
+    forecast: t && t.coverage_80 !== undefined ? { coverage_80: t.coverage_80, n_tests: t.n_tests ?? null } : null,
+    events: events ? { draft: events.draft, total: events.total } : null,
+  };
+}
+
+/** Argentina's composite influence index over all minerals, from the real export only: a seeded sample index is never drawn as model output. */
+export function argentinaIndexRows(index: IndexFile): IndexRow[] {
+  if (index.layer !== "real") return [];
+  return index.rows.filter((r) => r.iso3 === "ARG" && r.mineral === "all" && (r.index ?? "composite") === "composite");
+}
+
+/**
+ * The chapters on the story page, in order: the editorial endpoints (0, the whole picture; 10, the conclusion) around the
+ * evidence meters. Chapters 6 and 8 render only with their country's insights, so the rail and the meters never name a
+ * dead anchor.
+ */
+export function presentChapters(chapters: ChapterMeter[], has: { chl: boolean; arg: boolean }): ChapterMeter[] {
+  const all: ChapterMeter[] = [
+    { n: 0, label: "The whole picture", level: "strong", basis: "reported trade, finance records, UN votes; the index is a model output" },
+    ...chapters,
+    { n: 10, label: "Who is winning", level: "moderate", basis: "the measures of chapter 0 side by side; the reading is interpretation" },
+  ];
+  return all.filter((ch) => (ch.n !== 6 || has.chl) && (ch.n !== 8 || has.arg));
+}
+
+/**
+ * The nine evidence chapters (1 to 9) with their meters; `presentChapters` adds the whole picture and the conclusion
+ * around them. The level is an editorial judgement (labelled Interpretation in the appendix); every number or year in
+ * a basis comes from the export, and a clause whose input is absent is dropped rather than typed, so the meter cannot
+ * contradict the page it sits on.
  */
 export function chapterEvidence(i: EvidenceInputs): ChapterMeter[] {
   const join = (...parts: (string | null)[]) => parts.filter(Boolean).join("; ");

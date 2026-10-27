@@ -66,6 +66,19 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
     [series, year, indexName],
   );
 
+  // the findings under the index chart: the selected year's values, the years China's line is the higher and the years the bands overlap
+  const indexFindings = useMemo(() => {
+    const at = (y: number, a: string) => series.find((r) => r.year === y && r.actor === a) ?? null;
+    const pairs = Array.from(new Set(series.map((r) => r.year)))
+      .map((y) => ({ y, cn: at(y, "CN"), us: at(y, "US") }))
+      .filter((p): p is { y: number; cn: SeriesRow; us: SeriesRow } => p.cn !== null && p.us !== null);
+    const banded = pairs.filter((p) => p.cn.lower !== null && p.cn.upper !== null && p.us.lower !== null && p.us.upper !== null);
+    const overlap = pairs.filter((p) => p.cn.lower !== null && p.cn.upper !== null && p.us.lower !== null && p.us.upper !== null && p.cn.lower <= p.us.upper && p.us.lower <= p.cn.upper).length;
+    const cn = at(year, "CN");
+    const us = at(year, "US");
+    return { cn, us, one: cn ?? us, both: pairs.length, above: pairs.filter((p) => p.cn.value > p.us.value).length, banded: banded.length, overlap };
+  }, [series, year]);
+
   const componentRows = useMemo(() => data.analysis.components.filter((c) => c.year === year), [data, year]);
   const components = useMemo(() => {
     const long: { actor: string; component: string; value: number; weight: number }[] = [];
@@ -92,6 +105,16 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
     }),
     [components],
   );
+  // the findings under the drivers chart: the rows drawn, the longest grey bar and the rows on which China's dot sits to the right
+  const driverFindings = useMemo(() => {
+    type Comp = (typeof components)[number];
+    const names = Array.from(new Set(components.map((c) => c.component)));
+    const pairs = names
+      .map((n) => ({ n, cn: components.find((c) => c.component === n && c.actor === "CN") ?? null, us: components.find((c) => c.component === n && c.actor === "US") ?? null }))
+      .filter((p): p is { n: string; cn: Comp; us: Comp } => p.cn !== null && p.us !== null);
+    const widest = pairs.reduce<(typeof pairs)[number] | null>((best, p) => (best === null || Math.abs(p.cn.value - p.us.value) > Math.abs(best.cn.value - best.us.value) ? p : best), null);
+    return { rows: names.length, both: pairs.length, cnRight: pairs.filter((p) => p.cn.value > p.us.value).length, widest };
+  }, [components]);
   const indexThisYear = useMemo(() => (data.analysis.index ?? []).filter((r) => r.index_name === "influence" && r.year === year), [data, year]);
   // the per-year line follows the switch; the composite line also names the component that carries the lean, read from
   // index.json's all-minerals composite rows (absent for a mineral filter or an older file: the clause is left out)
@@ -147,6 +170,18 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
     [concLong, concentration.length],
   );
 
+  // the findings under the concentration chart: the minerals with a bar and the largest of them (a row with a world-export
+  // value and no partner cell sits in the table with no bar), the minerals China buys more of and the largest single-buyer share
+  const concFindings = useMemo(() => {
+    const has = (v: number | null | undefined): v is number => v !== undefined && v !== null;
+    const drawn = new Set(concLong.map((r) => r.mineral)).size;
+    const top = concentration.find((r) => has(r.share_cn_x) || has(r.share_us_x) || has(r.share_other_x)) ?? null;
+    const both = concentration.filter((r) => has(r.share_cn_x) && has(r.share_us_x));
+    const cnLarger = both.filter((r) => (r.share_cn_x ?? 0) > (r.share_us_x ?? 0)).length;
+    const single = concLong.filter((r) => r.partner !== "ROW").reduce<(typeof concLong)[number] | null>((best, r) => (best === null || r.share > best.share ? r : best), null);
+    return { drawn, top, topCn: top && has(top.share_cn_x) ? top.share_cn_x : null, both: both.length, cnLarger, single };
+  }, [concentration, concLong]);
+
   const network = data.analysis.network;
   const eventRows = useMemo(() => (data.analysis.event_effects ?? []).filter((e) => e.diff !== null), [data]);
   const eventsPending = useMemo(() => (data.analysis.event_effects ?? []).filter((e) => e.diff === null && e.design === "window").length, [data]);
@@ -164,11 +199,6 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
 
   return (
     <div className="space-y-5">
-      {real && status && (
-        <Callout tone="model" summary={<>Computed from the data release {status.inputs_release} · method {status.method_version} · rank stability {status.rank_stability !== null ? status.rank_stability.toFixed(2) : "n/a"}.</>}>
-          {status.label}. Nothing is imputed: a missing input leaves a component unavailable and the index rests on the rest, never on fewer than three. The band on every value is the 5th–95th percentile across {status.draws} draws of weights and normalisations. Method details and the sensitivity settings are on the methodology page.
-        </Callout>
-      )}
       <section aria-labelledby="idx-h">
         {header("idx-h", "Influence index with uncertainty", {
           asks: `Does ${data.name} lean toward China or the United States on the ties the data can see, and how sure is that? Two lines on one 0 to 100 scale, each with its band, show the lean and its fragility together.`,
@@ -188,7 +218,17 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
         )}
         <PlotFigure glyph="model" options={indexOptions} ariaLabel={`${INDEX_LABEL[indexName]} of the United States and China in ${data.name} with uncertainty bands, ${tag}`} />
         <DataTable rows={series} caption={`${INDEX_LABEL[indexName]} by year and actor`} columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "value", label: "Index" }, { key: "lower", label: "Lower", format: (v) => (v === null || v === undefined ? "—" : String(v)) }, { key: "upper", label: "Upper", format: (v) => (v === null || v === undefined ? "—" : String(v)) }]} />
-        <Reading says="Where the two bands overlap, the data do not settle the lean; where one line sits clear above the other across the years, they do. The index counts observable ties, not intentions." saysKind="model" compact />
+        <Reading
+          findings={[
+            series.length === 0 ? null : indexFindings.cn && indexFindings.us ? `In ${year} the ${INDEX_PHRASE[indexName]} reads ${indexFindings.cn.value.toFixed(1)} for China and ${indexFindings.us.value.toFixed(1)} for the United States` : indexFindings.one ? `In ${year} only ${indexFindings.one.actor === "US" ? "the United States" : "China"} has a value on the ${INDEX_PHRASE[indexName]}, ${indexFindings.one.value.toFixed(1)}` : `Neither line holds a value in ${year}`,
+            series.length === 0 ? null : indexFindings.both > 0 ? `China's line sits above the US line in ${indexFindings.above} of the ${indexFindings.both} years both hold` : `The ${series.length} values drawn share no year between the two lines`,
+            indexFindings.both > 0 ? (indexFindings.banded > 0 ? `The two bands overlap in ${indexFindings.overlap} of the ${indexFindings.banded} years both bands are stored` : `No band is stored for the ${indexFindings.both} years both lines hold`) : null,
+          ]}
+          findingsKind="model"
+          says="Where the two bands overlap, the data do not settle the lean; where one line sits clear above the other across the years, they do. The index counts observable ties, not intentions."
+          saysKind="model"
+          compact
+        />
         {real && seriesThisYear.length > 0 && (
           <ul className="mt-1 text-[11px] text-ink-3">
             {seriesThisYear.map((r) => (
@@ -209,7 +249,17 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
         {components.length > 0 ? (
           <>
             <PlotFigure glyph="model" options={componentOptions} ariaLabel={`Index components for the United States and China in ${data.name} in ${year}, ${tag}`} />
-            <Reading says="A long grey bar is a tie on which the two actors differ most, a short one a tie they share; with equal weights, the row with the longest bar contributes most to the gap between the two indices." saysKind="model" compact />
+            <Reading
+              findings={[
+                `${driverFindings.rows} component row${driverFindings.rows === 1 ? "" : "s"} drawn for ${year}${unavailable.length > 0 ? `; ${unavailable.length} actor-component cell${unavailable.length === 1 ? " is" : "s are"} unavailable` : ""}`,
+                driverFindings.widest ? `The longest grey bar is ${driverFindings.widest.n}: China ${driverFindings.widest.cn.value.toFixed(1)} against ${driverFindings.widest.us.value.toFixed(1)} for the United States` : `No row holds a dot for both actors in ${year}: no grey bar is drawn`,
+                driverFindings.both > 0 ? `China's dot sits to the right on ${driverFindings.cnRight} of the ${driverFindings.both} row${driverFindings.both === 1 ? "" : "s"} with both actors` : null,
+              ]}
+              findingsKind="model"
+              says="A long grey bar is a tie on which the two actors differ most, a short one a tie they share; with equal weights, the row with the longest bar contributes most to the gap between the two indices."
+              saysKind="model"
+              compact
+            />
           </>
         ) : (
           <p className="text-sm text-ink-3">No component values for {year}.</p>
@@ -248,29 +298,19 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
             <p className="text-sm text-ink-3">No reported exports by mineral for {year}.</p>
           )}
           <DataTable rows={concentration} caption="Export shares and revealed comparative advantage by mineral" columns={[{ key: "mineral", label: "Mineral", format: (v) => prettyMineral(String(v)) }, { key: "share_us_x", label: "To US", format: (v) => (v === null || v === undefined ? "absent" : fmtPct(Number(v), 1)) }, { key: "share_cn_x", label: "To China", format: (v) => (v === null || v === undefined ? "absent" : fmtPct(Number(v), 1)) }, { key: "exports_wld_musd", label: "Exports (M US$)" }, { key: "rca_pool", label: "RCA (12-country pool)", format: (v) => (v === null || v === undefined ? "—" : Number(v).toFixed(2)) }]} />
-          {concentration.length > 0 && <Reading says="A mineral whose bar is mostly one colour is one the country could not easily redirect; the all-minerals line above gives the whole picture, and its two-power share is how much of the ore goes to either rival." compact />}
+          {concentration.length > 0 && (
+            <Reading
+              findings={[
+                concFindings.drawn > 0 && concFindings.top ? `${concFindings.drawn} of the ${concentration.length} mineral${concentration.length === 1 ? "" : "s"} listed ${concFindings.drawn === 1 ? "has" : "have"} a bar; the largest drawn is ${prettyMineral(concFindings.top.mineral)}, ${concFindings.topCn !== null ? `${fmtShare(concFindings.topCn)} of it to China` : "with no China partner row"}` : `None of the ${concentration.length} mineral${concentration.length === 1 ? "" : "s"} listed has a partner row: no bar is drawn`,
+                concFindings.both > 0 ? `China is the larger of the two buyers for ${concFindings.cnLarger} of the ${concFindings.both} mineral${concFindings.both === 1 ? "" : "s"} with both partner rows` : `None of the ${concentration.length} mineral${concentration.length === 1 ? "" : "s"} has a partner row for both buyers`,
+                concFindings.single ? `The largest single-buyer share is ${fmtShare(concFindings.single.share)} of ${concFindings.single.mineral} ${concFindings.single.partner === "CN" ? "to China" : "to the United States"}` : null,
+              ]}
+              says="A mineral whose bar is mostly one colour is one the country could not easily redirect; the all-minerals line above gives the whole picture, and its two-power share is how much of the ore goes to either rival."
+              compact
+            />
+          )}
         </section>
       )}
-
-      <section aria-labelledby="sd-h">
-        {header("sd-h", "Say–do gap", {
-          asks: "Do the words of the legislature run ahead of the flows, or behind them? One standardised gap per year puts the two measures on a scale they can share.",
-          how: "One dot and line per actor; above the zero rule the stance toward the actor is warmer than the movement of economic ties, below it the flows outrun the words; a year with no dot has too few scored records or no measurable change in ties; the dashed rule is the selected year.",
-        })}
-        <p className="mb-2 text-xs text-ink-3">
-          {real
-            ? `Positive: the legislature's stance toward the actor (years with at least five scored records) is warmer than the movement of economic ties; negative: the flows outrun the words. Rhetoric is a text-model output (${data.analysis.say_do_gap[0]?.text_model_status ?? status?.text_model_label ?? "no classifier"}).`
-            : "Positive values: rhetoric (the legislature's coded stance) warmer than observed flows; negative: flows outrun the rhetoric."}
-        </p>
-        {sayDo.length > 0 ? (
-          <>
-            <PlotFigure glyph="model" options={sayDoOptions} ariaLabel={`Say-do gap toward the United States and China in ${data.name}, ${tag}`} />
-            <Reading says="A gap that stays on one side of zero for years is a durable pattern; one that flips is a year worth opening in the records. The rhetoric side is a text-model score, so a small gap lies within its noise." compact />
-          </>
-        ) : (
-          <p className="text-sm text-ink-3">{real ? "No year with at least five scored legislative records and a measurable change in economic ties." : "No say–do values."}</p>
-        )}
-      </section>
 
       <section aria-labelledby="flag-h">
         {header("flag-h", "Flagged movements and under-reported activity")}
@@ -295,115 +335,147 @@ export function AnalysisTab({ data, year, indexRows, indexLayer = "sample" }: { 
         </ul>
       </section>
 
-      {real && (data.analysis.event_effects ?? []).length > 0 && (
-        <section aria-labelledby="ev-h">
-          {header("ev-h", "Event windows", {
-            asks: "Did export shares to an actor move after a dated policy event? A before-and-after table per event is the plainest test yearly data allow.",
-            how: "One row per event and actor: the mean share in the two years before and the two after, the difference in points, and a placebo p-value from the same statistic at the series' other years; a dash is a window that lacks trade years; a draft tag marks an event not yet reviewed.",
-          })}
-          <p className="mb-2 text-xs text-ink-3">
-            For each dated policy event: the country&apos;s mean export share to the actor in the two years after the event minus the two years before (the event year left out), with a placebo p-value from the same statistic at the series&apos; other years; for events that touch some countries only, a difference-in-differences against the others with a permutation placebo. Associations, not causes.
-            {draftEvents ? " The event list is a draft awaiting review: rows marked draft may change." : ""}
-            {eventsPending ? ` ${eventsPending} event-window row${eventsPending === 1 ? "" : "s"} wait for post-event years of trade data.` : ""}
-          </p>
-          {eventRows.length === 0 ? (
-            <p className="text-sm text-ink-3">No event has both pre- and post-event trade years for this country yet.</p>
-          ) : (
-            <>
-            <div className="scroll-x">
-            <table className="w-full text-xs">
-              <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Event</th><th className="py-1">Toward</th><th className="py-1">Design</th><th className="py-1 text-right">Before</th><th className="py-1 text-right">After</th><th className="py-1 text-right">Change</th><th className="py-1 text-right">Placebo p</th></tr></thead>
-              <tbody>
-                {eventRows.map((e) => (
-                  <tr key={`${e.event_id}-${e.actor}-${e.design}`} className="border-t border-rule align-top">
-                    <td className="py-1">
-                      <span className="tabular-nums text-ink-3">{e.date.slice(0, 7)}</span> {e.title ?? e.event_id}
-                      {e.status !== "reviewed" && <span className="ml-1 rounded-sm border border-dotted border-ink-3 px-1 text-[9px] uppercase text-ink-3" title="Event list not yet reviewed by the project owner">draft</span>}
-                      {e.source && <span className="ml-1"><SourceLink source={e.source} compact /></span>}
-                    </td>
-                    <td className="py-1">{actorName(e.actor)}</td>
-                    <td className="py-1" title={e.note ?? undefined}>{e.design === "did" ? `diff-in-diff (treated ${e.treated_countries.join(", ")} vs ${e.control_countries.length} controls)` : "own window"}</td>
-                    <td className="py-1 text-right tabular-nums">{e.pre_mean !== null ? fmtPct(e.pre_mean, 1) : "—"}</td>
-                    <td className="py-1 text-right tabular-nums">{e.post_mean !== null ? fmtPct(e.post_mean, 1) : "—"}</td>
-                    <td className="py-1 text-right tabular-nums">{e.diff !== null ? `${e.diff > 0 ? "+" : ""}${(e.diff * 100).toFixed(1)} pts` : "—"}</td>
-                    <td className="py-1 text-right tabular-nums">{e.placebo_p !== null ? e.placebo_p.toFixed(2) : "—"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            </div>
-            <Reading says="A change with a low placebo p is unusual against the series' own history, nothing more: the design cannot separate the event from whatever else happened in those years." saysKind="model" compact />
-            </>
-          )}
-        </section>
-      )}
-
-      {real && network && (
-        <section aria-labelledby="net-h">
-          {header("net-h", "Finance network: lenders and recipients", {
-            asks: "Which lenders and recipients sit at the centre of the money the records document? A ranked node table shows it where a drawn graph of a few nodes would show little.",
-            how: "One row per institution: its role and origin, how many counterparts it links to, the amount committed through it, its betweenness on the region-wide graph and the community it falls in; an event naming no recipient is not a link.",
-          })}
-          <p className="mb-2 text-xs text-ink-3">
-            Funding institutions and the receiving agencies named in the finance records, ranked by the amounts committed between them; centralities are computed on the {COUNTRY_COUNT_WORD}-country graph. {network.n_nodes_total} nodes and {network.n_edges_total} links involve this country; {network.unattributed_events} events name no recipient and are left out. Contracts carry no company names yet, so ownership links are not part of this graph.
-          </p>
-          {network.nodes.length === 0 ? (
-            <p className="text-sm text-ink-3">No finance records with a named recipient.</p>
-          ) : (
-            <>
-            <table className="w-full text-xs">
-              <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Node</th><th className="py-1">Role</th><th className="py-1 text-right">Links</th><th className="py-1 pr-2 text-right">M US$</th><th className="py-1 text-right">Betweenness</th><th className="py-1 text-right">Community</th></tr></thead>
-              <tbody>
-                {network.nodes.map((n) => (
-                  <tr key={n.id} className="border-t border-rule align-top">
-                    <td className="py-1">{n.label}</td>
-                    <td className="py-1 text-ink-3">{n.type === "lender" ? `lender (${n.origin ?? "?"})` : "recipient"}</td>
-                    <td className="py-1 text-right tabular-nums">{n.degree}</td>
-                    <td className="py-1 pr-2 text-right tabular-nums">{n.weighted_degree_musd.toLocaleString("en-GB", { maximumFractionDigits: 0 })}</td>
-                    <td className="py-1 text-right tabular-nums">{n.betweenness.toFixed(3)}</td>
-                    <td className="py-1 text-right tabular-nums">{n.community}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <Reading says="A lender with high betweenness is a bridge between otherwise separate recipients; a large amount with few links is one big deal. Both rest on which deals were published." saysKind="model" compact />
-            </>
-          )}
-        </section>
-      )}
-
-      {governance.length > 0 && (
-        <section aria-labelledby="gov-h">
-          <SectionHeader
-            id="gov-h"
-            title={`Governance and alignment indicators, ${year}`}
-            tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>}
-            provenance={provenanceFor("governance", { iso3: data.iso3, year, meta })}
-            asks={`What sits behind the index in ${year}: institutions, UN voting, debt and the economy? A table, since the indicators share no unit.`}
-            how="One row per indicator with its value and source for the selected year; a dash is a value the source does not give for that year, not zero."
-          />
-          <p className="mb-1 text-xs text-ink-3">Inputs to the influence index and context: governance (World Bank WGI, V-Dem), UN General Assembly alignment with the US and China, debt by creditor, macro context.</p>
-          <table className="w-full text-xs">
-            <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 pr-4 text-right">Value</th><th className="py-1">Source</th></tr></thead>
-            <tbody>
-              {governance.map((g) => (
-                <tr key={g.indicator} className="border-t border-rule align-top">
-                  <td className="py-1">{g.name}</td>
-                  <td className="py-1 pr-4 text-right tabular-nums">{g.value == null ? "—" : Math.abs(g.value) >= 1e6 ? g.value.toLocaleString("en-GB", { maximumFractionDigits: 0 }) : g.value.toFixed(2)}</td>
-                  <td className="py-1"><SourceLink source={g.source} compact /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <Reading says="The UN alignment and debt rows feed index components; the governance and macro rows are context and enter no index." saysKind="facts" compact />
-        </section>
-      )}
-
       <section aria-labelledby="interp-h">
         <SectionHeader id="interp-h" title="Interpretation" tags={<LayerLabel layer="interpretation" />} provenance={provenanceFor("interpretation", { iso3: data.iso3, findingId: `country:${data.iso3}`, title: `Interpretation, ${data.name}` })} />
         <Interpretation block={data.interpretation} scopeLabel={data.name} />
         <p className="mt-2 text-xs text-ink-3">Context note from the registry: {data.note}</p>
       </section>
+
+      {/* the technical detail of the tab: the run's status line, the say–do gap, the event windows, the finance network and the indicator table, folded at the end; the index, the drivers (with the weights playground the tour reaches), the concentration and the flags stay in view */}
+      <details className="tech-fold">
+        <summary>Technical detail</summary>
+        <div className="tech-fold-body space-y-5">
+          {real && status && (
+            <Callout tone="model" summary={<>Computed from the data release {status.inputs_release} · method {status.method_version} · rank stability {status.rank_stability !== null ? status.rank_stability.toFixed(2) : "n/a"}.</>}>
+              {status.label}. Nothing is imputed: a missing input leaves a component unavailable and the index rests on the rest, never on fewer than three. The band on every value is the 5th–95th percentile across {status.draws} draws of weights and normalisations. Method details and the sensitivity settings are on the methodology page.
+            </Callout>
+          )}
+
+          <section aria-labelledby="sd-h">
+            {header("sd-h", "Say–do gap", {
+              asks: "Do the words of the legislature run ahead of the flows, or behind them? One standardised gap per year puts the two measures on a scale they can share.",
+              how: "One dot and line per actor; above the zero rule the stance toward the actor is warmer than the movement of economic ties, below it the flows outrun the words; a year with no dot has too few scored records or no measurable change in ties; the dashed rule is the selected year.",
+            })}
+            <p className="mb-2 text-xs text-ink-3">
+              {real
+                ? `Positive: the legislature's stance toward the actor (years with at least five scored records) is warmer than the movement of economic ties; negative: the flows outrun the words. Rhetoric is a text-model output (${data.analysis.say_do_gap[0]?.text_model_status ?? status?.text_model_label ?? "no classifier"}).`
+                : "Positive values: rhetoric (the legislature's coded stance) warmer than observed flows; negative: flows outrun the rhetoric."}
+            </p>
+            {sayDo.length > 0 ? (
+              <>
+                <PlotFigure glyph="model" options={sayDoOptions} ariaLabel={`Say-do gap toward the United States and China in ${data.name}, ${tag}`} />
+                <Reading says="A gap that stays on one side of zero for years is a durable pattern; one that flips is a year worth opening in the records. The rhetoric side is a text-model score, so a small gap lies within its noise." compact />
+              </>
+            ) : (
+              <p className="text-sm text-ink-3">{real ? "No year with at least five scored legislative records and a measurable change in economic ties." : "No say–do values."}</p>
+            )}
+          </section>
+
+          {real && (data.analysis.event_effects ?? []).length > 0 && (
+            <section aria-labelledby="ev-h">
+              {header("ev-h", "Event windows", {
+                asks: "Did export shares to an actor move after a dated policy event? A before-and-after table per event is the plainest test yearly data allow.",
+                how: "One row per event and actor: the mean share in the two years before and the two after, the difference in points, and a placebo p-value from the same statistic at the series' other years; a dash is a window that lacks trade years; a draft tag marks an event not yet reviewed.",
+              })}
+              <p className="mb-2 text-xs text-ink-3">
+                For each dated policy event: the country&apos;s mean export share to the actor in the two years after the event minus the two years before (the event year left out), with a placebo p-value from the same statistic at the series&apos; other years; for events that touch some countries only, a difference-in-differences against the others with a permutation placebo. Associations, not causes.
+                {draftEvents ? " The event list is a draft awaiting review: rows marked draft may change." : ""}
+                {eventsPending ? ` ${eventsPending} event-window row${eventsPending === 1 ? "" : "s"} wait for post-event years of trade data.` : ""}
+              </p>
+              {eventRows.length === 0 ? (
+                <p className="text-sm text-ink-3">No event has both pre- and post-event trade years for this country yet.</p>
+              ) : (
+                <>
+                <div className="scroll-x">
+                <table className="w-full text-xs">
+                  <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Event</th><th className="py-1">Toward</th><th className="py-1">Design</th><th className="py-1 text-right">Before</th><th className="py-1 text-right">After</th><th className="py-1 text-right">Change</th><th className="py-1 text-right">Placebo p</th></tr></thead>
+                  <tbody>
+                    {eventRows.map((e) => (
+                      <tr key={`${e.event_id}-${e.actor}-${e.design}`} className="border-t border-rule align-top">
+                        <td className="py-1">
+                          <span className="tabular-nums text-ink-3">{e.date.slice(0, 7)}</span> {e.title ?? e.event_id}
+                          {e.status !== "reviewed" && <span className="ml-1 rounded-sm border border-dotted border-ink-3 px-1 text-[9px] uppercase text-ink-3" title="Event list not yet reviewed by the project owner">draft</span>}
+                          {e.source && <span className="ml-1"><SourceLink source={e.source} compact /></span>}
+                        </td>
+                        <td className="py-1">{actorName(e.actor)}</td>
+                        <td className="py-1" title={e.note ?? undefined}>{e.design === "did" ? `diff-in-diff (treated ${e.treated_countries.join(", ")} vs ${e.control_countries.length} controls)` : "own window"}</td>
+                        <td className="py-1 text-right tabular-nums">{e.pre_mean !== null ? fmtPct(e.pre_mean, 1) : "—"}</td>
+                        <td className="py-1 text-right tabular-nums">{e.post_mean !== null ? fmtPct(e.post_mean, 1) : "—"}</td>
+                        <td className="py-1 text-right tabular-nums">{e.diff !== null ? `${e.diff > 0 ? "+" : ""}${(e.diff * 100).toFixed(1)} pts` : "—"}</td>
+                        <td className="py-1 text-right tabular-nums">{e.placebo_p !== null ? e.placebo_p.toFixed(2) : "—"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                </div>
+                <Reading says="A change with a low placebo p is unusual against the series' own history, nothing more: the design cannot separate the event from whatever else happened in those years." saysKind="model" compact />
+                </>
+              )}
+            </section>
+          )}
+
+          {real && network && (
+            <section aria-labelledby="net-h">
+              {header("net-h", "Finance network: lenders and recipients", {
+                asks: "Which lenders and recipients sit at the centre of the money the records document? A ranked node table shows it where a drawn graph of a few nodes would show little.",
+                how: "One row per institution: its role and origin, how many counterparts it links to, the amount committed through it, its betweenness on the region-wide graph and the community it falls in; an event naming no recipient is not a link.",
+              })}
+              <p className="mb-2 text-xs text-ink-3">
+                Funding institutions and the receiving agencies named in the finance records, ranked by the amounts committed between them; centralities are computed on the {COUNTRY_COUNT_WORD}-country graph. {network.n_nodes_total} nodes and {network.n_edges_total} links involve this country; {network.unattributed_events} events name no recipient and are left out. Contracts carry no company names yet, so ownership links are not part of this graph.
+              </p>
+              {network.nodes.length === 0 ? (
+                <p className="text-sm text-ink-3">No finance records with a named recipient.</p>
+              ) : (
+                <>
+                <table className="w-full text-xs">
+                  <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Node</th><th className="py-1">Role</th><th className="py-1 text-right">Links</th><th className="py-1 pr-2 text-right">M US$</th><th className="py-1 text-right">Betweenness</th><th className="py-1 text-right">Community</th></tr></thead>
+                  <tbody>
+                    {network.nodes.map((n) => (
+                      <tr key={n.id} className="border-t border-rule align-top">
+                        <td className="py-1">{n.label}</td>
+                        <td className="py-1 text-ink-3">{n.type === "lender" ? `lender (${n.origin ?? "?"})` : "recipient"}</td>
+                        <td className="py-1 text-right tabular-nums">{n.degree}</td>
+                        <td className="py-1 pr-2 text-right tabular-nums">{n.weighted_degree_musd.toLocaleString("en-GB", { maximumFractionDigits: 0 })}</td>
+                        <td className="py-1 text-right tabular-nums">{n.betweenness.toFixed(3)}</td>
+                        <td className="py-1 text-right tabular-nums">{n.community}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <Reading says="A lender with high betweenness is a bridge between otherwise separate recipients; a large amount with few links is one big deal. Both rest on which deals were published." saysKind="model" compact />
+                </>
+              )}
+            </section>
+          )}
+
+          {governance.length > 0 && (
+            <section aria-labelledby="gov-h">
+              <SectionHeader
+                id="gov-h"
+                title={`Governance and alignment indicators, ${year}`}
+                tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>}
+                provenance={provenanceFor("governance", { iso3: data.iso3, year, meta })}
+                asks={`What sits behind the index in ${year}: institutions, UN voting, debt and the economy? A table, since the indicators share no unit.`}
+                how="One row per indicator with its value and source for the selected year; a dash is a value the source does not give for that year, not zero."
+              />
+              <p className="mb-1 text-xs text-ink-3">Inputs to the influence index and context: governance (World Bank WGI, V-Dem), UN General Assembly alignment with the US and China, debt by creditor, macro context.</p>
+              <table className="w-full text-xs">
+                <thead><tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Indicator</th><th className="py-1 pr-4 text-right">Value</th><th className="py-1">Source</th></tr></thead>
+                <tbody>
+                  {governance.map((g) => (
+                    <tr key={g.indicator} className="border-t border-rule align-top">
+                      <td className="py-1">{g.name}</td>
+                      <td className="py-1 pr-4 text-right tabular-nums">{g.value == null ? "—" : Math.abs(g.value) >= 1e6 ? g.value.toLocaleString("en-GB", { maximumFractionDigits: 0 }) : g.value.toFixed(2)}</td>
+                      <td className="py-1"><SourceLink source={g.source} compact /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Reading says="The UN alignment and debt rows feed index components; the governance and macro rows are context and enter no index." saysKind="facts" compact />
+            </section>
+          )}
+        </div>
+      </details>
     </div>
   );
 }

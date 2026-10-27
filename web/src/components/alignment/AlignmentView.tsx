@@ -143,6 +143,14 @@ export function AlignmentView() {
   });
 
   const noData = !index || index.layer !== "real" || both.length === 0;
+  // The findings beneath the maps and the quadrant: the countries coloured on each map this year, the year's mean leans
+  // (meanLeans, over the countries with a value) and the country-years the quadrant draws, read from the same split.
+  const polVals = Array.from(yearMaps.political.values()).filter((v): v is number => v != null);
+  const ecoVals = Array.from(yearMaps.economic.values()).filter((v): v is number => v != null);
+  const yearMean = means.find((m) => m.year === year) ?? null;
+  const yearBoth = split ? Object.values(split.byQuadrant).flat() : [];
+  const widest = yearBoth.length ? yearBoth.reduce((a, b) => (Math.abs(b.political - b.economic) > Math.abs(a.political - a.economic) ? b : a)) : null;
+  const furthest = yearBoth.length ? yearBoth.reduce((a, b) => (Math.hypot(b.economic, b.political) > Math.hypot(a.economic, a.political) ? b : a)) : null;
 
   return (
     <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6">
@@ -183,6 +191,12 @@ export function AlignmentView() {
           <Block id="maps" n={1} title={<>Two maps, one year</>} lead={<>The same countries, the same year, the same colour scale: the political lean on the left, the economic lean on the right.</>} layer="model" provenance={prov("Two maps, one year")}
             asks="Does a country that sells to China also vote with it? Two maps of the same year on one colour scale let the political lean and the economic lean be compared country by country, where a scatter would lose the geography."
             how={`Left map: political alignment; right map: economic ties. Each country is coloured and labelled by its net lean, China minus United States, on the ±${NET_LEAN_MAX} scale under the maps, the left end toward the United States and the right end toward China; the two greys in the legend are no index that year and outside the analysis, neither of them a zero.`}
+            findingsKind="model"
+            findings={[
+              polVals.length ? `On the political map ${polVals.filter((v) => v > 0).length} of the ${polVals.length} coloured countries lean toward China${yearMean && yearMean.political != null ? `, a mean lean of ${fmtSigned(yearMean.political, 0)}` : ""}` : `No country has a political value in ${year}; the left map is all grey`,
+              ecoVals.length ? `On the economic map ${ecoVals.filter((v) => v > 0).length} of the ${ecoVals.length} coloured countries lean toward China${yearMean && yearMean.economic != null ? `, a mean lean of ${fmtSigned(yearMean.economic, 0)}` : ""}` : `No country has an economic value in ${year}; the right map is all grey`,
+              widest ? `${widest.name} shows the widest gap between its two maps, political ${fmtSigned(widest.political, 0)} against economic ${fmtSigned(widest.economic, 0)}` : null,
+            ]}
             says="A country coloured differently on the two maps is one where the ore and the votes point to different capitals; whether one map follows the other over time is not visible in a single year, so play the years."
             saysKind="model">
             <div className="mb-4 rounded-md border-2 border-outline bg-card px-3 py-2 shadow-[2px_2px_0_var(--shadow-hard)]">
@@ -203,6 +217,16 @@ export function AlignmentView() {
           <Block id="quadrant" n={2} title={<>Where each country sits</>} lead={<>Economic lean across, political lean up. The corners are the four stories a country can tell; the faint line behind each dot is its path over the previous five years.</>} layer="model" provenance={prov("Where each country sits", { explore: { href: `/explore?view=index&index=political_alignment&year=${year}`, label: "Open the map on political alignment" } })} table={split ? <YearTable rows={split.byQuadrant} /> : undefined}
             asks="Which of the four stories does each country tell in this year? A scatter with the economic lean across and the political lean up puts every country in one of four corners at once, which two maps cannot do."
             how={`Economic lean across, toward China on the right; political lean up, toward China at the top. The corners: both toward China top right, both toward the United States bottom left, sells to China and votes with the United States bottom right, votes with China and sells to the United States top left; a dot within ±${DEAD_BAND} of zero on an axis counts as balanced and is grey; a value beyond ±${NET_LEAN_MAX} is drawn at the edge, with the exact figure in the tip.`}
+            findingsKind="model"
+            findings={
+              split && split.n > 0
+                ? [
+                    `${split.byQuadrant.both_china.length} of ${split.n} countries sit top right (both toward China) and ${split.byQuadrant.both_us.length} bottom left (both toward the United States) in ${year}`,
+                    `${split.byQuadrant.sell_china_vote_us.length} sell to China and vote with the United States, ${split.byQuadrant.vote_china_sell_us.length} the reverse, ${split.mixed} within ±${DEAD_BAND} of balance on an axis`,
+                    furthest ? `${furthest.name} sits furthest from the centre, economic ${fmtSigned(furthest.economic, 0)} and political ${fmtSigned(furthest.political, 0)}` : null,
+                  ]
+                : []
+            }
             says={`${split && split.n > 0 ? `In ${year} the two off-diagonal corners hold ${split.byQuadrant.sell_china_vote_us.length + split.byQuadrant.vote_china_sell_us.length} of ${split.n} countries` : "Count the dots in the two off-diagonal corners"}: each is a country whose trade and votes point to different capitals, which the story that ore buys votes cannot account for.`}>
             <QuadrantChart points={both} year={year} theme={theme} />
             {split && split.n > 0 && (

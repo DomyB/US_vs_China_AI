@@ -33,6 +33,27 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
   const hasMirror = useMemo(() => trade.some((t) => t.kind === "mirror"), [trade]);
   const absentYears = useMemo(() => trade.filter((t) => t.kind === "reported" && t.value === null).length, [trade]);
   const tradeSource = useMemo(() => data.actions.trade.find((t) => t.source)?.source ?? null, [data]);
+  // the findings under the chart: the selected year's reported bars (or the mirror bars alone where the reporter has no
+  // valued row that year), the tallest reported bar and how often China's is the tallest
+  const tradeFindings = useMemo(() => {
+    const reported = trade.filter((t) => t.kind === "reported");
+    const inYear = reported.filter((t) => t.year === year);
+    const mirrorInYear = trade.filter((t) => t.kind === "mirror" && t.year === year && t.value !== null).length;
+    const valuedInYear = inYear.filter((t) => t.value !== null).length;
+    const say = (p: TradeYearRow["partner"]) => {
+      const r = inYear.find((t) => t.partner === p);
+      return r && r.value !== null ? `${fmtMusd(r.value)} ${PARTNER[p]}` : `no row ${PARTNER[p]}`;
+    };
+    const valued = reported.filter((t): t is TradeYearRow & { value: number } => t.value !== null);
+    const peak = valued.reduce<(TradeYearRow & { value: number }) | null>((best, t) => (best === null || t.value > best.value ? t : best), null);
+    const years = Array.from(new Set(valued.map((t) => t.year)));
+    const cnTop = years.filter((y) => {
+      const rows = valued.filter((t) => t.year === y);
+      const cn = rows.find((t) => t.partner === "CN");
+      return cn !== undefined && rows.every((t) => t.partner === "CN" || t.value < cn.value);
+    }).length;
+    return { reported: reported.length, inYear: inYear.length, mirrorInYear, valuedInYear, say, peak, years: years.length, cnTop };
+  }, [trade, year]);
 
   const tradeOptions = useMemo(
     () => ({
@@ -79,6 +100,13 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
   const allEvents = useMemo(() => data.actions.events.filter((e) => mineral === "all" || e.mineral === mineral), [data, mineral]);
   const events = useMemo(() => allEvents.filter((e) => allYears || e.year === year).sort((a, b) => (allYears ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date))), [allEvents, year, allYears]);
   useEffect(() => setEventsShown(30), [year, mineral, allYears, data]);
+  // the findings under the timeline: the circles by side, the published amounts and the records in the selected year
+  const eventFindings = useMemo(() => {
+    const side = (s: "US" | "CN" | "other") => allEvents.filter((e) => e.actor_side === s).length;
+    const priced = allEvents.filter((e) => e.amount_musd !== null && e.amount_musd > 0);
+    const largest = priced.reduce<(typeof priced)[number] | null>((best, e) => (best === null || (e.amount_musd ?? 0) > (best.amount_musd ?? 0) ? e : best), null);
+    return { cn: side("CN"), us: side("US"), other: side("other"), priced: priced.length, largest, inYear: allEvents.filter((e) => e.year === year).length };
+  }, [allEvents, year]);
   const timelineOptions = useMemo(() => {
     const rows = allEvents.map((e) => ({ ...e, when: new Date(e.date.length === 4 ? `${e.date}-07-01` : e.date), side: e.actor_side === "US" ? "US-linked" : e.actor_side === "CN" ? "China-linked" : "Other", amt: e.amount_musd ?? 0 }));
     const years = allEvents.map((e) => e.year);
@@ -113,6 +141,16 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
     }
     return Array.from(groups.entries()).map(([k, rows]) => ({ key: k, mineral: rows[0].mineral, measure: rows[0].measure, rows })).sort((a, b) => a.mineral.localeCompare(b.mineral) || a.measure.localeCompare(b.measure));
   }, [production]);
+  // the findings under the table: the series by measure, the shown rows with no quantity and those with other series behind the toggle
+  const productionFindings = useMemo(
+    () => ({
+      prod: productionGroups.filter((g) => g.measure === "production").length,
+      res: productionGroups.filter((g) => g.measure === "reserves").length,
+      dashes: productionGroups.filter((g) => g.rows[0].qty == null).length,
+      multi: productionGroups.filter((g) => g.rows.length > 1).length,
+    }),
+    [productionGroups],
+  );
   const investment = useMemo(() => (data.actions.investment ?? []).filter((r) => r.direction === "inward"), [data]);
   const investmentYears = useMemo(() => Array.from(new Set(investment.map((r) => r.year))).sort((a, b) => a - b).slice(-6), [investment]);
   const investmentSeries = useMemo(() => {
@@ -126,6 +164,21 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
     return Array.from(by.values()).sort((a, b) => a.counterpart.localeCompare(b.counterpart) || a.basis.localeCompare(b.basis));
   }, [investment]);
   const investmentLatest = useMemo(() => investmentSeries.filter((r) => r.basis === "reported").map((r) => { const ys = Object.keys(r.byYear).map(Number); const y = Math.max(...ys); return { counterpart: r.counterpart, year: y, musd: r.byYear[y] }; }), [investmentSeries]);
+  // the findings under the table: its span, the largest of the latest reported stocks within the columns shown (a row whose
+  // record ends before them has no figure on screen) and the cells the surveys do not carry
+  const investmentFindings = useMemo(() => {
+    const cells = investmentSeries.length * investmentYears.length;
+    const blank = investmentSeries.reduce((n, r) => n + investmentYears.filter((y) => r.byYear[y] == null).length, 0);
+    const top = investmentSeries
+      .filter((r) => r.basis === "reported")
+      .reduce<{ counterpart: string; year: number; musd: number } | null>((best, r) => {
+        const ys = investmentYears.filter((y) => r.byYear[y] != null);
+        if (ys.length === 0) return best;
+        const y = ys[ys.length - 1];
+        return best === null || r.byYear[y] > best.musd ? { counterpart: r.counterpart, year: y, musd: r.byYear[y] } : best;
+      }, null);
+    return { cells, blank, top };
+  }, [investmentSeries, investmentYears]);
   const [contractsShown, setContractsShown] = useState(20);
   const COUNTERPART_NAME: Record<string, string> = { CHN: "China", USA: "United States", HKG: "Hong Kong SAR" };
   const sideColor = { US: "var(--us)", CN: "var(--cn)", other: "var(--other)" } as const;
@@ -152,7 +205,19 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
           <>
             <PlotFigure options={tradeOptions} ariaLabel={`Exports of ${mineral === "all" ? "core minerals" : prettyMineral(mineral)} from ${data.name} by destination, ${YEAR_MIN} to ${YEAR_MAX}${isReal ? "" : ", sample data"}`} />
             <DataTable rows={trade} caption="Exports by destination (a dash: no partner row, never zero; the last column counts the mineral rows with no partner row out of those summed)" columns={[{ key: "year", label: "Year" }, { key: "partner", label: "Destination" }, { key: "kind", label: "Reported by" }, { key: "value", label: "US$ m", format: printMusd }, { key: "absent", label: "No partner row", format: (v) => (Number(v) > 0 ? String(v) : "") }]} />
-            <Reading says="Read the later years against the earlier ones: the colour that has grown is the buyer that has gained. Where a mirror bar is drawn, its distance from the reported bar is how far the two customs records disagree." compact />
+            <Reading
+              findings={[
+                tradeFindings.inYear === 0
+                  ? `No trade row for ${year}: the band axis leaves a gap there`
+                  : tradeFindings.valuedInYear === 0 && tradeFindings.mirrorInYear > 0
+                    ? `No reported partner row for ${year}: only the ${tradeFindings.mirrorInYear} mirror bar${tradeFindings.mirrorInYear === 1 ? " is" : "s are"} drawn there`
+                    : `Reported in ${year}: ${tradeFindings.say("CN")}, ${tradeFindings.say("US")}, ${tradeFindings.say("ROW")}`,
+                tradeFindings.peak ? `The tallest reported bar is ${fmtMusd(tradeFindings.peak.value)} ${PARTNER[tradeFindings.peak.partner]} in ${tradeFindings.peak.year}` : null,
+                tradeFindings.years > 0 ? `China's bar is the tallest in ${tradeFindings.cnTop} of the ${tradeFindings.years} years with a reported value` : `None of the ${tradeFindings.reported} reported rows carries a value: no reported bar is drawn`,
+              ]}
+              says="Read the later years against the earlier ones: the colour that has grown is the buyer that has gained. Where a mirror bar is drawn, its distance from the reported bar is how far the two customs records disagree."
+              compact
+            />
           </>
         )}
         {tradeSource && (
@@ -174,21 +239,6 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
         )}
       </section>
 
-      {concessions && (
-        <section aria-labelledby="conc-h">
-          <SectionHeader id="conc-h" title="Mining titles in the national cadastre" tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={concessions.provenance} />
-          <p className="text-sm text-ink-2">
-            <span className="font-semibold tabular-nums">{concessions.n.toLocaleString("en-GB")}</span> titles in the cadastre
-            {concessions.retrieved ? `, retrieved ${fmtDate(concessions.retrieved)}` : ""}
-            {" · "}
-            <span className="text-xs text-ink-3">
-              Source: {concessions.source ? <a href={concessions.source.url} target="_blank" rel="noopener noreferrer" className="underline">{concessions.source.name}</a> : <a href={`/sources#${concessions.sourceId}`} className="underline">{concessions.sourceId}</a>}
-            </span>
-          </p>
-          <p className="text-xs text-ink-3">The count of titles the ingestion read; the titles themselves (holder, mineral, status, area, grant date) are not yet exported to the site.</p>
-        </section>
-      )}
-
       <section aria-labelledby="events-h">
         <SectionHeader
           id="events-h"
@@ -202,7 +252,15 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
           <>
             <p className="mb-1 text-xs text-ink-3">Every recorded event. Hover a circle for the record.</p>
             <PlotFigure options={timelineOptions} ariaLabel={`Timeline of ${allEvents.length} recorded deals, loans, investments and agreements in ${data.name} by actor side, circle size by amount`} />
-            <Reading says="An empty row is a side with no record in the dataset, not a side that did nothing: the records come from published sources, and a quiet stretch may be an unreported one." compact />
+            <Reading
+              findings={[
+                `${allEvents.length} circle${allEvents.length === 1 ? "" : "s"}: ${eventFindings.cn} China-linked, ${eventFindings.us} US-linked and ${eventFindings.other} other`,
+                eventFindings.largest ? `${eventFindings.priced} carr${eventFindings.priced === 1 ? "ies" : "y"} a published amount; the largest is ${fmtMusd(eventFindings.largest.amount_musd)} in ${eventFindings.largest.year}` : `None of the ${allEvents.length} carries a published amount: every circle is hollow`,
+                eventFindings.inYear > 0 ? `${eventFindings.inYear} of them fall${eventFindings.inYear === 1 ? "s" : ""} in ${year}, the shaded band` : `None falls in ${year}, the shaded band`,
+              ]}
+              says="An empty row is a side with no record in the dataset, not a side that did nothing: the records come from published sources, and a quiet stretch may be an unreported one."
+              compact
+            />
           </>
         )}
         <div className="mb-1 flex flex-wrap items-center gap-2 text-xs">
@@ -265,7 +323,16 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
               ))}
             </tbody>
           </table>
-          <Reading says="Where the reported and derived rows of one counterpart differ, the two statistical offices see the same position differently; the table shows both and does not choose between them." saysKind="facts" compact />
+          <Reading
+            findings={[
+              investmentYears.length > 0 ? `${investmentSeries.length} row${investmentSeries.length === 1 ? "" : "s"} over ${investmentYears.length} year column${investmentYears.length === 1 ? "" : "s"}, ${investmentYears[0]}${investmentYears.length > 1 ? ` to ${investmentYears[investmentYears.length - 1]}` : ""}` : null,
+              investmentFindings.top ? `The largest of the latest reported stocks in the columns shown is held by ${COUNTERPART_NAME[investmentFindings.top.counterpart] ?? investmentFindings.top.counterpart}, ${fmtMusd(investmentFindings.top.musd)} in ${investmentFindings.top.year}` : `No reported row carries a figure in the ${investmentYears.length} column${investmentYears.length === 1 ? "" : "s"} shown`,
+              investmentFindings.cells > 0 ? (investmentFindings.blank > 0 ? `${investmentFindings.blank} of the ${investmentFindings.cells} cells ${investmentFindings.blank === 1 ? "is a dash, a year" : "are dashes, years"} a survey does not carry` : `All ${investmentFindings.cells} cells carry a figure`) : null,
+            ]}
+            says="Where the reported and derived rows of one counterpart differ, the two statistical offices see the same position differently; the table shows both and does not choose between them."
+            saysKind="facts"
+            compact
+          />
           <p className="mt-1 text-[11px] text-ink-3">Source: <SourceLink source={investment[0].source} compact />.</p>
         </section>
       )}
@@ -315,28 +382,58 @@ export function ActionsTab({ data, year, mineral, sourceNames }: { data: Country
               })}
             </tbody>
           </table>
-          <Reading says="Read the production row of a mineral against its reserves row for how long the known deposits would last at the current rate; the units differ by row, so check the unit column before comparing." compact />
+          <Reading
+            findings={[
+              `${productionGroups.length} series for ${year}: ${productionFindings.prod} production and ${productionFindings.res} reserves row${productionFindings.res === 1 ? "" : "s"}`,
+              productionFindings.dashes > 0 ? `${productionFindings.dashes} of the ${productionGroups.length} shown rows ${productionFindings.dashes === 1 ? "is a dash, a quantity" : "are dashes, quantities"} the source does not give` : `Every one of the ${productionGroups.length} shown rows carries a quantity`,
+              productionFindings.multi > 0 ? `${productionFindings.multi} of the ${productionGroups.length} rows ${productionFindings.multi === 1 ? "has" : "have"} other series behind the toggle` : `None of the ${productionGroups.length} series has a second source or unit behind the toggle`,
+            ]}
+            says="Read the production row of a mineral against its reserves row for how long the known deposits would last at the current rate; the units differ by row, so check the unit column before comparing."
+            compact
+          />
         </section>
       )}
 
-      {contracts.length > 0 && (
-        <section aria-labelledby="contracts-h">
-          <SectionHeader id="contracts-h" title={`Published contracts (${contracts.length})`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("contracts", { iso3: data.iso3, meta })} intro="From the ResourceContracts database; the mineral and the companies are shown where the record carries them." />
-          <input value={contractQuery} onChange={(e) => setContractQuery(e.target.value)} placeholder="Search contracts by title, company or resource…" aria-label="Search contracts" className="input mb-2 h-7 w-72 max-w-full py-0 text-xs" />
-          <ul className="divide-y divide-rule border-y border-rule text-sm">
-            {contracts.slice(0, contractsShown).map((c) => (
-              <li key={c.id} className="py-1.5">
-                <a href={c.source.url} target="_blank" rel="noopener noreferrer" className="font-medium underline">{c.title}</a>
-                <p className="text-xs text-ink-3">{[c.year, c.resource, c.type, c.companies].filter(Boolean).join(" · ")}</p>
-              </li>
-            ))}
-          </ul>
-          {contracts.length > contractsShown && (
-            <button type="button" onClick={() => setContractsShown((n) => n + 40)} className="btn btn-sm mt-2">
-              Show more ({contracts.length - contractsShown} remaining)
-            </button>
-          )}
-        </section>
+      {/* the technical detail of the tab: the cadastre count and the published contracts, folded at the end */}
+      {(concessions || contracts.length > 0) && (
+        <details className="tech-fold">
+          <summary>Technical detail</summary>
+          <div className="tech-fold-body space-y-5">
+            {concessions && (
+              <section aria-labelledby="conc-h">
+                <SectionHeader id="conc-h" title="Mining titles in the national cadastre" tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={concessions.provenance} />
+                <p className="text-sm text-ink-2">
+                  <span className="font-semibold tabular-nums">{concessions.n.toLocaleString("en-GB")}</span> titles in the cadastre
+                  {concessions.retrieved ? `, retrieved ${fmtDate(concessions.retrieved)}` : ""}
+                  {" · "}
+                  <span className="text-xs text-ink-3">
+                    Source: {concessions.source ? <a href={concessions.source.url} target="_blank" rel="noopener noreferrer" className="underline">{concessions.source.name}</a> : <a href={`/sources#${concessions.sourceId}`} className="underline">{concessions.sourceId}</a>}
+                  </span>
+                </p>
+                <p className="text-xs text-ink-3">The count of titles the ingestion read; the titles themselves (holder, mineral, status, area, grant date) are not yet exported to the site.</p>
+              </section>
+            )}
+            {contracts.length > 0 && (
+              <section aria-labelledby="contracts-h">
+                <SectionHeader id="contracts-h" title={`Published contracts (${contracts.length})`} tags={<><DataLayerTag layer="real" /><LayerLabel layer="facts" /></>} provenance={provenanceFor("contracts", { iso3: data.iso3, meta })} intro="From the ResourceContracts database; the mineral and the companies are shown where the record carries them." />
+                <input value={contractQuery} onChange={(e) => setContractQuery(e.target.value)} placeholder="Search contracts by title, company or resource…" aria-label="Search contracts" className="input mb-2 h-7 w-72 max-w-full py-0 text-xs" />
+                <ul className="divide-y divide-rule border-y border-rule text-sm">
+                  {contracts.slice(0, contractsShown).map((c) => (
+                    <li key={c.id} className="py-1.5">
+                      <a href={c.source.url} target="_blank" rel="noopener noreferrer" className="font-medium underline">{c.title}</a>
+                      <p className="text-xs text-ink-3">{[c.year, c.resource, c.type, c.companies].filter(Boolean).join(" · ")}</p>
+                    </li>
+                  ))}
+                </ul>
+                {contracts.length > contractsShown && (
+                  <button type="button" onClick={() => setContractsShown((n) => n + 40)} className="btn btn-sm mt-2">
+                    Show more ({contracts.length - contractsShown} remaining)
+                  </button>
+                )}
+              </section>
+            )}
+          </div>
+        </details>
       )}
     </div>
   );

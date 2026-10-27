@@ -3,8 +3,8 @@ import { resolve } from "node:path";
 import { COUNTRY_COUNT } from "../constants";
 import { describe, expect, it } from "vitest";
 import { fmtMusd, fmtShare } from "@/lib/format";
-import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
-import type { FlowsFile, InsightsFile, RealMeta, RegionData, StoryFile } from "@/lib/types";
+import { absentPartnerMinerals, argentinaIndexRows, chapterEvidence, coverageWall, evidenceInputs, financeLedger, loanThenFlat, mineralBoard, presentChapters, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
+import type { FlowsFile, IndexFile, InsightsFile, QuantFile, RealMeta, RegionData, StoryFile } from "@/lib/types";
 
 // Parity test: the headline numbers the story prints are recomputed here from the committed export, so a chapter can
 // never carry a figure the evidence room does not.
@@ -188,5 +188,41 @@ describe("story numbers reproduce from the export", () => {
     expect(after.events).toBeGreaterThan(0);
     expect(after.first_year).toBeGreaterThanOrEqual(from);
     expect(after.last_year).toBeLessThanOrEqual(flows.meta.last_year.finance_US!);
+  });
+
+  it("the meters' inputs come from the three files, and a missing quant file drops the forecast and events clauses rather than typing them", () => {
+    const quant = read<QuantFile>("quant.json");
+    const full = evidenceInputs(flows, insights, quant);
+    expect(full.lastYear).toEqual(flows.meta.last_year);
+    const counts = insights.countries.map((c) => c.words.n_executive).filter((n) => n > 0);
+    expect(full.fewestStatements).toBe(Math.min(...counts));
+    const t = quant.forecast?.targets["export_share:CN"];
+    if (t && t.coverage_80 !== undefined) expect(full.forecast).toEqual({ coverage_80: t.coverage_80, n_tests: t.n_tests ?? null });
+    else expect(full.forecast).toBeNull();
+    if (quant.events) expect(full.events).toEqual({ draft: quant.events.draft, total: quant.events.total });
+    const bare = evidenceInputs(flows, insights, null);
+    expect(bare.forecast).toBeNull();
+    expect(bare.events).toBeNull();
+    expect(bare.fewestStatements).toBe(full.fewestStatements);
+  });
+
+  it("Argentina's index rows come from the real export only, composite over all minerals; a sample index yields none", () => {
+    const index = read<IndexFile>("index.json");
+    const rows = argentinaIndexRows({ ...index, layer: "real" });
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.every((r) => r.iso3 === "ARG" && r.mineral === "all" && (r.index ?? "composite") === "composite")).toBe(true);
+    expect(argentinaIndexRows({ ...index, layer: "sample" })).toEqual([]);
+  });
+
+  it("the chapters on the page keep the editorial endpoints and drop 6 or 8 when their country is absent", () => {
+    const meters = chapterEvidence({ lastYear: flows.meta.last_year, fewestStatements: null, forecast: null, events: null });
+    const all = presentChapters(meters, { chl: true, arg: true });
+    expect(all.map((c) => c.n)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    expect(all[0].level).toBe("strong");
+    expect(all[all.length - 1].label).toBe("Who is winning");
+    expect(presentChapters(meters, { chl: false, arg: true }).map((c) => c.n)).toEqual([0, 1, 2, 3, 4, 5, 7, 8, 9, 10]);
+    expect(presentChapters(meters, { chl: true, arg: false }).map((c) => c.n)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 9, 10]);
+    // chapter 9 is no longer gated on the coverage wall: the limits list stands without it
+    expect(presentChapters(meters, { chl: false, arg: false }).map((c) => c.n)).toContain(9);
   });
 });

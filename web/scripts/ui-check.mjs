@@ -5,8 +5,10 @@
  * design relies on: no console or page errors, no horizontal overflow, the token colours, 16px inputs on touch
  * screens, the explore page's context bar (its menus, overflow, sentence and height at every width) and its "Who buys"
  * view, the favicon and social metadata, every tour step and its Finish, the Lab anchors the story links to, a 404 for an unknown case file, a still hero drawing under
- * reduced motion, and the social image's size. Screenshots go to OUT (default: a ui-check folder in the system temp
- * directory). Exit code 1 when a check fails.
+ * reduced motion, and the social image's size; also the claims (as many verdicts as src/lib/contested.ts lists per
+ * tier, on the arguments page and the further-claims page), the story appendix's anchors, the home's executive summary
+ * (five cards, no placeholder) and the findings list (two or three bullets) under every exhibit and claim on the main
+ * pages. Screenshots go to OUT (default: a ui-check folder in the system temp directory). Exit code 1 when a check fails.
  */
 import { mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -19,7 +21,7 @@ const BASE = process.env.BASE ?? "http://localhost:3000";
 const OUT = process.env.OUT ?? resolve(tmpdir(), "ui-check");
 mkdirSync(OUT, { recursive: true });
 
-const PAGES = ["/", "/story", "/explore", "/country", "/mineral", "/mineral/copper", "/routes", "/denial", "/stage", "/lab", "/votes-and-ore", "/contested", "/step-by-step", "/step-by-step/words", "/step-by-step/index-geometry", "/step-by-step/classifier", "/what-we-know", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
+const PAGES = ["/", "/story", "/story/appendix", "/explore", "/country", "/mineral", "/mineral/copper", "/routes", "/denial", "/stage", "/lab", "/votes-and-ore", "/contested", "/contested/more", "/step-by-step", "/step-by-step/words", "/step-by-step/index-geometry", "/step-by-step/classifier", "/what-we-know", "/archive", "/region", "/country/CHL", "/methodology", "/sources", "/does-not-exist"];
 const VIEWS = [
   { name: "desktop", viewport: { width: 1366, height: 900 } },
   { name: "laptop", viewport: { width: 1024, height: 768 } },
@@ -33,9 +35,19 @@ const TOKENS = {
 };
 const themeKey = /const KEY = "([^"]+)"/.exec(readFileSync(resolve(web, "src/lib/theme.ts"), "utf8"))?.[1];
 const tourHrefs = [...readFileSync(resolve(web, "src/components/tour/steps.ts"), "utf8").matchAll(/href: "([^"]+)"/g)].map((m) => m[1]);
-// every /lab#… anchor the story points at must be an id on the Lab
+// every /lab#… anchor the story points at must be an id on the Lab (the story's components sit in src/components/story and its exhibits/ subfolder, so the scan is recursive)
 const storyDir = resolve(web, "src/components/story");
-const labAnchors = [...new Set(readdirSync(storyDir).flatMap((f) => [...readFileSync(resolve(storyDir, f), "utf8").matchAll(/\/lab#([\w-]+)/g)].map((m) => m[1])))];
+const filesUnder = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? filesUnder(resolve(dir, d.name)) : [resolve(dir, d.name)]));
+const labAnchors = [...new Set(filesUnder(storyDir).flatMap((f) => [...readFileSync(f, "utf8").matchAll(/\/lab#([\w-]+)/g)].map((m) => m[1])))];
+// the claims per tier as src/lib/contested.ts lists them, so the verdict counts follow the source rather than a typed number
+const contestedSource = readFileSync(resolve(web, "src/lib/contested.ts"), "utf8");
+const CLAIM_TIERS = { main: (contestedSource.match(/tier: "main"/g) ?? []).length, more: (contestedSource.match(/tier: "more"/g) ?? []).length };
+const CLAIM_PAGE = { "/contested": "main", "/contested/more": "more" };
+const verdictsOpen = {}; // path -> the open verdicts counted there; the "at most three" check runs once both claim pages were read
+// the ids on the story appendix that the story, the arguments and the further claims link to
+const APPENDIX_IDS = ["c9-wall", "c9-meters", "c3-lenders", "c7-parity", "c8-index"];
+// the pages whose every exhibit and claim must carry a findings list of two or three bullets
+const FINDINGS_PAGES = ["/", "/story", "/contested", "/contested/more", "/routes", "/mineral/copper"];
 
 const results = [];
 const check = (name, ok, detail = "") => {
@@ -98,7 +110,30 @@ try {
             return { exhibits: ex.length, without: ex.filter((e) => !e.querySelector(".reading")).map((e) => e.id || e.querySelector("figcaption")?.textContent?.slice(0, 40)), guide: !!document.querySelector(".page-guide") };
           });
           if (ctx.exhibits > 0) check(`${label}: every exhibit has its reading lines`, ctx.without.length === 0, `${ctx.without.length} of ${ctx.exhibits} without: ${ctx.without.join(", ")}`);
-          if (["/routes", "/mineral", "/region", "/lab", "/votes-and-ore", "/contested", "/methodology", "/sources", "/archive", "/stage", "/denial"].includes(path)) check(`${label}: the page opens with a guide`, ctx.guide);
+          if (["/routes", "/mineral", "/region", "/lab", "/votes-and-ore", "/contested", "/contested/more", "/story/appendix", "/methodology", "/sources", "/archive", "/stage", "/denial"].includes(path)) check(`${label}: the page opens with a guide`, ctx.guide);
+        }
+        if (v.name === "desktop" && !run.stored && run.scheme === "light" && FINDINGS_PAGES.includes(path)) {
+          // every exhibit, and every claim (the card around a .claim-grid), carries a findings list of two or three bullets
+          // in its own reading block (an exhibit nested in another, as the routes view inside a mineral exhibit, counts its own)
+          const f = await page.evaluate(() => {
+            const bullets = (holder, scope) => {
+              const own = [...holder.querySelectorAll(".reading-findings")].find((r) => r.closest(scope) === holder);
+              return own ? own.querySelectorAll(":scope > ul > li").length : 0;
+            };
+            const lacking = [];
+            const exhibits = [...document.querySelectorAll(".exhibit")];
+            for (const e of exhibits) {
+              const n = bullets(e, ".exhibit");
+              if (n < 2 || n > 3) lacking.push(`${e.id || e.querySelector("figcaption")?.textContent?.trim().slice(0, 40) || "exhibit"} (${n})`);
+            }
+            const claims = [...document.querySelectorAll(".claim-grid")].map((g) => g.closest(".card") ?? g.parentElement);
+            for (const c of claims) {
+              const n = bullets(c, ".card");
+              if (n < 2 || n > 3) lacking.push(`${c.id || "claim"} (${n})`);
+            }
+            return { exhibits: exhibits.length, claims: claims.length, lacking };
+          });
+          if (f.exhibits + f.claims > 0) check(`${label}: every exhibit and claim carries two or three findings`, f.lacking.length === 0, `${f.lacking.length} of ${f.exhibits + f.claims} without: ${f.lacking.join(", ")}`);
         }
         if (v.name === "desktop" && !run.stored && run.scheme === "light" && ["/region", "/country/CHL", "/votes-and-ore"].includes(path)) {
           // a year change updates the query string in place: the page must neither scroll back to the top nor show its loading state
@@ -121,13 +156,34 @@ try {
           check(`${label}: the page content follows the year change`, shown !== null, String(shown));
           await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
         }
-        if (path === "/contested" && v.name === "desktop" && !run.stored && run.scheme === "light") {
+        if (CLAIM_PAGE[path] && v.name === "desktop" && !run.stored && run.scheme === "light") {
+          // the arguments page carries the main claims and the further-claims page the rest, each with a verdict; the count follows contested.ts
+          const tier = CLAIM_PAGE[path];
           const c = await page.evaluate(() => ({ verdicts: [...document.querySelectorAll(".verdict")].map((e) => e.textContent), open: document.querySelectorAll(".verdict-open").length, tables: document.querySelectorAll(".claim-grid table").length }));
-          check("contested: eighteen claims carry a verdict", c.verdicts.length === 18, JSON.stringify(c.verdicts));
-          check("contested: most verdicts are settled on the record", c.open <= 3, `${c.open} open`);
-          check("contested: the turns and minerals tables render", c.tables >= 2, String(c.tables));
+          check(`${path}: the ${tier} claims each carry a verdict (${CLAIM_TIERS[tier]} in contested.ts)`, CLAIM_TIERS[tier] > 0 && c.verdicts.length === CLAIM_TIERS[tier], JSON.stringify(c.verdicts));
+          verdictsOpen[path] = c.open;
+          if (path === "/contested") check("contested: the turns and minerals tables render", c.tables >= 2, String(c.tables));
+          if (Object.keys(CLAIM_PAGE).every((p) => p in verdictsOpen)) {
+            const open = Object.values(verdictsOpen).reduce((a, b) => a + b, 0);
+            check("contested: most verdicts are settled on the record, across both pages", open <= 3, `${open} open`);
+          }
         }
-        if (v.name === "desktop" && !run.stored && run.scheme === "light" && ["/", "/story", "/country/CHL", "/contested", "/region", "/routes", "/lab", "/votes-and-ore", "/methodology"].includes(path)) {
+        if (path === "/story/appendix" && v.name === "desktop" && !run.stored && run.scheme === "light") {
+          const missing = await page.evaluate((ids) => ids.filter((id) => !document.getElementById(id)), APPENDIX_IDS);
+          check("appendix: the exhibits the story and the claims link to exist", missing.length === 0, `missing ${missing.join(",") || "none"}`);
+        }
+        if (path === "/" && v.name === "desktop" && !run.stored && run.scheme === "light") {
+          // the executive summary: a section headed so, five cards, none a placeholder for a finding the release lacks
+          const sum = await page.evaluate(() => {
+            const sections = [...document.querySelectorAll("section")].filter((s) => /Executive summary/.test(s.textContent ?? ""));
+            const section = sections.at(-1) ?? null; // the innermost of the sections that carry the heading
+            const cards = section ? [...section.querySelectorAll(".summary-card")] : [];
+            return { section: !!section, cards: cards.length, placeholders: cards.filter((c) => /not in this release/.test(c.textContent ?? "")).length };
+          });
+          check("home: the executive summary carries five cards", sum.section && sum.cards >= 5, JSON.stringify(sum));
+          check("home: no summary card is a placeholder", sum.section && sum.placeholders === 0, `${sum.placeholders} with "not in this release"`);
+        }
+        if (v.name === "desktop" && !run.stored && run.scheme === "light" && ["/", "/story", "/story/appendix", "/country/CHL", "/contested", "/contested/more", "/region", "/routes", "/lab", "/votes-and-ore", "/methodology"].includes(path)) {
           const pics = await page.evaluate(() => ({ n: document.querySelectorAll("figure.picture img").length, credited: document.querySelectorAll("figure.picture .picture-credit").length }));
           check(`${label}: the page carries at least one credited picture`, pics.n >= 1 && (path === "/" || pics.credited >= 1), JSON.stringify(pics));
         }

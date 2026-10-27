@@ -3,7 +3,7 @@ import { OverviewPage } from "@/components/overview/OverviewPage";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT, YEAR_MIN, YEAR_MAX } from "@/lib/constants";
 
-const DESCRIPTION = `How China and the United States compete for the critical minerals of ${COUNTRY_COUNT} Latin American countries, ${YEAR_MIN}–${YEAR_MAX}, and how the region responds: the map, four numbers, five ideas and the ways into the evidence.`;
+const DESCRIPTION = `How China and the United States compete for the critical minerals of ${COUNTRY_COUNT} Latin American countries, ${YEAR_MIN}–${YEAR_MAX}, and how the region responds: an executive summary of what the record shows, the map, four numbers, the arguments against the usual story and the ways into the evidence.`;
 
 export const metadata = { title: "Strata · China, the United States and Latin America's critical minerals", description: DESCRIPTION, openGraph: { title: "Strata", description: DESCRIPTION, images: ["/og.png"] } };
 

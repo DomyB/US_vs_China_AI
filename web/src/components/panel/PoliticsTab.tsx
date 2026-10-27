@@ -41,6 +41,27 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
     const us = [...(stm?.stance_by_year ?? [])].reverse().find((r) => r.n_us > 0 && r.stance_us_mean !== null);
     return { cn, us };
   }, [stm]);
+  // the findings of the two statement charts: the busiest year, the years the speakers from outside the country outnumber
+  // its own actors (`n_statements` of `stance_by_year` is the year's count by the country's own actors: a speaker-country
+  // split, not the bloc split the bars stack) and the dots above zero
+  const sayFindings = useMemo(() => {
+    const perYear = new Map<number, number>();
+    for (const r of byYearBloc) perYear.set(r.year, (perYear.get(r.year) ?? 0) + r.n);
+    const years = Array.from(perYear, ([year, n]) => ({ year, n }));
+    const busiest = years.reduce<{ year: number; n: number } | null>((best, y) => (best === null || y.n > best.n ? y : best), null);
+    const dots = stm?.stance_by_year ?? [];
+    const domesticOf = (y: number) => dots.find((r) => r.year === y)?.n_statements ?? 0;
+    const outsideYears = years.filter((y) => y.n - domesticOf(y.year) > domesticOf(y.year)).length;
+    const cnYears = dots.filter((r) => r.n_cn > 0 && r.stance_cn_mean !== null);
+    const usYears = dots.filter((r) => r.n_us > 0 && r.stance_us_mean !== null);
+    return {
+      years: years.length,
+      busiest,
+      outsideYears,
+      cn: { n: cnYears.length, above: cnYears.filter((r) => (r.stance_cn_mean ?? 0) > 0).length },
+      us: { n: usYears.length, above: usYears.filter((r) => (r.stance_us_mean ?? 0) > 0).length },
+    };
+  }, [byYearBloc, stm]);
 
   const series = useMemo(() => {
     const long: { year: number; actor: string; stance: number; n: number }[] = [];
@@ -112,7 +133,15 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
                   how="One bar per year, split by speaker bloc; a year with no bar has no statement in the dataset, which is a collection, not a census."
                 />
                 <StatementsByYear rows={byYearBloc} ariaLabel={`Statements about minerals in ${data.name} per year by speaker bloc`} />
-                <Reading compact says="A year in which the outside blocs outnumber the domestic one is a year the country was talked about more than it talked." />
+                <Reading
+                  compact
+                  findings={[
+                    sayFindings.busiest ? `${stm.n} statements over ${sayFindings.years} year${sayFindings.years === 1 ? "" : "s"}; the tallest bar is ${sayFindings.busiest.year} with ${sayFindings.busiest.n} of them` : null,
+                    `${stm.n_domestic} of the ${stm.n} are by ${data.name}'s own actors, the rest by speakers from outside the country`,
+                    sayFindings.years > 0 ? `Speakers from outside ${data.name} outnumber its own actors in ${sayFindings.outsideYears} of the ${sayFindings.years} year${sayFindings.years === 1 ? "" : "s"}` : null,
+                  ]}
+                  says="A year in which the outside blocs outnumber the domestic one is a year the country was talked about more than it talked."
+                />
               </div>
               <div>
                 <h4 className="text-xs font-semibold text-ink-2">Coded stance of {data.name}&apos;s own actors</h4>
@@ -122,7 +151,15 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
                   how="One dot per year and actor, its height the mean coded stance toward that actor and its size the statements that took a position; the dashed rule is the selected year; a year with no dot has no statement that took a position, not a neutral one."
                 />
                 <CodedStanceByYear rows={stm.stance_by_year} year={year} ariaLabel={`Coded stance of ${data.name}'s own actors toward the United States and China by year, dataset coding`} />
-                <Reading compact says="A large dot near zero is a mixed year, not an indifferent one; a small dot at the top or bottom is a handful of statements. The coding is the dataset's own and is not validated." />
+                <Reading
+                  compact
+                  findings={[
+                    latestCoded.cn && latestCoded.cn.stance_cn_mean !== null ? `The latest China dot is ${fmtSigned(latestCoded.cn.stance_cn_mean, 2)} over ${latestCoded.cn.n_cn} statement${latestCoded.cn.n_cn === 1 ? "" : "s"} in ${latestCoded.cn.year}` : null,
+                    latestCoded.us && latestCoded.us.stance_us_mean !== null ? `The latest US dot is ${fmtSigned(latestCoded.us.stance_us_mean, 2)} over ${latestCoded.us.n_us} statement${latestCoded.us.n_us === 1 ? "" : "s"} in ${latestCoded.us.year}` : null,
+                    sayFindings.cn.n + sayFindings.us.n > 0 ? `Dots above zero: ${[sayFindings.cn.n > 0 ? `${sayFindings.cn.above} of ${sayFindings.cn.n} China year${sayFindings.cn.n === 1 ? "" : "s"}` : null, sayFindings.us.n > 0 ? `${sayFindings.us.above} of ${sayFindings.us.n} US year${sayFindings.us.n === 1 ? "" : "s"}` : null].filter(Boolean).join(", ")}` : null,
+                  ]}
+                  says="A large dot near zero is a mixed year, not an indifferent one; a small dot at the top or bottom is a handful of statements. The coding is the dataset's own and is not validated."
+                />
               </div>
             </div>
             <div className="mt-3">
@@ -132,26 +169,32 @@ export function PoliticsTab({ data, year, mineral }: { data: CountryData; year: 
         )}
       </section>
 
-      <section aria-labelledby="stance-h">
-        <SectionHeader
-          id="stance-h"
-          title="Legislative stance over time"
-          tags={<><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</>}
-          provenance={provenanceFor("stance", { iso3: data.iso3, meta, model: data.text_model ? { name: data.text_model.model ?? data.text_model.method ?? "text model", version: data.text_model.codebook_version ?? undefined, validation: data.text_model.label ?? undefined } : undefined })}
-          asks="Does the language of the legislature toward each power warm or cool over the years? A yearly mean sized by the record count shows the direction and how much rests on it."
-          how="One line per actor on the −2 to +2 scale around the zero rule; dot size is the number of records scored that year; the dashed rule is the selected year; a year with no dot has no record naming the actor, not a neutral one."
-        />
-        <p className="mb-2 text-xs text-ink-3">
-          Mean stance of bills, hearings and votes that name each actor (records that name neither are not scored). Coding method and validation scores are on the methodology page.
-          {layer === "facts_only" && " This series is SAMPLE until the text workflow classifies the real records listed below."}
-          {layer === "real" && !data.text_model?.validated && " Values come from a zero-shot baseline that has not yet been checked against hand-coded records: read them as indicative."}
-        </p>
-        <PlotFigure options={options} ariaLabel={`Mean parliamentary stance toward the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
-        <DataTable rows={series} caption="Mean stance by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Toward" }, { key: "stance", label: "Mean stance" }, { key: "n", label: "Documents" }]} />
-        <Reading says="A line near zero is a legislature that names the actor without taking a side; a large dot far from zero is a year of many records pointing one way." saysKind="model" compact />
-      </section>
+      {/* the technical detail of the tab: the model's stance series over the legislature's records, and the records themselves, folded at the end */}
+      <details className="tech-fold">
+        <summary>Technical detail</summary>
+        <div className="tech-fold-body space-y-5">
+          <section aria-labelledby="stance-h">
+            <SectionHeader
+              id="stance-h"
+              title="Legislative stance over time"
+              tags={<><LayerLabel layer="model" />{layer === "real" ? <ModelStatusTag status={data.text_model} /> : <DataLayerTag layer="sample" />}</>}
+              provenance={provenanceFor("stance", { iso3: data.iso3, meta, model: data.text_model ? { name: data.text_model.model ?? data.text_model.method ?? "text model", version: data.text_model.codebook_version ?? undefined, validation: data.text_model.label ?? undefined } : undefined })}
+              asks="Does the language of the legislature toward each power warm or cool over the years? A yearly mean sized by the record count shows the direction and how much rests on it."
+              how="One line per actor on the −2 to +2 scale around the zero rule; dot size is the number of records scored that year; the dashed rule is the selected year; a year with no dot has no record naming the actor, not a neutral one."
+            />
+            <p className="mb-2 text-xs text-ink-3">
+              Mean stance of bills, hearings and votes that name each actor (records that name neither are not scored). Coding method and validation scores are on the methodology page.
+              {layer === "facts_only" && " This series is SAMPLE until the text workflow classifies the real records listed below."}
+              {layer === "real" && !data.text_model?.validated && " Values come from a zero-shot baseline that has not yet been checked against hand-coded records: read them as indicative."}
+            </p>
+            <PlotFigure options={options} ariaLabel={`Mean parliamentary stance toward the United States and China in ${data.name}, ${layer === "real" ? "model output" : "sample data"}`} />
+            <DataTable rows={series} caption="Mean stance by year and actor" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Toward" }, { key: "stance", label: "Mean stance" }, { key: "n", label: "Documents" }]} />
+            <Reading says="A line near zero is a legislature that names the actor without taking a side; a large dot far from zero is a year of many records pointing one way." saysKind="model" compact />
+          </section>
 
-      <LegislativeRecords data={data} year={year} mineral={mineral} />
+          <LegislativeRecords data={data} year={year} mineral={mineral} />
+        </div>
+      </details>
     </div>
   );
 }

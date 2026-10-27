@@ -23,7 +23,7 @@ export const fmtPts = (v: number, digits = 1) => `${v > 0 ? "+" : ""}${(v * 100)
  * the case files do: "Real data" marks facts, a model block carries the quant method's computed tag, an interpretation
  * block only its layer label (the Interpretation and Findings components say "generated" or "AI-drafted" themselves).
  */
-export function Block({ id, n, title, lead, layer, tags, provenance, table, asks, how, says, saysKind, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; provenance?: Provenance; table?: ReactNode; asks?: ReactNode; how?: ReactNode; says?: ReactNode; saysKind?: ReadingKind; children: ReactNode }) {
+export function Block({ id, n, title, lead, layer, tags, provenance, table, asks, how, findings, findingsKind, says, saysKind, children }: { id: string; n: number; title: ReactNode; lead?: ReactNode; layer: Layer; tags?: ReactNode; provenance?: Provenance; table?: ReactNode; asks?: ReactNode; how?: ReactNode; findings?: ReactNode[]; findingsKind?: ReadingKind; says?: ReactNode; saysKind?: ReadingKind; children: ReactNode }) {
   const real = useRealMeta();
   return (
     <section id={id} aria-labelledby={`${id}-h`} data-tour={id} className="insights-block card mt-6 scroll-mt-12 px-4 py-4 sm:px-6 sm:py-5">
@@ -37,7 +37,7 @@ export function Block({ id, n, title, lead, layer, tags, provenance, table, asks
       </div>
       {(asks || how) && <Reading asks={asks} how={how} />}
       <div className="mt-4">{children}</div>
-      {says && <Reading says={says} saysKind={saysKind} />}
+      {(says || findings?.length) && <Reading findings={findings} findingsKind={findingsKind ?? (layer === "model" ? "model" : "facts")} says={says} saysKind={saysKind} />}
     </section>
   );
 }

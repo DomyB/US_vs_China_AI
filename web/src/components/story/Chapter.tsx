@@ -80,7 +80,7 @@ export function StepCard({ children, className = "" }: { children: ReactNode; cl
  * `asks`, `how` and `says` are the exhibit's context (ui/Reading.tsx): the question it answers, how to read its marks, and what
  * it tells us; `saysKind` labels the last line (an interpretation unless the line only describes what is drawn).
  */
-export function Exhibit({ id, title, layer, sources = [], ids = [], tables, explore, note, evidence, caveat, model, status, findingId, glossary, lastYear, table, asks, how, says, saysKind, children }: { id?: string; title: ReactNode; layer: Layer; sources?: string[]; ids?: string[]; tables?: string[]; explore?: { href: string; label?: string }; note?: ReactNode; evidence?: Provenance["evidence"]; caveat?: string; model?: Provenance["model"]; status?: string; findingId?: string; glossary?: string[]; lastYear?: Provenance["lastYear"]; table?: ReactNode; asks?: ReactNode; how?: ReactNode; says?: ReactNode; saysKind?: ReadingKind; children: ReactNode }) {
+export function Exhibit({ id, title, layer, sources = [], ids = [], tables, explore, note, evidence, caveat, model, status, findingId, glossary, lastYear, table, asks, how, findings, findingsKind, says, saysKind, children }: { id?: string; title: ReactNode; layer: Layer; sources?: string[]; ids?: string[]; tables?: string[]; explore?: { href: string; label?: string }; note?: ReactNode; evidence?: Provenance["evidence"]; caveat?: string; model?: Provenance["model"]; status?: string; findingId?: string; glossary?: string[]; lastYear?: Provenance["lastYear"]; table?: ReactNode; asks?: ReactNode; how?: ReactNode; findings?: ReactNode[]; findingsKind?: ReadingKind; says?: ReactNode; saysKind?: ReadingKind; children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const registry = useSources();
   const srcs = sources.map((id) => ({ id, s: sourceEntry(registry, id) }));
@@ -109,7 +109,7 @@ export function Exhibit({ id, title, layer, sources = [], ids = [], tables, expl
       </figcaption>
       {(asks || how) && <Reading asks={asks} how={how} />}
       <div className="min-w-0">{children}</div>
-      {says && <Reading says={says} saysKind={saysKind} />}
+      {(says || findings?.length) && <Reading findings={findings} findingsKind={findingsKind ?? (layer === "model" ? "model" : "facts")} says={says} saysKind={saysKind} />}
       {note && <p className="mt-2 text-[11px] leading-snug text-ink-3">{note}</p>}
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-ink-3">
         {srcs.length > 0 && (

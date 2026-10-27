@@ -16,6 +16,8 @@ export const SITE_ROUTES: { path: string; priority: number }[] = [
   { path: "/lab", priority: 0.8 },
   { path: "/votes-and-ore", priority: 0.8 },
   { path: "/contested", priority: 0.9 },
+  { path: "/contested/more", priority: 0.7 },
+  { path: "/story/appendix", priority: 0.6 },
   { path: "/step-by-step", priority: 0.7 },
   { path: "/step-by-step/words", priority: 0.7 },
   { path: "/step-by-step/index-geometry", priority: 0.7 },

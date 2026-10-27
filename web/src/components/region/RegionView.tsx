@@ -18,7 +18,7 @@ import { SectionNav } from "@/components/ui/SectionNav";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useRevealChildren } from "@/lib/motion";
 import { useTheme } from "@/lib/theme";
-import { FocusChart, beyondRange, measureLabel, type MeasureRow, type RegionMeasure } from "./FocusChart";
+import { FocusChart, beyondRange, fmtMeasure, measureLabel, type MeasureRow, type RegionMeasure } from "./FocusChart";
 import { Heatmap } from "./Heatmap";
 import { Freshness } from "@/components/ui/Freshness";
 import { NET_LEAN_MAX } from "@/components/map/scales";
@@ -64,6 +64,12 @@ export function RegionView() {
   // the years the in-scope records span, from the export, never typed
   const stmYears = regionStm?.by_year_bloc.map((r) => r.year) ?? [];
   const stmSpan = stmYears.length ? `${Math.min(...stmYears)}–${Math.max(...stmYears)}` : null;
+  // the findings beneath the statements chart: the busiest year summed over its blocs, the largest bloc, and the two outside blocs together
+  const stmByYear = regionStm ? Array.from(regionStm.by_year_bloc.reduce((m, r) => m.set(r.year, (m.get(r.year) ?? 0) + r.n), new Map<number, number>()), ([y, n]) => ({ year: y, n })) : [];
+  const stmPeak = stmByYear.length ? stmByYear.reduce((a, b) => (b.n > a.n ? b : a)) : null;
+  const stmTopBloc = regionStm?.by_bloc_all.length ? regionStm.by_bloc_all.reduce((a, b) => (b.n > a.n ? b : a)) : null;
+  const stmBlocTotal = regionStm?.by_bloc_all.reduce((s, b) => s + b.n, 0) ?? 0;
+  const stmOutside = regionStm?.by_bloc_all.filter((b) => b.bloc === "United States" || b.bloc === "China").reduce((s, b) => s + b.n, 0) ?? 0;
   const revealRoot = useRevealChildren<HTMLDivElement>(".region-card", regionStm);
   const [measure, setMeasure] = useState<RegionMeasure>("net");
   const [chartMode, setChartMode] = useState<"lines" | "heatmap">("lines");
@@ -121,6 +127,8 @@ export function RegionView() {
     }).sort((a, b) => (b.net ?? -999) - (a.net ?? -999));
   }, [lookup, year]);
   const unranked = ranking.filter((r) => r.net === null).length;
+  // the findings beneath the ranking: the rows with a net lean, in the ranking's own order (furthest toward China first)
+  const ranked = ranking.filter((r): r is typeof r & { us: number; cn: number; net: number } => r.net !== null);
 
   const measureRows = useMemo<MeasureRow[]>(() => {
     const out: MeasureRow[] = [];
@@ -151,6 +159,11 @@ export function RegionView() {
   }, [measureRows, year]);
   // net lean is drawn on one ±NET_LEAN_MAX scale everywhere; the country-years beyond it (a handful in the record) are named, never cut off silently
   const beyond = useMemo(() => beyondRange(measureRows, measure), [measureRows, measure]);
+  // the findings beneath the comparison: the chosen year's rows and, when a country is highlighted, its own series (measureRows is sorted by year)
+  const yearRows = measureRows.filter((r) => r.year === year);
+  const yearLo = yearRows.length ? yearRows.reduce((a, b) => (b.value < a.value ? b : a)) : null;
+  const yearHi = yearRows.length ? yearRows.reduce((a, b) => (b.value > a.value ? b : a)) : null;
+  const focusRows = focus ? measureRows.filter((r) => r.iso3 === focus) : [];
 
   const shares = useMemo(() => {
     if (!shareRows) return [];
@@ -175,6 +188,10 @@ export function RegionView() {
     }),
     [shares, year],
   );
+  // the findings beneath the mineral bars: the year's share rows as the export writes them, one per mineral with reported trade
+  const yearShares = shareRows ? shareRows.rows.filter((r) => r.year === year) : [];
+  const topCn = yearShares.length ? yearShares.reduce((a, b) => (b.share_cn > a.share_cn ? b : a)) : null;
+  const topUs = yearShares.length ? yearShares.reduce((a, b) => (b.share_us > a.share_us ? b : a)) : null;
 
   const projectsOptions = useMemo(() => {
     if (!geo || !region) return null;
@@ -224,7 +241,21 @@ export function RegionView() {
           />
           <RankingRace rows={ranking.filter((r): r is typeof r & { net: number } => r.net !== null).map((r) => ({ iso: r.iso, name: r.name, v: r.net }))} mode="both" max={NET_LEAN_MAX} href={(iso) => `/explore?country=${iso}&year=${year}${indexName === "composite" ? "" : `&index=${indexName}`}`} onHover={setHoverIso} hover={focus} />
           <p className="mt-1 text-[11px] text-ink-3">Rows slide when the year changes.{unranked > 0 && index?.layer === "real" ? ` ${unranked} of ${IN_SCOPE.length} countries have no net lean in ${year} (a dash in the table).` : ""}</p>
-          <Reading compact says="The order is the net of two indices, so a country high in the list may have strong ties to both powers; the US and China columns in the table say which." saysKind="model" />
+          <Reading
+            compact
+            findingsKind="model"
+            findings={
+              ranked.length
+                ? [
+                    `${ranked.filter((r) => r.net > 0).length} of the ${ranked.length} ranked countries lean toward China in ${year} and ${ranked.filter((r) => r.net < 0).length} toward the United States`,
+                    `${ranked[0].name} ${ranked[0].net > 0 ? "sits furthest toward China" : "heads the list"} at ${fmtSigned(ranked[0].net, 0)}, China ${ranked[0].cn.toFixed(0)} against the United States ${ranked[0].us.toFixed(0)}`,
+                    ranked.length > 1 ? `${ranked[ranked.length - 1].name} ${ranked[ranked.length - 1].net < 0 ? "sits furthest toward the United States" : "closes the list"} at ${fmtSigned(ranked[ranked.length - 1].net, 0)}` : null,
+                  ]
+                : []
+            }
+            says="The order is the net of two indices, so a country high in the list may have strong ties to both powers; the US and China columns in the table say which."
+            saysKind="model"
+          />
           <table className="mt-4 w-full text-xs">
             <thead>
               <tr className="text-left text-[10px] uppercase tracking-wide text-ink-3"><th className="py-1">Country</th><th className="py-1 text-right">US</th><th className="py-1 text-right">China</th><th className="py-1 text-right">Net</th></tr>
@@ -270,7 +301,18 @@ export function RegionView() {
           ) : (
             <Heatmap rows={measureRows} year={year} measure={measure} indexName={indexName} theme={theme} order={heatOrder} ariaLabel={`${measureLabel(measure, indexName)} by country and year as a heatmap, ${index?.layer === "real" ? "computed" : "sample data"}`} />
           )}
-          {measureRows.length > 0 && <Reading compact says="Lines that move together are a regional tide; a line that crosses the pack is the country to open. A shift in one year across many countries can be a source arriving or lapsing as much as a change in ties." />}
+          {measureRows.length > 0 && (
+            <Reading
+              compact
+              findingsKind="model"
+              findings={[
+                `The chart holds ${measureRows.length} country-years for ${new Set(measureRows.map((r) => r.iso3)).size} countries, from ${measureRows[0].year} to ${measureRows[measureRows.length - 1].year}`,
+                yearLo && yearHi ? `In ${year} the ${yearRows.length} values run from ${fmtMeasure(measure, yearLo.value)} (${yearLo.name}) to ${fmtMeasure(measure, yearHi.value)} (${yearHi.name})` : `No country has a value in ${year}`,
+                focusRows.length ? `${focusRows[0].name} runs from ${fmtMeasure(measure, focusRows[0].value)} in ${focusRows[0].year} to ${fmtMeasure(measure, focusRows[focusRows.length - 1].value)} in ${focusRows[focusRows.length - 1].year}` : null,
+              ]}
+              says="Lines that move together are a regional tide; a line that crosses the pack is the country to open. A shift in one year across many countries can be a source arriving or lapsing as much as a change in ties."
+            />
+          )}
           <DataTable rows={measureRows} caption={`${measureLabel(measure, indexName)} by country and year`} columns={[{ key: "name", label: "Country" }, { key: "year", label: "Year" }, { key: "value", label: measureLabel(measure, indexName), format: (v) => (measure === "net" ? fmtSigned(Number(v), 0) : Number(v).toFixed(0)) }]} />
         </section>
 
@@ -287,7 +329,15 @@ export function RegionView() {
                 how={`One bar per mineral, split into the shares to the United States, China and the rest of the world, summed over the countries that reported in ${year}; click a bar to open that mineral's flows on the map; a mineral with no bar has no reported trade that year, not none.`}
               />
               <PlotFigure options={sharesOptions} ariaLabel={`Share of regional exports by mineral and destination in ${year}`} />
-              <Reading compact says="A bar that is mostly one colour is a mineral with one dominant buyer for the region as a whole; a single country can still sell it elsewhere, which its own case file shows. The reporting countries change from year to year, so a share can move when a report arrives or lapses." />
+              <Reading
+                compact
+                findings={[
+                  `China's share exceeds the US share for ${yearShares.filter((r) => r.share_cn > r.share_us).length} of the ${yearShares.length} minerals with reported trade in ${year}`,
+                  topCn ? `${prettyMineral(topCn.mineral)} has the largest share going to China, ${fmtPct(topCn.share_cn, 0)} of its reported exports in ${year}` : null,
+                  topUs ? `${prettyMineral(topUs.mineral)} has the largest share going to the United States, ${fmtPct(topUs.share_us, 0)} of its reported exports in ${year}` : null,
+                ]}
+                says="A bar that is mostly one colour is a mineral with one dominant buyer for the region as a whole; a single country can still sell it elsewhere, which its own case file shows. The reporting countries change from year to year, so a share can move when a report arrives or lapses."
+              />
             </>
           )}
           <DataTable rows={shares} caption="Export shares by mineral and destination" columns={[{ key: "mineral", label: "Mineral" }, { key: "partner", label: "Destination" }, { key: "share", label: "Share", format: (v) => fmtPct(v as number, 1) }]} />
@@ -329,7 +379,19 @@ export function RegionView() {
                 how="One bar per year, split by speaker bloc; a year with no bar has no statement in the dataset, which was collected by search and is not a census."
               />
               <StatementsByYear rows={regionStm.by_year_bloc} ariaLabel={`Statements about minerals in the ${COUNTRY_COUNT_WORD} countries per year by speaker bloc`} />
-              <Reading compact says="A tall bar of outside voices is a year the region was talked about more than it talked; the table beside counts the positions those statements took." />
+              <Reading
+                compact
+                findings={
+                  stmPeak
+                    ? [
+                        `The tallest bar is ${stmPeak.year}, with ${stmPeak.n} statements across its blocs`,
+                        stmTopBloc ? `${blocShort(stmTopBloc.bloc)} is the largest bloc, with ${stmTopBloc.n} of the ${stmBlocTotal} statements` : `The bars span ${new Set(stmYears).size} years${stmSpan ? `, ${stmSpan}` : ""}`,
+                        stmOutside > 0 ? `US and Chinese officials together account for ${stmOutside} statements over the ${new Set(stmYears).size} years with a bar` : null,
+                      ]
+                    : []
+                }
+                says="A tall bar of outside voices is a year the region was talked about more than it talked; the table beside counts the positions those statements took."
+              />
             </div>
             <div className="min-w-0">
               <h3 className="mb-1">Who takes which position, by speaker bloc</h3>

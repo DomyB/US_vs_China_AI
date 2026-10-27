@@ -42,7 +42,7 @@ sample) and the open data gaps listed in LIMITATIONS.md.
 - Missing data is shown as missing. Estimated data is labelled with its method.
 - The interface separates facts (sourced data), model outputs (indices, forecasts) and
   interpretation (written analysis).
-- The home page is the story, nine chapters from a politician's sentence to the receipts; the evidence room at `/explore` is the map: countries coloured by the influence index, money and trade flows drawn as arcs to Washington and Beijing with their sources, a panel for the selected country's five tabs, and a comparison of up to four countries.
+- The home page opens with the executive summary (why the project matters, five findings with their computed numbers, what is new, what the site cannot say) above the "who buys" map; the story at `/story` runs ten chapters and a conclusion from a politician's sentence to the receipts, with its technical exhibits on `/story/appendix`; the arguments page `/contested` carries the seven strongest claims and `/contested/more` the eleven further ones; the evidence room at `/explore` is the map: countries coloured by the influence index, money and trade flows drawn as arcs to Washington and Beijing with their sources, a panel for the selected country's five tabs, and a comparison of up to four countries.
 - The Politics tab shows the owner's dataset of political statements on minerals (quotes, sources, the dataset's own stance coding, labelled as such) next to the legislative records and the model's stance series.
 - Original-language text is kept alongside any translation, with a link to the original.
 - For news, only headline, date, outlet, URL and derived analysis are stored.

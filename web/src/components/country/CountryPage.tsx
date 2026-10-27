@@ -56,7 +56,7 @@ export function CountryPage({ iso3, sourceNames }: { iso3: string; sourceNames: 
       </p>
       <PageGuide
         purpose={`${countryName}'s case file in five tabs: what was done (deals, trade, contracts), what was said (statements and the legislature's records), the press, the index taken apart, and the forecast to 2030.`}
-        read="Pick a tab; move the year or press play and every chart follows it; the mineral filter narrows trade, events and records to one mineral. Each chart says which question it answers, how to read its marks and what it tells; its table sits beneath it."
+        read={`Pick a tab; move the year or press play and every chart follows it; the mineral filter narrows trade, events and records to one mineral. Each chart says which question it answers, how to read its marks, two or three findings in its own numbers, and what it tells; its table sits beneath it, and each tab's technical sections (counts, model series, backtests, networks) sit behind the "Technical detail" fold at its end.`}
         next={[{ href: "/region", label: "The region side by side" }, { href: `/explore?country=${iso3}&year=${year}&mineral=${mineral}`, label: "This country on the map" }]}
       />
       <div className="card mb-3 grid gap-3 p-3 md:grid-cols-[minmax(0,1fr)_16rem] [&>*]:min-w-0">

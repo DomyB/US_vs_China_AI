@@ -9,27 +9,46 @@ import type { AttentionYear, EventEcho, FlowFinanceRow, FlowTradeRow, IndexRow, 
 
 export type Verdict = "holds" | "part" | "fails" | "open";
 
-/** The eleven claims, as the home and the story list them; the arguments page computes each one's verdict from the record. */
-export const CLAIMS: { id: string; headline: string; stake: string }[] = [
-  { id: "turns", headline: "Elections did not change the buyer", stake: "A friendlier government is not a lever on the ore." },
-  { id: "lending", headline: "The money left; the ore kept coming", stake: "Cutting the loans would not cut the trade." },
-  { id: "capital", headline: "China buys the ore; the capital in the ground is American", stake: "Each power is strong where the other is absent." },
-  { id: "minerals", headline: "They are not buying the same minerals", stake: "The region's leverage is mineral by mineral." },
-  { id: "panel", headline: "Nothing either power does shows up in the ore", stake: "The programmes need another justification." },
-  { id: "votes", headline: "Votes do not follow the ore", stake: "A UN vote is weak evidence of a mineral tie." },
-  { id: "talk", headline: "Washington talks about China; Beijing paid", stake: "Words on one side, money on the other." },
-  { id: "hedge", headline: "Most of the region's leaders mention neither power", stake: "The choice of sides is a framing from outside." },
-  { id: "attention", headline: "Washington's attention arrived after Beijing's money had left", stake: "Policy aimed at a past position." },
-  { id: "pressure", headline: "Pressure removes options and builds nothing", stake: "The cost falls on the host country." },
-  { id: "route", headline: "The hidden route is a ceiling, not a channel", stake: "The dependence is bounded." },
-  { id: "three", headline: "Three countries are China's share", stake: "The region that leans to China is three exporters." },
-  { id: "prices", headline: "Prices did most of the lifting", stake: "The value story is a price story; the shares are the political one." },
-  { id: "echoes", headline: "US measures coincide with the US losing share, not China", stake: "The instruments move the wrong line." },
-  { id: "flips", headline: "The index is stable where it matters and noisy where it does not", stake: "A turn toward China is only meaningful for the big exporters, which never turned." },
-  { id: "warm", headline: "Warm words for Washington, no trade with it", stake: "Praise and purchases run opposite." },
-  { id: "hongkong", headline: "Hong Kong does not hide the Chinese stake", stake: "Tested because it is the usual objection to the capital claim." },
-  { id: "fans", headline: "The forecast does not tell us where this goes", stake: "How wide the 2030 fans are against the history." },
+export type ClaimTier = "main" | "more";
+export interface ClaimEntry {
+  id: string;
+  /** the claim as tested (the wording the verdict applies to), used as the heading everywhere it is listed */
+  headline: string;
+  stake: string;
+  /** "main": one of the strongest, on the arguments page; "more": on the supplementary page of further claims */
+  tier: ClaimTier;
+}
+
+/**
+ * The eighteen claims, main ones first in the order the arguments page tells them, then the further claims in the order
+ * of their own page; the home, the story and both pages list them from here and compute each verdict from the record.
+ */
+export const CLAIMS: ClaimEntry[] = [
+  { id: "turns", headline: "Elections did not change the buyer", stake: "A friendlier government is not a lever on the ore.", tier: "main" },
+  { id: "lending", headline: "The money left; the ore kept coming", stake: "Cutting the loans would not cut the trade.", tier: "main" },
+  { id: "capital", headline: "China buys the ore; the capital in the ground is American", stake: "Each power is strong where the other is absent.", tier: "main" },
+  { id: "minerals", headline: "They are not buying the same minerals", stake: "The region's leverage is mineral by mineral.", tier: "main" },
+  { id: "prices", headline: "Prices did most of the lifting", stake: "The value story is a price story; the shares are the political one.", tier: "main" },
+  { id: "three", headline: "Three countries are China's share", stake: "The region that leans to China is three exporters.", tier: "main" },
+  { id: "attention", headline: "Washington's attention arrived after Beijing's money had left", stake: "Policy aimed at a past position.", tier: "main" },
+  { id: "panel", headline: "Nothing either power does shows up in the ore", stake: "The programmes need another justification.", tier: "more" },
+  { id: "votes", headline: "Votes do not follow the ore", stake: "A UN vote is weak evidence of a mineral tie.", tier: "more" },
+  { id: "talk", headline: "Washington talks about China; Beijing paid", stake: "Words on one side, money on the other.", tier: "more" },
+  { id: "hedge", headline: "Most of the region's leaders mention neither power", stake: "The choice of sides is a framing from outside.", tier: "more" },
+  { id: "pressure", headline: "Pressure removes options and builds nothing", stake: "The cost falls on the host country.", tier: "more" },
+  { id: "route", headline: "The hidden route is a ceiling, not a channel", stake: "The dependence is bounded.", tier: "more" },
+  { id: "echoes", headline: "US measures coincide with the US losing share, not China", stake: "The instruments move the wrong line.", tier: "more" },
+  { id: "flips", headline: "The index is stable where it matters and noisy where it does not", stake: "A turn toward China is only meaningful for the big exporters, which never turned.", tier: "more" },
+  { id: "warm", headline: "Warm words for Washington, no trade with it", stake: "Praise and purchases run opposite.", tier: "more" },
+  { id: "hongkong", headline: "Hong Kong hides the Chinese stake", stake: "Tested because it is the usual objection to the capital claim; the record is expected to fail it.", tier: "more" },
+  { id: "fans", headline: "The forecast tells us where this goes", stake: "How wide the 2030 fans are against the history.", tier: "more" },
 ];
+export const MAIN_CLAIMS = CLAIMS.filter((c) => c.tier === "main");
+export const MORE_CLAIMS = CLAIMS.filter((c) => c.tier === "more");
+/** The page a claim lives on, with its anchor. */
+export const claimHref = (id: string) => `${CLAIMS.find((c) => c.id === id)?.tier === "more" ? "/contested/more" : "/contested"}#${id}`;
+/** A claim's number, 1–18 in CLAIMS order (the main claims first), the same on every page that lists it. */
+export const claimNumber = (id: string) => CLAIMS.findIndex((c) => c.id === id) + 1;
 export const VERDICT_LABEL: Record<Verdict, string> = { holds: "Holds on the record", part: "Holds in part", fails: "Fails on the record", open: "Cannot be settled here" };
 
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);

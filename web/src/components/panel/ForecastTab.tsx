@@ -7,7 +7,7 @@ import { DataLayerTag, LayerLabel } from "@/components/ui/Badges";
 import { Reading } from "@/components/ui/Reading";
 import { Callout, SectionHeader } from "@/components/ui/Section";
 import { ACTOR_COLOR, ACTOR_LABEL, COUNTRY_COUNT_WORD, YEAR_MAX, YEAR_MIN } from "@/lib/constants";
-import { fmtPct } from "@/lib/format";
+import { fmtPct, fmtSigned } from "@/lib/format";
 import { provenanceFor } from "@/lib/provenance";
 import { useRealMeta } from "@/lib/useRealMeta";
 import type { CountryData, ForecastModelStatus, ForecastRow, IndexRow } from "@/lib/types";
@@ -36,6 +36,18 @@ function lastObserved(baseline: ForecastRow[], hist: Hist[]): Map<string, number
     out.set(r.actor, r.last_observed_year ?? (seen.length ? Math.max(...seen) : YEAR_MAX));
   }
   return out;
+}
+
+/** The findings of one fan: each actor's last forecast row and the observed value its band starts from (null where the step produced no series). */
+function fanFindings(rows: ForecastRow[], hist: Hist[]) {
+  const last = lastObserved(rows, hist);
+  const end = (actor: string) => rows.filter((r) => r.actor === actor).sort((a, b) => b.year - a.year)[0] ?? null;
+  const start = (actor: string) => {
+    const year = last.get(actor);
+    const obs = year === undefined ? undefined : hist.find((h) => h.actor === actor && h.year === year);
+    return obs ? { year: obs.year, value: obs.value } : null;
+  };
+  return { cn: end("CN"), us: end("US"), cnStart: start("CN"), usStart: start("US") };
 }
 
 function chartOptions(baseline: ForecastRow[], scenarios: ForecastRow[], hist: Hist[], yLabel: string, domain: [number, number], fmt: (v: number) => string) {
@@ -98,6 +110,25 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
     () => chartOptions(baseline.filter((r) => r.target === "export_share"), scenarioRows.filter((r) => r.target === "export_share"), shareHistory, "Share of mineral exports", [0, 1], (v) => fmtPct(v)),
     [baseline, scenarioRows, shareHistory],
   );
+  const indexFindings = useMemo(() => fanFindings(baseline.filter((r) => r.target === "influence_index"), history), [baseline, history]);
+  const shareFindings = useMemo(() => fanFindings(baseline.filter((r) => r.target === "export_share"), shareHistory), [baseline, shareHistory]);
+  // the findings under the scenario list: how many are listed and drawn, the dotted line farthest from the median at the end year, the spread of China's
+  const scenarioFindings = useMemo(() => {
+    const listed = data.forecast.scenarios.filter((s) => s.id !== "baseline");
+    const anyRows = all.some((r) => r.scenario_id && r.scenario_id !== "baseline");
+    const idx = scenarioRows.filter((r) => r.target === "influence_index");
+    const endYear = idx.length ? Math.max(...idx.map((r) => r.year)) : null;
+    let farthest: { name: string; actor: string; diff: number } | null = null;
+    for (const r of idx) {
+      if (r.year !== endYear) continue;
+      const base = baseline.find((b) => b.target === "influence_index" && b.actor === r.actor && b.year === endYear);
+      if (!base) continue;
+      const diff = r.point - base.point;
+      if (farthest === null || Math.abs(diff) > Math.abs(farthest.diff)) farthest = { name: data.forecast.scenarios.find((s) => s.id === r.scenario_id)?.name ?? r.scenario_id ?? "", actor: r.actor, diff };
+    }
+    const cnEnds = idx.filter((r) => r.year === endYear && r.actor === "CN").map((r) => r.point);
+    return { listed: listed.length, on: listed.filter((s) => !hidden.has(s.id)).length, anyRows, endYear, farthest, cnSpread: cnEnds.length > 1 ? { lo: Math.min(...cnEnds), hi: Math.max(...cnEnds) } : null };
+  }, [data, all, baseline, scenarioRows, hidden]);
   const hasShares = baseline.some((r) => r.target === "export_share");
   const ms: Record<string, ModelStatus> = data.forecast.model_status ?? {};
   const tag = real ? <DataLayerTag layer="real" /> : <DataLayerTag layer="sample" />;
@@ -125,11 +156,6 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
 
   return (
     <div className="space-y-5">
-      {real && (
-        <Callout tone="model" summary={<>Backtested models, one published per actor and target; the lines under each chart say which.</>}>
-          {data.forecast.label}. Five simple models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) are backtested on expanding windows across the {COUNTRY_COUNT_WORD} countries; the published model is the one with the lowest CRPS if it beats persistence, else persistence itself. Method and the backtest table are on the methodology page.
-        </Callout>
-      )}
       <section aria-labelledby="fc-h">
         <SectionHeader
           id="fc-h"
@@ -139,14 +165,21 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
           asks="If the ties the index measures keep behaving as they have, where does the lean sit by 2030, and how wide is the range? A fan from the last observed value shows the spread, not one number."
           how="Solid line: the computed index to date; dashed: the median path of the published model; the darker band holds 50% and the lighter 90% of the simulated paths; dotted lines are the scenarios listed below; each actor's rule marks the year its record ends, and nothing is drawn where the step produced no series."
         />
-        <p className="mb-2 text-xs text-ink-3">
-          {real
-            ? `${indexLayer === "real" ? "" : "The history drawn is sample. "}${["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`influence_index:${a}`])}`).join(". ")}.`
-            : "SAMPLE paths; the marks read as in the real chart."}
-        </p>
+        {/* the backtest lines (which model, by how much it beat persistence, the bands' coverage) sit in the technical fold at the end of the tab */}
+        {(!real || indexLayer !== "real") && <p className="mb-2 text-xs text-ink-3">{real ? "The history drawn is sample." : "SAMPLE paths; the marks read as in the real chart."}</p>}
         <PlotFigure glyph="model" options={indexOptions} ariaLabel={`Forecast of the influence index for the United States and China in ${data.name} to 2030 with 50 and 90 percent intervals, ${real ? "computed" : "sample data"}`} />
         <DataTable rows={baseline.filter((r) => r.target === "influence_index")} caption="Index forecast by year and actor (baseline)" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Median" }, { key: "p05", label: "5%" }, { key: "p25", label: "25%" }, { key: "p75", label: "75%" }, { key: "p95", label: "95%" }, { key: "model", label: "Model" }]} />
-        <Reading says="Naive persistence is published wherever no backtested model beat it, so a flat dashed line is the honest default, not a forecast of no change; the bands widen with the horizon as the simulated paths spread." saysKind="model" compact />
+        <Reading
+          findings={[
+            indexFindings.cn ? `China's dashed line ends at ${indexFindings.cn.point.toFixed(0)} in ${indexFindings.cn.year}, its outer band from ${indexFindings.cn.p05.toFixed(0)} to ${indexFindings.cn.p95.toFixed(0)}` : null,
+            indexFindings.us ? `The US dashed line ends at ${indexFindings.us.point.toFixed(0)} in ${indexFindings.us.year}, its outer band from ${indexFindings.us.p05.toFixed(0)} to ${indexFindings.us.p95.toFixed(0)}` : null,
+            indexFindings.cnStart || indexFindings.usStart ? `The observed record ends ${[indexFindings.cnStart ? `at ${indexFindings.cnStart.value.toFixed(0)} in ${indexFindings.cnStart.year} for China` : null, indexFindings.usStart ? `at ${indexFindings.usStart.value.toFixed(0)} in ${indexFindings.usStart.year} for the United States` : null].filter(Boolean).join(" and ")}` : null,
+          ]}
+          findingsKind="model"
+          says="Naive persistence is published wherever no backtested model beat it, so a flat dashed line is the honest default, not a forecast of no change; the bands widen with the horizon as the simulated paths spread."
+          saysKind="model"
+          compact
+        />
         {!real && <p className="mt-1 text-[11px] text-ink-3">Model: {all[0]?.model}</p>}
       </section>
 
@@ -167,12 +200,19 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
             asks={`Will more of ${data.name}'s ore go to China or to the United States by 2030 if the trend holds? The same fan on the reported shares answers it in the unit the trade data use.`}
             how="Solid line: the reported share of mineral exports to each actor (UN Comtrade); dashed: the published model's median; the darker band holds 50% and the lighter 90% of the simulated paths; dotted lines are the scenarios; each actor's rule marks the year its record ends."
           />
-          <p className="mb-2 text-xs text-ink-3">
-            {["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`export_share:${a}`])}`).join(". ")}.
-          </p>
           <PlotFigure glyph="model" options={shareOptions} ariaLabel={`Forecast of ${data.name}'s share of mineral exports going to the United States and China to 2030, computed`} />
           <DataTable rows={baseline.filter((r) => r.target === "export_share")} caption="Export-share forecast by year and actor (baseline)" columns={[{ key: "year", label: "Year" }, { key: "actor", label: "Actor" }, { key: "point", label: "Median", format: (v) => fmtPct(Number(v), 1) }, { key: "p05", label: "5%", format: (v) => fmtPct(Number(v), 1) }, { key: "p95", label: "95%", format: (v) => fmtPct(Number(v), 1) }, { key: "model", label: "Model" }]} />
-          <Reading says="Shares are bounded between 0 and 100%, so a band pressed against an edge is the model running out of room, not a confident forecast; persistence is published where no model beat it." saysKind="model" compact />
+          <Reading
+            findings={[
+              shareFindings.cn ? `China's dashed line ends at ${fmtPct(shareFindings.cn.point, 1)} in ${shareFindings.cn.year}, its outer band from ${fmtPct(shareFindings.cn.p05, 1)} to ${fmtPct(shareFindings.cn.p95, 1)}` : null,
+              shareFindings.us ? `The US dashed line ends at ${fmtPct(shareFindings.us.point, 1)} in ${shareFindings.us.year}, its outer band from ${fmtPct(shareFindings.us.p05, 1)} to ${fmtPct(shareFindings.us.p95, 1)}` : null,
+              shareFindings.cnStart || shareFindings.usStart ? `The reported shares end ${[shareFindings.cnStart ? `at ${fmtPct(shareFindings.cnStart.value, 1)} in ${shareFindings.cnStart.year} for China` : null, shareFindings.usStart ? `at ${fmtPct(shareFindings.usStart.value, 1)} in ${shareFindings.usStart.year} for the United States` : null].filter(Boolean).join(" and ")}` : null,
+            ]}
+            findingsKind="model"
+            says="Shares are bounded between 0 and 100%, so a band pressed against an edge is the model running out of room, not a confident forecast; persistence is published where no model beat it."
+            saysKind="model"
+            compact
+          />
         </section>
       )}
 
@@ -206,8 +246,45 @@ export function ForecastTab({ data, indexRows, indexLayer = "sample" }: { data: 
             </li>
           ))}
         </ul>
-        <Reading says="A scenario is the published model plus the stated yearly shift, so its distance from the dashed line is that shift compounded, not evidence that the shift will happen." saysKind="model" compact />
+        <Reading
+          findings={[
+            `${scenarioFindings.listed} scenario${scenarioFindings.listed === 1 ? "" : "s"} beside the baseline, ${scenarioFindings.on} of them ticked on`,
+            scenarioFindings.farthest && scenarioFindings.endYear !== null
+              ? `In ${scenarioFindings.endYear} the dotted line farthest from the dashed median is ${scenarioFindings.farthest.name} (${actorName(scenarioFindings.farthest.actor)}), ${fmtSigned(scenarioFindings.farthest.diff, 0)} points`
+              : scenarioFindings.anyRows
+                ? `No scenario line is drawn above: ${hidden.size} ticked off`
+                : `The forecast series holds only the baseline's ${baseline.length} rows: no dotted line is drawn`,
+            scenarioFindings.cnSpread && scenarioFindings.endYear !== null ? `China's scenario medians in ${scenarioFindings.endYear} run from ${scenarioFindings.cnSpread.lo.toFixed(0)} to ${scenarioFindings.cnSpread.hi.toFixed(0)}` : null,
+          ]}
+          findingsKind="model"
+          says="A scenario is the published model plus the stated yearly shift, so its distance from the dashed line is that shift compounded, not evidence that the shift will happen."
+          saysKind="model"
+          compact
+        />
       </section>
+
+      {/* the technical detail of the tab: how the published models were chosen and the backtest behind each actor's fan; the fans and the scenarios stay in view */}
+      {real && (
+        <details className="tech-fold">
+          <summary>Technical detail</summary>
+          <div className="tech-fold-body space-y-3">
+            <Callout tone="model" summary={<>Backtested models, one published per actor and target; the lines below say which.</>}>
+              {data.forecast.label}. Five simple models (persistence, drift, pooled drift, AR(1) on changes, damped local linear trend) are backtested on expanding windows across the {COUNTRY_COUNT_WORD} countries; the published model is the one with the lowest CRPS if it beats persistence, else persistence itself. Method and the backtest table are on the methodology page.
+            </Callout>
+            <section aria-labelledby="bt-h">
+              <h4 id="bt-h" className="text-xs font-semibold text-ink-2">Backtests behind the published models</h4>
+              <p className="mt-1 text-xs text-ink-3">
+                <span className="font-medium text-ink-2">Influence index.</span> {["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`influence_index:${a}`])}`).join(". ")}.
+              </p>
+              {hasShares && (
+                <p className="mt-1 text-xs text-ink-3">
+                  <span className="font-medium text-ink-2">Share of mineral exports.</span> {["US", "CN"].map((a) => `${actorName(a)}: ${statusLine(ms[`export_share:${a}`])}`).join(". ")}.
+                </p>
+              )}
+            </section>
+          </div>
+        </details>
+      )}
     </div>
   );
 }

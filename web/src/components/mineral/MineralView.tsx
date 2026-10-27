@@ -77,6 +77,14 @@ export function MineralView({ id }: { id: string }) {
   const sourceName = (sid: string | null) => (sid ? names[sid]?.name ?? sid : "—");
   const prodSources = Array.from(new Set(file.production.map((p) => p.source?.id).filter(Boolean))) as string[];
   const tradeSources = Array.from(new Set(file.trade.map((t) => t.source_id).filter(Boolean))) as string[];
+  // the rows the findings read: the largest exporter with its precomputed shares, the last year of the summed lines,
+  // the country filing the most concessions, the countries with a dot, and the far end of the index table
+  const topExporter = latest[0] ?? null;
+  const topShares = topExporter ? file.importance.find((i) => i.iso3 === topExporter.iso3 && i.year === topExporter.year) ?? null : null;
+  const lastYear = byYear[byYear.length - 1] ?? null;
+  const topConcessions = Array.from(concByCountry.entries()).sort((a, b) => b[1] - a[1])[0] ?? null;
+  const dotCountries = new Set(withCoords.map((c) => c.iso3)).size;
+  const indexLast = indexLatest[indexLatest.length - 1] ?? null;
 
   const productionFigure = drawn.length ? (
     <PlotFigure
@@ -170,7 +178,7 @@ export function MineralView({ id }: { id: string }) {
         </figure>
       )}
 
-      <section className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+      <section className="mt-6 max-w-3xl">
         <div className="card px-4 py-4 sm:px-5">
           <p className="eyebrow">Why it matters</p>
           <p className="mt-1 text-sm leading-relaxed"><strong>Uses.</strong> {file.uses ?? "Not yet written in the registry."}</p>
@@ -178,23 +186,17 @@ export function MineralView({ id }: { id: string }) {
           {file.note && file.why_it_matters && <p className="mt-2 text-xs text-ink-2">{file.note}</p>}
           <p className="mt-2 text-[11px] text-ink-3">Curated text, labelled interpretation of public sources: {file.uses_source ?? "the registry"}. No figure in these two paragraphs is a number from the warehouse; the exhibits below are.</p>
         </div>
-        <div className="card px-4 py-4 sm:px-5">
-          <p className="eyebrow">In the record</p>
-          <ul className="mt-1 space-y-1 text-sm">
-            <li>Produced or explored in: {file.in_region.length ? file.in_region.map((iso, i) => <span key={iso}>{i > 0 && ", "}<Link href={`/country/${iso}?tab=actions`} className="underline">{name(iso)}</Link></span>) : "—"}</li>
-            <li>Production rows: {file.production.filter((p) => p.measure === "production").length.toLocaleString("en-GB")} · reserves rows: {file.production.filter((p) => p.measure === "reserves").length.toLocaleString("en-GB")} from {prodSources.map(sourceName).join(", ") || "—"}</li>
-            <li>Trade cells: {file.trade.length.toLocaleString("en-GB")} country-years ({Array.from(new Set(file.trade.map((t) => t.iso3))).length} countries) from {tradeSources.map(sourceName).join(", ") || "—"}</li>
-            <li>HS6 codes: {file.hs_codes.map((h, i) => <span key={h.hs6} className="font-mono text-xs" title={`${h.description ?? ""}${h.shared ? " (shared subheading)" : ""}`}>{i > 0 && ", "}{h.hs6}{h.shared ? "*" : ""}</span>)}{file.hs_codes.some((h) => h.shared) && <span className="text-[11px] text-ink-3">* a subheading shared with other products</span>}</li>
-            <li>Concessions naming it: {file.concessions.length.toLocaleString("en-GB")}{file.concessions.length ? ` (${Array.from(concByCountry.entries()).map(([k, v]) => `${name(k)} ${v}`).join(", ")})` : ""}; with coordinates: {withCoords.length}</li>
-            <li>Price points: {file.prices.length.toLocaleString("en-GB")}{priceSeries.length ? ` (${priceSeries.join(", ")})` : ""}</li>
-          </ul>
-        </div>
       </section>
 
       <Exhibit id="m-production" title="Who has it: production by country" layer="facts" sources={prodSources} ids={[`production:${file.id}`]} note={`Mine production as the sources report it, in the unit shown; a country appears only where a source carries it, and the other units and measures are in the table. ${latestProd.length ? `Latest rows: ${latestProd.slice(0, 5).map((x) => `${name(x.iso3)} ${fmtQty(x.row.qty)} ${x.unit} (${x.row.year})`).join("; ")}.` : "No production row in the release."}`}
         asks="Which countries of the region mine this mineral, and has their output risen or fallen? One line per country puts every producer on the same axis and unit."
         how="One line per country in the unit selected, hover for the year's figure and its source; a line that starts late or stops early is a country whose source carries no row for those years, not an idle mine. The table under the chart lists each country's latest reserves row."
-        says="The top line is the leading producer in this unit and a crossing is one country overtaking another; a rise or fall in output says nothing on its own about who bought it, which the next exhibit shows.">
+        says="The top line is the leading producer in this unit and a crossing is one country overtaking another; a rise or fall in output says nothing on its own about who bought it, which the next exhibit shows."
+        findings={drawn.length ? [
+          latestProd.length > 0 && latestProd[0].unit === unit ? `${name(latestProd[0].iso3)} has the largest latest production row, ${fmtQty(latestProd[0].row.qty)} ${unit} in ${latestProd[0].row.year}` : null,
+          `${drawn.length} countr${drawn.length === 1 ? "y is" : "ies are"} drawn in ${unit}${series.filter((s) => s.unit !== unit).length > 0 ? `, ${series.filter((s) => s.unit !== unit).length} more behind the unit selector` : ""}`,
+          latestRes.length ? `${name(latestRes[0].iso3)} holds the largest reserves row in ${latestRes[0].unit}, ${fmtQty(latestRes[0].row.qty)} (${latestRes[0].row.year}); ${latestRes.length > 1 ? `the table lists ${latestRes.length} countries` : "it is the only country listed"}` : null,
+        ] : undefined}>
         {units.length > 1 && (
           <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
             <span>Unit</span>
@@ -215,7 +217,16 @@ export function MineralView({ id }: { id: string }) {
       <Exhibit id="m-buyers" title="Who buys it: exports by destination" layer="facts" sources={tradeSources} ids={[`trade_flow:${file.id}:X`]} note={`Each country's latest year with a reported world total; the China and United States cells are the reporter's own partner rows, and the rest of the world is the difference only when both are present (an absent partner row is never read as zero, so a bar with no grey segment is a country whose partner rows are missing). ${file.importance.length ? `Shares of the world total: ${file.importance.filter((i) => i.share_cn != null).sort((a, b) => (b.exports_musd ?? 0) - (a.exports_musd ?? 0)).slice(0, 5).map((i) => `${i.name} ${fmtShare(i.share_cn)} to China, ${fmtShare(i.share_us)} to the United States (${i.year})`).join("; ")}.` : ""}`} explore={{ href: `/explore?view=trade&mineral=${file.id}`, label: "Open the trade arcs" }}
         asks="Does each producer's ore go to China, to the United States or elsewhere, and has the split moved over the years? Stacked bars put the buyers on one scale per country; the lines under them sum every reporter by year."
         how="One bar per country for its latest year with a world total, split by buyer, longest first; below, one line per destination summed over the reporting countries, with the count of reporters in the tooltip. A fall in a line can be a reporter dropping out, not less trade."
-        says="The two buyers' segments against the grey say how much of the mineral's trade the two hold at all; the lines say whether the sum moved with the trade or with the number of reporters, so read a jump against the reporter count before reading it as a turn.">
+        says="The two buyers' segments against the grey say how much of the mineral's trade the two hold at all; the lines say whether the sum moved with the trade or with the number of reporters, so read a jump against the reporter count before reading it as a turn."
+        findings={topExporter ? [
+          `${name(topExporter.iso3)} reports the largest world total, ${fmtMusd(topExporter.musd.WLD)} in ${topExporter.year}${topShares && topShares.share_cn != null && topShares.share_us != null ? `: ${fmtShare(topShares.share_cn)} to China, ${fmtShare(topShares.share_us)} to the United States` : topExporter.musd.CN != null ? `: ${fmtMusd(topExporter.musd.CN)} to China` : ", with no China partner row"}`,
+          `${latest.length} countr${latest.length === 1 ? "y reports" : "ies report"} a world total; ${latest.filter((c) => c.musd.CN != null && c.musd.US != null).length || "none"} of them ${latest.filter((c) => c.musd.CN != null && c.musd.US != null).length === 1 ? "carries" : "carry"} both partner rows and a grey segment`,
+          lastYear
+            ? lastYear.WLD != null
+              ? `In ${lastYear.year}, the last year of the lines, ${lastYear.n} reporter${lastYear.n === 1 ? "" : "s"} summed to ${fmtMusd(lastYear.WLD)}${lastYear.CN != null ? `, ${fmtMusd(lastYear.CN)} of it to China` : ""}`
+              : `In ${lastYear.year}, the last year of the lines, ${lastYear.n} reporter${lastYear.n === 1 ? " carries" : "s carry"} no world total`
+            : null,
+        ] : undefined}>
         {buyersFigure ?? <p className="text-sm text-ink-3">No reported export row for this mineral.</p>}
         {byYearFigure && <div className="mt-4">{byYearFigure}</div>}
       </Exhibit>
@@ -223,7 +234,18 @@ export function MineralView({ id }: { id: string }) {
       <Exhibit id="m-routes" title="Where the buyers get it, and the indirect route" layer="facts" sources={["cepii_baci"]} ids={[`trade_flow:M:${file.id}`]} explore={{ href: `/routes?mineral=${file.id}`, label: "Open the routes page" }} note={`The buyer's imports of ${file.name.toLowerCase()} by origin from the reconciled bilateral record (CEPII BACI), and the ceiling on what could have reached it from the region through an intermediary, the smaller of that economy's imports from the region and its exports to the buyer in the same codes. A ceiling, not a trace.`}
         asks="Where do the two buyers get this mineral, and could some of it have reached them from the region through a third country? Imports by origin answer the first; the two legs of each intermediary bound the second."
         how="Pick the buyer and the year; the bars are the buyer's imports by origin, the table is each intermediary's two legs with the smaller as the ceiling, and the area chart carries the direct figure and the summed ceiling over the years. A year without a world total has no ceiling."
-        says="The ceiling says how much of the buyer's imports could at most have come from the region through an intermediary, never how much did; a small ceiling rules the route out, a large one only leaves it open.">
+        says="The ceiling says how much of the buyer's imports could at most have come from the region through an intermediary, never how much did; a small ceiling rules the route out, a large one only leaves it open."
+        findings={latest.length ? (() => {
+          const both = latest.filter((r) => r.musd.CN != null && r.musd.US != null && r.musd.WLD != null && r.musd.WLD > 0);
+          const wld = both.reduce((a, r) => a + (r.musd.WLD ?? 0), 0);
+          const cn = both.reduce((a, r) => a + (r.musd.CN ?? 0), 0);
+          const us = both.reduce((a, r) => a + (r.musd.US ?? 0), 0);
+          return [
+            `${latest.length} countr${latest.length === 1 ? "y reports" : "ies report"} a world total for ${file.name.toLowerCase()} in ${latest.length === 1 ? "its" : "their"} latest year; ${both.length} carr${both.length === 1 ? "ies" : "y"} both buyer rows`,
+            both.length && wld > 0 ? `Summed over ${both.length === 1 ? "that country" : "those"}, ${fmtShare(cn / wld)} of the reported exports went to China and ${fmtShare(us / wld)} to the United States, the region's side of the routes drawn here` : "No country carries both buyer rows in its latest year, so the region's side of the route rests on the reconciled record alone",
+            `The exhibit's own bars and table read the buyer's imports from the reconciled record; the ${latest.length} reporting countr${latest.length === 1 ? "y is" : "ies are"} the origins it names`,
+          ];
+        })() : ["No country reports a world total for this mineral, so the regional side of the route is absent, not zero", "The buyer's imports below come from the reconciled record and may still name origins in the region"]}>
         <RoutesView mineral={file.id} embedded />
       </Exhibit>
 
@@ -231,7 +253,20 @@ export function MineralView({ id }: { id: string }) {
         <Exhibit id="m-where" title="Where it is" layer="facts" sources={Array.from(new Set(file.concessions.map((c) => c.source?.id).filter(Boolean))) as string[]} ids={[`concession:${file.id}`]} note={withCoords.length ? `${withCoords.length} of ${file.concessions.length} concessions naming ${file.name.toLowerCase()} carry coordinates in the cadastre export; the others are listed by country only.` : file.concessions.length ? `The ${file.concessions.length} concessions naming ${file.name.toLowerCase()} come from cadastres that publish no coordinates in the fields the adapter reads (${Array.from(concByCountry.keys()).map(name).join(", ")}); the deposits named in the registry note are listed from it.` : "No cadastre in the release names this mineral; the places named come from the registry note, not from a geocoded record."}
           asks="Where in the region is this mineral held under a concession? A map of the cadastre points places the licences; without coordinates, a list by country stands in."
           how="One dot per concession naming the mineral, coloured by country, hover for its title, holder and status; only concessions with coordinates are drawn, so a country with no dots is one whose cadastre publishes none, not one without deposits."
-          says="Clusters mark the districts where cadastres file licences for it, a right to explore or mine rather than a measure of output; the production exhibit above says what was dug.">
+          says="Clusters mark the districts where cadastres file licences for it, a right to explore or mine rather than a measure of output; the production exhibit above says what was dug."
+          findings={file.concessions.length && topConcessions ? [
+            withCoords.length
+              ? `${withCoords.length} of the ${file.concessions.length} concessions naming it carry coordinates and are drawn as dots`
+              : `None of the ${file.concessions.length} concessions naming it carries coordinates; they are listed by country instead`,
+            concByCountry.size > 1
+              ? `${concByCountry.size} countries file a concession naming it; ${name(topConcessions[0])} files the most, ${topConcessions[1]}`
+              : `${name(topConcessions[0])} alone files them, ${topConcessions[1]} concession${topConcessions[1] === 1 ? "" : "s"}`,
+            withCoords.length
+              ? `The dots fall in ${dotCountries === concByCountry.size ? `all ${concByCountry.size}` : `${dotCountries} of the ${concByCountry.size}`} filing countr${concByCountry.size === 1 ? "y" : "ies"}`
+              : file.producers.length
+                ? `${file.producers.length} countr${file.producers.length === 1 ? "y" : "ies"} in the record ha${file.producers.length === 1 ? "s" : "ve"} a positive production row for it`
+                : "No country in the record has a positive production row for it",
+          ] : undefined}>
           {concessionMap ?? (
             <ul className="space-y-1 text-sm">
               <li><strong>Named in the registry note:</strong> {file.note ?? "—"}</li>
@@ -243,7 +278,13 @@ export function MineralView({ id }: { id: string }) {
         <Exhibit id="m-price" title="What it costs" layer="facts" sources={Array.from(new Set(file.prices.map((p) => p.source?.id).filter(Boolean))) as string[]} ids={[`price:${file.id}`]} note={file.prices.length ? `${file.prices.length} price points in ${priceSeries.length} series; the series name says which market and grade.` : "No price series in the release for this mineral."}
           asks="What has the mineral fetched on the market, and when did its price jump or fall? A dated line per series shows the level and the turns."
           how="One line per price series in the unit selected, dated along the axis, hover for the quote; a gap is a stretch with no quoted point. Series in another unit sit behind the selector, not on the same axis."
-          says="A run-up in the line raises the value of the same tonnage, so a rise in the export lines above can be a price move rather than more ore; read the two together. Whether the price moved with demand or with supply is not visible here.">
+          says="A run-up in the line raises the value of the same tonnage, so a rise in the export lines above can be a price move rather than more ore; read the two together. Whether the price moved with demand or with supply is not visible here."
+          findings={pricesDrawn.length ? [
+            `${pricesDrawn.length} quoted point${pricesDrawn.length === 1 ? "" : "s"} drawn in ${priceUnit}, from ${priceSeriesDrawn.length} series across ${new Set(pricesDrawn.map((p) => p.year)).size} year${new Set(pricesDrawn.map((p) => p.year)).size === 1 ? "" : "s"}`,
+            file.prices.filter((p) => p.unit !== priceUnit).length > 0
+              ? `${file.prices.filter((p) => p.unit !== priceUnit).length} more point${file.prices.filter((p) => p.unit !== priceUnit).length === 1 ? "" : "s"} in ${priceUnits.filter((u) => u !== priceUnit).length} other unit${priceUnits.filter((u) => u !== priceUnit).length === 1 ? "" : "s"} sit behind the selector`
+              : `All ${file.prices.length} price point${file.prices.length === 1 ? "" : "s"} in the release share this unit`,
+          ] : undefined}>
           {priceUnits.length > 1 && (
             <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
               <span>Unit</span>
@@ -255,18 +296,43 @@ export function MineralView({ id }: { id: string }) {
         </Exhibit>
       </div>
 
-      {indexLatest.length > 0 && (
-        <Exhibit id="m-index" title={`The index, ${file.name.toLowerCase()} only`} layer="model" ids={[`index_value:influence:*:${file.id}`]} model={{ name: "composite influence index computed with this mineral's trade shares in place of all minerals", status: "computed" }} note="The per-mineral index swaps the trade components for this mineral's own shares and keeps the other components; the latest year with both actors per country, sorted by net lean (China minus the United States)."
-          asks="If the index were built on this mineral's trade shares alone, which countries would lean to China and which to the United States? A table, one row per country, sorted by net lean."
-          how="One row per country for its latest year with both actors' values; the net lean is China minus the United States, positive in China's colour and negative in the United States'. A country absent from the table has no year with both."
-          says={`The model puts ${name(indexLatest[0].iso3)} furthest toward China, at ${(indexLatest[0].CN! - indexLatest[0].US! > 0 ? "+" : "") + (indexLatest[0].CN! - indexLatest[0].US!).toFixed(1)}, and ${name(indexLatest[indexLatest.length - 1].iso3)} at the other end; the order is a model output that moves with the trade shares, not a measured fact.`}
-          saysKind="model">
-          <table className="text-xs">
-            <thead><tr className="text-left text-ink-3"><th className="py-1 pr-4 font-semibold">Country</th><th className="py-1 pr-4 font-semibold">Year</th><th className="py-1 pr-4 font-semibold">China</th><th className="py-1 pr-4 font-semibold">United States</th><th className="py-1 font-semibold">Net lean</th></tr></thead>
-            <tbody>{indexLatest.map((r) => <tr key={r.iso3} className="border-t border-rule-2"><td className="py-1 pr-4 font-semibold"><Link href={`/country/${r.iso3}?tab=analysis`} className="underline">{name(r.iso3)}</Link></td><td className="py-1 pr-4 font-mono tabular-nums">{r.year}</td><td className="py-1 pr-4 font-mono tabular-nums">{r.CN!.toFixed(1)}</td><td className="py-1 pr-4 font-mono tabular-nums">{r.US!.toFixed(1)}</td><td className={`py-1 font-mono tabular-nums ${r.CN! - r.US! > 0 ? "text-cn" : "text-us"}`}>{(r.CN! - r.US! > 0 ? "+" : "") + (r.CN! - r.US!).toFixed(1)}</td></tr>)}</tbody>
-          </table>
-        </Exhibit>
-      )}
+      {/* the technical detail: what the record holds for this mineral (counts and codes) and the per-mineral index, folded at the end */}
+      <details className="tech-fold">
+        <summary>Technical detail</summary>
+        <div className="tech-fold-body">
+          <div className="card max-w-3xl px-4 py-4 sm:px-5">
+            <p className="eyebrow">In the record</p>
+            <ul className="mt-1 space-y-1 text-sm">
+              <li>Produced or explored in: {file.in_region.length ? file.in_region.map((iso, i) => <span key={iso}>{i > 0 && ", "}<Link href={`/country/${iso}?tab=actions`} className="underline">{name(iso)}</Link></span>) : "—"}</li>
+              <li>Production rows: {file.production.filter((p) => p.measure === "production").length.toLocaleString("en-GB")} · reserves rows: {file.production.filter((p) => p.measure === "reserves").length.toLocaleString("en-GB")} from {prodSources.map(sourceName).join(", ") || "—"}</li>
+              <li>Trade cells: {file.trade.length.toLocaleString("en-GB")} country-years ({Array.from(new Set(file.trade.map((t) => t.iso3))).length} countries) from {tradeSources.map(sourceName).join(", ") || "—"}</li>
+              <li>HS6 codes: {file.hs_codes.map((h, i) => <span key={h.hs6} className="font-mono text-xs" title={`${h.description ?? ""}${h.shared ? " (shared subheading)" : ""}`}>{i > 0 && ", "}{h.hs6}{h.shared ? "*" : ""}</span>)}{file.hs_codes.some((h) => h.shared) && <span className="text-[11px] text-ink-3">* a subheading shared with other products</span>}</li>
+              <li>Concessions naming it: {file.concessions.length.toLocaleString("en-GB")}{file.concessions.length ? ` (${Array.from(concByCountry.entries()).map(([k, v]) => `${name(k)} ${v}`).join(", ")})` : ""}; with coordinates: {withCoords.length}</li>
+              <li>Price points: {file.prices.length.toLocaleString("en-GB")}{priceSeries.length ? ` (${priceSeries.join(", ")})` : ""}</li>
+            </ul>
+          </div>
+          {indexLatest.length > 0 && (
+            <Exhibit id="m-index" title={`The index, ${file.name.toLowerCase()} only`} layer="model" ids={[`index_value:influence:*:${file.id}`]} model={{ name: "composite influence index computed with this mineral's trade shares in place of all minerals", status: "computed" }} note="The per-mineral index swaps the trade components for this mineral's own shares and keeps the other components; the latest year with both actors per country, sorted by net lean (China minus the United States)."
+              asks="If the index were built on this mineral's trade shares alone, which countries would lean to China and which to the United States? A table, one row per country, sorted by net lean."
+              how="One row per country for its latest year with both actors' values; the net lean is China minus the United States, positive in China's colour and negative in the United States'. A country absent from the table has no year with both."
+              says={`The model puts ${name(indexLatest[0].iso3)} furthest toward China, at ${(indexLatest[0].CN! - indexLatest[0].US! > 0 ? "+" : "") + (indexLatest[0].CN! - indexLatest[0].US!).toFixed(1)}, and ${name(indexLatest[indexLatest.length - 1].iso3)} at the other end; the order is a model output that moves with the trade shares, not a measured fact.`}
+              saysKind="model"
+              findingsKind="model"
+              findings={[
+                `${indexLatest.filter((r) => r.CN! - r.US! > 0).length || "None"} of the ${indexLatest.length} countries ${indexLatest.filter((r) => r.CN! - r.US! > 0).length === 1 ? "shows" : "show"} a positive net lean, toward China, and ${indexLatest.filter((r) => r.CN! - r.US! < 0).length || "none"} a negative one`,
+                `${name(indexLatest[0].iso3)} sits at the top with China at ${indexLatest[0].CN!.toFixed(1)} against the United States at ${indexLatest[0].US!.toFixed(1)} in ${indexLatest[0].year}`,
+                indexLast && indexLatest.length > 1
+                  ? `${name(indexLast.iso3)} sits at the other end, China ${indexLast.CN!.toFixed(1)} against the United States ${indexLast.US!.toFixed(1)}, net ${(indexLast.CN! - indexLast.US! > 0 ? "+" : "") + (indexLast.CN! - indexLast.US!).toFixed(1)}`
+                  : null,
+              ]}>
+              <table className="text-xs">
+                <thead><tr className="text-left text-ink-3"><th className="py-1 pr-4 font-semibold">Country</th><th className="py-1 pr-4 font-semibold">Year</th><th className="py-1 pr-4 font-semibold">China</th><th className="py-1 pr-4 font-semibold">United States</th><th className="py-1 font-semibold">Net lean</th></tr></thead>
+                <tbody>{indexLatest.map((r) => <tr key={r.iso3} className="border-t border-rule-2"><td className="py-1 pr-4 font-semibold"><Link href={`/country/${r.iso3}?tab=analysis`} className="underline">{name(r.iso3)}</Link></td><td className="py-1 pr-4 font-mono tabular-nums">{r.year}</td><td className="py-1 pr-4 font-mono tabular-nums">{r.CN!.toFixed(1)}</td><td className="py-1 pr-4 font-mono tabular-nums">{r.US!.toFixed(1)}</td><td className={`py-1 font-mono tabular-nums ${r.CN! - r.US! > 0 ? "text-cn" : "text-us"}`}>{(r.CN! - r.US! > 0 ? "+" : "") + (r.CN! - r.US!).toFixed(1)}</td></tr>)}</tbody>
+              </table>
+            </Exhibit>
+          )}
+        </div>
+      </details>
 
       {others.length > 0 && (
         <nav aria-label="Other minerals" className="mt-8 text-xs text-ink-2">

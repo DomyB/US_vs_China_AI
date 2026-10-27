@@ -1,18 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { InsightsSkeleton } from "@/components/ui/Skeleton";
 import { COUNTRY_COUNT_WORD, IN_SCOPE, YEAR_MAX } from "@/lib/constants";
-import { loadComponents, loadFlows, loadIndex, loadInsights, loadInvestment, loadQuant, loadRealMeta, loadRegionShares, loadRegionStatements, loadStory } from "@/lib/data";
-import type { ComponentsFile } from "@/lib/geometry";
 import { financeByYear, investmentByYear, leanByYear, tradeByYear, votesByYear } from "@/lib/overview";
 import { verdicts as measureVerdicts } from "@/lib/verdicts";
 import { Ch0Situation } from "./Ch0Situation";
 import { Ch10Winning } from "./Ch10Winning";
 import { Cover } from "./Cover";
 import { fmtMusd, fmtPct } from "@/lib/format";
-import { absentPartnerMinerals, chapterEvidence, coverageWall, financeLedger, loanThenFlat, mineralBoard, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
-import type { FlowsFile, IndexFile, InsightsFile, InvestmentFile, QuantFile, RealMeta, RegionData, RegionStatements, StatementRecord, StoryFile } from "@/lib/types";
+import { absentPartnerMinerals, chapterEvidence, evidenceInputs, financeLedger, loanThenFlat, mineralBoard, presentChapters, regionalTrade, seriesFromFlows, swapsByYear, tradeReceipt, undocumentedByCountry } from "@/lib/story";
+import { loadStoryFiles, type StoryLoaded } from "@/lib/storyData";
+import type { FlowsFile, RegionStatements, StatementRecord, StoryFile } from "@/lib/types";
 import { Ch1Ledger } from "./Ch1Ledger";
 import { Ch2Trade } from "./Ch2Trade";
 import { Ch3Iceberg } from "./Ch3Iceberg";
@@ -26,18 +26,8 @@ import { Chapter } from "./Chapter";
 import { ColdOpen, type Receipt } from "./ColdOpen";
 import { ProgressRail } from "./ProgressRail";
 
-interface Loaded {
-  insights: InsightsFile | null;
-  flows: FlowsFile | null;
-  shares: RegionData["mineral_shares"];
-  quant: QuantFile | null;
-  index: IndexFile;
-  meta: RealMeta | null;
-  story: StoryFile | null;
-  statements: RegionStatements | null;
-  components: ComponentsFile | null;
-  investment: InvestmentFile | null;
-}
+/** The exhibits that moved to /story/appendix, by anchor: a link into the story that still carries one of these is sent on, so it keeps working. */
+const APPENDIX_HASHES = new Set(["#c0-routes", "#c3-lenders", "#c6-parity", "#c7-parity", "#c8-index", "#c8-trajectory", "#c9-wall", "#c9-meters"]);
 
 const OPENING_ID = "PS-0283";
 const US_VOICES = ["PS-0101", "PS-0354", "PS-0363"];
@@ -58,15 +48,19 @@ function pick(story: StoryFile | null, statements: RegionStatements | null, ids:
   return ids.map((id) => pool.get(id)).filter(Boolean) as StatementRecord[];
 }
 
-/** The home page: the cold open, nine chapters, the rail. Every number is computed from the exported files in lib/story.ts. */
+/**
+ * The story page: the cover, the cold open, ten chapters (0, the whole picture, to 9, the limits) and the conclusion, with
+ * the rail. Every number is computed from the exported files in lib/story.ts; the technical exhibits are on /story/appendix.
+ */
 export function StoryPage() {
-  const [d, setD] = useState<Loaded | null>(null);
+  const [d, setD] = useState<StoryLoaded | null>(null);
   const [failed, setFailed] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     let alive = true;
-    Promise.all([loadInsights(), loadFlows(), loadRegionShares(), loadQuant(), loadIndex(), loadRealMeta(), loadStory(), loadRegionStatements(), loadComponents(), loadInvestment()])
-      .then(([insights, flows, shares, quant, index, meta, story, statements, components, investment]) => {
-        if (alive) setD({ insights, flows: flows.layer === "real" ? flows.data : null, shares: shares.layer === "real" ? shares.rows : [], quant, index, meta, story, statements, components, investment });
+    loadStoryFiles()
+      .then((loaded) => {
+        if (alive) setD(loaded);
       })
       .catch(() => {
         if (alive) setFailed(true);
@@ -75,6 +69,10 @@ export function StoryPage() {
       alive = false;
     };
   }, []);
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (APPENDIX_HASHES.has(hash)) router.replace(`/story/appendix${hash}`);
+  }, [router]);
   const computed = useMemo(() => {
     if (!d || !d.insights || !d.flows) return null;
     const { insights, flows } = d;
@@ -126,13 +124,10 @@ export function StoryPage() {
     const chlLithium = d.story?.series?.CHL?.lithium ?? seriesFromFlows(flows, "CHL", "lithium");
     const chlCopper = d.story?.series?.CHL?.copper ?? seriesFromFlows(flows, "CHL", "copper");
     const chlFlag = chl?.flags.items.find((f) => f.id.includes("large_commitment") && f.id.includes("2018"))?.id ?? null;
-    // The influence index is drawn only from the real export; a seeded sample index is never shown as model output.
-    const argRows = d.index.layer === "real" ? d.index.rows.filter((r) => r.iso3 === "ARG" && r.mineral === "all" && (r.index ?? "composite") === "composite") : [];
     const gold = arg?.contrasts.find((c) => c.id === "price_exposure") as { mineral: string; exports_musd: { US: number | null; CN: number | null; ROW: number | null }; total_musd: number; year: number } | undefined;
     const loans = loanThenFlat(insights);
     // rule hits the export itself lists apart (flags.share_absent, once it carries them), named in chapter 4 beside the ones it finds in flows.json
     const setAside = insights.countries.flatMap((c) => (c.flags.share_absent?.items ?? []).filter((f) => f.id.includes("finance_without_trade_response")).map((f) => ({ id: f.id, name: c.name, year: f.year })));
-    const wall = d.meta ? coverageWall(d.meta, flows) : null;
     const targets = d.quant?.forecast?.targets;
     const t = targets?.["export_share:CN"];
     const briefs = d.meta?.interpretation_briefs;
@@ -164,14 +159,8 @@ export function StoryPage() {
       { text: "Four scales (coded stance −1..+1, zero-shot stance −2..+2, tone, index 0–100) are never added together; a comparison between them is a direction only.", ids: ["insights:region.scales"] },
     ].filter(Boolean) as { text: string; ids: string[] }[];
     // The chapter meters: editorial levels, but every year or count in a basis is the export's, dropped when its input is absent.
-    const executiveCounts = insights.countries.map((c) => c.words?.n_executive ?? 0).filter((n) => n > 0);
-    const chapters = chapterEvidence({
-      lastYear: ly,
-      fewestStatements: executiveCounts.length ? Math.min(...executiveCounts) : null,
-      forecast: t && t.coverage_80 !== undefined ? { coverage_80: t.coverage_80, n_tests: t.n_tests ?? null } : null,
-      events: events ? { draft: events.draft, total: events.total } : null,
-    });
-    return { years, ledger, ledgerAll, arg, chl, argLedger, argLithium, gold, receipts, finance, chlLithium, chlCopper, chlFlag, argRows, loans, setAside, wall, targets, framework, limits, stm2026, chapters, argPeak, usAfterWindow, pairingNote: pairingNote(ly) };
+    const chapters = chapterEvidence(evidenceInputs(flows, insights, d.quant));
+    return { years, ledger, ledgerAll, arg, chl, argLedger, argLithium, gold, receipts, finance, chlLithium, chlCopper, chlFlag, loans, setAside, targets, framework, limits, stm2026, chapters, argPeak, usAfterWindow, pairingNote: pairingNote(ly) };
   }, [d]);
 
   if (!d && !failed) return <InsightsSkeleton />;
@@ -205,8 +194,8 @@ export function StoryPage() {
     ? `Data as of ${d.meta.generated_on} · ${d.meta.quant_model?.inputs_release ?? ""} · ${d.meta.sources_live ? `${d.meta.sources_live.live} of ${d.meta.sources_live.total} sources live` : `${d.meta.sources_ok.length} adapters ran`}${d.meta.adapters_ok ? ` · ${d.meta.adapters_ok.ok} of ${d.meta.adapters_ok.total} adapters ran` : ""}`
     : "";
   const meter = (n: number) => c.chapters.find((ch) => ch.n === n);
-  // Chapters 6, 8 and 9 render only with their inputs; the rail and chapter 9's list name the chapters on the page, never a dead anchor.
-  const present = [{ n: 0, label: "The whole picture", level: "strong" as const, basis: "reported trade, finance records, UN votes; the index is a model output" }, ...c.chapters, { n: 10, label: "Who is winning", level: "moderate" as const, basis: "the measures of chapter 0 side by side; the reading is interpretation" }].filter((ch) => (ch.n !== 6 || c.chl) && (ch.n !== 8 || c.arg) && (ch.n !== 9 || c.wall));
+  // Chapters 6 and 8 render only with their country's insights; the rail and the appendix's meters name the chapters on the page, never a dead anchor.
+  const present = presentChapters(c.chapters, { chl: c.chl !== undefined, arg: c.arg !== undefined });
   const opening = pick(d.story, d.statements, [OPENING_ID])[0] ?? null;
   const storyMissing = d.story === null;
   const absence = storyMissing ? "The opening sentence is not in this release: the story export (story.json) has not been written. The receipts below are on record." : `The opening sentence (${OPENING_ID}) is not in this release's story export; the receipts below are on record.`;
@@ -243,14 +232,12 @@ export function StoryPage() {
       </Chapter>
       {c.arg && (
         <Chapter n={8} eyebrow="Back to the sentence" question="So what was happening while the Foreign Minister spoke?" meter={meter(8)}>
-          <Ch8Argentina arg={c.arg} quote={opening} receipts={c.receipts} pairingNote={c.pairingNote} cn={c.argLedger.CN} us={c.argLedger.US} framework={c.framework ? { id: c.framework.id, date: c.framework.date, title: c.framework.title, status: c.framework.status, type: c.framework.type } : null} rows={c.argRows} lithium={c.argLithium} gold={c.gold ? { musd: c.gold.total_musd, year: c.gold.year, partners_absent: c.gold.exports_musd.US === null || c.gold.exports_musd.CN === null } : null} voices={pick(d.story, d.statements, ARG_VOICES)} />
+          <Ch8Argentina arg={c.arg} quote={opening} receipts={c.receipts} pairingNote={c.pairingNote} cn={c.argLedger.CN} us={c.argLedger.US} framework={c.framework ? { id: c.framework.id, date: c.framework.date, title: c.framework.title, status: c.framework.status, type: c.framework.type } : null} lithium={c.argLithium} gold={c.gold ? { musd: c.gold.total_musd, year: c.gold.year, partners_absent: c.gold.exports_musd.US === null || c.gold.exports_musd.CN === null } : null} voices={pick(d.story, d.statements, ARG_VOICES)} />
         </Chapter>
       )}
-      {c.wall && (
-        <Chapter n={9} eyebrow="The limits, as the last exhibit" question="How strong is each chapter, and what would change the reading?" meter={meter(9)}>
-          <Ch9Limits wall={c.wall} lastYearCN={flows.meta.last_year.finance_CN} chapters={present} limits={c.limits} changes={["A second coder and a validated text model (the 300-document sample is drawn and waits for the owner).", `DFC and EXIM commitments after ${insights.region.talk_vs_money.finance.US_after.years[1]} approaching the Chinese figures.`, ...(flows.meta.last_year.trade !== null ? [`A ${flows.meta.last_year.trade + 1} trade year in which Chile's US share rises more than two points.`] : []), `AidData's next release, covering Chinese finance after ${flows.meta.last_year.finance_CN ?? "its last year"}.`, "The AEI investment tracker and BU's CODF files, supplied by hand.", "The owner's review of the dated events and the thirteen written briefs."]} />
-        </Chapter>
-      )}
+      <Chapter n={9} eyebrow="The limits, as the last exhibit" question="How strong is each chapter, and what would change the reading?" meter={meter(9)}>
+        <Ch9Limits limits={c.limits} changes={["A second coder and a validated text model (the 300-document sample is drawn and waits for the owner).", `DFC and EXIM commitments after ${insights.region.talk_vs_money.finance.US_after.years[1]} approaching the Chinese figures.`, ...(flows.meta.last_year.trade !== null ? [`A ${flows.meta.last_year.trade + 1} trade year in which Chile's US share rises more than two points.`] : []), `AidData's next release, covering Chinese finance after ${flows.meta.last_year.finance_CN ?? "its last year"}.`, "The AEI investment tracker and BU's CODF files, supplied by hand.", "The owner's review of the dated events and the thirteen written briefs."]} />
+      </Chapter>
       <Chapter n={10} eyebrow="The conclusion" question="So who is winning, by which measure, and what comes next?" meter={present[present.length - 1]}>
         <Ch10Winning verdicts={verdictRows} />
       </Chapter>

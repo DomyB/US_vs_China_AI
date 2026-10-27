@@ -131,7 +131,7 @@ export function ColdOpen({ quote, absence, receipts, release, pairingNote }: { q
           <h1 className="serif text-4xl font-bold leading-[1.05] sm:text-6xl">Said &amp; Paid</h1>
           <p className="mt-3 max-w-2xl text-base opacity-85 sm:text-lg">What leaders said, what the money did. {COUNTRY_COUNT_WORD[0].toUpperCase()}{COUNTRY_COUNT_WORD.slice(1)} countries, {YEAR_MIN}–{YEAR_MAX}.</p>
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <Door href="#c1" title="Read the case" text="Nine chapters, one question each, about twelve minutes." primary />
+            <Door href="#c1" title="Read the case" text="Ten chapters and a conclusion, one question each, about twelve minutes." primary />
             <Door href="/explore" title="Go straight to the evidence" text="The map: index lean, money arcs, trade arcs, every country." />
             <Door href="/country/ARG" title="Argentina's ledger" text="The country behind the sentence, every receipt attached." />
           </div>

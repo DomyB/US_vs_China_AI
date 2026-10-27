@@ -21,6 +21,9 @@ const REGION_COLOR = "#1d8f6e";
 const VIA_COLOR = "#b8860b";
 const mineralLabel = (m: string) => (m === "all" ? "all tracked minerals" : m.replace(/_/g, " "));
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+/** The economies whose names take "the" in running text (the United States, the Netherlands), for a bullet that names one. */
+const WITH_THE = new Set(["USA", "GBR", "NLD", "ARE", "PHL", "BHS", "DOM", "COD"]);
+const inProse = (iso: string) => (WITH_THE.has(iso) ? `the ${economyName(iso)}` : economyName(iso));
 
 /**
  * Where the ore goes: the buyer's imports by origin, the region's exports by destination and the intermediaries' two
@@ -128,6 +131,13 @@ function RoutesPanel({ file, buyer, mineral, mineralFixed, year, set, embedded }
   const directShare = indirect && indirect.direct != null && indirect.world ? indirect.direct / indirect.world : null;
   const boundShare = indirect && indirect.world ? indirect.bound_total / indirect.world : null;
   const topLeg = indirect?.legs.find((l) => l.bound != null) ?? null;
+  // the rows the findings read: the largest bar of each ranked list, the largest intermediary bar and the two buyers' bars
+  const topOrigin = origins?.named[0] ?? null;
+  const topViaOrigin = origins?.named.find((o) => viaSet.has(o.origin)) ?? null;
+  const topDest = dests?.named[0] ?? null;
+  const topViaDest = dests?.named.find((d) => viaSet.has(d.dest)) ?? null;
+  const cnDest = dests?.named.find((d) => d.dest === "CHN") ?? null;
+  const usDest = dests?.named.find((d) => d.dest === "USA") ?? null;
 
   const controls = (
     <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -148,38 +158,79 @@ function RoutesPanel({ file, buyer, mineral, mineralFixed, year, set, embedded }
         asks={`Where does ${who} get ${mineral === "all" ? "its tracked minerals" : `its ${mineralLabel(mineral)}`}, and how much of that is the region's? One bar per origin puts the ${COUNTRY_COUNT_WORD} countries and the intermediaries beside everyone else on one scale.`}
         how="One bar per origin, longest first, the rest of the world as the last bar; the colour says what kind of origin it is and the tooltip gives its share of the buyer's world total where the file carries one. An origin with no bar has no reconciled row that year."
         says={`${directShare != null ? `${fmtPct(directShare, 0)} of ${who}'s ${mineralLabel(mineral)} in ${year} came straight from the ${COUNTRY_COUNT_WORD} countries` : `The green bars against the rest say how much of ${who}'s ${mineralLabel(mineral)} in ${year} came straight from the ${COUNTRY_COUNT_WORD} countries`}; a gold bar is an economy that takes much of the region's exports and sells to the buyer in the same codes, and the next exhibit bounds what could have passed through it.`}
-        saysKind="facts">
+        saysKind="facts"
+        findings={origins && topOrigin ? [
+          `${cap(inProse(topOrigin.origin))} is the largest named origin at ${fmtMusd(topOrigin.musd)}${origins.world && origins.world.musd > 0 ? `, ${fmtPct(topOrigin.musd / origins.world.musd, 0)} of what ${who} imported` : ""}`,
+          origins.named.filter((o) => o.in_scope).length > 0
+            ? `Of the ${origins.named.length} named origins, ${origins.named.filter((o) => o.in_scope).length} ${origins.named.filter((o) => o.in_scope).length === 1 ? "is a country" : "are countries"} of the region${indirect?.direct != null ? `, together ${fmtMusd(indirect.direct)}` : ""}`
+            : origins.named.length === 1
+              ? `The only named origin is not a country of the region in ${year}`
+              : `None of the ${origins.named.length} named origins is a country of the region in ${year}`,
+          topViaOrigin
+            ? `Intermediaries hold ${origins.named.filter((o) => viaSet.has(o.origin)).length} of the named origins, the largest ${inProse(topViaOrigin.origin)} at ${fmtMusd(topViaOrigin.musd)}`
+            : `No intermediary appears among the ${origins.named.length} named origins in ${year}`,
+        ] : undefined}>
         {originsFigure ?? <p className="text-sm text-ink-3">No import row for {who} in {year}.</p>}
       </Exhibit>
       <Exhibit id="r-via" title="The indirect route, bounded" layer="facts" sources={["cepii_baci"]} ids={[`trade_flow:via:${mineral}:${year}`]} caveat="The two legs are in the same product codes but are not one shipment: the bound is the smaller leg and says what could have passed through at most, not what did; processing changes the code and leaves the chain." note={`For each intermediary in ${year}: what it took from the ${COUNTRY_COUNT_WORD} countries in these codes (and the share of its own imports that is), what it sold to ${who} in the same codes, and the smaller of the two as the ceiling on ore that could have travelled the region → intermediary → ${who} route. Ore that was smelted or refined on the way changed code and is not in the chain.`}
         asks={`How much of what ${who} buys from third countries could have come from the region first? Two legs per intermediary, what it took from the region and what it sold to ${who}, give a ceiling that either leg alone cannot.`}
         how={`One row per intermediary, largest ceiling first; the ceiling is the smaller of its two legs, what it took from the ${COUNTRY_COUNT_WORD} countries and what it sold to ${who} in the same codes, and it is a ceiling on what could have passed through, never an estimate of what did. A row with no second leg has no ceiling, and the area chart stacks the direct figure, the summed ceiling and the rest by year.`}
-        says={`${boundShare != null ? `At most ${fmtPct(boundShare, 0)} of ${who}'s imports in ${year} could have come through an intermediary${topLeg ? `, and the largest single ceiling is ${economyName(topLeg.iso3)}'s` : ""}; the true figure sits anywhere between nothing and that.` : `No intermediary has both legs in ${year}, so the route cannot be bounded.`} Ore refined on the way changed code and left the chain, so the ceiling does not cover processed products.`}>
+        says={`${boundShare != null ? `At most ${fmtPct(boundShare, 0)} of ${who}'s imports in ${year} could have come through an intermediary${topLeg ? `, and the largest single ceiling is ${economyName(topLeg.iso3)}'s` : ""}; the true figure sits anywhere between nothing and that.` : `No intermediary has both legs in ${year}, so the route cannot be bounded.`} Ore refined on the way changed code and left the chain, so the ceiling does not cover processed products.`}
+        findings={[
+          indirect && indirect.legs.length
+            ? `${indirect.legs.length} intermediar${indirect.legs.length === 1 ? "y" : "ies"} took ${mineralLabel(mineral)} from the region in ${year}; ${indirect.legs.length === 1 ? (indirect.legs[0].bound != null ? "it carries" : "it carries no") : `${indirect.legs.filter((l) => l.bound != null).length || "none"} of them carry`} a second leg to ${who}`
+            : `No intermediary took ${mineralLabel(mineral)} from the region in ${year}`,
+          topLeg && topLeg.bound != null && topLeg.bound > 0 && topLeg.to_buyer != null
+            ? `${cap(inProse(topLeg.iso3))} has the largest ceiling, ${fmtMusd(topLeg.bound)}: ${fmtMusd(topLeg.from_region)} from the region, ${fmtMusd(topLeg.to_buyer)} to ${who}`
+            : null,
+          indirect && boundShare != null && indirect.bound_total > 0
+            ? `The ceilings sum to ${fmtMusd(indirect.bound_total)} against a world total of ${fmtMusd(indirect.world)}, at most ${fmtPct(boundShare, 0)}`
+            : overTime.length > 1
+              ? `The area chart covers ${overTime.length} years, ${overTime[0].year} to ${overTime[overTime.length - 1].year}, each with a world total`
+              : `No summed ceiling in ${year}: no intermediary carries a second leg, or ${who} has no world total`,
+        ]}>
+        {timeFigure && <WideFigure minWidth="36rem">{timeFigure}</WideFigure>}
+        {/* the area chart and the three key numbers stay in view; the row-by-row table is the technical detail behind them */}
         {indirect && indirect.legs.length ? (
-          <div className="scroll-x">
-            <table className="w-full text-sm">
-              <thead><tr className="text-left text-xs text-ink-3"><th className="py-1 pr-4">Intermediary</th><th className="py-1 pr-4">Took from the region</th><th className="py-1 pr-4">Share of its imports</th><th className="py-1 pr-4">Sold to {who}</th><th className="py-1 pr-4">Ceiling on the route</th><th className="py-1">From</th></tr></thead>
-              <tbody>
-                {indirect.legs.slice(0, 12).map((l) => (
-                  <tr key={l.iso3} className="border-t border-rule-2">
-                    <td className="py-1 pr-4 font-semibold">{economyName(l.iso3)}</td>
-                    <td className="py-1 pr-4 font-mono tabular-nums">{fmtMusd(l.from_region)}</td>
-                    <td className="py-1 pr-4 font-mono tabular-nums">{l.region_share != null ? fmtPct(l.region_share, 0) : "—"}</td>
-                    <td className="py-1 pr-4 font-mono tabular-nums">{l.to_buyer != null ? fmtMusd(l.to_buyer) : "no row"}</td>
-                    <td className="py-1 pr-4 font-mono tabular-nums">{l.bound != null ? `≤ ${fmtMusd(l.bound)}` : "—"}</td>
-                    <td className="py-1 text-xs text-ink-2">{Object.entries(l.from).slice(0, 4).map(([iso, v]) => `${COUNTRY_NAMES[iso] ?? iso} ${fmtMusd(v)}`).join(", ")}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : <p className="text-sm text-ink-3">No intermediary took {mineralLabel(mineral)} from the region in {year}.</p>}
-        {timeFigure && <div className="mt-4"><WideFigure minWidth="36rem">{timeFigure}</WideFigure></div>}
+          <details className="tech-fold">
+            <summary>The intermediaries, one by one</summary>
+            <div className="tech-fold-body scroll-x">
+              <table className="w-full text-sm">
+                <thead><tr className="text-left text-xs text-ink-3"><th className="py-1 pr-4">Intermediary</th><th className="py-1 pr-4">Took from the region</th><th className="py-1 pr-4">Share of its imports</th><th className="py-1 pr-4">Sold to {who}</th><th className="py-1 pr-4">Ceiling on the route</th><th className="py-1">From</th></tr></thead>
+                <tbody>
+                  {indirect.legs.slice(0, 12).map((l) => (
+                    <tr key={l.iso3} className="border-t border-rule-2">
+                      <td className="py-1 pr-4 font-semibold">{economyName(l.iso3)}</td>
+                      <td className="py-1 pr-4 font-mono tabular-nums">{fmtMusd(l.from_region)}</td>
+                      <td className="py-1 pr-4 font-mono tabular-nums">{l.region_share != null ? fmtPct(l.region_share, 0) : "—"}</td>
+                      <td className="py-1 pr-4 font-mono tabular-nums">{l.to_buyer != null ? fmtMusd(l.to_buyer) : "no row"}</td>
+                      <td className="py-1 pr-4 font-mono tabular-nums">{l.bound != null ? `≤ ${fmtMusd(l.bound)}` : "—"}</td>
+                      <td className="py-1 text-xs text-ink-2">{Object.entries(l.from).slice(0, 4).map(([iso, v]) => `${COUNTRY_NAMES[iso] ?? iso} ${fmtMusd(v)}`).join(", ")}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        ) : <p className={`text-sm text-ink-3${timeFigure ? " mt-3" : ""}`}>No intermediary took {mineralLabel(mineral)} from the region in {year}.</p>}
       </Exhibit>
       <Exhibit id="r-dests" title={`Where the ${COUNTRY_COUNT_WORD} countries send it: exports by destination`} layer="facts" sources={["cepii_baci"]} ids={[`trade_flow:scope:X:${mineral}:${year}`]} note={`Exports of ${mineralLabel(mineral)} in ${year} summed over the countries of the region with a reconciled world total that year, by destination; the intermediaries are the destinations that took the most over the whole period, China and the United States aside${file.intermediaries.length ? ` (${file.intermediaries.slice(0, 6).map(economyName).join(", ")}${file.intermediaries.length > 6 ? ", …" : ""})` : ""}.`} explore={{ href: `/explore?view=trade${mineral !== "all" ? `&mineral=${mineral}` : ""}`, label: "Open the trade arcs" }}
         asks={`Where do the ${COUNTRY_COUNT_WORD} countries send their ${mineralLabel(mineral)}, and how much of it goes to the two buyers against everyone else? One bar per destination puts China, the United States and the intermediaries on one scale.`}
         how="One bar per destination, longest first, the rest of the world as the last bar; the colour says whether the destination is a buyer, an intermediary, a country of the region or elsewhere, and the tooltip counts the exporting countries behind the sum. A country without a world total that year is left out of every bar."
-        says="Read the China and United States bars against the gold ones: ore that goes to an intermediary is what the ceiling above is built from, and a mineral whose largest destination is an intermediary is one whose final buyer the record cannot name.">
+        says="Read the China and United States bars against the gold ones: ore that goes to an intermediary is what the ceiling above is built from, and a mineral whose largest destination is an intermediary is one whose final buyer the record cannot name."
+        findings={dests && topDest ? [
+          `${cap(inProse(topDest.dest))} is the largest named destination at ${fmtMusd(topDest.musd)}${dests.world && dests.world.musd > 0 ? `, ${fmtPct(topDest.musd / dests.world.musd, 0)} of the ${COUNTRY_COUNT_WORD} countries' exports` : ""}, summed over ${topDest.n} exporting countr${topDest.n === 1 ? "y" : "ies"}`,
+          cnDest && usDest
+            ? `China took ${fmtMusd(cnDest.musd)} and the United States ${fmtMusd(usDest.musd)}${dests.world && dests.world.musd > 0 ? ` (${fmtPct(cnDest.musd / dests.world.musd, 0)} and ${fmtPct(usDest.musd / dests.world.musd, 0)} of the total)` : ""}`
+            : cnDest
+              ? `China took ${fmtMusd(cnDest.musd)}; the United States has no destination row in ${year}`
+              : usDest
+                ? `The United States took ${fmtMusd(usDest.musd)}; China has no destination row in ${year}`
+                : `Neither buyer has a destination row in ${year}`,
+          topViaDest
+            ? `Intermediaries hold ${dests.named.filter((d) => viaSet.has(d.dest)).length} of the ${dests.named.length} named destinations, the largest ${inProse(topViaDest.dest)} at ${fmtMusd(topViaDest.musd)}`
+            : `No intermediary appears among the ${dests.named.length} named destinations in ${year}`,
+        ] : undefined}>
         {destsFigure ?? <p className="text-sm text-ink-3">No export row in {year}.</p>}
       </Exhibit>
     </>
@@ -196,6 +247,13 @@ function RoutesPanel({ file, buyer, mineral, mineralFixed, year, set, embedded }
   const countryYear = file.country_destinations.filter((d) => d.year === year && d.dest !== "WLD" && d.dest !== "ROW");
   const byCountry = new Map<string, typeof countryYear>();
   for (const d of countryYear) byCountry.set(d.iso3, [...(byCountry.get(d.iso3) ?? []), d]);
+  // the cards' first lines, counted by the kind of destination that opens them, and the countries without a card
+  const cards = Array.from(byCountry.values());
+  const absent = IN_SCOPE.filter((iso) => !byCountry.has(iso)).length;
+  const firstCN = cards.filter((rows) => rows[0]?.dest === "CHN").length;
+  const firstUS = cards.filter((rows) => rows[0]?.dest === "USA").length;
+  const firstVia = cards.filter((rows) => rows[0] != null && viaSet.has(rows[0].dest)).length;
+  const firstRegion = cards.filter((rows) => rows[0] != null && scope.has(rows[0].dest)).length;
   return (
     <div className="mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6">
       <header className="max-w-3xl">
@@ -218,7 +276,16 @@ function RoutesPanel({ file, buyer, mineral, mineralFixed, year, set, embedded }
         <Exhibit id="r-countries" title={`Each country's largest destinations, all minerals, ${year}`} layer="facts" sources={["cepii_baci"]} ids={[`trade_flow:scope:X:all:${year}`]} note="The four largest destinations of each country's tracked exports in the year, reconciled; a country without a world total that year is absent."
           asks="Which destinations matter most to each country on its own, rather than to the region as a whole? A card per country with its four largest keeps the small exporters visible beside the large ones."
           how="One card per country, its four largest destinations that year with the reconciled value, largest first; a country with no card has no world total that year, not no exports."
-          says="Compare the first line across the cards: where it is the same buyer for most, the region's lean is broad; where it differs, the regional sum hides a split the case files take up. The values are one year's trade, not a trend.">
+          says="Compare the first line across the cards: where it is the same buyer for most, the region's lean is broad; where it differs, the regional sum hides a split the case files take up. The values are one year's trade, not a trend."
+          findings={[
+            absent > 0
+              ? `${byCountry.size} of the ${COUNTRY_COUNT_WORD} countries carry a card for ${year}; the other ${absent} ${absent === 1 ? "has" : "have"} no world total that year`
+              : `All ${COUNTRY_COUNT_WORD} countries carry a card for ${year}, each with a world total that year`,
+            `China is the first line on ${firstCN || "none"} of the ${byCountry.size} cards and the United States on ${firstUS || "none"}`,
+            firstVia > 0
+              ? `An intermediary is the first line on ${firstVia} card${firstVia === 1 ? "" : "s"}${firstRegion > 0 ? `, a country of the region on ${firstRegion}` : ""}`
+              : `None of the ${byCountry.size} cards opens with an intermediary${firstRegion > 0 ? `; ${firstRegion} open${firstRegion === 1 ? "s" : ""} with a country of the region` : " or with a country of the region"}`,
+          ]}>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from(byCountry.entries()).sort((a, b) => (COUNTRY_NAMES[a[0]] ?? a[0]).localeCompare(COUNTRY_NAMES[b[0]] ?? b[0])).map(([iso, rows]) => (
               <div key={iso} className="rounded-md border border-rule-2 px-3 py-2 text-xs">

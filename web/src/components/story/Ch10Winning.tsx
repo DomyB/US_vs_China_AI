@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { LayerLabel } from "@/components/ui/Badges";
-import { COUNTRY_COUNT_WORD } from "@/lib/constants";
-import { CLAIMS } from "@/lib/contested";
+import { COUNTRY_COUNT_WORD, countWord } from "@/lib/constants";
+import { claimHref, claimNumber, MAIN_CLAIMS, MORE_CLAIMS } from "@/lib/contested";
 import { tally, type MeasureVerdict } from "@/lib/verdicts";
 import { Exhibit, StepCard } from "./Chapter";
 import { Door } from "./Chapter";
@@ -23,7 +23,11 @@ export function Ch10Winning({ verdicts }: { verdicts: MeasureVerdict[] }) {
       <StepCard>
         <p>Every chapter has asked one question of one record. Put the measures side by side and the question in the title gets an answer with its conditions attached: each row below is the latest year the measure holds, the actor it favours, and what keeps it from settling the matter. The reading under the table is an interpretation, drafted by an AI session from these numbers and labelled so.</p>
       </StepCard>
-      <Exhibit id="c10-verdicts" title="The measures, side by side" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "imf_dip", "unga_votes"]} ids={["flows:trade:all", "flows:finance", "investment_position:inward", "index_component:diplomatic_alignment", "index_value:influence:*"]} asks="Taking every measure in its latest year, who does each favour? One table with one verdict per measure answers the title's question without collapsing the measures into a score." how={<>One row per measure: its name with its layer and latest year, who it favours, the figures the verdict rests on and what keeps it open. &ldquo;Favours&rdquo; means only that this actor&apos;s figure is the larger; &ldquo;neither&rdquo; is a tie and &ldquo;no figure&rdquo; a measure this release does not yet hold; the counts above the table tally the rows.</>} says={<>Count the rows and {t.CN > t.US ? "China" : t.US > t.CN ? "the United States" : "neither side"} leads{t.open ? `, with ${t.open} ${t.open === 1 ? "measure" : "measures"} open` : ""}; but the rows are of different kinds, flows beside a stock and a model beside the facts, which is why they are not summed into one score.{trade && inv && trade.favours !== "unknown" && inv.favours !== "unknown" && trade.favours !== inv.favours ? " The ore and the capital already point different ways." : ""}</>} note="Each measure in its latest year, summed or averaged over the countries that carry a value, with the count; the index is a model output and is marked so.">
+      <Exhibit id="c10-verdicts" title="The measures, side by side" layer="facts" sources={["un_comtrade", "aiddata_gcdf", "dfc_projects", "exim_authorizations", "imf_dip", "unga_votes"]} ids={["flows:trade:all", "flows:finance", "investment_position:inward", "index_component:diplomatic_alignment", "index_value:influence:*"]} asks="Taking every measure in its latest year, who does each favour? One table with one verdict per measure answers the title's question without collapsing the measures into a score." how={<>One row per measure: its name with its layer and latest year, who it favours, the figures the verdict rests on and what keeps it open. &ldquo;Favours&rdquo; means only that this actor&apos;s figure is the larger; &ldquo;neither&rdquo; is a tie and &ldquo;no figure&rdquo; a measure this release does not yet hold; the counts above the table tally the rows.</>} findings={[
+          `${t.CN} of the ${verdicts.length} measures ${t.CN === 1 ? "favours" : "favour"} China and ${t.US} the United States${t.open ? `; ${t.open} ${t.open === 1 ? "is" : "are"} open` : ""}`,
+          trade && trade.year && trade.favours !== "unknown" ? `The ore row, read in ${trade.year}, favours ${trade.favours === "CN" ? "China" : trade.favours === "US" ? "the United States" : "neither"}${inv && inv.year && inv.favours !== "unknown" ? `; the capital row, read in ${inv.year}, favours ${inv.favours === "CN" ? "China" : inv.favours === "US" ? "the United States" : "neither"}` : ""}` : null,
+          `${verdicts.filter((v) => v.layer === "facts").length} rows are facts${verdicts.filter((v) => v.layer === "model").length > 0 ? ` and ${verdicts.filter((v) => v.layer === "model").length} a model output` : ""}${verdicts.filter((v) => v.favours === "unknown").length > 0 ? `; ${verdicts.filter((v) => v.favours === "unknown").length} ${verdicts.filter((v) => v.favours === "unknown").length === 1 ? "row holds" : "rows hold"} no figure yet` : ""}`,
+        ]} says={<>Count the rows and {t.CN > t.US ? "China" : t.US > t.CN ? "the United States" : "neither side"} leads{t.open ? `, with ${t.open} ${t.open === 1 ? "measure" : "measures"} open` : ""}; but the rows are of different kinds, flows beside a stock and a model beside the facts, which is why they are not summed into one score.{trade && inv && trade.favours !== "unknown" && inv.favours !== "unknown" && trade.favours !== inv.favours ? " The ore and the capital already point different ways." : ""}</>} note="Each measure in its latest year, summed or averaged over the countries that carry a value, with the count; the index is a model output and is marked so.">
         <VerdictTable verdicts={verdicts} />
       </Exhibit>
       <div className="mt-6 card px-4 py-4 sm:px-6">
@@ -39,10 +43,11 @@ export function Ch10Winning({ verdicts }: { verdicts: MeasureVerdict[] }) {
         <div className="flex flex-wrap items-center gap-2"><p className="eyebrow">The arguments</p><LayerLabel layer="interpretation" /></div>
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-2">The verdict above counts measures. The arguments page goes further and takes the usual story of the rivalry apart claim by claim, each tested on the same record with a rule-based verdict and what would overturn it.</p>
         <ol className="mt-3 grid gap-x-6 gap-y-1.5 text-sm sm:grid-cols-2">
-          {CLAIMS.map((c, i) => (
-            <li key={c.id} className="flex gap-2"><span className="font-mono text-[11px] text-ink-3">{String(i + 1).padStart(2, "0")}</span><Link href={`/contested#${c.id}`} className="underline decoration-dotted">{c.headline}</Link></li>
+          {MAIN_CLAIMS.map((c) => (
+            <li key={c.id} className="flex gap-2"><span className="font-mono text-[11px] text-ink-3">{String(claimNumber(c.id)).padStart(2, "0")}</span><Link href={claimHref(c.id)} className="underline decoration-dotted">{c.headline}</Link></li>
           ))}
         </ol>
+        <p className="mt-2 text-sm text-ink-2"><Link href="/contested/more" className="underline decoration-dotted">{countWord(MORE_CLAIMS.length, true)} further claims</Link>, weaker, more technical or open, are tested the same way on their own page.</p>
         <div className="mt-3"><Link href="/contested" className="btn btn-md btn-primary no-underline">Read the tests and verdicts</Link></div>
       </div>
       <div className="mt-6 card px-4 py-4 sm:px-6">
