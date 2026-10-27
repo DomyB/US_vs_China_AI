@@ -5,9 +5,9 @@
    "url": "https://ustr.gov/",
    "params": {},
    "status": 200,
-   "bytes": 53556,
-   "sha256": "8af28e3e66bfe7150aa05f733fa47ec9c09d2f99da97672e62b57c663795b241",
-   "retrieved_at": "2026-10-14T10:15:20+00:00",
+   "bytes": 53620,
+   "sha256": "253b0486a7f286c41defb2f5bbc6c8f29167c6270d9092c01bca03600f0d9ed8",
+   "retrieved_at": "2026-10-21T12:08:01+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,14 +15,14 @@
    "url": "https://ustr.gov/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 46959,
-   "sha256": "878e8865bed1406c921de61113eda1f508bf322409cab85d880f700141a5f745",
-   "retrieved_at": "2026-10-14T10:15:28+00:00",
+   "bytes": 70091,
+   "sha256": "f5d87d81b423da219345dae241bcca736978717cd2325d951c2fb736a7cb5799",
+   "retrieved_at": "2026-10-21T12:08:09+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ustr_press/2026-10-14",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ustr_press/2026-10-21",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
