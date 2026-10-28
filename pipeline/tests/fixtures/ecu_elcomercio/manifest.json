@@ -5,14 +5,14 @@
    "url": "https://www.elcomercio.com/feed/",
    "params": {},
    "status": 200,
-   "bytes": 187210,
-   "sha256": "2a2c648927427ccc478e18ea16f5e9b81db9b89dbe1788d973a1568846f4895b",
-   "retrieved_at": "2026-10-21T12:03:56+00:00",
+   "bytes": 150582,
+   "sha256": "9ceacf01ad314963b6a8c1412fdbe7a0480d7c42dcea712d103623b927711aa5",
+   "retrieved_at": "2026-10-28T11:16:46+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_elcomercio/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ecu_elcomercio/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.elcomercio.com/feed/"

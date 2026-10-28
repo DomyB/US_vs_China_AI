@@ -5,14 +5,14 @@
    "url": "https://oglobo.globo.com/rss/oglobo",
    "params": {},
    "status": 200,
-   "bytes": 407103,
-   "sha256": "078001b16f58e6af72bc8189a481f70c2cacf5d95a3d631cd6efe6ad619b3a28",
-   "retrieved_at": "2026-10-21T09:36:04+00:00",
+   "bytes": 421391,
+   "sha256": "870ccd84891f680c16f385b4770a9b5bedde1577c0075366cf07f580326b3493",
+   "retrieved_at": "2026-10-28T10:48:17+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_oglobo/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_oglobo/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://oglobo.globo.com/rss/oglobo"

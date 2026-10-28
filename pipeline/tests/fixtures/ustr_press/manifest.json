@@ -5,9 +5,9 @@
    "url": "https://ustr.gov/",
    "params": {},
    "status": 200,
-   "bytes": 53620,
-   "sha256": "253b0486a7f286c41defb2f5bbc6c8f29167c6270d9092c01bca03600f0d9ed8",
-   "retrieved_at": "2026-10-21T12:08:01+00:00",
+   "bytes": 53455,
+   "sha256": "ebe048f2d734a59ba19b5e196dac242beeb69235c45d50cedd9490711f3c37ba",
+   "retrieved_at": "2026-10-28T11:21:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,14 +15,14 @@
    "url": "https://ustr.gov/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 70091,
-   "sha256": "f5d87d81b423da219345dae241bcca736978717cd2325d951c2fb736a7cb5799",
-   "retrieved_at": "2026-10-21T12:08:09+00:00",
+   "bytes": 75821,
+   "sha256": "3dfc93e5e58688182ab3b800b7dac21df4e5831722a29bd309b343c4783b0a5e",
+   "retrieved_at": "2026-10-28T11:21:18+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ustr_press/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ustr_press/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

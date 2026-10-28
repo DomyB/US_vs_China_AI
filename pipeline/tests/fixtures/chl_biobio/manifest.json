@@ -5,14 +5,14 @@
    "url": "https://feeds.feedburner.com/radiobiobio/NNeJ",
    "params": {},
    "status": 200,
-   "bytes": 214156,
-   "sha256": "ba9a567a4f9ac699f59d6b83f0529a0adf6a7cab59c556475888ec7f9448324c",
-   "retrieved_at": "2026-10-21T09:36:41+00:00",
+   "bytes": 189574,
+   "sha256": "c9219dd6490cad685ba3e2ec1994c33b4e10a028e7fd337a1a98d0e310bc2307",
+   "retrieved_at": "2026-10-28T10:48:54+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://feeds.feedburner.com/radiobiobio/NNeJ"

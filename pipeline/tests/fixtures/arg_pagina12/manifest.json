@@ -5,15 +5,15 @@
    "url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada",
    "params": {},
    "status": 200,
-   "bytes": 5731,
+   "bytes": 7768,
    "final_url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada/",
-   "sha256": "4786bf050d3c63107b38aad344bef2b0f0d7b6f652f758d7c54c219069739e72",
-   "retrieved_at": "2026-10-21T09:35:58+00:00",
+   "sha256": "9af662630208db274e317b7df55c4c4843fbe7839dccf96726cab6945770f0f6",
+   "retrieved_at": "2026-10-28T10:48:12+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_pagina12/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_pagina12/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada"

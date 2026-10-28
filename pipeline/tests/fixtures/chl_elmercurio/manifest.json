@@ -5,14 +5,14 @@
    "url": "https://www.emol.com/",
    "params": {},
    "status": 200,
-   "bytes": 177451,
-   "sha256": "b27befaf7456f9e20af9eb30407192de777d6eedabab1e824d878ded5d731d36",
-   "retrieved_at": "2026-10-21T09:36:45+00:00",
+   "bytes": 159507,
+   "sha256": "0173976cff219a09ab6a5ac5cbf16fd153cf757488f6f38c05afa201fe74d6db",
+   "retrieved_at": "2026-10-28T10:49:01+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmercurio/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_elmercurio/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

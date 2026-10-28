@@ -5,14 +5,14 @@
    "url": "http://spanish.xinhuanet.com/",
    "params": {},
    "status": 200,
-   "bytes": 25219,
-   "sha256": "6994c7b777f6f2bd512c9fcfde36bc1d9b450a12d85ae9335b8e1426f490558b",
-   "retrieved_at": "2026-10-21T12:08:15+00:00",
+   "bytes": 25864,
+   "sha256": "04d2307db1bbfde14c88f7a18b1ee714db4e658090d801a4b780b389e05af2d5",
+   "retrieved_at": "2026-10-28T11:21:21+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/xinhua_es/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/xinhua_es/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "index_pages": [
   {

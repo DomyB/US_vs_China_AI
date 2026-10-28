@@ -5,14 +5,14 @@
    "url": "http://spanish.people.com.cn/",
    "params": {},
    "status": 200,
-   "bytes": 43530,
-   "sha256": "717c1014779fdd7d2297bb9a7ecc297d6eca2d2b64adf2eaff471cf14b4bdca6",
-   "retrieved_at": "2026-10-21T12:03:58+00:00",
+   "bytes": 44228,
+   "sha256": "81107951f4d4bb6c61072e171f6005288db5e233139c5204fca68c3c5fc4fbd4",
+   "retrieved_at": "2026-10-28T11:16:48+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/peoples_daily_es/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/peoples_daily_es/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

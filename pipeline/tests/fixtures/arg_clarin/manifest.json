@@ -5,14 +5,14 @@
    "url": "https://www.clarin.com/rss/lo-ultimo/",
    "params": {},
    "status": 200,
-   "bytes": 9954,
-   "sha256": "0c2e3e50106f176fbf71f0e78c96b577d0532dafedf356edd926ccfb062e7870",
-   "retrieved_at": "2026-10-21T09:35:54+00:00",
+   "bytes": 9198,
+   "sha256": "1d20f220ffe4512444ff21d513509ad3a6e061da7391f8b4c3c87a5dae5d51a7",
+   "retrieved_at": "2026-10-28T10:48:09+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_clarin/2026-10-21",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_clarin/2026-10-28",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.clarin.com/rss/lo-ultimo/"
