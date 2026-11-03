@@ -5,9 +5,9 @@
    "url": "https://www.dfc.gov/our-impact/transaction-data",
    "params": {},
    "status": 200,
-   "bytes": 42583,
-   "sha256": "7104b842d32ee38eb272e9ba213b476879e9c4d822223ba621dab0a1faf885a4",
-   "retrieved_at": "2026-10-13T14:32:38+00:00",
+   "bytes": 42296,
+   "sha256": "2602b7219d9b981076a59e3b571e171250c6aeac842b67d506ef1ab25a620f19",
+   "retrieved_at": "2026-11-03T15:05:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -15,9 +15,9 @@
    "url": "https://www.dfc.gov/what-we-do/active-projects",
    "params": {},
    "status": 200,
-   "bytes": 37390,
-   "sha256": "34e5c0e63b0e752836aa54ad21aa2f072e18642cf815292f08c5bf910747ccdb",
-   "retrieved_at": "2026-10-13T14:32:39+00:00",
+   "bytes": 37103,
+   "sha256": "5c43f2d5c863ff6bd00b3a5b749b457754170c2856b2f969a6c99282448e481d",
+   "retrieved_at": "2026-11-03T15:05:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -27,12 +27,12 @@
    "status": 200,
    "bytes": 339022,
    "sha256": "191edce3b74ad72f49b48a8065af3dd1a16c189d0124399eede3689671ec0e7e",
-   "retrieved_at": "2026-10-13T14:32:40+00:00",
+   "retrieved_at": "2026-11-03T15:05:15+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dfc_projects/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dfc_projects/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "spreadsheet_links": [
   "https://www.dfc.gov/sites/default/files/media/documents/FY24%20DFC%20Annual%20Project%20Data_508.xlsx",

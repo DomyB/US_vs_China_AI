@@ -5,9 +5,9 @@
    "url": "https://catalog.data.gov/dataset/authorizations-from-10-01-2006-thru-06-30-2025",
    "params": {},
    "status": 200,
-   "bytes": 121961,
-   "sha256": "251a313c75fbdd1f69fee5e2045a5b3d8a438abc3ecb6ec3cf79ff19267d44e5",
-   "retrieved_at": "2026-10-13T14:32:51+00:00",
+   "bytes": 122095,
+   "sha256": "32d17649568f1b97fb71d53505d8b60cb6b6000c0ec0a3d79beccf6ade05e1ad",
+   "retrieved_at": "2026-11-03T15:05:26+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,12 +17,12 @@
    "status": 200,
    "bytes": 19406477,
    "sha256": "27941e3a60181f973cea53c1c371073376405ff35cb650fd32d807349f30e20a",
-   "retrieved_at": "2026-10-13T14:32:52+00:00",
+   "retrieved_at": "2026-11-03T15:05:28+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/exim_authorizations/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

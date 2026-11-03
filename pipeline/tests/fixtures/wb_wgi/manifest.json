@@ -11,7 +11,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-13T14:07:55+00:00",
+   "retrieved_at": "2026-11-03T14:27:12+00:00",
    "note": null,
    "trimmed": true
   },
@@ -24,7 +24,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-13T14:08:54+00:00",
+   "retrieved_at": "2026-11-03T14:27:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -38,7 +38,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-13T14:09:04+00:00",
+   "retrieved_at": "2026-11-03T14:27:14+00:00",
    "note": null,
    "trimmed": true
   },
@@ -51,7 +51,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-13T14:09:19+00:00",
+   "retrieved_at": "2026-11-03T14:27:15+00:00",
    "note": null,
    "trimmed": true
   },
@@ -65,7 +65,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-13T14:09:21+00:00",
+   "retrieved_at": "2026-11-03T14:27:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -78,7 +78,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-13T14:09:33+00:00",
+   "retrieved_at": "2026-11-03T14:27:17+00:00",
    "note": null,
    "trimmed": true
   },
@@ -92,7 +92,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-13T14:09:35+00:00",
+   "retrieved_at": "2026-11-03T14:27:18+00:00",
    "note": null,
    "trimmed": true
   },
@@ -105,7 +105,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-13T14:09:41+00:00",
+   "retrieved_at": "2026-11-03T14:27:19+00:00",
    "note": null,
    "trimmed": true
   },
@@ -119,7 +119,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-13T14:09:41+00:00",
+   "retrieved_at": "2026-11-03T14:27:20+00:00",
    "note": null,
    "trimmed": true
   },
@@ -132,7 +132,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-13T14:09:51+00:00",
+   "retrieved_at": "2026-11-03T14:27:21+00:00",
    "note": null,
    "trimmed": true
   },
@@ -146,7 +146,7 @@
    "status": 200,
    "bytes": 102,
    "sha256": "f230e5b6d8f652aa544aec29624faa117c27571ce309a7a474584e1cfeb45c1b",
-   "retrieved_at": "2026-10-13T14:09:57+00:00",
+   "retrieved_at": "2026-11-03T14:27:22+00:00",
    "note": null,
    "trimmed": true
   },
@@ -159,7 +159,7 @@
    "status": 200,
    "bytes": 211,
    "sha256": "1bc0d1305058dc9a57f561a32a9d75c33fe54b096b54209997a592eec04cb87e",
-   "retrieved_at": "2026-10-13T14:10:03+00:00",
+   "retrieved_at": "2026-11-03T14:27:23+00:00",
    "note": null,
    "trimmed": true
   },
@@ -169,8 +169,8 @@
    "status": 200,
    "bytes": 56255,
    "final_url": "https://www.worldbank.org/en/publication/worldwide-governance-indicators",
-   "sha256": "0d38d1affac40ae62dce332556c59775441c4e40b0c540a54694524086db6da0",
-   "retrieved_at": "2026-10-13T14:10:04+00:00",
+   "sha256": "7173c7d4924d333f83ab71859c93ad95be55bd9e711ba0ccfc8d96dd9842d7bc",
+   "retrieved_at": "2026-11-03T14:27:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -182,7 +182,7 @@
    "status": 200,
    "bytes": 105,
    "sha256": "3d9433086ddd9de452ef3b437688a9f1a0e0d73b5d76a94356ba72b6b1b53ab9",
-   "retrieved_at": "2026-10-13T14:10:10+00:00",
+   "retrieved_at": "2026-11-03T14:27:30+00:00",
    "note": null,
    "trimmed": true
   },
@@ -196,7 +196,7 @@
    "status": 200,
    "bytes": 725814,
    "sha256": "1c567d3e8bfdc5e52867f110a9e6e7bcb6c720a37b9b9c229fde6b4ac47595b6",
-   "retrieved_at": "2026-10-13T14:10:11+00:00",
+   "retrieved_at": "2026-11-03T14:27:31+00:00",
    "note": null,
    "trimmed": true
   },
@@ -210,7 +210,7 @@
    "status": 200,
    "bytes": 725362,
    "sha256": "033b2412c13e61e6df72226d6a5bd2752b42ab1dda21258f5b89102e8c4b0a7d",
-   "retrieved_at": "2026-10-13T14:10:13+00:00",
+   "retrieved_at": "2026-11-03T14:27:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -224,7 +224,7 @@
    "status": 200,
    "bytes": 725543,
    "sha256": "0d15f61c93a4543fbf2375818b577feb3627b0208614e46e6a8d463ffc319f0a",
-   "retrieved_at": "2026-10-13T14:10:13+00:00",
+   "retrieved_at": "2026-11-03T14:27:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -238,7 +238,7 @@
    "status": 200,
    "bytes": 725607,
    "sha256": "5f697a8143b548a8e27320cd87ca02d908edf908e5839a1a493e4da032838f65",
-   "retrieved_at": "2026-10-13T14:10:14+00:00",
+   "retrieved_at": "2026-11-03T14:27:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -252,7 +252,7 @@
    "status": 200,
    "bytes": 725586,
    "sha256": "6dc888fdd2dfe4df83e6dd261d002a5d916eefc3a648479ac8d9e5ec30078d40",
-   "retrieved_at": "2026-10-13T14:10:15+00:00",
+   "retrieved_at": "2026-11-03T14:27:35+00:00",
    "note": null,
    "trimmed": true
   },
@@ -266,7 +266,7 @@
    "status": 200,
    "bytes": 728001,
    "sha256": "6bd7bc2747c2b93744f24ade1b0b36374720aca416dacfe43d2019c5b383de89",
-   "retrieved_at": "2026-10-13T14:10:16+00:00",
+   "retrieved_at": "2026-11-03T14:27:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -280,7 +280,7 @@
    "status": 200,
    "bytes": 733508,
    "sha256": "8cfade1ac552e81ab62cf26bd0dff5f7ec697744599c15d29e84ee91d4ab6a48",
-   "retrieved_at": "2026-10-13T14:10:17+00:00",
+   "retrieved_at": "2026-11-03T14:27:37+00:00",
    "note": null,
    "trimmed": true
   },
@@ -294,7 +294,7 @@
    "status": 200,
    "bytes": 733515,
    "sha256": "6744205e31f078959165ba2b936b20fc2c54690c15bea7fcdcf1cd5463344b09",
-   "retrieved_at": "2026-10-13T14:10:18+00:00",
+   "retrieved_at": "2026-11-03T14:27:38+00:00",
    "note": null,
    "trimmed": true
   },
@@ -308,7 +308,7 @@
    "status": 200,
    "bytes": 733501,
    "sha256": "cc1e2125fdd16e517dc2b05cdab7da189629bd31f7f88b2f6653fe92a5513c2b",
-   "retrieved_at": "2026-10-13T14:10:19+00:00",
+   "retrieved_at": "2026-11-03T14:27:39+00:00",
    "note": null,
    "trimmed": true
   },
@@ -322,12 +322,12 @@
    "status": 200,
    "bytes": 733514,
    "sha256": "e5d671521231b7d4a3e411fc78739640fdcc672d88bd8326553e5f2c4d4f127a",
-   "retrieved_at": "2026-10-13T14:10:20+00:00",
+   "retrieved_at": "2026-11-03T14:27:40+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wgi/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wgi/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

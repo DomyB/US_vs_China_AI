@@ -7,7 +7,7 @@
    "status": 200,
    "bytes": 6178,
    "sha256": "3888b33ec9107e18885a86f2869f92d57da652e1f4181eec51a5f1e10492d441",
-   "retrieved_at": "2026-10-10T23:48:54+00:00",
+   "retrieved_at": "2026-11-03T16:39:58+00:00",
    "note": null,
    "trimmed": true
   },
@@ -19,7 +19,7 @@
    "status": 200,
    "bytes": 34404,
    "sha256": "c92fae081f331f8faaf76ccee12b1ba02c2aa5cf69c2eeaae581605c2371d8b3",
-   "retrieved_at": "2026-10-10T23:48:55+00:00",
+   "retrieved_at": "2026-11-03T16:39:58+00:00",
    "note": null,
    "trimmed": true
   },
@@ -31,7 +31,7 @@
    "status": 200,
    "bytes": 33937,
    "sha256": "a19c4dc4b01f9ef3bb906a123b912af46a253658c81e03d9d06ac23c8a6ff08b",
-   "retrieved_at": "2026-10-10T23:48:56+00:00",
+   "retrieved_at": "2026-11-03T16:40:01+00:00",
    "note": null,
    "trimmed": true
   },
@@ -43,7 +43,7 @@
    "status": 200,
    "bytes": 50529,
    "sha256": "b8b256868de89545513f10a7b9a3769c1d77df9fcec17a17121e595f4ce6b067",
-   "retrieved_at": "2026-10-10T23:48:57+00:00",
+   "retrieved_at": "2026-11-03T16:40:03+00:00",
    "note": null,
    "trimmed": true
   },
@@ -55,7 +55,7 @@
    "status": 200,
    "bytes": 44118,
    "sha256": "557c04196d8a96144dff53bfcc3e345081af905ddf1e2bafd1c7fb650fd1f77c",
-   "retrieved_at": "2026-10-10T23:48:58+00:00",
+   "retrieved_at": "2026-11-03T16:40:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -67,7 +67,7 @@
    "status": 200,
    "bytes": 50350,
    "sha256": "35e9700ce9e2e50b1ac188e0879c7e5aca4f84f5d7068beaf876eedeec306f43",
-   "retrieved_at": "2026-10-10T23:48:59+00:00",
+   "retrieved_at": "2026-11-03T16:40:05+00:00",
    "note": null,
    "trimmed": true
   },
@@ -79,7 +79,7 @@
    "status": 200,
    "bytes": 40857,
    "sha256": "f5dc2086cec4070175313c4dec47c856e539d887d43d3a4920c61f723a59acd3",
-   "retrieved_at": "2026-10-10T23:49:00+00:00",
+   "retrieved_at": "2026-11-03T16:40:06+00:00",
    "note": null,
    "trimmed": true
   },
@@ -91,7 +91,7 @@
    "status": 200,
    "bytes": 935,
    "sha256": "e10cf447b8c65e0582cdfeeb7b54c4d41371f3f406ab146232d0c340b271ef6b",
-   "retrieved_at": "2026-10-10T23:49:51+00:00",
+   "retrieved_at": "2026-11-03T16:40:58+00:00",
    "note": null,
    "trimmed": true
   },
@@ -103,7 +103,7 @@
    "status": 200,
    "bytes": 982,
    "sha256": "9dd128520269ed426e0cd42eb84eba4cbef89497f728ddb1e61e016d230d0e93",
-   "retrieved_at": "2026-10-10T23:49:52+00:00",
+   "retrieved_at": "2026-11-03T16:40:59+00:00",
    "note": null,
    "trimmed": true
   },
@@ -115,7 +115,7 @@
    "status": 200,
    "bytes": 965,
    "sha256": "0336df463c8826b917c3d1be5d226b3fc16064af3e3203f00065b23ec53dddb1",
-   "retrieved_at": "2026-10-10T23:49:53+00:00",
+   "retrieved_at": "2026-11-03T16:41:00+00:00",
    "note": null,
    "trimmed": true
   },
@@ -127,7 +127,7 @@
    "status": 200,
    "bytes": 1168,
    "sha256": "ded0beed3164cb7ade59cc3fb9bee823ff563225c2da2e3d913192fb817e8691",
-   "retrieved_at": "2026-10-10T23:49:54+00:00",
+   "retrieved_at": "2026-11-03T16:41:01+00:00",
    "note": null,
    "trimmed": true
   },
@@ -139,7 +139,7 @@
    "status": 200,
    "bytes": 2161,
    "sha256": "c0b0c4e6d1adaea39fecdaf8ddfe19a01be5f1c571a99fa7f24545a214325c0e",
-   "retrieved_at": "2026-10-10T23:49:55+00:00",
+   "retrieved_at": "2026-11-03T16:41:02+00:00",
    "note": null,
    "trimmed": true
   },
@@ -151,7 +151,7 @@
    "status": 200,
    "bytes": 1645,
    "sha256": "38930ec2322cc6388c64ad3ae272e969ffc50d475b3f511531eb709658754e95",
-   "retrieved_at": "2026-10-10T23:49:56+00:00",
+   "retrieved_at": "2026-11-03T16:41:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -163,7 +163,7 @@
    "status": 200,
    "bytes": 13563,
    "sha256": "fdb7c41fc6a34850ddcf86db2a1748794b42c774e07717ac9847577ce807b639",
-   "retrieved_at": "2026-10-10T23:49:57+00:00",
+   "retrieved_at": "2026-11-03T16:41:04+00:00",
    "note": null,
    "trimmed": true
   },
@@ -175,7 +175,7 @@
    "status": 200,
    "bytes": 20685,
    "sha256": "761159700059e55b461ea6f7d514b6bd3b910a2850d8d47179321f5826979838",
-   "retrieved_at": "2026-10-10T23:49:59+00:00",
+   "retrieved_at": "2026-11-03T16:41:06+00:00",
    "note": null,
    "trimmed": true
   },
@@ -187,7 +187,7 @@
    "status": 200,
    "bytes": 16525,
    "sha256": "62cf8958139d7d7a397fc35c8f3340dba2becb4b11bd5a6d59261ae723220cae",
-   "retrieved_at": "2026-10-10T23:50:03+00:00",
+   "retrieved_at": "2026-11-03T16:41:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -199,7 +199,7 @@
    "status": 200,
    "bytes": 21176,
    "sha256": "a41285d2a98a542029ca51e1a1ef12a48496ded1aab006781a3052e1111f2423",
-   "retrieved_at": "2026-10-10T23:50:04+00:00",
+   "retrieved_at": "2026-11-03T16:41:11+00:00",
    "note": null,
    "trimmed": true
   },
@@ -211,7 +211,7 @@
    "status": 200,
    "bytes": 20054,
    "sha256": "6dac27ac45f4d23568950e059c2e908f36253bfa27963b94c638cd210a17175d",
-   "retrieved_at": "2026-10-10T23:50:05+00:00",
+   "retrieved_at": "2026-11-03T16:41:12+00:00",
    "note": null,
    "trimmed": true
   },
@@ -223,12 +223,12 @@
    "status": 200,
    "bytes": 22818,
    "sha256": "21373d9b556cd1c5c7c5e92020b798d9c3fe12feb126ccd7eede3a3e0be2584a",
-   "retrieved_at": "2026-10-10T23:50:06+00:00",
+   "retrieved_at": "2026-11-03T16:41:13+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_camara/2026-10-10",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_camara/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "service_methods": [
   "retornarDocumentoIngresoProyectoLey",
@@ -662,6 +662,8 @@
   "votaciones/18022-08.xml",
   "votaciones/17954-06.xml",
   "votaciones/18259-08.xml",
+  "detalle/90748.xml",
+  "detalle/90747.xml",
   "detalle/89546.xml",
   "detalle/89545.xml",
   "detalle/89544.xml",

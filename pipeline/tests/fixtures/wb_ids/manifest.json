@@ -10,7 +10,7 @@
    "status": 200,
    "bytes": 301050,
    "sha256": "5901c07311e622685222acd19fb8e137fe02a3262b109b176423fd9f7592fee6",
-   "retrieved_at": "2026-10-13T14:12:53+00:00",
+   "retrieved_at": "2026-11-03T14:29:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -23,7 +23,7 @@
    "status": 200,
    "bytes": 305449,
    "sha256": "bfae6808c42178780281725aab3b3fe2f33d0c2c49b788a2b77eecb3cc145642",
-   "retrieved_at": "2026-10-13T14:13:23+00:00",
+   "retrieved_at": "2026-11-03T14:29:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -36,7 +36,7 @@
    "status": 200,
    "bytes": 308088,
    "sha256": "7a17eb5d6983777dde49c30313b2a4922fbcfc048d6cbaae175b6e88d069fc3f",
-   "retrieved_at": "2026-10-13T14:13:39+00:00",
+   "retrieved_at": "2026-11-03T14:29:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -49,11 +49,11 @@
    "status": 200,
    "bytes": 314895,
    "sha256": "e6f9d426876e8719d0e5eaf20624c41ed3906b4b92164265ee008dfbee96e3ab",
-   "retrieved_at": "2026-10-13T14:14:02+00:00",
+   "retrieved_at": "2026-11-03T14:29:35+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_ids/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_ids/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py"
 }

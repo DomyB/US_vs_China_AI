@@ -17,9 +17,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 222964,
-   "sha256": "19c4f48e10b2f079382c89a32918ea156d3a55fec8a5d059811a1adbccd6483c",
-   "retrieved_at": "2026-10-13T14:14:11+00:00",
+   "bytes": 222965,
+   "sha256": "dabfc8bc9f7f74fb0c74e8f5ee5845215473e29051c125679f236e6ee9abffdf",
+   "retrieved_at": "2026-11-03T14:30:55+00:00",
    "note": null,
    "trimmed": true
   },
@@ -39,9 +39,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 234486,
-   "sha256": "cbba85b4da5cdf122bff9f4369d24d0b2eabace0607a57beaf186b974df21b5e",
-   "retrieved_at": "2026-10-13T14:14:14+00:00",
+   "bytes": 234487,
+   "sha256": "74e8bca336ec23bc5903a688be3ec30908652a1d36e6ba5500b79052a017527a",
+   "retrieved_at": "2026-11-03T14:31:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -62,8 +62,8 @@
    },
    "status": 200,
    "bytes": 160317,
-   "sha256": "e287f1629139f14bfcdbed91f01f51e030945b59e7121716f038c0f43a4f19d3",
-   "retrieved_at": "2026-10-13T14:14:18+00:00",
+   "sha256": "e812f39e928e4b6200e7e460bb4033a8bc1aa6df9def567643da24d531ae00c4",
+   "retrieved_at": "2026-11-03T14:31:22+00:00",
    "note": null,
    "trimmed": true
   },
@@ -84,8 +84,8 @@
    },
    "status": 200,
    "bytes": 240142,
-   "sha256": "d369c90fecf6ee5eba9860e8d2fe94364ee80cbe945ea24f12e79d9456cb06da",
-   "retrieved_at": "2026-10-13T14:14:21+00:00",
+   "sha256": "d3ee986f542fec751de697b717e16df9349b9187e17f1c1250e4d53ce83e0399",
+   "retrieved_at": "2026-11-03T14:31:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -105,9 +105,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 236129,
-   "sha256": "26da90916ab8b549ecdca498a4ce8090cfacabe1a3351266d7d81ad6610fad3a",
-   "retrieved_at": "2026-10-13T14:14:23+00:00",
+   "bytes": 236130,
+   "sha256": "e674066fadb4203c5be97f424a742d8c80a11f5379f788bf43472731b26b6946",
+   "retrieved_at": "2026-11-03T14:31:49+00:00",
    "note": null,
    "trimmed": true
   },
@@ -127,9 +127,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 222986,
-   "sha256": "8c80201ed662401e8e70b25654de4e2bb988573bb2f939e55d55cec9c66aa2da",
-   "retrieved_at": "2026-10-13T14:14:29+00:00",
+   "bytes": 222987,
+   "sha256": "1070f5c69d7d7c7ddd36b48ccc20cc13047726afaad18d80b7dfce9e848f5ec8",
+   "retrieved_at": "2026-11-03T14:32:05+00:00",
    "note": null,
    "trimmed": true
   },
@@ -149,9 +149,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 180124,
-   "sha256": "4ce2138a9221f902ce84f8343209eb21ea79ba066c1ca75f2b801135a6f38087",
-   "retrieved_at": "2026-10-13T14:14:32+00:00",
+   "bytes": 180125,
+   "sha256": "44b380bd357e5c44d53b166c70664937f7b8f428c19841107994a408da76c73f",
+   "retrieved_at": "2026-11-03T14:32:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -171,9 +171,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 176973,
-   "sha256": "4412cef2c78aa28508115b86f9209b6c7ff02e0750be19086096d766769cc372",
-   "retrieved_at": "2026-10-13T14:14:35+00:00",
+   "bytes": 176974,
+   "sha256": "129c0aa293fdd15a0a594e2d1e7681bc7f28a13c4932f506d59d451f70643d33",
+   "retrieved_at": "2026-11-03T14:32:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -194,8 +194,8 @@
    },
    "status": 200,
    "bytes": 164676,
-   "sha256": "14e429358e4493b23ba5a94563f7a5194d9541f7831c1c58ad531a12096134bd",
-   "retrieved_at": "2026-10-13T14:14:36+00:00",
+   "sha256": "023dbeeb653a86c33edf1991d087f297190f16437f58c08c49338d46eab34a94",
+   "retrieved_at": "2026-11-03T14:32:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -216,8 +216,8 @@
    },
    "status": 200,
    "bytes": 139218,
-   "sha256": "c53ab0770813662d5d12ac805bf218d1c47385e0c80061ae8a43f39f5a796cf9",
-   "retrieved_at": "2026-10-13T14:14:42+00:00",
+   "sha256": "5085588ee762eacd5ae79609d4b237b1b2972b266954037afc87a3b45acfd02b",
+   "retrieved_at": "2026-11-03T14:32:46+00:00",
    "note": null,
    "trimmed": true
   },
@@ -238,8 +238,8 @@
    },
    "status": 200,
    "bytes": 157131,
-   "sha256": "502886c10bf72c9297de00c5f30dcd41083e5b2665bdf9c13dd70e55fde6ad11",
-   "retrieved_at": "2026-10-13T14:14:44+00:00",
+   "sha256": "c8dae50d27c22b38d5920c3ca29cef3338071c47573a26c234104a326bcd2416",
+   "retrieved_at": "2026-11-03T14:32:51+00:00",
    "note": null,
    "trimmed": true
   },
@@ -260,8 +260,8 @@
    },
    "status": 200,
    "bytes": 116657,
-   "sha256": "d08c4f16d435ddc9227f726b0bcdcfd730f3c389bbbbc0a3b204a1be9c94a1b5",
-   "retrieved_at": "2026-10-13T14:14:47+00:00",
+   "sha256": "a8f9031bbc904f3c0ff735bd01657f79c16284c0c42ee661143803214a1aeddc",
+   "retrieved_at": "2026-11-03T14:33:00+00:00",
    "note": null,
    "trimmed": true
   },
@@ -281,9 +281,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 190769,
-   "sha256": "02ed87ea1164b23cb711f7483207f3e65b043fd35da4c9dc541d1ddd41b8000d",
-   "retrieved_at": "2026-10-13T14:14:50+00:00",
+   "bytes": 190770,
+   "sha256": "a5c3e7a59b854d41ab19619b182ca67efdf98f7b0124841123f3f9d17d491964",
+   "retrieved_at": "2026-11-03T14:33:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -303,9 +303,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 233927,
-   "sha256": "25828edbcafee0a4fe9dc941ad60d321d5c439275c5115de25b131493204c6c8",
-   "retrieved_at": "2026-10-13T14:14:52+00:00",
+   "bytes": 233928,
+   "sha256": "7839566ab76e6eedba1bd6973b3a74d27ab5752112a7bdaf6c3e7d4d64143f44",
+   "retrieved_at": "2026-11-03T14:33:41+00:00",
    "note": null,
    "trimmed": true
   },
@@ -325,9 +325,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 210764,
-   "sha256": "d7ea841422bbf1fc4bdee6676c52523880eb5bcc0158d0282bced918f34aa39f",
-   "retrieved_at": "2026-10-13T14:14:54+00:00",
+   "bytes": 210765,
+   "sha256": "3b704ff425d918ba7a3916fc9c3f9c3480d0b080cd1467814d3b6361d519a636",
+   "retrieved_at": "2026-11-03T14:33:53+00:00",
    "note": null,
    "trimmed": true
   },
@@ -347,9 +347,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 223741,
-   "sha256": "8e310b06461e50f3a8a3116dcecdf0b0126e8f8e0b9c01263b64f2471e330920",
-   "retrieved_at": "2026-10-13T14:14:59+00:00",
+   "bytes": 223742,
+   "sha256": "0a95d7fa929da31bc3d7849cd698890b460dbe5eca9fc719b32b181bdb2d10a4",
+   "retrieved_at": "2026-11-03T14:34:05+00:00",
    "note": null,
    "trimmed": true
   },
@@ -369,9 +369,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 215857,
-   "sha256": "7ca58d69da27510bb689bcba59a3daabc3544d85789f37320f93819a885413ed",
-   "retrieved_at": "2026-10-13T14:15:06+00:00",
+   "bytes": 215858,
+   "sha256": "4ddc040fca31aa25fce2db7f3bd2f627a51b4ddb35ab1cb055d5ffc538404991",
+   "retrieved_at": "2026-11-03T14:34:45+00:00",
    "note": null,
    "trimmed": true
   },
@@ -392,8 +392,8 @@
    },
    "status": 200,
    "bytes": 194001,
-   "sha256": "9807190f5a19de41e54c5d61be879449be79ca512a07fe846dcf234d6ad96e25",
-   "retrieved_at": "2026-10-13T14:15:06+00:00",
+   "sha256": "329bb0c0803d6f2c47f48253dca20834ad37acf9aa60f06385d5ed649a1838d6",
+   "retrieved_at": "2026-11-03T14:34:48+00:00",
    "note": null,
    "trimmed": true
   },
@@ -414,8 +414,8 @@
    },
    "status": 200,
    "bytes": 355863,
-   "sha256": "8bd8889237660897634eced46abd381f40a5ded575cf30727ebb208e211556a4",
-   "retrieved_at": "2026-10-13T14:15:11+00:00",
+   "sha256": "fd48581169441f38fa788d6d623314dfe364d9bbd93bda9d12bf891f9b24787b",
+   "retrieved_at": "2026-11-03T14:34:55+00:00",
    "note": null,
    "trimmed": true
   },
@@ -436,8 +436,8 @@
    },
    "status": 200,
    "bytes": 369708,
-   "sha256": "16897e509a7552fff777cb3f46e478107ec51bf2445044f6659163b4694c8970",
-   "retrieved_at": "2026-10-13T14:15:13+00:00",
+   "sha256": "faac356679327fbc01b1949d6fd20b885ac7dbf627f104edf5a933f052aa1207",
+   "retrieved_at": "2026-11-03T14:35:05+00:00",
    "note": null,
    "trimmed": true
   },
@@ -457,9 +457,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 259216,
-   "sha256": "dd66758a93a56b87bea8d7972006b5f8b4aa84b87c32466391c8e4ec37dd2604",
-   "retrieved_at": "2026-10-13T14:15:16+00:00",
+   "bytes": 259217,
+   "sha256": "a7ee406238b787a2cf30c34a9919e6e5259e43e2b7b1245b9f509a882ca98f3b",
+   "retrieved_at": "2026-11-03T14:35:21+00:00",
    "note": null,
    "trimmed": true
   },
@@ -479,9 +479,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 394449,
-   "sha256": "341d49796444422ee5d53f6daee4da97dfd165d1f3784d5802461a8e12c03468",
-   "retrieved_at": "2026-10-13T14:15:19+00:00",
+   "bytes": 394450,
+   "sha256": "bd64add162740a4ed45b06b52ea5387c59f100ae1cd2769e9591029ea9917bde",
+   "retrieved_at": "2026-11-03T14:35:34+00:00",
    "note": null,
    "trimmed": true
   },
@@ -501,9 +501,9 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 427860,
-   "sha256": "9aec54272edd6e103a44b3b72f61c9d6f98afe004bd9d79596c9352e5277f078",
-   "retrieved_at": "2026-10-13T14:15:23+00:00",
+   "bytes": 427861,
+   "sha256": "f2835e2485ed45051c68d779e410f7a78ae213fbc312cdf3a5297207ad03bc41",
+   "retrieved_at": "2026-11-03T14:35:49+00:00",
    "note": null,
    "trimmed": true
   },
@@ -523,14 +523,14 @@
     "subscription-key": "***"
    },
    "status": 200,
-   "bytes": 417091,
-   "sha256": "c6904f027614d2742f3db3cfb22dffcf4c172097d27056c0daa3394f26bdc82f",
-   "retrieved_at": "2026-10-13T14:15:26+00:00",
+   "bytes": 417092,
+   "sha256": "04b4bcb1cf10d8a2bc33374f483d3a0ec9c0742f6a55e93b822948811a73b1e5",
+   "retrieved_at": "2026-11-03T14:36:03+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/un_comtrade/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/un_comtrade/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "omitted": [
   "rep_BRA_2017-2019.json",

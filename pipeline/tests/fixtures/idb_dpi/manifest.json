@@ -7,9 +7,9 @@
     "id": "the-database-of-political-institutions-dpi-2023"
    },
    "status": 200,
-   "bytes": 146700,
-   "sha256": "2a17b8c42067b7fc4dfad376e42b17a6b4a043d7d45458bd9daf7940748e1471",
-   "retrieved_at": "2026-10-13T14:33:55+00:00",
+   "bytes": 146729,
+   "sha256": "899590bab7db0dbc4100e489d2213c3a2797a953cdc5f73782d10996e8e445d4",
+   "retrieved_at": "2026-11-03T15:06:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,9 +17,9 @@
    "url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023/resource/3ff2fcd2-40ed-45d4-a255-128224afae06",
    "params": {},
    "status": 200,
-   "bytes": 160990,
-   "sha256": "9e2bf3294d89721adcc4b79606d90511c33f45240a4be00a57dd34d7034a0670",
-   "retrieved_at": "2026-10-13T14:33:56+00:00",
+   "bytes": 161279,
+   "sha256": "deb5da45e4053ddc8030fc4e1c55a3b728f49a0c7bc5812e2d77a658d3f635d4",
+   "retrieved_at": "2026-11-03T15:06:25+00:00",
    "note": null,
    "trimmed": true
   },
@@ -29,12 +29,12 @@
    "status": 200,
    "bytes": 5626170,
    "sha256": "5b5b047b88bdb659fefc73a36764de0fc8ca9f74cbeb20a8d06d74445881d1a2",
-   "retrieved_at": "2026-10-13T14:33:57+00:00",
+   "retrieved_at": "2026-11-03T15:06:26+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/idb_dpi/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "resource_used": {
   "id": "3ff2fcd2-40ed-45d4-a255-128224afae06",

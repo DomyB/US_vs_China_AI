@@ -8,9 +8,9 @@
     "palavraChave": "minerais"
    },
    "status": 200,
-   "bytes": 3447,
-   "sha256": "06f388de84b2692ef938085ae363023010b369415651683bc4e22d03009a57db",
-   "retrieved_at": "2026-10-10T23:40:16+00:00",
+   "bytes": 3452,
+   "sha256": "1b25f6470254d6901e1f14873ff86cea1403f216c30d077324705a41602a62e1",
+   "retrieved_at": "2026-11-03T16:31:16+00:00",
    "note": null,
    "trimmed": true
   },
@@ -21,9 +21,9 @@
     "palavraChave": "Estados Unidos"
    },
    "status": 200,
-   "bytes": 22279,
-   "sha256": "c8b65d9127f5a9b4da5c2948abe23b668728a4bf51a1e52f752fa4083cf7f653",
-   "retrieved_at": "2026-10-10T23:40:22+00:00",
+   "bytes": 22311,
+   "sha256": "2e6f96ba8cab8aea0fb82ed0dcec235f4104cfc9acde99aed281dd786b225f58",
+   "retrieved_at": "2026-11-03T16:31:22+00:00",
    "note": null,
    "trimmed": true
   },
@@ -34,9 +34,9 @@
     "palavraChave": "minera\u00e7\u00e3o"
    },
    "status": 200,
-   "bytes": 2147,
-   "sha256": "b76095a3ad8b5d9aef347b81771f19740c1361c0c68e7c091c7c1458182e9513",
-   "retrieved_at": "2026-10-10T23:40:22+00:00",
+   "bytes": 2151,
+   "sha256": "8068d986bc32ec61bb360600f787a6b102b32037b9f79fc679313444afdac5e7",
+   "retrieved_at": "2026-11-03T16:31:23+00:00",
    "note": null,
    "trimmed": true
   },
@@ -47,9 +47,9 @@
     "palavraChave": "minerais"
    },
    "status": 200,
-   "bytes": 1242,
-   "sha256": "66845795c6593deed124595ac5e47acfdbe04a998fe354f54d3adc3e45c16bcf",
-   "retrieved_at": "2026-10-10T23:40:23+00:00",
+   "bytes": 1243,
+   "sha256": "86ec10b2213dcd0b00ae963f43b2b598fde8851c93e87f16a7b1299dba36881a",
+   "retrieved_at": "2026-11-03T16:31:24+00:00",
    "note": null,
    "trimmed": true
   },
@@ -60,9 +60,9 @@
     "palavraChave": "China"
    },
    "status": 200,
-   "bytes": 995,
-   "sha256": "5bc84cb05fb81ffe1aec77202fa1afe50b3997f8848e896c8c43704ac06aac7c",
-   "retrieved_at": "2026-10-10T23:40:28+00:00",
+   "bytes": 996,
+   "sha256": "63476b24da8e809204dc6f830576cac1ec73a7722b352900a8ac48cec0ec4758",
+   "retrieved_at": "2026-11-03T16:31:31+00:00",
    "note": null,
    "trimmed": true
   },
@@ -73,9 +73,9 @@
     "palavraChave": "Estados Unidos"
    },
    "status": 200,
-   "bytes": 37899,
-   "sha256": "0010291ac9b1fdc72a9254f0ff485144e26312f0379c358a57291d28a6e89023",
-   "retrieved_at": "2026-10-10T23:40:30+00:00",
+   "bytes": 37951,
+   "sha256": "4aacbaeb9b7e95fe0114a84f12d2ec9edf5912eba2b0b8b9ad32d8b9212d0c54",
+   "retrieved_at": "2026-11-03T16:31:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -86,9 +86,9 @@
     "palavraChave": "minera\u00e7\u00e3o"
    },
    "status": 200,
-   "bytes": 1018,
-   "sha256": "179ecec39e960ee033b2e5d4d7fbbd3661b7195249752e3c04eb3a26be43cee4",
-   "retrieved_at": "2026-10-10T23:40:31+00:00",
+   "bytes": 1019,
+   "sha256": "26a30f8dcb77d47cff328df1f3cc80309edfa5305a760009da53cb50d69115c5",
+   "retrieved_at": "2026-11-03T16:31:32+00:00",
    "note": null,
    "trimmed": true
   },
@@ -99,9 +99,9 @@
     "palavraChave": "minerais"
    },
    "status": 200,
-   "bytes": 2029,
-   "sha256": "40925b66468cb9381fb6e162dd95101cf53695944c8108442ed5e203bfffe32d",
-   "retrieved_at": "2026-10-10T23:40:31+00:00",
+   "bytes": 2032,
+   "sha256": "205c2bea21b314b10509802eb7617a65af4571853b2a36dcf937e2111899e548",
+   "retrieved_at": "2026-11-03T16:31:33+00:00",
    "note": null,
    "trimmed": true
   },
@@ -112,9 +112,9 @@
     "palavraChave": "China"
    },
    "status": 200,
-   "bytes": 1178,
-   "sha256": "9f89ef6c43bf62f270cb977376eb2ab4acb3d92f6654d95ca5d25c8bee87dd26",
-   "retrieved_at": "2026-10-10T23:40:36+00:00",
+   "bytes": 1179,
+   "sha256": "29503e23e65cba3eb97b7704da2bb6beb74c439a5616d43a17cf4a5e2f75a7e4",
+   "retrieved_at": "2026-11-03T16:31:38+00:00",
    "note": null,
    "trimmed": true
   },
@@ -125,9 +125,9 @@
     "palavraChave": "Estados Unidos"
    },
    "status": 200,
-   "bytes": 53285,
-   "sha256": "f5f353057231155ccde28f64ef1f40f2e112dab82254be28a505704e3eb9c914",
-   "retrieved_at": "2026-10-10T23:40:38+00:00",
+   "bytes": 53358,
+   "sha256": "62a2fe3e4afe61de93656ea405684c8f7ca2485bb66e838d6e99c3ec26d5f964",
+   "retrieved_at": "2026-11-03T16:31:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -138,9 +138,9 @@
     "palavraChave": "minera\u00e7\u00e3o"
    },
    "status": 200,
-   "bytes": 2438,
-   "sha256": "d4da4418fa766c0e5e89563629c0c458974653ac788e5a51cdcf86319c2c5e06",
-   "retrieved_at": "2026-10-10T23:40:38+00:00",
+   "bytes": 2441,
+   "sha256": "a87d8109528d08a4507f8bea062665181fe7d43d548468c1f21675b17cc6e65a",
+   "retrieved_at": "2026-11-03T16:31:40+00:00",
    "note": null,
    "trimmed": true
   },
@@ -151,9 +151,29 @@
     "palavraChave": "minerais"
    },
    "status": 200,
-   "bytes": 5616,
-   "sha256": "2ba3ca61d2f29c9933513a3b697adc1ce8ee14af85169465a4a49363c93d168d",
-   "retrieved_at": "2026-10-10T23:40:39+00:00",
+   "bytes": 5624,
+   "sha256": "ca1599f02fdeb1d9521f8bbdcf9310aa72385ae033754fe2dec0259c61c12d7f",
+   "retrieved_at": "2026-11-03T16:31:41+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votacoes/176003.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/votacoes/176003",
+   "params": {},
+   "status": 200,
+   "bytes": 935,
+   "sha256": "9536108d591003c9b86da7c66b1bb0b764e9a4f51629382bba64ed19a74999d0",
+   "retrieved_at": "2026-11-03T16:34:53+00:00",
+   "note": null,
+   "trimmed": true
+  },
+  "votacoes/175988.json": {
+   "url": "https://legis.senado.leg.br/dadosabertos/materia/votacoes/175988",
+   "params": {},
+   "status": 200,
+   "bytes": 935,
+   "sha256": "6f95a3072de5a34e7e2d27ead32c723cf6625b583b14a82d904fcbb372a3dc4e",
+   "retrieved_at": "2026-11-03T16:34:54+00:00",
    "note": null,
    "trimmed": true
   },
@@ -162,8 +182,8 @@
    "params": {},
    "status": 200,
    "bytes": 102352,
-   "sha256": "0c0f538be155bd530d84133af3b23739335d7d47a31dea03ab3a5d2e8ec2372b",
-   "retrieved_at": "2026-10-10T23:43:51+00:00",
+   "sha256": "d7b33a34c251b24ac0617aca1a0a411aca64cab824d484d8a6283ffff380ab43",
+   "retrieved_at": "2026-11-03T16:34:55+00:00",
    "note": null,
    "trimmed": true
   },
@@ -172,8 +192,8 @@
    "params": {},
    "status": 200,
    "bytes": 892,
-   "sha256": "3c6a145e6c672bfc99026852cf9fd65a3eb9614acbe53ecbc596c4d1edd65b55",
-   "retrieved_at": "2026-10-10T23:43:52+00:00",
+   "sha256": "e050ef753d6b3013dd4d935cd0269506c1dbc3757220bd0edcd2243d786043e1",
+   "retrieved_at": "2026-11-03T16:34:56+00:00",
    "note": null,
    "trimmed": true
   },
@@ -182,8 +202,8 @@
    "params": {},
    "status": 200,
    "bytes": 934,
-   "sha256": "83159e17de5fd6fb2b388113fed18eabb1b7d425397017cceb25fdaef9ca03cd",
-   "retrieved_at": "2026-10-10T23:43:53+00:00",
+   "sha256": "1d7cbbf4f87f2bafab87713d519722d112e34cf2c287cafaf6ad96a70455237e",
+   "retrieved_at": "2026-11-03T16:34:57+00:00",
    "note": null,
    "trimmed": true
   },
@@ -192,8 +212,8 @@
    "params": {},
    "status": 200,
    "bytes": 934,
-   "sha256": "1bd297d054469dbe46fc8847eff714e503a99d09be7b7484935df828654d22ae",
-   "retrieved_at": "2026-10-10T23:43:54+00:00",
+   "sha256": "252955641f1eb31092ed4646717a7b968f59fc680e27b8a4ef0873b1c6dddecf",
+   "retrieved_at": "2026-11-03T16:34:58+00:00",
    "note": null,
    "trimmed": true
   },
@@ -202,8 +222,8 @@
    "params": {},
    "status": 200,
    "bytes": 934,
-   "sha256": "39d91a26018b3bfe8a4168d4749abb5f6b5cc761a6f08d350c49031d2c081438",
-   "retrieved_at": "2026-10-10T23:43:55+00:00",
+   "sha256": "2b0e7096909089ec8abc150c91aeb6e672e131891696d33191ff4bb9db28f617",
+   "retrieved_at": "2026-11-03T16:34:59+00:00",
    "note": null,
    "trimmed": true
   },
@@ -212,8 +232,8 @@
    "params": {},
    "status": 200,
    "bytes": 931,
-   "sha256": "9434c60c23e0e6ca3f9091422204184e836701bd6f3122ad7f53f2d849cbfeed",
-   "retrieved_at": "2026-10-10T23:43:56+00:00",
+   "sha256": "278836d70323e261d49154db58eb59c8cb698f6964e958f823e663ccf37287fd",
+   "retrieved_at": "2026-11-03T16:35:00+00:00",
    "note": null,
    "trimmed": true
   },
@@ -222,8 +242,8 @@
    "params": {},
    "status": 200,
    "bytes": 922,
-   "sha256": "2d9dd768327595de826b7615b80b96c678c2a80e98a835d9f895795ddfdb3a1f",
-   "retrieved_at": "2026-10-10T23:43:57+00:00",
+   "sha256": "f75751a665dd74737d54448ef8f04ecf0df8b017e2a7de6fed279bbf3906916a",
+   "retrieved_at": "2026-11-03T16:35:01+00:00",
    "note": null,
    "trimmed": true
   },
@@ -232,8 +252,8 @@
    "params": {},
    "status": 200,
    "bytes": 935,
-   "sha256": "7a826416cddd9002f8092c67887a12d0a95ee5fa9df2bd974b059c16eacbaa56",
-   "retrieved_at": "2026-10-10T23:43:58+00:00",
+   "sha256": "277efdc6c3ec84c8ad0b4248ec7317df8e92917fb18068988225eb2333eedd36",
+   "retrieved_at": "2026-11-03T16:35:02+00:00",
    "note": null,
    "trimmed": true
   },
@@ -242,8 +262,8 @@
    "params": {},
    "status": 200,
    "bytes": 931,
-   "sha256": "76330fff293aaf80062b11816b3674a394403848841e174540e694c26126682f",
-   "retrieved_at": "2026-10-10T23:43:59+00:00",
+   "sha256": "9685a4964930d8c45e46f98f218bc23749a36bd3ed5f2f795282f8b8d712609f",
+   "retrieved_at": "2026-11-03T16:35:03+00:00",
    "note": null,
    "trimmed": true
   },
@@ -252,33 +272,13 @@
    "params": {},
    "status": 200,
    "bytes": 935,
-   "sha256": "e463c46300bbfe6cb503b7c617accd231833a6b1971d29bde4125b7ef3bc305f",
-   "retrieved_at": "2026-10-10T23:44:00+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "votacoes/173607.json": {
-   "url": "https://legis.senado.leg.br/dadosabertos/materia/votacoes/173607",
-   "params": {},
-   "status": 200,
-   "bytes": 930,
-   "sha256": "3a60074ba99c943301aaf1c52a2df6b99719e703c94eae55bfa8b554b1a89905",
-   "retrieved_at": "2026-10-10T23:44:01+00:00",
-   "note": null,
-   "trimmed": true
-  },
-  "votacoes/173516.json": {
-   "url": "https://legis.senado.leg.br/dadosabertos/materia/votacoes/173516",
-   "params": {},
-   "status": 200,
-   "bytes": 931,
-   "sha256": "10190d27ffe5a4a2ea8efb7888b727ffea5c213a6f03e840098bc8e9ec807ae1",
-   "retrieved_at": "2026-10-10T23:44:02+00:00",
+   "sha256": "6cfba881170163a85a13033766a3c2e8319ecbf003dff033a62ddcd385fd154e",
+   "retrieved_at": "2026-11-03T16:35:04+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_senado_api/2026-10-10",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_senado_api/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
@@ -638,7 +638,7 @@
  "endpoints_tried": [
   "https://legis.senado.leg.br/dadosabertos/materia/pesquisa/lista?palavraChave"
  ],
- "kept_matters": 351,
+ "kept_matters": 353,
  "vote_calls_capped": true,
  "omitted": [
   "materias/2003_cobre.json",
@@ -757,6 +757,8 @@
   "materias/2026_cobre.json",
   "materias/2026_China.json",
   "materias/2026_Estados Unidos.json",
+  "votacoes/173607.json",
+  "votacoes/173516.json",
   "votacoes/173123.json",
   "votacoes/172841.json",
   "votacoes/172804.json",
@@ -1042,8 +1044,6 @@
   "votacoes/89662.json",
   "votacoes/88290.json",
   "votacoes/87968.json",
-  "votacoes/86998.json",
-  "votacoes/85689.json",
-  "votacoes/85373.json"
+  "votacoes/86998.json"
  ]
 }

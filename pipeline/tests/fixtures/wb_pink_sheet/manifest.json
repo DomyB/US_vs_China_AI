@@ -5,9 +5,9 @@
    "url": "https://www.worldbank.org/en/research/commodity-markets",
    "params": {},
    "status": 200,
-   "bytes": 55918,
-   "sha256": "0ce984b22e4ab69f299df47450c1fc314bdbb5dcb6fec8cd80b5168a511db933",
-   "retrieved_at": "2026-10-13T14:14:04+00:00",
+   "bytes": 55968,
+   "sha256": "ae79d88484ac29aa327a97f3da729431d4e3c2c534213a67989dd62b8950c22d",
+   "retrieved_at": "2026-11-03T14:30:36+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,11 +17,11 @@
    "status": 200,
    "bytes": 586099,
    "sha256": "ea1c350827878ea3bbe30e3cda16a13fd3bd5b409b8458940dc94a36b5a33154",
-   "retrieved_at": "2026-10-13T14:14:05+00:00",
+   "retrieved_at": "2026-11-03T14:30:37+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_pink_sheet/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_pink_sheet/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py"
 }

@@ -11,7 +11,7 @@
    "status": 200,
    "bytes": 107480,
    "sha256": "f26966c4e0bf703beac507ccc2f5cd9bbb050f4e64a67302b8c6d6ebf6cccdda",
-   "retrieved_at": "2026-10-13T14:06:15+00:00",
+   "retrieved_at": "2026-11-03T14:27:07+00:00",
    "note": null,
    "trimmed": true
   },
@@ -25,7 +25,7 @@
    "status": 200,
    "bytes": 115090,
    "sha256": "946fa3dd54ea8610c971b356508ac7d8fb79f610b9f084ba7180bde9ef37052b",
-   "retrieved_at": "2026-10-13T14:06:28+00:00",
+   "retrieved_at": "2026-11-03T14:27:08+00:00",
    "note": null,
    "trimmed": true
   },
@@ -39,7 +39,7 @@
    "status": 200,
    "bytes": 129060,
    "sha256": "23420f2864cf186a321d5c1f1fd7e7fe9541c85a7a7c0eacd5c7358a300c5a11",
-   "retrieved_at": "2026-10-13T14:06:51+00:00",
+   "retrieved_at": "2026-11-03T14:27:09+00:00",
    "note": null,
    "trimmed": true
   },
@@ -53,7 +53,7 @@
    "status": 200,
    "bytes": 126676,
    "sha256": "6505ba10193b3eedb2fa96c34f364726a92cacc35fe07da43ed7874e7c100754",
-   "retrieved_at": "2026-10-13T14:07:06+00:00",
+   "retrieved_at": "2026-11-03T14:27:10+00:00",
    "note": null,
    "trimmed": true
   },
@@ -67,7 +67,7 @@
    "status": 200,
    "bytes": 120561,
    "sha256": "da04edaa07fd00310fcaea2ffc465f8beb667c9a95a6a96c9fd743241ac4ee31",
-   "retrieved_at": "2026-10-13T14:07:35+00:00",
+   "retrieved_at": "2026-11-03T14:27:11+00:00",
    "note": null,
    "trimmed": true
   },
@@ -81,11 +81,11 @@
    "status": 200,
    "bytes": 111390,
    "sha256": "c51dbc49fd1b4e0e2008b9915184c9b50d51d5a5a5d38462a4041be41e87e540",
-   "retrieved_at": "2026-10-13T14:07:54+00:00",
+   "retrieved_at": "2026-11-03T14:27:12+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wdi/2026-10-13",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/wb_wdi/2026-11-03",
  "note": "trimmed copy of a real response; see scm/fixtures.py"
 }
