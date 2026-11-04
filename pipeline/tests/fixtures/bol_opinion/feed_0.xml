@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://purl.org/rss/1.0/modules/syndication/" xmlns:ns1="http://www.w3.org/2005/Atom" xmlns:ns2="http://search.yahoo.com/mrss/" version="2.0">
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ns0="http://purl.org/rss/1.0/modules/syndication/" xmlns:ns1="http://www.w3.org/2005/Atom" xmlns:ns3="http://search.yahoo.com/mrss/" version="2.0">
 
 <channel>
   <title>Opinión Bolivia :: Últimas noticias</title>
 
     <link>https://www.opinion.com.bo/</link>
     <description>Opinión Bolivia</description>
-    <lastBuildDate>Wed, 28 Oct 2026 06:48:12 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 23:49:25 -0400</lastBuildDate>
     <ns0:updatePeriod>hourly</ns0:updatePeriod>
     <ns0:updateFrequency>1</ns0:updateFrequency>
     <generator>https://www.opennemas.com</generator>
@@ -19,361 +19,336 @@
     </image>
 
                   <item>
-  <title>1xBet.TV pone en marcha sus zonas interactivas para hinchas del fútbol boliviano</title>
-      <category>Deportes</category>
-    <link>https://www.opinion.com.bo/deportes/1xbet-tv-pone-marcha-zonas-interactivas-hinchas-futbol-boliviano/20261027182058998303.html</link>
-  <comments>https://www.opinion.com.bo/deportes/1xbet-tv-pone-marcha-zonas-interactivas-hinchas-futbol-boliviano/20261027182058998303.html#comentarios-998303</comments>
-  <guid>https://www.opinion.com.bo/deportes/1xbet-tv-pone-marcha-zonas-interactivas-hinchas-futbol-boliviano/20261027182058998303.html</guid>
-  <pubDate>Tue, 27 Oct 2026 18:20:58 -0400</pubDate>
-        <description>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;&lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;&lt;meta name="Generator" content="Cocoa HTML Writer" /&gt;&lt;meta name="CocoaVersion" content="2685.3" /&gt;
-&lt;style type="text/css"&gt;p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-&lt;/style&gt;
-&lt;p&gt;El proyecto está en marcha y continuará en los próximos 12 encuentros, con espacios en los estadios donde los aficionados podrán disfrutar de entretenimiento gratuito, desafíos de habilidad y experiencias fotográficas para acercar más a los hinchas al fútbol nacional.&lt;/p&gt;
-</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102718204571265.jpg" length="122022" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102718204571265.jpg" type="image/jpeg" medium="image">
-        <ns2:title>1xBet.TV pone en marcha sus zonas interactivas para hinchas del fútbol boliviano</ns2:title>
-        <ns2:text>1xBet.TV pone en marcha sus zonas interactivas para hinchas del fútbol boliviano.</ns2:text>
-        <ns2:description>1xBet.TV pone en marcha sus zonas interactivas para hinchas del fútbol boliviano.</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>EEUU anuncia que emitirá visados para Flávio Bolsonaro y su familia</title>
-      <category>Mundo</category>
-    <link>https://www.opinion.com.bo/mundo/eeuu-anuncia-que-emitira-visados-flavio-bolsonaro-familia/20261027181203998301.html</link>
-  <comments>https://www.opinion.com.bo/mundo/eeuu-anuncia-que-emitira-visados-flavio-bolsonaro-familia/20261027181203998301.html#comentarios-998301</comments>
-  <guid>https://www.opinion.com.bo/mundo/eeuu-anuncia-que-emitira-visados-flavio-bolsonaro-familia/20261027181203998301.html</guid>
-  <pubDate>Tue, 27 Oct 2026 18:12:03 -0400</pubDate>
-      <dc:creator>EL PAÍS | ESPAÑA</dc:creator>
-        <description>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;&lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;&lt;meta name="Generator" content="Cocoa HTML Writer" /&gt;&lt;meta name="CocoaVersion" content="2685.3" /&gt;
-&lt;style type="text/css"&gt;p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-&lt;/style&gt;
-&lt;p&gt;Un portavoz del Departamento de Estado informa que Washington acogerá en su territorio al candidato presidencial brasileño derrotado.&lt;/p&gt;
-</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/08/21/2026082117100716074.jpg" length="117901" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/08/21/2026082117100716074.jpg" type="image/jpeg" medium="image">
-        <ns2:title>EEUU anuncia que emitirá visados para Flávio Bolsonaro y su familia</ns2:title>
-        <ns2:text>Flávio Bolsonaro excandidato presidencial del Brasil. ARCHIVO</ns2:text>
-        <ns2:description>Flávio Bolsonaro excandidato presidencial del Brasil. ARCHIVO</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Presentan proyecto de ley de extinción de dominio para quitar vehículos e inmuebles utilizados en delitos de alto impacto</title>
+  <title>Gobierno da su respaldo al viceministro Maldonado: “No nos van a amedrentar”</title>
       <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/presentan-proyecto-ley-extincion-dominio-quitar-vehiculos-inmuebles-utilizados-delitos-alto-impacto/20261027175246998298.html</link>
-  <comments>https://www.opinion.com.bo/pais/presentan-proyecto-ley-extincion-dominio-quitar-vehiculos-inmuebles-utilizados-delitos-alto-impacto/20261027175246998298.html#comentarios-998298</comments>
-  <guid>https://www.opinion.com.bo/pais/presentan-proyecto-ley-extincion-dominio-quitar-vehiculos-inmuebles-utilizados-delitos-alto-impacto/20261027175246998298.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:52:46 -0400</pubDate>
-      <dc:creator>ABI</dc:creator>
-        <description> La diputada Catherine Pinto informó este martes que impulsa el Proyecto de Ley de Extinción de Dominio, que plantea la pérdida del derecho de propiedad sobre inmuebles, vehículos, motocicletas y otros bienes utilizados en delitos de alto impacto,...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717225576247.jpg" length="62683" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717225576247.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Presentan proyecto de ley de extinción de dominio para quitar vehículos e inmuebles utilizados en delitos de alto impacto</ns2:title>
-        <ns2:text>La legisladora Catherine Pinto. CÁMARA DE DIPUTADOS</ns2:text>
-        <ns2:description>La legisladora Catherine Pinto. CÁMARA DE DIPUTADOS</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Gobernación de La Paz llevará nueve “Experiencias Maravillosas” a la FIPAZ 2026</title>
-      <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/gobernacion-paz-llevara-nueve-experiencias-maravillosas-fipaz-2026/20261027175237998291.html</link>
-  <comments>https://www.opinion.com.bo/pais/gobernacion-paz-llevara-nueve-experiencias-maravillosas-fipaz-2026/20261027175237998291.html#comentarios-998291</comments>
-  <guid>https://www.opinion.com.bo/pais/gobernacion-paz-llevara-nueve-experiencias-maravillosas-fipaz-2026/20261027175237998291.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:52:37 -0400</pubDate>
-        <description> La Gobernación de La Paz participará en la Feria Internacional de La Paz (FIPAZ) 2026 con nueve “Experiencias Maravillosas”, una propuesta que reunirá expresiones culturales, tradiciones, actividades artísticas y atractivos turísticos del...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716555917434.jpg" length="55941" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716555917434.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Gobernación de La Paz llevará nueve “Experiencias Maravillosas” a la FIPAZ 2026</ns2:title>
-        <ns2:text>Las cholitas escaladora tendrán un espacio en el Stand de la Gobernación de La Paz. ABI</ns2:text>
-        <ns2:description>Las cholitas escaladora tendrán un espacio en el Stand de la Gobernación de La Paz. ABI</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Incendios forestales: Gobierno afirma que estamos con menos del 1% de afectaciones respecto a años anteriores</title>
-      <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/incendios-forestales-gobierno-afirma-que-estamos-menos-1-afectaciones-respecto-anos-anteriores/20261027175221998286.html</link>
-  <comments>https://www.opinion.com.bo/pais/incendios-forestales-gobierno-afirma-que-estamos-menos-1-afectaciones-respecto-anos-anteriores/20261027175221998286.html#comentarios-998286</comments>
-  <guid>https://www.opinion.com.bo/pais/incendios-forestales-gobierno-afirma-que-estamos-menos-1-afectaciones-respecto-anos-anteriores/20261027175221998286.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:52:21 -0400</pubDate>
+    <link>https://www.opinion.com.bo/pais/gobierno-da-respaldo-viceministro-maldonado-nos-van-amedrentar/20261103204345998655.html</link>
+  <comments>https://www.opinion.com.bo/pais/gobierno-da-respaldo-viceministro-maldonado-nos-van-amedrentar/20261103204345998655.html#comentarios-998655</comments>
+  <guid>https://www.opinion.com.bo/pais/gobierno-da-respaldo-viceministro-maldonado-nos-van-amedrentar/20261103204345998655.html</guid>
+  <pubDate>Tue, 3 Nov 2026 20:43:45 -0400</pubDate>
       <dc:creator>ERBOL</dc:creator>
-        <description> El ministro de Producción Sostenible, Óscar Mario Justiniano, destacó este martes que Bolivia registra actualmente menos del 1% de las afectaciones por incendios forestales en comparación con los años de mayor impacto. 
-
- Atribuyó este resultado...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716430251895.jpg" length="35291" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716430251895.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Incendios forestales: Gobierno afirma que estamos con menos del 1% de afectaciones respecto a años anteriores</ns2:title>
-        <ns2:text>El ministro de Desarrollo Productivo, Rural y Agua, Oscar Mario Justiniano./ 
-Ministerio de Producción Sostenible, Medio Ambiente y Agua</ns2:text>
-        <ns2:description>El ministro de Desarrollo Productivo, Rural y Agua, Oscar Mario Justiniano./ 
-Ministerio de Producción Sostenible, Medio Ambiente y Agua</ns2:description>
-      </ns2:content>
+        <description>El ministro de Gobierno, Marco Antonio Oviedo, expresó el respaldo personal, político e institucional del Gobierno al viceministro de Régimen Interior y Policía, Peter Maldonado, ante las amenazas recibidas y aseguró que las acciones contra las...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110320432428069.jpg" length="41609" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110320432428069.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Gobierno da su respaldo al viceministro Maldonado: “No nos van a amedrentar”</ns3:title>
+        <ns3:text>Autoridades brindan conferencia. ERBOL</ns3:text>
+        <ns3:description>Autoridades brindan conferencia. ERBOL</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Consulado boliviano pide esclarecer la muerte de Oshin Santos en Chile y brinda asistencia a su familia</title>
+  <title>Agenda 50/50: Gobierno insiste en que será gradual: “un proceso que va a tomar mucho tiempo”</title>
       <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/consulado-boliviano-pide-esclarecer-muerte-oshin-santos-chile-brinda-asistencia-familia/20261027175203998284.html</link>
-  <comments>https://www.opinion.com.bo/pais/consulado-boliviano-pide-esclarecer-muerte-oshin-santos-chile-brinda-asistencia-familia/20261027175203998284.html#comentarios-998284</comments>
-  <guid>https://www.opinion.com.bo/pais/consulado-boliviano-pide-esclarecer-muerte-oshin-santos-chile-brinda-asistencia-familia/20261027175203998284.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:52:03 -0400</pubDate>
-      <dc:creator>ABI</dc:creator>
-        <description> El Consulado General de Bolivia en Santiago de Chile solicitó a las autoridades chilenas el pronto esclarecimiento de la muerte de la connacional Oshin Santos Santos, quien falleció la noche del 24 de octubre en el Hospital de Melipilla, dos días...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716273560383.jpg" length="138675" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716273560383.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Consulado boliviano pide esclarecer la muerte de Oshin Santos en Chile y brinda asistencia a su familia</ns2:title>
-        <ns2:text>El Consulado General de Bolivia en Santiago de Chile solicitó a las autoridades chilenas el esclarecimiento de la muerte de la connacional Oshin Santos. FACEBOOK</ns2:text>
-        <ns2:description>El Consulado General de Bolivia en Santiago de Chile solicitó a las autoridades chilenas el esclarecimiento de la muerte de la connacional Oshin Santos. FACEBOOK</ns2:description>
-      </ns2:content>
+    <link>https://www.opinion.com.bo/pais/agenda-50-50-gobierno-insiste-que-sera-gradual-proceso-que-va-tomar-mucho-tiempo/20261103175120998653.html</link>
+  <comments>https://www.opinion.com.bo/pais/agenda-50-50-gobierno-insiste-que-sera-gradual-proceso-que-va-tomar-mucho-tiempo/20261103175120998653.html#comentarios-998653</comments>
+  <guid>https://www.opinion.com.bo/pais/agenda-50-50-gobierno-insiste-que-sera-gradual-proceso-que-va-tomar-mucho-tiempo/20261103175120998653.html</guid>
+  <pubDate>Tue, 3 Nov 2026 17:51:20 -0400</pubDate>
+      <dc:creator>ERBOL</dc:creator>
+        <description> En medio de la polémica que ha surgido por la oferta de redistribuir el 1% de la coparticipación tributaria a las gobernaciones, el ministro de la Presidencia, Fernando Aramayo, ratificó que la implementación del modelo 50/50 será gradual y...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/08/11/2026081117134550390.jpg" length="60674" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/08/11/2026081117134550390.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Agenda 50/50: Gobierno insiste en que será gradual: “un proceso que va a tomar mucho tiempo”</ns3:title>
+        <ns3:text>El ministro de la Presidencia, Fernando Aramayo, durante una conferencia de prensa. URGENTE.BO</ns3:text>
+        <ns3:description>El ministro de la Presidencia, Fernando Aramayo, durante una conferencia de prensa. URGENTE.BO</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>La exposición “Ser, resistir, transformar” llega a Cochabamba con 11 historias de vida de personas LGBTIQ+</title>
-      <category>Cochabamba</category>
-    <link>https://www.opinion.com.bo/cochabamba/exposicion-ser-resistir-transformar-llega-cochabamba-11-historias-vida-personas-lgbtiq/20261027175022998281.html</link>
-  <comments>https://www.opinion.com.bo/cochabamba/exposicion-ser-resistir-transformar-llega-cochabamba-11-historias-vida-personas-lgbtiq/20261027175022998281.html#comentarios-998281</comments>
-  <guid>https://www.opinion.com.bo/cochabamba/exposicion-ser-resistir-transformar-llega-cochabamba-11-historias-vida-personas-lgbtiq/20261027175022998281.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:50:22 -0400</pubDate>
-      <dc:creator>REDACCIÓN/COORDINADORA DE LA MUJER</dc:creator>
-        <description>&lt;p&gt;La muestra fotográfica y audiovisual se inaugurará este miércoles 28 de octubre en el edificio nuevo de la Alcaldía de Cochabamba y permanecerá abierta al público hasta el viernes 30.&lt;/p&gt;
-</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102715591777565.jpg" length="90064" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102715591777565.jpg" type="image/jpeg" medium="image">
-        <ns2:title>La exposición “Ser, resistir, transformar” llega a Cochabamba con 11 historias de vida de personas LGBTIQ+</ns2:title>
-        <ns2:text>Anuncian la exposición que reúne historias de personas LGBTIQ+ en Cochabamba. COORDINADORA DE LA MUJER</ns2:text>
-        <ns2:description>Anuncian la exposición que reúne historias de personas LGBTIQ+ en Cochabamba. COORDINADORA DE LA MUJER</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Día Nacional de la Leche: PIL Bolivia dona más de 10.000 litros de leche a niñas y niños de 69 instituciones</title>
+  <title>Fiscal afirma que se investiga la amenaza al viceministro Maldonado y apunta a un grupo criminal</title>
       <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/dia-nacional-leche-pil-bolivia-dona-mas-10000-litros-leche-ninas-ninos-69-instituciones/20261027172531998300.html</link>
-  <comments>https://www.opinion.com.bo/pais/dia-nacional-leche-pil-bolivia-dona-mas-10000-litros-leche-ninas-ninos-69-instituciones/20261027172531998300.html#comentarios-998300</comments>
-  <guid>https://www.opinion.com.bo/pais/dia-nacional-leche-pil-bolivia-dona-mas-10000-litros-leche-ninas-ninos-69-instituciones/20261027172531998300.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:25:31 -0400</pubDate>
-        <description>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;&lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;&lt;meta name="Generator" content="Cocoa HTML Writer" /&gt;&lt;meta name="CocoaVersion" content="2685.3" /&gt;
-&lt;style type="text/css"&gt;p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-&lt;/style&gt;
-&lt;p&gt;La compañía llevó solidaridad y nutrición a más de 10.500 infantes en situación de vulnerabilidad, ratificando su compromiso con el bienestar de las familias del país.&lt;/p&gt;
-</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717251843385.jpg" length="57229" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717251843385.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Día Nacional de la Leche: PIL Bolivia dona más de 10.000 litros de leche a niñas y niños de 69 instituciones</ns2:title>
-        <ns2:text>Día Nacional de la Leche: PIL Bolivia dona más de 10.000 litros de leche a niñas y niños de 69 instituciones. PIL</ns2:text>
-        <ns2:description>Día Nacional de la Leche: PIL Bolivia dona más de 10.000 litros de leche a niñas y niños de 69 instituciones. PIL</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Policía investiga muerte de un hombre encontrado en su vehículo en Puerto Suárez</title>
-      <category>Policiales</category>
-    <link>https://www.opinion.com.bo/policial/policia-investiga-muerte-hombre-encontrado-vehiculo-puerto-suarez/20261027171813998296.html</link>
-  <comments>https://www.opinion.com.bo/policial/policia-investiga-muerte-hombre-encontrado-vehiculo-puerto-suarez/20261027171813998296.html#comentarios-998296</comments>
-  <guid>https://www.opinion.com.bo/policial/policia-investiga-muerte-hombre-encontrado-vehiculo-puerto-suarez/20261027171813998296.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:18:13 -0400</pubDate>
-      <dc:creator>ABI</dc:creator>
-        <description> La Fuerza Especial de Lucha Contra el Crimen (FELCC) en Puerto Suárez investiga la muerte de un hombre identificado como Johnny Colombo, quien fue encontrado sin vida en el interior de su vehículo. 
-
- De acuerdo con el reporte del director de la...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717174479110.jpg" length="89022" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717174479110.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Policía investiga muerte de un hombre encontrado en su vehículo en Puerto Suárez</ns2:title>
-        <ns2:text>Vehículo en el que fue encontrado sin vida Johnny Colombo en el municipio de Puerto Suárez. RRSS/ABI</ns2:text>
-        <ns2:description>Vehículo en el que fue encontrado sin vida Johnny Colombo en el municipio de Puerto Suárez. RRSS/ABI</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>“No puede quedar impune”: Legisladores exigen a Urioste investigar los audios atribuidos a Cerimedo</title>
-      <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/puede-quedar-impune-legisladores-exigen-urioste-investigar-audios-atribuidos-cerimedo/20261027171322998294.html</link>
-  <comments>https://www.opinion.com.bo/pais/puede-quedar-impune-legisladores-exigen-urioste-investigar-audios-atribuidos-cerimedo/20261027171322998294.html#comentarios-998294</comments>
-  <guid>https://www.opinion.com.bo/pais/puede-quedar-impune-legisladores-exigen-urioste-investigar-audios-atribuidos-cerimedo/20261027171322998294.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:13:22 -0400</pubDate>
+    <link>https://www.opinion.com.bo/pais/fiscal-afirma-que-investiga-amenaza-viceministro-maldonado-apunta-grupo-criminal/20261103174256998652.html</link>
+  <comments>https://www.opinion.com.bo/pais/fiscal-afirma-que-investiga-amenaza-viceministro-maldonado-apunta-grupo-criminal/20261103174256998652.html#comentarios-998652</comments>
+  <guid>https://www.opinion.com.bo/pais/fiscal-afirma-que-investiga-amenaza-viceministro-maldonado-apunta-grupo-criminal/20261103174256998652.html</guid>
+  <pubDate>Tue, 3 Nov 2026 17:42:56 -0400</pubDate>
       <dc:creator>URGENTE.BO</dc:creator>
-        <description> Legisladores pidieron al fiscal general del Estado, José Armando Urioste, que tome acciones ante los audios que se difunden y en los que se involucra a Fernando Cerimedo y otras autoridades. Los parlamentarios solicitaron que no solo se...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/08/24/2026082417183360139.jpg" length="16223" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/08/24/2026082417183360139.jpg" type="image/jpeg" medium="image">
-        <ns2:title>“No puede quedar impune”: Legisladores exigen a Urioste investigar los audios atribuidos a Cerimedo</ns2:title>
-        <ns2:text>Fernando Cerimedo. URGENTE.BO</ns2:text>
-        <ns2:description>Fernando Cerimedo. URGENTE.BO</ns2:description>
-      </ns2:content>
+        <description> Este martes, el fiscal General interino, José Armando Urioste, indicó que se abrió una investigación luego de las amenazas al viceministro de Régimen Interior, Peter Maldonado. 
+
+ “Esto se encuentra en proceso de investigación, ya se ha avanzado...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/05/2026100521022749800.jpg" length="72398" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/05/2026100521022749800.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Fiscal afirma que se investiga la amenaza al viceministro Maldonado y apunta a un grupo criminal</ns3:title>
+        <ns3:text>José Armando Urioste, fiscal general de la Fiscalía. GOBIERNO</ns3:text>
+        <ns3:description>José Armando Urioste, fiscal general de la Fiscalía. GOBIERNO</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Fiscalía inicia selección de más de 800 postulantes para cubrir 90 nuevos cargos de fiscales provisionales</title>
+  <title>Alcaldía de Santa Cruz retirará de circulación a micros en mal estado</title>
       <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/fiscalia-inicia-seleccion-mas-800-postulantes-cubrir-90-nuevos-cargos-fiscales-provisionales/20261027170259998293.html</link>
-  <comments>https://www.opinion.com.bo/pais/fiscalia-inicia-seleccion-mas-800-postulantes-cubrir-90-nuevos-cargos-fiscales-provisionales/20261027170259998293.html#comentarios-998293</comments>
-  <guid>https://www.opinion.com.bo/pais/fiscalia-inicia-seleccion-mas-800-postulantes-cubrir-90-nuevos-cargos-fiscales-provisionales/20261027170259998293.html</guid>
-  <pubDate>Tue, 27 Oct 2026 17:02:59 -0400</pubDate>
+    <link>https://www.opinion.com.bo/pais/alcaldia-santa-cruz-retirara-circulacion-micros-mal-estado/20261103173944998651.html</link>
+  <comments>https://www.opinion.com.bo/pais/alcaldia-santa-cruz-retirara-circulacion-micros-mal-estado/20261103173944998651.html#comentarios-998651</comments>
+  <guid>https://www.opinion.com.bo/pais/alcaldia-santa-cruz-retirara-circulacion-micros-mal-estado/20261103173944998651.html</guid>
+  <pubDate>Tue, 3 Nov 2026 17:39:44 -0400</pubDate>
+      <dc:creator>ABI</dc:creator>
+        <description> La Alcaldía de Santa Cruz de la Sierra inició este martes operativos de control para retirar de circulación a los micros del transporte público que se encuentren en mal estado. El propio alcalde, Manuel “Mamén” Saavedra, dispuso el retiro de un...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317392280250.jpg" length="99632" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317392280250.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Alcaldía de Santa Cruz retirará de circulación a micros en mal estado</ns3:title>
+        <ns3:text>El alcalde Manuel Saavedra durante los controles a los micros. ABI</ns3:text>
+        <ns3:description>El alcalde Manuel Saavedra durante los controles a los micros. ABI</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>En un mes y medio, convierten 1.825 vehículos a GNV en toda Bolivia</title>
+      <category>El País</category>
+    <link>https://www.opinion.com.bo/pais/mes-medio-convierten-1825-vehiculos-gnv-toda-bolivia/20261103173426998649.html</link>
+  <comments>https://www.opinion.com.bo/pais/mes-medio-convierten-1825-vehiculos-gnv-toda-bolivia/20261103173426998649.html#comentarios-998649</comments>
+  <guid>https://www.opinion.com.bo/pais/mes-medio-convierten-1825-vehiculos-gnv-toda-bolivia/20261103173426998649.html</guid>
+  <pubDate>Tue, 3 Nov 2026 17:34:26 -0400</pubDate>
+      <dc:creator>MOPSV</dc:creator>
+        <description>&amp;nbsp;En Santa Cruz se convirtieron 680 vehículos, Cochabamba 552, La Paz y El Alto 444, Oruro 85, Sucre 58 y Potosí, seis.</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317331674164.jpg" length="54829" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317331674164.jpg" type="image/jpeg" medium="image">
+        <ns3:title>En un mes y medio, convierten 1.825 vehículos a GNV en toda Bolivia</ns3:title>
+        <ns3:text>Convierten vehículo a GNV. 
+MOPSV</ns3:text>
+        <ns3:description>Convierten vehículo a GNV. 
+MOPSV</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>El costo invisible del agotamiento: Cómo el estrés prolongado afecta la salud en Bolivia</title>
+      <category>Tendencias</category>
+    <link>https://www.opinion.com.bo/tendencias/costo-invisible-agotamiento-como-estres-prolongado-afecta-salud-bolivia/20261103172745998647.html</link>
+  <comments>https://www.opinion.com.bo/tendencias/costo-invisible-agotamiento-como-estres-prolongado-afecta-salud-bolivia/20261103172745998647.html#comentarios-998647</comments>
+  <guid>https://www.opinion.com.bo/tendencias/costo-invisible-agotamiento-como-estres-prolongado-afecta-salud-bolivia/20261103172745998647.html</guid>
+  <pubDate>Tue, 3 Nov 2026 17:27:45 -0400</pubDate>
+      <dc:creator>URGENTE.BO</dc:creator>
+        <description> El estrés laboral prolongado puede afectar la memoria, la concentración, el sueño y la capacidad de tomar decisiones. La neurociencia explica por qué trabajar más horas no siempre significa producir más y cómo la falta de descanso puede...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2024/10/25/2024102520304651504.jpg" length="68727" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2024/10/25/2024102520304651504.jpg" type="image/jpeg" medium="image">
+        <ns3:title>El costo invisible del agotamiento: Cómo el estrés prolongado afecta la salud en Bolivia</ns3:title>
+        <ns3:text>Fotografía ilustrativa./ CORTESÍA</ns3:text>
+        <ns3:description>Fotografía ilustrativa./ CORTESÍA</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Aprehenden a seis presuntos reclutadores del PCC; Urioste dice que tenían un “contrato de sangre”</title>
+      <category>Policiales</category>
+    <link>https://www.opinion.com.bo/policial/aprehenden-seis-presuntos-reclutadores-pcc-urioste-dice-que-tenian-contrato-sangre/20261103172004998646.html</link>
+  <comments>https://www.opinion.com.bo/policial/aprehenden-seis-presuntos-reclutadores-pcc-urioste-dice-que-tenian-contrato-sangre/20261103172004998646.html#comentarios-998646</comments>
+  <guid>https://www.opinion.com.bo/policial/aprehenden-seis-presuntos-reclutadores-pcc-urioste-dice-que-tenian-contrato-sangre/20261103172004998646.html</guid>
+  <pubDate>Tue, 3 Nov 2026 17:20:04 -0400</pubDate>
+      <dc:creator>URGENTE.BO</dc:creator>
+        <description> Abidón Espinoza, director de la Fuerza Especial de Lucha Contra el Crimen (Felcc), afirmó este martes que se capturó en Santa Cruz a seis sujetos que serían parte del Primer Comando Capital (PCC), donde tendrían las funciones de reclutadores....</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317190155216.jpg" length="29881" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317190155216.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Aprehenden a seis presuntos reclutadores del PCC; Urioste dice que tenían un “contrato de sangre”</ns3:title>
+        <ns3:text>Aprehenden a seis presuntos reclutadores del PCC. URGENTE.BO</ns3:text>
+        <ns3:description>Aprehenden a seis presuntos reclutadores del PCC. URGENTE.BO</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Trabajadores de Manaco desconocen las razones del cierre; más de 600 personas quedan sin empleo</title>
+      <category>El País</category>
+    <link>https://www.opinion.com.bo/pais/trabajadores-manaco-desconocen-razones-cierre-mas-600-personas-quedan-empleo/20261103171149998644.html</link>
+  <comments>https://www.opinion.com.bo/pais/trabajadores-manaco-desconocen-razones-cierre-mas-600-personas-quedan-empleo/20261103171149998644.html#comentarios-998644</comments>
+  <guid>https://www.opinion.com.bo/pais/trabajadores-manaco-desconocen-razones-cierre-mas-600-personas-quedan-empleo/20261103171149998644.html</guid>
+  <pubDate>Tue, 3 Nov 2026 17:11:49 -0400</pubDate>
+      <dc:creator>URGENTE.BO</dc:creator>
+        <description> &amp;nbsp;Los trabajadores fabriles de Manaco rechazaron el cierre definitivo de la empresa y aseguraron que no recibieron respuestas claras sobre la medida que deja a más de 600 trabajadores sin fuente de empleo. Además, este martes aseguraron que...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317105867220.jpg" length="124439" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110317105867220.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Trabajadores de Manaco desconocen las razones del cierre; más de 600 personas quedan sin empleo</ns3:title>
+        <ns3:text>Trabajadores de Manaco desconocen las razones del cierre; más de 600 personas quedan sin empleo. URGENTE.BO</ns3:text>
+        <ns3:description>Trabajadores de Manaco desconocen las razones del cierre; más de 600 personas quedan sin empleo. URGENTE.BO</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Presentan amparo para anular la reelección de Castro en la Cámara de Diputados</title>
+      <category>El País</category>
+    <link>https://www.opinion.com.bo/pais/presentan-amparo-anular-reeleccion-castro-camara-diputados/20261103164825998642.html</link>
+  <comments>https://www.opinion.com.bo/pais/presentan-amparo-anular-reeleccion-castro-camara-diputados/20261103164825998642.html#comentarios-998642</comments>
+  <guid>https://www.opinion.com.bo/pais/presentan-amparo-anular-reeleccion-castro-camara-diputados/20261103164825998642.html</guid>
+  <pubDate>Tue, 3 Nov 2026 16:48:25 -0400</pubDate>
+      <dc:creator>ERBOL</dc:creator>
+        <description> Diputadas de Alianza Popular y Libre presentaron una Acción de Amparo, con la finalidad de que se anule la reelección de Roberto Castro como presidente de la Cámara de Diputados, por las irregularidades que ocurrieron durante la sesión. 
+
+ La...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2025/11/06/2025110622495363159.jpg" length="67544" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2025/11/06/2025110622495363159.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Presentan amparo para anular la reelección de Castro en la Cámara de Diputados</ns3:title>
+        <ns3:text>El diputado Roberto Castro./ ARCHIVO</ns3:text>
+        <ns3:description>El diputado Roberto Castro./ ARCHIVO</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Concejo de La Paz promulgará la Ley de Alivio Tributario; 160.000 cuentas congeladas podrían beneficiarse</title>
+      <category>El País</category>
+    <link>https://www.opinion.com.bo/pais/concejo-paz-promulgara-ley-alivio-tributario-160000-cuentas-congeladas-podrian-beneficiarse/20261103161658998641.html</link>
+  <comments>https://www.opinion.com.bo/pais/concejo-paz-promulgara-ley-alivio-tributario-160000-cuentas-congeladas-podrian-beneficiarse/20261103161658998641.html#comentarios-998641</comments>
+  <guid>https://www.opinion.com.bo/pais/concejo-paz-promulgara-ley-alivio-tributario-160000-cuentas-congeladas-podrian-beneficiarse/20261103161658998641.html</guid>
+  <pubDate>Tue, 3 Nov 2026 16:16:58 -0400</pubDate>
+      <dc:creator>ABI</dc:creator>
+        <description> El Concejo Municipal de La Paz aprobó la Ley de Alivio Tributario con seis votos y prevé remitirla al Ejecutivo Municipal para su promulgación. El concejal Fernando Ruiz Saldias anunció que el Legislativo recurrirá a sus atribuciones para...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110316162893717.jpg" length="76908" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110316162893717.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Concejo de La Paz promulgará la Ley de Alivio Tributario; 160.000 cuentas congeladas podrían beneficiarse</ns3:title>
+        <ns3:text>El Concejo Municipal de La Paz. ABI</ns3:text>
+        <ns3:description>El Concejo Municipal de La Paz. ABI</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Fiscalía conforma comisión de fiscales para investigar caso audios</title>
+      <category>El País</category>
+    <link>https://www.opinion.com.bo/pais/fiscalia-conforma-comision-fiscales-investigar-caso-audios/20261103161245998639.html</link>
+  <comments>https://www.opinion.com.bo/pais/fiscalia-conforma-comision-fiscales-investigar-caso-audios/20261103161245998639.html#comentarios-998639</comments>
+  <guid>https://www.opinion.com.bo/pais/fiscalia-conforma-comision-fiscales-investigar-caso-audios/20261103161245998639.html</guid>
+  <pubDate>Tue, 3 Nov 2026 16:12:45 -0400</pubDate>
+      <dc:creator>ERBOL</dc:creator>
+        <description> La Fiscalía General conformó una comisión de fiscales para investigar el caso de los audios atribuidos al exasesor argentino Fernando Cerimedo, que involucran a autoridades del Gobierno, ministros, mandos policiales y otras personas.&amp;nbsp;...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/07/2026100711364197980.jpg" length="55772" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/07/2026100711364197980.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Fiscalía conforma comisión de fiscales para investigar caso audios</ns3:title>
+        <ns3:text>José Armando Urioste, fiscal general del Estado. FISCALÍA</ns3:text>
+        <ns3:description>José Armando Urioste, fiscal general del Estado. FISCALÍA</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Aprehenden a ciudadano declarado rebelde en el aeropuerto de Viru Viru</title>
+      <category>Policiales</category>
+    <link>https://www.opinion.com.bo/policial/aprehenden-ciudadano-declarado-rebelde-aeropuerto-viru-viru/20261103160934998638.html</link>
+  <comments>https://www.opinion.com.bo/policial/aprehenden-ciudadano-declarado-rebelde-aeropuerto-viru-viru/20261103160934998638.html#comentarios-998638</comments>
+  <guid>https://www.opinion.com.bo/policial/aprehenden-ciudadano-declarado-rebelde-aeropuerto-viru-viru/20261103160934998638.html</guid>
+  <pubDate>Tue, 3 Nov 2026 16:09:34 -0400</pubDate>
       <dc:creator>REDACCIÓN/FGE</dc:creator>
-        <description>&lt;p&gt;La convocatoria contempla 90 cargos distribuidos en los nueve departamentos del país. La Paz tendrá 22 puestos, Cochabamba 18, Tarija 12, Oruro 11, Chuquisaca 10, Potosí 5, Beni 4, Pando 4 y Santa Cruz 4.&lt;/p&gt;
-</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717021584720.jpg" length="59368" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102717021584720.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Fiscalía inicia selección de más de 800 postulantes para cubrir 90 nuevos cargos de fiscales provisionales</ns2:title>
-        <ns2:text>Fiscalía inicia selección de más de 800 postulantes para cubrir 90 nuevos cargos de fiscales provisionales. FGE</ns2:text>
-        <ns2:description>Fiscalía inicia selección de más de 800 postulantes para cubrir 90 nuevos cargos de fiscales provisionales. FGE</ns2:description>
-      </ns2:content>
+        <description>El hombre, de 55 años, pretendía salir del país cuando fue identificado por personal migratorio. Registraba un mandamiento de aprehensión pendiente por el presunto delito de violencia familiar o doméstica.</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110316082821258.jpg" length="61963" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110316082821258.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Aprehenden a ciudadano declarado rebelde en el aeropuerto de Viru Viru</ns3:title>
+        <ns3:text>Aprehenden a ciudadano declarado rebelde en el aeropuerto de Viru Viru. FGE</ns3:text>
+        <ns3:description>Aprehenden a ciudadano declarado rebelde en el aeropuerto de Viru Viru. FGE</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Zamora dice que el Gobierno trabaja en un plan para que no falte gas: “Pensamos en la gente”</title>
-      <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/zamora-dice-que-gobierno-trabaja-plan-que-falte-gas-pensamos-gente/20261027164747998289.html</link>
-  <comments>https://www.opinion.com.bo/pais/zamora-dice-que-gobierno-trabaja-plan-que-falte-gas-pensamos-gente/20261027164747998289.html#comentarios-998289</comments>
-  <guid>https://www.opinion.com.bo/pais/zamora-dice-que-gobierno-trabaja-plan-que-falte-gas-pensamos-gente/20261027164747998289.html</guid>
-  <pubDate>Tue, 27 Oct 2026 16:47:47 -0400</pubDate>
-      <dc:creator>URGENTE.BO</dc:creator>
-        <description> El ministro de Obras Públicas, Mauricio Zamora, afirmó este martes que el Gobierno trabaja en un plan para la crisis energética, ante la preocupación de la gente sobre la falta de gas. 
-
- “Siempre vamos a pensar en el bolsillo de la gente,...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/07/27/2026072717092999320.jpg" length="38585" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/07/27/2026072717092999320.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Zamora dice que el Gobierno trabaja en un plan para que no falte gas: “Pensamos en la gente”</ns2:title>
-        <ns2:text>El ministro de Obras Públicas, Servicios y Vivienda, Mauricio Zamora. ERBOL</ns2:text>
-        <ns2:description>El ministro de Obras Públicas, Servicios y Vivienda, Mauricio Zamora. ERBOL</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Autoridades llaman a vacunar mascotas; anuncian cobro de multas de Bs 500</title>
+  <title>Asamblea aprueba  Declaratoria de Emergencia por Sequia y autoriza uso de Bs 1.3 millones</title>
       <category>Cochabamba</category>
-    <link>https://www.opinion.com.bo/cochabamba/autoridades-llaman-vacunar-mascotas-anuncian-cobro-multas-bs-500/20261027164745998288.html</link>
-  <comments>https://www.opinion.com.bo/cochabamba/autoridades-llaman-vacunar-mascotas-anuncian-cobro-multas-bs-500/20261027164745998288.html#comentarios-998288</comments>
-  <guid>https://www.opinion.com.bo/cochabamba/autoridades-llaman-vacunar-mascotas-anuncian-cobro-multas-bs-500/20261027164745998288.html</guid>
-  <pubDate>Tue, 27 Oct 2026 16:47:45 -0400</pubDate>
+    <link>https://www.opinion.com.bo/cochabamba/asamblea-aprueba-declaratoria-emergencia-sequia-autoriza-uso-bs-13-millones/20261103155515998636.html</link>
+  <comments>https://www.opinion.com.bo/cochabamba/asamblea-aprueba-declaratoria-emergencia-sequia-autoriza-uso-bs-13-millones/20261103155515998636.html#comentarios-998636</comments>
+  <guid>https://www.opinion.com.bo/cochabamba/asamblea-aprueba-declaratoria-emergencia-sequia-autoriza-uso-bs-13-millones/20261103155515998636.html</guid>
+  <pubDate>Tue, 3 Nov 2026 15:55:15 -0400</pubDate>
       <dc:creator>MELISSA REVOLLO P.</dc:creator>
-        <description>&lt;p&gt;Las autoridades enfatizaron que los animales pueden recibir la vacuna desde el mes de vida y que luego es necesario que tengan una dosis anual.&lt;/p&gt;
+        <description>&lt;p&gt;La normativa establece la atención inmediata a los municipios de Pasorapa, Omereque, Aiquile, Totora, Pojo, Mizque y Sacabamba y otros municipios.&lt;/p&gt;
 </description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716464284910.jpg" length="78684" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102716464284910.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Autoridades llaman a vacunar mascotas; anuncian cobro de multas de Bs 500</ns2:title>
-        <ns2:text>Las autoridades de Salud en la Alcaldía de Cochabamba, este martes. MELISSA REVOLLO</ns2:text>
-        <ns2:description>Las autoridades de Salud en la Alcaldía de Cochabamba, este martes. MELISSA REVOLLO</ns2:description>
-      </ns2:content>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/28/2026102815225112120.jpg" length="163770" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/28/2026102815225112120.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Asamblea aprueba  Declaratoria de Emergencia por Sequia y autoriza uso de Bs 1.3 millones</ns3:title>
+        <ns3:text>Afectación por sequía en el Cono Sur. IMAGEN CEDIDA POR EDWIN JIMÉNEZ</ns3:text>
+        <ns3:description>Afectación por sequía en el Cono Sur. IMAGEN CEDIDA POR EDWIN JIMÉNEZ</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Lara convoca a sesión para interpelar al ministro Justiniano por las explosiones en Viacha</title>
+  <title>Lara ante viaje de Paz a España: “quien les habla es el presidente en ejercicio”</title>
       <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/lara-convoca-sesion-interpelar-ministro-justiniano-explosiones-viacha/20261027161542998282.html</link>
-  <comments>https://www.opinion.com.bo/pais/lara-convoca-sesion-interpelar-ministro-justiniano-explosiones-viacha/20261027161542998282.html#comentarios-998282</comments>
-  <guid>https://www.opinion.com.bo/pais/lara-convoca-sesion-interpelar-ministro-justiniano-explosiones-viacha/20261027161542998282.html</guid>
-  <pubDate>Tue, 27 Oct 2026 16:15:42 -0400</pubDate>
-      <dc:creator>URGENTE.BO</dc:creator>
-        <description> Edmand Lara, vicepresidente del Estado y presidente nato de la Asamblea Legislativa Plurinacional (ALP), convocó a una sesión de interpelación para este miércoles contra el ministro de Defensa, Ernesto Justiniano, por las explosiones ocurridas en...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/09/15/2026091510381542800.jpg" length="63785" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/09/15/2026091510381542800.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Lara convoca a sesión para interpelar al ministro Justiniano por las explosiones en Viacha</ns2:title>
-        <ns2:text>El ministro de Defensa, Ernesto Justiniano, en Viacha, La Paz. MINISTERIO DE DEFENSA</ns2:text>
-        <ns2:description>El ministro de Defensa, Ernesto Justiniano, en Viacha, La Paz. MINISTERIO DE DEFENSA</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Aprehenden a cinco extranjeros en el marco de la muerte del médico en Beni</title>
-      <category>Policiales</category>
-    <link>https://www.opinion.com.bo/policial/aprehenden-cinco-extranjeros-marco-muerte-medico-beni/20261027153230998279.html</link>
-  <comments>https://www.opinion.com.bo/policial/aprehenden-cinco-extranjeros-marco-muerte-medico-beni/20261027153230998279.html#comentarios-998279</comments>
-  <guid>https://www.opinion.com.bo/policial/aprehenden-cinco-extranjeros-marco-muerte-medico-beni/20261027153230998279.html</guid>
-  <pubDate>Tue, 27 Oct 2026 15:32:30 -0400</pubDate>
-      <dc:creator>URGENTE.BO</dc:creator>
-        <description> El fiscal departamental de Beni, Orlando Aramayo, informó sobre la aprehensión de cinco extranjeros, en el marco de las investigaciones por la muerte del exdirector del Servicio Departamental de Salud (SEDES) del Beni César Reyes.&amp;nbsp; 
+    <link>https://www.opinion.com.bo/pais/lara-viaje-paz-espana-quien-habla-es-presidente-ejercicio/20261103154556998635.html</link>
+  <comments>https://www.opinion.com.bo/pais/lara-viaje-paz-espana-quien-habla-es-presidente-ejercicio/20261103154556998635.html#comentarios-998635</comments>
+  <guid>https://www.opinion.com.bo/pais/lara-viaje-paz-espana-quien-habla-es-presidente-ejercicio/20261103154556998635.html</guid>
+  <pubDate>Tue, 3 Nov 2026 15:45:56 -0400</pubDate>
+        <description> El vicepresidente Edmand Lara afirmó este martes que es el presidente en ejercicio de Bolivia y asume el mando, ante el viaje que realizó el presidente Rodrigo Paz a España para la Cumbre Iberoamericana. 
 
- “El...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/26/2026102613565091233.jpg" length="57695" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/26/2026102613565091233.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Aprehenden a cinco extranjeros en el marco de la muerte del médico en Beni</ns2:title>
-        <ns2:text>Exdirector del Sedes Beni es hallado sin vida. URGENTE.BO</ns2:text>
-        <ns2:description>Exdirector del Sedes Beni es hallado sin vida. URGENTE.BO</ns2:description>
-      </ns2:content>
+ “En ausencia del presidente, quien les...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/09/01/2026090119440229652.jpg" length="86627" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/09/01/2026090119440229652.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Lara ante viaje de Paz a España: “quien les habla es el presidente en ejercicio”</ns3:title>
+        <ns3:text>El vicepresidente Edmand Lara. VICEPRESIDENCIA</ns3:text>
+        <ns3:description>El vicepresidente Edmand Lara. VICEPRESIDENCIA</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Gobierno convoca a los maestros a dialogar este miércoles en La Paz</title>
+  <title>La Paz registra casi 40 municipios afectados por sequías e inundaciones y Gobernación moviliza Bs 15 millones</title>
       <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/gobierno-convoca-maestros-dialogar-miercoles-paz/20261027152120998278.html</link>
-  <comments>https://www.opinion.com.bo/pais/gobierno-convoca-maestros-dialogar-miercoles-paz/20261027152120998278.html#comentarios-998278</comments>
-  <guid>https://www.opinion.com.bo/pais/gobierno-convoca-maestros-dialogar-miercoles-paz/20261027152120998278.html</guid>
-  <pubDate>Tue, 27 Oct 2026 15:21:20 -0400</pubDate>
+    <link>https://www.opinion.com.bo/pais/paz-registra-casi-40-municipios-afectados-sequias-inundaciones-gobernacion-moviliza-bs-15-millones/20261103151514998634.html</link>
+  <comments>https://www.opinion.com.bo/pais/paz-registra-casi-40-municipios-afectados-sequias-inundaciones-gobernacion-moviliza-bs-15-millones/20261103151514998634.html#comentarios-998634</comments>
+  <guid>https://www.opinion.com.bo/pais/paz-registra-casi-40-municipios-afectados-sequias-inundaciones-gobernacion-moviliza-bs-15-millones/20261103151514998634.html</guid>
+  <pubDate>Tue, 3 Nov 2026 15:15:14 -0400</pubDate>
       <dc:creator>ABI</dc:creator>
-        <description> El Gobierno nacional convocó al magisterio a dialogar este miércoles, 28 de octubre, en la ciudad de La Paz, “sobre la transferencia de los institutos técnicos a las gobernaciones”. 
-
- “La reunión está prevista el miércoles, al mediodía, en Casa...</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/26/2026102610533840266.jpg" length="73711" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/26/2026102610533840266.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Gobierno convoca a los maestros a dialogar este miércoles en La Paz</ns2:title>
-        <ns2:text>Maestros marcharon el viernes en Cochabamba. MELISSA REVOLLO</ns2:text>
-        <ns2:description>Maestros marcharon el viernes en Cochabamba. MELISSA REVOLLO</ns2:description>
-      </ns2:content>
+        <description> Casi 40 municipios del departamento de La Paz están afectados por sequías e inundaciones, por lo que la Gobernación moviliza Bs 15 millones para atender emergencias, informó el secretario departamental de Protección de la Madre Tierra y Gestión...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110315143962403.jpg" length="122495" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110315143962403.jpg" type="image/jpeg" medium="image">
+        <ns3:title>La Paz registra casi 40 municipios afectados por sequías e inundaciones y Gobernación moviliza Bs 15 millones</ns3:title>
+        <ns3:text>Terrenos de cultivos afectados por la sequía. FOTO REFERENCIAL DE ARCHIVO ABI</ns3:text>
+        <ns3:description>Terrenos de cultivos afectados por la sequía. FOTO REFERENCIAL DE ARCHIVO ABI</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Gobernación ve inviable para regiones el traspaso de administración de tecnológicos</title>
+  <title>La minería también mueve ingeniería y servicios: lo que muestran las compras de una operación boliviana</title>
       <category>Cochabamba</category>
-    <link>https://www.opinion.com.bo/cochabamba/gobernacion-ve-inviable-regiones-traspaso-administracion-tecnologicos/20261027151823998277.html</link>
-  <comments>https://www.opinion.com.bo/cochabamba/gobernacion-ve-inviable-regiones-traspaso-administracion-tecnologicos/20261027151823998277.html#comentarios-998277</comments>
-  <guid>https://www.opinion.com.bo/cochabamba/gobernacion-ve-inviable-regiones-traspaso-administracion-tecnologicos/20261027151823998277.html</guid>
-  <pubDate>Tue, 27 Oct 2026 15:18:23 -0400</pubDate>
+    <link>https://www.opinion.com.bo/cochabamba/mineria-tambien-mueve-ingenieria-servicios-que-muestran-compras-operacion-boliviana/20261103150948998632.html</link>
+  <comments>https://www.opinion.com.bo/cochabamba/mineria-tambien-mueve-ingenieria-servicios-que-muestran-compras-operacion-boliviana/20261103150948998632.html#comentarios-998632</comments>
+  <guid>https://www.opinion.com.bo/cochabamba/mineria-tambien-mueve-ingenieria-servicios-que-muestran-compras-operacion-boliviana/20261103150948998632.html</guid>
+  <pubDate>Tue, 3 Nov 2026 15:09:48 -0400</pubDate>
       <dc:creator>REDACCIÓN</dc:creator>
-        <description>Las autoridades sostienen que existen problemas debido a la falta de recursos económicos. Este tema se tratará este miércoles en reunión con el Gobierno.</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102715175421368.jpg" length="34690" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102715175421368.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Gobernación ve inviable para regiones el traspaso de administración de tecnológicos</ns2:title>
-        <ns2:text>El secretario Departamental de Planificación y Desarrollo Estratégico, Horacio Villegas. GADC</ns2:text>
-        <ns2:description>El secretario Departamental de Planificación y Desarrollo Estratégico, Horacio Villegas. GADC</ns2:description>
-      </ns2:content>
-        </item>
-                        <item>
-  <title>Confirman fuga de Flávio Bolsonaro hacia EEUU tras derrota electoral en Brasil</title>
-      <category>Mundo</category>
-    <link>https://www.opinion.com.bo/mundo/confirman-fuga-flavio-bolsonaro-eeuu-derrota-electoral-brasil/20261027144248998275.html</link>
-  <comments>https://www.opinion.com.bo/mundo/confirman-fuga-flavio-bolsonaro-eeuu-derrota-electoral-brasil/20261027144248998275.html#comentarios-998275</comments>
-  <guid>https://www.opinion.com.bo/mundo/confirman-fuga-flavio-bolsonaro-eeuu-derrota-electoral-brasil/20261027144248998275.html</guid>
-  <pubDate>Tue, 27 Oct 2026 14:42:48 -0400</pubDate>
-      <dc:creator>EL PAÍS | ESPAÑA</dc:creator>
-        <description>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;&lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;&lt;meta name="Generator" content="Cocoa HTML Writer" /&gt;&lt;meta name="CocoaVersion" content="2685.3" /&gt;
-&lt;style type="text/css"&gt;p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-&lt;/style&gt;
-&lt;p&gt;Colaboradores del líder ultra y fuentes oficiales estadounidenses confirman su fuga después de negarse a entregar los pasaportes al juez que lo investiga.&lt;/p&gt;
+        <description>&lt;p&gt;Las regalías miden una parte del impacto sectorial: no registran las compras a empresas proveedoras ni el conocimiento especializado que exige la operación moderna.&lt;/p&gt;
 </description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102714421995815.jpg" length="89987" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102714421995815.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Confirman fuga de Flávio Bolsonaro hacia EEUU tras derrota electoral en Brasil</ns2:title>
-        <ns2:text>El excandidato presidencial del Brasil Flávio Bolsonaro. EL PAÍS</ns2:text>
-        <ns2:description>El excandidato presidencial del Brasil Flávio Bolsonaro. EL PAÍS</ns2:description>
-      </ns2:content>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110315061418587.jpg" length="127879" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110315061418587.jpg" type="image/jpeg" medium="image">
+        <ns3:title>La minería también mueve ingeniería y servicios: lo que muestran las compras de una operación boliviana</ns3:title>
+        <ns3:text>Imagen referencial de actividad minera. MINISTERIO DE MINERÍA Y METALURGIA</ns3:text>
+        <ns3:description>Imagen referencial de actividad minera. MINISTERIO DE MINERÍA Y METALURGIA</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Jhonny Fernández es declarado en rebeldía y tiene orden de aprehensión por presunta malversación</title>
+  <title>En La Paz, JP Velasco califica de “insulto” el 1% y pide comenzar con el 5% para las gobernaciones</title>
       <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/jhonny-fernandez-es-declarado-rebeldia-tiene-orden-aprehension-presunta-malversacion/20261027143717998273.html</link>
-  <comments>https://www.opinion.com.bo/pais/jhonny-fernandez-es-declarado-rebeldia-tiene-orden-aprehension-presunta-malversacion/20261027143717998273.html#comentarios-998273</comments>
-  <guid>https://www.opinion.com.bo/pais/jhonny-fernandez-es-declarado-rebeldia-tiene-orden-aprehension-presunta-malversacion/20261027143717998273.html</guid>
-  <pubDate>Tue, 27 Oct 2026 14:37:17 -0400</pubDate>
-      <dc:creator>REDACCIÓN | OXÍGENO</dc:creator>
-        <description>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;&lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;&lt;meta name="Generator" content="Cocoa HTML Writer" /&gt;&lt;meta name="CocoaVersion" content="2685.3" /&gt;
-&lt;style type="text/css"&gt;p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; min-height: 16.0px}
-&lt;/style&gt;
-&lt;p&gt;La audiencia había sido programada inicialmente para el 9 de noviembre, pero fue adelantada para este martes, según informó el actual alcalde de Santa Cruz de la Sierra, Manuel “Mamén” Saavedra.&lt;/p&gt;
-</description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/02/10/2026021020200514484.jpg" length="28532" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/02/10/2026021020200514484.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Jhonny Fernández es declarado en rebeldía y tiene orden de aprehensión por presunta malversación</ns2:title>
-        <ns2:text>El exalcalde de Santa Cruz, Jhonny Fernández.</ns2:text>
-        <ns2:description>El exalcalde de Santa Cruz, Jhonny Fernández.</ns2:description>
-      </ns2:content>
+    <link>https://www.opinion.com.bo/pais/paz-jp-velasco-califica-insulto-1-pide-comenzar-5-gobernaciones/20261103145538998630.html</link>
+  <comments>https://www.opinion.com.bo/pais/paz-jp-velasco-califica-insulto-1-pide-comenzar-5-gobernaciones/20261103145538998630.html#comentarios-998630</comments>
+  <guid>https://www.opinion.com.bo/pais/paz-jp-velasco-califica-insulto-1-pide-comenzar-5-gobernaciones/20261103145538998630.html</guid>
+  <pubDate>Tue, 3 Nov 2026 14:55:38 -0400</pubDate>
+      <dc:creator>ERBOL</dc:creator>
+        <description> Desde la Plaza Murillo este martes, el gobernador de Santa Cruz, Juan Pablo Velasco, rechazó la propuesta del Gobierno de asignar el 1% de coparticipación tributaria a las gobernaciones, calificándola de “insulto para las regiones”, y planteó...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110314550151630.jpg" length="39386" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110314550151630.jpg" type="image/jpeg" medium="image">
+        <ns3:title>En La Paz, JP Velasco califica de “insulto” el 1% y pide comenzar con el 5% para las gobernaciones</ns3:title>
+        <ns3:text>Juan Pablo Velasco, gobernador de Santa Cruz. FACEBOOK JP VELASCO</ns3:text>
+        <ns3:description>Juan Pablo Velasco, gobernador de Santa Cruz. FACEBOOK JP VELASCO</ns3:description>
+      </ns3:content>
         </item>
                         <item>
-  <title>Aramayo: levantar la subvención a la gasolina es “una demanda social ciudadana”</title>
-      <category>El País</category>
-    <link>https://www.opinion.com.bo/pais/aramayo-levantar-subvencion-gasolina-es-demanda-social-ciudadana/20261027142147998272.html</link>
-  <comments>https://www.opinion.com.bo/pais/aramayo-levantar-subvencion-gasolina-es-demanda-social-ciudadana/20261027142147998272.html#comentarios-998272</comments>
-  <guid>https://www.opinion.com.bo/pais/aramayo-levantar-subvencion-gasolina-es-demanda-social-ciudadana/20261027142147998272.html</guid>
-  <pubDate>Tue, 27 Oct 2026 14:21:47 -0400</pubDate>
-      <dc:creator>OXÍGENO.BO</dc:creator>
-        <description>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;&lt;meta http-equiv="Content-Style-Type" content="text/css" /&gt;&lt;meta name="Generator" content="Cocoa HTML Writer" /&gt;&lt;meta name="CocoaVersion" content="2685.3" /&gt;
-&lt;style type="text/css"&gt;p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-&lt;/style&gt;
-&lt;p&gt;“Hay un tema de conciencia social, entender que son decisiones urgentes y necesarios. Se está trabajando con diferentes sectores en el diálogo que se ha instalado”, señaló.&lt;/p&gt;
+  <title>Gobernador Loza rechaza propuesta del Gobierno de asignar 1 % de coparticipación a gobernaciones</title>
+      <category>Cochabamba</category>
+    <link>https://www.opinion.com.bo/cochabamba/gobernador-loza-rechaza-propuesta-gobierno-asignar-1-coparticipacion-gobernaciones/20261103144028998628.html</link>
+  <comments>https://www.opinion.com.bo/cochabamba/gobernador-loza-rechaza-propuesta-gobierno-asignar-1-coparticipacion-gobernaciones/20261103144028998628.html#comentarios-998628</comments>
+  <guid>https://www.opinion.com.bo/cochabamba/gobernador-loza-rechaza-propuesta-gobierno-asignar-1-coparticipacion-gobernaciones/20261103144028998628.html</guid>
+  <pubDate>Tue, 3 Nov 2026 14:40:28 -0400</pubDate>
+      <dc:creator>REDACCIÓN</dc:creator>
+        <description>&lt;p&gt;La autoridad informó que la reunión con autoridades de Gobierno concluyó sin la firma de ningún documento ni la suscripción de acuerdos.&lt;/p&gt;
 </description>
-                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/02/04/2026020422342946861.jpg" length="93918" type="image/jpeg" />
-      <ns2:content url="https://www.opinion.com.bo/media/opinion/images/2026/02/04/2026020422342946861.jpg" type="image/jpeg" medium="image">
-        <ns2:title>Aramayo: levantar la subvención a la gasolina es “una demanda social ciudadana”</ns2:title>
-        <ns2:text>Canciller del Estado Plurinacional de Bolivia, Fernando Aramayo./Cancilleria</ns2:text>
-        <ns2:description>Canciller del Estado Plurinacional de Bolivia, Fernando Aramayo./Cancilleria</ns2:description>
-      </ns2:content>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110314382181893.jpg" length="69236" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/11/03/2026110314382181893.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Gobernador Loza rechaza propuesta del Gobierno de asignar 1 % de coparticipación a gobernaciones</ns3:title>
+        <ns3:text>El gobernador de Cochabamba, Leonardo Loza. GADC</ns3:text>
+        <ns3:description>El gobernador de Cochabamba, Leonardo Loza. GADC</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Revelan que el celular de Fernando Cerimedo contiene 1.108 audios tras peritaje</title>
+      <category>El País</category>
+    <link>https://www.opinion.com.bo/pais/revelan-que-celular-fernando-cerimedo-contiene-1108-audios-peritaje/20261103143921998627.html</link>
+  <comments>https://www.opinion.com.bo/pais/revelan-que-celular-fernando-cerimedo-contiene-1108-audios-peritaje/20261103143921998627.html#comentarios-998627</comments>
+  <guid>https://www.opinion.com.bo/pais/revelan-que-celular-fernando-cerimedo-contiene-1108-audios-peritaje/20261103143921998627.html</guid>
+  <pubDate>Tue, 3 Nov 2026 14:39:21 -0400</pubDate>
+      <dc:creator>URGENTE.BO</dc:creator>
+        <description> Un informe pericial realizado el 19 de agosto al celular de Fernando Cerimedo, a cargo del Instituto de Investigaciones Forenses (IDIF), reveló que en ese dispositivo habría 1.108 audios, de acuerdo con datos difundidos por el periodista Carlos...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/29/2026102920494285093.jpg" length="18007" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/29/2026102920494285093.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Revelan que el celular de Fernando Cerimedo contiene 1.108 audios tras peritaje</ns3:title>
+        <ns3:text>El asesor político Fernando Cerimedo. URGENTE.BO</ns3:text>
+        <ns3:description>El asesor político Fernando Cerimedo. URGENTE.BO</ns3:description>
+      </ns3:content>
+        </item>
+                        <item>
+  <title>Caso Hotel Las Américas: TSJ admite denuncia contra Evo Morales y Álvaro García Linera</title>
+      <category>El País</category>
+    <link>https://www.opinion.com.bo/pais/caso-hotel-americas-tsj-admite-denuncia-evo-morales-alvaro-garcia-linera/20261103141322998625.html</link>
+  <comments>https://www.opinion.com.bo/pais/caso-hotel-americas-tsj-admite-denuncia-evo-morales-alvaro-garcia-linera/20261103141322998625.html#comentarios-998625</comments>
+  <guid>https://www.opinion.com.bo/pais/caso-hotel-americas-tsj-admite-denuncia-evo-morales-alvaro-garcia-linera/20261103141322998625.html</guid>
+  <pubDate>Tue, 3 Nov 2026 14:13:22 -0400</pubDate>
+      <dc:creator>URGENTE.BO</dc:creator>
+        <description> El Tribunal Supremo de Justicia (TSJ) admitió la acusación contra las exautoridades Evo Morales y Álvaro García Linera por el caso Hotel Las Américas y anunció que la etapa preliminar de investigación será de 30 días, 
+
+ “Se procedió a la...</description>
+                      <enclosure url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102707493020941.jpg" length="25072" type="image/jpeg" />
+      <ns3:content url="https://www.opinion.com.bo/media/opinion/images/2026/10/27/2026102707493020941.jpg" type="image/jpeg" medium="image">
+        <ns3:title>Caso Hotel Las Américas: TSJ admite denuncia contra Evo Morales y Álvaro García Linera</ns3:title>
+        <ns3:text>Evo Morales y Álvaro García Linera. ABI/ARCHIVO</ns3:text>
+        <ns3:description>Evo Morales y Álvaro García Linera. ABI/ARCHIVO</ns3:description>
+      </ns3:content>
         </item>
           </channel>
 </rss>

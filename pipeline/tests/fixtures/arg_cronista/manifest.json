@@ -5,14 +5,14 @@
    "url": "https://www.cronista.com/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 655991,
-   "sha256": "af6f550694377ca12b46cb143388ed93b5c6ec7d90c21c9612a5bd9bff257f72",
-   "retrieved_at": "2026-10-28T10:48:10+00:00",
+   "bytes": 701623,
+   "sha256": "6d6b41641461543b18f9114ea5b99a6c7fcdc8b9f6590531fd6b2394a3c29740",
+   "retrieved_at": "2026-11-04T12:29:19+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_cronista/2026-10-28",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_cronista/2026-11-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.cronista.com/arc/outboundfeeds/rss/"

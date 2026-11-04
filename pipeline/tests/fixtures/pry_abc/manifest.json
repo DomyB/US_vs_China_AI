@@ -5,14 +5,14 @@
    "url": "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml",
    "params": {},
    "status": 200,
-   "bytes": 377474,
-   "sha256": "143287435a32de555f8c3f4d64cbb6462f9da6e35fd87e800b1c941cf7a813a2",
-   "retrieved_at": "2026-10-28T11:17:55+00:00",
+   "bytes": 384510,
+   "sha256": "800a5a45741d76fed43ca5ca8659dde1f65b6c35fd2859c655747035f077a361",
+   "retrieved_at": "2026-11-04T12:58:37+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_abc/2026-10-28",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/pry_abc/2026-11-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml"

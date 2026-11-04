@@ -6,13 +6,13 @@
    "params": {},
    "status": 200,
    "bytes": 131448,
-   "sha256": "90bbfbd8e997c9900450e648d7f47b7ec785c5983738446193b64b9d040cb62c",
-   "retrieved_at": "2026-10-28T11:17:22+00:00",
+   "sha256": "7c7ab8e1b2fd1c4161e8384b639b14c8afe7da3e7122d0bf7cb74eddb52cf9bd",
+   "retrieved_at": "2026-11-04T12:58:05+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_idl_reporteros/2026-10-28",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_idl_reporteros/2026-11-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.idl-reporteros.pe/feed/"

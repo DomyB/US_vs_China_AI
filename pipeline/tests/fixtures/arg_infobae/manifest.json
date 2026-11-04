@@ -5,14 +5,14 @@
    "url": "https://www.infobae.com/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 517346,
-   "sha256": "80242c826e4c4590aa42713f8148ff438f20d61b2482885edb2f8ba5938eb522",
-   "retrieved_at": "2026-10-28T10:48:10+00:00",
+   "bytes": 698595,
+   "sha256": "09775269ffc9b1549cc772533d0a64b75f2d15d0cd341709f0c16fdc3588bc14",
+   "retrieved_at": "2026-11-04T12:29:19+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_infobae/2026-10-28",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_infobae/2026-11-04",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.infobae.com/arc/outboundfeeds/rss/"
