@@ -5,14 +5,14 @@
    "url": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/",
    "params": {},
    "status": 200,
-   "bytes": 767863,
-   "sha256": "670c198cf076734aaeb975d8662aade76b830e6e6768654b7f7ece70867499db",
-   "retrieved_at": "2026-11-04T12:29:20+00:00",
+   "bytes": 762075,
+   "sha256": "d06f597d5104c3e443328dd4a07f67ce0ca6210758b1a6b28822b9a739ff29b7",
+   "retrieved_at": "2026-11-11T12:07:20+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_lanacion/2026-11-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/arg_lanacion/2026-11-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.lanacion.com.ar/arc/outboundfeeds/rss/"

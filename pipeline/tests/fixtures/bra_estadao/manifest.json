@@ -6,13 +6,13 @@
    "params": {},
    "status": 200,
    "bytes": 109538,
-   "sha256": "2810db9edec136a6b5825c2b7a0feeca00d0b42c707b632e101bbfd56cac5021",
-   "retrieved_at": "2026-11-04T12:29:22+00:00",
+   "sha256": "809d793ad96e6908515a6bc7a9a1f7b2a7bf5015b6ec3f9d95e695835e883cce",
+   "retrieved_at": "2026-11-11T12:07:22+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_estadao/2026-11-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_estadao/2026-11-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.estadao.com.br/arc/outboundfeeds/feeds/rss/sections/geral/?body=%7B%22layout%22:%22google-news%22%7D"

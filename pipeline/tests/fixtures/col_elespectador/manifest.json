@@ -5,14 +5,14 @@
    "url": "https://www.elespectador.com/arc/outboundfeeds/discover/",
    "params": {},
    "status": 200,
-   "bytes": 189504,
-   "sha256": "f9d40299686277c6d889c338f8fbf4bb9fca46c419812735a7b0690f7fd91271",
-   "retrieved_at": "2026-11-04T12:57:18+00:00",
+   "bytes": 207754,
+   "sha256": "b80ee80a66a913c7e98d65da0fd63cef0bc28321ffc83518225c57f6095f797a",
+   "retrieved_at": "2026-11-11T12:35:21+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_elespectador/2026-11-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_elespectador/2026-11-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.elespectador.com/arc/outboundfeeds/discover/"

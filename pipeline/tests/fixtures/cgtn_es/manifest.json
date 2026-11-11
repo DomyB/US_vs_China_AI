@@ -5,14 +5,14 @@
    "url": "https://espanol.cgtn.com/",
    "params": {},
    "status": 200,
-   "bytes": 346934,
-   "sha256": "6341de60d78ed3516d945695d41902b10253ff769a723b47287147379fd2e9e4",
-   "retrieved_at": "2026-11-04T12:29:30+00:00",
+   "bytes": 348690,
+   "sha256": "b4295d65ebcc22e4c96c7b69f896c9fcfad694529345b86a60874c3dbb471f60",
+   "retrieved_at": "2026-11-11T12:07:32+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/cgtn_es/2026-11-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/cgtn_es/2026-11-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "index_pages": [
   {

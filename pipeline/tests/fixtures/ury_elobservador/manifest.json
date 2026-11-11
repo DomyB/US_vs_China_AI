@@ -5,14 +5,14 @@
    "url": "https://www.elobservador.com.uy/rss/pages/home.xml",
    "params": {},
    "status": 200,
-   "bytes": 21303,
-   "sha256": "d0dd9af2d01585b7fe68536485cb36fcb69ece80a402bcd1a52bd0d332e46529",
-   "retrieved_at": "2026-11-04T12:58:38+00:00",
+   "bytes": 21886,
+   "sha256": "a5ab137da3a659b38da09fdafdc52eac7646f615b4b804b82e7a675994f5fab9",
+   "retrieved_at": "2026-11-11T12:36:42+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_elobservador/2026-11-04",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/ury_elobservador/2026-11-11",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.elobservador.com.uy/rss/pages/home.xml"
