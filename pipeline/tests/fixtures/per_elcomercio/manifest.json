@@ -5,14 +5,14 @@
    "url": "https://elcomercio.pe/arc/outboundfeeds/rss/?outputType=xml",
    "params": {},
    "status": 200,
-   "bytes": 1664531,
-   "sha256": "249c137784688c8aa4dd9eb652f49684a1855fd26395d3e7d4105ffb4020706f",
-   "retrieved_at": "2026-11-11T12:36:06+00:00",
+   "bytes": 1725602,
+   "sha256": "da5ad3075dc8041b907856cf499b319d88ed6c8f6b1193d1e4ab20b9ef327527",
+   "retrieved_at": "2026-11-18T13:53:29+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_elcomercio/2026-11-11",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_elcomercio/2026-11-18",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://elcomercio.pe/arc/outboundfeeds/rss/?outputType=xml"

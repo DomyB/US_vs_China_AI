@@ -6,7 +6,7 @@
 	<ns0:link href="https://dialogue.earth/es/feed/" rel="self" type="application/rss+xml" />
 	<link>https://dialogue.earth/es/</link>
 	<description>Global climate and environment news</description>
-	<lastBuildDate>Thu, 05 Nov 2026 20:38:46 +0000</lastBuildDate>
+	<lastBuildDate>Wed, 18 Nov 2026 13:40:34 +0000</lastBuildDate>
 	<language>es-ES</language>
 	<ns1:updatePeriod>
 	hourly	</ns1:updatePeriod>
@@ -22,6 +22,348 @@
 	<height>32</height>
 </image> 
 	<item>
+		<title>COP31: El objetivo de electrificación global, ¿una trampa para América Latina?</title>
+		<link>https://dialogue.earth/es/energia/cop31-objetivo-electrificacion-global-trampa-america-latina/</link>
+		
+		<dc:creator>Fermín Koop</dc:creator>
+		<pubDate>Tue, 17 Nov 2026 17:49:11 +0000</pubDate>
+				<category>Energía</category>
+		<category>Negocios</category>
+		<category>Combustibles fósiles</category>
+		<category>Energías renovables</category>
+		<category>Transición energética</category>
+		<guid isPermaLink="false">https://dialogue.earth/sin-categorizar/cop31-is-electrification-goal-a-fossil-trap-for-latin-america-2/</guid>
+
+					<description>&lt;p&gt;La región tiene uno de los sistemas eléctricos más limpios del mundo, pero la electrificación está lejos de predominar y, según expertos, las energías renovables por sí solas no serán suficientes &lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/energia/cop31-objetivo-electrificacion-global-trampa-america-latina/"&gt;COP31: El objetivo de electrificación global, ¿una trampa para América Latina?&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
+</description>
+										<ns3:encoded>
+&lt;p class="wp-block-paragraph"&gt;América Latina cuenta con algo por lo que gran parte del mundo aún está luchando: una red eléctrica en gran medida limpia. Las fuentes limpias generan el 66% de la electricidad de la región. La mayor parte proviene de la energía hidroeléctrica, pero la eólica y la solar aportan ahora poco más del 10% cada una.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Sin embargo, un análisis más detallado de esas cifras, a priori alentadoras, revela un panorama más complejo. La electricidad solo cubre aproximadamente el 20% del consumo final de energía de América Latina. Gran parte del transporte y la industria siguen funcionando predominantemente con combustibles fósiles.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Esa brecha es el centro de atención en la cumbre climática de la ONU, la COP31, que se lleva a cabo actualmente en Antalya, Turquía. La presidencia de la COP ha estado promoviendo su compromiso voluntario “35&amp;#215;35”, una iniciativa para que el 35% del consumo final de energía mundial se electrifique para 2035. Esa cifra es hoy en alrededor del 23%, según la Agencia Internacional de Energía.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Al momento de escribir este artículo, el compromiso cuenta con el respaldo de al menos 30 países, según Murat Kurum, presidente de la COP31. Entre ellos se encuentra Brasil, cuyo ministro de Medioambiente, João Paulo Capobianco, expresó su apoyo la semana pasada. Es probable que se sumen más países a medida que avance la cumbre.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Cumplir con ese compromiso en América Latina planteará varios retos. La insuficiencia de la red de transmisión ya genera cuellos de botella. Además, los expertos han &lt;a href="https://www.energy-transitions.org/publications/electrifying-the-global-economy/"&gt;señalado&lt;/a&gt; que la electrificación debe poder competir en precio con los combustibles fósiles. El uso de estos últimos también &lt;a href="https://www.olacde.org/wp-content/uploads/2026/09/Resumen-panorama-2025-2026-ESP.pdf"&gt;sigue creciendo&lt;/a&gt; en la región, según la Organización Latinoamericana y del Caribe de Energía (OLACDE). “La electricidad tiene que ser más barata que el combustible al que reemplaza si queremos que se lleve a cabo la electrificación”, explica Wilmar Suárez, analista senior para América Latina del centro de estudios sobre energía Ember, a Dialogue Earth.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;“No es que la región se esté quedando atrás” en materia de electrificación, dice Francisco José Boshell, experto en energía del Instituto de Recursos Mundiales (WRI). Pero, agrega, los sectores del transporte y la industria de América Latina han estado dominados durante mucho tiempo por tecnologías de combustibles fósiles.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;En términos más generales, este avance del 35% viene acompañado de una salvedad ineludible: los beneficios climáticos de la electrificación dependen, en primer lugar, de cómo se genere toda esta nueva electricidad. Eso significa fuentes de energía renovables. Electrificar autobuses y altos hornos solo llevará a América Latina a la mitad del camino. Como &lt;a href="https://www.wri.org/insights/electrification-explained"&gt;escribió&lt;/a&gt; el WRI en agosto, “la electrificación es un facilitador, no un objetivo final en sí mismo”.&lt;/p&gt;
+
+
+
+&lt;h2 id="h-redes-electricas-precios-y-costo-de-capital" class="wp-block-heading"&gt;Redes eléctricas, precios y costo de capital&lt;/h2&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El compromiso “35&amp;#215;35” está &lt;a href="https://www.iea.org/reports/electrification"&gt;alineado&lt;/a&gt; con el escenario de Emisiones Netas Cero para 2050 de la Agencia Internacional de Energía, en el que el aumento promedio de la temperatura global se ha estabilizado en no más de 1,5 °C para 2100. En comparación con el statu quo —que, según cálculos del NewClimate Institute, una organización sin fines de lucro de Alemania, probablemente resultaría en una participación de la electrificación &lt;a href="https://newclimate.org/resources/publications/unpacking-electrification-for-a-15degc-aligned-world"&gt;del 28%&lt;/a&gt; para 2035—, el compromiso representa una aceleración.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;“Es una de las vías más importantes para descarbonizar la economía”, explica Rosana Santos, directora ejecutiva del Instituto de Transición Energética E+ de Río de Janeiro, a Dialogue Earth. “Debe ir de la mano de un mayor uso de energías renovables y de la eficiencia energética”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Los expertos coinciden en que la tecnología ya existe en gran medida. Lo que la frena es su implementación: financiamiento, redes eléctricas e infraestructura.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;En Brasil, se estima que &lt;a href="https://www.wemeanbusinesscoalition.org/resources/electrification-competitiveness-index/"&gt;el 89%&lt;/a&gt; de la electricidad proviene de fuentes limpias, según datos publicados en septiembre por la organización sin fines de lucro We Mean Business Coalition. Sin embargo, este estudio destaca que aún quedan 93 GW de nueva capacidad por conectarse a la red, lo que equivale aproximadamente al &lt;a href="https://www.gov.br/aneel/pt-br/assuntos/noticias/2026/usinas-eolicas-lideram-expansao-da-matriz-eletrica-em-outubro"&gt;40% de la capacidad&lt;/a&gt; de generación centralizada instalada en Brasil. Esto se debe, en parte, a la falta de inversión en infraestructura de transmisión, además de la insuficiencia de almacenamiento y los retrasos generales en las conexiones.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Este problema se presenta en toda la región. Diana Barba, coordinadora de diplomacia energética del centro de estudios sobre acción climática Transforma, dijo a Dialogue Earth que la energía renovable se está “desperdiciando”.&lt;/p&gt;
+
+
+
+&lt;a class="wp-block-cd-related-news alignright block--related-news loading" data-post-id="60080504"&gt;&lt;div class="block--related-news__image"&gt;&lt;/div&gt;&lt;div class="block--related-news__content"&gt;&lt;span class="block--related-news__heading"&gt;Lee más&lt;/span&gt;&lt;span class="block--related-news__title"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/a&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Luego está el tema de las finanzas. La Organización Latinoamericana y Caribeña de Energía (OLACDE) calcula que, en un escenario en el que América Latina y el Caribe alcancen el cero neto para 2050, el consumo de electricidad habrá crecido un 156%. Construir los aproximadamente 1.000 GW de capacidad de generación adicional que esto requeriría costará unos 1,5 billones de dólares.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Por otra parte, tareas como la electrificación de la flota de autobuses de la región costará &lt;a href="https://publications.iadb.org/es/costos-de-la-electromovilidad-en-america-latina-y-el-caribe"&gt;un 33% más&lt;/a&gt; inicialmente que simplemente renovar la flota que funciona con gasolina, según un estudio del Banco Interamericano de Desarrollo (BID) publicado en febrero. Esto plantea un problema para los responsables políticos.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El Sur Global enfrenta un déficit de financiamiento para alcanzar estos objetivos. Boshell estima que, dado el riesgo adicional que implica invertir en América Latina y la inestabilidad regulatoria de la región, sería necesario invertir aproximadamente el doble que en los países desarrollados.&lt;/p&gt;
+
+
+
+&lt;h2 id="h-oportunidades-de-electrificacion" class="wp-block-heading"&gt;Oportunidades de electrificación&lt;/h2&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El transporte y la industria representan actualmente &lt;a href="https://www.olacde.org/wp-content/uploads/2026/09/Resumen-panorama-2025-2026-ESP.pdf"&gt;dos tercios&lt;/a&gt; del consumo de energía en América Latina y el Caribe. Estos dos sectores avanzan hacia la electrificación a ritmos muy diferentes.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El número de vehículos ligeros electrificados en la región se multiplicó &lt;a href="https://www.bnamericas.com/en/news/latin-america-and-the-caribbean-accelerates-its-energy-transition-renewables-lead-natural-gas-consolidates-and-electric-mobility-rebounds"&gt;casi por diez&lt;/a&gt; entre 2022 y 2025. “Estamos partiendo de casi cero, así que esto todavía parece muy marginal”, aclara Boshell. “Pero si seguimos a ese ritmo, en unos tres o cuatro años empezaremos a ver resultados más significativos”. Junto con los híbridos enchufables, el BID estima que los vehículos ligeros electrificados podrían representar &lt;a href="https://publications.iadb.org/es/costos-de-la-electromovilidad-en-america-latina-y-el-caribe"&gt;entre el 27% y el 50%&lt;/a&gt; de la flota de pasajeros para 2050.&lt;/p&gt;
+
+
+
+&lt;div class="wp-block-cd-article-image aligncenter block--article-image block--article-image--article" itemscope itemtype="http://schema.org/ImageObject"&gt;&lt;div class="block--article-image__column"&gt;&lt;div class="hide-expand block--article-image__image"&gt;&lt;img class="lazy" data-src="https://dialogue.earth/content/uploads/2026/11/Colombia-auto-electrico-cargando_Alamy_3AMMM94.jpg" data-srcset="https://dialogue.earth/content/uploads/2026/11/Colombia-auto-electrico-cargando_Alamy_3AMMM94-768x512.jpg 768w, https://dialogue.earth/content/uploads/2026/11/Colombia-auto-electrico-cargando_Alamy_3AMMM94-1024x683.jpg 1024w, https://dialogue.earth/content/uploads/2026/11/Colombia-auto-electrico-cargando_Alamy_3AMMM94.jpg 2560w" data-sizes="(max-width: 600px) 768px, (max-width: 1024px) 1024px, 2560px" alt="auto eléctrico cargando"/&gt;&lt;/div&gt;&lt;div class="block--article-image__content"&gt;&lt;div itemprop="caption" class="block--article-image__caption"&gt;Un auto eléctrico siendo cargado en el oeste de Colombia. Entre 2022 y 2025, el número de vehículos ligeros electrificados en circulación en América Latina y el Caribe se multiplicó casi por diez (Imagen: Jon G Fuller / VWPics / Alamy)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;meta itemprop="contentUrl" content="https://dialogue.earth/content/uploads/2026/11/Colombia-auto-electrico-cargando_Alamy_3AMMM94.jpg"/&gt;&lt;meta itemprop="contentSize" content="882 KB"/&gt;&lt;meta itemprop="height" content="1707"/&gt;&lt;meta itemprop="width" content="2560"/&gt;&lt;meta itemprop="author"/&gt;&lt;meta itemprop="representativeOfPage" content="true"/&gt;&lt;/div&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;La industria, que representa el 28% del consumo energético de la región, principalmente para generar calor, presenta un desafío diferente. Que la electricidad pueda proporcionar ese calor depende en gran medida de cuán alta deba ser la temperatura.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Si bien las bombas de calor y las calderas eléctricas pueden producir el agua caliente y el vapor necesarios para secar y pasteurizar productos alimenticios, por ejemplo, un proceso como la fabricación de acero es menos sencillo.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El BID &lt;a href="https://publications.iadb.org/en/roadmap-framework-industrial-decarbonization-latin-america-and-caribbean"&gt;señala a&lt;/a&gt; la industria de alimentos y bebidas —el mayor emisor industrial relacionado con la energía en Brasil, Argentina y Colombia— como un punto de partida. Boshell estima que entre el 12% y el 15% de toda la energía que consume la región ya podría electrificarse en industrias ligeras como la de alimentos y bebidas, textiles, vidrio y papel, que utilizan calor a baja temperatura.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;En cuanto al acero, los hornos de arco eléctrico capaces de fundir chatarra a temperaturas muy altas son ya una tecnología consolidada. Sin embargo, por el momento no pueden reemplazar la producción primaria de acero a partir de mena de hierro. Actualmente se están probando procesos basados en hidrógeno.&lt;/p&gt;
+
+
+
+&lt;a class="wp-block-cd-related-news alignright block--related-news loading" data-post-id="60135654"&gt;&lt;div class="block--related-news__image"&gt;&lt;/div&gt;&lt;div class="block--related-news__content"&gt;&lt;span class="block--related-news__heading"&gt;Lee más&lt;/span&gt;&lt;span class="block--related-news__title"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/a&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El cemento enfrenta el desafío más difícil. Los hornos que convierten las materias primas en la base del cemento (clinker) funcionan a temperaturas extremadamente altas. Es en este proceso donde se genera una gran parte de las emisiones del sector. La electrificación total se encuentra aún en una etapa inicial.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Solo unos pocos países de la región —como &lt;a href="https://climatepolicydatabase.org/policies/national-mining-policy-2050"&gt;Chile&lt;/a&gt; y &lt;a href="https://emaisenergia.org/en/publication/estrategia-nacional-de-descarbonizacao-industrial-endi"&gt;Brasil&lt;/a&gt;— han introducido políticas que promueven explícitamente la electrificación en los sectores industriales. “Creo que se necesita presión desde arriba”, dice Cecilia Springer, investigadora del Centro de Políticas de Desarrollo Global de la Universidad de Boston en Estados Unidos. “Las industrias no van a electrificarse por iniciativa propia en este momento”.&lt;/p&gt;
+
+
+
+&lt;h2 id="h-la-trampa-de-los-combustibles-fosiles" class="wp-block-heading"&gt;La trampa de los combustibles fósiles&lt;/h2&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Si bien la red eléctrica limpia de América Latina ofrece una ventaja, expertos han dicho a Dialogue Earth que una electrificación mal gestionada podría agravar el problema a corto plazo.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Santos afirma que un aumento en la demanda de electricidad sin un plan para eliminar gradualmente el uso de combustibles fósiles daría lugar a nuevas emisiones o a costosos activos varados: “La electrificación puede convertirse en una trampa si construimos nuevas centrales de combustibles fósiles para satisfacer la nueva demanda”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Barba señala que también hay que abordar las tarifas eléctricas para que la electrificación sea accesible. Sin las medidas políticas adecuadas y los ajustes en las tarifas, considera que la carga de la transición recaería principalmente sobre quienes menos pueden soportarla.&lt;/p&gt;
+
+
+
+&lt;div class="wp-block-cd-pull-quote block--pull-quote"&gt;&lt;div class="block--pull-quote__wrapper"&gt;&lt;blockquote class="block--pull-quote__quote"&gt;La electrificación puede convertirse en una trampa si construimos nuevas centrales de combustibles fósiles para satisfacer la nueva demanda&lt;/blockquote&gt;&lt;cite class="block--pull-quote__cite"&gt;Rosana Santos, directora ejecutiva del Instituto de Transición Energética E+ &lt;/cite&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Esa transición también debe ser equitativa, agrega Barba. Alrededor de &lt;a href="https://www.atlanticcouncil.org/content-series/global-energy-agenda/latin-america-and-the-caribbean-leading-the-green-energy-transition-amid-climate-challenges/"&gt;17 millones de personas&lt;/a&gt; en América Latina y el Caribe aún carecen de acceso básico a la electricidad, lo que limita sus medios de vida y su desarrollo. La transición es fácil en las zonas urbanas y en los edificios nuevos, explica. Pero en “las zonas rurales, especialmente donde ni siquiera hay conexión eléctrica, aún queda un largo camino por recorrer”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Sin embargo, si se gestiona adecuadamente y cuenta con el respaldo de la voluntad política y la regulación, la electrificación tiene un potencial transformador, afirma Suárez: “Genera desarrollo, mejora la competitividad de las industrias nacionales y locales, y permite que sus productos se vendan a precios más competitivos en el extranjero”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;&lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/energia/cop31-objetivo-electrificacion-global-trampa-america-latina/"&gt;COP31: El objetivo de electrificación global, ¿una trampa para América Latina?&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
+</ns3:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Trump promete una bonanza petrolera en Venezuela, pero ¿en beneficio de quién?</title>
+		<link>https://dialogue.earth/es/energia/trump-promete-bonanza-petrolera-venezuela-en-beneficio-de-quien/</link>
+		
+		<dc:creator>Jeanfreddy Gutiérrez Torres</dc:creator>
+		<pubDate>Wed, 11 Nov 2026 15:16:28 +0000</pubDate>
+				<category>Energía</category>
+		<category>Geopolítica</category>
+		<category>Petróleo</category>
+		<guid isPermaLink="false">https://dialogue.earth/sin-categorizar/trump-promises-an-oil-bonanza-in-venezuela-but-critics-question-who-will-benefit-2/</guid>
+
+					<description>&lt;p&gt;La presidenta de Venezuela afirma que el país obtendrá 200 mil millones de dólares del acuerdo con EE. UU. Otros sugieren que se están dejando miles de millones sobre la mesa y que no se están abordando los daños ambientales&lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/energia/trump-promete-bonanza-petrolera-venezuela-en-beneficio-de-quien/"&gt;Trump promete una bonanza petrolera en Venezuela, pero ¿en beneficio de quién?&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
+</description>
+										<ns3:encoded>
+&lt;p class="wp-block-paragraph"&gt;“El mayor acuerdo petrolero de la historia mundial”. Así fue &lt;a href="https://www.bbc.com/mundo/articles/cwyz1d15w9go"&gt;anunciado&lt;/a&gt; el 28 de agosto el trato entre los gobiernos de Donald Trump y Delcy Rodríguez sobre el control de Washington sobre 17 “campos petroleros y áreas estratégicas”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Al explicar el acuerdo a su pueblo, la presidenta interina Rodríguez hizo hincapié en la necesidad de inversión, la cual “se traduce en desarrollo para Venezuela”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Las áreas en cuestión contienen, según se ha informado, 65 mil millones de barriles de petróleo, aproximadamente el 20% de las reservas totales de Venezuela. Los derechos de explotación pasarán a manos de la empresa norteamericana Blue Energy Partners (NABEP), propiedad del venezolano Alejandro Betancourt, pero en la que &lt;a href="https://www.cto.mil/osc/"&gt;la Oficina de Capital Estratégico de EE. UU.&lt;/a&gt; tiene una participación de un tercio. EE. UU. también obtiene acceso preferencial al 20% de la producción a precio de costo.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Rodríguez afirma que el acuerdo le hará ganar más de 200 mil millones de dólares a su país. Sin embargo, algunas estimaciones sugieren que Venezuela podría haber dejado de recaudar miles de millones al no subastar libremente los derechos.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Varios críticos también han señalado la falta de transparencia en cuanto a los detalles, la posible pérdida de ingresos fiscales y los costos ambientales ocultos que resultan de la falta de un plan para mitigar los impactos de la industria.&lt;/p&gt;
+
+
+
+&lt;h2 id="h-el-acuerdo" class="wp-block-heading"&gt;El acuerdo&lt;/h2&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El camino para este acuerdo se allanó cuando Estados Unidos capturó al expresidente Nicolás Maduro en enero. Menos de tres semanas después, la Asamblea Nacional de Venezuela aprobó una nueva &lt;a href="http://www.gacetaoficial.gob.ve/storage/2026/6978-2026-01-29-EXTRAORDINARIA.pdf"&gt;Ley de Hidrocarburos&lt;/a&gt;. Esta derogó las regulaciones de la era Chávez que estipulaban el control estatal sobre los yacimientos petroleros y permitió una mayor comercialización privada.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;NAPEB invertirá 100 mil millones de dólares como parte del acuerdo y afirma que aumentará la producción actual de 200.000 barriles diarios a &lt;a href="https://www.descifrado.com/2026/09/10/nabep-preve-alcanzar-una-produccion-de-500-000-barriles-diarios-en-venezuela-para-2028/"&gt;500.000&lt;/a&gt; para finales de 2028.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Según El Nacional, a lista &lt;a href="https://www.elnacional.com/2026/08/acuerdo-energetico-venezuela-ee-uu-que-se-sabe-sobre-los-pozos-y-campos-petroleros-involucrados/"&gt;incluye&lt;/a&gt; ocho áreas no exploradas o sin infraestructura, conocidas como “&lt;em&gt;greenfields&lt;/em&gt;”, en la &lt;a href="https://dialogue.earth/es/energia/59034-faja-del-orinoco-venezuela-a-la-espera-de-inversiones-petroleras-en-una-region-biodiversa/"&gt;Faja Petrolífera del Orinoco&lt;/a&gt; –un área de&amp;nbsp;55.000 km² al norte del río Orinoco, en el centro y oriente de Venezuela, que contendrían 300 mil barriles de crudo extrapesado–, y nueve campos maduros –o &lt;em&gt;”brownfields”&lt;/em&gt;– en la Cuenca del Lago de Maracaibo.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;La faja es un importante reservorio de biodiversidad, hogar de reptiles, aves migratorias y mamíferos, incluidas especies amenazadas como el cocodrilo del Orinoco y el delfín del río Orinoco.&lt;/p&gt;
+
+
+
+&lt;div class="wp-block-cd-article-image aligncenter block--article-image block--article-image--article" itemscope itemtype="http://schema.org/ImageObject"&gt;&lt;div class="block--article-image__column"&gt;&lt;div class="hide-expand block--article-image__image"&gt;&lt;img class="lazy" data-src="https://dialogue.earth/content/uploads/2026/11/Cocodrilo-del-Orinoco-Venezuela_Alamy_W7X18E-scaled-1.jpg" data-srcset="https://dialogue.earth/content/uploads/2026/11/Cocodrilo-del-Orinoco-Venezuela_Alamy_W7X18E-scaled-1-768x512.jpg 768w, https://dialogue.earth/content/uploads/2026/11/Cocodrilo-del-Orinoco-Venezuela_Alamy_W7X18E-scaled-1-1024x683.jpg 1024w, https://dialogue.earth/content/uploads/2026/11/Cocodrilo-del-Orinoco-Venezuela_Alamy_W7X18E-scaled-1.jpg 2560w" data-sizes="(max-width: 600px) 768px, (max-width: 1024px) 1024px, 2560px" alt="Un cocodrilo del Orinoco a la orilla de un río"/&gt;&lt;/div&gt;&lt;div class="block--article-image__content"&gt;&lt;div itemprop="caption" class="block--article-image__caption"&gt;Un cocodrilo del Orinoco al sol en Muñoz, Apure, en el suroeste de Venezuela (Imagen: Christophe Courteau / Nature Picture Library / Alamy)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;meta itemprop="contentUrl" content="https://dialogue.earth/content/uploads/2026/11/Cocodrilo-del-Orinoco-Venezuela_Alamy_W7X18E-scaled-1.jpg"/&gt;&lt;meta itemprop="contentSize" content="539 KB"/&gt;&lt;meta itemprop="height" content="1707"/&gt;&lt;meta itemprop="width" content="2560"/&gt;&lt;meta itemprop="author"/&gt;&lt;meta itemprop="representativeOfPage" content="true"/&gt;&lt;/div&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Un reto al que se enfrentará la iniciativa es que, desde la década de 1920, el crudo extrapesado de la Faja del Orinoco ha planteado dificultades de extracción debido a su viscosidad y densidad. Esto ha impulsado el desarrollo de nuevas técnicas&amp;nbsp;para explotarlo. Desde que se anunció el acuerdo, la NABEP ha informado la llegada de &lt;a href="https://www.nabep.net/newsroom/nabep-rig-fleet-grows-to-41-as-production-passes-223-000-barrels-of-oil-equivalent-a-day"&gt;20 perforadoras de reacondicionamiento y hasta 60 nuevas plataformas&lt;/a&gt; con el fin de &lt;a href="https://www.nabep.net/newsroom/nabep-restarts-key-orinoco-belt-furnace-in-continued-production-push"&gt;ampliar&lt;/a&gt; o iniciar operaciones en zonas de la Faja del Orinoco.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Otro factor es la vida útil de los yacimientos. Carlos Mendoza Potellá, economista especializado en petróleo y exasesor del Banco Central de Venezuela, declaró a Dialogue Earth que los yacimientos maduros aún cuentan con “reservas todavía considerables, pero de corta vida productiva para los estándares de la industria”. Ya han sido explotados durante entre 60 y 80 años, por lo que, según el experto, podrían dejar de ser rentables antes de que venza la concesión de 25 años.&lt;/p&gt;
+
+
+
+&lt;a class="wp-block-cd-related-news alignright block--related-news loading" data-post-id="50059052"&gt;&lt;div class="block--related-news__image"&gt;&lt;/div&gt;&lt;div class="block--related-news__content"&gt;&lt;span class="block--related-news__heading"&gt;Lee más&lt;/span&gt;&lt;span class="block--related-news__title"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/a&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El economista Asdrúbal Oliveros también señala que las condiciones materiales en Venezuela podrían resultar un obstáculo. La Cumbre Internacional de Petróleo y Gas de Venezuela, celebrada en Caracas del 28 al 30 de septiembre, contó con una nutrida asistencia de ejecutivos petroleros de todo el mundo. Esto, dice Oliveros, “confirmó el enorme apetito que existe por Venezuela, pero también las limitaciones. Tenemos petróleo pero necesitamos electricidad, carreteras, puertos, almacenamiento, oleoductos, mejoradores, servicios petroleros, financiamiento y capital humano”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Las evaluaciones de Siemens y General Electric &lt;a href="https://efectococuyo.mystagingwebsite.com/economia/venezuela-necesitara-entre-15-000-y-40-000-millones-de-dolares-para-reconstruir-su-sistema-electrico/"&gt;estiman&lt;/a&gt; que se deben invertir entre 15 mil millones y 40 mil millones de dólares solo para restaurar la red eléctrica.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Para el experto en petróleo Paulino Betancourt, las inversiones no llegarán “sin garantías legales para extraerlo y repatriar sus dividendos sin sorpresas contractuales. Hay sondeos, pero los grandes capitales y las grandes firmas entrarán cuando la certeza legal supere el riesgo político”.&lt;/p&gt;
+
+
+
+&lt;h2 id="h-cuanto-ganaria-y-perderia-venezuela" class="wp-block-heading"&gt;¿Cuánto ganaría y perdería Venezuela?&lt;/h2&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El 30 de septiembre la presidenta Rodríguez aseguró que Venezuela &lt;a href="https://www.facebook.com/ElDiarioNY/posts/el-esquema-establece-regal%C3%ADas-m%C3%ADnimas-de-16-y-un-impuesto-sobre-la-renta-de-34-c/1489993169824678/"&gt;recibirá regalías mínimas del 16% e impuestos del 34%&lt;/a&gt;. “Por cada barril producido y vendido, cerca de 19 dólares ingresan directamente a nuestro país”, dijo. Aseguró que en total serían 209 mil millones de dólares durante 25 años.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Pero Oliveros matiza la cifra. “Se trata de 8 mil millones de dólares al año”, lo que equivale &lt;a href="https://tradingeconomics.com/venezuela/gdp"&gt;al 8% del PIB de 2025&lt;/a&gt;. Aunque reconoce los efectos “relativamente rápidos” con una producción actual de 1,2 millones de barriles diarios con exportaciones por el orden del millón de barriles, desestima un posible “milagro petrolero” pues calcula que la estabilidad de la industria se alcanzará en entre 3 y 5 años.&lt;/p&gt;
+
+
+
+&lt;div class="wp-block-cd-pull-quote block--pull-quote"&gt;&lt;div class="block--pull-quote__wrapper"&gt;&lt;blockquote class="block--pull-quote__quote"&gt;No basta con producir barriles, sino cómo se transforman en bienestar para los venezolanos&lt;/blockquote&gt;&lt;cite class="block--pull-quote__cite"&gt;Asdrúbal Oliveros, economista&lt;/cite&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Para el exdiputado y economista petrolero José Guerra, Venezuela &lt;a href="https://www.instagram.com/reel/DdDCZcURAl1/"&gt;sacrificó&lt;/a&gt; ingresos por 6.200 millones de dólares por una entrega de áreas sin subastas públicas y entregando 20% de petróleo a precio de costo.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Por eso Oliveros considera que el impacto del nuevo trato petrolero podrá evaluarse al concretarse “inversión, empleos, empresas proveedoras, servicios, infraestructura y el efecto multiplicador en la economía”, así como el establecimiento de políticas de transparencia, ahorro e inversión. “No basta con producir barriles, sino cómo se transforman en bienestar para los venezolanos”.&lt;/p&gt;
+
+
+
+&lt;h2 id="h-transicion-retrasada" class="wp-block-heading"&gt;Transición retrasada&lt;/h2&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El acuerdo petrolero también pone de relieve la falta de avances en la transición energética de Venezuela, que se ha estancado antes de que realmente comenzara. PDVSA, la empresa estatal de energía, &lt;a href="https://dialogue.earth/es/energia/38521-la-ironica-abundancia-solar-y-eolica-de-una-venezuela-a-oscuras/"&gt;abandonó&lt;/a&gt; varios parques eólicos antes de que se completaran, debido a problemas presupuestarios, mientras que una fábrica de paneles solares que utiliza tecnología china apenas está en funcionamiento. También se ha suspendido el mantenimiento de una red nacional de pequeñas instalaciones solares. Los planes energéticos actuales se centran en desarrollar infraestructura para extraer gas natural y en recuperar y ampliar la energía hidroeléctrica, la principal fuente de electricidad del país.&lt;/p&gt;
+
+
+
+&lt;a class="wp-block-cd-related-news alignright block--related-news loading" data-post-id="60089910"&gt;&lt;div class="block--related-news__image"&gt;&lt;/div&gt;&lt;div class="block--related-news__content"&gt;&lt;span class="block--related-news__heading"&gt;Lee más&lt;/span&gt;&lt;span class="block--related-news__title"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/a&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Juan Carlos Sánchez, co-ganador del Premio Nobel de la Paz 2007 como miembro del Panel Intergubernamental sobre el Cambio Climático, ha aconsejado al gobierno que adopte un enfoque diferente. En la &lt;a href="https://www.linkedin.com/posts/juan-carlos-sanchez-martinez-883a5592_hoja-de-ruta-energ%C3%A9tica-de-venezuela-2026-ugcPost-7513535649124171778-f42-/"&gt;Hoja de Ruta Energética Venezuela 2026-2050&lt;/a&gt;, un documento que elaboró de manera independiente para contribuir a la toma de decisiones, recomienda utilizar los ingresos del petróleo para financiar la mejora de la infraestructura eléctrica, el desarrollo de energías renovables y la diversificación de la economía. La hoja de ruta aboga por instituciones más sólidas y un fondo de transición energética. Destaca la falta de objetivos gubernamentales sobre la transición energética y el cambio climático.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Mientras tanto, el gobierno &lt;a href="https://unfccc.int/documents/648026"&gt;reveló&lt;/a&gt; el año pasado que, entre 1990 y 2022, la matriz eléctrica estuvo dominada por la energía hidroeléctrica (79,73%), con aproximadamente un 20% proveniente de centrales térmicas que queman combustibles fósiles. Se agregaron un parque eólico y un parque solar a la red en 2024. Utilizando &lt;a href="https://unfccc.int/sites/default/files/NDC/2022-06/Actualizacion%20NDC%20Venezuela.pdf"&gt;el inventario de las Contribuciones Determinadas a Nivel Nacional (NDC)&lt;/a&gt; de Venezuela de 2021, el medio Efecto Cocuyo ha &lt;a href="https://efectococuyo.com/cambio-climatico/transicion-energetica-en-venezuela-datos/"&gt;estimado&lt;/a&gt; que la energía solar y eólica representan solo el 0,27% de la energía consumida en Venezuela.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El descuido de la infraestructura petrolera del país también ha provocado &lt;a href="https://www.instagram.com/p/DdEw7f-EYb0/"&gt;fugas&lt;/a&gt; frecuentes, especialmente en los cientos de kilómetros de tuberías submarinas del lago de Maracaibo.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;La ONG ambientalista Clima 21 y la ONG Provea &lt;a href="https://clima21.net/noticias/clima21-y-provea-instan-al-estado-venezolano-a-establecer-garantias-ambientales-y-de-derechos-humanos-ante-los-nuevos-acuerdos-petroleros-entre-venezuela-y-ee-uu/"&gt;emitieron&lt;/a&gt; un comunicado conjunto en septiembre en el que instaban al gobierno a establecer salvaguardias ambientales y garantías de derechos humanos a la luz del nuevo acuerdo petrolero. Exigieron transparencia, consultas con las comunidades indígenas y que se resolvieran los derrames existentes.&lt;/p&gt;
+
+
+
+&lt;h2 id="h-frente-a-china-y-rusia" class="wp-block-heading"&gt;Frente a China y Rusia&lt;/h2&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;El acuerdo también ha puesto en tela de juicio los intereses petroleros que desde hace tiempo tienen empresas de China y Rusia.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;En enero de 2026, la compañía petrolera estatal rusa Roszarubezhneft &lt;a href="https://www.idnfinancials.com/news/60402/roszarubezhneft-our-oil-assets-in-venezuela-legally-owned-by-russia"&gt;comunicó&lt;/a&gt; que todos sus activos en Venezuela “son propiedad del Estado ruso, adquiridos por la parte rusa en condiciones de mercado, en pleno cumplimiento de las leyes de la República Bolivariana de Venezuela, el derecho internacional y los acuerdos intergubernamentales”.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;“Los derechos e intereses legales de China en Venezuela deben estar garantizados”, &lt;a href="https://spanish.xinhuanet.com/20260901/eebb302251564e7bbff13d3e3686f9de/c.html"&gt;respondió&lt;/a&gt; en septiembre Guo Jiakun, portavoz del Ministerio de Relaciones Exteriores chino. Guo insistió en que la cooperación entre China y Venezuela está protegida “por el derecho internacional y las leyes de ambos países”.&lt;/p&gt;
+
+
+
+&lt;div class="wp-block-cd-article-image aligncenter block--article-image block--article-image--article" itemscope itemtype="http://schema.org/ImageObject"&gt;&lt;div class="block--article-image__column"&gt;&lt;div class="hide-expand block--article-image__image"&gt;&lt;img class="lazy" data-src="https://dialogue.earth/content/uploads/2026/11/Xi-Jinping-Nicolas-Maduro-Caracas-2014_Alamy_2RMRHX2.jpeg" data-srcset="https://dialogue.earth/content/uploads/2026/11/Xi-Jinping-Nicolas-Maduro-Caracas-2014_Alamy_2RMRHX2-768x596.jpeg 768w, https://dialogue.earth/content/uploads/2026/11/Xi-Jinping-Nicolas-Maduro-Caracas-2014_Alamy_2RMRHX2-1024x794.jpeg 1024w, https://dialogue.earth/content/uploads/2026/11/Xi-Jinping-Nicolas-Maduro-Caracas-2014_Alamy_2RMRHX2.jpeg 2560w" data-sizes="(max-width: 600px) 768px, (max-width: 1024px) 1024px, 2560px" alt="Xi Jinping y Nicolás Maduro aplaudiendo parados adelante de la bandera de Venezuela"/&gt;&lt;/div&gt;&lt;div class="block--article-image__content"&gt;&lt;div itemprop="caption" class="block--article-image__caption"&gt;El líder chino Xi Jinping junto al expresidente de Venezuela Nicolás Maduro en Caracas en 2014. Tras el nuevo acuerdo con Estados Unidos, el ministro de Hidrocarburos de Venezuela afirmó que las empresas conjuntas con China y Rusia siguen vigentes (Imagen: Wang Ye / Xinhua / Alamy)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;meta itemprop="contentUrl" content="https://dialogue.earth/content/uploads/2026/11/Xi-Jinping-Nicolas-Maduro-Caracas-2014_Alamy_2RMRHX2.jpeg"/&gt;&lt;meta itemprop="contentSize" content="540 KB"/&gt;&lt;meta itemprop="height" content="1985"/&gt;&lt;meta itemprop="width" content="2560"/&gt;&lt;meta itemprop="author"/&gt;&lt;meta itemprop="representativeOfPage" content="true"/&gt;&lt;/div&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Pero el Secretario de Energía de Estados Unidos, Chris Wright, declaró días después del nuevo trato que China no &lt;a href="https://www.bancaynegocios.com/china-no-tendra-derecho-a-ingresos-petroleros-de-venezuela-afirma-secretario-de-energia-de-ee-uu/"&gt;tendría derechos&lt;/a&gt; sobre los nuevos ingresos petroleros para cobrar la deuda pendiente de Venezuela. Esto va en línea con una &lt;a href="https://finanzasdigital.com/estrategia-eeuu-industria-petrolera-venezolana/"&gt;declaración de febrero&lt;/a&gt; en su visita a Venezuela, cuando afirmó que &amp;#8220;la influencia de China, Rusia e Irán, que ha sido muy grande en Venezuela, se reducirá considerablemente&amp;#8221;.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;La ministra de Hidrocarburos de Venezuela, Paula Henao, ha &lt;a href="https://desa.talcualdigital.com/ministra-de-hidrocarburos-asegura-que-venezuela-respeta-acuerdos-con-china-y-rusia/"&gt;dicho&lt;/a&gt; que las empresas mixtas con China y Rusia siguen vigentes. Sin embargo, la mayoría de los contratos &lt;a href="https://www.reuters.com/business/energy/private-chinese-firm-producing-oil-venezuela-under-rare-20-year-pact-source-says-2025-08-22/"&gt;firmados&lt;/a&gt; por empresas chinas desde 2024 se firmaron al amparo de la &lt;a href="https://www.csis.org/analysis/anti-blockade-law-change-venezuelas-economic-model"&gt;Ley Antibloqueo&lt;/a&gt;. Esta legislación, promulgada para eludir las sanciones de EE. UU., ofrecía menos certeza jurídica pero mayores ganancias que las empresas mixtas.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Cinco de los 17 yacimientos petroleros incluidos en el acuerdo han sido transferidos por empresas chinas, según Reuters, que cita a funcionarios estadounidenses. Entre ellas se encuentra la empresa privada China Concord Resources que, según declaraciones del exmiembro de la Asamblea Nacional Luis Díaz Salazar a Dialogue Earth, ahora está buscando una compensación&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Agrega que China puede “jugar al desgaste”, esperando mejores condiciones geopolíticas y confiada en sus ventajas: poseer tierras raras y un mercado de 1.500 millones de personas.&lt;/p&gt;
+
+
+
+&lt;p class="wp-block-paragraph"&gt;Paulino Betancourt coincide. “Preveo un ejercicio de pragmatismo frío y paciencia estratégica de China”, dijo a Dialogue Earth. “Aplicará la diplomacia del cobrador paciente: saben que las administraciones pasan, pero las deudas y los recursos del subsuelo permanecen”.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/energia/trump-promete-bonanza-petrolera-venezuela-en-beneficio-de-quien/"&gt;Trump promete una bonanza petrolera en Venezuela, pero ¿en beneficio de quién?&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
+</ns3:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>Una América Latina fragmentada se dirige a la COP31 en Antalya</title>
 		<link>https://dialogue.earth/es/clima/una-america-latina-fragmentada-se-dirige-a-antalya-cop31/</link>
 		
@@ -1532,362 +1874,6 @@
 
 &lt;p class="wp-block-paragraph"&gt;En Tabasco, Palma permanece en el mar hasta el amanecer. Espera no volver a encontrar las manchas negras en su red y regresar a casa a una costa libre de petróleo. Quiere que sus hijos puedan jugar allí con seguridad, “porque están acostumbrados a una vida yendo a la playa”. Quiere que sus castillos de arena estén libres de petróleo.&lt;/p&gt;
 &lt;p&gt;The post &lt;a href="https://dialogue.earth/es/oceanos/ano-derrames-petroleo-mexico-preocupacion/"&gt;El año de los derrames de petróleo en México aviva creciente preocupación&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
-</ns3:encoded>
-					
-		
-		
-			</item>
-		<item>
-		<title>Sin financiación de EE.UU., la Reserva de la Biósfera Maya de Guatemala enfrenta retos</title>
-		<link>https://dialogue.earth/es/bosques/reserva-biosfera-maya-de-guatemala-enfrenta-retos/</link>
-		
-		<dc:creator>Nicolas Scibelli</dc:creator>
-		<pubDate>Wed, 21 Oct 2026 15:48:42 +0000</pubDate>
-				<category>Bosques</category>
-		<category>Naturaleza</category>
-		<category>Conservación</category>
-		<category>Madera</category>
-		<category>Selvas tropicales</category>
-		<guid isPermaLink="false">https://dialogue.earth/sin-categorizar/without-usaid-guatemalas-maya-reserve-must-support-itself-2/</guid>
-
-					<description>&lt;p&gt;Los recortes amenazan décadas de conservación forestal en Guatemala, lo que obliga a las comunidades a buscar nuevas formas de financiar su labor y proteger el bosque&lt;/p&gt;
-&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/bosques/reserva-biosfera-maya-de-guatemala-enfrenta-retos/"&gt;Sin financiación de EE.UU., la Reserva de la Biósfera Maya de Guatemala enfrenta retos&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
-</description>
-										<ns3:encoded>
-&lt;p class="wp-block-paragraph"&gt;Amanece en el pueblo de Carmelita, en el corazón de la Reserva de la Biósfera Maya de Guatemala. La luz del sol se cuela entre los árboles de sapodilla (&lt;em&gt;Manilkara zapota&lt;/em&gt;) que se mecen mientras los gallos comienzan a cantar. Con machetes en mano, los residentes se dirigen al bosque comunitario.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;A pesar de su aspecto humilde, este pequeño asentamiento en Petén, el departamento más al norte de Guatemala, ha sido desde hace tiempo uno de los casos de éxito de la conservación a nivel mundial. Durante más de dos décadas, la gente de Carmelita ha cosechado de manera sostenible madera, miel y otros productos forestales, al tiempo que administra casi 55.000 hectáreas dentro de la reserva.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;En virtud de un acuerdo gubernamental firmado en 1994, gran parte de los bosques de Guatemala se arriendan a las comunidades locales a través de “concesiones comunitarias” como la de Carmelita. Estos custodios obtienen ingresos de los productos forestales bajo un plan de manejo sostenible creado en colaboración con la agencia nacional de conservación de Guatemala, el Consejo Nacional de Áreas Protegidas (Conap). Las concesiones comunitarias dentro de la Reserva de la Biósfera Maya han protegido colectivamente aproximadamente &lt;a href="https://acofop.org/manejo-forestal-3/"&gt;484.000&lt;/a&gt; hectáreas de bosque de gran importancia ecológica, mientras que las tierras adyacentes han sido rápidamente deforestadas.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“Es como un jardín”, dice Jesús Barrera, representante legal de Carmelita. “Lo podas y se vuelve más hermoso. Así es el bosque”.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Desde que se estableció la Reserva de la Biósfera Maya en 1990, la Agencia de los Estados Unidos para el Desarrollo Internacional (USAID) ha sido una presencia constante y crucial. Ha financiado de todo, desde equipo forestal y aserraderos hasta asistencia técnica para mitigar los incendios forestales.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Pero la historia de la conservación ha dado un giro político preocupante. Un mes después de asumir el cargo por segunda vez, el presidente de EE. UU., Donald Trump, &lt;a href="https://www.npr.org/sections/goats-and-soda/2025/02/26/nx-s1-5310673/usaid-trump-administration-global-health"&gt;congeló&lt;/a&gt; casi todo el apoyo internacional de la USAID en febrero de 2025.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“La USAID ha sido un aliado importante del modelo forestal desde el principio”, dice Julio Javier Madrid, coordinador de la Asociación de Comunidades Forestales de Petén (&lt;a href="https://www.instagram.com/acofop_oficial/"&gt;Acofop&lt;/a&gt;). “Vimos que los recursos llegaban a los lugares donde se necesitaban”.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Hay una docena de concesiones comunitarias dentro de la reserva que han dependido de la ayuda internacional durante décadas. Con la retirada de la USAID y la temporada alta de incendios a solo unos meses de distancia, se enfrentan a un futuro cada vez más incierto.&lt;/p&gt;
-
-
-
-&lt;h2 id="h-amenazas-inminentes" class="wp-block-heading"&gt;Amenazas inminentes&lt;/h2&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;El fuego ha formado parte desde hace mucho tiempo de las tierras dentro de la reserva. Las formas tradicionales de agricultura de tala y quema se han practicado aquí a lo largo de generaciones de civilizaciones mayas durante miles de años.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Pero las temporadas secas cada vez más erráticas, sumadas a la rápida expansión de la ganadería en todo Petén durante el último siglo, han provocado que los bosques se quemen a un ritmo alarmante. En Guatemala se queman, en promedio, unas &lt;a href="https://conap.gob.gt/incendios-forestales-afectaron-241568-hectareas-de-cobertura-forestal-y-no-forestal-dentro-del-sigap/?utm_"&gt;27.000 hectáreas&lt;/a&gt; de tierras protegidas cada año. Esta cifra se dispara durante los años de El Niño.&lt;/p&gt;
-
-
-
-&lt;div class="wp-block-cd-article-image aligncenter block--article-image block--article-image--article" itemscope itemtype="http://schema.org/ImageObject"&gt;&lt;div class="block--article-image__column"&gt;&lt;div class="hide-expand block--article-image__image"&gt;&lt;img class="lazy" data-src="https://dialogue.earth/content/uploads/2026/10/Cows-grazing-Tamarindito_Alamy_G0CNY6-scaled.jpg" data-srcset="https://dialogue.earth/content/uploads/2026/10/Cows-grazing-Tamarindito_Alamy_G0CNY6-768x512.jpg 768w, https://dialogue.earth/content/uploads/2026/10/Cows-grazing-Tamarindito_Alamy_G0CNY6-1024x683.jpg 1024w, https://dialogue.earth/content/uploads/2026/10/Cows-grazing-Tamarindito_Alamy_G0CNY6-scaled.jpg 2560w" data-sizes="(max-width: 600px) 768px, (max-width: 1024px) 1024px, 2560px" alt="Cows grazing"/&gt;&lt;/div&gt;&lt;div class="block--article-image__content"&gt;&lt;div itemprop="caption" class="block--article-image__caption"&gt;La expansión de las explotaciones ganaderas en el norte de Petén, el departamento más grande de Guatemala, es uno de los varios factores que permiten que los incendios forestales ahora se extiendan más que antes (Imagen: Eddie Gerald / Alamy)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;meta itemprop="contentUrl" content="https://dialogue.earth/content/uploads/2026/10/Cows-grazing-Tamarindito_Alamy_G0CNY6-scaled.jpg"/&gt;&lt;meta itemprop="contentSize" content="518 KB"/&gt;&lt;meta itemprop="height" content="1707"/&gt;&lt;meta itemprop="width" content="2560"/&gt;&lt;meta itemprop="author"/&gt;&lt;meta itemprop="representativeOfPage" content="true"/&gt;&lt;/div&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“El fuego es lo que más nos ha afectado”, dice Estuardo Miguel Julián Díaz, tesorero de una de las concesiones comunitarias de la reserva, la Asociación Forestal Integral Cruce a la Colorada (Aficc). “Ha sido difícil controlarlos”.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;USAID ayudó a crear una red de agencias gubernamentales, ONG y concesiones comunitarias dedicadas a rastrear y prevenir incendios. Esto &lt;a href="https://fsc.org/en/newscentre/stories/community-forestry-the-secret-to-reducing-forest-fires-in-guatemalas-mayan"&gt;incluye&lt;/a&gt; monitoreo por satélite, patrullas comunitarias contra incendios, gestión centralizada de quemas autorizadas y cientos de millas de cortafuegos. Los expertos dicen que esto ha llevado a que se produzcan menos incendios en las áreas administradas por la comunidad en comparación con la zona de amortiguación de la reserva.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“La retirada de la USAID se produjo en un momento muy crítico”, afirma Sergio Balan, coordinador del Conap.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;El financiamiento desapareció tras la peor temporada de incendios de la reserva en décadas, cuando los recursos ya eran excepcionalmente escasos. En 2024 se quemaron más de &lt;a href="https://conap.gob.gt/incendios-forestales-afectaron-241568-hectareas-de-cobertura-forestal-y-no-forestal-dentro-del-sigap/?utm_"&gt;230.000 hectáreas&lt;/a&gt; de tierras protegidas en Petén.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“El Estado ya no contaba con recursos porque esa temporada de incendios fue severa, y los recursos disponibles para la prevención y la lucha contra incendios ya se habían agotado”, explica Balan.&amp;nbsp;&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Las invasiones ilegales de tierras impulsadas por la ganadería se han expandido en la reserva durante el último año, particularmente a lo largo de lo que Conap denomina la “ruta de la Carmelita”, un paisaje degradado que se encuentra en proceso de restauración activa.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“Antes había muchos incendios, pero afectaban áreas relativamente pequeñas”, dice Balan. “Ahora las invasiones de tierras han aumentado y los territorios afectados se han vuelto mucho más extensos”.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;div class="wp-block-cd-pull-quote block--pull-quote"&gt;&lt;div class="block--pull-quote__wrapper"&gt;&lt;blockquote class="block--pull-quote__quote"&gt;Nuestra situación actual es que tenemos que hacer más con menos recursos&lt;/blockquote&gt;&lt;cite class="block--pull-quote__cite"&gt;Julio Javier Madrid, coordinador de la Asociación de Comunidades Forestales de Petén (Acofop)&lt;/cite&gt;&lt;/div&gt;&lt;/div&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Sin los recursos necesarios para contrarrestar estas invasiones, Balan señala que los incendios se han extendido a áreas que antes no se veían afectadas.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Los recortes han obligado a modificar los mecanismos de respuesta. Madrid explica que Acofop ahora tiene que esperar la confirmación oficial de un incendio antes de desplegar recursos para combatirlo.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;A medida que &lt;a href="https://www.economist.com/science-and-technology/2026/06/16/the-coming-el-nino-could-be-the-strongest-ever-recorded?utm_medium=cpc.adword.pd&amp;amp;utm_source=google&amp;amp;ppccampaignID=17210591673&amp;amp;ppcadID=&amp;amp;utm_campaign=a.22brand_pmax&amp;amp;utm_content=conversion.direct-response.anonymous&amp;amp;gclsrc=aw.ds&amp;amp;gad_source=1&amp;amp;gad_campaignid=17210596221&amp;amp;gbraid=0AAAAADBuq3JAEfwhVsz53xMq3wRyqd1_D&amp;amp;gclid=Cj0KCQjw8JPVBhD-ARIsAO691sFwRIsuoWIbM8mBEDxp37Fx6_ziFXVpeszcZZbv96SxX1Am54e7-fwaAjxjEALw_wcB"&gt;El Niño&lt;/a&gt; se intensifica antes de la temporada de incendios de enero, la reserva podría enfrentar su mayor desafío hasta la fecha. “Nuestra situación actual es que tenemos que hacer más con menos recursos”, dice Madrid.&lt;/p&gt;
-
-
-
-&lt;h2 id="h-desafios-crecientes" class="wp-block-heading"&gt;Desafíos crecientes&lt;/h2&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;En Acofop, muchos no están seguros de si aún conservan sus empleos. “Nuestros salarios se pagaban directamente con fondos de USAID”, explica Madrid.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;La organización perdió alrededor de 375.000 dólares en financiamiento anual, lo que provocó de inmediato la cancelación de un proyecto de 60.000 dólares relacionado con un centro comunitario de recolección de miel. Esto habría brindado a los apicultores de la reserva un mejor acceso a los mercados internacionales y mayores ingresos, según Madrid.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Rainforest Alliance, una ONG internacional que durante décadas apoyó las concesiones comunitarias en la reserva con el respaldo de USAID, se ha visto igualmente afectada. Desde 2023, Rainforest Alliance ha &lt;a href="https://www.rainforest-alliance.org/business/projects/project-profile-guatemalas-prosperous-and-resilient-landscapes/"&gt;financiado&lt;/a&gt; proyectos comunitarios a través de su iniciativa “Paisajes Prósperos y Resilientes” (PRL). USAID había asignado hasta 6 millones de dólares para financiar el proyecto hasta 2028. Sin embargo, los fondos se agotaron en septiembre.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“La cooperación internacional siempre había sido muy oportuna en temas críticos”, afirma Jorge Cruz, quien dirige la oficina de Rainforest Alliance en Petén.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;La pérdida repentina de los fondos de USAID no supone una sentencia de muerte, pero algunos proyectos siguen dependiendo en gran medida de la ayuda externa para el desarrollo comunitario y la restauración del paisaje.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“Las concesiones más recientes definitivamente requieren más atención”, dice Cruz. “Es necesario fortalecerlas; hay que reforzar nuevamente el modelo de concesión”.&lt;/p&gt;
-
-
-
-&lt;div class="wp-block-cd-article-image aligncenter block--article-image block--article-image--article" itemscope itemtype="http://schema.org/ImageObject"&gt;&lt;div class="block--article-image__column"&gt;&lt;div class="hide-expand block--article-image__image"&gt;&lt;img class="lazy" data-src="https://dialogue.earth/content/uploads/2026/10/EN_Cruce-a-la-Colorada-Integrated-Forestry-Association-nursery-in-Peten_Nicolas-Scibelli-scaled-1.jpeg" data-srcset="https://dialogue.earth/content/uploads/2026/10/EN_Cruce-a-la-Colorada-Integrated-Forestry-Association-nursery-in-Peten_Nicolas-Scibelli-scaled-1-768x512.jpeg 768w, https://dialogue.earth/content/uploads/2026/10/EN_Cruce-a-la-Colorada-Integrated-Forestry-Association-nursery-in-Peten_Nicolas-Scibelli-scaled-1-1024x683.jpeg 1024w, https://dialogue.earth/content/uploads/2026/10/EN_Cruce-a-la-Colorada-Integrated-Forestry-Association-nursery-in-Peten_Nicolas-Scibelli-scaled-1.jpeg 2560w" data-sizes="(max-width: 600px) 768px, (max-width: 1024px) 1024px, 2560px" alt="Placa de USAID"/&gt;&lt;/div&gt;&lt;div class="block--article-image__content"&gt;&lt;div itemprop="caption" class="block--article-image__caption"&gt;USAID desempeñó un papel fundamental en el apoyo a los esfuerzos de restauración en la reserva, como este vivero de la Asociación Forestal Integral Cruce a la Colorada en Petén (Imagen: Nicolás Scibelli)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;meta itemprop="contentUrl" content="https://dialogue.earth/content/uploads/2026/10/EN_Cruce-a-la-Colorada-Integrated-Forestry-Association-nursery-in-Peten_Nicolas-Scibelli-scaled-1.jpeg"/&gt;&lt;meta itemprop="contentSize" content="445 KB"/&gt;&lt;meta itemprop="height" content="1707"/&gt;&lt;meta itemprop="width" content="2560"/&gt;&lt;meta itemprop="author"/&gt;&lt;meta itemprop="representativeOfPage" content="true"/&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id="h-hacia-un-modelo-autosustentable" class="wp-block-heading"&gt;Hacia un modelo autosustentable&lt;/h2&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;En Carmelita, el negocio sigue en auge.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Un aserradero y un taller de carpintería permiten a la concesión vender muebles y madera procesada a mejores precios. Las ventas en los mercados nacionales e internacionales representan alrededor del 70% de los ingresos anuales de la concesión.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;La concesión también obtiene ingresos del xate, las hojas de una palmera ornamental muy apreciada por los floristas internacionales para ramos y decoraciones de bodas, así como de la materia prima del chicle. Carmelita también está expandiendo su negocio de apicultura: actualmente cuenta con 138 colmenas productoras de miel. El turismo es un motor de ingresos, ya que atrae a miles de visitantes cada año.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“Carmelita ha llegado a una etapa en la que es autosuficiente”, dice Barrera. “Hemos tenido altibajos, como las fluctuaciones en los precios de la madera, pero seguimos operando”.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Otras concesiones aún están en fase de aprendizaje.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;A unos 30 minutos por carretera de Carmelita, la concesión de la Aficc ha enfrentado dificultades debido a la invasión de ganaderos ilegales y a la deforestación relacionada con conflictos de tierras. Aficc carece de las abundantes reservas de caoba que ayudan a sostener las operaciones de Carmelita.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Aficc se ha enfocado en la restauración desde 2021, y la mayor parte del trabajo ha sido financiado por el proyecto PRL de Rainforest Alliance. El financiamiento terminó el mes pasado.&lt;/p&gt;
-
-
-
-&lt;div class="wp-block-cd-article-image aligncenter block--article-image block--article-image--article" itemscope itemtype="http://schema.org/ImageObject"&gt;&lt;div class="block--article-image__column"&gt;&lt;div class="hide-expand block--article-image__image"&gt;&lt;img class="lazy" data-src="https://dialogue.earth/content/uploads/2026/10/EN_Carmelita-Guatemala-sawmill_Alamy_2H60300.jpg" data-srcset="https://dialogue.earth/content/uploads/2026/10/EN_Carmelita-Guatemala-sawmill_Alamy_2H60300-768x512.jpg 768w, https://dialogue.earth/content/uploads/2026/10/EN_Carmelita-Guatemala-sawmill_Alamy_2H60300-1024x683.jpg 1024w, https://dialogue.earth/content/uploads/2026/10/EN_Carmelita-Guatemala-sawmill_Alamy_2H60300.jpg 2560w" data-sizes="(max-width: 600px) 768px, (max-width: 1024px) 1024px, 2560px" alt="Aserradero de la Asociación Forestal Integral Cruce a la Colorada, 2017"/&gt;&lt;/div&gt;&lt;div class="block--article-image__content"&gt;&lt;div itemprop="caption" class="block--article-image__caption"&gt;Aserradero de la Asociación Forestal Integral Cruce a la Colorada, 2017 (Imagen: PBH / Alamy)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;meta itemprop="contentUrl" content="https://dialogue.earth/content/uploads/2026/10/EN_Carmelita-Guatemala-sawmill_Alamy_2H60300.jpg"/&gt;&lt;meta itemprop="contentSize" content="3 MB"/&gt;&lt;meta itemprop="height" content="1707"/&gt;&lt;meta itemprop="width" content="2560"/&gt;&lt;meta itemprop="author"/&gt;&lt;meta itemprop="representativeOfPage" content="true"/&gt;&lt;/div&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“El próximo año será muy difícil”, dice Samuel Quixchan, un técnico de Rainforest Alliance que trabaja en estrecha colaboración con Aficc. “Solo podremos continuar con tal vez el 20% del trabajo”.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Aficc está trabajando para seguir el modelo de Carmelita mediante el desarrollo de fuentes de ingresos alternativas, un proceso que requerirá una inversión sostenida.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“Hoy en día, el trabajo de restauración va bien, pero va a llegar a su fin”, dice Miguel Julián, tesorero de Aficc. “¿Qué va a hacer la gente después?”&lt;/p&gt;
-
-
-
-&lt;h2 id="h-un-nuevo-salvavidas" class="wp-block-heading"&gt;Un nuevo salvavidas&lt;/h2&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;A pesar de sus resultados mixtos y a menudo &lt;a href="https://www.theguardian.com/environment/2023/jan/18/revealed-forest-carbon-offsets-biggest-provider-worthless-verra-aoe"&gt;polémicos&lt;/a&gt;, ¿puede REDD+, el marco internacional de pagos por carbono, ofrecer un salvavidas a la reserva?&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;En diciembre pasado, el proyecto insignia de reducción de carbono de la reserva, &lt;a href="https://unfccc.int/climate-action/momentum-for-change/activity-database/momentum-for-change-guatecarbon-payment-for-environmental-services-in-the-maya-biosphere-reserve"&gt;GuateCarbon&lt;/a&gt;, recibió su primer pago de REDD+ por 1,1 millones de toneladas de emisiones de carbono evitadas gracias a la reducción de la deforestación. Esto representó un suspiro de alivio para las comunidades que buscaban compensar los recortes de financiamiento de USAID.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Años de trámites burocráticos y cuestiones legales sobre la propiedad de la tierra retrasaron el proyecto. Pasó una década desde la verificación del proyecto en 2014 hasta que GuateCarbon vendió su primer lote de créditos de REDD+ en 2025. El proyecto aún no ha vendido ningún crédito de carbono a través de los mercados voluntarios, lo que permitiría a personas y organizaciones compensar sus emisiones. Es un área en la que el gerente del proyecto, Sergio Guzmán, sabe que se está dejando de ganar dinero.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“Es una historia de éxito en términos de procedimientos, procesos y aprendizaje”, dice Guzmán. “Pero también es una historia de fracaso porque esas toneladas estándar voluntarias siguen ahí sin venderse”.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Cada concesión recibió 3,6 millones de dólares de la primera entrega de REDD+, destinados a fortalecer sus componentes sociales, productivos y de protección. Acofop también recibió alrededor de 0,7 millones de dólares por administrar el proyecto, mientras que el gobierno recibió 1,1 millones de dólares.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;En Uaxactún, otra concesión dentro de la reserva, su presidenta, Mavil Barrientos, afirma que los fondos de GuateCarbon han sido cruciales para la prevención de incendios, ya que cubrieron salarios y otros gastos. Aficc utilizó los fondos para comprar un vehículo todoterreno con el fin de monitorear mejor los incendios.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Sin embargo, a diferencia de las contribuciones de USAID, es necesario encontrar regularmente nuevos compradores para los créditos de GuateCarbon, lo cual es en sí mismo una tarea difícil que requiere tiempo y negociación.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;La Reserva de la Biósfera Maya se creó partiendo de la idea de que las comunidades que vivían dentro del bosque eran sus custodios mejor equipados. El apoyo de USAID y décadas de inversión ayudaron a construir eso. La pregunta ya no es si las comunidades pueden proteger uno de los ecosistemas de bosque tropical más importantes del mundo, es si pueden hacerlo sin uno de sus mayores patrocinadores financieros.&amp;nbsp;&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;“Tenemos que encontrar la manera de mantener la sostenibilidad por nuestra cuenta”, asegura Guzmán.&lt;/p&gt;
-&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/bosques/reserva-biosfera-maya-de-guatemala-enfrenta-retos/"&gt;Sin financiación de EE.UU., la Reserva de la Biósfera Maya de Guatemala enfrenta retos&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
-</ns3:encoded>
-					
-		
-		
-			</item>
-		<item>
-		<title>Cartas sobre la Antártica: ‘Nos preocupa el mismo tema’</title>
-		<link>https://dialogue.earth/es/naturaleza/cartas-antartica-nos-preocupa-el-mismo-tema/</link>
-		
-		<dc:creator>Chen Jiliang, Giovannina Sutherland</dc:creator>
-		<pubDate>Tue, 20 Oct 2026 09:57:21 +0000</pubDate>
-				<category>Naturaleza</category>
-		<category>Océanos</category>
-		<category>Antártida</category>
-		<category>Ecosistemas</category>
-		<category>Pesca</category>
-		<category>Protección marina</category>
-		<guid isPermaLink="false">https://dialogue.earth/sin-categorizar/antarctic-letters-we-care-about-the-same-issue-2/</guid>
-
-					<description>&lt;p&gt;Una experta chilena y otro chino analizan cómo avanzar en los planes para conservar el océano Austral, que llevan mucho tiempo estancados&lt;/p&gt;
-&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/naturaleza/cartas-antartica-nos-preocupa-el-mismo-tema/"&gt;Cartas sobre la Antártica: ‘Nos preocupa el mismo tema’&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
-</description>
-										<ns3:encoded>
-&lt;p class="wp-block-paragraph"&gt;Esta semana, los gobiernos se reúnen en Australia para debatir cómo gestionar la Antártica y sus vastos recursos.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;En ediciones anteriores de este encuentro anual apenas se ha llegado a un acuerdo sobre cómo proteger las aguas oceánicas que rodean al continente.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Estos temas vuelven a ocupar un lugar central ahora que se está llevando a cabo la última reunión de la Comisión para la Conservación de los Recursos Vivos Marinos Antárticos (CCRVMA).&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Chile es una de las naciones que, en reuniones anteriores, ha &lt;a href="https://www.asoc.org/news/ccamlr-2025-closing-press-release/"&gt;&lt;/a&gt;&lt;a href="https://www.asoc.org/news/ccamlr-2025-closing-press-release/"&gt;defendido enérgicamente&lt;/a&gt; la creación de una nueva área protegida alrededor de la Península Antártica. Las ONG están impulsando esta propuesta nuevamente, después de que una década de discusiones no haya dado lugar a ningún acuerdo. La creación de esta área se ha entrelazado con los debates sobre la gestión de la &lt;a href="https://dialogue.earth/en/ocean/china-and-the-race-to-fish-a-tiny-animal-with-a-vast-climate-role/"&gt;&lt;/a&gt;&lt;a href="https://dialogue.earth/en/ocean/china-and-the-race-to-fish-a-tiny-animal-with-a-vast-climate-role/"&gt;pesca de krill&lt;/a&gt; en la Antártica, actividad que llevan a cabo Noruega, China y otros países.&lt;/p&gt;
-
-
-
-&lt;p class="wp-block-paragraph"&gt;Dialogue Earth invitó a expertos de Chile y China a analizar dónde podrían existir puntos en común en los esfuerzos por proteger el océano Austral y gestionar la pesca del krill. Tuvieron que ser cautelosos respecto a ciertos detalles, ya que las discusiones internas de la CCRVMA son confidenciales. El resultado de las conversaciones se hará público después de la reunión.&lt;/p&gt;
-
-
-
-&lt;div style="background-color: #eff9fc; padding: 24px;"&gt;
-
-  &lt;div style="text-align: right; margin-bottom: 24px; font-size: 17px;"&gt;
-    Giovannina Sutherland&lt;br&gt;
-    Experta chilena en derecho internacional y derecho antártico
-  &lt;/div&gt;
-
-  &lt;p&gt;Estimado Jiliang:&lt;/p&gt;
-
-  &lt;p&gt;Dado el estancamiento en la búsqueda de un consenso sobre la gestión pesquera en la Antártica, se está volviendo necesario identificar puntos en común.&lt;/p&gt;
-
-  &lt;p&gt;La captura de krill antártico ha crecido exponencialmente junto con el interés en su uso y consumo. Al mismo tiempo, se han estancado las propuestas para establecer áreas marinas protegidas (AMP) en la región que alberga la mayor población de este crustáceo.&lt;/p&gt;
-
-  &lt;p&gt;China se ha mostrado crítica con la regulación de la pesca en la Antártica, particularmente en lo que respecta a las AMP. Chile, por otro lado, adopta un enfoque más precautorio y, por lo tanto, tiende a apoyar propuestas que protejan el ecosistema y la biodiversidad antárticos.  &lt;/p&gt;
-
-  &lt;p&gt;El Núcleo Milenio ICLAC, donde trabajo, ha analizado objetivamente la postura de China, con el fin de contribuir al debate en la 45.ª reunión de la CCRVMA (19-30 de octubre).&lt;/p&gt;
-
-  &lt;p&gt;China insiste que toda restricción pesquera se respalde en ciencia robusta, no en índices precautorios, apoyándose en una lectura del artículo II de la Convención CRVMA donde la &amp;#8220;utilización racional&amp;#8221; no se subordina a la conservación, sino que la equilibra. Esto sustenta otras objeciones de China, entre ellas su petición de que las AMP tengan una duración máxima y el requisito de que todas las decisiones estén sujetas a una revisión previa por parte del Comité Científico de la CCRVMA.&lt;/p&gt;
-
-  &lt;p&gt;Históricamente, la convención se estableció con el objetivo de regular la gestión pesquera, no la protección ambiental del océano Austral. Los sistemas internacionales evolucionan y, para muchas de las otras partes de la Comisión, este último es ahora el objetivo principal. Este no es el caso de China, que se ha aferrado a una interpretación literal de la convención.&lt;/p&gt;
-
-  &lt;p&gt;Una de las conclusiones de nuestro estudio es que China no estará dispuesta a avanzar con otras propuestas sobre AMP hasta que se modifique la Medida de Conservación 91-04, que establece las normas para las AMP en la Antártica.&lt;/p&gt;
-
-  &lt;p&gt;El punto no es nuevo: China ha sido explícita en este planteamiento durante años, sin que haya encontrado eco entre las demás Partes de la Comisión. La señal más clara de esta insistencia es el documento CCAMLR-44/09, presentado en 2025, que propone un programa detallado de modificación —definición del concepto de AMP, requisitos claros de datos de referencia y un límite temporal de establecimiento no superior a 20 años—. &lt;/p&gt;
-
-  &lt;p&gt;Si nos basamos en el patrón de sus intervenciones recientes, es posible que el país se esté preparando para cambiar de rumbo, pasando de la obstrucción a una propuesta activa que le permita negociar en sus propios términos, en lugar de responder a las propuestas de otros países.&lt;/p&gt;
-
-  &lt;p&gt;¿Cómo podrían Chile y Argentina fortalecer su relación con China para asegurar un consenso sobre una propuesta de AMP para la Península Antártica?&lt;/p&gt;
-
-  &lt;p&gt;Saludos,&lt;/p&gt;
-
-  &lt;p&gt;Giovannina&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-
-&lt;div style="margin-top: 60px;"&gt;&lt;/div&gt;
-
-
-
-&lt;div style="background-color: #eff9fc; padding: 24px;"&gt;
-
-  &lt;div style="text-align: right; margin-bottom: 24px; font-size: 17px; line-height: inherit; font-weight: normal;"&gt;
-    Chen Jiliang&lt;br&gt;
-    Profesor del Instituto de Estudios Marinos y Antárticos,&lt;br&gt;
-    Universidad de Tasmania
-  &lt;/div&gt;
-
-  &lt;p&gt;Estimada Giovannina:&lt;/p&gt;
-
-  &lt;p&gt;Me alegra que nos preocupe el mismo tema.&lt;/p&gt;
-
-  &lt;p&gt;El término ”estancamiento” describe con precisión la situación actual de las negociaciones en la CCRVMA.&lt;/p&gt;
-
-  &lt;ppero creo="" que="" la="" comisión="" ya="" ha="" identificado="" puntos="" en="" común.&lt;="" p=""&gt;
-
-  &lt;p&gt;En primer lugar, la CCRVMA acordó desarrollar la idea de la AMP de la Península Antártica Occidental y un nuevo esquema de manejo de la pesquería de krill en la misma zona. En segundo lugar, acordó armonizar estas dos discusiones, ya que ambas interactúan con el mismo ecosistema marino. En tercer lugar, la CCRVMA acordó que, antes de que el nuevo esquema de manejo pesquero esté completamente desarrollado, es necesario implementar medidas provisionales.&lt;/p&gt;
-
-  &lt;p&gt;No hay desacuerdo en estos temas.&lt;/p&gt;
-
-  &lt;p&gt;La mayoría de los miembros de la CCRVMA han coincidido en que el avance en el establecimiento de AMP en la Península Antártica Occidental debe ser la condición previa para el avance de la gestión del krill, ya que ofrece salvaguardias para el ecosistema.&lt;/p&gt;
-
-  &lt;p&gt;Quizás deberíamos enfocarnos en los puntos en común que ya existen entre la mayoría de los países miembros de la CCRVMA y pensar en cómo podemos aprovecharlos. Dado que se trata de un proceso multilateral de toma de decisiones políticas y no de un problema bilateral o trilateral, la CCRVMA debe resolver las cosas como grupo. Por lo tanto, tal vez los defensores de las AMP deberían consolidar aún más el apoyo que han obtenido y acercarse colectivamente a las partes que aún tienen inquietudes. Un equipo más grande podría aportar mayor sabiduría.&lt;/p&gt;
-
-  &lt;p&gt;Quizás deba discrepar de su interpretación de la convención de la CCRVMA. La negociación de la convención se desencadenó por la pesca soviética no regulada de krill. Lo que la impulsó fue la preocupación colectiva por la salud del ecosistema marino antártico, tal como se establece en el preámbulo de la convención.&lt;/p&gt;
-
-  &lt;p&gt;En años anteriores, la CCRVMA se enfocó principalmente en la gestión pesquera porque esos temas representaban una mayor amenaza para el objetivo de la convención. A medida que ha ido construyendo un sistema funcional de gestión pesquera, puede dedicar más tiempo a cuestiones generales de conservación, especialmente ahora que el cambio climático está multiplicando muchos de los riesgos ambientales existentes. Y esta es precisamente la razón por la que la mayoría de los miembros de la CCRVMA apoyan todas las propuestas de AMP.&lt;/p&gt;
-
-  &lt;p&gt;Este es el momento; la CCRVMA cuenta con la base científica y la capacidad para avanzar aún más en el cumplimiento de su objetivo.&lt;/p&gt;
-
-  &lt;p&gt;La obligación de cooperar en virtud del derecho internacional no significa que debas estar de acuerdo con las propuestas de los demás. En cambio, debes aportar ideas específicas a la negociación. Chile y Argentina se sienten frustrados porque las propuestas de China no han sido específicas para ellos.&lt;/p&gt;
-
-  &lt;p&gt;Sabiendo todo lo que Chile y Argentina han hecho por la propuesta de las AMP, no creo que se pueda hacer más en esta etapa. Para mí, generar consenso es un esfuerzo de equipo, como anotar un gol en una cancha de fútbol: no importa qué tan bien se haya construido la jugada, se necesita a alguien que la remate. El balón se le ha pasado a China y la meta está cerca. Creo que China, ya vez tenga las cosas claras, actuará rápidamente.&lt;/p&gt;
-
-  &lt;p&gt;Saludos,&lt;/p&gt;
-
-  &lt;p&gt;Jiliang&lt;/p&gt;
-
-&lt;/ppero&gt;&lt;/div&gt;
-&lt;p&gt;The post &lt;a href="https://dialogue.earth/es/naturaleza/cartas-antartica-nos-preocupa-el-mismo-tema/"&gt;Cartas sobre la Antártica: ‘Nos preocupa el mismo tema’&lt;/a&gt; appeared first on &lt;a href="https://dialogue.earth/es/"&gt;Dialogue Earth&lt;/a&gt;.&lt;/p&gt;
 </ns3:encoded>
 					
 		
