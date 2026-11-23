@@ -7,7 +7,7 @@ Total: 194 sources. Status: 180 live, 1 moved, 5 dead, 8 uncertain.
 
 **Verification caveat.** Statuses dated 2026-10-01 with method `search` were established from search-engine results, GitHub mirrors and package indexes, because the development sandbox cannot reach other hosts. Method `direct` means an HTTP check from a GitHub Actions runner.
 
-**Direct check.** The liveness workflow last tested every URL on 2026-11-16. 'Blocks automated clients' means the site answered 403 to a generic HTTP client (bot protection), not that it is down; 'TLS error' means the site's certificate chain did not validate on the runner.
+**Direct check.** The liveness workflow last tested every URL on 2026-11-23. 'Blocks automated clients' means the site answered 403 to a generic HTTP client (bot protection), not that it is down; 'TLS error' means the site's certificate chain did not validate on the runner.
 
 **Reliability ratings:** Official (government, central bank, multilateral, exchange); Independent / academic (universities, NGOs, independent press); Partisan (documented political alignment or advocacy); State-controlled media (state-owned outlets and government communication); Analysis (think-tank commentary, used as context, not data).
 
@@ -103,7 +103,7 @@ Total: 194 sources. Status: 180 live, 1 moved, 5 dead, 8 uncertain.
 | [RIGI approved projects (Ministerio de Economía page + Boletín Oficial resolutions)](https://www.argentina.gob.ar/economia) | live | reachable | Official | 2025–2026 | html | weekly | Public | 21-22 approvals, about US$47bn by Aug 2026, roughly half mining (lithium: Rincón, Sal de Oro, Exar, Tres Quebradas; copper: Los Azules). Authoritative dates and amounts from resolutions. |
 | [Boletín Oficial de la República Argentina](https://www.boletinoficial.gob.ar) | live | reachable | Official | 2000–2026 | html | daily | To confirm | No API or RSS; full-text search on site; community scrapers exist. |
 | [SEGEMAR / SIGAM geoservices](https://sigam.segemar.gov.ar) | live | reachable | Official | 2000–2026 | api | annual | Open access (statement to confirm) | WMS/WFS layers of deposits and geology; not a production source. |
-| [Cámara de Diputados, Datos Abiertos (HCDN)](https://datos.hcdn.gob.ar) ([data](https://datos.hcdn.gob.ar/api/3)) | live | connection refused | Official | 2011–2026 | api | weekly | Open format (license statement to confirm) | Roll-call votes per deputy from 2011, bills, sessions, Diarios de Sesiones dataset. |
+| [Cámara de Diputados, Datos Abiertos (HCDN)](https://datos.hcdn.gob.ar) ([data](https://datos.hcdn.gob.ar/api/3)) | live | blocks automated clients (403) | Official | 2011–2026 | api | weekly | Open format (license statement to confirm) | Roll-call votes per deputy from 2011, bills, sessions, Diarios de Sesiones dataset. |
 | [Senado de la Nación, Datos Abiertos](https://www.senado.gob.ar/micrositios/DatosAbiertos/) | live | reachable | Official | 2010–2026 | bulk | weekly | To confirm | Bills, sessions, senators; no structured roll-call dataset confirmed (vote pages scraped). |
 | [Clarín](https://www.clarin.com) ([data](https://www.clarin.com/rss/lo-ultimo/)) | live | reachable | Independent / academic | 2008–2026 | rss | daily | Copyright; headlines, dates, URLs only | Orientation: centrist-right; hostile to kirchnerismo since 2008. Paywall: metered. |
 | [El Cronista](https://www.cronista.com) ([data](https://www.cronista.com/arc/outboundfeeds/rss/)) | live | reachable | Independent / academic | 2008–2026 | rss | daily | Copyright; headlines, dates, URLs only | Orientation: business / centre-right. Paywall: metered. Feed read by the press run of 2026-10-07 (the former /rss/feed.xml answers 404). The home page geo-redirects to /usa/ from US runners, so declared feeds are ignored and the registry feed is read directly. |
@@ -168,8 +168,8 @@ Total: 194 sources. Status: 180 live, 1 moved, 5 dead, 8 uncertain.
 
 | Source | Status | Direct check | Reliability | Coverage | Access | Refresh | License | Notes |
 |---|---|---|---|---|---|---|---|---|
-| [Codelco and ENAMI annual reports](https://www.codelco.com/memorias) | live | reachable | Official | 2008–2025 | pdf | annual | Copyright | State-owned enterprises. NovaAndino Litio (Codelco-SQM JV) formalised Dec 2025. |
-| [Sernageomin, Anuario de la Minería and Catastro Minero Online](https://repositorio.sernageomin.cl) | live | TLS error (site certificate) | Official | 2008–2024 | pdf | annual | To confirm |  |
+| [Codelco and ENAMI annual reports](https://www.codelco.com/memorias) | live | blocks automated clients (403) | Official | 2008–2025 | pdf | annual | Copyright | State-owned enterprises. NovaAndino Litio (Codelco-SQM JV) formalised Dec 2025. |
+| [Sernageomin, Anuario de la Minería and Catastro Minero Online](https://repositorio.sernageomin.cl) | live | timeout | Official | 2008–2024 | pdf | annual | To confirm |  |
 | [Corfo lithium contracts and Estrategia Nacional del Litio (BCN, Cámara, SEC exhibits)](https://www.minmineria.cl) | live | TLS error (site certificate) | Official | 2016–2026 | pdf | monthly | Public documents | No single official repository; SQM and Albemarle contracts via BCN reports, Cámara documents and Albemarle 8-K exhibit; CEOL process from Dec 2024. |
 | [Biblioteca del Congreso Nacional (Ley Chile, datos.bcn.cl SPARQL)](https://www.bcn.cl/leychile) ([data](https://datos.bcn.cl/sparql)) | live | reachable | Official | 1877–2026 | api | weekly | Open (BCN linked data) | Access: Ley Chile web service now requires an API key; SPARQL open. |
 | [Diario Oficial de la República de Chile](https://www.diariooficial.interior.gob.cl) | live | reachable | Official | 2016–2026 | html | daily | Free | Electronic-only and free since Aug 2016; earlier via BCN. |
@@ -211,7 +211,7 @@ Total: 194 sources. Status: 180 live, 1 moved, 5 dead, 8 uncertain.
 | [Asamblea Nacional (bills database and plenary votes)](https://leyes.asambleanacional.gob.ec) ([data](https://datos.asambleanacional.gob.ec/votaciones)) | live | reachable | Official | 2009–2026 | html | weekly | To confirm | HTML only; actas archive to 1979; per-member vote detail to confirm. |
 | [El Comercio (Ecuador)](https://www.elcomercio.com) ([data](https://www.elcomercio.com/feed/)) | live | reachable | Independent / academic | 2008–2026 | rss | daily | Copyright; headlines, dates, URLs only | Orientation: Quito; centre-right. Paywall: unknown. The home page answers 403 (a bot challenge) to generic clients, including the Monday liveness check; the feed itself is served and was read by the press run of 2026-10-07. |
 | [El Universo](https://www.eluniverso.com) ([data](https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml)) | live | reachable | Independent / academic | 2008–2026 | rss | daily | Copyright; headlines, dates, URLs only | Orientation: Guayaquil; historically independent / centre-right; sold in 2025 to a new owner group. Paywall: metered. Ownership change in 2025 flagged for stance analysis. |
-| [GK](https://gk.city) | live | blocks automated clients (403) | Independent / academic | 2011–2026 | html | daily | Copyright; headlines, dates, URLs only | Orientation: independent; human rights and environment focus. |
+| [GK](https://gk.city) | live | reachable | Independent / academic | 2011–2026 | html | daily | Copyright; headlines, dates, URLs only | Orientation: independent; human rights and environment focus. |
 | [Primicias](https://www.primicias.ec) | live | reachable | Independent / academic | 2019–2026 | html | daily | Copyright; headlines, dates, URLs only | Orientation: digital native; pluralist watchdog. |
 | [Banco Central del Ecuador, Reporte Minero (quarterly) and export statistics](https://contenido.bce.fin.ec) ([data](https://datosabiertos.gob.ec/dataset/?organization=banco-central-del-ecuador)) | live | reachable | Official | 2010–2026 | bulk | monthly | CC BY (datosabiertos.gob.ec) |  |
 
@@ -224,7 +224,7 @@ Total: 194 sources. Status: 180 live, 1 moved, 5 dead, 8 uncertain.
 | [Guyana Chronicle](https://guyanachronicle.com) | live | reachable | State-controlled media | 2008–2026 | html | daily | Copyright; headlines, dates, URLs only | Orientation: state-owned; pro-government. |
 | [Kaieteur News](https://www.kaieteurnewsonline.com) | live | reachable | Independent / academic | 2008–2026 | html | daily | Copyright; headlines, dates, URLs only | Orientation: populist, anti-establishment. |
 | [Stabroek News (ceased March 2026)](https://www.stabroeknews.com) | dead | reachable | Independent / academic | 2008–2026 | html | none | Copyright; headlines, dates, URLs only | Orientation: independent, liberal-leaning. Paywall: metered. Ceased publication 15 March 2026; archive at risk, snapshot early in Phase 2. |
-| [Guyana Geology and Mines Commission, commodities table 1979-2024](https://www.ggmc.gov.gy/ggmc_web/wp-content/uploads/2025/07/Commodities-Table-1979-2024-Updated.csv) | live | reachable | Official | 1979–2024 | bulk | annual | Not stated |  |
+| [Guyana Geology and Mines Commission, commodities table 1979-2024](https://www.ggmc.gov.gy/ggmc_web/wp-content/uploads/2025/07/Commodities-Table-1979-2024-Updated.csv) | live | 404 at registry URL | Official | 1979–2024 | bulk | annual | Not stated |  |
 | [Bureau of Statistics Guyana, external trade](https://statisticsguyana.gov.gy/subjects/external-trade/) | live | blocks automated clients (403) | Official | 2010–2025 | html | quarterly | Not stated |  |
 | [Guyana EITI reports](https://eiti.gy) | live | reachable | Official | 2017–2023 | pdf | annual | EITI open data | Suspended Feb 2023, lifted Jun 2024; 2026 validation outcome to confirm. |
 
@@ -232,7 +232,7 @@ Total: 194 sources. Status: 180 live, 1 moved, 5 dead, 8 uncertain.
 
 | Source | Status | Direct check | Reliability | Coverage | Access | Refresh | License | Notes |
 |---|---|---|---|---|---|---|---|---|
-| [Gaceta Oficial del Paraguay](https://www.gacetaoficial.gov.py) | uncertain | timeout | Official | 2010–2026 | pdf | weekly | Not stated |  |
+| [Gaceta Oficial del Paraguay](https://www.gacetaoficial.gov.py) | uncertain | HTTP 522 | Official | 2010–2026 | pdf | weekly | Not stated |  |
 | [Congreso Nacional, SILpy and Datos Abiertos Legislativos API](https://silpy.congreso.gov.py/web/) ([data](https://datos.congreso.gov.py/opendata/api)) | live | reachable | Official | 2007–2026 | api | weekly | Open data (reuse terms to check; civil-society complaint noted) | Bills, votes, sessions, commissions. |
 | [INE Paraguay (datos.gov.py)](https://www.datos.gov.py/group/instituto-nacional-de-estadistica-ine) | live | reachable | Official | 2010–2025 | api | annual | Open data (datos.gov.py) |  |
 | [ABC Color](https://www.abc.com.py) ([data](https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml)) | live | reachable | Independent / academic | 2008–2026 | rss | daily | Copyright; headlines, dates, URLs only | Orientation: conservative-liberal (Zuccolillo); critical of the Cartes faction. Paywall: metered. |

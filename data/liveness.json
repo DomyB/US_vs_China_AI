@@ -1,2412 +1,2412 @@
 {
- "checked_at": "2026-11-16T14:06:38+00:00",
+ "checked_at": "2026-11-23T16:31:35+00:00",
  "results": {
   "un_comtrade": {
-   "checked_at": "2026-11-16T13:49:23+00:00",
+   "checked_at": "2026-11-23T16:12:42+00:00",
    "url": {
     "status": 200,
-    "final_url": "https://comtradeplus.un.org/en/",
+    "final_url": "https://comtrade.un.org/en/",
     "ok": true,
-    "ms": 694,
+    "ms": 1143,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://comtradeapi.un.org/",
     "ok": false,
-    "ms": 902,
+    "ms": 486,
     "error": null
    }
   },
   "cepii_baci": {
-   "checked_at": "2026-11-16T13:49:26+00:00",
+   "checked_at": "2026-11-23T16:12:46+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
     "ok": true,
-    "ms": 1098,
+    "ms": 741,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/data/BACI_HS92_V202501.zip",
     "ok": true,
-    "ms": 97,
+    "ms": 101,
     "error": null
    }
   },
   "imf_imts": {
-   "checked_at": "2026-11-16T13:49:30+00:00",
+   "checked_at": "2026-11-23T16:12:49+00:00",
    "url": {
     "status": 200,
     "final_url": "https://data.imf.org/en/datasets/IMF.STA:IMTS",
     "ok": true,
-    "ms": 1572,
+    "ms": 2028,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://api.imf.org/external/sdmx/3.0",
     "ok": false,
-    "ms": 41,
+    "ms": 181,
     "error": null
    }
   },
   "wto_stats": {
-   "checked_at": "2026-11-16T13:49:33+00:00",
+   "checked_at": "2026-11-23T16:12:53+00:00",
    "url": {
     "status": 200,
     "final_url": "https://stats.wto.org/",
     "ok": true,
-    "ms": 335,
+    "ms": 477,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://api.wto.org/timeseries/v1",
     "ok": false,
-    "ms": 631,
+    "ms": 596,
     "error": null
    }
   },
   "usgs_mcs": {
-   "checked_at": "2026-11-16T13:49:36+00:00",
+   "checked_at": "2026-11-23T16:12:56+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries",
     "ok": true,
-    "ms": 2129,
+    "ms": 1594,
     "error": null
    }
   },
   "usgs_myb_latam": {
-   "checked_at": "2026-11-16T13:49:39+00:00",
+   "checked_at": "2026-11-23T16:12:58+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.usgs.gov/centers/national-minerals-information-center/north-central-america-and-caribbean",
     "ok": true,
-    "ms": 2227,
+    "ms": 2902,
     "error": null
    }
   },
   "usgs_critical_minerals_list": {
-   "checked_at": "2026-11-16T13:49:43+00:00",
+   "checked_at": "2026-11-23T16:13:02+00:00",
    "url": {
     "status": 200,
     "final_url": "https://unblock.federalregister.gov",
     "ok": true,
-    "ms": 76,
+    "ms": 81,
     "error": null
    }
   },
   "bgs_wms": {
-   "checked_at": "2026-11-16T13:49:44+00:00",
+   "checked_at": "2026-11-23T16:13:03+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/",
     "ok": true,
-    "ms": 560,
+    "ms": 751,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics",
     "ok": true,
-    "ms": 498,
+    "ms": 471,
     "error": null
    }
   },
   "unctad_wir": {
-   "checked_at": "2026-11-16T13:49:47+00:00",
+   "checked_at": "2026-11-23T16:13:07+00:00",
    "url": {
     "status": 200,
     "final_url": "https://unctadstat.unctad.org/datacentre/",
     "ok": true,
-    "ms": 322,
+    "ms": 631,
     "error": null
    }
   },
   "wb_wdi": {
-   "checked_at": "2026-11-16T13:49:48+00:00",
+   "checked_at": "2026-11-23T16:13:08+00:00",
    "url": {
     "status": 200,
     "final_url": "https://data.worldbank.org/",
     "ok": true,
-    "ms": 69,
+    "ms": 73,
     "error": null
    },
    "api_url": {
-    "status": null,
-    "final_url": null,
+    "status": 404,
+    "final_url": "https://api.worldbank.org/v2",
     "ok": false,
-    "ms": 60285,
-    "error": "ConnectionError: HTTPSConnectionPool(host='api.worldbank.org', port=443): Max retries exceeded with url: /v2 (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='api.worldbank.org', port=443): Read timed out. (read "
+    "ms": 18159,
+    "error": null
    }
   },
   "wb_ids": {
-   "checked_at": "2026-11-16T13:50:50+00:00",
+   "checked_at": "2026-11-23T16:13:28+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.worldbank.org/en/programs/debt-statistics/ids",
     "ok": true,
-    "ms": 276,
+    "ms": 155,
     "error": null
    },
    "api_url": {
-    "status": null,
-    "final_url": null,
-    "ok": false,
-    "ms": 60104,
-    "error": "ConnectionError: HTTPSConnectionPool(host='api.worldbank.org', port=443): Max retries exceeded with url: /v2/sources/6 (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='api.worldbank.org', port=443): Read timed o"
+    "status": 200,
+    "final_url": "https://api.worldbank.org/v2/sources/6",
+    "ok": true,
+    "ms": 55503,
+    "error": null
    }
   },
   "imf_dip": {
-   "checked_at": "2026-11-16T13:51:53+00:00",
+   "checked_at": "2026-11-23T16:14:26+00:00",
    "url": {
     "status": 200,
     "final_url": "https://data.imf.org/en/datasets/IMF.STA:DIP",
     "ok": true,
-    "ms": 2154,
+    "ms": 3837,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://api.imf.org/external/sdmx/3.0",
     "ok": false,
-    "ms": 42,
+    "ms": 57,
     "error": null
    }
   },
   "eiti": {
-   "checked_at": "2026-11-16T13:51:57+00:00",
+   "checked_at": "2026-11-23T16:14:32+00:00",
    "url": {
     "status": 200,
     "final_url": "https://eiti.org/countries",
     "ok": true,
-    "ms": 241,
+    "ms": 399,
     "error": null
    }
   },
   "resourcecontracts": {
-   "checked_at": "2026-11-16T13:51:58+00:00",
+   "checked_at": "2026-11-23T16:14:33+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.resourcecontracts.org/",
     "ok": true,
-    "ms": 412,
+    "ms": 470,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://api.resourcecontracts.org/",
     "ok": true,
-    "ms": 250,
+    "ms": 286,
     "error": null
    }
   },
   "wb_wgi": {
-   "checked_at": "2026-11-16T13:52:01+00:00",
+   "checked_at": "2026-11-23T16:14:36+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.worldbank.org/en/publication/worldwide-governance-indicators",
     "ok": true,
-    "ms": 293,
+    "ms": 143,
     "error": null
    },
    "api_url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 60102,
+    "ms": 60066,
     "error": "ConnectionError: HTTPSConnectionPool(host='api.worldbank.org', port=443): Max retries exceeded with url: /v2/sources/3 (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='api.worldbank.org', port=443): Read timed o"
    }
   },
   "vdem": {
-   "checked_at": "2026-11-16T13:53:03+00:00",
+   "checked_at": "2026-11-23T16:15:38+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.v-dem.net/data/the-v-dem-dataset/",
     "ok": true,
-    "ms": 646,
+    "ms": 478,
     "error": null
    }
   },
   "idb_dpi": {
-   "checked_at": "2026-11-16T13:53:05+00:00",
+   "checked_at": "2026-11-23T16:15:40+00:00",
    "url": {
     "status": 200,
     "final_url": "https://data.iadb.org/dataset/the-database-of-political-institutions-dpi-2023",
     "ok": true,
-    "ms": 630,
+    "ms": 469,
     "error": null
    }
   },
   "unga_votes": {
-   "checked_at": "2026-11-16T13:53:07+00:00",
+   "checked_at": "2026-11-23T16:15:41+00:00",
    "url": {
     "status": 202,
     "final_url": "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/LEJUQZ",
     "ok": true,
-    "ms": 72,
+    "ms": 96,
     "error": null
    }
   },
   "gdelt": {
-   "checked_at": "2026-11-16T13:53:08+00:00",
+   "checked_at": "2026-11-23T16:15:42+00:00",
    "url": {
     "status": 200,
     "final_url": "https://gdeltproject.org:443/data.html",
     "ok": true,
-    "ms": 386,
+    "ms": 343,
     "error": null
    },
    "api_url": {
-    "status": 200,
+    "status": 429,
     "final_url": "https://api.gdeltproject.org/api/v2/doc/doc",
-    "ok": true,
-    "ms": 11932,
+    "ok": false,
+    "ms": 15068,
     "error": null
    }
   },
   "acled": {
-   "checked_at": "2026-11-16T13:53:22+00:00",
+   "checked_at": "2026-11-23T16:16:00+00:00",
    "url": {
     "status": 200,
     "final_url": "https://acleddata.com/",
     "ok": true,
-    "ms": 216,
+    "ms": 201,
     "error": null
    }
   },
   "mediacloud": {
-   "checked_at": "2026-11-16T13:53:23+00:00",
+   "checked_at": "2026-11-23T16:16:01+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.mediacloud.org/",
     "ok": true,
-    "ms": 236,
+    "ms": 227,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://search.mediacloud.org/api/",
     "ok": true,
-    "ms": 147,
+    "ms": 153,
     "error": null
    }
   },
   "ejatlas": {
-   "checked_at": "2026-11-16T13:53:26+00:00",
+   "checked_at": "2026-11-23T16:16:03+00:00",
    "url": {
     "status": 200,
     "final_url": "https://ejatlas.org/",
     "ok": true,
-    "ms": 396,
+    "ms": 686,
     "error": null
    }
   },
   "ocmal": {
-   "checked_at": "2026-11-16T13:53:27+00:00",
+   "checked_at": "2026-11-23T16:16:05+00:00",
    "url": {
     "status": 200,
     "final_url": "https://mapa.conflictosmineros.net/ocmal_db-v2/",
     "ok": true,
-    "ms": 150,
+    "ms": 75,
     "error": null
    }
   },
   "arg_siacam": {
-   "checked_at": "2026-11-16T13:53:28+00:00",
+   "checked_at": "2026-11-23T16:16:06+00:00",
    "url": {
     "status": 200,
     "final_url": "https://datos.gob.ar/dataset?tags=Miner%C3%ADa",
     "ok": true,
-    "ms": 430,
+    "ms": 55034,
     "error": null
    },
    "api_url": {
-    "status": 200,
+    "status": 404,
     "final_url": "https://datos.gob.ar/api/3",
-    "ok": true,
-    "ms": 204,
+    "ok": false,
+    "ms": 70103,
     "error": null
    }
   },
   "arg_segemar": {
-   "checked_at": "2026-11-16T13:53:31+00:00",
+   "checked_at": "2026-11-23T16:18:13+00:00",
    "url": {
     "status": 200,
     "final_url": "https://sigam.segemar.gov.ar/",
     "ok": true,
-    "ms": 963,
+    "ms": 923,
     "error": null
    }
   },
   "arg_indec_comex": {
-   "checked_at": "2026-11-16T13:53:33+00:00",
+   "checked_at": "2026-11-23T16:18:15+00:00",
    "url": {
     "status": 200,
     "final_url": "https://comex.indec.gob.ar/#/database",
     "ok": true,
-    "ms": 848,
+    "ms": 1344,
     "error": null
    }
   },
   "arg_rigi": {
-   "checked_at": "2026-11-16T13:53:35+00:00",
+   "checked_at": "2026-11-23T16:18:18+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.argentina.gob.ar/economia",
     "ok": true,
-    "ms": 171,
+    "ms": 239,
     "error": null
    }
   },
   "arg_provincial_cadastres": {
-   "checked_at": "2026-11-16T13:53:36+00:00",
+   "checked_at": "2026-11-23T16:18:19+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.argentina.gob.ar/economia/mineria/siacam/otros-recursos/catastros-mineros",
     "ok": true,
-    "ms": 2607,
+    "ms": 2634,
     "error": null
    }
   },
   "arg_hcdn": {
-   "checked_at": "2026-11-16T13:53:39+00:00",
+   "checked_at": "2026-11-23T16:18:23+00:00",
    "url": {
-    "status": null,
-    "final_url": null,
+    "status": 403,
+    "final_url": "https://datos.hcdn.gob.ar/",
     "ok": false,
-    "ms": 60617,
-    "error": "ConnectionError: HTTPSConnectionPool(host='datos.hcdn.gob.ar', port=443): Max retries exceeded with url: / (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='datos.hcdn.gob.ar', port=443): Read timed out. (read ti"
+    "ms": 219,
+    "error": null
    },
    "api_url": {
-    "status": null,
-    "final_url": null,
+    "status": 403,
+    "final_url": "https://datos.hcdn.gob.ar/api/3",
     "ok": false,
-    "ms": 60344,
-    "error": "ConnectionError: HTTPSConnectionPool(host='datos.hcdn.gob.ar', port=443): Max retries exceeded with url: /api/3 (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='datos.hcdn.gob.ar', port=443): Read timed out. (re"
+    "ms": 83,
+    "error": null
    }
   },
   "arg_senado": {
-   "checked_at": "2026-11-16T13:55:42+00:00",
+   "checked_at": "2026-11-23T16:18:25+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.senado.gob.ar/micrositios/DatosAbiertos/",
     "ok": true,
-    "ms": 1071,
+    "ms": 2854,
     "error": null
    }
   },
   "arg_boletin_oficial": {
-   "checked_at": "2026-11-16T13:55:44+00:00",
+   "checked_at": "2026-11-23T16:18:29+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.boletinoficial.gob.ar/",
     "ok": true,
-    "ms": 1258,
+    "ms": 1342,
     "error": null
    }
   },
   "arg_lanacion": {
-   "checked_at": "2026-11-16T13:55:47+00:00",
+   "checked_at": "2026-11-23T16:18:31+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.lanacion.com.ar/",
     "ok": true,
-    "ms": 286,
+    "ms": 365,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/",
     "ok": true,
-    "ms": 75,
+    "ms": 44,
     "error": null
    }
   },
   "arg_clarin": {
-   "checked_at": "2026-11-16T13:55:49+00:00",
+   "checked_at": "2026-11-23T16:18:33+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.clarin.com/",
     "ok": true,
-    "ms": 51,
+    "ms": 72,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.clarin.com/rss/lo-ultimo/",
     "ok": true,
-    "ms": 23,
+    "ms": 15,
     "error": null
    }
   },
   "arg_infobae": {
-   "checked_at": "2026-11-16T13:55:51+00:00",
+   "checked_at": "2026-11-23T16:18:36+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.infobae.com/estados-unidos/",
     "ok": true,
-    "ms": 257,
+    "ms": 364,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.infobae.com/arc/outboundfeeds/rss/",
     "ok": true,
-    "ms": 98,
+    "ms": 171,
     "error": null
    }
   },
   "arg_pagina12": {
-   "checked_at": "2026-11-16T13:55:53+00:00",
+   "checked_at": "2026-11-23T16:18:38+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.pagina12.com.ar/",
     "ok": true,
-    "ms": 342,
+    "ms": 219,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.pagina12.com.ar/arc/outboundfeeds/rss/portada/",
     "ok": true,
-    "ms": 245,
+    "ms": 150,
     "error": null
    }
   },
   "arg_cronista": {
-   "checked_at": "2026-11-16T13:55:56+00:00",
+   "checked_at": "2026-11-23T16:18:40+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.cronista.com/usa/",
     "ok": true,
-    "ms": 172,
+    "ms": 165,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.cronista.com/arc/outboundfeeds/rss/",
     "ok": true,
-    "ms": 134,
+    "ms": 102,
     "error": null
    }
   },
   "bol_ylb": {
-   "checked_at": "2026-11-16T13:55:58+00:00",
+   "checked_at": "2026-11-23T16:18:43+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.ylb.gob.bo/index.php/contratos-y-alianzas-que-impulsan-el-litio/",
     "ok": true,
-    "ms": 2133,
+    "ms": 1352,
     "error": null
    }
   },
   "bol_mineria_boletines": {
-   "checked_at": "2026-11-16T13:56:01+00:00",
+   "checked_at": "2026-11-23T16:18:45+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.mineria.gob.bo/index.php/boletines/",
     "ok": true,
-    "ms": 800,
+    "ms": 1263,
     "error": null
    }
   },
   "bol_comibol": {
-   "checked_at": "2026-11-16T13:56:03+00:00",
+   "checked_at": "2026-11-23T16:18:47+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.comibol.gob.bo/",
     "ok": true,
-    "ms": 804,
+    "ms": 814,
     "error": null
    }
   },
   "bol_ine_comex": {
-   "checked_at": "2026-11-16T13:56:05+00:00",
+   "checked_at": "2026-11-23T16:18:49+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.ine.gob.bo/index.php/estadisticas-economicas/comercio-exterior/",
     "ok": true,
-    "ms": 946,
+    "ms": 2343,
     "error": null
    }
   },
   "bol_alp": {
-   "checked_at": "2026-11-16T13:56:07+00:00",
+   "checked_at": "2026-11-23T16:18:52+00:00",
    "url": {
     "status": 200,
     "final_url": "https://diputados.gob.bo/",
     "ok": true,
-    "ms": 3220,
+    "ms": 1061,
     "error": null
    }
   },
   "bol_gaceta": {
-   "checked_at": "2026-11-16T13:56:11+00:00",
+   "checked_at": "2026-11-23T16:18:55+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 21265,
-    "error": "ConnectionError: HTTPSConnectionPool(host='gacetaoficialdebolivia.gob.bo', port=443): Max retries exceeded with url: /normas/busquedaAvanzada (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, '"
+    "ms": 9642,
+    "error": "SSLError: HTTPSConnectionPool(host='gacetaoficialdebolivia.gob.bo', port=443): Max retries exceeded with url: /normas/busquedaAvanzada (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF"
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.lexivox.org/",
     "ok": true,
-    "ms": 268,
+    "ms": 265,
     "error": null
    }
   },
   "bol_eldeber": {
-   "checked_at": "2026-11-16T13:56:35+00:00",
+   "checked_at": "2026-11-23T16:19:06+00:00",
    "url": {
     "status": 200,
     "final_url": "https://eldeber.com.bo/",
     "ok": true,
-    "ms": 250,
+    "ms": 580,
     "error": null
    }
   },
   "bol_lostiempos": {
-   "checked_at": "2026-11-16T13:56:36+00:00",
+   "checked_at": "2026-11-23T16:19:08+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.lostiempos.com/",
     "ok": true,
-    "ms": 230,
+    "ms": 224,
     "error": null
    }
   },
   "bol_larazon": {
-   "checked_at": "2026-11-16T13:56:37+00:00",
+   "checked_at": "2026-11-23T16:19:09+00:00",
    "url": {
     "status": 403,
     "final_url": "https://larazon.bo/",
     "ok": false,
-    "ms": 406,
+    "ms": 1485,
     "error": null
    }
   },
   "bol_opinion": {
-   "checked_at": "2026-11-16T13:56:39+00:00",
+   "checked_at": "2026-11-23T16:19:12+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.opinion.com.bo/",
     "ok": true,
-    "ms": 196,
+    "ms": 223,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.opinion.com.bo/rss/",
     "ok": true,
-    "ms": 57,
+    "ms": 48,
     "error": null
    }
   },
   "bra_anm": {
-   "checked_at": "2026-11-16T13:56:41+00:00",
+   "checked_at": "2026-11-23T16:19:14+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 1008,
+    "ms": 1120,
     "error": "SSLError: HTTPSConnectionPool(host='dadosabertos.anm.gov.br', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify fai"
    }
   },
   "bra_geosgb": {
-   "checked_at": "2026-11-16T13:56:43+00:00",
+   "checked_at": "2026-11-23T16:19:16+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 60826,
-    "error": "ConnectTimeout: HTTPSConnectionPool(host='geosgb.sgb.gov.br', port=443): Max retries exceeded with url: /downloads (Caused by ConnectTimeoutError(<HTTPSConnection(host='geosgb.sgb.gov.br', port=443) at 0x73103e70a1d0"
+    "ms": 121216,
+    "error": "ConnectTimeout: HTTPConnectionPool(host='geosgb.sgb.gov.br', port=8080): Max retries exceeded with url: /downloads/ (Caused by ConnectTimeoutError(<HTTPConnection(host='geosgb.sgb.gov.br', port=8080) at 0x7587f91b551"
    }
   },
   "bra_comexstat": {
-   "checked_at": "2026-11-16T13:57:45+00:00",
+   "checked_at": "2026-11-23T16:21:18+00:00",
    "url": {
     "status": 200,
     "final_url": "https://comexstat.mdic.gov.br/",
     "ok": true,
-    "ms": 558,
+    "ms": 548,
     "error": null
    },
    "api_url": {
     "status": 401,
     "final_url": "https://api-comexstat.mdic.gov.br/",
     "ok": false,
-    "ms": 814,
+    "ms": 674,
     "error": null
    }
   },
   "bra_bndes": {
-   "checked_at": "2026-11-16T13:57:48+00:00",
+   "checked_at": "2026-11-23T16:21:22+00:00",
    "url": {
     "status": 200,
     "final_url": "https://dadosabertos.bndes.gov.br/dataset/operacoes-financiamento",
     "ok": true,
-    "ms": 798,
+    "ms": 1042,
     "error": null
    }
   },
   "bra_cmoc": {
-   "checked_at": "2026-11-16T13:57:50+00:00",
+   "checked_at": "2026-11-23T16:21:24+00:00",
    "url": {
     "status": 200,
     "final_url": "https://en.cmoc.com/html/Business/BRA-Nb-P/",
     "ok": true,
-    "ms": 1120,
+    "ms": 1180,
     "error": null
    }
   },
   "bra_camara_api": {
-   "checked_at": "2026-11-16T13:57:52+00:00",
+   "checked_at": "2026-11-23T16:21:26+00:00",
    "url": {
     "status": 200,
     "final_url": "https://dadosabertos.camara.leg.br/",
     "ok": true,
-    "ms": 933,
+    "ms": 1058,
     "error": null
    },
    "api_url": {
     "status": 204,
     "final_url": "https://dadosabertos.camara.leg.br/api/v2/",
     "ok": true,
-    "ms": 710,
+    "ms": 861,
     "error": null
    }
   },
   "bra_senado_api": {
-   "checked_at": "2026-11-16T13:57:56+00:00",
+   "checked_at": "2026-11-23T16:21:30+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www12.senado.leg.br/dados-abertos",
     "ok": true,
-    "ms": 1228,
+    "ms": 1002,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://legis.senado.leg.br/dadosabertos/api-docs/swagger-ui/index.html",
     "ok": true,
-    "ms": 1367,
+    "ms": 1542,
     "error": null
    }
   },
   "bra_dou": {
-   "checked_at": "2026-11-16T13:58:00+00:00",
+   "checked_at": "2026-11-23T16:21:34+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.in.gov.br/consulta",
     "ok": false,
-    "ms": 610,
+    "ms": 333,
     "error": null
    }
   },
   "bra_folha": {
-   "checked_at": "2026-11-16T13:58:02+00:00",
+   "checked_at": "2026-11-23T16:21:36+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.folha.uol.com.br/",
     "ok": true,
-    "ms": 304,
+    "ms": 293,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
     "ok": true,
-    "ms": 747,
+    "ms": 735,
     "error": null
    }
   },
   "bra_estadao": {
-   "checked_at": "2026-11-16T13:58:05+00:00",
+   "checked_at": "2026-11-23T16:21:39+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.estadao.com.br/",
     "ok": true,
-    "ms": 603,
+    "ms": 239,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.estadao.com.br/arc/outboundfeeds/feeds/rss/sections/geral/?body=%7B%22layout%22:%22google-news%22%7D",
     "ok": true,
-    "ms": 95,
+    "ms": 48,
     "error": null
    }
   },
   "bra_oglobo": {
-   "checked_at": "2026-11-16T13:58:08+00:00",
+   "checked_at": "2026-11-23T16:21:41+00:00",
    "url": {
     "status": 200,
     "final_url": "https://oglobo.globo.com/",
     "ok": true,
-    "ms": 639,
+    "ms": 1181,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://oglobo.globo.com/rss/oglobo",
     "ok": true,
-    "ms": 120,
+    "ms": 121,
     "error": null
    }
   },
   "bra_valor": {
-   "checked_at": "2026-11-16T13:58:10+00:00",
+   "checked_at": "2026-11-23T16:21:44+00:00",
    "url": {
     "status": 200,
     "final_url": "https://valor.globo.com/",
     "ok": true,
-    "ms": 911,
+    "ms": 1353,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "http://pox.globo.com/rss/valor",
     "ok": true,
-    "ms": 815,
+    "ms": 986,
     "error": null
    }
   },
   "chl_cochilco": {
-   "checked_at": "2026-11-16T13:58:14+00:00",
+   "checked_at": "2026-11-23T16:21:49+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.cochilco.cl/web/anuario-de-estadisticas-del-cobre-y-otros-minerales/",
     "ok": true,
-    "ms": 3857,
+    "ms": 691,
     "error": null
    }
   },
   "chl_sernageomin": {
-   "checked_at": "2026-11-16T13:58:19+00:00",
+   "checked_at": "2026-11-23T16:21:50+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 581,
-    "error": "SSLError: HTTPSConnectionPool(host='repositorio.sernageomin.cl', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify "
+    "ms": 60249,
+    "error": "ConnectTimeout: HTTPSConnectionPool(host='repositorio.sernageomin.cl', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='repositorio.sernageomin.cl', port=443) at 0x758"
    }
   },
   "chl_codelco_enami": {
-   "checked_at": "2026-11-16T13:58:21+00:00",
+   "checked_at": "2026-11-23T16:22:51+00:00",
    "url": {
-    "status": 200,
+    "status": 403,
     "final_url": "https://www.codelco.com/memorias",
-    "ok": true,
-    "ms": 621,
+    "ok": false,
+    "ms": 70,
     "error": null
    }
   },
   "chl_corfo_lithium": {
-   "checked_at": "2026-11-16T13:58:22+00:00",
+   "checked_at": "2026-11-23T16:22:53+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 582,
+    "ms": 725,
     "error": "SSLError: HTTPSConnectionPool(host='www.minmineria.cl', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: u"
    }
   },
   "chl_bcch_api": {
-   "checked_at": "2026-11-16T13:58:24+00:00",
+   "checked_at": "2026-11-23T16:22:54+00:00",
    "url": {
     "status": 200,
     "final_url": "https://si3.bcentral.cl/ErrorPage.html",
     "ok": true,
-    "ms": 487,
+    "ms": 366,
     "error": null
    }
   },
   "chl_aduanas": {
-   "checked_at": "2026-11-16T13:58:25+00:00",
+   "checked_at": "2026-11-23T16:22:56+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.aduana.cl/",
     "ok": false,
-    "ms": 245,
+    "ms": 172,
     "error": null
    }
   },
   "chl_camara": {
-   "checked_at": "2026-11-16T13:58:26+00:00",
+   "checked_at": "2026-11-23T16:22:57+00:00",
    "url": {
     "status": 200,
     "final_url": "https://opendata.camara.cl/",
     "ok": true,
-    "ms": 802,
+    "ms": 894,
     "error": null
    }
   },
   "chl_senado": {
-   "checked_at": "2026-11-16T13:58:28+00:00",
+   "checked_at": "2026-11-23T16:22:59+00:00",
    "url": {
     "status": 200,
     "final_url": "https://tramitacion.senado.cl/appsenado/templates/tramitacion/index.php",
     "ok": true,
-    "ms": 1862,
+    "ms": 1882,
     "error": null
    }
   },
   "chl_bcn": {
-   "checked_at": "2026-11-16T13:58:31+00:00",
+   "checked_at": "2026-11-23T16:23:02+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.bcn.cl/leychile/",
     "ok": true,
-    "ms": 210,
+    "ms": 239,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://datos.bcn.cl/sparql",
     "ok": true,
-    "ms": 457,
+    "ms": 640,
     "error": null
    }
   },
   "chl_diario_oficial": {
-   "checked_at": "2026-11-16T13:58:34+00:00",
+   "checked_at": "2026-11-23T16:23:04+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.diariooficial.interior.gob.cl/",
     "ok": true,
-    "ms": 1149,
+    "ms": 1074,
     "error": null
    }
   },
   "chl_latercera": {
-   "checked_at": "2026-11-16T13:58:36+00:00",
+   "checked_at": "2026-11-23T16:23:07+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.latercera.com/",
     "ok": true,
-    "ms": 225,
+    "ms": 127,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.latercera.com/arc/outboundfeeds/rss/?outputType=xml",
     "ok": true,
-    "ms": 188,
+    "ms": 313,
     "error": null
    }
   },
   "chl_elmercurio": {
-   "checked_at": "2026-11-16T13:58:38+00:00",
+   "checked_at": "2026-11-23T16:23:09+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.emol.com/",
     "ok": true,
-    "ms": 782,
+    "ms": 885,
     "error": null
    }
   },
   "chl_biobio": {
-   "checked_at": "2026-11-16T13:58:40+00:00",
+   "checked_at": "2026-11-23T16:23:11+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.biobiochile.cl/",
     "ok": true,
-    "ms": 845,
+    "ms": 1227,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://feeds.feedburner.com/radiobiobio/NNeJ",
     "ok": true,
-    "ms": 146,
+    "ms": 129,
     "error": null
    }
   },
   "chl_ciper": {
-   "checked_at": "2026-11-16T13:58:43+00:00",
+   "checked_at": "2026-11-23T16:23:14+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.ciperchile.cl/",
     "ok": true,
-    "ms": 2713,
+    "ms": 2985,
     "error": null
    }
   },
   "chl_elmostrador": {
-   "checked_at": "2026-11-16T13:58:47+00:00",
+   "checked_at": "2026-11-23T16:23:18+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.elmostrador.cl/",
     "ok": true,
-    "ms": 908,
+    "ms": 716,
     "error": null
    }
   },
   "col_anm_anna": {
-   "checked_at": "2026-11-16T13:58:49+00:00",
+   "checked_at": "2026-11-23T16:23:20+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.anm.gov.co/anna-mineria",
     "ok": true,
-    "ms": 552,
+    "ms": 477,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.datos.gov.co/resource/si2v-pbq5.json",
     "ok": true,
-    "ms": 1488,
+    "ms": 6915,
     "error": null
    }
   },
   "col_sgc": {
-   "checked_at": "2026-11-16T13:58:53+00:00",
+   "checked_at": "2026-11-23T16:23:29+00:00",
    "url": {
     "status": 200,
     "final_url": "https://datos.sgc.gov.co/",
     "ok": true,
-    "ms": 218,
+    "ms": 180,
     "error": null
    }
   },
   "col_upme_simco": {
-   "checked_at": "2026-11-16T13:58:54+00:00",
+   "checked_at": "2026-11-23T16:23:31+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.upme.gov.co/simco/",
     "ok": true,
-    "ms": 6018,
+    "ms": 5891,
     "error": null
    }
   },
   "col_dane_exports": {
-   "checked_at": "2026-11-16T13:59:01+00:00",
+   "checked_at": "2026-11-23T16:23:37+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.dane.gov.co/",
     "ok": true,
-    "ms": 821,
+    "ms": 801,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://microdatos.dane.gov.co/index.php/catalog/859",
     "ok": true,
-    "ms": 326,
+    "ms": 449,
     "error": null
    }
   },
   "col_camara": {
-   "checked_at": "2026-11-16T13:59:04+00:00",
+   "checked_at": "2026-11-23T16:23:41+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.camara.gov.co/proyectos-de-ley",
     "ok": true,
-    "ms": 208,
+    "ms": 264,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.datos.gov.co/resource/kcxp-nxum.json",
     "ok": true,
-    "ms": 1842,
+    "ms": 1171,
     "error": null
    }
   },
   "col_senado": {
-   "checked_at": "2026-11-16T13:59:08+00:00",
+   "checked_at": "2026-11-23T16:23:44+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.senado.gov.co/",
     "ok": true,
-    "ms": 752,
+    "ms": 787,
     "error": null
    }
   },
   "col_gaceta_congreso": {
-   "checked_at": "2026-11-16T13:59:10+00:00",
+   "checked_at": "2026-11-23T16:23:46+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.imprenta.gov.co/",
     "ok": true,
-    "ms": 143,
+    "ms": 1757,
     "error": null
    }
   },
   "col_congreso_visible": {
-   "checked_at": "2026-11-16T13:59:11+00:00",
+   "checked_at": "2026-11-23T16:23:49+00:00",
    "url": {
     "status": 200,
     "final_url": "https://congresovisible.uniandes.edu.co/",
     "ok": true,
-    "ms": 4186,
+    "ms": 2935,
     "error": null
    }
   },
   "col_eltiempo": {
-   "checked_at": "2026-11-16T13:59:16+00:00",
+   "checked_at": "2026-11-23T16:23:53+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.eltiempo.com/",
     "ok": true,
-    "ms": 64,
+    "ms": 131,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.eltiempo.com/rss/colombia.xml",
     "ok": true,
-    "ms": 8,
+    "ms": 6,
     "error": null
    }
   },
   "col_elespectador": {
-   "checked_at": "2026-11-16T13:59:18+00:00",
+   "checked_at": "2026-11-23T16:23:55+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.elespectador.com/",
     "ok": true,
-    "ms": 80,
+    "ms": 63,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.elespectador.com/arc/outboundfeeds/discover/",
     "ok": true,
-    "ms": 9,
+    "ms": 5,
     "error": null
    }
   },
   "col_semana": {
-   "checked_at": "2026-11-16T13:59:20+00:00",
+   "checked_at": "2026-11-23T16:23:57+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.semana.com/",
     "ok": true,
-    "ms": 237,
+    "ms": 339,
     "error": null
    }
   },
   "col_lasillavacia": {
-   "checked_at": "2026-11-16T13:59:22+00:00",
+   "checked_at": "2026-11-23T16:23:58+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.lasillavacia.com/",
     "ok": true,
-    "ms": 62,
+    "ms": 145,
     "error": null
    }
   },
   "ecu_cadastre": {
-   "checked_at": "2026-11-16T13:59:23+00:00",
+   "checked_at": "2026-11-23T16:23:59+00:00",
    "url": {
     "status": 200,
     "final_url": "https://geovisorm.controlrecursosyenergia.gob.ec/arcgis/rest/services/Concesiones/CatastroMineroNacional1/MapServer/0",
     "ok": true,
-    "ms": 905,
+    "ms": 1227,
     "error": null
    }
   },
   "ecu_bce_mining_report": {
-   "checked_at": "2026-11-16T13:59:25+00:00",
+   "checked_at": "2026-11-23T16:24:01+00:00",
    "url": {
     "status": 200,
     "final_url": "https://contenido.bce.fin.ec/",
     "ok": true,
-    "ms": 2093,
+    "ms": 1004,
     "error": null
    },
    "api_url": {
     "status": 403,
     "final_url": "https://datosabiertos.gob.ec/dataset/?organization=banco-central-del-ecuador",
     "ok": false,
-    "ms": 620,
+    "ms": 654,
     "error": null
    }
   },
   "ecu_enami": {
-   "checked_at": "2026-11-16T13:59:29+00:00",
+   "checked_at": "2026-11-23T16:24:05+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.enamiep.gob.ec/",
     "ok": true,
-    "ms": 736,
+    "ms": 2357,
     "error": null
    }
   },
   "ecu_asamblea": {
-   "checked_at": "2026-11-16T13:59:31+00:00",
+   "checked_at": "2026-11-23T16:24:09+00:00",
    "url": {
     "status": 200,
     "final_url": "https://leyes.asambleanacional.gob.ec/",
     "ok": true,
-    "ms": 1049,
+    "ms": 1303,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://datos.asambleanacional.gob.ec/votaciones",
     "ok": true,
-    "ms": 1225,
+    "ms": 1513,
     "error": null
    }
   },
   "ecu_registro_oficial": {
-   "checked_at": "2026-11-16T13:59:35+00:00",
+   "checked_at": "2026-11-23T16:24:13+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.registroficial.gob.ec/",
     "ok": true,
-    "ms": 951,
+    "ms": 619,
     "error": null
    }
   },
   "ecu_eluniverso": {
-   "checked_at": "2026-11-16T13:59:37+00:00",
+   "checked_at": "2026-11-23T16:24:15+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.eluniverso.com/",
     "ok": true,
-    "ms": 200,
+    "ms": 281,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.eluniverso.com/arc/outboundfeeds/rss/?outputType=xml",
     "ok": true,
-    "ms": 89,
+    "ms": 95,
     "error": null
    }
   },
   "ecu_elcomercio": {
-   "checked_at": "2026-11-16T13:59:40+00:00",
+   "checked_at": "2026-11-23T16:24:17+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.elcomercio.com/",
     "ok": true,
-    "ms": 193,
+    "ms": 2979,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.elcomercio.com/feed/",
     "ok": true,
-    "ms": 30,
+    "ms": 156,
     "error": null
    }
   },
   "ecu_primicias": {
-   "checked_at": "2026-11-16T13:59:42+00:00",
+   "checked_at": "2026-11-23T16:24:22+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.primicias.ec/",
     "ok": true,
-    "ms": 482,
+    "ms": 156,
     "error": null
    }
   },
   "ecu_gk": {
-   "checked_at": "2026-11-16T13:59:43+00:00",
+   "checked_at": "2026-11-23T16:24:24+00:00",
    "url": {
-    "status": 403,
+    "status": 200,
     "final_url": "https://gk.city/",
-    "ok": false,
-    "ms": 140,
+    "ok": true,
+    "ms": 468,
     "error": null
    }
   },
   "guy_ggmc": {
-   "checked_at": "2026-11-16T13:59:45+00:00",
+   "checked_at": "2026-11-23T16:24:25+00:00",
    "url": {
-    "status": 200,
+    "status": 404,
     "final_url": "https://www.ggmc.gov.gy/ggmc_web/wp-content/uploads/2025/07/Commodities-Table-1979-2024-Updated.csv",
-    "ok": true,
-    "ms": 167,
+    "ok": false,
+    "ms": 205,
     "error": null
    }
   },
   "guy_bos_trade": {
-   "checked_at": "2026-11-16T13:59:46+00:00",
+   "checked_at": "2026-11-23T16:24:26+00:00",
    "url": {
     "status": 403,
     "final_url": "https://statisticsguyana.gov.gy/subjects/external-trade/",
     "ok": false,
-    "ms": 223,
+    "ms": 230,
     "error": null
    }
   },
   "guy_eiti": {
-   "checked_at": "2026-11-16T13:59:47+00:00",
+   "checked_at": "2026-11-23T16:24:28+00:00",
    "url": {
     "status": 200,
     "final_url": "https://eiti.gy/",
     "ok": true,
-    "ms": 1034,
+    "ms": 897,
     "error": null
    }
   },
   "guy_parliament": {
-   "checked_at": "2026-11-16T13:59:49+00:00",
+   "checked_at": "2026-11-23T16:24:29+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.parliament.gov.gy/chamber-business/hansard",
     "ok": true,
-    "ms": 242,
+    "ms": 234,
     "error": null
    }
   },
   "guy_stabroek": {
-   "checked_at": "2026-11-16T13:59:50+00:00",
+   "checked_at": "2026-11-23T16:24:31+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.stabroeknews.com/",
     "ok": true,
-    "ms": 86,
+    "ms": 419,
     "error": null
    }
   },
   "guy_kaieteur": {
-   "checked_at": "2026-11-16T13:59:51+00:00",
+   "checked_at": "2026-11-23T16:24:32+00:00",
    "url": {
     "status": 200,
     "final_url": "https://kaieteurnewsonline.com/",
     "ok": true,
-    "ms": 137,
+    "ms": 105,
     "error": null
    }
   },
   "guy_chronicle": {
-   "checked_at": "2026-11-16T13:59:52+00:00",
+   "checked_at": "2026-11-23T16:24:33+00:00",
    "url": {
     "status": 307,
     "final_url": "https://guyanachronicle.com/",
     "ok": true,
-    "ms": 2071,
+    "ms": 2075,
     "error": null
    }
   },
   "guy_demerara_waves": {
-   "checked_at": "2026-11-16T13:59:55+00:00",
+   "checked_at": "2026-11-23T16:24:36+00:00",
    "url": {
     "status": 200,
     "final_url": "https://demerarawaves.com/",
     "ok": true,
-    "ms": 363,
+    "ms": 332,
     "error": null
    }
   },
   "pry_bcp_sicex": {
-   "checked_at": "2026-11-16T13:59:57+00:00",
+   "checked_at": "2026-11-23T16:24:38+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.bcp.gov.py/en/comercio-externo-comex-mensual",
     "ok": false,
-    "ms": 494,
+    "ms": 324,
     "error": null
    }
   },
   "pry_ine": {
-   "checked_at": "2026-11-16T13:59:58+00:00",
+   "checked_at": "2026-11-23T16:24:39+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.datos.gov.py/group/instituto-nacional-de-estadistica-ine",
     "ok": true,
-    "ms": 850,
+    "ms": 1746,
     "error": null
    }
   },
   "pry_mines": {
-   "checked_at": "2026-11-16T14:00:00+00:00",
+   "checked_at": "2026-11-23T16:24:42+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 147,
+    "ms": 250,
     "error": "ConnectionError: HTTPSConnectionPool(host='www.ssme.gov.py', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='www.ssme.gov.py', port=443): Failed to resolve 'www.ssme.g"
    }
   },
   "pry_silpy": {
-   "checked_at": "2026-11-16T14:00:01+00:00",
+   "checked_at": "2026-11-23T16:24:43+00:00",
    "url": {
     "status": 200,
     "final_url": "https://silpy.congreso.gov.py/web/",
     "ok": true,
-    "ms": 967,
+    "ms": 1072,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://datos.congreso.gov.py/opendata/api",
     "ok": true,
-    "ms": 898,
+    "ms": 1211,
     "error": null
    }
   },
   "pry_gaceta": {
-   "checked_at": "2026-11-16T14:00:05+00:00",
+   "checked_at": "2026-11-23T16:24:47+00:00",
    "url": {
-    "status": null,
-    "final_url": null,
+    "status": 522,
+    "final_url": "https://www.gacetaoficial.gov.py/",
     "ok": false,
-    "ms": 60744,
-    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.gacetaoficial.gov.py', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gacetaoficial.gov.py', port=443) at 0x73103e7"
+    "ms": 40084,
+    "error": null
    }
   },
   "pry_abc": {
-   "checked_at": "2026-11-16T14:01:07+00:00",
+   "checked_at": "2026-11-23T16:25:28+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.abc.com.py/",
     "ok": true,
-    "ms": 480,
+    "ms": 428,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.abc.com.py/arc/outboundfeeds/rss/?outputType=xml",
     "ok": true,
-    "ms": 57,
+    "ms": 100,
     "error": null
    }
   },
   "pry_ultimahora": {
-   "checked_at": "2026-11-16T14:01:09+00:00",
+   "checked_at": "2026-11-23T16:25:31+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.ultimahora.com/",
     "ok": true,
-    "ms": 563,
+    "ms": 771,
     "error": null
    }
   },
   "pry_lanacion": {
-   "checked_at": "2026-11-16T14:01:11+00:00",
+   "checked_at": "2026-11-23T16:25:33+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.lanacion.com.py/",
     "ok": true,
-    "ms": 1333,
+    "ms": 321,
     "error": null
    }
   },
   "per_minem_bem": {
-   "checked_at": "2026-11-16T14:01:13+00:00",
+   "checked_at": "2026-11-23T16:25:34+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.gob.pe/institucion/minem/colecciones/6-boletin-estadistico-minero",
     "ok": true,
-    "ms": 944,
+    "ms": 820,
     "error": null
    }
   },
   "per_ingemmet_geocatmin": {
-   "checked_at": "2026-11-16T14:01:15+00:00",
+   "checked_at": "2026-11-23T16:25:36+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 1694,
+    "ms": 1725,
     "error": "SSLError: HTTPSConnectionPool(host='geocatmin.ingemmet.gob.pe', port=443): Max retries exceeded with url: /geocatmin/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificat"
    }
   },
   "per_sunat_aduanet": {
-   "checked_at": "2026-11-16T14:01:18+00:00",
+   "checked_at": "2026-11-23T16:25:38+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.sunat.gob.pe/estad-comExt/modelo_web/boletines.html",
     "ok": true,
-    "ms": 616,
+    "ms": 617,
     "error": null
    }
   },
   "per_bcrp_api": {
-   "checked_at": "2026-11-16T14:01:20+00:00",
+   "checked_at": "2026-11-23T16:25:40+00:00",
    "url": {
     "status": 200,
     "final_url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/",
     "ok": true,
-    "ms": 706,
+    "ms": 978,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/ayuda/api",
     "ok": true,
-    "ms": 284,
+    "ms": 263,
     "error": null
    }
   },
   "per_defensoria_conflictos": {
-   "checked_at": "2026-11-16T14:01:23+00:00",
+   "checked_at": "2026-11-23T16:25:43+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.defensoria.gob.pe/",
     "ok": true,
-    "ms": 1007,
+    "ms": 6330,
     "error": null
    }
   },
   "per_proinversion_inei": {
-   "checked_at": "2026-11-16T14:01:25+00:00",
+   "checked_at": "2026-11-23T16:25:51+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 60546,
-    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.proinversion.gob.pe', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.proinversion.gob.pe', port=443) at 0x73103e8e3"
+    "ms": 61023,
+    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.proinversion.gob.pe', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.proinversion.gob.pe', port=443) at 0x7587f905a"
    }
   },
   "per_apn_ositran": {
-   "checked_at": "2026-11-16T14:02:26+00:00",
+   "checked_at": "2026-11-23T16:26:53+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.gob.pe/apn",
     "ok": true,
-    "ms": 779,
+    "ms": 838,
     "error": null
    }
   },
   "per_congreso_spley": {
-   "checked_at": "2026-11-16T14:02:28+00:00",
+   "checked_at": "2026-11-23T16:26:54+00:00",
    "url": {
     "status": 200,
     "final_url": "https://wb2server.congreso.gob.pe/spley-portal/",
     "ok": true,
-    "ms": 817,
+    "ms": 798,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://wb2server.congreso.gob.pe/spley-portal-service",
     "ok": false,
-    "ms": 606,
+    "ms": 554,
     "error": null
    }
   },
   "per_elperuano": {
-   "checked_at": "2026-11-16T14:02:31+00:00",
+   "checked_at": "2026-11-23T16:26:58+00:00",
    "url": {
     "status": 200,
-    "final_url": "https://busquedas.elperuano.pe/?ci=full&fecha=20261116",
+    "final_url": "https://busquedas.elperuano.pe/?ci=full&fecha=20261123",
     "ok": true,
-    "ms": 806,
+    "ms": 1129,
     "error": null
    },
    "api_url": {
     "status": 418,
     "final_url": "https://www.datosabiertos.gob.pe/dataset/sistematizaci%C3%B3n-de-normas-legales-en-el-sistema-peruano-de-informaci%C3%B3n-jur%C3%ADdica-spij-desde",
     "ok": false,
-    "ms": 937,
+    "ms": 1015,
     "error": null
    }
   },
   "per_elcomercio": {
-   "checked_at": "2026-11-16T14:02:35+00:00",
+   "checked_at": "2026-11-23T16:27:02+00:00",
    "url": {
     "status": 200,
     "final_url": "https://elcomercio.pe/",
     "ok": true,
-    "ms": 237,
+    "ms": 242,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://elcomercio.pe/arc/outboundfeeds/rss/?outputType=xml",
     "ok": true,
-    "ms": 102,
+    "ms": 90,
     "error": null
    }
   },
   "per_larepublica": {
-   "checked_at": "2026-11-16T14:02:37+00:00",
+   "checked_at": "2026-11-23T16:27:04+00:00",
    "url": {
     "status": 200,
     "final_url": "https://larepublica.pe/",
     "ok": true,
-    "ms": 179,
+    "ms": 197,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://larepublica.pe/rss/home.xml",
     "ok": true,
-    "ms": 87,
+    "ms": 66,
     "error": null
    }
   },
   "per_gestion": {
-   "checked_at": "2026-11-16T14:02:40+00:00",
+   "checked_at": "2026-11-23T16:27:07+00:00",
    "url": {
     "status": 200,
     "final_url": "https://gestion.pe/",
     "ok": true,
-    "ms": 253,
+    "ms": 182,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://gestion.pe/arc/outboundfeeds/rss/?outputType=xml",
     "ok": true,
-    "ms": 116,
+    "ms": 88,
     "error": null
    }
   },
   "per_ojopublico": {
-   "checked_at": "2026-11-16T14:02:42+00:00",
+   "checked_at": "2026-11-23T16:27:09+00:00",
    "url": {
     "status": 200,
     "final_url": "https://ojo-publico.com/",
     "ok": true,
-    "ms": 345,
+    "ms": 320,
     "error": null
    }
   },
   "per_idl_reporteros": {
-   "checked_at": "2026-11-16T14:02:43+00:00",
+   "checked_at": "2026-11-23T16:27:10+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.idl-reporteros.pe/",
     "ok": true,
-    "ms": 1237,
+    "ms": 4366,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.idl-reporteros.pe/feed/",
     "ok": true,
-    "ms": 328,
+    "ms": 354,
     "error": null
    }
   },
   "sur_abs_trade": {
-   "checked_at": "2026-11-16T14:02:47+00:00",
+   "checked_at": "2026-11-23T16:27:17+00:00",
    "url": {
     "status": 200,
     "final_url": "https://statistics-suriname.org/meta-data/economic-division/trade-statistics/",
     "ok": true,
-    "ms": 202,
+    "ms": 384,
     "error": null
    }
   },
   "sur_eiti": {
-   "checked_at": "2026-11-16T14:02:48+00:00",
+   "checked_at": "2026-11-23T16:27:18+00:00",
    "url": {
     "status": 200,
     "final_url": "https://eitisuriname-new.gov.sr/",
     "ok": true,
-    "ms": 4910,
+    "ms": 5879,
     "error": null
    }
   },
   "sur_natural_resources": {
-   "checked_at": "2026-11-16T14:02:54+00:00",
+   "checked_at": "2026-11-23T16:27:25+00:00",
    "url": {
     "status": 200,
     "final_url": "https://gov.sr/",
     "ok": true,
-    "ms": 1280,
+    "ms": 9908,
     "error": null
    }
   },
   "sur_dna": {
-   "checked_at": "2026-11-16T14:02:56+00:00",
+   "checked_at": "2026-11-23T16:27:36+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.dna.sr/",
     "ok": true,
-    "ms": 759,
+    "ms": 782,
     "error": null
    }
   },
   "sur_dwt": {
-   "checked_at": "2026-11-16T14:02:58+00:00",
+   "checked_at": "2026-11-23T16:27:38+00:00",
    "url": {
     "status": 200,
     "final_url": "https://dwtonline.com/",
     "ok": true,
-    "ms": 146,
+    "ms": 849,
     "error": null
    }
   },
   "sur_starnieuws": {
-   "checked_at": "2026-11-16T14:02:59+00:00",
+   "checked_at": "2026-11-23T16:27:40+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.starnieuws.com/",
     "ok": true,
-    "ms": 102,
+    "ms": 490,
     "error": null
    }
   },
   "ury_uruguayxxi": {
-   "checked_at": "2026-11-16T14:03:00+00:00",
+   "checked_at": "2026-11-23T16:27:41+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.uruguayxxi.gub.uy/es/centro-informacion/exportaciones/",
     "ok": true,
-    "ms": 259,
+    "ms": 211,
     "error": null
    }
   },
   "ury_bcu": {
-   "checked_at": "2026-11-16T14:03:02+00:00",
+   "checked_at": "2026-11-23T16:27:42+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 1931,
+    "ms": 2119,
     "error": "SSLError: HTTPSConnectionPool(host='www.bcu.gub.uy', port=443): Max retries exceeded with url: /Estadisticas-e-Indicadores/Paginas/Comercio-Exterior.aspx (Caused by SSLError(SSLCertVerificationError(1, '[SSL: C"
    }
   },
   "ury_dinamige": {
-   "checked_at": "2026-11-16T14:03:05+00:00",
+   "checked_at": "2026-11-23T16:27:46+00:00",
    "url": {
     "status": 200,
     "final_url": "https://visualizadorgeominero.dinamige.gub.uy/Dinamige_MVC2/",
     "ok": true,
-    "ms": 1272,
+    "ms": 1264,
     "error": null
    }
   },
   "ury_parlamento": {
-   "checked_at": "2026-11-16T14:03:07+00:00",
+   "checked_at": "2026-11-23T16:27:48+00:00",
    "url": {
-    "status": 200,
-    "final_url": "https://parlamento.gub.uy/",
-    "ok": true,
-    "ms": 327,
-    "error": null
+    "status": null,
+    "final_url": null,
+    "ok": false,
+    "ms": 468,
+    "error": "TooManyRedirects: Exceeded 30 redirects."
    },
    "api_url": {
     "status": 200,
     "final_url": "https://catalogodatos.gub.uy/organization/parlamento-uruguayo",
     "ok": true,
-    "ms": 1814,
+    "ms": 1424,
     "error": null
    }
   },
   "ury_elpais": {
-   "checked_at": "2026-11-16T14:03:11+00:00",
+   "checked_at": "2026-11-23T16:27:52+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.elpais.com.uy/",
     "ok": false,
-    "ms": 236,
+    "ms": 80,
     "error": null
    }
   },
   "ury_elobservador": {
-   "checked_at": "2026-11-16T14:03:12+00:00",
+   "checked_at": "2026-11-23T16:27:53+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.elobservador.com.uy/estados-unidos",
     "ok": true,
-    "ms": 503,
+    "ms": 242,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://www.elobservador.com.uy/rss/pages/home.xml",
     "ok": true,
-    "ms": 17,
+    "ms": 13,
     "error": null
    }
   },
   "ury_ladiaria": {
-   "checked_at": "2026-11-16T14:03:15+00:00",
+   "checked_at": "2026-11-23T16:27:55+00:00",
    "url": {
     "status": 200,
     "final_url": "https://ladiaria.com.uy/",
     "ok": true,
-    "ms": 275,
+    "ms": 320,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://ladiaria.com.uy/feeds/articulos/",
     "ok": true,
-    "ms": 205,
+    "ms": 280,
     "error": null
    }
   },
   "ury_busqueda": {
-   "checked_at": "2026-11-16T14:03:17+00:00",
+   "checked_at": "2026-11-23T16:27:58+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.busqueda.com.uy/",
     "ok": true,
-    "ms": 340,
+    "ms": 264,
     "error": null
    }
   },
   "ven_min_mineria": {
-   "checked_at": "2026-11-16T14:03:19+00:00",
+   "checked_at": "2026-11-23T16:27:59+00:00",
    "url": {
     "status": 200,
     "final_url": "https://desarrollominero.gob.ve/",
     "ok": true,
-    "ms": 694,
+    "ms": 3131,
     "error": null
    }
   },
   "ven_bcv": {
-   "checked_at": "2026-11-16T14:03:20+00:00",
+   "checked_at": "2026-11-23T16:28:03+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 1604,
+    "ms": 1702,
     "error": "SSLError: HTTPSConnectionPool(host='www.bcv.org.ve', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unab"
    }
   },
   "ven_comtrade_mirror": {
-   "checked_at": "2026-11-16T14:03:23+00:00",
+   "checked_at": "2026-11-23T16:28:06+00:00",
    "url": {
     "status": 200,
-    "final_url": "https://comtradeplus.un.org/en/",
+    "final_url": "https://comtrade.un.org/en/",
     "ok": true,
-    "ms": 567,
+    "ms": 973,
     "error": null
    }
   },
   "ven_transparencia": {
-   "checked_at": "2026-11-16T14:03:24+00:00",
+   "checked_at": "2026-11-23T16:28:08+00:00",
    "url": {
     "status": 200,
     "final_url": "https://transparenciave.org/economias-ilicitas/",
     "ok": true,
-    "ms": 510,
+    "ms": 1201,
     "error": null
    }
   },
   "ven_sos_orinoco": {
-   "checked_at": "2026-11-16T14:03:26+00:00",
+   "checked_at": "2026-11-23T16:28:10+00:00",
    "url": {
     "status": 200,
     "final_url": "https://sosorinoco.org/en/reports/",
     "ok": true,
-    "ms": 108,
+    "ms": 206,
     "error": null
    }
   },
   "ven_an_chavista": {
-   "checked_at": "2026-11-16T14:03:27+00:00",
+   "checked_at": "2026-11-23T16:28:11+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 11187,
+    "ms": 17351,
     "error": "ConnectionError: HTTPSConnectionPool(host='www.asambleanacional.gob.ve', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='www.asambleanacional.gob.ve', port=443): Faile"
    }
   },
   "ven_an_2015": {
-   "checked_at": "2026-11-16T14:03:39+00:00",
+   "checked_at": "2026-11-23T16:28:29+00:00",
    "url": {
     "status": 403,
     "final_url": "https://freshindianfood.com/dallas-menu/",
     "ok": false,
-    "ms": 3521,
+    "ms": 6024,
     "error": null
    }
   },
   "ven_efectococuyo": {
-   "checked_at": "2026-11-16T14:03:44+00:00",
+   "checked_at": "2026-11-23T16:28:36+00:00",
    "url": {
     "status": 403,
     "final_url": "https://efectococuyo.com/",
     "ok": false,
-    "ms": 72,
+    "ms": 59,
     "error": null
    }
   },
   "ven_elpitazo": {
-   "checked_at": "2026-11-16T14:03:45+00:00",
+   "checked_at": "2026-11-23T16:28:38+00:00",
    "url": {
     "status": 200,
     "final_url": "https://elpitazo.net/",
     "ok": true,
-    "ms": 141,
+    "ms": 95,
     "error": null
    }
   },
   "ven_talcual": {
-   "checked_at": "2026-11-16T14:03:46+00:00",
+   "checked_at": "2026-11-23T16:28:39+00:00",
    "url": {
     "status": 403,
     "final_url": "https://talcualdigital.com/",
     "ok": false,
-    "ms": 125,
+    "ms": 150,
     "error": null
    }
   },
   "ven_runrunes": {
-   "checked_at": "2026-11-16T14:03:47+00:00",
+   "checked_at": "2026-11-23T16:28:40+00:00",
    "url": {
     "status": 200,
     "final_url": "https://runrun.es/",
     "ok": true,
-    "ms": 653,
+    "ms": 2120,
     "error": null
    }
   },
   "doe_critical_materials": {
-   "checked_at": "2026-11-16T14:03:49+00:00",
+   "checked_at": "2026-11-23T16:28:43+00:00",
    "url": {
     "status": 200,
     "final_url": "https://unblock.federalregister.gov",
     "ok": true,
-    "ms": 91,
+    "ms": 144,
     "error": null
    }
   },
   "us_census_trade": {
-   "checked_at": "2026-11-16T14:03:50+00:00",
+   "checked_at": "2026-11-23T16:28:44+00:00",
    "url": {
     "status": 200,
     "final_url": "https://usatradeonline.census.gov/",
     "ok": true,
-    "ms": 224,
+    "ms": 164,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://api.census.gov/data/timeseries/intltrade/",
     "ok": true,
-    "ms": 207,
+    "ms": 88,
     "error": null
    }
   },
   "dfc_projects": {
-   "checked_at": "2026-11-16T14:03:52+00:00",
+   "checked_at": "2026-11-23T16:28:46+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.dfc.gov/what-we-do/active-projects",
     "ok": true,
-    "ms": 58,
+    "ms": 32,
     "error": null
    }
   },
   "exim_authorizations": {
-   "checked_at": "2026-11-16T14:03:53+00:00",
+   "checked_at": "2026-11-23T16:28:47+00:00",
    "url": {
     "status": 200,
     "final_url": "https://catalog.data.gov/",
     "ok": true,
-    "ms": 271,
+    "ms": 122,
     "error": null
    }
   },
   "usaspending": {
-   "checked_at": "2026-11-16T14:03:55+00:00",
+   "checked_at": "2026-11-23T16:28:48+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.usaspending.gov/",
     "ok": true,
-    "ms": 556,
+    "ms": 303,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://api.usaspending.gov/api/v2/",
     "ok": false,
-    "ms": 458,
+    "ms": 465,
     "error": null
    }
   },
   "state_msp_forge": {
-   "checked_at": "2026-11-16T14:03:58+00:00",
+   "checked_at": "2026-11-23T16:28:51+00:00",
    "url": {
     "status": 200,
     "final_url": "https://2021-2025.state.gov/minerals-security-partnership/",
     "ok": true,
-    "ms": 131,
+    "ms": 42,
     "error": null
    }
   },
   "us_embassies": {
-   "checked_at": "2026-11-16T14:03:59+00:00",
+   "checked_at": "2026-11-23T16:28:52+00:00",
    "url": {
     "status": 403,
     "final_url": "https://ar.usembassy.gov/news/",
     "ok": false,
-    "ms": 165,
+    "ms": 158,
     "error": null
    }
   },
   "congress_gov": {
-   "checked_at": "2026-11-16T14:04:00+00:00",
+   "checked_at": "2026-11-23T16:28:53+00:00",
    "url": {
     "status": 200,
     "final_url": "https://api.congress.gov/",
     "ok": true,
-    "ms": 608,
+    "ms": 521,
     "error": null
    },
    "api_url": {
     "status": 403,
     "final_url": "https://api.congress.gov/v3",
     "ok": false,
-    "ms": 415,
+    "ms": 420,
     "error": null
    }
   },
   "federal_register": {
-   "checked_at": "2026-11-16T14:04:03+00:00",
+   "checked_at": "2026-11-23T16:28:56+00:00",
    "url": {
     "status": 200,
     "final_url": "https://unblock.federalregister.gov",
     "ok": true,
-    "ms": 78,
+    "ms": 67,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://www.federalregister.gov/api/v1",
     "ok": false,
-    "ms": 31,
+    "ms": 65,
     "error": null
    }
   },
   "us_state_press": {
-   "checked_at": "2026-11-16T14:04:05+00:00",
+   "checked_at": "2026-11-23T16:28:59+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.state.gov/",
     "ok": false,
-    "ms": 156,
+    "ms": 145,
     "error": null
    },
    "api_url": {
     "status": 403,
     "final_url": "https://www.state.gov/rss-feed/press-releases/feed/",
     "ok": false,
-    "ms": 134,
+    "ms": 108,
     "error": null
    }
   },
   "us_treasury_press": {
-   "checked_at": "2026-11-16T14:04:07+00:00",
+   "checked_at": "2026-11-23T16:29:01+00:00",
    "url": {
     "status": 200,
     "final_url": "https://home.treasury.gov/",
     "ok": true,
-    "ms": 8182,
+    "ms": 9152,
     "error": null
    },
    "api_url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 60197,
+    "ms": 60122,
     "error": "ConnectionError: HTTPSConnectionPool(host='home.treasury.gov', port=443): Max retries exceeded with url: /news/press-releases/rss (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='home.treasury.gov', port=443): R"
    }
   },
   "ustr_press": {
-   "checked_at": "2026-11-16T14:05:18+00:00",
+   "checked_at": "2026-11-23T16:30:12+00:00",
    "url": {
     "status": 200,
     "final_url": "https://ustr.gov/",
     "ok": true,
-    "ms": 48,
+    "ms": 46,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://ustr.gov/about-us/policy-offices/press-office/press-releases/rss",
     "ok": false,
-    "ms": 251,
+    "ms": 22,
     "error": null
    }
   },
   "dfc_press": {
-   "checked_at": "2026-11-16T14:05:20+00:00",
+   "checked_at": "2026-11-23T16:30:14+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.dfc.gov/",
     "ok": true,
-    "ms": 50,
+    "ms": 37,
     "error": null
    },
    "api_url": {
     "status": 404,
     "final_url": "https://www.dfc.gov/media/press-releases/rss",
     "ok": false,
-    "ms": 445,
+    "ms": 497,
     "error": null
    }
   },
   "mofcom_ofdi_bulletin": {
-   "checked_at": "2026-11-16T14:05:23+00:00",
+   "checked_at": "2026-11-23T16:30:17+00:00",
    "url": {
     "status": 200,
     "final_url": "https://fec.mofcom.gov.cn:443/",
     "ok": true,
-    "ms": 2444,
+    "ms": 1583,
     "error": null
    }
   },
   "gacc_customs": {
-   "checked_at": "2026-11-16T14:05:26+00:00",
+   "checked_at": "2026-11-23T16:30:19+00:00",
    "url": {
     "status": null,
     "final_url": null,
     "ok": false,
-    "ms": 1560,
+    "ms": 3725,
     "error": "SSLError: HTTPSConnectionPool(host='stats.customs.gov.cn', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed"
    }
   },
   "mofcom_export_controls": {
-   "checked_at": "2026-11-16T14:05:29+00:00",
+   "checked_at": "2026-11-23T16:30:24+00:00",
    "url": {
     "status": 200,
     "final_url": "http://www.mofcom.gov.cn/",
     "ok": true,
-    "ms": 57,
+    "ms": 736,
     "error": null
    }
   },
   "cn_embassies": {
-   "checked_at": "2026-11-16T14:05:30+00:00",
+   "checked_at": "2026-11-23T16:30:26+00:00",
    "url": {
     "status": 200,
     "final_url": "https://ar.china-embassy.gov.cn/esp/sgxw/",
     "ok": true,
-    "ms": 1015,
+    "ms": 1232,
     "error": null
    }
   },
   "xinhua_es": {
-   "checked_at": "2026-11-16T14:05:32+00:00",
+   "checked_at": "2026-11-23T16:30:28+00:00",
    "url": {
     "status": 200,
     "final_url": "http://spanish.xinhuanet.com/",
     "ok": true,
-    "ms": 450,
+    "ms": 672,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "http://spanish.xinhuanet.com/rss/rss.html",
     "ok": true,
-    "ms": 555,
+    "ms": 484,
     "error": null
    }
   },
   "peoples_daily_es": {
-   "checked_at": "2026-11-16T14:05:35+00:00",
+   "checked_at": "2026-11-23T16:30:31+00:00",
    "url": {
     "status": 200,
     "final_url": "http://spanish.people.com.cn/",
     "ok": true,
-    "ms": 1330,
+    "ms": 1189,
     "error": null
    }
   },
   "cgtn_es": {
-   "checked_at": "2026-11-16T14:05:37+00:00",
+   "checked_at": "2026-11-23T16:30:33+00:00",
    "url": {
     "status": 200,
     "final_url": "https://espanol.cgtn.com/",
     "ok": true,
-    "ms": 548,
+    "ms": 609,
     "error": null
    }
   },
   "bu_codf": {
-   "checked_at": "2026-11-16T14:05:39+00:00",
+   "checked_at": "2026-11-23T16:30:35+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.bu.edu/gdp/chinas-overseas-development-finance/",
     "ok": true,
-    "ms": 347,
+    "ms": 499,
     "error": null
    }
   },
   "bu_iad_cllac": {
-   "checked_at": "2026-11-16T14:05:40+00:00",
+   "checked_at": "2026-11-23T16:30:36+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.bu.edu/gdp/china-latin-america-finance-database-data-download/",
     "ok": true,
-    "ms": 106,
+    "ms": 95,
     "error": null
    }
   },
   "aiddata_gcdf": {
-   "checked_at": "2026-11-16T14:05:41+00:00",
+   "checked_at": "2026-11-23T16:30:37+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0",
     "ok": true,
-    "ms": 207,
+    "ms": 216,
     "error": null
    }
   },
   "aei_cgit": {
-   "checked_at": "2026-11-16T14:05:42+00:00",
+   "checked_at": "2026-11-23T16:30:39+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.aei.org/china-global-investment-tracker/",
     "ok": false,
-    "ms": 308,
+    "ms": 188,
     "error": null
    }
   },
   "redalc_china_monitor": {
-   "checked_at": "2026-11-16T14:05:44+00:00",
+   "checked_at": "2026-11-23T16:30:40+00:00",
    "url": {
     "status": 200,
     "final_url": "https://redalc-china.org/monitor/",
     "ok": true,
-    "ms": 2129,
+    "ms": 2175,
     "error": null
    }
   },
   "dialogue_earth": {
-   "checked_at": "2026-11-16T14:05:47+00:00",
+   "checked_at": "2026-11-23T16:30:43+00:00",
    "url": {
     "status": 200,
     "final_url": "https://dialogue.earth/es/",
     "ok": true,
-    "ms": 83,
+    "ms": 67,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://dialogue.earth/es/feed/",
     "ok": true,
-    "ms": 51,
+    "ms": 20,
     "error": null
    }
   },
   "iad_chinese_investment_repository": {
-   "checked_at": "2026-11-16T14:05:49+00:00",
+   "checked_at": "2026-11-23T16:30:45+00:00",
    "url": {
     "status": 200,
     "final_url": "https://thedialogue.org/analysis/launch-of-the-regional-repository-of-chinese-investments-in-latin-america",
     "ok": true,
-    "ms": 250,
+    "ms": 1787,
     "error": null
    }
   },
   "think_tanks": {
-   "checked_at": "2026-11-16T14:05:50+00:00",
+   "checked_at": "2026-11-23T16:30:48+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.csis.org/programs/americas-program",
     "ok": true,
-    "ms": 229,
+    "ms": 218,
     "error": null
    }
   },
   "wb_pink_sheet": {
-   "checked_at": "2026-11-16T14:05:51+00:00",
+   "checked_at": "2026-11-23T16:30:49+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.worldbank.org/en/research/commodity-markets",
     "ok": true,
-    "ms": 127,
+    "ms": 122,
     "error": null
    }
   },
   "imf_pcps": {
-   "checked_at": "2026-11-16T14:05:52+00:00",
+   "checked_at": "2026-11-23T16:30:50+00:00",
    "url": {
     "status": 200,
     "final_url": "https://data.imf.org/en/datasets/IMF.RES:PCPS",
     "ok": true,
-    "ms": 3549,
+    "ms": 3952,
     "error": null
    }
   },
   "lme": {
-   "checked_at": "2026-11-16T14:05:57+00:00",
+   "checked_at": "2026-11-23T16:30:55+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.lme.com/market-data/accessing-market-data/historical-data",
     "ok": false,
-    "ms": 298,
+    "ms": 166,
     "error": null
    }
   },
   "lithium_price_proxy": {
-   "checked_at": "2026-11-16T14:05:58+00:00",
+   "checked_at": "2026-11-23T16:30:56+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.usgs.gov/centers/national-minerals-information-center/lithium-statistics-and-information",
     "ok": true,
-    "ms": 5265,
+    "ms": 3355,
     "error": null
    }
   },
   "cepalstat": {
-   "checked_at": "2026-11-16T14:06:05+00:00",
+   "checked_at": "2026-11-23T16:31:01+00:00",
    "url": {
     "status": 200,
     "final_url": "https://statistics.cepal.org/portal/cepalstat/",
     "ok": true,
-    "ms": 1631,
+    "ms": 976,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://statistics.cepal.org/portal/cepalstat/open-data.html?lang=es",
     "ok": true,
-    "ms": 1379,
+    "ms": 1276,
     "error": null
    }
   },
   "eclac_fdi_report": {
-   "checked_at": "2026-11-16T14:06:10+00:00",
+   "checked_at": "2026-11-23T16:31:05+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.cepal.org/en/publications/type/foreign-direct-investment-latin-america-and-caribbean",
     "ok": false,
-    "ms": 220,
+    "ms": 357,
     "error": null
    }
   },
   "idb_integra": {
-   "checked_at": "2026-11-16T14:06:11+00:00",
+   "checked_at": "2026-11-23T16:31:06+00:00",
    "url": {
     "status": 200,
     "final_url": "https://integra.iadb.org/",
     "ok": true,
-    "ms": 355,
+    "ms": 274,
     "error": null
    }
   },
   "georgetown_sigla": {
-   "checked_at": "2026-11-16T14:06:12+00:00",
+   "checked_at": "2026-11-23T16:31:08+00:00",
    "url": {
     "status": 200,
     "final_url": "https://sigla.georgetown.domains/",
     "ok": true,
-    "ms": 288,
+    "ms": 407,
     "error": null
    }
   },
   "international_idea": {
-   "checked_at": "2026-11-16T14:06:13+00:00",
+   "checked_at": "2026-11-23T16:31:09+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.idea.int/data-tools",
     "ok": true,
-    "ms": 1537,
+    "ms": 998,
     "error": null
    }
   },
   "sec_edgar": {
-   "checked_at": "2026-11-16T14:06:16+00:00",
+   "checked_at": "2026-11-23T16:31:11+00:00",
    "url": {
     "status": 403,
     "final_url": "https://www.sec.gov/edgar",
     "ok": false,
-    "ms": 230,
+    "ms": 57,
     "error": null
    },
    "api_url": {
     "status": 403,
     "final_url": "https://data.sec.gov/",
     "ok": false,
-    "ms": 111,
+    "ms": 80,
     "error": null
    }
   },
   "sedar_plus": {
-   "checked_at": "2026-11-16T14:06:18+00:00",
+   "checked_at": "2026-11-23T16:31:13+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.sedarplus.ca/home/",
     "ok": true,
-    "ms": 382,
+    "ms": 587,
     "error": null
    }
   },
   "hkexnews": {
-   "checked_at": "2026-11-16T14:06:20+00:00",
+   "checked_at": "2026-11-23T16:31:15+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.hkexnews.hk/index.htm",
     "ok": true,
-    "ms": 3870,
+    "ms": 3906,
     "error": null
    }
   },
   "cninfo": {
-   "checked_at": "2026-11-16T14:06:25+00:00",
+   "checked_at": "2026-11-23T16:31:20+00:00",
    "url": {
     "status": 200,
     "final_url": "http://www.cninfo.com.cn/",
     "ok": true,
-    "ms": 1848,
+    "ms": 4097,
     "error": null
    }
   },
   "opencorporates": {
-   "checked_at": "2026-11-16T14:06:27+00:00",
+   "checked_at": "2026-11-23T16:31:25+00:00",
    "url": {
     "status": 200,
     "final_url": "https://opencorporates.com/",
     "ok": true,
-    "ms": 85,
+    "ms": 75,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://api.opencorporates.com/",
     "ok": true,
-    "ms": 306,
+    "ms": 210,
     "error": null
    }
   },
   "icij_offshore_leaks": {
-   "checked_at": "2026-11-16T14:06:30+00:00",
+   "checked_at": "2026-11-23T16:31:27+00:00",
    "url": {
     "status": 200,
     "final_url": "https://offshoreleaks.icij.org/",
     "ok": true,
-    "ms": 305,
+    "ms": 93,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://offshoreleaks-data.icij.org/offshoreleaks/csv/full-oldb.LATEST.zip",
     "ok": true,
-    "ms": 354,
+    "ms": 123,
     "error": null
    }
   },
   "natural_earth": {
-   "checked_at": "2026-11-16T14:06:32+00:00",
+   "checked_at": "2026-11-23T16:31:29+00:00",
    "url": {
     "status": 200,
     "final_url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/",
     "ok": true,
-    "ms": 271,
+    "ms": 269,
     "error": null
    },
    "api_url": {
     "status": 200,
     "final_url": "https://github.com/nvkelso/natural-earth-vector",
     "ok": true,
-    "ms": 648,
+    "ms": 886,
     "error": null
    }
   },
   "manual_statements": {
-   "checked_at": "2026-11-16T14:06:35+00:00",
+   "checked_at": "2026-11-23T16:31:32+00:00",
    "url": {
     "status": 200,
     "final_url": "https://github.com/DomyB/US_vs_China_AI/blob/main/data/manual/statements/political_statements_minerals.csv",
     "ok": true,
-    "ms": 1176,
+    "ms": 1094,
     "error": null
    }
   }
