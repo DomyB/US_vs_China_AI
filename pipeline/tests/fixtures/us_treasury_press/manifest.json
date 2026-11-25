@@ -5,9 +5,9 @@
    "url": "https://home.treasury.gov/",
    "params": {},
    "status": 200,
-   "bytes": 78638,
-   "sha256": "7ebc4b17e2b0534e8a0f66766a4f8335601de01de10954343ffd9feb0ff7d065",
-   "retrieved_at": "2026-11-18T13:55:04+00:00",
+   "bytes": 78543,
+   "sha256": "eb7dbbfef76a70c0592a9e8fd0a8b9571595bfb3d7da0754915a8c9f4af88234",
+   "retrieved_at": "2026-11-25T15:25:13+00:00",
    "note": null,
    "trimmed": true
   },
@@ -17,12 +17,12 @@
    "status": 200,
    "bytes": 39662,
    "sha256": "3d64192543b34df6e313e8749fb0f57c532cad1f516a334e825989c60579f54c",
-   "retrieved_at": "2026-11-18T13:57:14+00:00",
+   "retrieved_at": "2026-11-25T15:27:23+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/us_treasury_press/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/us_treasury_press/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {

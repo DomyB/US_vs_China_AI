@@ -5,39 +5,39 @@
    "url": "http://spanish.people.com.cn/",
    "params": {},
    "status": 200,
-   "bytes": 41393,
-   "sha256": "76abe7a9be7ad18ba1f2cc9ad5cab4f8c5d8deb2396deb22253495c50cf439c2",
-   "retrieved_at": "2026-11-18T13:52:57+00:00",
+   "bytes": 43465,
+   "sha256": "3b0fa399f0d26311bef9f6a09eeb6de7bdbe36a0d72b59bbcd9a1cd154a43f27",
+   "retrieved_at": "2026-11-25T15:23:07+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/peoples_daily_es/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/peoples_daily_es/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "errors": [
   {
    "name": "http://spanish.people.com.cn/rss",
-   "error": "peoples_daily_es: HTTP 403 on GET http://spanish.people.com.cn/rss/ <html>\r\n<head><title>403 Forbidden</title></head>\r\n<body>\r\n<center><h1>403 Forbidden</h1></center>\r\n<hr><center>RMW-WEB/261118</cent"
+   "error": "peoples_daily_es: HTTP 403 on GET http://spanish.people.com.cn/rss/ <html>\r\n<head><title>403 Forbidden</title></head>\r\n<body>\r\n<center><h1>403 Forbidden</h1></center>\r\n<hr><center>RMW-WEB/261119-fix</"
   },
   {
    "name": "http://spanish.people.com.cn/feed/",
-   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feed/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261118</cen"
+   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feed/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261119-fix<"
   },
   {
    "name": "http://spanish.people.com.cn/feed",
-   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feed <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261118</cent"
+   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feed <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261119-fix</"
   },
   {
    "name": "http://spanish.people.com.cn/rss.xml",
-   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/rss.xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261118</c"
+   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/rss.xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261119-fi"
   },
   {
    "name": "http://spanish.people.com.cn/feed.xml",
-   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feed.xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261118</"
+   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feed.xml <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261119-f"
   },
   {
    "name": "http://spanish.people.com.cn/feeds/rss",
-   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feeds/rss <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261118<"
+   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/feeds/rss <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261119-"
   },
   {
    "name": "http://spanish.people.com.cn/rss/portada",
@@ -57,7 +57,7 @@
   },
   {
    "name": "http://spanish.people.com.cn/arcio/rss/",
-   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/arcio/rss/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261118"
+   "error": "peoples_daily_es: HTTP 404 on GET http://spanish.people.com.cn/arcio/rss/ <html>\r\n<head><title>404 Not Found</title></head>\r\n<body>\r\n<center><h1>404 Not Found</h1></center>\r\n<hr><center>RMW-WEB/261119"
   },
   {
    "name": "http://spanish.people.com.cn/rss/lo-ultimo/",

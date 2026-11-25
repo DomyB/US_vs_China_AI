@@ -7,12 +7,12 @@
    "status": 200,
    "bytes": 189198,
    "sha256": "83340051344f74c1fe94385f02e53a0c69262499caa0bdc391b95e0ca456fe9d",
-   "retrieved_at": "2026-11-18T13:24:56+00:00",
+   "retrieved_at": "2026-11-25T14:55:12+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/chl_biobio/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://feeds.feedburner.com/radiobiobio/NNeJ"

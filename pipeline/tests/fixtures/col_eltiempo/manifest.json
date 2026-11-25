@@ -5,14 +5,14 @@
    "url": "https://www.eltiempo.com/rss/colombia.xml",
    "params": {},
    "status": 200,
-   "bytes": 13257,
-   "sha256": "99bf79ed759267bb95b6d4d0ad0291ce42cf3ac832b49b273b87d75b43b73c5e",
-   "retrieved_at": "2026-11-18T13:52:44+00:00",
+   "bytes": 13871,
+   "sha256": "0d568bcb14eb9a237b19ea328013ba453d77c8fb9603dd1e89aed8e14fb20a83",
+   "retrieved_at": "2026-11-25T15:22:53+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_eltiempo/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/col_eltiempo/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.eltiempo.com/rss/colombia.xml"

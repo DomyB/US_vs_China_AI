@@ -5,14 +5,14 @@
    "url": "https://www.opinion.com.bo/rss/",
    "params": {},
    "status": 200,
-   "bytes": 38059,
-   "sha256": "b7cc41547be4d7525a264284e08e2be63e9078829919dedd93625b5992e936ac",
-   "retrieved_at": "2026-11-18T13:24:13+00:00",
+   "bytes": 39667,
+   "sha256": "e1a128468265bb76647d9fda34c03bcaffd67ac39f87706a1961ededf395fa2d",
+   "retrieved_at": "2026-11-25T14:54:29+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bol_opinion/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bol_opinion/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://www.opinion.com.bo/rss/"

@@ -5,15 +5,15 @@
    "url": "https://larepublica.pe/rss.xml",
    "params": {},
    "status": 200,
-   "bytes": 1380919,
+   "bytes": 1413191,
    "final_url": "https://larepublica.pe/rss/home.xml",
-   "sha256": "85c0909d89636f86937483782f9f5ce920220f8d63a83e6f6cc6aee6ba844e1b",
-   "retrieved_at": "2026-11-18T13:53:33+00:00",
+   "sha256": "e9aca47fb93c9bdb435d9813cb3803262dd8498c428469f32fd14fddf903a2a2",
+   "retrieved_at": "2026-11-25T15:23:46+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_larepublica/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_larepublica/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://larepublica.pe/rss.xml"

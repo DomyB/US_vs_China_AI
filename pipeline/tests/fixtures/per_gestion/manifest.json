@@ -5,15 +5,15 @@
    "url": "https://gestion.pe/arcio/rss/",
    "params": {},
    "status": 200,
-   "bytes": 766332,
+   "bytes": 911136,
    "final_url": "https://gestion.pe/arc/outboundfeeds/rss/?outputType=xml",
-   "sha256": "f793600577be5f80803c16ee352c005abbfd7488eefa737ea95b3e4e1b8904f3",
-   "retrieved_at": "2026-11-18T13:53:31+00:00",
+   "sha256": "885111718e252e954ebc04b929c3dd5d67ac68caeece192b1ab1fb0a037ded6f",
+   "retrieved_at": "2026-11-25T15:23:38+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_gestion/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/per_gestion/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://gestion.pe/arcio/rss/"

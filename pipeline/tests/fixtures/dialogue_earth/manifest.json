@@ -5,14 +5,14 @@
    "url": "https://dialogue.earth/es/feed/",
    "params": {},
    "status": 200,
-   "bytes": 205625,
-   "sha256": "114fb7231557f68ecae7a060f4ba12a413335b16380ea62a6f257197352664e9",
-   "retrieved_at": "2026-11-18T13:52:54+00:00",
+   "bytes": 185170,
+   "sha256": "143f2c5a1b1cef16dd6357fa4d3a334039ec6ce4f09366731b80d7ba7178bb86",
+   "retrieved_at": "2026-11-25T15:23:04+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dialogue_earth/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/dialogue_earth/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://dialogue.earth/es/feed/"

@@ -5,14 +5,14 @@
    "url": "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml",
    "params": {},
    "status": 200,
-   "bytes": 119643,
-   "sha256": "eb17ec3aca4279b8e08165a5bd3a879a0d88caf2e87163119c35998286dee612",
-   "retrieved_at": "2026-11-18T13:24:16+00:00",
+   "bytes": 125434,
+   "sha256": "41dd86e4fdedff059af1a97294a1c4d71447e8cf7160c8eee7be718f19a59f56",
+   "retrieved_at": "2026-11-25T14:54:32+00:00",
    "note": null,
    "trimmed": true
   }
  },
- "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_folha/2026-11-18",
+ "fixture_of": "/home/runner/work/US_vs_China_AI/US_vs_China_AI/data/raw/bra_folha/2026-11-25",
  "note": "trimmed copy of a real response; see scm/fixtures.py",
  "feed_urls": [
   "https://feeds.folha.uol.com.br/emcimadahora/rss091.xml"
